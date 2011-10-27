@@ -1,0 +1,37 @@
+/////////////////////////////
+// bikeshare functionality //
+/////////////////////////////
+
+// parse params for permalinks (points, neighborhoods, submitters, etc)
+
+// initialize map
+  // layers
+  // initial info window (for google maps)
+  // boundaries
+
+// events
+  // submit a place process:
+    // initialize submit place [click button/drag marker onto map]
+    // finalize location to display confirm (w/ form & social info)
+    // submit location 
+    // thanks / share / confirm submitted
+  // marker click to display record info
+    // display info triggerable other ways - ticker click, permalink
+  // show / hide annotations (welcome) 
+  
+// social sign in / sign out
+  // optional to submit / vote
+
+// get data 
+// load data onto map
+
+//////////////////////////
+// future               //
+//////////////////////////
+
+// overrideable callbacks
+// social features should plug in to any point of the process
+// state (for location submittal process)
+// comments/media/voting/rating
+// polygons, lines as locations
+// view by (neighborhood, process state, type, submitter, friends, etc)
