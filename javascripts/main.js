@@ -2,32 +2,29 @@
  * requires leaflet, jquery 1.1.4
  */ 
 var SocialGeo = (function () {
-  var map;
-  
+    
   var init = function (opts) {
-    var options = {
+    var map, newFeature, options = {
       map : {
-        mapElementId       : null, 
         tileUrl            : null, 
+        center             : null,
         // optional
+        mapElementId       : 'map', 
         tileAttribution    : '', 
         maxZoom            : 18,
-        initialZoom        : 13,
-        center             : null
+        initialZoom        : 13
       },
       confirmationDialog : ''
     }
 
     $.extend(true, options, opts);
-    
-    var newLocation;
-    
+
+    // initializing map 
     map = new L.Map( options.map.mapElementId );
-            
-    if (options.map.center) map.setView(options.map.center, options.map.initialZoom)
-      .addLayer(new L.TileLayer( options.map.tileUrl, {
-        maxZoom: options.map.maxZoom, attribution: options.map.tileAttribution
-      }));
+    map.setView(options.map.center, options.map.initialZoom);
+    map.addLayer(new L.TileLayer( options.map.tileUrl, {
+      maxZoom: options.map.maxZoom, attribution: options.map.tileAttribution
+    }));
     
     /*
      * Returns the leaflet map
@@ -38,24 +35,24 @@ var SocialGeo = (function () {
      * Drops a marker on the map at the latlng, if provided, or in the middle
      */
     this.dropMarker = function (event, latlng) {
-      if (newLocation) return;
+      if (newFeature) return;
       
       if (!latlng) latlng = map.getCenter();
-      newLocation = new L.Marker(latlng);
-      map.addLayer(newLocation);
+      newFeature = new L.Marker(latlng);
+      map.addLayer(newFeature);
     };
     
     /*
-     * Displays location confirmation form of unsaved location
+     * Displays feature confirmation form of unsaved feature
      */
-    this.confirmLocation = function (event) {
-      if (!newLocation) return;
+    this.confirmFeature = function (event) {
+      if (!newFeature) return;
       
-      newLocation.bindPopup(options.confirmationDialog).openPopup();
+      newFeature.bindPopup(options.confirmationDialog).openPopup();
     };
     
     /*
-     * Sets the content of the location confirmation dialog
+     * Sets the content of the feature confirmation dialog
      */
     this.setConfirmationDialog = function (content) {
       options.confirmationDialog = content;
@@ -71,7 +68,6 @@ $(function(){
   
   social = new SocialGeo({
     map : {
-      mapElementId       : 'map', 
       tileUrl            : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
       tileAttribution    : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
       center             : greenpoint
@@ -82,5 +78,5 @@ $(function(){
   var map = social.getMap();
   
   $("#initiateLocation").click(social.dropMarker);
-  $("#confirmLocation").click(social.confirmLocation);
+  $("#confirmLocation").click(social.confirmFeature);
 });
