@@ -1,30 +1,32 @@
 /*
- * requires leaflet
+ * requires leaflet, jquery 1.1.4
  */ 
 var SocialGeo = (function () {
   var map;
   
   var init = function (opts) {
     var options = {
-      mapElementId       : null, 
-      tileUrl            : null, 
-      // optional
-      confirmationDialog : '',
-      tileAttribution    : '', 
-      maxZoom            : 18,
-      initialZoom        : 13,
-      center             : null
+      map : {
+        mapElementId       : null, 
+        tileUrl            : null, 
+        // optional
+        tileAttribution    : '', 
+        maxZoom            : 18,
+        initialZoom        : 13,
+        center             : null
+      },
+      confirmationDialog : ''
     }
+
+    $.extend(true, options, opts);
     
     var newLocation;
-        
-    for (var a in (opts || {})) { options[a] = opts[a]; }
-        
-    map = new L.Map( options.mapElementId );
+    
+    map = new L.Map( options.map.mapElementId );
             
-    if (options.center) map.setView(options.center, options.initialZoom)
-      .addLayer(new L.TileLayer( options.tileUrl, {
-        maxZoom: options.maxZoom, attribution: options.tileAttribution
+    if (options.map.center) map.setView(options.map.center, options.map.initialZoom)
+      .addLayer(new L.TileLayer( options.map.tileUrl, {
+        maxZoom: options.map.maxZoom, attribution: options.map.tileAttribution
       }));
     
     /*
@@ -68,10 +70,12 @@ $(function(){
   var greenpoint = new L.LatLng(40.727857, -73.947151);
   
   social = new SocialGeo({
-    mapElementId       : 'map', 
-    tileUrl            : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-    tileAttribution    : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
-    center             : greenpoint,
+    map : {
+      mapElementId       : 'map', 
+      tileUrl            : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+      tileAttribution    : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
+      center             : greenpoint
+    },
     confirmationDialog : '<button type="button">confirm</button>'
   });
   
