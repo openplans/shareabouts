@@ -1,29 +1,33 @@
 /*
- * requires leaflet, jquery 1.1.4
+ * requires leaflet, jquery 1.1.4, jakesgordon/javascript-state-machine
  */ 
 var SocialGeo = (function () {
     
-  var init = function (opts) {
-    var map, newFeature, options = {
-      map : {
-        tileUrl            : null, 
-        center             : null,
-        // optional
-        mapElementId       : 'map', 
-        tileAttribution    : '', 
-        maxZoom            : 18,
-        initialZoom        : 13
-      },
-      confirmationDialog : ''
-    }
+  var init = function (cfg) {
+    var map, // leaflet map
+        fsm, // state machin
+        newFeature, // marker for proposed feature
+        config = { 
+          map : {
+            tileUrl            : null, 
+            center             : null,
+            // optional
+            mapElementId       : 'map', 
+            tileAttribution    : '', 
+            maxZoom            : 18,
+            initialZoom        : 13
+          },
+          callbacks : {}, // state machine callbacks
+          confirmationDialog : ''
+        }
 
-    $.extend(true, options, opts);
+    $.extend(true, config, cfg);
 
-    // initializing map 
-    map = new L.Map( options.map.mapElementId );
-    map.setView(options.map.center, options.map.initialZoom);
-    map.addLayer(new L.TileLayer( options.map.tileUrl, {
-      maxZoom: options.map.maxZoom, attribution: options.map.tileAttribution
+    // Initializing map 
+    map = new L.Map( config.map.mapElementId );
+    map.setView(config.map.center, config.map.initialZoom);
+    map.addLayer(new L.TileLayer( config.map.tileUrl, {
+      maxZoom: config.map.maxZoom, attribution: config.map.tileAttribution
     }));
     
     /*
@@ -32,11 +36,32 @@ var SocialGeo = (function () {
     this.getMap = function () { return map; };
     
     /*
+     * Returns the state machine object
+     */
+    this.getFSM = function () { return fsm; };
+    
+    // State machine handles the flow of creating and viewing map features
+    fsm = StateMachine.create({
+      initial : 'empty',
+      events  : [
+        { name: 'loadFeatures',    from: 'empty',             to: 'ready' },
+        { name: 'locateFeature',   from: 'ready',             to: 'locatingFeature' },
+        { name: 'finalizeFeature', from: 'locatingFeature',   to: 'finalizingFeature' },
+        { name: 'submitFeature',   from: 'finalizingFeature', to: 'confirmingFeature' },
+        { name: 'viewFeature',     from: 'ready',             to: 'viewingFeature' },
+        { name: 'reset', from: ['locatingFeature', 'finalizingFeature', 'confirmingFeature', 'viewingFeature'], to: 'ready' }
+      ], 
+      callbacks : config.callbacks
+    });
+
+    fsm.onchangestate = function(eventName, from, to) { 
+      console.log("Transitioning from " + from + " to " + to + " via " + eventName);
+    };
+    
+    /*
      * Drops a marker on the map at the latlng, if provided, or in the middle
      */
-    this.dropMarker = function (event, latlng) {
-      if (newFeature) return;
-      
+    fsm.onlocatingFeature = function (eventName, from, to, latlng) {      
       if (!latlng) latlng = map.getCenter();
       newFeature = new L.Marker(latlng);
       map.addLayer(newFeature);
@@ -45,25 +70,22 @@ var SocialGeo = (function () {
     /*
      * Displays feature confirmation form of unsaved feature
      */
-    this.confirmFeature = function (event) {
-      if (!newFeature) return;
-      
-      newFeature.bindPopup(options.confirmationDialog).openPopup();
+    fsm.onfinalizingFeature = function (eventName, from, to) {      
+      newFeature.bindPopup(config.confirmationDialog).openPopup();
     };
     
-    /*
-     * Sets the content of the feature confirmation dialog
-     */
-    this.setConfirmationDialog = function (content) {
-      options.confirmationDialog = content;
-    };
+    fsm.loadFeatures(); // 
+    
   };
-  
+
   return init;
 })();
 
 var social;
 $(function(){
+  var initFeatureLocation    = $("#initiateLocation"),
+      confirmFeatureLocation = $("#confirmLocation");
+      
   var greenpoint = new L.LatLng(40.727857, -73.947151);
   
   social = new SocialGeo({
@@ -72,11 +94,25 @@ $(function(){
       tileAttribution    : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
       center             : greenpoint
     },
+    callbacks : {
+      onready : function(something) {
+        initFeatureLocation.show();
+        confirmFeatureLocation.hide();
+      }
+    },
     confirmationDialog : '<button type="button">confirm</button>'
   });
   
   var map = social.getMap();
   
-  $("#initiateLocation").click(social.dropMarker);
-  $("#confirmLocation").click(social.confirmFeature);
+  // Wire up the event triggers. These wirings should only deal with view-specificities.
+  initFeatureLocation.click( function(event) { 
+    social.getFSM().locateFeature();
+    $(this).hide();
+    confirmFeatureLocation.show();
+  });
+  
+  confirmFeatureLocation.click( function(event) { 
+    social.getFSM().finalizeFeature();
+  });  
 });
