@@ -1,5 +1,5 @@
 /*
- * requires leaflet, jquery 1.1.4, jakesgordon/javascript-state-machine
+ * requires leaflet, jquery 1.1.4, jakesgordon/javascript-state-machine, mustache
  */ 
 var SocialGeo = (function () {
     
@@ -12,12 +12,14 @@ var SocialGeo = (function () {
             tileUrl            : null, 
             center             : null,
             // optional
+            dataUrl            : null,
             mapElementId       : 'map', 
             tileAttribution    : '', 
             maxZoom            : 18,
             initialZoom        : 13
           },
           finalizeFeatureContent  : '', // form elements (not the form) [,confirm msg...] for submit feature
+          featurePopupTemplate : '', 
           ajax : { // ajax config for new features
             type : 'POST',
             success : function(data) {
@@ -31,14 +33,17 @@ var SocialGeo = (function () {
 
     // Initializing map 
     map = new L.Map( config.map.mapElementId );
+    
     map.setView(config.map.center, config.map.initialZoom);
+    
     map.addLayer(new L.TileLayer( config.map.tileUrl, {
       maxZoom: config.map.maxZoom, attribution: config.map.tileAttribution
     }));
     
     map.on('layerremove', function(e){
+      // If a popup is removed (closed), reset the map state
       if (e.layer instanceof L.Popup && fsm.can("reset")) fsm.reset();
-    })
+    });
     
     /*
      * Returns the leaflet map
@@ -54,13 +59,13 @@ var SocialGeo = (function () {
     fsm = StateMachine.create({
       initial : 'empty',
       events  : [
-        { name: 'loadFeatures',      from: 'empty',             to: 'ready' },
+        { name: 'loadFeatures',      from: ['empty', 'ready'],  to: 'ready' },
         { name: 'locateFeature',     from: 'ready',             to: 'locatingFeature' },
         { name: 'finalizeFeature',   from: 'locatingFeature',   to: 'finalizingFeature' },
         { name: 'submitFeature',     from: 'finalizingFeature', to: 'submittingFeature' },
         { name: 'confirmSubmission', from: 'submittingFeature', to: 'confirmingSubmission' },
         { name: 'viewFeature',       from: 'ready',             to: 'viewingFeature' },
-        { name: 'reset', from: ['locatingFeature', 'finalizingFeature', 'submittingFeature', 'confirmingSubmission', 'viewingFeature'], to: 'ready' }
+        { name: 'reset', from: ['locatingFeature', 'finalizingFeature', 'confirmingSubmission', 'viewingFeature'], to: 'ready' }
       ], 
       callbacks : config.callbacks
     });
@@ -68,6 +73,27 @@ var SocialGeo = (function () {
     fsm.onchangestate = function(eventName, from, to) { 
       console.log("Transitioning from " + from + " to " + to + " via " + eventName);
     };
+    
+    /*
+     * 
+     */
+    fsm.onloadFeatures = function (eventName, from, to, dataUrl) {
+      if (!dataUrl) return;
+      
+      var geojsonLayer = new L.GeoJSON();
+       
+      geojsonLayer.on('featureparse', function(e) {
+        if (e.properties)
+          e.layer.bindPopup($.mustache( config.featurePopupTemplate, e.properties ));
+      });
+      
+      $.getJSON(dataUrl, function(data){
+        if (typeof data == "object") data = data.features;
+        $.each(data, function(i,f) { geojsonLayer.addGeoJSON(f); });
+      });
+      
+      map.addLayer(geojsonLayer);
+    }
     
     /*
      * Drops a marker on the map at the latlng, if provided, or in the middle
@@ -108,8 +134,8 @@ var SocialGeo = (function () {
     fsm.onreset = function (eventName, from, to) {
       newFeature.closePopup();
       map.removeLayer(newFeature);
-      
     };
+    
     
     // Upon submittal of the new feature form, begin transition to confirmingFeature
     $(".socialgeo-finalize-feature").live("submit", function(event){
@@ -122,7 +148,8 @@ var SocialGeo = (function () {
       fsm.submitFeature( ajaxOptions );      
     });
     
-    fsm.loadFeatures(); //
+    // Load initial data
+    fsm.loadFeatures(config.dataUrl);
     
   };
   
@@ -155,10 +182,19 @@ $(function(){
         confirmFeatureLocation.hide();
       }
     },
-    finalizeFeatureContent : 'this is the place!', 
     ajax : {
       url : window.location.href
-    }
+    },
+    finalizeFeatureContent : 'this is the place!',
+    dataUrl : 'http://demo.cartodb.com/api/v1/sql?q=select%20*%20from%20bikeshare_points%20limit%201000&format=geojson&callback=?',
+    featurePopupTemplate : "\
+      <div>\
+        {{user_avatar_url}}<span>{{user_name}}</span> suggested this station in {{neighborhood}}.\
+      </div> \
+      <p>{{reason}}</p>\
+      <p><a>Support</a> <span>{{ck_rating_up}}</span> Supporters</p>\
+      <p><span>Share this station: </span>' + $fb_text + $tweet_text + $email_text + $direct_link + '</p>\
+    "
   });
   
   var map = social.getMap();
