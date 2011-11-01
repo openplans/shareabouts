@@ -16,7 +16,9 @@ var SocialGeo = (function () {
             mapElementId       : 'map', 
             tileAttribution    : '', 
             maxZoom            : 18,
-            initialZoom        : 13
+            initialZoom        : 13,
+            markerIcon         : null, // custom icon
+            newMarkerIcon      : null // custom icon for markers representing unsaved features
           },
           finalizeFeatureContent  : '', // form elements (not the form) [,confirm msg...] for submit feature
           featurePopupTemplate : '', 
@@ -80,19 +82,25 @@ var SocialGeo = (function () {
     fsm.onloadFeatures = function (eventName, from, to, dataUrl) {
       if (!dataUrl) return;
       
-      var geojsonLayer = new L.GeoJSON();
-       
-      geojsonLayer.on('featureparse', function(e) {
-        if (e.properties)
-          e.layer.bindPopup($.mustache( config.featurePopupTemplate, e.properties ));
-      });
-      
       $.getJSON(dataUrl, function(data){
+        var geojsonLayer = new L.GeoJSON(null, {
+          pointToLayer : function(latlng) {
+            var markerOpts = {};
+            if ( config.map.markerIcon ) markerOpts.icon = new config.map.markerIcon();
+            return new L.Marker(latlng, markerOpts);
+          }
+        });
+
+        geojsonLayer.on('featureparse', function(e) {
+          if (e.properties)
+            e.layer.bindPopup($.mustache( config.featurePopupTemplate, e.properties ));
+        });
+        
         if (typeof data == "object") data = data.features;
+        
         $.each(data, function(i,f) { geojsonLayer.addGeoJSON(f); });
-      });
-      
-      map.addLayer(geojsonLayer);
+        map.addLayer(geojsonLayer);
+      });      
     }
     
     /*
@@ -100,7 +108,10 @@ var SocialGeo = (function () {
      */
     fsm.onenterlocatingFeature = function (eventName, from, to, latlng) {      
       if (!latlng) latlng = map.getCenter();
-      newFeature = new L.Marker(latlng, { draggable : true });
+      var markerOpts = { draggable : true };
+      if ( config.map.newMarkerIcon ) markerOpts.icon = new config.map.newMarkerIcon();
+      
+      newFeature = new L.Marker(latlng, markerOpts);
       map.addLayer(newFeature);
     };
     
@@ -132,8 +143,11 @@ var SocialGeo = (function () {
      *
      */
     fsm.onleaveconfirmingSubmission = function (eventName, from, to) {
-      var marker = new L.Marker(newFeature.getLatLng());
-      map.addLayer(marker);
+      var markerOpts = { };
+      if ( config.map.markerIcon ) markerOpts.icon = new config.map.markerIcon();
+      
+      var marker = new L.Marker(newFeature.getLatLng(), markerOpts);
+      map.addLayer(marker); 
     };
     
     /*
@@ -182,7 +196,22 @@ $(function(){
     map : {
       tileUrl            : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
       tileAttribution    : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
-      center             : greenpoint
+      center             : greenpoint,
+      markerIcon         : L.Icon.extend( {
+        iconUrl     : 'http://a841-tfpweb.nyc.gov/bikeshare/wp-content/themes/bikeshare/images/dot.png',
+        iconSize    : new L.Point(18,18),
+        shadowSize    : new L.Point(18,18),
+        iconAnchor  : new L.Point(9,9),
+        popupAnchor : new L.Point(0,-2)
+      }),
+      newMarkerIcon      : L.Icon.extend( {
+        iconUrl     : 'http://a841-tfpweb.nyc.gov/bikeshare/wp-content/themes/bikeshare/images/bikeshare-marker.png',
+        shadowUrl   : 'http://a841-tfpweb.nyc.gov/bikeshare/wp-content/themes/bikeshare/images/bikeshare-marker-shadow.png',
+        iconSize    : new L.Point(23,35),
+        shadowSize  : new L.Point(45,35),
+        iconAnchor  : new L.Point(12,35),
+        popupAnchor : new L.Point(0,-33)
+      }),
     },
     callbacks : {
       onready : function(something) {
@@ -204,6 +233,7 @@ $(function(){
       <p><span>Share this station: </span>' + $fb_text + $tweet_text + $email_text + $direct_link + '</p>\
     "
   });
+  
   
   var map = social.getMap();
   
