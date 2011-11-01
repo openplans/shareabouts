@@ -17,8 +17,14 @@ var SocialGeo = (function () {
             maxZoom            : 18,
             initialZoom        : 13
           },
-          callbacks : {}, // state machine callbacks
-          confirmationDialog : ''
+          finalizeFeatureContent  : '', // form elements (not the form) [,confirm msg...] for submit feature
+          ajax : { // ajax config for new features
+            type : 'POST',
+            success : function(data) {
+              fsm.confirmSubmission(data);
+            }
+          }, 
+          callbacks : {} // state machine callbacks
         }
 
     $.extend(true, config, cfg);
@@ -44,12 +50,13 @@ var SocialGeo = (function () {
     fsm = StateMachine.create({
       initial : 'empty',
       events  : [
-        { name: 'loadFeatures',    from: 'empty',             to: 'ready' },
-        { name: 'locateFeature',   from: 'ready',             to: 'locatingFeature' },
-        { name: 'finalizeFeature', from: 'locatingFeature',   to: 'finalizingFeature' },
-        { name: 'submitFeature',   from: 'finalizingFeature', to: 'confirmingFeature' },
-        { name: 'viewFeature',     from: 'ready',             to: 'viewingFeature' },
-        { name: 'reset', from: ['locatingFeature', 'finalizingFeature', 'confirmingFeature', 'viewingFeature'], to: 'ready' }
+        { name: 'loadFeatures',      from: 'empty',             to: 'ready' },
+        { name: 'locateFeature',     from: 'ready',             to: 'locatingFeature' },
+        { name: 'finalizeFeature',   from: 'locatingFeature',   to: 'finalizingFeature' },
+        { name: 'submitFeature',     from: 'finalizingFeature', to: 'submittingFeature' },
+        { name: 'confirmSubmission', from: 'submittingFeature', to: 'confirmingSubmission' },
+        { name: 'viewFeature',       from: 'ready',             to: 'viewingFeature' },
+        { name: 'reset', from: ['locatingFeature', 'finalizingFeature', 'submittingFeature', 'confirmingSubmission', 'viewingFeature'], to: 'ready' }
       ], 
       callbacks : config.callbacks
     });
@@ -61,22 +68,65 @@ var SocialGeo = (function () {
     /*
      * Drops a marker on the map at the latlng, if provided, or in the middle
      */
-    fsm.onlocatingFeature = function (eventName, from, to, latlng) {      
+    fsm.onenterlocatingFeature = function (eventName, from, to, latlng) {      
       if (!latlng) latlng = map.getCenter();
-      newFeature = new L.Marker(latlng);
+      newFeature = new L.Marker(latlng, { draggable : true });
       map.addLayer(newFeature);
     };
     
     /*
-     * Displays feature confirmation form of unsaved feature
+     * Displays feature finalization form of unsaved feature
      */
-    fsm.onfinalizingFeature = function (eventName, from, to) {      
-      newFeature.bindPopup(config.confirmationDialog).openPopup();
+    fsm.onenterfinalizingFeature = function (eventName, from, to) {
+      newFeature.dragging.disable();
+      var form = $(finalizeForm).prepend(config.finalizeFeatureContent).wrap('<div>').parent().html();
+      newFeature.bindPopup(form).openPopup();
     };
     
-    fsm.loadFeatures(); // 
+    /*
+     * Submits new feature form. 
+     * Wait until response to transition to confirmingFeature state.
+     */
+    fsm.onentersubmittingFeature = function (eventName, from, to, ajaxCfg) {
+      $.ajax(ajaxCfg);
+    };
+    
+    /*
+     * Displays response in popup. 
+     */
+    fsm.onenterconfirmingSubmission = function (eventName, from, to, responseData) {
+      newFeature.bindPopup(responseData).openPopup(); // show confirmation of new feature
+    };
+    
+    /*
+     * Removes all the layers related to feature submission. 
+     */
+    fsm.onreset = function (eventName, from, to) {
+      newFeature.closePopup();
+      map.removeLayer(newFeature);
+      
+    };
+    
+    // Upon submittal of the new feature form, begin transition to confirmingFeature
+    $(".socialgeo-finalize-feature").live("submit", function(event){
+      event.preventDefault();
+      // save this to the local data object // transform newFeature to regular marker
+      
+      var ajaxOptions = { data : $(this).serialize() };
+      $.extend(true, ajaxOptions, config.ajax);
+      
+      fsm.submitFeature( ajaxOptions );      
+    });
+    
+    fsm.loadFeatures(); //
     
   };
+  
+  var finalizeForm = "\
+    <form class='socialgeo-finalize-feature'>\
+      <button type='submit'>confirm</button>\
+    <form>\
+  ";  
 
   return init;
 })();
@@ -84,7 +134,8 @@ var SocialGeo = (function () {
 var social;
 $(function(){
   var initFeatureLocation    = $("#initiateLocation"),
-      confirmFeatureLocation = $("#confirmLocation");
+      confirmFeatureLocation = $("#confirmLocation"),
+      reset                  = $("#reset");
       
   var greenpoint = new L.LatLng(40.727857, -73.947151);
   
@@ -100,7 +151,10 @@ $(function(){
         confirmFeatureLocation.hide();
       }
     },
-    confirmationDialog : '<button type="button">confirm</button>'
+    finalizeFeatureContent : 'this is the place!', 
+    ajax : {
+      url : window.location.href
+    }
   });
   
   var map = social.getMap();
@@ -113,6 +167,11 @@ $(function(){
   });
   
   confirmFeatureLocation.click( function(event) { 
+    $(this).hide();
     social.getFSM().finalizeFeature();
-  });  
+  });
+  
+  reset.click( function(event) {
+    social.getFSM().reset();
+  });
 });
