@@ -129,6 +129,14 @@ var SocialGeo = (function () {
     };
     
     /*
+     *
+     */
+    fsm.onleaveconfirmingSubmission = function (eventName, from, to) {
+      var marker = new L.Marker(newFeature.getLatLng());
+      map.addLayer(marker);
+    };
+    
+    /*
      * Removes all the layers related to feature submission. 
      */
     fsm.onreset = function (eventName, from, to) {
