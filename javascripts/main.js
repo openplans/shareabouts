@@ -36,6 +36,10 @@ var SocialGeo = (function () {
       maxZoom: config.map.maxZoom, attribution: config.map.tileAttribution
     }));
     
+    map.on('layerremove', function(e){
+      if (e.layer instanceof L.Popup && fsm.can("reset")) fsm.reset();
+    })
+    
     /*
      * Returns the leaflet map
      */
@@ -95,7 +99,7 @@ var SocialGeo = (function () {
      * Displays response in popup. 
      */
     fsm.onenterconfirmingSubmission = function (eventName, from, to, responseData) {
-      newFeature.bindPopup(responseData).openPopup(); // show confirmation of new feature
+      newFeature._popup.setContent(responseData);
     };
     
     /*
