@@ -1,5 +1,5 @@
 /*
- * requires leaflet, jquery 1.1.4, jakesgordon/javascript-state-machine, mustache
+ * requires leaflet, jquery 1.1.4, jakesgordon/javascript-state-machine, mustache, history.js
  */ 
 var SocialGeo = (function () {
     
@@ -8,7 +8,8 @@ var SocialGeo = (function () {
         fsm, // state machin
         newFeature, // marker for proposed feature
         features = {},
-        config = { 
+        popup    = new L.Popup({ offset: new L.Point(0,0)}),
+        config   = { 
           map : {
             tileUrl            : null, 
             center             : null,
@@ -44,10 +45,10 @@ var SocialGeo = (function () {
     }));
     
     map.on('layerremove', function(e){
-      // If a popup is removed (closed), reset the map state
-      if (e.layer instanceof L.Popup && fsm.can("reset")) fsm.reset();
+      // When the popup is removed (closed), reset the map state
+      if (e.layer == popup && fsm.can("reset")) fsm.reset();
     });
-    
+        
     /**
      * Returns the leaflet map
      */
@@ -62,6 +63,7 @@ var SocialGeo = (function () {
      * Opens the popup for a feature
      */
     this.viewFeature = function(fId) {
+      console.log(features[fId]);
       features[fId].openPopup();
     };
     
@@ -102,10 +104,15 @@ var SocialGeo = (function () {
         
         // Triggered as features are individually parsed
         geojsonLayer.on('featureparse', function(featureparse) {
-          featureparse.layer.bindPopup($.mustache( config.featurePopupTemplate, featureparse.properties ));
+          featureparse.layer._html = $.mustache( config.featurePopupTemplate, featureparse.properties );
 
           var fId = featureparse.properties.id;
 
+          featureparse.layer.on("click", function(click) {
+            // Change history state on feature click
+            History.pushState( { featureId : fId }, "Feature " + fId, "?feature=" + fId);   
+          });
+          
           // Add feature layer to features object
           features[fId] = featureparse.layer;
         });
@@ -134,7 +141,7 @@ var SocialGeo = (function () {
     fsm.onenterfinalizingFeature = function (eventName, from, to) {
       newFeature.dragging.disable();
       var form = $(finalizeForm).prepend(config.finalizeFeatureContent).wrap('<div>').parent().html();
-      newFeature.bindPopup(form).openPopup();
+      openPopupFor(newFeature, form);
     };
     
     /*
@@ -149,7 +156,7 @@ var SocialGeo = (function () {
      * Displays response in popup. 
      */
     fsm.onenterconfirmingSubmission = function (eventName, from, to, responseData) {
-      newFeature._popup.setContent(responseData);
+      openPopupFor( newFeature, responseData);
     };
     
     /*
@@ -185,6 +192,20 @@ var SocialGeo = (function () {
     
     // Load initial data
     fsm.loadFeatures(config.dataUrl);
+    
+    History.Adapter.bind(window,'statechange',function(){
+      var State = History.getState();
+      if (State.data.featureId) {
+        var featureLayer = features[State.data.featureId];
+        openPopupFor( featureLayer, featureLayer._html);
+      }
+    });
+    
+    var openPopupFor = function(layer, content) {
+      popup.setContent(content);
+      popup.setLatLng(layer.getLatLng());
+      map.openPopup(popup);
+    };
   };
   
   var finalizeForm = "\
@@ -213,8 +234,7 @@ $(function(){
         iconUrl     : 'http://a841-tfpweb.nyc.gov/bikeshare/wp-content/themes/bikeshare/images/dot.png',
         iconSize    : new L.Point(18,18),
         shadowSize    : new L.Point(18,18),
-        iconAnchor  : new L.Point(9,9),
-        popupAnchor : new L.Point(0,-2)
+        iconAnchor  : new L.Point(10,13)
       }),
       newMarkerIcon      : L.Icon.extend( {
         iconUrl     : 'http://a841-tfpweb.nyc.gov/bikeshare/wp-content/themes/bikeshare/images/bikeshare-marker.png',
