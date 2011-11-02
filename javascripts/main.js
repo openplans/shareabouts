@@ -7,6 +7,7 @@ var SocialGeo = (function () {
     var map, // leaflet map
         fsm, // state machin
         newFeature, // marker for proposed feature
+        features = {},
         config = { 
           map : {
             tileUrl            : null, 
@@ -47,15 +48,22 @@ var SocialGeo = (function () {
       if (e.layer instanceof L.Popup && fsm.can("reset")) fsm.reset();
     });
     
-    /*
+    /**
      * Returns the leaflet map
      */
     this.getMap = function () { return map; };
     
-    /*
+    /**
      * Returns the state machine object
      */
     this.getFSM = function () { return fsm; };
+    
+    /**
+     * Opens the popup for a feature
+     */
+    this.viewFeature = function(fId) {
+      features[fId].openPopup();
+    };
     
     // State machine handles the flow of creating and viewing map features
     fsm = StateMachine.create({
@@ -77,27 +85,32 @@ var SocialGeo = (function () {
     };
     
     /*
-     * 
+     * Expects a geoJSON object or an array of geoJSON features whose properties contain a unique ID called 'id'
      */
     fsm.onloadFeatures = function (eventName, from, to, dataUrl) {
       if (!dataUrl) return;
       
       $.getJSON(dataUrl, function(data){
         var geojsonLayer = new L.GeoJSON(null, {
+          // Assumes all features are points ATM
           pointToLayer : function(latlng) {
             var markerOpts = {};
             if ( config.map.markerIcon ) markerOpts.icon = new config.map.markerIcon();
             return new L.Marker(latlng, markerOpts);
           }
         });
+        
+        // Triggered as features are individually parsed
+        geojsonLayer.on('featureparse', function(featureparse) {
+          featureparse.layer.bindPopup($.mustache( config.featurePopupTemplate, featureparse.properties ));
 
-        geojsonLayer.on('featureparse', function(e) {
-          if (e.properties)
-            e.layer.bindPopup($.mustache( config.featurePopupTemplate, e.properties ));
+          var fId = featureparse.properties.id;
+
+          // Add feature layer to features object
+          features[fId] = featureparse.layer;
         });
         
         if (typeof data == "object") data = data.features;
-        
         $.each(data, function(i,f) { geojsonLayer.addGeoJSON(f); });
         map.addLayer(geojsonLayer);
       });      
@@ -172,7 +185,6 @@ var SocialGeo = (function () {
     
     // Load initial data
     fsm.loadFeatures(config.dataUrl);
-    
   };
   
   var finalizeForm = "\
