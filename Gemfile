@@ -11,7 +11,6 @@ end
 
 group :development, :test do
   gem "faker", :git => "git://github.com/yolk/faker.git"
-  gem "zencoder-fetcher"
   gem "fixjour"
   gem "rspec-rails", ">= 2.2.0"
 end
