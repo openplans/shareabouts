@@ -1,2 +1,31 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+var calico;
+
+$(function() {
+  
+  var calicoCfg = {
+    map : {
+      tileUrl            : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+      tileAttribution    : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
+    }
+  };
+  
+  var positionSuccess = function (position) {
+    var here = new L.LatLng(position.coords.latitude, position.coords.longitude);
+    initCalico(here);
+  };
+  
+  var positionError = function (message) {
+    var greenpoint = new L.LatLng(40.727857, -73.947151);
+    initCalico(greenpoint);
+  };
+  
+  var initCalico = function (mapCenter) {
+    $.extend( true, calicoCfg, { map : { center : mapCenter} } );
+    
+    calico = new Calico(calicoCfg);
+  };
+  
+  navigator.geolocation ? 
+    navigator.geolocation.getCurrentPosition(positionSuccess, positionError) : 
+    positionError('not supported');  
+});
