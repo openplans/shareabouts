@@ -1,6 +1,18 @@
 GIT
+  remote: git://github.com/juliamae/cartodb-rb-client.git
+  revision: f4be864a689af9cafab0c462c628d0072e728aaa
+  specs:
+    cartodb-rb-client (0.2.0)
+      mime-types (= 1.16)
+      oauth (= 0.4.5)
+      pg (= 0.11.0)
+      rgeo (= 0.3.2)
+      rgeo-geojson (= 0.2.1)
+      typhoeus (= 0.2.4)
+
+GIT
   remote: git://github.com/sferik/rails_admin.git
-  revision: 87e5161abcd16c629a4283efed23502209c9da4a
+  revision: 08545c6dcba54009dd76b4af3928a60eb816ece0
   specs:
     rails_admin (0.0.1)
       bootstrap-sass (~> 1.3, >= 1.3.1)
@@ -84,8 +96,9 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.17.2)
+    mime-types (1.16)
     multi_json (1.0.3)
+    oauth (0.4.5)
     orm_adapter (0.0.5)
     pg (0.11.0)
     polyglot (0.3.3)
@@ -117,6 +130,9 @@ GEM
     rdoc (3.11)
       json (~> 1.4)
     remotipart (1.0)
+    rgeo (0.3.2)
+    rgeo-geojson (0.2.1)
+      rgeo (>= 0.2.8)
     rspec (2.7.0)
       rspec-core (~> 2.7.0)
       rspec-expectations (~> 2.7.0)
@@ -146,6 +162,9 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.2.4)
+      mime-types
+      mime-types
     tzinfo (0.3.30)
     uglifier (1.0.4)
       execjs (>= 0.3.0)
@@ -157,6 +176,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cartodb-rb-client!
   devise
   faker!
   fixjour
