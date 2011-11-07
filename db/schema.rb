@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111103142052) do
+ActiveRecord::Schema.define(:version => 20111107145232) do
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
