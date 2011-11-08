@@ -48,6 +48,15 @@ $(function() {
       });
       $(this).hide();
     });
+    
+    History.Adapter.bind(window,'statechange',function(){
+      var State = History.getState();
+      if (State.data.featureId) {
+        $.get( '<%= url_help.point_path("CHANGEME") %>'.replace(/CHANGEME/, State.data.featureId), function(data){
+          calico.viewFeature(State.data.featureId, data.view);
+        }, "json");
+      }
+    });
   };
   
   navigator.geolocation ? 

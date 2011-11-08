@@ -21,8 +21,8 @@ var Calico = (function () {
             markerIcon         : null, // custom icon
             newMarkerIcon      : null // custom icon for markers representing unsaved features
           },
-          dataUrl            : null,
-          featurePopupTemplate : '', 
+          dataUrl              : null,
+          featurePopupTemplate : null, 
           ajaxSubmitCfg : { // ajax config for new features
             type : 'POST',
             success : function(data) {
@@ -61,8 +61,8 @@ var Calico = (function () {
     /**
      * Opens the popup for a feature
      */
-    this.viewFeature = function(fId) {
-      features[fId].openPopup();
+    this.viewFeature = function(fId, view) {
+      openPopupFor( features[fId], view ? view : featureLayer._html);
     };
     
     // State machine handles the flow of creating and viewing map features
@@ -102,17 +102,7 @@ var Calico = (function () {
         
         // Triggered as features are individually parsed
         geojsonLayer.on('featureparse', function(featureparse) {
-          featureparse.layer._html = $.mustache( config.featurePopupTemplate, featureparse.properties );
-
-          var fId = featureparse.properties.id;
-
-          featureparse.layer.on("click", function(click) {
-            // Change history state on feature click
-            History.pushState( { featureId : fId }, "Feature " + fId, "?feature=" + fId);   
-          });
-          
-          // Add feature layer to features object
-          features[fId] = featureparse.layer;
+          setupMarker(featureparse.layer, featureparse.properties);
         });
         
         if (typeof data == "object") data = data.features;
@@ -176,21 +166,22 @@ var Calico = (function () {
     };
     
     /*
-     * Displays responseData.view in popup. 
+     * Creates a marker for the new feature using the properties in responseData.geoJSON. 
      */
     fsm.onenterconfirmingSubmission = function (eventName, from, to, responseData) {
-      openPopupFor( newFeature, responseData.view);
-    };
-    
-    /*
-     *
-     */
-    fsm.onleaveconfirmingSubmission = function (eventName, from, to) {
       var markerOpts = { };
       if ( config.map.markerIcon ) markerOpts.icon = new config.map.markerIcon();
       
       var marker = new L.Marker(newFeature.getLatLng(), markerOpts);
-      map.addLayer(marker); 
+      
+      setupMarker(marker, responseData.geoJSON.properties);
+      
+      map.removeLayer(newFeature);
+      map.addLayer(marker);
+      
+      // Update history state 
+      var fId = responseData.geoJSON.properties.id;
+      History.pushState( { featureId : fId }, "Feature " + fId, "?feature=" + fId);   
     };
     
     /*
@@ -208,7 +199,7 @@ var Calico = (function () {
       var State = History.getState();
       if (State.data.featureId) {
         var featureLayer = features[State.data.featureId];
-        openPopupFor( featureLayer, featureLayer._html);
+        if (featureLayer._html) openPopupFor( featureLayer, featureLayer._html);
       }
     });
     
@@ -216,6 +207,24 @@ var Calico = (function () {
       popup.setContent(content);
       popup.setLatLng(layer.getLatLng());
       if (!popup._opened) map.openPopup(popup);
+    };
+    
+    var setupMarker = function(marker, properties) {
+      if (config.featurePopupTemplate)
+        marker._html = $.mustache( config.featurePopupTemplate, properties );
+
+      var fId = properties.id;
+      
+      marker._id = fId;
+      marker.on("click", markerClick);
+      
+      features[fId] = marker;
+    };
+    
+    var markerClick = function(click) {
+      // Change history state on feature click
+      var fId = this._id;
+      History.pushState( { featureId : fId }, "Feature " + fId, "?feature=" + fId);   
     };
   };
 

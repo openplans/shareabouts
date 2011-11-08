@@ -23,11 +23,20 @@ class PointsController < ApplicationController
     if @point.save
       respond_to do |format|
         format.json do
-          render :json => { :view => render_to_string(:partial => "show.html", :locals => { :point => @point }) } 
+          render :json => { :geoJSON => @point.as_geo_json } 
         end
       end
     else
       # todo
+    end
+  end
+  
+  def show
+    @point = Point.find params[:id]
+    respond_to do |format|
+      format.json do
+        render :json => { :view => render_to_string(:partial => "show.html", :locals => { :point => @point }) } 
+      end
     end
   end
   
