@@ -35,7 +35,7 @@ class CartoModel
   end
   
   private
-  
+
   def the_geom_to_s
     raise "set lat and lng first" unless lat.present? && lng.present?
     "SRID=4326;POINT(#{lng} #{lat})"

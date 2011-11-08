@@ -22,9 +22,8 @@ var Calico = (function () {
             markerIcon         : null, // custom icon
             newMarkerIcon      : null // custom icon for markers representing unsaved features
           },
-          finalizeFeatureContent  : '', // form elements (not the form) [,confirm msg...] for submit feature
           featurePopupTemplate : '', 
-          ajax : { // ajax config for new features
+          ajaxSubmitCfg : { // ajax config for new features
             type : 'POST',
             success : function(data) {
               fsm.confirmSubmission(data);
@@ -129,18 +128,43 @@ var Calico = (function () {
       if (!latlng) latlng = map.getCenter();
       var markerOpts = { draggable : true };
       if ( config.map.newMarkerIcon ) markerOpts.icon = new config.map.newMarkerIcon();
-      
+        
       newFeature = new L.Marker(latlng, markerOpts);
       map.addLayer(newFeature);
     };
     
     /*
-     * Displays feature finalization form of unsaved feature
+     * Performs an ajax request. 
+     * If the json response contains a view property, that will be displayed in the marker popup.
      */
-    fsm.onenterfinalizingFeature = function (eventName, from, to) {
+    fsm.onleavelocatingFeature = function (eventName, from, to, options) {
       newFeature.dragging.disable();
-      var form = $(finalizeForm).prepend(config.finalizeFeatureContent).wrap('<div>').parent().html();
-      openPopupFor(newFeature, form);
+      if ( typeof options == "object" ){
+        $.extend(true, options, { 
+          type : 'GET', 
+          success: function(data){
+            if (data.view) {
+              openPopupFor(newFeature, $("<div>").html($("<div class='calico submit'>").html(data.view)).html());
+              $("div.calico.submit form").submit(function(e){
+                e.preventDefault();
+                                
+                var ajaxOptions = { 
+                  data : $(this).serialize() + "&lat=" + newFeature.getLatLng().lat + "&lng=" + newFeature.getLatLng().lng, 
+                  url : $(this).attr("action") 
+                };
+                
+                $.extend(true, ajaxOptions, config.ajaxSubmitCfg);
+
+                fsm.submitFeature( ajaxOptions );
+              });
+            }
+            fsm.transition();
+          },
+          dataType : 'json'
+        });
+        $.ajax(options);
+      }
+      return false;
     };
     
     /*
@@ -152,10 +176,10 @@ var Calico = (function () {
     };
     
     /*
-     * Displays response in popup. 
+     * Displays responseData.view in popup. 
      */
     fsm.onenterconfirmingSubmission = function (eventName, from, to, responseData) {
-      openPopupFor( newFeature, responseData);
+      openPopupFor( newFeature, responseData.view);
     };
     
     /*
@@ -177,18 +201,6 @@ var Calico = (function () {
       map.removeLayer(newFeature);
     };
     
-    
-    // Upon submittal of the new feature form, begin transition to confirmingFeature
-    $(".socialgeo-finalize-feature").live("submit", function(event){
-      event.preventDefault();
-      // save this to the local data object // transform newFeature to regular marker
-      
-      var ajaxOptions = { data : $(this).serialize() };
-      $.extend(true, ajaxOptions, config.ajax);
-      
-      fsm.submitFeature( ajaxOptions );      
-    });
-    
     // Load initial data
     fsm.loadFeatures(config.dataUrl);
     
@@ -206,12 +218,6 @@ var Calico = (function () {
       map.openPopup(popup);
     };
   };
-  
-  var finalizeForm = "\
-    <form class='socialgeo-finalize-feature'>\
-      <button type='submit'>confirm</button>\
-    <form>\
-  ";  
 
   return init;
 })();

@@ -1,3 +1,8 @@
-<div id="map">
-  
+<div id="map"></div>
+
+<% content_for :footer do %>
+<div class="alpha60 padding10 center rounded-top">
+  <button type="button" id="locate_feature"><%= t 'map_controls.locate_feature' %></button>
+  <button type="button" id="finalize_feature"><%= t 'map_controls.finalize_feature' %></button>
 </div>
+<% end %>

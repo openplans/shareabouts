@@ -1,12 +1,22 @@
+<% url_help = Calico::Application.routes.url_helpers %>
+
 var calico;
 
 $(function() {
+  var locate_feature   = $("#locate_feature"),
+      finalize_feature = $("#finalize_feature");
   
   var calicoCfg = {
     map : {
       tileUrl            : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
       tileAttribution    : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
-    }
+    },
+    callbacks : {
+      onready : function(something) {
+        locate_feature.show();
+        finalize_feature.hide();
+      }
+    },
   };
   
   var positionSuccess = function (position) {
@@ -22,7 +32,21 @@ $(function() {
   var initCalico = function (mapCenter) {
     $.extend( true, calicoCfg, { map : { center : mapCenter} } );
     
-    calico = new Calico(calicoCfg);
+    calico    = new Calico(calicoCfg);
+    var state = calico.state();
+    
+    locate_feature.click( function(event) { 
+      state.locateFeature();
+      $(this).hide();
+      finalize_feature.show();
+    });
+
+    finalize_feature.click( function(event) { 
+      state.finalizeFeature({
+        url : '<%= url_help.new_point_path %>' 
+      });
+      $(this).hide();
+    });
   };
   
   navigator.geolocation ? 

@@ -3,5 +3,7 @@ Calico::Application.routes.draw do
 
   devise_for :users
 
+  resources :points, :only => [:new, :create]
+
   root :to => 'home#index'
 end
