@@ -1,5 +1,14 @@
 class PointsController < ApplicationController
 
+  def index
+    respond_to do |format|
+      format.html
+      format.json do
+        render :json => geo_json_for( Point.all )
+      end
+    end
+  end
+  
   def new
     @point = Point.new
 

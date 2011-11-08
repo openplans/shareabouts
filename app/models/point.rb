@@ -10,4 +10,19 @@ class Point < CartoModel
       new params
     end
   end
+  
+  def as_geo_json
+    {
+      :type => "Feature", 
+      :geometry => {
+        :type => "Point", 
+        :coordinates => [lng, lat]
+      },
+      :properties => {
+        :id             => cartodb_id,
+        :name           => name,
+        :description    => description
+      }
+    }
+  end
 end

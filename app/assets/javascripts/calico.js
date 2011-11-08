@@ -14,7 +14,6 @@ var Calico = (function () {
             tileUrl            : null, 
             center             : null,
             // optional
-            dataUrl            : null,
             mapElementId       : 'map', 
             tileAttribution    : '', 
             maxZoom            : 18,
@@ -22,6 +21,7 @@ var Calico = (function () {
             markerIcon         : null, // custom icon
             newMarkerIcon      : null // custom icon for markers representing unsaved features
           },
+          dataUrl            : null,
           featurePopupTemplate : '', 
           ajaxSubmitCfg : { // ajax config for new features
             type : 'POST',

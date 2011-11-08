@@ -10,6 +10,16 @@ class CartoModel
       send("#{name}=", value)
     end
   end
+  
+  def self.all
+    results = CartoDB::Connection.query "SELECT * FROM #{table_name}"
+    results.rows.map do |row|
+      attrs = row.select do |attr|
+        attributes.include? attr
+      end
+      new attrs
+    end
+  end
    
   def self.find(id)
     new( CartoDB::Connection.row table_name, id )
@@ -30,8 +40,20 @@ class CartoModel
     end
   end
   
+  def self.attributes
+    [:cartodb_id, :the_geom, :description, :name, :created_at, :updated_at, :lat, :lng]
+  end
+  
   def persisted?
     false
+  end
+  
+  def lat
+    @lat ||= the_geom.try(:lat)
+  end
+  
+  def lng
+    @lng ||= the_geom.try(:lon)
   end
   
   private

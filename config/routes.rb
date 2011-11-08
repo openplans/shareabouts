@@ -3,7 +3,7 @@ Calico::Application.routes.draw do
 
   devise_for :users
 
-  resources :points, :only => [:new, :create]
+  resources :points, :only => [:new, :create, :index]
 
   root :to => 'points#index'
 end
