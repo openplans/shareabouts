@@ -5,5 +5,5 @@ Calico::Application.routes.draw do
 
   resources :points, :only => [:new, :create]
 
-  root :to => 'home#index'
+  root :to => 'points#index'
 end
