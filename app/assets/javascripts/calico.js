@@ -8,7 +8,7 @@ var Calico = (function () {
         fsm, // state machin
         newFeature, // marker for proposed feature
         features = {},
-        popup    = new L.Popup({ offset: new L.Point(0,0)}),
+        popup    = new L.Popup({ offset: new L.Point(0,-33)}),
         config   = { 
           map : {
             tileUrl            : null, 
@@ -215,7 +215,7 @@ var Calico = (function () {
     var openPopupFor = function(layer, content) {
       popup.setContent(content);
       popup.setLatLng(layer.getLatLng());
-      map.openPopup(popup);
+      if (!popup._opened) map.openPopup(popup);
     };
   };
 

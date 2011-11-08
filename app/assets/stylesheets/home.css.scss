@@ -5,3 +5,8 @@
 #footer > div {
   width : 300px;
 }
+
+/* Margin strangeness with popup not bound to marker */
+.leaflet-popup-tip {
+  margin: -12px 5px 0 !important;
+}
