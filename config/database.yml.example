@@ -15,9 +15,9 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: calico_development
+  database: shareabouts_development
   pool: 5
-  username: calico
+  username: shareabouts
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -41,15 +41,15 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: calico_test
+  database: shareabouts_test
   pool: 5
-  username: calico
+  username: shareabouts
   password:
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: calico_production
+  database: shareabouts_production
   pool: 5
-  username: calico
+  username: shareabouts
   password:

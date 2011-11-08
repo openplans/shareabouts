@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Calico::Application.load_tasks
+Shareabouts::Application.load_tasks

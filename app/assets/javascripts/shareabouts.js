@@ -1,7 +1,7 @@
 /*
  * requires leaflet, jquery 1.1.4, jakesgordon/javascript-state-machine, mustache, history.js
  */ 
-var Calico = (function () {
+var Shareabouts = (function () {
     
   var init = function (cfg) {
     var map, // leaflet map
@@ -134,8 +134,8 @@ var Calico = (function () {
           type : 'GET', 
           success: function(data){
             if (data.view) {
-              openPopupFor(newFeature, $("<div>").html($("<div class='calico submit'>").html(data.view)).html());
-              $("div.calico.submit form").submit(function(e){
+              openPopupFor(newFeature, $("<div>").html($("<div class='shareabouts submit'>").html(data.view)).html());
+              $("div.shareabouts.submit form").submit(function(e){
                 e.preventDefault();
                                 
                 var ajaxOptions = { 

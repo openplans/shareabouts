@@ -1,12 +1,12 @@
-<% url_help = Calico::Application.routes.url_helpers %>
+<% url_help = Shareabouts::Application.routes.url_helpers %>
 
-var calico;
+var shareabouts;
 
 $(function() {
   var locate_feature   = $("#locate_feature"),
       finalize_feature = $("#finalize_feature");
   
-  var calicoCfg = {
+  var shareaboutsCfg = {
     map : {
       tileUrl            : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
       tileAttribution    : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
@@ -22,19 +22,19 @@ $(function() {
   
   var positionSuccess = function (position) {
     var here = new L.LatLng(position.coords.latitude, position.coords.longitude);
-    initCalico(here);
+    initShareabouts(here);
   };
   
   var positionError = function (message) {
     var greenpoint = new L.LatLng(40.727857, -73.947151);
-    initCalico(greenpoint);
+    initShareabouts(greenpoint);
   };
   
-  var initCalico = function (mapCenter) {
-    $.extend( true, calicoCfg, { map : { center : mapCenter} } );
+  var initShareabouts = function (mapCenter) {
+    $.extend( true, shareaboutsCfg, { map : { center : mapCenter} } );
     
-    calico    = new Calico(calicoCfg);
-    var state = calico.state();
+    shareabouts    = new Shareabouts(shareaboutsCfg);
+    var state = shareabouts.state();
     
     locate_feature.click( function(event) { 
       state.locateFeature();
@@ -53,7 +53,7 @@ $(function() {
       var State = History.getState();
       if (State.data.featureId) {
         $.get( '<%= url_help.point_path("CHANGEME") %>'.replace(/CHANGEME/, State.data.featureId), function(data){
-          calico.viewFeature(State.data.featureId, data.view);
+          shareabouts.viewFeature(State.data.featureId, data.view);
         }, "json");
       }
     });
