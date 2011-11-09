@@ -33,27 +33,41 @@ $(function() {
   var initShareabouts = function (mapCenter) {
     $.extend( true, shareaboutsCfg, { map : { center : mapCenter} } );
     
-    shareabouts    = new Shareabouts(shareaboutsCfg);
-    var state = shareabouts.state();
-    
+    $("#map").shareabout(shareaboutsCfg);
+     
     locate_feature.click( function(event) { 
-      state.locateFeature();
+      $("#map").shareabout("locateNewFeature");
       $(this).hide();
       finalize_feature.show();
     });
-
+     
     finalize_feature.click( function(event) { 
-      state.finalizeFeature({
+      $("#map").shareabout("loadNewFeatureForm", {
         url : '<%= url_help.new_point_path %>' 
       });
+      
       $(this).hide();
     });
+    
+    $("form#new_point").live("submit", function(e){
+      e.preventDefault();
+
+      var newFeature = $("#map").shareabout("getNewFeatureMarker");
+      
+      var ajaxOptions = { 
+        data : $(this).serialize() + "&lat=" + newFeature.getLatLng().lat + "&lng=" + newFeature.getLatLng().lng, 
+        url : $(this).attr("action") 
+      };
+
+      $("#map").shareabout("submitNewFeature", ajaxOptions);
+    });
+    
     
     History.Adapter.bind(window,'statechange',function(){
       var State = History.getState();
       if (State.data.featureId) {
         $.get( '<%= url_help.point_path("CHANGEME") %>'.replace(/CHANGEME/, State.data.featureId), function(data){
-          shareabouts.viewFeature(State.data.featureId, data.view);
+          $("#map").shareabout("viewFeature", State.data.featureId, data.view);
         }, "json");
       }
     });
