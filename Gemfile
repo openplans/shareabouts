@@ -17,3 +17,7 @@ group :development, :test do
   gem "fixjour"
   gem "rspec-rails", ">= 2.2.0"
 end
+
+group :production do
+  gem 'therubyracer'
+end
