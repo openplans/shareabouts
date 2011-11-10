@@ -62,6 +62,14 @@ $(function() {
       $("#map").shareabout("submitNewFeature", ajaxOptions);
     });
     
+    $("form#new_vote").live("submit", function(e){
+      e.preventDefault();
+      var form = $(this);
+      $.post(form.attr("action"), form.serialize(), function(data){
+        form.parent(".leaflet-popup-content").html(data.view);
+      }, "json");
+    });
+    
     
     History.Adapter.bind(window,'statechange',function(){
       var State = History.getState();

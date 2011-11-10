@@ -36,4 +36,8 @@ class Point < CartoModel
       }
     }
   end
+  
+  def self.table_name
+    "shareabouts_production_points"
+  end
 end

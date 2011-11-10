@@ -6,3 +6,5 @@ en:
     locate_feature: 'Drop a pin'
     finalize_feature: 'Confirm location'
     support_feature: 'Support!'
+  labels:
+    voter_description: 'supporter'

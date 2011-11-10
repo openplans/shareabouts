@@ -43,6 +43,6 @@
   </dd>
 </dl>
 
-<%= pluralize  point.votes_count, "supporter" %>
+<span class="supporter_count"><%= pluralize  point.votes_count, t("labels.voter_description") %></span>
 
-<%= render "support", :supportable => point %>
+<%= render "points/support.html", :supportable => point %>
