@@ -1,29 +1,4 @@
-/////////////////////////////
-// bikeshare functionality //
-/////////////////////////////
-
-// parse params for permalinks (points, neighborhoods, submitters, etc)
-
-// initialize map
-  // layers
-  // initial info window (for google maps)
-  // boundaries
-
-// events
-  // submit a place process:
-    // initialize submit place [click button/drag marker onto map]
-    // finalize location to display confirm (w/ form & social info)
-    // submit location 
-    // thanks / share / confirm submitted
-  // marker click to display record info
-    // display info triggerable other ways - ticker click, permalink
-  // show / hide annotations (welcome) 
-  
-// social sign in / sign out
-  // optional to submit / vote
-
-// get data 
-// load data onto map
+We're planning development in our public tracker: https://www.pivotaltracker.com/projects/398973
 
 //////////////////////////
 // future               //
