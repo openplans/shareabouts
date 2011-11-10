@@ -1,5 +1,7 @@
 class Point < CartoModel
   
+  # has_many :votes, :as => :supportable, :dependent => :destroy
+  
   # merges top-level lat & lng into point object
   def self.new_from_params(params)
     if params[:point]
@@ -9,6 +11,15 @@ class Point < CartoModel
     else
       new params
     end
+  end
+  
+  # temporary in leiu of activerecord
+  def votes
+    Vote.where :supportable_id => id, :supportable_type => self.class.to_s
+  end
+  
+  def votes_count
+    votes.count
   end
   
   def as_geo_json

@@ -3,7 +3,7 @@ class CartoModel
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
-  attr_accessor :cartodb_id, :the_geom, :description, :name, :created_at, :updated_at, :lat, :lng
+  attr_accessor :id, :cartodb_id, :the_geom, :description, :name, :created_at, :updated_at, :lat, :lng
   
   def initialize(attributes = {})
     attributes.each do |name, value|
@@ -54,6 +54,10 @@ class CartoModel
   
   def lng
     @lng ||= the_geom.try(:lon)
+  end
+  
+  def id
+    self.cartodb_id
   end
   
   private

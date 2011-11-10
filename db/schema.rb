@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111107145232) do
+ActiveRecord::Schema.define(:version => 20111110142732) do
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
@@ -43,5 +43,15 @@ ActiveRecord::Schema.define(:version => 20111107145232) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "votes", :force => true do |t|
+    t.integer  "supportable_id"
+    t.string   "supportable_type"
+    t.string   "supporter_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["supportable_type", "supportable_id"], :name => "index_votes_on_supportable_type_and_supportable_id"
 
 end
