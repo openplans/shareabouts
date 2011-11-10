@@ -246,7 +246,7 @@ $.widget("ui.shareabout", (function() {
       /*
        * Creates a marker for the new feature using the properties in responseData.geoJSON. 
        */
-      fsm.onleaveconfirmingSubmission = function (eventName, from, to, responseData) {
+      fsm.onleavesubmittingNewFeature = function (eventName, from, to, responseData) {
         var markerOpts = { };
         if ( shareabout.options.map.markerIcon ) markerOpts.icon = new shareabout.options.map.markerIcon();
 
