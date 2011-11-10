@@ -5,3 +5,4 @@ en:
   map_controls:
     locate_feature: 'Drop a pin'
     finalize_feature: 'Confirm location'
+    support_feature: 'Support!'

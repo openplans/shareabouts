@@ -42,3 +42,7 @@
     <%= point.updated_at %>
   </dd>
 </dl>
+
+<%= pluralize  point.votes_count, "supporter" %>
+
+<%= render "support", :supportable => point %>

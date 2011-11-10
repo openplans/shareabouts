@@ -1,0 +1,4 @@
+<%= form_for Vote.new(:supportable_id => supportable.id, :supportable_type => supportable.class.to_s), :url => supportable_votes_path(supportable) do |form| %>
+  <%= form.hidden_field :supporter_ip %>
+  <%= form.submit t('map_controls.support_feature') %>
+<% end %>
