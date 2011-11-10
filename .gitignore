@@ -6,3 +6,4 @@ tmp/
 config/database.yml
 config/cartodb_config.yml
 config/deploy.rb
+.DS_Store
