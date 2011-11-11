@@ -3,7 +3,8 @@ Shareabouts is a simple web app for crowdsourced mapping. We're in very early st
 Shareabouts is intended for simple mapping applications. For example, you could use it to collect public input on suitable locations for a bike share station.
 
 The project is open source, and we welcome your involvement.
+
 * Join our developers discussion list: http://groups.google.com/group/shareabouts-dev
 * Take a look at our pipeline in the public tracker: https://www.pivotaltracker.com/projects/398973
 
-Shareabouts is a project of the [http://openplans.org/initiatives/civic-works/](Civic Works) group at [http://openplans.org](OpenPlans).
+Shareabouts is a project of the [Civic Works](http://openplans.org/initiatives/civic-works/) group at [OpenPlans](http://openplans.org).
