@@ -11,25 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111110142732) do
+ActiveRecord::Schema.define(:version => 20111114165402) do
 
-  create_table "geometry_columns", :id => false, :force => true do |t|
-    t.string  "f_table_catalog",   :limit => 256, :null => false
-    t.string  "f_table_schema",    :limit => 256, :null => false
-    t.string  "f_table_name",      :limit => 256, :null => false
-    t.string  "f_geometry_column", :limit => 256, :null => false
-    t.integer "coord_dimension",                  :null => false
-    t.integer "srid",                             :null => false
-    t.string  "type",              :limit => 30,  :null => false
-  end
-
-  create_table "points", :force => true do |t|
+  create_table "feature_points", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "the_geom",    :limit => nil
+    t.geometry "the_geom",    :limit => nil
   end
+
+  add_index "feature_points", ["the_geom"], :name => "index_feature_points_on_the_geom"
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
@@ -43,14 +35,6 @@ ActiveRecord::Schema.define(:version => 20111110142732) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
-
-  create_table "spatial_ref_sys", :id => false, :force => true do |t|
-    t.integer "srid",                      :null => false
-    t.string  "auth_name", :limit => 256
-    t.integer "auth_srid"
-    t.string  "srtext",    :limit => 2048
-    t.string  "proj4text", :limit => 2048
-  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

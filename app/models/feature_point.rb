@@ -1,6 +1,8 @@
-class Point < ActiveRecord::Base
+class FeaturePoint < ActiveRecord::Base
   
   has_many :votes, :as => :supportable, :dependent => :destroy
+  
+  validates :the_geom,  :presence => true
   
   # merges top-level lat & lng into point object
   def self.new_from_params(params)
@@ -17,12 +19,16 @@ class Point < ActiveRecord::Base
     votes.count
   end
   
-  def lat
-    @lat ||= the_geom.try(:lat)
+  def latitude
+    return the_geom.x if the_geom
+  end
+
+  def longitude
+    return the_geom.yif the_geom
   end
   
-  def lng
-    @lng ||= the_geom.try(:lon)
+  def nearest
+    self.class.where("id <> #{id}").select("*, the_geom <-> point '#{the_geom}' as distance").order("distance asc").limit(1).first
   end
   
   def as_geo_json
@@ -30,7 +36,7 @@ class Point < ActiveRecord::Base
       :type => "Feature", 
       :geometry => {
         :type => "Point", 
-        :coordinates => [lng, lat]
+        :coordinates => [longitude, latitude]
       },
       :properties => {
         :id             => id,
