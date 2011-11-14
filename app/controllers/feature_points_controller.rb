@@ -1,10 +1,10 @@
-class PointsController < ApplicationController
+class FeaturePointsController < ApplicationController
 
   def index
     respond_to do |format|
       format.html
       format.json do
-        render :json => geo_json_for( Point.all )
+        render :json => geo_json_for(FeaturePoint.all )
       end
     end
   end
@@ -18,7 +18,7 @@ class PointsController < ApplicationController
   end
   
   def create
-    @point = FeaturePoint.new_from_params params
+    @point = FeaturePoint.new params[:feature_point].merge({:the_geom => the_geom_from_params(params)})
     
     if @point.save
       respond_to do |format|
@@ -35,9 +35,15 @@ class PointsController < ApplicationController
     @point = FeaturePoint.find params[:id]
     respond_to do |format|
       format.json do
-        render :json => { :view => render_to_string(:partial => "show.html", :locals => { :point => @point }) } 
+        render :json => { :view => render_to_string(:partial => "show.html", :locals => { :feature_point => @point }) } 
       end
     end
+  end
+  
+  private
+  
+  def the_geom_from_params(p)
+    Point.from_x_y p[:longitude].to_f, p[:latitude].to_f, 4326
   end
   
 end

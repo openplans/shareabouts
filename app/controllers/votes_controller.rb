@@ -19,8 +19,8 @@ class VotesController < ApplicationController
   private
   
   def get_supportable
-    if params[:point_id]
-      @supportable = Point.find params[:point_id]
+    if params[:feature_point_id]
+      @supportable = FeaturePoint.find params[:feature_point_id]
     end
   end
   

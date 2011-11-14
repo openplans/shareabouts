@@ -1,0 +1,48 @@
+<dl>
+  <dt>
+    id: 
+  </dt>
+  <dd>
+    <%= feature_point.id %>
+  </dd>
+  <dt>
+    lat: 
+  </dt>
+  <dd>
+    <%= feature_point.latitude %>
+  </dd>
+  <dt>
+    lng: 
+  </dt>
+  <dd>
+    <%= feature_point.longitude %>
+  </dd>
+  <dt>
+    description: 
+  </dt>
+  <dd>
+    <%= feature_point.description %>
+  </dd>
+  <dt>
+    name: 
+  </dt>
+  <dd>
+    <%= feature_point.name %>
+  </dd>
+  <dt>
+    created_at: 
+  </dt>
+  <dd>
+    <%= feature_point.created_at %>
+  </dd>
+  <dt>
+    updated_at: 
+  </dt>
+  <dd>
+    <%= feature_point.updated_at %>
+  </dd>
+</dl>
+
+<span class="supporter_count"><%= pluralize  feature_point.votes_count, t("labels.voter_description") %></span>
+
+<%= render "feature_points/support.html", :supportable => feature_point %>

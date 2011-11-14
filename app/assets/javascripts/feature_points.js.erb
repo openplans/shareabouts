@@ -17,7 +17,7 @@ $(function() {
         finalize_feature.hide();
       }
     },
-    dataUrl : '<%= url_help.points_path %>'
+    dataUrl : '<%= url_help.feature_points_path %>'
   };
   
   var positionSuccess = function (position) {
@@ -43,22 +43,22 @@ $(function() {
      
     finalize_feature.click( function(event) { 
       $("#map").shareabout("loadNewFeatureForm", {
-        url : '<%= url_help.new_point_path %>' 
+        url : '<%= url_help.new_feature_point_path %>' 
       });
       
       $(this).hide();
     });
     
-    $("form#new_point").live("submit", function(e){
+    $("form#new_feature_point").live("submit", function(e){
       e.preventDefault();
 
       var newFeature = $("#map").shareabout("getNewFeatureMarker");
       
       var ajaxOptions = { 
-        data : $(this).serialize() + "&lat=" + newFeature.getLatLng().lat + "&lng=" + newFeature.getLatLng().lng, 
+        data : $(this).serialize() + "&latitude=" + newFeature.getLatLng().lat + "&longitude=" + newFeature.getLatLng().lng, 
         url : $(this).attr("action") 
       };
-
+      
       $("#map").shareabout("submitNewFeature", ajaxOptions);
     });
     
@@ -74,7 +74,7 @@ $(function() {
     History.Adapter.bind(window,'statechange',function(){
       var State = History.getState();
       if (State.data.featureId) {
-        $.get( '<%= url_help.point_path("CHANGEME") %>'.replace(/CHANGEME/, State.data.featureId), function(data){
+        $.get( '<%= url_help.feature_point_path("CHANGEME") %>'.replace(/CHANGEME/, State.data.featureId), function(data){
           $("#map").shareabout("viewFeature", State.data.featureId, data.view);
         }, "json");
       }
