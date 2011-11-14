@@ -38,6 +38,18 @@ describe FeaturePoint do
         point.votes.should include(vote)
       end
     end
+    
+    context "comments" do
+      attr_accessor :comment
+      
+      before do
+        @comment = create_vote :commentable => point
+      end
+      
+      it "has_many" do
+        point.comments.should include(comment)
+      end
+    end
   end
   
   # instance methods

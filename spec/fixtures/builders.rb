@@ -17,6 +17,15 @@ Fixjour :verify => false do
       :supportable => new_feature_point
     })
   end
+  
+  define_builder(Comment) do |klass, overrides|
+    klass.new({
+      :commentable => new_feature_point,
+      :comment => Faker::Lorem.sentences
+    })
+  end
+  
+  
 end
 
 # Fixjour.verify!

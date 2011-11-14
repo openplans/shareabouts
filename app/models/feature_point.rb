@@ -1,6 +1,7 @@
 class FeaturePoint < ActiveRecord::Base
   
   has_many :votes, :as => :supportable, :dependent => :destroy
+  has_many :comments, :as => :commentable, :dependent => :destroy
   
   validates :the_geom,  :presence => true
 

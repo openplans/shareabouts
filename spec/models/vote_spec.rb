@@ -26,15 +26,15 @@ describe Vote do
       @vote = create_feature_point
     end
     
-    context "votes" do
+    context "supportable" do
       attr_accessor :point
       
       before do
         @point = create_vote :supportable => vote
       end
       
-      it "has_many" do
-        vote.votes.should include(point)
+      it "belongs_to" do
+        vote.supportable.should == point
       end
     end
   end
