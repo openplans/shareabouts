@@ -1,14 +1,11 @@
 <%= form_for @point do |form| %>
-
   <%= form.label :name %>
-  <%= form.text_field :name %> 
-  
+  <%= form.text_field :name %>
   <br>
-  
-  <%= form.label :description %>
-  <%= form.text_area :description %>
-  
-  <br>
-  
-  <%= form.submit %>
+  <%= form.fields_for :comments, @point.comments.build do |comments_fields| %>
+    <%= comments_fields.label :comment %>
+    <%= comments_fields.text_area :comment %>
+    <br>
+  <% end %>
+  <%= form.submit %>  
 <% end %>

@@ -6,6 +6,12 @@
     <%= feature_point.id %>
   </dd>
   <dt>
+    name: 
+  </dt>
+  <dd>
+    <%= feature_point.name %>
+  </dd>
+  <dt>
     lat: 
   </dt>
   <dd>
@@ -20,20 +26,11 @@
   <dt>
     description: 
   </dt>
-  <dd>
-    <%= feature_point.description %>
-  </dd>
   <dt>
-    name: 
+    suggested: 
   </dt>
   <dd>
-    <%= feature_point.name %>
-  </dd>
-  <dt>
-    created_at: 
-  </dt>
-  <dd>
-    <%= feature_point.created_at %>
+    <%= time_ago_in_words feature_point.created_at %> ago
   </dd>
   <dt>
     updated_at: 
@@ -42,6 +39,15 @@
     <%= feature_point.updated_at %>
   </dd>
 </dl>
+
+<% if feature_point.comments.present? %>
+  <h3>Comments</h3>
+  <ul>
+    <% for comment in feature_point.comments %>
+      <li><%= time_ago_in_words comment.created_at %> ago: <%= comment.comment %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <span class="supporter_count"><%= pluralize  feature_point.votes_count, t("labels.voter_description") %></span>
 
