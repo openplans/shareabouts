@@ -1,6 +1,6 @@
-class Point < CartoModel
+class Point < ActiveRecord::Base
   
-  # has_many :votes, :as => :supportable, :dependent => :destroy
+  has_many :votes, :as => :supportable, :dependent => :destroy
   
   # merges top-level lat & lng into point object
   def self.new_from_params(params)
@@ -12,14 +12,17 @@ class Point < CartoModel
       new params
     end
   end
-  
-  # temporary in leiu of activerecord
-  def votes
-    Vote.where :supportable_id => id, :supportable_type => self.class.to_s
-  end
-  
+
   def votes_count
     votes.count
+  end
+  
+  def lat
+    @lat ||= the_geom.try(:lat)
+  end
+  
+  def lng
+    @lng ||= the_geom.try(:lon)
   end
   
   def as_geo_json
@@ -30,14 +33,18 @@ class Point < CartoModel
         :coordinates => [lng, lat]
       },
       :properties => {
-        :id             => cartodb_id,
+        :id             => id,
         :name           => name,
         :description    => description
       }
     }
   end
   
-  def self.table_name
-    "shareabouts_production_points"
+  private
+
+  def the_geom_to_s
+    raise "set lat and lng first" unless lat.present? && lng.present?
+    "SRID=4326;POINT(#{lng} #{lat})"
   end
+  
 end

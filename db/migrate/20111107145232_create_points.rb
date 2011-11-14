@@ -1,12 +1,13 @@
-# requires cartodb
-
 class CreatePoints < ActiveRecord::Migration
   
-  def up
-    CartoDB::Connection.create_table Point.table_name, [{}], 'POINT'
-  end
-  
-  def down
-    CartoDB::Connection.drop_table Point.table_name
+  def change
+    create_table :points do |t|
+      t.string :name
+      t.text   :description
+      t.timestamps
+    end
+    
+    add_column :points, :the_geom, :point, :srid => 4326    
+    # add_index  :points, :the_geom, :spatial => true
   end
 end

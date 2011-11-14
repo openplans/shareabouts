@@ -1,5 +1,0 @@
-host: 'https://{YOUR_USER_NAME}.cartodb.com'
-oauth_key: 'YOUR_OAUTH_KEY'
-oauth_secret: 'YOUR_OAUTH_SECRET'
-username: 'YOUR_USER_NAME'
-password: 'YOUR_USER_PASSWORD'
