@@ -130,7 +130,7 @@ $.widget("ui.shareabout", (function() {
     _markerClick : function(click) {
       // Change history state on feature click
       var fId = this._id;
-      History.pushState( { featureId : fId }, "Feature " + fId, "?feature=" + fId);   
+      History.replaceState( { featureId : fId }, "Feature " + fId, "?feature=" + fId + "&t=" + (new Date()).getTime());   
     },
   
     /*
