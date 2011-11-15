@@ -31,15 +31,10 @@
   </dd>
 </dl>
 
-<% if feature_point.comments.present? %>
-  <h3>Comments</h3>
-  <ul>
-    <% for comment in feature_point.comments %>
-      <li><%= time_ago_in_words comment.created_at %> ago: <%= comment.comment %></li>
-    <% end %>
-  </ul>
-<% end %>
+<div class="support">
+  <%= render "shared/support.html", :supportable => feature_point %>  
+</div>
 
-<span class="supporter_count"><%= pluralize  feature_point.votes_count, t("labels.voter_description") %></span>
-
-<%= render "feature_points/support.html", :supportable => feature_point %>
+<div class="discussion">
+  <%= render "shared/discussion.html", :commentable => feature_point %>
+</div>

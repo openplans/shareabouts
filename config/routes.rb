@@ -4,7 +4,8 @@ Shareabouts::Application.routes.draw do
   devise_for :users
 
   resources :feature_points, :only => [:new, :create, :index, :show] do
-    resources :votes, :only => [:new, :create]
+    resources :votes, :only => [:create]
+    resources :comments, :only => [:create]
   end
 
   root :to => 'feature_points#index'

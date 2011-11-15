@@ -1,0 +1,16 @@
+<h3>Comments</h3>
+<% if commentable.comments.present? %>
+  <ul>
+    <% for comment in commentable.comments %>
+      <li>
+        <strong>
+          <%= time_ago_in_words comment.created_at %> ago:
+        </strong> 
+        <%= comment.comment %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h3>Add a Comment</h3>
+<%= render "comments/new", :commentable => commentable %>
