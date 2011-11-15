@@ -38,10 +38,14 @@ $.widget("ui.shareabout", (function() {
       map.addLayer(new L.TileLayer( this.options.map.tileUrl, {
         maxZoom: this.options.map.maxZoom, attribution: this.options.map.tileAttribution
       }));
-
-      map.on('layerremove', function(e){
-        // When the popup is removed (closed), reset the map state
-        if (e.layer == popup && fsm.can("reset")) fsm.reset();
+      
+      map.on('layerremove', function(e){        
+        if (e.layer == popup){
+          if (fsm.can("ready"))
+            fsm.ready();
+          else if (fsm.can("cancel"))
+            fsm.cancel();
+        }         
       });
     
       this._init_states();
@@ -156,10 +160,9 @@ $.widget("ui.shareabout", (function() {
           { name: 'submitNewFeature', from: ['finalizingNewFeature', 'locatingNewFeature'], to: 'submittingNewFeature'},
 
           // Ways to get back to ready
-          { name: 'ready', from : ['loadingFeatures', 'submittingNewFeature'], to: 'ready'},
+          { name: 'ready', from : ['ready', 'loadingFeatures', 'submittingNewFeature'], to: 'ready'},
           { name: 'cancel', from: ['locatingNewFeature', 'finalizingNewFeature'], to: 'ready'}
-        ], 
-        callbacks : shareabout.options.callbacks
+        ]
       });
     
       fsm.onchangestate = function(eventName, from, to) { 
@@ -265,9 +268,19 @@ $.widget("ui.shareabout", (function() {
       /*
        * Removes all the layers related to feature submission. 
        */
-      fsm.onreset = function (eventName, from, to) {
+      fsm.oncancel = function (eventName, from, to) {
         newFeature.closePopup();
         map.removeLayer(newFeature);
+      };
+      
+      /*
+       * Closes the popup. 
+       */
+      fsm.onready = function (eventName, from, to) {
+        if (popup._opened) map.removeLayer(popup);
+        
+        if (shareabout.options.callbacks.onready) 
+          shareabout.options.callbacks.onready();
       };
 
       // Load initial data
