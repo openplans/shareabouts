@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111114222156) do
+ActiveRecord::Schema.define(:version => 20111115170007) do
 
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(:version => 20111114222156) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "regions", :force => true do |t|
+    t.string   "name"
+    t.string   "kind"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.polygon  "the_geom",    :limit => nil, :srid => 4326
+  end
+
+  add_index "regions", ["the_geom"], :name => "index_regions_on_the_geom", :spatial => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

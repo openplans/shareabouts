@@ -25,7 +25,15 @@ Fixjour :verify => false do
     })
   end
   
-  
+  define_builder(Region) do |klass, overrides|
+    polygon = [[ Point.from_x_y( -74, 40, 4326 ), Point.from_x_y( -75, 41, 4326 ), Point.from_x_y( -75, 40, 4326 ) ]]
+    
+    klass.new({
+      :the_geom => polygon, 
+      :name     => Faker::Lorem.words,
+      :kind     => Faker::Lorem.words(1)
+    })
+  end
 end
 
 # Fixjour.verify!
