@@ -12,6 +12,12 @@
     <%= feature_point.name %>
   </dd>
   <dt>
+    regions:
+  </dt>
+  <dd>
+    <%= feature_point.regions.map(&:display_name).join(", ") %>
+  </dd>
+  <dt>
     lat: 
   </dt>
   <dd>
