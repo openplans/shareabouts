@@ -1,0 +1,20 @@
+<h2>Regions</h2>
+
+<table>
+  <tr>
+    <th>id</th>
+    <th>kind</th>
+    <th>name</th>
+    <th>description</th>
+    <th>created</th>
+  </tr>
+<% for region in @regions %>
+  <tr>
+    <th><%= region.id %></th>
+    <th><%= region.kind %></th>
+    <th><%= region.name %></th>
+    <th><%= region.description %></th>
+    <th><%= time_ago_in_words region.created_at %> ago</th>
+  </tr>
+<% end %>
+</table>

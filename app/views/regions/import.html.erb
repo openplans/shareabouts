@@ -1,0 +1,24 @@
+<%= form_tag upload_regions_path, :multipart => true do %>
+  <%= label_tag "shp" %> 
+  <%= file_field_tag "file[shp]" %>
+  <br>
+  <%= label_tag "dbf" %> 
+  <%= file_field_tag "file[dbf]" %>
+  <br>
+  <%= label_tag "shx" %> 
+  <%= file_field_tag "file[shx]" %>
+  <br>
+  <%= label_tag "prj (optional)" %> 
+  <%= file_field_tag "file[prj]" %>
+  <br>
+  <%= label_tag "region type" %> 
+  <%= text_field_tag "region[kind]" %>
+  <br>  
+  <%= label_tag "name field name" %> 
+  <%= text_field_tag "field_names[name]" %>
+  <br>
+  <%= label_tag "description field name (optional)" %> 
+  <%= text_field_tag "field_names[description]" %>
+  <br>
+  <%= submit_tag "upload" %>
+<% end %>

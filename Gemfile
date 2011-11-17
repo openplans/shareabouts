@@ -5,8 +5,11 @@ gem 'rails', '3.1.1'
 gem 'devise'
 gem 'jquery-rails'
 gem 'pg'
-gem 'GeoRuby'
+
+gem 'dbf'
+gem 'georuby', :git => 'git://github.com/nofxx/georuby.git'
 gem 'spatial_adapter', :git => 'git://github.com/Empact/spatial_adapter.git'
+
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
 group :assets do
