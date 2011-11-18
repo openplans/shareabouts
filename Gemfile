@@ -5,6 +5,7 @@ gem 'rails', '3.1.1'
 gem 'devise'
 gem 'jquery-rails'
 gem 'pg'
+gem 'delayed_job'
 
 gem 'dbf'
 gem 'georuby', :git => 'git://github.com/nofxx/georuby.git'
