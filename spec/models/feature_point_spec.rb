@@ -75,5 +75,26 @@ describe FeaturePoint do
         @point.y.should be
       end
     end
+    
+    context "that falls within a region" do
+      attr_accessor :region, :feature_point
+      
+      before do
+        pending "spatial_adapter not working in specs"
+        
+        @region = create_region
+      end
+      
+      context "after create" do
+        
+        before do
+          @feature_point.create_feature_point
+        end
+        
+        it "is associated with that region" do
+          @feature_point.regions.should include(region)
+        end
+      end
+    end
   end
 end

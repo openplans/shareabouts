@@ -34,6 +34,14 @@ Fixjour :verify => false do
       :kind     => Faker::Lorem.words(1)
     })
   end
+  
+  define_builder(FeatureRegion) do |klass, overrides|
+    
+    klass.new({
+      :feature => new_feature_point, 
+      :region  => new_region
+    })
+  end
 end
 
 # Fixjour.verify!
