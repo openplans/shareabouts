@@ -8,13 +8,13 @@ class RegionsController < ApplicationController
   def upload
     regions_count = 0
     
-    file_handler = ShapefileHandler.open params[:file], request.session_options[:id] do |handler|
-      regions_count = handler.create_regions params[:region], params[:field_names]
-    end
+    file_handler = ShapefileHandler.new params[:file], request.session_options[:id], params[:region], params[:field_names]
+    
+    Delayed::Job.enqueue file_handler
     
     respond_to do |format|
       format.html {
-        redirect_to regions_path, :notice => "#{regions_count} regions created."
+        redirect_to regions_path, :notice => "Importing regions."
       }
     end
   end

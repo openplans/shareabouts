@@ -5,8 +5,10 @@ class ShapefileHandler
   
   TempDir = "#{Rails.root.to_s}/tmp"
     
-  def initialize(files, directory_prefix)
-    @directory = "#{TempDir}/#{directory_prefix}#{Time.now.to_i}"
+  def initialize(files, directory_prefix, region_params, field_names)
+    @directory   = "#{TempDir}/#{directory_prefix}#{Time.now.to_i}"
+    @regions     = region_params
+    @field_names = field_names
     
     FileUtils.mkdir_p @directory
 
@@ -18,24 +20,21 @@ class ShapefileHandler
       
       instance_variable_set "@#{type}_file".to_sym, path
     end
+  end
+  
+  def perform
+    puts "INFO importing regions from #{@shp_file}"
     
     if @prj_file.present?
       Rails.logger.debug "=====RUNNING ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{File.join(@directory, files[:shp].original_filename)}====="
       Rails.logger.debug `ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{File.join(@directory, files[:shp].original_filename)} 2>&1` 
-      @shp_filename = File.join(@directory, "out_4326.shp")
+      @shp_file = File.join(@directory, "out_4326.shp")
     end
-
-  end
-  
-  def self.open(files, directory_prefix)
-    sfh = ShapefileHandler.new files, directory_prefix
-    return sfh unless block_given?
-
-    yield sfh
-    sfh.close
-  end
-  
-  def close
+    
+    regions_count = handler.create_regions @regions, @field_names
+    
+    puts "INFO imported #{regions_count} regions."
+    
     FileUtils.rm_rf @directory
   end
   
@@ -43,7 +42,7 @@ class ShapefileHandler
     file_fields_to_attrs = field_names.inject({}) { |m, (k, v)| m[v] = k if v.present?; m }
     
     count = 0
-    ShpFile.open(@shp_filename) do |shp|
+    ShpFile.open(@shp_file) do |shp|
       my_attrs = region_attrs
       
       shp.each do |shape|
