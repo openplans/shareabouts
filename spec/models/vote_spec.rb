@@ -26,11 +26,25 @@ describe Vote do
       @vote = create_feature_point
     end
     
+    context "user" do
+      attr_accessor :user
+      
+      before do
+        @user = create_user
+        vote.update_attribute :user_id, user.id
+      end
+      
+      it "belongs_to" do
+        vote.user.should == user
+      end
+    end
+    
     context "supportable" do
       attr_accessor :point
       
       before do
-        @point = create_vote :supportable => vote
+        @point = create_point
+        vote.update_attributes :supportable_id => point.id, :supportable_type => "FeaturePoint"
       end
       
       it "belongs_to" do

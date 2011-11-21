@@ -1,8 +1,9 @@
 module ApplicationHelper
 
   def supported?(supportable)
-    # if supported cookie contains this supportable type and id
-    false
+    if current_user
+      current_user.votes.where(:supportable_type => supportable.class.to_s, :supportable_id => supportable.id).count > 0
+    end
   end
   
   def supportable_votes_path(supportable)

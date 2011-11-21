@@ -2,9 +2,10 @@
   <%= pluralize  supportable.votes_count, t("labels.voter_description") %>
 </span>
 
+<br>
+
 <% if supported? supportable %>
-  <button type="button">unsupport</button> 
-  <!-- todo form to destroy -->
+  you supported this location!   
 <% else %>
   <%= render "votes/new", :supportable => supportable %>
 <% end %>

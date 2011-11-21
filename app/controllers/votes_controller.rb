@@ -3,8 +3,7 @@ class VotesController < ApplicationController
   before_filter :get_supportable, :only => :create
   
   def create
-    # explicit supportable stuff due to lack of AR
-    @vote = Vote.create params[:vote].merge( {:supportable_id => @supportable.id, :supportable_type => supportable_class } )
+    @vote = @supportable.votes.create :user => current_user
     
     respond_to do |format|
       format.json { 

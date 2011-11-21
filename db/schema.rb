@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111121201429) do
+ActiveRecord::Schema.define(:version => 20111121204456) do
 
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20111121201429) do
     t.string   "supporter_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "votes", ["supportable_type", "supportable_id"], :name => "index_votes_on_supportable_type_and_supportable_id"
