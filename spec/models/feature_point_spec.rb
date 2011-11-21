@@ -27,6 +27,19 @@ describe FeaturePoint do
       @point = create_feature_point
     end
     
+    context "user" do
+      attr_accessor :user
+      
+      before do
+        @user = create_user
+        @point.update_attibute :user_id, user.id
+      end
+      
+      it "belongs_to" do
+        point.user.should == user
+      end
+    end
+    
     context "votes" do
       attr_accessor :vote
       

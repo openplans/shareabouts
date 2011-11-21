@@ -5,6 +5,8 @@ class FeaturePoint < ActiveRecord::Base
   has_many :feature_regions, :as => :feature, :dependent => :destroy
   has_many :regions, :through => :feature_regions
   
+  belongs_to :user
+  
   validates :the_geom,  :presence => true
   
   after_create :add_to_regions

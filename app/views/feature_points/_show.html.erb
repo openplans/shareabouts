@@ -18,16 +18,10 @@
     <%= feature_point.regions.map(&:display_name).join(", ") %>
   </dd>
   <dt>
-    lat: 
+    submitter:
   </dt>
   <dd>
-    <%= feature_point.latitude %>
-  </dd>
-  <dt>
-    lng: 
-  </dt>
-  <dd>
-    <%= feature_point.longitude %>
+    <%= feature_point.user.try :email %>
   </dd>
   <dt>
     suggested: 

@@ -20,6 +20,9 @@
     <div id="header">
       <% if current_user %>
         <%= link_to "Sign out", destroy_user_session_path %>
+        <span id="user-status">
+          You've suggested <%= pluralize current_user.feature_points.count, "location" %> (<%= current_user.feature_points.map(&:id).join(", ") %>).
+        </span>
       <% else %>
         <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
       <% end %>

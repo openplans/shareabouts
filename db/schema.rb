@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111121193615) do
+ActiveRecord::Schema.define(:version => 20111121201429) do
 
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20111121193615) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.geometry "the_geom",    :limit => nil
+    t.integer  "user_id"
   end
 
   add_index "feature_points", ["the_geom"], :name => "index_feature_points_on_the_geom"

@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
+  has_many :feature_points
+  
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info']
     # data: <Hashie::Mash email="juliamae@gmail.com" first_name="Julia" gender="female" id="24403229" last_name="West" link="http://www.facebook.com/juliamae" locale="en_GB" name="Julia West" timezone=-5 updated_time="2011-10-19T21:14:59+0000" username="juliamae" verified=true>

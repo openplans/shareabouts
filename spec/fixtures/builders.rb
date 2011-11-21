@@ -42,6 +42,12 @@ Fixjour :verify => false do
       :region  => new_region
     })
   end
+  
+  define_builder(User) do |klass, overrides|
+    klass.new({
+      :email => Faker::Internet.email
+    })
+  end
 end
 
 # Fixjour.verify!
