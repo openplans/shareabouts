@@ -18,7 +18,11 @@
     </div>
 
     <div id="header">
-      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+      <% if current_user %>
+        <%= link_to "Sign out", destroy_user_session_path %>
+      <% else %>
+        <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+      <% end %>
     </div>
     <div id="footer">
       <%= yield :footer %>        
