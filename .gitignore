@@ -5,4 +5,5 @@ tmp/
 .sass-cache/
 config/database.yml
 config/deploy.rb
+config/initializers/devise.rb
 .DS_Store

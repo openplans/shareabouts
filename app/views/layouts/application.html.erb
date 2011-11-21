@@ -17,7 +17,9 @@
       <%= yield %>  
     </div>
 
-    <div id="header"></div>
+    <div id="header">
+      <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+    </div>
     <div id="footer">
       <%= yield :footer %>        
     </div>
