@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111121212342) do
+ActiveRecord::Schema.define(:version => 20111122161824) do
 
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id"
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(:version => 20111121212342) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "facebook_id"
+    t.integer  "facebook_id",            :limit => 8
     t.string   "name"
   end
 
