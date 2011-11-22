@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+<!--[if lt IE 7 ]> <html dir="ltr" lang="en-US" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html dir="ltr" lang="en-US" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html dir="ltr" lang="en-US" class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html dir="ltr" lang="en-US" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html dir="ltr" lang="en-US"> <!--<![endif]-->
+
 <head>
   <title>Shareabouts</title>
   
@@ -10,28 +16,37 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 </head>
 <body>
   <div id="wrapper">
+    <header id="header" role="banner">
+      <hgroup>
+        <h1 id="site-title"><span>Shareabouts</span></h1>
+      </hgroup>
+      <nav id="access" role="navigation">
+        <% if current_user %>
+          <%= link_to "Sign out", destroy_user_session_path %>
+          <span class="meta-separator">|</span>
+          <span id="user-status">
+            You've suggested 
+            <%= pluralize current_user.feature_points.count, "location" %> 
+            (<%= current_user.feature_points.map(&:id).join(", ") %>) 
+            and supported
+            <%= pluralize current_user.votes.count, "location" %>.
+            <br>
+            Your friends: <%= list_friends %>
+          </span>
+        <% else %>
+          <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+        <% end %>
+      </nav>
+    </header>
     <div id="content">
       <%= yield %>  
-    </div>
-
-    <div id="header">
-      <% if current_user %>
-        <%= link_to "Sign out", destroy_user_session_path %>
-        <span id="user-status">
-          You've suggested 
-          <%= pluralize current_user.feature_points.count, "location" %> 
-          (<%= current_user.feature_points.map(&:id).join(", ") %>) 
-          and supported
-          <%= pluralize current_user.votes.count, "location" %>.
-          <br>
-          Your friends: <%= list_friends %>
-        </span>
-      <% else %>
-        <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-      <% end %>
     </div>
     <div id="footer">
       <%= yield :footer %>        
