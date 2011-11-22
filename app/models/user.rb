@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
+  
   has_many :feature_points
   has_many :votes
   
@@ -20,6 +21,7 @@ class User < ActiveRecord::Base
     else # Create a user with a stub password. 
       user = User.create!(:email => data["email"]) 
       user.facebook_id        = data["id"]
+      user.name               = data["name"]
       user.encrypted_password = Devise.friendly_token[0,20]
       user.save
       user
@@ -32,6 +34,10 @@ class User < ActiveRecord::Base
         user.email = data["email"]
       end
     end
+  end
+  
+  def name
+    read_attribute(:name) || email
   end
   
 end

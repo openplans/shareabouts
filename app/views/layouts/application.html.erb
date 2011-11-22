@@ -26,6 +26,8 @@
           (<%= current_user.feature_points.map(&:id).join(", ") %>) 
           and supported
           <%= pluralize current_user.votes.count, "location" %>.
+          <br>
+          Your friends: <%= list_friends %>
         </span>
       <% else %>
         <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>

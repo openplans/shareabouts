@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111121204456) do
+ActiveRecord::Schema.define(:version => 20111121212342) do
 
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20111121204456) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "facebook_id"
+    t.string   "name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

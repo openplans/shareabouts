@@ -13,4 +13,21 @@ module ApplicationHelper
   def commentable_comments_path(commentable)
     send "#{commentable.class.to_s.underscore}_comments_path", commentable.id
   end
+  
+  def list_friends   
+    # facebook friends are grabbed every new session
+    session[:fb_friends] ||= user_friends_hash session[:fb_token] 
+    session[:fb_friends].map {|id,name| name}.join ", "
+  end
+  
+  private
+  
+  def user_friends_hash(access_token)
+    friends_graph = FGraph.me('friends', :access_token => access_token)
+        
+    User.where("facebook_id in (#{friends_graph.map { |h| h["id"] }.join(",")})").inject({}) do |memo, user|
+      memo[user.id] = user.name
+      memo
+    end
+  end
 end
