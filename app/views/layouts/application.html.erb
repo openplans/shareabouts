@@ -8,11 +8,19 @@
 
 <head>
   <title>Shareabouts</title>
-  
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <link rel="shortcut icon" href="favicon.ico">
+	<link rel="apple-touch-icon" href=""><!--60X60-->
+
   <%= stylesheet_link_tag "/leaflet/leaflet.css" %>
   <!--[if lte IE 8]><%= stylesheet_link_tag "/leaflet/leaflet.ie.css" %><![endif]-->
 	<%= javascript_include_tag "/leaflet/leaflet.js" %>
-  
+
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -30,14 +38,14 @@
       <nav id="access" role="navigation">
         <% if current_user %>
           <%= link_to "Sign out", destroy_user_session_path %>
-          <span class="meta-separator">|</span>
+          <br />
           <span id="user-status">
             You've suggested 
             <%= pluralize current_user.feature_points.count, "location" %> 
             (<%= current_user.feature_points.map(&:id).join(", ") %>) 
             and supported
             <%= pluralize current_user.votes.count, "location" %>.
-            <br>
+            <br />
             Your friends: <%= list_friends %>
           </span>
         <% else %>

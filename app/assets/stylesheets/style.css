@@ -120,15 +120,18 @@ html, body {
 }
 #header {
   color: #fff;
+  background-color: rgba(85, 85, 85, 0.5);
+  height: 5em;
+  padding: 0 1em;
   position: absolute;
-  top: 0;
-  right: 1em;
-  left: 1em;
+  top: 4px;
+  right: 0;
+  left: 0;
   z-index: 300;
 }
 #content {
   position: absolute;
-  top: 6em;
+  top: 5em;
   right: 0;
   left: 0;
   bottom: 0;
@@ -152,15 +155,16 @@ html, body {
  */
 #site-title {
   color: #f7f7f7;
-  font-size: 54px;
+  font-size: 3.375em;
   line-height: 1.5;
   float: left;
   text-shadow: 1px -1px 0 #000;
 }
 #access {
-  float: right;
-  margin-top: 2.8em;
-  font-size: 16px;
+  text-align: right;
+  bottom: 1em;
+  position: absolute;
+  right: 1em;
 }
 #access a {
   text-decoration: none;
@@ -182,12 +186,12 @@ button {
   padding: 0 1em;
   color: #f7f7f7;
   font-weight: bold;
-  font-size: 36px;
+  font-size: 2.25em;
   line-height: 2.5;
   text-shadow: 1px -1px 0 #0066aa;
-     -moz-box-shadow: -4px 4px 0 #0066aa;
-  -webkit-box-shadow: -4px 4px 0 #0066aa;
-          box-shadow: -4px 4px 0 #0066aa;
+     -moz-box-shadow: -4px 4px 0 rgba(0, 102, 170, 0.75);
+  -webkit-box-shadow: -4px 4px 0 rgba(0, 102, 170, 0.75);
+          box-shadow: -4px 4px 0 rgba(0, 102, 170, 0.75);
 }
 button:hover {
   color: #fff; 
@@ -201,8 +205,122 @@ button:active {
           box-shadow: 1px -1px 0 #0066aa;
 }
 
+/* leaflet */
+.leaflet-control-zoom {
+  background-color: transparent;
+}
+.leaflet-control-zoom a {
+  height: 27px;
+  width: 27px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 0;
+     -moz-box-shadow: -2px 2px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -2px 2px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -2px 2px 0 rgba(85, 85, 85, 0.5);
+}
+.leaflet-control-zoom a:active {
+  position: relative;
+  top: 1px;
+  right: 1px;
+     -moz-box-shadow: -1px 1px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -1px 1px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -1px 1px 0 rgba(85, 85, 85, 0.5);
+}
+.leaflet-control-zoom-in {
+  background-image: url(zoom-in.gif);
+}
+.leaflet-control-zoom-out {
+  background-image: url(zoom-out.gif);
+}
+  
 /*
  *
  * Content & General Styles
  *
  */
+
+/*
+ *
+ * Media Queries for Layout & Style Overrides
+ *
+ */
+
+/* smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+  #wrapper { font-size: 10px; }
+  #header {
+    height: 4em;
+  }
+  #content {
+    top: 4em;
+  }
+  #site-title {
+    font-size: 2.25em;
+  }
+  #access {
+    margin-top: 1.5em;
+  }
+  #footer {
+    bottom: 4.5em;
+    right: 0;
+    left: 0;
+    text-align: center;
+    z-index: 200;
+  }
+}
+
+/* smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+}
+
+/* smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+}
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+}
+
+/* desktops and laptops ----------- */
+@media only screen
+and (min-width : 640px) {
+  #wrapper { font-size: 14px; }
+}
+
+/* large screens ----------- */
+@media only screen
+and (min-width : 1025px) {
+  #wrapper { font-size: 16px; }
+}
+
+/* extra-large screens ----------- */
+@media only screen
+and (min-width : 1824px) {
+  #wrapper { font-size: 18px; }
+}
+
+/* iPhone 4 ----------- */
+@media
+only screen and (-webkit-min-device-pixel-ratio : 1.5),
+only screen and (min-device-pixel-ratio : 1.5) {
+}
