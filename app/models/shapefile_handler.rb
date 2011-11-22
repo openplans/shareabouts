@@ -26,8 +26,8 @@ class ShapefileHandler
     puts "INFO importing regions from #{@shp_file}"
     
     if @prj_file.present?
-      Rails.logger.debug "=====RUNNING ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{File.join(@directory, files[:shp].original_filename)}====="
-      Rails.logger.debug `ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{File.join(@directory, files[:shp].original_filename)} 2>&1` 
+      Rails.logger.debug "=====RUNNING ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{File.join(@directory, @shp_file}====="
+      Rails.logger.debug `ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{File.join(@directory, @shp_file)} 2>&1` 
       @shp_file = File.join(@directory, "out_4326.shp")
     end
     
