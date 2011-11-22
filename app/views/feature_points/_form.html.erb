@@ -1,3 +1,11 @@
+<% if @point.errors.present? %>
+  <ul>
+    <% @point.errors.each do | field, message | %>
+      <li><%= "#{"#{field} " unless field == :base }#{message}" %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_for @point do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>

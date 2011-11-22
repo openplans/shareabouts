@@ -158,6 +158,8 @@ $.widget("ui.shareabout", (function() {
           { name: 'finalizeNewFeature', from: 'loadingNewFeatureForm', to: 'finalizingNewFeature'},
           // UI triggered. pass geoJSON representation to transition and callback on success
           { name: 'submitNewFeature', from: ['finalizingNewFeature', 'locatingNewFeature'], to: 'submittingNewFeature'},
+          // called internally after response from submit, if data status is error
+          { name: 'errorNewFeature', from: 'submittingNewFeature', to: 'finalizingNewFeature'},
 
           // Ways to get back to ready
           { name: 'ready', from : ['ready', 'loadingFeatures', 'submittingNewFeature'], to: 'ready'},
@@ -239,7 +241,10 @@ $.widget("ui.shareabout", (function() {
          var ajaxCfg = {
            type : 'POST',
            success : function(data) {
-             fsm.ready(data);
+             if (data.status && data.status == "error")
+               fsm.errorNewFeature(data);
+             else
+               fsm.ready(data);
            }
          };
          if ( typeof ajaxOptions == "object" ) $.extend(true, ajaxCfg, ajaxOptions);
@@ -250,19 +255,23 @@ $.widget("ui.shareabout", (function() {
        * Creates a marker for the new feature using the properties in responseData.geoJSON. 
        */
       fsm.onleavesubmittingNewFeature = function (eventName, from, to, responseData) {
-        var markerOpts = { };
-        if ( shareabout.options.map.markerIcon ) markerOpts.icon = new shareabout.options.map.markerIcon();
+        if (to == "ready") {
+          var markerOpts = { };
+          if ( shareabout.options.map.markerIcon ) markerOpts.icon = new shareabout.options.map.markerIcon();
 
-        var marker = new L.Marker(newFeature.getLatLng(), markerOpts);
+          var marker = new L.Marker(newFeature.getLatLng(), markerOpts);
 
-        shareabout._setupMarker(marker, responseData.geoJSON.properties);
+          shareabout._setupMarker(marker, responseData.geoJSON.properties);
 
-        map.removeLayer(newFeature);
-        map.addLayer(marker);
+          map.removeLayer(newFeature);
+          map.addLayer(marker);
 
-        // Update history state 
-        var fId = responseData.geoJSON.properties.id;
-        History.pushState( { featureId : fId }, "Feature " + fId, "?feature=" + fId);   
+          // Update history state 
+          var fId = responseData.geoJSON.properties.id;
+          History.pushState( { featureId : fId }, "Feature " + fId, "?feature=" + fId);
+        } else if (to == "finalizingNewFeature") {
+          $(".leaflet-popup-content").html(responseData.view);
+        }
       };
 
       /*

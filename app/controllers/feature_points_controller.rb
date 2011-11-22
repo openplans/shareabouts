@@ -25,12 +25,15 @@ class FeaturePointsController < ApplicationController
     if @point.save
       respond_to do |format|
         format.json do
-          render :json => { :geoJSON => @point.as_geo_json } 
+          render :json => { :geoJSON => @point.as_geo_json, :status => "success" } 
         end
       end
     else
-      raise @point.errors.inspect
-      # todo
+      respond_to do |format|
+        format.json do
+          render :json => { :status => "error", :view => render_to_string(:partial => "form.html.erb") } 
+        end
+      end
     end
   end
   
