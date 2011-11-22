@@ -1,5 +1,13 @@
 class FeaturePoint < ActiveRecord::Base
   
+  class InRegionValidator < ActiveModel::Validator
+    def validate(record)
+      record.find_regions[0]
+    rescue IndexError
+      record.errors[:base] << "Point doesn't fall within the defined regions"
+    end
+  end
+  
   has_many :votes, :as => :supportable, :dependent => :destroy
   has_many :comments, :as => :commentable, :dependent => :destroy, :inverse_of => :commentable
   has_many :feature_regions, :as => :feature, :dependent => :destroy
@@ -9,9 +17,14 @@ class FeaturePoint < ActiveRecord::Base
   
   validates :the_geom,  :presence => true
   
+  attr_accessor :found_regions
+  
+  before_create :find_regions
   after_create :add_to_regions
   
   accepts_nested_attributes_for :comments
+  
+  validates_with InRegionValidator
 
   def votes_count
     votes.count
@@ -44,11 +57,13 @@ class FeaturePoint < ActiveRecord::Base
     }
   end
   
-  def add_to_regions
-    result = ActiveRecord::Base.connection.execute( "select * from regions where ST_Contains(the_geom, ST_SetSRID(ST_Point(-73.993607,40.719811),4326))")
-    result.each do |row|
-      feature_regions.create :region_id => row["id"].to_i
-    end if result
+  def find_regions
+    @found_regions ||= ActiveRecord::Base.connection.execute( "select * from regions where ST_Contains(the_geom, ST_SetSRID(ST_Point(#{longitude},#{latitude}),4326))")
   end
   
+  def add_to_regions
+    found_regions.each do |row|
+      feature_regions.create :region_id => row["id"].to_i
+    end
+  end
 end
