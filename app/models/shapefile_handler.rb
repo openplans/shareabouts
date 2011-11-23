@@ -23,15 +23,15 @@ class ShapefileHandler
   end
   
   def perform
-    puts "INFO importing regions from #{@shp_file}"
+    Delayed::Worker.logger.info "INFO importing regions from #{@shp_file}"
     
     if @prj_file.present?
-      Rails.logger.debug "=====RUNNING ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{File.join(@directory, @shp_file}====="
-      Rails.logger.debug `ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{File.join(@directory, @shp_file)} 2>&1` 
+      Delayed::Worker.logger.info "=====RUNNING ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{@shp_file}====="
+      Delayed::Worker.logger.info `ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{@shp_file} 2>&1` 
       @shp_file = File.join(@directory, "out_4326.shp")
     end
     
-    regions_count = handler.create_regions @regions, @field_names
+    regions_count = create_regions @regions, @field_names
     
     puts "INFO imported #{regions_count} regions."
     
