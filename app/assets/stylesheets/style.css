@@ -20,15 +20,23 @@ body, select, input, textarea {
 }
 /* Headers (h1,h2,etc) have no default font-size or margin,
    you'll want to define those yourself. */ 
-h1,h2,h3,h4,h5,h6 { font-weight: bold; }
+h1,h2,h3,h4,h5,h6 { font-weight: bold; line-height: 1.5; }
+h1 { font-size: 3.375em; }
+h2 { font-size: 2.25em; }
+h3 { font-size: 2.25em; font-weight: normal; }
+h4 { font-size: 1.5em; }
+h5 { font-size: 1.5em; font-weight: normal; }
+h6 { font-size: 1; }
 /* always force a scrollbar in non-IE */ 
 /* html { overflow-y: scroll; } */
 /* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
 a:hover, a:active { outline: none; }
 a, a:active, a:visited { color: #00eeff; }
 a:hover { color: #66ffff; }
-ul, ol { margin-left: 1.8em; }
+p { margin-bottom: 1.2em; }
+ul, ol { margin-left: 1.8em; margin-bottom: 0.6em; }
 ol { list-style-type: decimal; }
+li { margin-bottom: 0.6em; }
 /* Remove margins for navigation lists */
 nav ul, nav li { margin: 0; } 
 small { font-size: 85%; }
@@ -54,6 +62,7 @@ input[type      = "checkbox"] { vertical-align: bottom; }
 .ie6 input { vertical-align: text-bottom; }
 /* hand cursor on clickable input elements */
 label, input[type=button], input[type=submit], button { cursor: pointer; }
+label { font-weight: bold; }
 /* webkit browsers add a 2px margin outside the chrome of form elements */  
 button, input, select, textarea { margin: 0; }
 /* colors for form validity */
@@ -130,12 +139,16 @@ html, body {
   z-index: 300;
 }
 #content {
+  background-color: #fff;
   position: absolute;
   top: 5em;
   right: 0;
   left: 0;
   bottom: 0;
   z-index: 100;
+}
+#content-wrapper {
+  padding: 2em;
 }
 #footer {
   color: #fff;
@@ -155,8 +168,6 @@ html, body {
  */
 #site-title {
   color: #f7f7f7;
-  font-size: 3.375em;
-  line-height: 1.5;
   float: left;
   text-shadow: 1px -1px 0 #000;
 }
@@ -179,23 +190,34 @@ html, body {
  * UI Elements
  *
  */
+input[type=button], 
+input[type=submit], 
 button {
+  display: block;
   background-color: #00aaff; 
   border: 0;
-  margin: 0;
+  margin: 0 0 0.667em;
   padding: 0 1em;
   color: #f7f7f7;
   font-weight: bold;
   font-size: 2.25em;
-  line-height: 2.5;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 2.25em;
+  height: 2.25em;
   text-shadow: 1px -1px 0 #0066aa;
      -moz-box-shadow: -4px 4px 0 rgba(0, 102, 170, 0.75);
   -webkit-box-shadow: -4px 4px 0 rgba(0, 102, 170, 0.75);
           box-shadow: -4px 4px 0 rgba(0, 102, 170, 0.75);
 }
+input[type=button]:hover, 
+input[type=submit]:hover, 
 button:hover {
   color: #fff; 
 }
+input[type=button]:active, 
+input[type=submit]:active, 
 button:active {
   position: relative;
   top: 4px;
@@ -238,6 +260,26 @@ button:active {
  * Content & General Styles
  *
  */
+table { 
+  text-align: left; 
+}
+tr {
+  border-bottom: 1px solid #fff;
+  background-color: #eee;
+}
+tr:hover { 
+  background-color: #e9e9e9; 
+}
+td, th { 
+  padding: 0.667em 1.5em 0.667em 10px; 
+}
+th { 
+  background-color: #bbb; 
+  font-size: 0.667em; 
+  text-transform: uppercase; 
+}
+table.regions {
+}
 
 /*
  *
@@ -304,7 +346,7 @@ and (orientation : portrait) {
 /* desktops and laptops ----------- */
 @media only screen
 and (min-width : 640px) {
-  #wrapper { font-size: 14px; }
+  #wrapper { font-size: 15px; }
 }
 
 /* large screens ----------- */
