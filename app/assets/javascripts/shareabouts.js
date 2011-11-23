@@ -30,7 +30,7 @@ $.widget("ui.shareabout", (function() {
      */
     _create : function() {
       features = {};
-      popup    = new L.SidePopup({ offset: new L.Point(12,-40)});
+      popup    = new L.SidePopup({ offset: new L.Point(12,-30)});
       map      = new L.Map( this.element.attr("id") );
 
       map.setView(this.options.map.center, this.options.map.initialZoom);
