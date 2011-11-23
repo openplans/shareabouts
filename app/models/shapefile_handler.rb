@@ -27,7 +27,7 @@ class ShapefileHandler
     
     if @prj_file.present?
       Delayed::Worker.logger.info "=====RUNNING ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{@shp_file}====="
-      Delayed::Worker.logger.info `ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{@shp_file} 2>&1` 
+      Delayed::Worker.logger.info `export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH && ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{@shp_file} 2>&1` 
       @shp_file = File.join(@directory, "out_4326.shp")
     end
     
