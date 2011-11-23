@@ -2,6 +2,10 @@
 
   <%= form_tag upload_regions_path, :multipart => true do %>
     <p>
+      <%= label_tag "shp" %> 
+      <%= file_field_tag "file[shp]" %>
+    </p>  
+    <p>
       <%= label_tag "dbf" %> 
       <%= file_field_tag "file[dbf]" %>
     </p>
