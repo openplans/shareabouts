@@ -311,6 +311,9 @@ and (max-device-width : 480px) {
     text-align: center;
     z-index: 200;
   }
+  #footer button {
+    display: inline;
+  }
 }
 
 /* smartphones (landscape) ----------- */
