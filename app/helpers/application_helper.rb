@@ -24,6 +24,7 @@ module ApplicationHelper
   
   def user_friends_hash(access_token)
     friends_graph = FGraph.me('friends', :access_token => access_token)
+    return {} if friends_graph.blank?
         
     User.where("facebook_id in (#{friends_graph.map { |h| h["id"] }.join(",")})").inject({}) do |memo, user|
       memo[user.id] = user.name
