@@ -29,4 +29,9 @@ class ApplicationController < ActionController::Base
     stored_location_for(resource) || return_to || root_path  
   end
   
+  def current_ability
+    # we only distinguish between admin and not admin. guests & users have equal abilities.
+    @current_ability ||= Ability.new(current_admin) 
+  end
+  
 end

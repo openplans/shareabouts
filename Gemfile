@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.1'
 
 gem 'devise'
+gem 'cancan'
 gem "omniauth-facebook"
 gem "fgraph"
 
