@@ -21,6 +21,7 @@ class FeaturePoint < ActiveRecord::Base
   
   before_create :find_regions
   after_create :add_to_regions
+  after_initialize :set_defaults
   
   accepts_nested_attributes_for :comments
   
@@ -66,5 +67,12 @@ class FeaturePoint < ActiveRecord::Base
     found_regions.each do |row|
       feature_regions.create :region_id => row["id"].to_i
     end
+  end
+  
+  private
+  
+  def set_defaults 
+    return unless new_record?
+    self.visible = true
   end
 end

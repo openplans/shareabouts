@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111128142328) do
+ActiveRecord::Schema.define(:version => 20111128170753) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                             :default => "", :null => false
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20111128142328) do
     t.datetime "updated_at"
     t.geometry "the_geom",    :limit => nil
     t.integer  "user_id"
+    t.boolean  "visible"
   end
 
   add_index "feature_points", ["the_geom"], :name => "index_feature_points_on_the_geom"

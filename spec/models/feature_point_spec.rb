@@ -110,4 +110,13 @@ describe FeaturePoint do
       end
     end
   end
+  
+  describe "after initialization" do
+    context "regardless of the set visibility" do
+      it "is visible" do
+        feature_point = FeaturePoint.new
+        feature_point.should be_visible
+      end
+    end
+  end
 end
