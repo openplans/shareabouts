@@ -8,16 +8,15 @@ class FeaturePoint < ActiveRecord::Base
     end
   end
   
+  attr_accessor :found_regions
+  
+  scope :visible, where(:visible => true)
+
   has_many :votes, :as => :supportable, :dependent => :destroy
   has_many :comments, :as => :commentable, :dependent => :destroy, :inverse_of => :commentable
   has_many :feature_regions, :as => :feature, :dependent => :destroy
-  has_many :regions, :through => :feature_regions
-  
-  belongs_to :user
-  
-  validates :the_geom,  :presence => true
-  
-  attr_accessor :found_regions
+  has_many :regions, :through => :feature_regions  
+  belongs_to :user  
   
   before_create :find_regions
   after_create :add_to_regions
@@ -25,7 +24,8 @@ class FeaturePoint < ActiveRecord::Base
   
   accepts_nested_attributes_for :comments
   
-  validates_with InRegionValidator
+  validates :the_geom,  :presence => true
+  validates_with InRegionValidator  
 
   def votes_count
     votes.count
@@ -39,8 +39,16 @@ class FeaturePoint < ActiveRecord::Base
     return the_geom.x if the_geom
   end
   
-  def nearest
-    self.class.where("id <> #{id}").select("*, the_geom <-> point '#{the_geom}' as distance").order("distance asc").limit(1).first
+  def display_name
+    name.present? ? name : display_the_geom
+  end
+  
+  def display_the_geom
+    "(#{sprintf('%.6f', longitude)}, #{sprintf('%.6f', latitude)})"
+  end
+  
+  def display_submitter
+    user.email if user.present?
   end
   
   def as_geo_json

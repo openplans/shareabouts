@@ -6,7 +6,7 @@ class FeaturePointsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render :json => geo_json_for(FeaturePoint.all )
+        render :json => geo_json_for(FeaturePoint.visible)
       end
     end
   end
