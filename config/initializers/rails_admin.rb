@@ -11,7 +11,7 @@
 
 RailsAdmin.config do |config|
 
-  config.current_user_method { current_user } # auto-generated
+  config.current_user_method { current_admin } # auto-generated
   
   # Set the admin name here (optional second array element will appear in a beautiful RailsAdmin red ©)
   config.main_app_name = ['Shareabouts', 'Admin']
@@ -24,17 +24,11 @@ RailsAdmin.config do |config|
   # and will run on the default user scope.
   # If you use devise, this will authenticate the same as authenticate_user!
   # Example Devise admin
-  # RailsAdmin.config do |config|
-  #   config.authenticate_with do
-  #     authenticate_admin!
-  #   end
-  # end
-  # Example Custom Warden
-  # RailsAdmin.config do |config|
-  #   config.authenticate_with do
-  #     warden.authenticate! :scope => :paranoid
-  #   end
-  # end
+  RailsAdmin.config do |config|
+    config.authenticate_with do
+      authenticate_admin!
+    end
+  end
 
   #  ==> Authorization
   # Use cancan https://github.com/ryanb/cancan for authorization:
@@ -63,7 +57,7 @@ RailsAdmin.config do |config|
   # config.excluded_models << []
 
   # Add models here if you want to go 'whitelist mode':
-  # config.included_models << []
+  config.included_models += %w{Admin FeaturePoint}
 
   # Application wide tried label methods for models' instances
   # config.label_methods << [:description] # Default is [:name, :title]

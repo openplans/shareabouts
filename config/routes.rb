@@ -5,6 +5,8 @@ Shareabouts::Application.routes.draw do
     get 'sign_in', :to => 'users/sessions#new', :as => :new_user_session
     get 'sign_out', :to => 'users/sessions#destroy', :as => :destroy_user_session
   end
+  
+  devise_for :admins, :path => "authmin" # silly path due to conflict with rails_admin path
 
   resources :feature_points, :only => [:new, :create, :index, :show] do
     resources :votes, :only => [:create]
