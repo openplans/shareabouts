@@ -58,6 +58,7 @@ class FeaturePoint < ActiveRecord::Base
   end
   
   def find_regions
+    return [] unless latitude && longitude
     @found_regions ||= ActiveRecord::Base.connection.execute( "select * from regions where ST_Contains(the_geom, ST_SetSRID(ST_Point(#{longitude},#{latitude}),4326))")
   end
   
