@@ -1,0 +1,5 @@
+<%= form_for feature_point, :remote => true do |form| %>
+  <%= form.label :visible, "Visible?" %>
+  <%= form.check_box :visible %>
+  <%= form.submit %>
+<% end %>
