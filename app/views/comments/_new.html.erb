@@ -1,5 +1,5 @@
 <%= form_for Comment.new(:commentable_id => commentable.id, :commentable_type => commentable.class.to_s), 
-  :url => commentable_comments_path(commentable), 
+  :url => commentable_comments_path(commentable), :remote => true, 
   :html => { "data-behavior" => "load_result_in_popup" } do |form| %>
   <%= form.hidden_field :commenter_ip %>
   <%= form.text_area :comment %>

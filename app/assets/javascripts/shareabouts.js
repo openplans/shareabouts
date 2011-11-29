@@ -270,7 +270,7 @@ $.widget("ui.shareabout", (function() {
           var fId = responseData.geoJSON.properties.id;
           History.pushState( { featureId : fId }, "Feature " + fId, "?feature=" + fId);
         } else if (to == "finalizingNewFeature") {
-          $(".leaflet-popup-content").html(responseData.view);
+          $(".shareabouts-side-popup-content").html(responseData.view);
         }
       };
 

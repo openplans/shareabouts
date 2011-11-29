@@ -62,12 +62,8 @@ $(function() {
       $("#map").shareabout("submitNewFeature", ajaxOptions);
     });
     
-    $("form[data-behavior=load_result_in_popup]").live("submit", function(e){
-      e.preventDefault();
-      var form = $(this);
-      $.post(form.attr("action"), form.serialize(), function(data){
-        form.closest(".leaflet-popup-content").html(data.view);
-      }, "json");
+    $("form[data-behavior=load_result_in_popup]").live("ajax:success", function(e,xhr,status){
+      $(this).closest(".shareabouts-side-popup-content").html(xhr.view);
     });
     
     History.Adapter.bind(window,'statechange',function(){
