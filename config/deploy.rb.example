@@ -5,25 +5,24 @@ set :rvm_ruby_string, '1.9.2-p290'
 
 # bundler bootstrap
 require 'bundler/capistrano'
+require 'delayed/recipes'
 
 # main details
-set :application, "domainname"
-role :web, "domainname"
-role :app, "domainname"
-role :db,  "domainname", :primary => true
+set :application, "shareabouts.dev.openplans.org"
+role :web, "shareabouts.dev.openplans.org"
+role :app, "shareabouts.dev.openplans.org"
+role :db,  "shareabouts.dev.openplans.org", :primary => true
 
 # server details
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
-set :deploy_to, "/var/www/domainname"
+set :deploy_to, "/var/www/shareabouts.dev.openplans.org"
 set :deploy_via, :remote_cache
 set :user, "passenger"
 set :use_sudo, false
-set :port, 7777
 
 # repo details
 set :scm, :git
-set :scm_username, "juliamae"
 set :repository, "git@github.com:openplans/shareabouts.git"
 set :branch, "master"
 set :git_enable_submodules, 1
@@ -44,58 +43,32 @@ namespace :deploy do
   end
 end
 
-namespace :db do
-
-  desc <<-DESC
-    Creates the database.yml configuration file in shared path.
-
-    By default, this task uses a template unless a template 
-    called database.yml.erb is found either is :template_dir 
-    or /config/deploy folders. The default template matches 
-    the template for config/database.yml file shipped with Rails.
-
-    When this recipe is loaded, db:setup is automatically configured 
-    to be invoked after deploy:setup. You can skip this task setting 
-    the variable :skip_db_setup to true. This is especially useful 
-    if you are using this recipe in combination with 
-    capistrano-ext/multistaging to avoid multiple db:setup calls 
-    when running deploy:setup for all stages one by one.
-  DESC
-  task :setup, :except => { :no_release => true } do
-
-    default_template = <<-EOF
-    base: &base
-      adapter: sqlite3
-      timeout: 5000
-    development:
-      database: #{shared_path}/db/development.sqlite3
-      <<: *base
-    test:
-      database: #{shared_path}/db/test.sqlite3
-      <<: *base
-    production:
-      database: #{shared_path}/db/production.sqlite3
-      <<: *base
-    EOF
-
-    location = fetch(:template_dir, "config/deploy") + '/database.yml.erb'
-    template = File.file?(location) ? File.read(location) : default_template
-
-    config = ERB.new(template)
-
-    run "mkdir -p #{shared_path}/db"
-    run "mkdir -p #{shared_path}/config"
-    put config.result(binding), "#{shared_path}/config/database.yml"
+namespace :delayed_job do 
+  desc "Restart the delayed_job process"
+  task :restart, :roles => :app do
+    run "cd #{current_path}; RAILS_ENV=production script/delayed_job restart"
   end
+end
 
-  desc <<-DESC
-    [internal] Updates the symlink for database.yml file to the just deployed release.
-  DESC
+namespace :db do
   task :symlink, :except => { :no_release => true } do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
-
 end
 
-after "deploy:setup",           "db:setup"   unless fetch(:skip_db_setup, false)
+namespace :devise do
+  task :symlink, :except => { :no_release => true } do
+    run "ln -nfs #{shared_path}/config/initializers/devise.rb #{release_path}/config/initializers/devise.rb"
+  end
+end
+
+namespace :assets do
+  task :precompile do
+    run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
+  end
+end
+
 after "deploy:finalize_update", "db:symlink"
+after 'deploy:update_code', "devise:symlink"
+after 'deploy:update_code', "assets:precompile"
+after "deploy:update_code", "delayed_job:restart"

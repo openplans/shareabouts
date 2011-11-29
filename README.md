@@ -4,6 +4,8 @@ Shareabouts is intended for simple mapping applications. For example, you could 
 
 The project is open source, and we welcome your involvement.
 
+Requirements and a setup guide are located at doc/README_FOR_APP.
+
 * Join our developers discussion list: http://groups.google.com/group/shareabouts-dev
 * Take a look at our pipeline in the public tracker: https://www.pivotaltracker.com/projects/398973
 

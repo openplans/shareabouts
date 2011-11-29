@@ -1,2 +1,138 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+From 0 to Shareabouts in about an hour
+======================================
+Shareabouts requires ruby, postgis, ogr2ogr, and a facebook API key.
+
+Ruby
+----
+Shareabouts was built on top of ruby 1.9.2. The easiest way to get ruby is via 
+rvm. Follow the rvm installation instructions, found here:
+https://rvm.beginrescueend.com/rvm/install/. rvm requires git. Once rvm is 
+installed: 
+
+$ rvm install 1.9.2
+$ rvm use 1.9.2
+
+To use ruby 1.9.2 always, run:
+
+$ rvm use 1.9.2 --default
+
+Postgis
+------- 
+To run Shareabouts, you'll need postgis set up on top of postgres. You can
+install postgis via a package manager like apt-get or macports. If using 
+macports, you will probably need to also install postgresqlXX-server, where 
+XX is the version of psql that you installed. If when following the post-
+install instructions on OS X and setting up the initial database you get a 
+fatal memory allocation error, see: 
+http://willbryant.net/software/mac_os_x/postgres_initdb_fatal_shared_memory_error_on_leopard
+
+Once you've installed postgres and postgis, you'll need to run scripts to set 
+up postgis and then you'll create a template spatial database that you can use 
+for your shareabouts database. 
+
+-- Create a new database
+CREATE DATABASE template_postgis;
+
+-- Make it a template database
+UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template_postgis';
+
+-- Connect to new database and install the pl/pgsql language
+\c template_postgis
+
+CREATE LANGUAGE plpgsql;
+
+-- Install PostGIS (your file paths may vary)
+\i /opt/local/share/postgresql84/contrib/postgis-1.5/postgis.sql 
+\i /opt/local/share/postgresql84/contrib/postgis-1.5/spatial_ref_sys.sql
+GRANT ALL ON geometry_columns TO PUBLIC;
+GRANT ALL ON geography_columns TO PUBLIC;
+GRANT ALL ON spatial_ref_sys TO PUBLIC;
+
+-- vacuum freeze: it will guarantee that all rows in the database are
+-- "frozen" and will not be subject to transaction ID wraparound
+-- problems.
+VACUUM FREEZE;
+
+Facebook
+--------
+Shareabouts uses facebook for authentication, via the omniauth gem. You'll need
+to create an app on https://developers.facebook.com/apps in order to get an API
+key and App Secret.
+
+Once you have those keys, copy config/initializers/devise.rb.example to config/initializers/devise.rb, 
+and fill in your keys under the Omniauth section.
+
+Gems
+-----------------
+Install your gems by running 
+$ bundle install
+
+If the pg gem fails to install on OS X, check out the --with-pg-config option 
+as specified in config/database.yml.example.
+
+Databases
+---------
+Copy config/database.yml.example to config/database.yml. Set your postgres 
+server and user info. You'll need to specify the template to use in order to
+get the spatial goodies:
+  template: template_postgis
+
+Now you can run
+$ rake db:create 
+
+and
+$ rake db:migrate
+
+if rake db:migrate fails, try
+$ rake db:schema:load
+
+Server setup
+------------
+Check out 
+http://kris.me.uk/2011/10/28/rails-rvm-passenger-capistrano-git-apache.html 
+for a good guide on setting up your app to run on Apache with passenger. 
+
+Shapefile reprojection
+----------------------
+We drop down to use the command line tool, ogr2ogr, in order to reproject 
+imported shapefiles (to define regions), so you'll need ogr2og2 installed 
+wherever you're running the app. Shapefiles are reprojected via a delayed
+job, so you'll need to start up delayed_jobs via:
+$ script/delayed_job start
+
+The deploy script will start and restart delayed jobs for you so you only
+need to start the delayed jobs locally for development. 
+
+Deploying
+---------
+We deploy with capistrano. Our deploy script is config/deploy.rb.example. You 
+will have to copy the script to config/deploy.rb and update it to your own 
+server settings, and your own fork of the git repo if you have one. 
+
+To create the initial capistrano setup run:
+$ cap deploy:setup
+
+Then, go into the 'shared' directory under your deploy_to directory. Put your 
+customized config/database.yml and config/initializers/devise.rb into shared,
+preserving the config directory structure. You should be able to run 
+$ cap deploy:migrations
+
+which will deploy the app and run pending migrations. Whenever deploying with 
+pending migrations, use deploy:migrations. If there are no migrations, 
+cap deploy will do.
+
+Admins
+------
+You'll need to create an initial admin user. This can be done on the server by
+moving into deploy_to/current and running:
+$ RAILS_ENV=production rails console
+
+then
+ruby > Admin.create :email => "some-email@addre.ss", :password => "coolpasswordbro", :password_confirmation => "coolpasswordbro"
+
+Feedback
+--------
+If you run into any problems setting up the app or find that this document 
+lacks something, please get in touch with us on our mailing list at 
+http://groups.google.com/group/shareabouts-dev. Also feel free to fork this 
+repo and update this guide yourself :) Thank you!
