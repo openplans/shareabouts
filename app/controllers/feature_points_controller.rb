@@ -41,17 +41,11 @@ class FeaturePointsController < ApplicationController
     @feature_point = FeaturePoint.find params[:id]
     authorize! :update, @feature_point
     
-    if @feature_point.update_attributes params[:feature_point]
-      respond_to do |format|
-        format.json do
-          render :json => { :geoJSON => @feature_point.as_geo_json, :status => "success" } 
-        end
-      end
-    else
-      respond_to do |format|
-        format.json do
-          render :json => { :status => "error", :view => render_to_string(:partial => "show.html.erb", :locals => { :feature_point => @feature_point }) } 
-        end
+    @feature_point.update_attributes params[:feature_point]
+
+    respond_to do |format|
+      format.json do
+        render :json => { :status => "error", :view => render_to_string(:partial => "show.html.erb", :locals => { :feature_point => @feature_point }) } 
       end
     end
   end
