@@ -10,6 +10,7 @@ class Ability
       can :create, FeaturePoint
       can :create, Comment
       can :create, Vote
+      can :read, All
     end
   end
 end
