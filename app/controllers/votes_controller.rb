@@ -5,6 +5,8 @@ class VotesController < ApplicationController
   def create
     @vote = @supportable.votes.create :user => current_user
     
+    store_vote_in_cookie_for @vote.supportable
+    
     respond_to do |format|
       format.json { 
         render :json => {
@@ -25,5 +27,22 @@ class VotesController < ApplicationController
   
   def supportable_class
     @supportable.class.to_s
+  end
+  
+  def store_vote_in_cookie_for(supportable)    
+    supported = cookies[:supportable].present? ? Marshal.load(cookies[:supportable]) : {}
+    
+    supportable_class = supportable.class.to_s.to_sym
+        
+    if supported.key?(supportable_class)
+      supported[supportable_class] << supportable.id
+    else
+      supported[supportable_class] = [supportable.id]
+    end
+    
+    cookies[:supportable] = { 
+      :value => Marshal.dump(supported), 
+      :expires => 4.years.from_now
+    }
   end
 end
