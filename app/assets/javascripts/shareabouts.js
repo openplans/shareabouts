@@ -109,7 +109,7 @@ $.widget("ui.shareabout", (function() {
      * Opens the popup for a feature
      */
     viewFeature : function(fId, view) {
-      this.openPopupFor( features[fId], view ? view : featureLayer._html);
+      this.openPopupFor( features[fId], view ? view : features[fId]._html);
     },
   
     // fixing ...
@@ -131,9 +131,9 @@ $.widget("ui.shareabout", (function() {
       features[fId] = marker;
     },
   
-    _markerClick : function(click) {
+    _markerClick : function(click, id) {
       // Change history state on feature click
-      var fId = this._id;
+      var fId = id || this._id;
       History.replaceState( { featureId : fId }, "Feature " + fId, "?feature=" + fId + "&t=" + (new Date()).getTime());   
     },
   
@@ -196,6 +196,11 @@ $.widget("ui.shareabout", (function() {
           $.each(data, function(i,f) { geojsonLayer.addGeoJSON(f); });
           map.addLayer(geojsonLayer);
           fsm.ready();
+          
+          // Parse params for loading initially opened feature
+          var params = $.deparam(window.location.search.replace(/^\?*/, ""));
+          if (params.feature && features[parseInt(params.feature, 10)]) 
+            shareabout._markerClick(null, parseInt(params.feature, 10));
         });      
       }
 
