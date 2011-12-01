@@ -14,7 +14,7 @@ class FeaturePoint < ActiveRecord::Base
 
   has_many :votes, :as => :supportable, :dependent => :destroy
   has_many :comments, :as => :commentable, :dependent => :destroy, :inverse_of => :commentable
-  has_many :feature_regions, :as => :feature, :dependent => :destroy
+  has_many :feature_regions, :as => :feature
   has_many :regions, :through => :feature_regions  
   belongs_to :user  
   
