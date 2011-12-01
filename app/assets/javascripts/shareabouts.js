@@ -5,6 +5,7 @@ $.widget("ui.shareabout", (function() {
   var map, // leaflet map
       fsm, // state machine
       newFeature, // marker for proposed feature
+      hint, // label layer with UX hints
       features, // object that stores map features by their ID
       popup; // one popup on the map
     
@@ -215,6 +216,11 @@ $.widget("ui.shareabout", (function() {
 
         newFeature = new L.Marker(latlng, markerOpts);
         map.addLayer(newFeature);
+        
+        hint = new L.LabelOverlay(latlng, "Drag me!");
+        map.addLayer(hint);
+        
+        newFeature.on("drag", function(drag) { map.removeLayer(hint) } );
       };
       
       /*
@@ -223,6 +229,7 @@ $.widget("ui.shareabout", (function() {
        */
       fsm.onloadNewFeatureForm = function (eventName, from, to, ajaxOptions) {
         newFeature.dragging.disable();
+        if (hint && hint._opened) map.removeLayer(hint)
         
         var ajaxCfg = { 
           type : 'GET', 
@@ -292,6 +299,7 @@ $.widget("ui.shareabout", (function() {
        */
       fsm.onready = function (eventName, from, to) {
         if (popup._opened) map.removeLayer(popup);
+        if (hint && hint._opened) map.removeLayer(hint)
         
         if (shareabout.options.callbacks.onready) 
           shareabout.options.callbacks.onready();
