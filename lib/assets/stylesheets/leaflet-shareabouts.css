@@ -90,3 +90,15 @@
 .shareabouts-side-popup-close-button {
   background: white url(popup-close.png);
 }
+
+/* Label Overlay */
+.shareabouts-label-overlay {
+  text-transform: uppercase;
+  background-color : #fafa68;
+  border : 1px solid #a09793;
+  padding : 10px;
+  font: 12px/1.4 "Helvetica Neue", Arial, Helvetica, sans-serif;
+  position: absolute;
+  text-align: center;
+  -webkit-transform: translate3d(0,0,0);
+}
