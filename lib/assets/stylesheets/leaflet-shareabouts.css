@@ -1,9 +1,3 @@
-/* required styles */
-.shareabouts-side-popup-pane {
-  position : absolute;
-  z-index: 6;
-}
-
 /* Fade animations */
 .leaflet-fade-anim .shareabouts-side-popup {
   opacity: 0;
@@ -71,7 +65,7 @@
   -webkit-box-shadow: 0 1px 14px #999;
 }
 .shareabouts-side-popup-content-wrapper {
-/*  height:100%;*/
+  height:100%;
   -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
   border-radius: 20px;
