@@ -1,5 +1,8 @@
 <%= render "admin.html", :feature_point => feature_point if admin_signed_in? %>  
 
+<%= label_tag "permalink_#{feature_point.id}", "permalink" %>
+<%= text_field_tag("permalink_#{feature_point.id}", permalink_to(feature_point), :readonly => true) %>
+
 <dl>
   <dt>
     id: 

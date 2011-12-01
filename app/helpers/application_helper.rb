@@ -27,6 +27,10 @@ module ApplicationHelper
     session[:fb_friends].map {|id,name| name}.join ", "
   end
   
+  def permalink_to(feature)
+    root_url(:feature => feature.id)
+  end
+  
   private
   
   def user_friends_hash(access_token)
