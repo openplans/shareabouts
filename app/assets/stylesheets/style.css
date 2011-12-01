@@ -154,7 +154,7 @@ html, body {
   color: #fff;
   position: absolute;
   bottom: 4.5em;
-  right: 3em;
+  left: 3em;
   z-index: 200;
 }
 #map {
