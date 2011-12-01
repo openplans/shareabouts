@@ -32,18 +32,12 @@
   margin: 19px;
 }
 .shareabouts-side-popup-tip-container {
-/*  margin: 0 auto;
-  width: 40px;
-  height: 16px;
-  position: relative;
-  overflow: hidden;*/
   height: 40px;
-      left: 0;
-      overflow: hidden;
-      position: absolute;
-      top: 50%;
-      width: 16px;
-  
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  width: 16px;
 }
 .shareabouts-side-popup-tip {
   height: 15px;
@@ -93,13 +87,48 @@
 
 /* Label Overlay */
 .shareabouts-label-overlay {
+  height : 29px;
   text-transform: uppercase;
-  background-color : #fafa68;
-  border : 1px solid #a09793;
-  padding : 10px;
   font: 12px/1.4 "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-weight : bold;
   position: absolute;
   text-align: center;
   -webkit-transform: translate3d(0,0,0);
+  white-space : nowrap;
+  width:300px;
+}
+
+.shareabouts-label-overlay-content,
+.shareabouts-label-overlay-tip {
+  background-color : #fafa68;
+  border : 1px solid #a09793;
+}
+
+.shareabouts-label-overlay-content {
+  padding : 0 10px;
+  line-height : 29px;
+  height : 29px;
+  float : left;
+  white-space : nowrap;
+  border-width: 1px 1px 1px 0;
+}
+
+.shareabouts-label-overlay-tip-container {
+  height: 29px;
+  overflow: hidden;
+  width: 16px;
+  float : left;
+}
+
+.shareabouts-label-overlay-tip {
+  height: 19px;
+  margin-left: 5px;
+  margin-top: 4px;
+  padding: 1px;
+  width: 19px;
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
