@@ -1,19 +1,29 @@
-<% if @point.errors.present? %>
-  <ul>
-    <% @point.errors.each do | field, message | %>
-      <li><%= "#{"#{field} " unless field == :base }#{message}" %></li>
-    <% end %>
-  </ul>
-<% end %>
+<div class="feature new">
+  <h2>Tell us more...</h2>
 
-<%= form_for @point do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
-  <br>
-  <%= form.fields_for :comments, @point.comments.build do |comments_fields| %>
-    <%= comments_fields.label :comment %>
-    <%= comments_fields.text_area :comment %>
-    <br>
+  <% if @point.errors.present? %>
+    <ul>
+      <% @point.errors.each do | field, message | %>
+        <li><%= "#{"#{field} " unless field == :base }#{message}" %></li>
+      <% end %>
+    </ul>
   <% end %>
-  <%= form.submit %>  
-<% end %>
+
+  <%= form_for @point do |form| %>
+      <div>
+        <%= form.text_field :name, :placeholder => "Point Title" %>
+      </div>
+      <div>
+        <%= form.text_area :description, :placeholder => "Point Description...", :cols => 1, :rows => 4 %>
+      </div>
+    <%#= form.fields_for :comments, @point.comments.build do |comments_fields| %>
+      <%#= comments_fields.label :comment %>
+      <%#= comments_fields.text_area :comment %>
+      <!-- <br> -->
+    <%# end %>
+    <div>
+    <%= form.submit %>  
+    </div>
+    </li>
+  <% end %>
+</div>

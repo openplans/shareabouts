@@ -1,5 +1,5 @@
-<h3>Comments</h3>
 <% if commentable.comments.present? %>
+  <h4>Comments</h4>
   <ul>
     <% for comment in commentable.comments %>
       <li>
@@ -12,5 +12,5 @@
   </ul>
 <% end %>
 
-<h3>Add a Comment</h3>
+<h4>Add a Comment</h4>
 <%= render "comments/new", :commentable => commentable %>

@@ -369,3 +369,37 @@ and (min-width : 1824px) {
 only screen and (-webkit-min-device-pixel-ratio : 1.5),
 only screen and (min-device-pixel-ratio : 1.5) {
 }
+
+/*
+ * 
+ * Feature Popup Content
+ *
+ */
+.feature  textarea {
+  width : 98%;
+} 
+
+.feature div {
+  margin-bottom: 10px;
+}
+
+.feature.show .meta ul {
+  margin : 0;
+}
+
+.feature.show .meta ul li {
+  list-style: none;
+  display: inline;
+}
+
+.feature.show .meta ul li:before {
+	content: "|";
+}
+	
+.feature.show .meta ul li.first:before {
+	content: " ";
+}
+
+.feature.show .meta {
+  color : #888;
+}
