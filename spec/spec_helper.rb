@@ -34,3 +34,8 @@ def feature_point_for(x,y)
   p = Point.from_x_y -75, 40, 4326
   FeaturePoint.new :the_geom => p
 end
+
+ActiveRecord::Base.connection.execute("ALTER TABLE feature_points DROP CONSTRAINT \"enforce_srid_the_geom\" RESTRICT")
+ActiveRecord::Base.connection.execute("UPDATE feature_points SET the_geom = SETSRID (the_geom, 4326)")
+ActiveRecord::Base.connection.execute("ALTER TABLE regions DROP CONSTRAINT \"enforce_srid_the_geom\" RESTRICT")
+ActiveRecord::Base.connection.execute("UPDATE regions SET the_geom = SETSRID (the_geom, 4326)")
