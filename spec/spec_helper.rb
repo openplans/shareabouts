@@ -6,7 +6,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require File.expand_path(File.dirname(__FILE__) + "/fixtures/builders.rb")
 require 'spatial_adapter/postgresql'
-
+require "#{::Rails.root}/spec/fixtures/staten_island_coordinates"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -31,12 +31,12 @@ RSpec.configure do |config|
   config.include(Fixjour)
 end
 
-def feature_point_for(x,y)
-  p = Point.from_x_y -75, 40, 4326
-  FeaturePoint.new :the_geom => p
-end
-
+# Fixing the SRID constraint
 ActiveRecord::Base.connection.execute("ALTER TABLE feature_points DROP CONSTRAINT \"enforce_srid_the_geom\" RESTRICT")
 ActiveRecord::Base.connection.execute("UPDATE feature_points SET the_geom = SETSRID (the_geom, 4326)")
 ActiveRecord::Base.connection.execute("ALTER TABLE regions DROP CONSTRAINT \"enforce_srid_the_geom\" RESTRICT")
 ActiveRecord::Base.connection.execute("UPDATE regions SET the_geom = SETSRID (the_geom, 4326)")
+
+def make_staten_island
+  create_region :the_geom => MultiPolygon.from_coordinates(StatenIslandCoordinates, 4326)
+end

@@ -1,14 +1,13 @@
 require 'fixjour'
 require 'faker'
+require "#{::Rails.root}/spec/fixtures/staten_island_coordinates"
+
+# Default point lies in staten island, default region outlines staten island
 
 Fixjour :verify => false do
-  define_builder(FeaturePoint) do |klass, overrides|
-    x = overrides[:lng] || -74
-    y = overrides[:lat] || 40
-    point = Point.from_x_y x, y, 4326
-    
+  define_builder(FeaturePoint) do |klass, overrides|    
     klass.new({
-      :the_geom => point
+      :the_geom => Point.from_x_y(-74.10003662109374, 40.625939917833925, 4326)
     })
   end
   
@@ -26,10 +25,8 @@ Fixjour :verify => false do
   end
   
   define_builder(Region) do |klass, overrides|
-    polygon = [[ Point.from_x_y( -74, 40, 4326 ), Point.from_x_y( -75, 41, 4326 ), Point.from_x_y( -75, 40, 4326 ) ]]
-    
     klass.new({
-      :the_geom => polygon, 
+      :the_geom => MultiPolygon.from_coordinates( StatenIslandCoordinates, 4326 ),
       :name     => Faker::Lorem.words,
       :kind     => Faker::Lorem.words(1)
     })

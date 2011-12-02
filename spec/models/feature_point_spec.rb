@@ -12,7 +12,24 @@ describe FeaturePoint do
         end
         
         it "is invalid" do
-          @point.should_not be_valid
+          point.should_not be_valid
+        end
+      end
+      
+      context "when outside of any regions" do
+        attr_accessor :point
+        
+        before do
+          @point = new_feature_point :the_geom => Point.from_x_y( -74.03291702270508, 40.74374551975831, 4326 ) #new jersey
+        end
+        
+        it "is invalid" do
+          point.should_not be_valid
+        end
+        
+        it "errors on base" do
+          point.valid?
+          point.errors[:base].should include("Point doesn't fall within the defined regions")
         end
       end
     end
@@ -22,8 +39,7 @@ describe FeaturePoint do
     attr_accessor :point
     
     before do
-      pending "spatial_adapter not working in specs"
-      
+      make_staten_island
       @point = create_feature_point
     end
     
@@ -32,7 +48,7 @@ describe FeaturePoint do
       
       before do
         @user = create_user
-        @point.update_attibute :user_id, user.id
+        @point.update_attribute :user_id, user.id
       end
       
       it "belongs_to" do
@@ -56,7 +72,7 @@ describe FeaturePoint do
       attr_accessor :comment
       
       before do
-        @comment = create_vote :commentable => point
+        @comment = create_comment :commentable => point
       end
       
       it "has_many" do
@@ -70,38 +86,82 @@ describe FeaturePoint do
     attr_accessor :point
     
     before do
-      pending "spatial_adapter not working in specs"
-      
+      make_staten_island
       @point = create_feature_point
     end
     
     context "with the_geom" do
       before do
-        @point.the_geom.should be
+        point.the_geom.should be
       end
       
-      it "has an x" do
-        @point.x.should be
+      it "has an latitude" do
+        point.latitude.should be
       end
       
-      it "has a y" do
-        @point.y.should be
+      it "has a longitude" do
+        point.longitude.should be
+      end
+      
+      it "is displayed pretty" do
+        point.display_the_geom.match( /\(-*\d+\.\d+,\s*-*\d+\.\d+\)/ ).should_not be_nil
       end
     end
     
+    context "with name" do
+      attr_accessor :name
+      before do 
+        point.update_attribute :name, (@name = Faker::Lorem.words)
+      end
+      
+      it "is displayed via the name" do
+        point.display_name.should == name
+      end
+    end
+    
+    context "without name" do
+      before do
+        point.name.should_not be
+      end
+      
+      it "is displayed via the geom" do
+        point.display_name.should == point.display_the_geom
+      end
+    end
+    
+    context "with submitter" do
+      attr_accessor :user
+      
+      before do
+        point.user = (@user = create_user)
+      end
+      
+      it "displays submitter display name" do
+        point.display_submitter.should == point.user.name
+      end
+    end
+    
+    context "without submitter" do      
+      before do
+        point.user.should_not be
+      end
+      
+      it "doesn't display submitter display name" do
+        point.display_submitter.should_not be
+      end
+    end
+        
     context "that falls within a region" do
       attr_accessor :region, :feature_point
       
-      before do
-        pending "spatial_adapter not working in specs"
-        
-        @region = create_region
+      before do        
+        @region = make_staten_island
       end
       
       context "after create" do
         
         before do
-          @feature_point.create_feature_point
+          @feature_point = create_feature_point
         end
         
         it "is associated with that region" do
