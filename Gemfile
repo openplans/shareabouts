@@ -26,6 +26,7 @@ group :development, :test do
   gem "faker", :git => "git://github.com/yolk/faker.git"
   gem "fixjour"
   gem "rspec-rails", ">= 2.2.0"
+  gem 'cover_me', '>= 1.2.0'
 end
 
 group :production do
