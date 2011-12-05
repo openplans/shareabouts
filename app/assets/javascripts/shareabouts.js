@@ -31,7 +31,7 @@ $.widget("ui.shareabout", (function() {
      */
     _create : function() {
       features = {};
-      popup    = new L.SidePopup({ offset: new L.Point(-5,-24)});
+      popup    = new L.SidePopup();
       map      = new L.Map( this.element.attr("id") );
 
       map.setView(this.options.map.center, this.options.map.initialZoom);
@@ -117,7 +117,8 @@ $.widget("ui.shareabout", (function() {
     openPopupFor : function(layer, content) {
       popup.setContent(content);
       popup.setLatLng(layer.getLatLng());
-      if (!popup._opened) map.openPopup(popup);
+      map.setView( layer.getLatLng(),map.getZoom(),true );
+      if (!popup._opened) map.addLayer( popup );
     },
   
     _setupMarker : function(marker, properties) {
