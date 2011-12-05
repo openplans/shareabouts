@@ -1,7 +1,5 @@
 <% url_help = Shareabouts::Application.routes.url_helpers %>
-
-var shareabouts;
-
+ 
 $(function() {
   var locate_feature   = $("#locate_feature"),
       finalize_feature = $("#finalize_feature");
@@ -15,9 +13,15 @@ $(function() {
       onready : function(something) {
         locate_feature.show();
         finalize_feature.hide();
+      },
+      onload : function() {
+        if (window.shareabouts && window.shareabouts.feature) {
+          $("#map").shareabout("viewFeature", window.shareabouts.feature)
+        }
       }
     },
-    dataUrl : '<%= url_help.feature_points_path %>'
+    featuresUrl : '<%= url_help.feature_points_path %>',
+    featureUrl : '<%= url_help.feature_point_path("FEATURE_ID") %>'
   };
   
   var positionSuccess = function (position) {
@@ -64,15 +68,6 @@ $(function() {
     
     $("form[data-behavior=load_result_in_popup]").live("ajax:success", function(e,xhr,status){
       $(this).closest(".shareabouts-side-popup-content").html(xhr.view);
-    });
-    
-    History.Adapter.bind(window,'statechange',function(){
-      var State = History.getState();
-      if (State.data.featureId) {
-        $.get( '<%= url_help.feature_point_path("CHANGEME") %>'.replace(/CHANGEME/, State.data.featureId), function(data){
-          $("#map").shareabout("viewFeature", State.data.featureId, data.view);
-        }, "json");
-      }
     });
   };
   

@@ -1,5 +1,14 @@
 <div id="map"></div>
 
+<% content_for :javascript do %>
+<script type="text/javascript" charset="utf-8">
+  window.shareabouts = {};
+  <% if @feature_point.present? %>
+    window.shareabouts.feature = <%= @feature_point.id %>;
+  <% end %>
+</script>
+<% end %>
+
 <% content_for :footer do %>
 <div class="alpha60 padding10 center rounded-top">
   <button type="button" id="locate_feature"><%= t 'map_controls.locate_feature' %></button>

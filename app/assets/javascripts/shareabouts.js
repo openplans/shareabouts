@@ -1,5 +1,5 @@
 /*
- * requires leaflet, jquery 1.1.4, mustache, history.js
+ * requires leaflet, jquery 1.1.4, mustache
  */ 
 $.widget("ui.shareabout", (function() {
   var map, // leaflet map
@@ -14,16 +14,17 @@ $.widget("ui.shareabout", (function() {
       map : {
         tileUrl            : null, 
         center             : null,
-        // optional
         tileAttribution    : '', 
         maxZoom            : 18,
         initialZoom        : 13,
         markerIcon         : null, // custom icon
         newMarkerIcon      : null // custom icon for markers representing unsaved features
       },
-      dataUrl              : null,
+      featuresUrl          : null, // url to all features geoJSON
+      // featurUrl: url to feature json - should return a 'view' that contains popup content, resource ID should be indicated as FEATURE_ID to be subbed
+      featurUrl            : null, 
       featurePopupTemplate : null, 
-      callbacks : {} // state machine callbacks
+      callbacks : {} // callbacks : onload #after features are loaded, onready #after transitioning to ready state
     },
   
     /**
@@ -50,14 +51,6 @@ $.widget("ui.shareabout", (function() {
       });
     
       this._init_states();
-    
-      History.Adapter.bind(window,'statechange',function(){
-        var State = History.getState();
-        if (State.data.featureId) {
-          var featureLayer = features[State.data.featureId];
-          if (featureLayer._html) openPopupFor( featureLayer, featureLayer._html);
-        }
-      });
     },
     
     /*****************
@@ -109,34 +102,39 @@ $.widget("ui.shareabout", (function() {
     /**
      * Opens the popup for a feature
      */
-    viewFeature : function(fId, view) {
-      this.openPopupFor( features[fId], view ? view : features[fId]._html);
+    viewFeature : function(fId) {
+      if (features[fId]._html) {
+        this._openPopupWith( features[fId] );
+      } else {
+        var shareabout = this;
+        $.get( this.options.featureUrl.replace(/FEATURE_ID/, fId), function(data){
+          shareabout._openPopupWith( features[fId], data.view);
+        }, "json");
+      }      
     },
   
-    // fixing ...
-    openPopupFor : function(layer, content) {
-      popup.setContent(content);
+    // 
+    _openPopupWith : function(layer, content) {
+      popup.setContent(content || layer._html);
       popup.setLatLng(layer.getLatLng());
       map.setView( layer.getLatLng(),map.getZoom(),true );
       if (!popup._opened) map.addLayer( popup );
     },
   
     _setupMarker : function(marker, properties) {
+      var shareabout = this;
+      
       if (this.options.featurePopupTemplate)
         marker._html = $.mustache( this.options.featurePopupTemplate, properties );
 
       var fId = properties.id;
     
       marker._id = fId;
-      marker.on("click", this._markerClick);
+      marker.on("click", function(click){
+        shareabout.viewFeature(this._id);
+      });
     
       features[fId] = marker;
-    },
-  
-    _markerClick : function(click, id) {
-      // Change history state on feature click
-      var fId = id || this._id;
-      History.replaceState( { featureId : fId }, "Feature " + fId, "?feature=" + fId + "&t=" + (new Date()).getTime());   
     },
   
     /*
@@ -176,10 +174,10 @@ $.widget("ui.shareabout", (function() {
       /*
        * Expects a geoJSON object or an array of geoJSON features whose properties contain a unique ID called 'id'
        */
-      fsm.onloadFeatures = function (eventName, from, to, dataUrl) {
-        if (!dataUrl) return;
+      fsm.onloadFeatures = function (eventName, from, to, featuresUrl) {
+        if (!featuresUrl) return;
 
-        $.getJSON(dataUrl, function(data){
+        $.getJSON(featuresUrl, function(data){
           var geojsonLayer = new L.GeoJSON(null, {
             // Assumes all features are points ATM
             pointToLayer : function(latlng) {
@@ -199,10 +197,9 @@ $.widget("ui.shareabout", (function() {
           map.addLayer(geojsonLayer);
           fsm.ready();
           
-          // Parse params for loading initially opened feature
-          var params = $.deparam(window.location.search.replace(/^\?*/, ""));
-          if (params.feature && features[parseInt(params.feature, 10)]) 
-            shareabout._markerClick(null, parseInt(params.feature, 10));
+          // Callback for after load
+          if (shareabout.options.callbacks.onload) 
+            shareabout.options.callbacks.onload();
         });      
       }
 
@@ -236,7 +233,7 @@ $.widget("ui.shareabout", (function() {
           type : 'GET', 
           success: function(data){
             if (data.view) {
-              shareabout.openPopupFor(newFeature, $("<div>").html($("<div class='shareabouts submit'>").html(data.view)).html());
+              shareabout._openPopupWith(newFeature, $("<div>").html($("<div class='shareabouts submit'>").html(data.view)).html());
             }
             shareabout.finalizeNewFeature();
           },
@@ -281,7 +278,7 @@ $.widget("ui.shareabout", (function() {
 
           // Update history state 
           var fId = responseData.geoJSON.properties.id;
-          History.pushState( { featureId : fId }, "Feature " + fId, "?feature=" + fId);
+          shareabout.viewFeature(fId);
         } else if (to == "finalizingNewFeature") {
           $(".shareabouts-side-popup-content").html(responseData.view);
         }
@@ -307,7 +304,7 @@ $.widget("ui.shareabout", (function() {
       };
 
       // Load initial data
-      fsm.loadFeatures(this.options.dataUrl);      
+      fsm.loadFeatures(this.options.featuresUrl);      
     }
   }; // end widget function return
 })());

@@ -12,7 +12,7 @@ class FeaturePointsController < ApplicationController
   end
   
   def new
-    @point = FeaturePoint.new
+    @feature_point = FeaturePoint.new
 
     respond_to do |format|
       format.json { render :json => { :view => render_to_string(:partial => "form.html") } }
@@ -20,12 +20,12 @@ class FeaturePointsController < ApplicationController
   end
   
   def create
-    @point = FeaturePoint.new params[:feature_point].merge({:the_geom => the_geom_from_params(params), :user_id => current_user.try(:id)})
+    @feature_point = FeaturePoint.new params[:feature_point].merge({:the_geom => the_geom_from_params(params), :user_id => current_user.try(:id)})
     
-    if @point.save
+    if @feature_point.save
       respond_to do |format|
         format.json do
-          render :json => { :geoJSON => @point.as_geo_json, :status => "success" } 
+          render :json => { :geoJSON => @feature_point.as_geo_json, :status => "success" } 
         end
       end
     else
@@ -51,10 +51,13 @@ class FeaturePointsController < ApplicationController
   end
   
   def show
-    @point = FeaturePoint.find params[:id], :include => :comments
+    @feature_point = FeaturePoint.find params[:id], :include => :comments
     respond_to do |format|
+      format.html do
+        render :action => 'index'
+      end
       format.json do
-        render :json => { :view => render_to_string(:partial => "show.html", :locals => { :feature_point => @point }) } 
+        render :json => { :view => render_to_string(:partial => "show.html", :locals => { :feature_point => @feature_point }) } 
       end
     end
   end

@@ -1,22 +1,22 @@
 <div class="feature new">
   <h2>Tell us more...</h2>
 
-  <% if @point.errors.present? %>
+  <% if @feature_point.errors.present? %>
     <ul>
-      <% @point.errors.each do | field, message | %>
+      <% @feature_point.errors.each do | field, message | %>
         <li><%= "#{"#{field} " unless field == :base }#{message}" %></li>
       <% end %>
     </ul>
   <% end %>
 
-  <%= form_for @point do |form| %>
+  <%= form_for @feature_point do |form| %>
       <div>
         <%= form.text_field :name, :placeholder => "Point Title" %>
       </div>
       <div>
         <%= form.text_area :description, :placeholder => "Point Description...", :cols => 1, :rows => 4 %>
       </div>
-    <%#= form.fields_for :comments, @point.comments.build do |comments_fields| %>
+    <%#= form.fields_for :comments, @feature_point.comments.build do |comments_fields| %>
       <%#= comments_fields.label :comment %>
       <%#= comments_fields.text_area :comment %>
       <!-- <br> -->
