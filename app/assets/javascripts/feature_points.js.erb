@@ -6,8 +6,16 @@ $(function() {
   
   var shareaboutsCfg = {
     map : {
-      tileUrl            : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-      tileAttribution    : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
+      tileUrl         : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+      tileAttribution : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
+      newMarkerIcon   : L.Icon.extend({
+          iconUrl: '<%= image_path("marker-plus.png") %>',
+          iconSize: new L.Point(25, 41),
+          iconAnchor: new L.Point(12, 41),
+          // shadowUrl: 'my-icon-shadow.png',
+          // shadowSize: new L.Point(68, 95),
+          popupAnchor: new L.Point(13, -14)
+      })
     },
     callbacks : {
       onready : function(something) {
