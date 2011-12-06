@@ -103,16 +103,7 @@ $.widget("ui.shareabout", (function() {
      * Opens the popup for a feature
      */
     viewFeature : function(fId) {
-      if (features[fId]._html) {
-        this._openPopupWith( features[fId] );
-      } else {
-        var shareabout = this,
-            resource_path = this.options.featureUrl.replace(/FEATURE_ID/, fId);
-        $.get( resource_path, function(data){
-          shareabout._openPopupWith( features[fId], data.view);
-          if (window.history && window.history.pushState) window.history.pushState(null, null, resource_path);
-        }, "json");
-      }      
+      fsm.viewFeature(fId);
     },
   
     // 
@@ -133,6 +124,9 @@ $.widget("ui.shareabout", (function() {
     
       marker._id = fId;
       marker.on("click", function(click){
+        if (fsm.can("ready")) fsm.ready();
+        else if (fsm.can("cancel")) fsm.cancel();
+        
         shareabout.viewFeature(this._id);
       });
     
@@ -152,7 +146,7 @@ $.widget("ui.shareabout", (function() {
           // if geoJSON object or data url in options
           { name: 'loadFeatures', from: 'ready', to: 'loadingFeatures'},
           // UI triggered. drops a marker onto the map. if passed L.LatLng, drops marker there.
-          { name: 'locateNewFeature', from: 'ready', to: 'locatingNewFeature'},
+          { name: 'locateNewFeature', from: ['ready', 'viewingFeature'], to: 'locatingNewFeature'},
           // UI triggered. can move from ready to loadingNewFeatureForm without first locating if location not required, chosen later, etc
           // if feature is already located, pass geoJSON representation of feature to loadNewFeatureForm
           { name: 'loadNewFeatureForm', from: ['ready', 'locatingNewFeature'], to: 'loadingNewFeatureForm'},
@@ -162,9 +156,10 @@ $.widget("ui.shareabout", (function() {
           { name: 'submitNewFeature', from: ['finalizingNewFeature', 'locatingNewFeature'], to: 'submittingNewFeature'},
           // called internally after response from submit, if data status is error
           { name: 'errorNewFeature', from: 'submittingNewFeature', to: 'finalizingNewFeature'},
-
+          // UI triggered. Pass ID of feature to view.
+          { name: 'viewFeature', from: ['ready', 'locatingNewFeature', 'finalizingNewFeature', 'submittingNewFeature', 'viewingFeature'], to: 'viewingFeature'},
           // Ways to get back to ready
-          { name: 'ready', from : ['ready', 'loadingFeatures', 'submittingNewFeature'], to: 'ready'},
+          { name: 'ready', from : ['ready', 'loadingFeatures', 'submittingNewFeature', 'viewingFeature'], to: 'ready'},
           { name: 'cancel', from: ['locatingNewFeature', 'finalizingNewFeature'], to: 'ready'}
         ]
       });
@@ -254,9 +249,9 @@ $.widget("ui.shareabout", (function() {
            type : 'POST',
            success : function(data) {
              if (data.status && data.status == "error")
-               fsm.errorNewFeature(data);
+               fsm.errorNewFeature(null, data);
              else
-               fsm.ready(data);
+               fsm.viewFeature(data.geoJSON.properties.id, data);
            }
          };
          if ( typeof ajaxOptions == "object" ) $.extend(true, ajaxCfg, ajaxOptions);
@@ -266,8 +261,8 @@ $.widget("ui.shareabout", (function() {
       /*
        * Creates a marker for the new feature using the properties in responseData.geoJSON. 
        */
-      fsm.onleavesubmittingNewFeature = function (eventName, from, to, responseData) {
-        if (to == "ready") {
+      fsm.onleavesubmittingNewFeature = function (eventName, from, to, id, responseData) {
+        if (to == "viewingFeature") {
           var markerOpts = { };
           if ( shareabout.options.map.markerIcon ) markerOpts.icon = new shareabout.options.map.markerIcon();
 
@@ -277,15 +272,35 @@ $.widget("ui.shareabout", (function() {
 
           map.removeLayer(newFeature);
           map.addLayer(marker);
-
-          // Update history state 
-          var fId = responseData.geoJSON.properties.id;
-          shareabout.viewFeature(fId);
         } else if (to == "finalizingNewFeature") {
           $(".shareabouts-side-popup-content").html(responseData.view);
         }
       };
-
+      
+      /*
+       * 
+       */
+      fsm.onviewFeature = function(eventName, from, to, fId) {
+        if (features[fId]._html) {
+          shareabout._openPopupWith( features[fId] );
+        } else {
+          var resource_path = shareabout.options.featureUrl.replace(/FEATURE_ID/, fId);
+          $.get( resource_path, function(data){
+            shareabout._openPopupWith( features[fId], data.view);
+            if (window.history && window.history.pushState) window.history.pushState(null, null, resource_path);
+          }, "json");
+        }
+      };
+      
+      fsm.onleaveviewingFeature = function(eventName, from, to) {
+        if (popup._opened) map.removeLayer(popup);
+      };
+      
+      fsm.onleavelocatingNewFeature = function(eventName, from, to) {
+        if (hint && hint._opened) map.removeLayer(hint);
+        if (to != "loadingNewFeatureForm") map.removeLayer(newFeature);
+      };
+      
       /*
        * Removes all the layers related to feature submission. 
        */
@@ -295,16 +310,15 @@ $.widget("ui.shareabout", (function() {
       };
       
       /*
-       * Closes the popup. 
+       * 
        */
       fsm.onready = function (eventName, from, to) {
         if (popup._opened) map.removeLayer(popup);
-        if (hint && hint._opened) map.removeLayer(hint)
         
         if (shareabout.options.callbacks.onready) 
           shareabout.options.callbacks.onready();
       };
-
+      
       // Load initial data
       fsm.loadFeatures(this.options.featuresUrl);      
     }
