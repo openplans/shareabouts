@@ -1,0 +1,11 @@
+<ul>
+  <li>
+    <%= tweet t("sharing.twitter.status", :place => "place", :url => feature_point_url(shareable)) -%>
+  </li>
+  <li>
+    <%= facebook_share_feature shareable -%>
+  </li>
+  <li>
+    <%= mail_to "", "email", :subject => t("sharing.email.subject", :place => "place"), :body => t("sharing.email.body", :place => "place", :url => feature_point_url(shareable)) -%>
+  </li>
+</ul>

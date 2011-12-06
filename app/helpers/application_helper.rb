@@ -27,6 +27,15 @@ module ApplicationHelper
     session[:fb_friends].map {|id,name| name}.join ", "
   end
   
+  def tweet(message)
+    link_to "tweet", "https://twitter.com/intent/tweet?source=webclient&text=#{message}"
+  end
+  
+  # message is irrelevant for this
+  def facebook_share_feature(feature)
+    link_to "recommend on fb", "https://www.facebook.com/sharer/sharer.php?u=#{feature_point_url(feature)}"
+  end
+  
   private
   
   def user_friends_hash(access_token)

@@ -9,3 +9,9 @@ en:
     comment_feature: 'Say it'
   labels:
     voter_description: 'supporter'
+  sharing:
+    email:
+      subject: 'I suggested a %{place}'
+      body: "Check out the %{place} I suggested: %{url}"
+    twitter:
+      status: "Check out this %{place}! %{url}."
