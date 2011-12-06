@@ -106,9 +106,11 @@ $.widget("ui.shareabout", (function() {
       if (features[fId]._html) {
         this._openPopupWith( features[fId] );
       } else {
-        var shareabout = this;
-        $.get( this.options.featureUrl.replace(/FEATURE_ID/, fId), function(data){
+        var shareabout = this,
+            resource_path = this.options.featureUrl.replace(/FEATURE_ID/, fId);
+        $.get( resource_path, function(data){
           shareabout._openPopupWith( features[fId], data.view);
+          if (window.history && window.history.pushState) window.history.pushState(null, null, resource_path);
         }, "json");
       }      
     },
