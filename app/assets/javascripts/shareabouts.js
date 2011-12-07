@@ -34,7 +34,7 @@ $.widget("ui.shareabout", (function() {
       features = {};
       popup    = new L.SidePopup();
       map      = new L.Map( this.element.attr("id") );
-
+      
       map.setView(this.options.map.center, this.options.map.initialZoom);
 
       map.addLayer(new L.TileLayer( this.options.map.tileUrl, {
@@ -104,6 +104,15 @@ $.widget("ui.shareabout", (function() {
      */
     viewFeature : function(fId) {
       fsm.viewFeature(fId);
+    },
+    
+    /**
+     * Add a click listener within the map popup (SidePopup only). 
+     * @param {String} selector CSS selector (within popup) to element(s) on which to add listener.
+     * @param {function} callback function to be called on click of selected element
+     */
+    addClickEventListenerToPopup : function(selector, callback) {
+      popup.addClickEventListener(selector, callback);
     },
   
     // 
