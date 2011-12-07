@@ -1,6 +1,6 @@
 <%= link_to "Admin edit", rails_admin.edit_path("feature_points", feature_point.id) %>
 Point is <%= "in" unless feature_point.visible? -%>visible.
-<%= form_for feature_point, :remote => true, :html => { "data-behavior" => "load_result_in_popup" } do |form| %>
+<%= form_for feature_point, :remote => true do |form| %>
   <%= form.label :visible, "Visible?" %>
   <%= form.check_box :visible %>
   <%= form.submit %>

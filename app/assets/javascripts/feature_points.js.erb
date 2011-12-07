@@ -74,8 +74,17 @@ $(function() {
       $("#map").shareabout("submitNewFeature", ajaxOptions);
     });
     
-    $("form[data-behavior=load_result_in_popup]").live("ajax:success", function(e,xhr,status){
-      $(this).closest(".shareabouts-side-popup-content").html(xhr.view);
+    // <IE9 does not support live detection of submit event and leaflet steals clicks within a popup.
+    // Thus, registering click event on popup's forms via SidePopup, who fires event on popup click.
+    $("#map").shareabout("addClickEventListenerToPopup", "form input:submit", function(mouseEvent, target){
+      mouseEvent.preventDefault();
+      
+      var input = $(mouseEvent.target),
+          form  = input.closest("form");
+          
+      $.post( form.attr("action"), form.serialize(), function(data) {
+          form.closest(".shareabouts-side-popup-content").html(data.view);
+        }, "json" );
     });
   };
   
