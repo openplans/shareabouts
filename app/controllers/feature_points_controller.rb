@@ -1,6 +1,7 @@
 class FeaturePointsController < ApplicationController
 
   before_filter :ignore_comments_fields_if_empty, :only => :create
+  before_filter :set_cache_buster, :only => :show # for IE8
   
   def index
     respond_to do |format|
