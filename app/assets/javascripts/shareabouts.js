@@ -165,7 +165,7 @@ $.widget("ui.shareabout", (function() {
       });
     
       fsm.onchangestate = function(eventName, from, to) { 
-        console.log("Transitioning from " + from + " to " + to + " via " + eventName);
+        if (window.console) window.console.info("Transitioning from " + from + " to " + to + " via " + eventName);
       };
 
       /*
