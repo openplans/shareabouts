@@ -32,16 +32,6 @@ $(function() {
     featureUrl : '<%= url_help.feature_point_path("FEATURE_ID") %>'
   };
   
-  var positionSuccess = function (position) {
-    var here = new L.LatLng(position.coords.latitude, position.coords.longitude);
-    initShareabouts(here);
-  };
-  
-  var positionError = function (message) {
-    var greenpoint = new L.LatLng(40.727857, -73.947151);
-    initShareabouts(greenpoint);
-  };
-  
   var initShareabouts = function (mapCenter) {
     $.extend( true, shareaboutsCfg, { map : { center : mapCenter} } );
     
@@ -91,7 +81,5 @@ $(function() {
     });
   };
   
-  navigator.geolocation ? 
-    navigator.geolocation.getCurrentPosition(positionSuccess, positionError) : 
-    positionError('not supported');  
+  initShareabouts( new L.LatLng(40.727857, -73.947151) ); 
 });
