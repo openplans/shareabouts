@@ -374,6 +374,15 @@ only screen and (min-device-pixel-ratio : 1.5) {
 }
 
 /*
+ *
+ * Map
+ *
+ */
+#locate_feature, #finalize_feature {
+  display : none;
+}
+
+/*
  * 
  * Feature Popup Content
  *
