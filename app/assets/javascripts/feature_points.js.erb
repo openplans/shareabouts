@@ -61,14 +61,17 @@ $(function() {
       $(this).hide();
     });
     
-    $("form#new_feature_point").live("submit", function(e){
-      e.preventDefault();
-
+    $("#map").shareabout("addClickEventListenerToPopup", "form#new_feature_point input:submit", function(mouseEvent, target){
+      mouseEvent.preventDefault();
+      
+      var input = $(mouseEvent.target),
+          form  = input.closest("form");
+          
       var newFeature = $("#map").shareabout("getNewFeatureMarker");
       
       var ajaxOptions = { 
-        data : $(this).serialize() + "&latitude=" + newFeature.getLatLng().lat + "&longitude=" + newFeature.getLatLng().lng, 
-        url : $(this).attr("action") 
+        data : form.serialize() + "&latitude=" + newFeature.getLatLng().lat + "&longitude=" + newFeature.getLatLng().lng, 
+        url : form.attr("action") 
       };
       
       $("#map").shareabout("submitNewFeature", ajaxOptions);
