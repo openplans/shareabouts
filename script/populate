@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# This command will populate the feature_points with geoms from db/seeds/points.csv. 
+# Pass an integer argument to specify number of points, or else defaults to 1000 points.
+
+APP_PATH = File.expand_path('../../config/application',  __FILE__)
+require File.expand_path('../../config/boot',  __FILE__)
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
+require 'csv'
+
+n = !ARGV.empty? ? ARGV.first.to_i : 1000
+
+CSV.foreach( File.join(Rails.root,'db','seeds','points.csv'), headers: true ) do |r|
+  n -= 1
+  
+  point = FeaturePoint.new
+  point.send :write_attribute, :the_geom, r['point']
+  point.save
+  
+  break if n == 0
+end
+
+puts "#{FeaturePoint.count} points"
