@@ -4,7 +4,7 @@ module ApplicationHelper
     if current_user
       current_user.votes.where(:supportable_type => supportable.class.to_s, :supportable_id => supportable.id).count > 0
     else
-      return false if cookies[:supportable].blank?
+      return false if cookies[:supportable].inspect == "nil"
       
       supported   = Marshal.load(cookies[:supportable])
       key         = supportable.class.to_s.to_sym
