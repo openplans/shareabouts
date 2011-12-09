@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111128170753) do
+ActiveRecord::Schema.define(:version => 20111209155206) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                             :default => "", :null => false
@@ -31,13 +31,14 @@ ActiveRecord::Schema.define(:version => 20111128170753) do
   create_table "comments", :force => true do |t|
     t.integer  "commentable_id"
     t.string   "commentable_type"
-    t.string   "commenter_ip"
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "comments", ["commentable_type", "commentable_id"], :name => "index_comments_on_commentable_type_and_commentable_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -121,12 +122,12 @@ ActiveRecord::Schema.define(:version => 20111128170753) do
   create_table "votes", :force => true do |t|
     t.integer  "supportable_id"
     t.string   "supportable_type"
-    t.string   "supporter_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
   end
 
   add_index "votes", ["supportable_type", "supportable_id"], :name => "index_votes_on_supportable_type_and_supportable_id"
+  add_index "votes", ["user_id"], :name => "index_votes_on_user_id"
 
 end
