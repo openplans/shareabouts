@@ -9,7 +9,7 @@
     <h2 class="name"><%= feature_point.name %></h2>
   <% end %>
 
-  <div class="meta">Added on <%= feature_point.created_at.strftime("%m/%d/%Y")%></div>
+  <div class="weak">Added <%= byline(feature_point) %>on <%= feature_point.created_at.strftime("%m/%d/%Y")%></div>
 
   <% if feature_point.description.present? %>
     <div class="description">
@@ -17,29 +17,20 @@
     </div>
   <% end %>
   
-  <div class="meta">
+  <div class="meta weak">
     <ul>
-      <% if feature_point.user.present? %>
-        <li class="first">
-          <%= feature_point.user.name %>
-        </li>
-      <% end %>
-      <li<%= " class=first" unless feature_point.user.present? %>>
+      <li class="first">
         <%= feature_point.regions.map(&:display_name).join(", ") %>
-      </li>
-      <li>
-        <%= label_tag "permalink_#{feature_point.id}", "permalink" %>
-        <%= text_field_tag("permalink_#{feature_point.id}", feature_point_url(feature_point), :readonly => true) %>
       </li>
     </ul>
   </div>
   
+  <div class="support">
+    <%= render "votes/new", :supportable => feature_point %>
+  </div>
+  
   <div class="sharing">
     <%= render "shared/share.html", :shareable => feature_point %>  
-  </div>
-
-  <div class="support">
-    <%= render "shared/support.html", :supportable => feature_point %>  
   </div>
 
   <div class="discussion">

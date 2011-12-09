@@ -28,12 +28,24 @@ module ApplicationHelper
   end
   
   def tweet(message)
-    link_to "tweet", "https://twitter.com/intent/tweet?source=webclient&text=#{message}"
+    link_to "tweet", "https://twitter.com/intent/tweet?source=webclient&text=#{message}", :class => "twitter"
   end
   
   # message is irrelevant for this
   def facebook_share_feature(feature)
-    link_to "recommend on fb", "https://www.facebook.com/sharer/sharer.php?u=#{feature_point_url(feature)}"
+    link_to "recommend on fb", "https://www.facebook.com/sharer/sharer.php?u=#{feature_point_url(feature)}", :class => "facebook"
+  end
+  
+  def byline(authorable)
+    "by #{authorable.user.name} " if authorable.user.present?
+  end
+  
+  def button_if(show_button, &block)
+    if show_button
+      content_tag( :button, :type => :submit, &block)
+    else
+      yield(block)
+    end
   end
   
   private

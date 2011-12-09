@@ -1,16 +1,17 @@
 <% if commentable.comments.present? %>
-  <h4>Comments</h4>
+  <h6><%= pluralize commentable.comments.count, t("feature.comment") %></h6>
   <ul>
     <% for comment in commentable.comments %>
       <li>
-        <strong>
-          <%= time_ago_in_words comment.created_at %> ago:
-        </strong> 
+        <%= content_tag :strong, comment.user.name if comment.user %>
+        <span class="weak">
+          <%= comment.created_at.strftime("%m/%d/%Y") %>
+        </span> 
         <%= comment.comment %>
       </li>
     <% end %>
   </ul>
 <% end %>
 
-<h4>Add a Comment</h4>
+<h6>Reply</h6>
 <%= render "comments/new", :commentable => commentable %>

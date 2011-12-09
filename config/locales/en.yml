@@ -5,13 +5,14 @@ en:
   map_controls:
     locate_feature: 'Drop a pin'
     finalize_feature: 'Confirm location'
-    support_feature: 'Support!'
-    comment_feature: 'Say it'
-  labels:
+  feature:
+    comment: 'comment'
     voter_description: 'supporter'
-  sharing:
-    email:
-      subject: 'I suggested a %{place}'
-      body: "Check out the %{place} I suggested: %{url}"
-    twitter:
-      status: "Check out this %{place}! %{url}."
+    vote_action: 'Support This!'
+    comment_action: 'Post'
+    sharing:
+      email:
+        subject: 'I suggested a %{place}'
+        body: "Check out the %{place} I suggested: %{url}"
+      twitter:
+        status: "Check out this %{place}! %{url}."

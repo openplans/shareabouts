@@ -391,8 +391,12 @@ only screen and (min-device-pixel-ratio : 1.5) {
   width : 98%;
 } 
 
-.feature div {
+.feature div{
   margin-bottom: 10px;
+}
+
+.feature h6 {
+  margin-bottom: 5px;
 }
 
 .feature.show .meta ul {
@@ -412,6 +416,105 @@ only screen and (min-device-pixel-ratio : 1.5) {
 	content: " ";
 }
 
-.feature.show .meta {
+.feature.show .weak {
   color : #888;
+}
+
+.feature.show .sharing {
+  clear: both;
+  height : 20px;
+}
+
+.feature.show .sharing,
+.feature.show .sharing ul {
+  margin: 0;
+}
+
+.feature.show .sharing li {
+  display : inline;
+  float: left;
+  margin: 0 0.6em 0 0;
+}
+
+.feature.show .sharing li a {
+  display: block;
+  width : 16px;
+  height : 16px;
+  text-indent: -10000px;
+}
+
+.feature.show .sharing li a.twitter {
+  background: url("twitter-16.png") no-repeat scroll 0 0 transparent;
+}
+
+.feature.show .sharing li a.facebook {
+  background: url("facebook-16.png") no-repeat scroll 0 0 transparent;
+}
+
+.feature.show .sharing li a.email {
+  background: url("email-16.png") no-repeat scroll 0 0 transparent;
+}
+
+.feature.show .sharing li a.link {
+  background: url("chain-16.png") no-repeat scroll 0 0 transparent;
+}
+
+.feature.show  div.support_button, 
+.feature.show form#new_vote button[type=submit] {
+  background-color: #e4e4e4; 
+  color: #444;
+  font-weight: normal;
+  font-size: auto;
+  font-size: 1em;
+  text-shadow: none;
+    
+  border-radius : 6px;
+  -moz-border-radius : 6px;
+  -webkit-border-radius : 6px;
+  
+  box-shadow: none;
+  -moz-box-shadow: none; 
+  -webkit-box-shadow: none; 
+}
+
+.feature.show  div.support_button {  
+  height: 2.25em;
+  line-height: 2.25em;
+  margin: 0 0 0.667em;
+  padding: 0 1.3em 0 1.5em; 
+  text-align: center;
+  white-space: nowrap;
+  display : block;
+  float: left;
+}
+
+.feature.show div.support_button span, 
+.feature.show form#new_vote button[type=submit] span {
+  font-weight: bold;
+  color: red;
+}
+
+.feature.show div.support_button span:before, 
+.feature.show form#new_vote button[type=submit] span:before {
+  content: "♡ ";
+}
+
+.feature.show div.support_button span.supported:before, 
+.feature.show form#new_vote button[type=submit] span.supported:before {
+  content: "♥  ";
+}
+
+.feature.show div.discussion ul {
+  margin-left: 0;
+}
+
+.feature.show div.discussion ul li {
+  background   : transparent url('user.png') no-repeat scroll top left;
+  padding-left : 30px;
+  min-height   : 25px;
+} 
+
+.feature.show div.discussion input[type=submit] {
+  font-size: 1.1em;
+  margin-top: 0.5em;
 }
