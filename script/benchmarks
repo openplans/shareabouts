@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+# This script will benchmark a bunch of stuff.  
+
+APP_PATH = File.expand_path('../../config/application',  __FILE__)
+require File.expand_path('../../config/boot',  __FILE__)
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
+require 'benchmark'
+
+n      = 100
+things = FeaturePoint.visible
+puts "#{things.count} feature points"
+
+Benchmark.bmbm do |x|
+  x.report "map w/ symbol to proc" do
+    things.map(&:as_geo_json)
+  end
+  
+  x.report "map w/ block" do
+    things.map {|p| p.as_geo_json }
+  end
+end
