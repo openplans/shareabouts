@@ -7,7 +7,7 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <html dir="ltr" lang="en-US"> <!--<![endif]-->
 
 <head>
-  <title>Shareabouts</title>
+  <title><%= t "app_name" %></title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
@@ -33,7 +33,7 @@
   <div id="wrapper">
     <header id="header" role="banner">
       <hgroup>
-        <h1 id="site-title"><span>Shareabouts</span></h1>
+        <h1 id="site-title"><span><%= t "app_name" %></span></h1>
       </hgroup>
       <nav id="access" role="navigation">
         <% if current_user %>
@@ -49,7 +49,7 @@
             Your friends: <%= list_friends %>
           </span>
         <% else %>
-          <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+          <%= link_to t("auth.fb_signin"), user_omniauth_authorize_path(:facebook) %>
         <% end %>
       </nav>
     </header>

@@ -1,5 +1,5 @@
 <% if commentable.comments.present? %>
-  <h6><%= pluralize commentable.comments.count, t("feature.comment") %></h6>
+  <h6><%= pluralize commentable.comments.count, t("feature.comment.label") %></h6>
   <ul>
     <% for comment in commentable.comments %>
       <li>
@@ -13,5 +13,5 @@
   </ul>
 <% end %>
 
-<h6>Reply</h6>
+<h6><%= t("feature.comment.action") %></h6>
 <%= render "comments/new", :commentable => commentable %>

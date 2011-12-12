@@ -11,10 +11,10 @@
 
   <%= form_for @feature_point do |form| %>
       <div>
-        <%= form.text_field :name, :placeholder => "Point Title" %>
+        <%= form.text_field :name, :placeholder => t("feature.form.title_label") %>
       </div>
       <div>
-        <%= form.text_area :description, :placeholder => "Point Description...", :cols => 1, :rows => 4 %>
+        <%= form.text_area :description, :placeholder => t("feature.form.description_label"), :cols => 1, :rows => 4 %>
       </div>
     <%#= form.fields_for :comments, @feature_point.comments.build do |comments_fields| %>
       <%#= comments_fields.label :comment %>
@@ -22,7 +22,7 @@
       <!-- <br> -->
     <%# end %>
     <div>
-    <%= form.submit %>  
+    <%= form.submit t("feature.form.submit")%>  
     </div>
     </li>
   <% end %>

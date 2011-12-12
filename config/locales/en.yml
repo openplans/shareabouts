@@ -2,14 +2,24 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  app_name: 'Shareabouts'
   map_controls:
-    locate_feature: 'Drop a pin'
-    finalize_feature: 'Confirm location'
+    locate_feature: 'Add a point!'
+    finalize_feature: 'Confirm Location'
+  auth:
+    fb_signin: 'Sign in with Facebook'
   feature:
-    comment: 'comment'
+    form:
+      title_label: 'Title'
+      description_label: 'Description...'
+      submit: 'Submit Point'
+    meta: 'Added %{by_author}on %{date_s}'
+    by_author: 'by %{name} '
+    comment: 
+      label: 'comment'
+      action: 'Reply'
     voter_description: 'supporter'
     vote_action: 'Support This!'
-    comment_action: 'Post'
     sharing:
       email:
         subject: 'I suggested a %{place}'

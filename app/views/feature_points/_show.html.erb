@@ -9,7 +9,7 @@
     <h2 class="name"><%= feature_point.name %></h2>
   <% end %>
 
-  <div class="weak">Added <%= byline(feature_point) %>on <%= feature_point.created_at.strftime("%m/%d/%Y")%></div>
+  <div class="weak"><%= feature_meta(feature_point) %></div>
 
   <% if feature_point.description.present? %>
     <div class="description">
