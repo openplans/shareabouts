@@ -70,7 +70,7 @@ class FeaturePointsController < ApplicationController
   end
   
   def ignore_comments_fields_if_empty
-    if params[:feature_point][:comments_attributes] && params[:feature_point][:comments_attributes]["0"][:comment].blank?
+    if params[:feature_point] && params[:feature_point][:comments_attributes] && params[:feature_point][:comments_attributes]["0"][:comment].blank?
       params[:feature_point].delete(:comments_attributes)
     end
   end
