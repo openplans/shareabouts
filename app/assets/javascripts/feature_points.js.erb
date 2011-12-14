@@ -12,9 +12,14 @@ $(function() {
           iconUrl: '<%= image_path("marker-plus.png") %>',
           iconSize: new L.Point(25, 41),
           iconAnchor: new L.Point(12, 41),
-          // shadowUrl: 'my-icon-shadow.png',
-          // shadowSize: new L.Point(68, 95),
           popupAnchor: new L.Point(13, -14)
+      }),
+      crosshairIcon   : L.Icon.extend({
+        iconUrl  : '<%= image_path("crosshair.png") %>',
+        iconSize : new L.Point(63, 64),
+        iconAnchor : new L.Point(33,32),
+        popupAnchor : new L.Point(0,0),
+        shadowSize : new L.Point(0,0) // no shadow
       })
     },
     callbacks : {

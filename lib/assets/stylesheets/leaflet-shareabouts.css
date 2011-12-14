@@ -79,7 +79,8 @@
 }
 
 /* Label Overlay */
-.shareabouts-label-overlay {
+.shareabouts-label-overlay,
+.mobile-hint-overlay {
   height : 29px;
   text-transform: uppercase;
   font: 12px/1.4 "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -92,12 +93,14 @@
 }
 
 .shareabouts-label-overlay-content,
-.shareabouts-label-overlay-tip {
+.shareabouts-label-overlay-tip,
+.mobile-hint-overlay {
   background-color : #fafa68;
   border : 1px solid #a09793;
 }
 
-.shareabouts-label-overlay-content {
+.shareabouts-label-overlay-content,
+.mobile-hint-overlay {
   padding : 0 10px;
   line-height : 29px;
   height : 29px;
@@ -124,4 +127,16 @@
   -ms-transform: rotate(45deg);
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.mobile-hint-overlay {
+  margin       : 1em auto;
+  float        : none;
+  position     : relative;
+  width        : 70%;
+  white-space  : normal;
+  height       : auto;
+  line-height  : 1em;
+  padding      : 1em;
+  border-width : 1px;
 }

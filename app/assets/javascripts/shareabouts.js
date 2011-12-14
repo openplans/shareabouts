@@ -12,14 +12,15 @@ $.widget("ui.shareabout", (function() {
   return {
     options : {
       map : {
-        tileUrl            : null, 
-        center             : null,
-        tileAttribution    : '', 
-        maxZoom            : 18,
-        initialZoom        : 13,
-        markerIcon         : null, // custom icon
-        newMarkerIcon      : null // custom icon for markers representing unsaved features
-      },
+        tileUrl         : null, 
+        center          : null,
+        tileAttribution : '', 
+        maxZoom         : 18,
+        initialZoom     : 13,
+        markerIcon      : null, // custom icon
+        newMarkerIcon   : null, // custom icon for markers representing unsaved features
+        crosshairIcon   : null // icon for crosshair used when locating on touch screen devices
+      },                   
       featuresUrl          : null, // url to all features geoJSON
       // featurUrl: url to feature json - should return a 'view' that contains popup content, resource ID should be indicated as FEATURE_ID to be subbed
       featurUrl            : null, 
@@ -141,10 +142,23 @@ $.widget("ui.shareabout", (function() {
     
       features[fId] = marker;
     },
+    
+    _touch_screen : function() {
+      return('ontouchstart' in window);
+    },
+    
+    _remove_hint : function() {
+       map.removeLayer(hint);
+       $(".mobile-hint-overlay").remove();
+    },
+    
+    _destroyMarker : function(layer) {
+      if (!layer) return;
+      
+      map.removeLayer(layer);
+      layer = null;
+    },
   
-    /*
-     * Private
-     */
     _init_states : function() {
       var shareabout = this;
       
@@ -210,21 +224,36 @@ $.widget("ui.shareabout", (function() {
       }
 
       /*
+       * If touch screen, displays crosshair, else
        * Drops a marker on the map at the latlng, if provided, or in the middle
        */
       fsm.onlocateNewFeature = function (eventName, from, to, latlng) {   
-        if (!latlng) latlng = map.getCenter();
-        
-        var markerOpts = { draggable : true };
-        if ( shareabout.options.map.newMarkerIcon ) markerOpts.icon = new shareabout.options.map.newMarkerIcon();
+        if (shareabout._touch_screen()) {
+          var crosshairIcon = new shareabout.options.map.crosshairIcon();
+          var wrapper = $("<div>").attr("id", "crosshair"),
+              img     = $("<img>").attr("src", crosshairIcon.iconUrl);
+              
+          shareabout.element.append(wrapper.html(img));
+          
+          $("#crosshair").css("left", shareabout.element[0].offsetWidth/2 - crosshairIcon.iconAnchor.x + "px");
+          $("#crosshair").css("top", shareabout.element[0].offsetHeight/2 - crosshairIcon.iconAnchor.y + "px");
+                    
+          hint = $("<div>").attr("class", "mobile-hint-overlay").html("Drag your location to the center of the map");
+          shareabout.element.append(hint);
+          map.on("drag", function(drag) { shareabout._remove_hint() } );               
+        } else {
+          if (!latlng) latlng = map.getCenter();
 
-        newFeature = new L.Marker(latlng, markerOpts);
-        map.addLayer(newFeature);
-        
-        hint = new L.LabelOverlay(latlng, "Drag me!");
-        map.addLayer(hint);
-        
-        newFeature.on("drag", function(drag) { map.removeLayer(hint) } );
+          var markerOpts = { draggable : true };
+          if ( shareabout.options.map.newMarkerIcon ) markerOpts.icon = new shareabout.options.map.newMarkerIcon();
+
+          newFeature = new L.Marker(latlng, markerOpts);
+          map.addLayer(newFeature);
+
+          hint = new L.LabelOverlay(latlng, "Drag me!");
+          map.addLayer(hint);
+          newFeature.on("drag", function(drag) { shareabout._remove_hint() } );               
+        }
       };
       
       /*
@@ -232,13 +261,19 @@ $.widget("ui.shareabout", (function() {
        * By default, if the json response contains a view property, that will be displayed in the marker popup.
        */
       fsm.onloadNewFeatureForm = function (eventName, from, to, ajaxOptions) {
-        newFeature.dragging.disable();
+        if (newFeature && newFeature.dragging) newFeature.dragging.disable();
         if (hint && hint._opened) map.removeLayer(hint)
         
         var ajaxCfg = { 
           type : 'GET', 
           success: function(data){
             if (data.view) {
+              if (!newFeature) {
+                newFeature = new L.Marker(map.getCenter(), {icon : new shareabout.options.map.crosshairIcon(), clickable : false, draggable : false});
+                map.addLayer(newFeature);
+                
+                $("#crosshair").remove();
+              }
               shareabout._openPopupWith(newFeature, $("<div>").html($("<div class='shareabouts submit'>").html(data.view)).html());
             }
             shareabout.finalizeNewFeature();
@@ -279,7 +314,7 @@ $.widget("ui.shareabout", (function() {
 
           shareabout._setupMarker(marker, responseData.geoJSON.properties);
 
-          map.removeLayer(newFeature);
+          shareabout._destroyMarker(newFeature);
           map.addLayer(marker);
         } else if (to == "finalizingNewFeature") {
           $(".shareabouts-side-popup-content").html(responseData.view);
@@ -307,15 +342,19 @@ $.widget("ui.shareabout", (function() {
       
       fsm.onleavelocatingNewFeature = function(eventName, from, to) {
         if (hint && hint._opened) map.removeLayer(hint);
-        if (to != "loadingNewFeatureForm") map.removeLayer(newFeature);
+        if (to != "loadingNewFeatureForm"){ 
+          $("#crosshair").remove();
+          shareabout._destroyMarker(newFeature);
+        }
       };
       
       /*
        * Removes all the layers related to feature submission. 
        */
       fsm.oncancel = function (eventName, from, to) {
+        $("#crosshair").remove();
         newFeature.closePopup();
-        map.removeLayer(newFeature);
+        shareabout._destroyMarker(newFeature);
       };
       
       /*
