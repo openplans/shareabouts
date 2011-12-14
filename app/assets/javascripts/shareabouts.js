@@ -32,8 +32,10 @@ $.widget("ui.shareabout", (function() {
      * Constructor
      */
     _create : function() {
+      var self = this;
+
       features = {};
-      popup    = new L.SidePopup();
+      popup    = this._small_screen() ? new InformationPanel({ onremove : function() { self._resetState(); } }) : new L.SidePopup();
       map      = new L.Map( this.element.attr("id") );
       
       map.setView(this.options.map.center, this.options.map.initialZoom);
@@ -42,14 +44,8 @@ $.widget("ui.shareabout", (function() {
         maxZoom: this.options.map.maxZoom, attribution: this.options.map.tileAttribution
       }));
       
-      map.on('layerremove', function(e){        
-        if (e.layer == popup){
-          if (fsm.can("ready"))
-            fsm.ready();
-          else if (fsm.can("cancel"))
-            fsm.cancel();
-        }         
-      });
+      map.on('layerremove', function(e){ if (e.layer == popup) self._resetState(); });
+      map.on('click', function(e){ self._removePopup(); });
     
       this._init_states();
     },
@@ -89,6 +85,11 @@ $.widget("ui.shareabout", (function() {
      * Returns the leaflet map
      */
     getMap : function () { return map; },
+    
+    /**
+     * Returns the info popup
+     */
+    getPopup : function () { return popup; },
   
     /**
      * Returns the state machine object
@@ -116,12 +117,50 @@ $.widget("ui.shareabout", (function() {
       popup.addClickEventListener(selector, callback);
     },
   
-    // 
+    /*
+     * Private
+     */
+    // Centers the map at a point that will center the actual point of interest in the visible view
+    scrollViewTo : function(latLng) {
+      var mapWidth  = this.element[0].offsetWidth,
+          mapHeight = this.element[0].offsetHeight;
+
+      if (this._small_screen()) {
+        var ratioY = -0.37; // percentage of map height between map center and focal point, hard coded bad
+        map.panBy( new L.Point(0, mapHeight * ratioY) );
+      } else {
+        var ratioX = 1/6; // percentage of map width between map center and focal point, hard coded bad
+        map.panBy( new L.Point(mapWidth * ratioX, 0) );
+      }
+    },
+    
+    _small_screen : function() {
+      return this.element[0].offsetWidth <= 400;
+    },
+    
+    _resetState : function() {
+      if (fsm.can("ready")) fsm.ready();
+      else if (fsm.can("cancel")) fsm.cancel();
+    },
+    
     _openPopupWith : function(layer, content) {
       popup.setContent(content || layer._html);
       popup.setLatLng(layer.getLatLng());
-      map.setView( layer.getLatLng(),map.getZoom(),true );
-      if (!popup._opened) map.addLayer( popup );
+
+      // Transitioning from leaflet popup to InformationPanel
+      if (popup instanceof InformationPanel) {
+        this.scrollViewTo( layer.getLatLng() );
+        popup.open( this._small_screen() );
+      } else {
+        map.setView( layer.getLatLng(), map.getZoom(),true );
+        if (!popup._opened) map.addLayer( popup );
+      }
+    },
+    
+    _removePopup : function() {
+      // Transitioning from leaflet popup to InformationPanel
+      if (popup instanceof InformationPanel && popup._opened()) popup.remove();
+      else if (popup._opened) map.removeLayer(popup);
     },
   
     _setupMarker : function(marker, properties) {
@@ -261,19 +300,20 @@ $.widget("ui.shareabout", (function() {
        * By default, if the json response contains a view property, that will be displayed in the marker popup.
        */
       fsm.onloadNewFeatureForm = function (eventName, from, to, ajaxOptions) {
-        if (newFeature && newFeature.dragging) newFeature.dragging.disable();
+        if (newFeature && newFeature.dragging._enabled)
+          newFeature.dragging.disable();
+        else {
+          newFeature = new L.Marker(map.getCenter(), {icon : new shareabout.options.map.crosshairIcon(), clickable : false, draggable : false});
+          map.addLayer(newFeature); 
+          $("#crosshair").remove();                
+        }
+          
         if (hint && hint._opened) map.removeLayer(hint)
         
         var ajaxCfg = { 
           type : 'GET', 
           success: function(data){
             if (data.view) {
-              if (!newFeature) {
-                newFeature = new L.Marker(map.getCenter(), {icon : new shareabout.options.map.crosshairIcon(), clickable : false, draggable : false});
-                map.addLayer(newFeature);
-                
-                $("#crosshair").remove();
-              }
               shareabout._openPopupWith(newFeature, $("<div>").html($("<div class='shareabouts submit'>").html(data.view)).html());
             }
             shareabout.finalizeNewFeature();
@@ -337,7 +377,7 @@ $.widget("ui.shareabout", (function() {
       };
       
       fsm.onleaveviewingFeature = function(eventName, from, to) {
-        if (popup._opened) map.removeLayer(popup);
+        shareabout._removePopup();
       };
       
       fsm.onleavelocatingNewFeature = function(eventName, from, to) {
@@ -353,7 +393,7 @@ $.widget("ui.shareabout", (function() {
        */
       fsm.oncancel = function (eventName, from, to) {
         $("#crosshair").remove();
-        newFeature.closePopup();
+        shareabout._removePopup();
         shareabout._destroyMarker(newFeature);
       };
       
@@ -361,7 +401,7 @@ $.widget("ui.shareabout", (function() {
        * 
        */
       fsm.onready = function (eventName, from, to) {
-        if (popup._opened) map.removeLayer(popup);
+        shareabout._removePopup();
         
         if (shareabout.options.callbacks.onready) 
           shareabout.options.callbacks.onready();

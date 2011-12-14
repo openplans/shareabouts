@@ -81,8 +81,8 @@ $(function() {
           form  = input.closest("form");
           
       $.post( form.attr("action"), form.serialize(), function(data) {
-          form.closest(".shareabouts-side-popup-content").html(data.view);
-        }, "json" );
+        $("#map").shareabout("getPopup").setContent(data.view);
+      }, "json" );
     });
   };
   

@@ -378,6 +378,27 @@ only screen and (min-device-pixel-ratio : 1.5) {
   position : absolute;
 }
 
+/* InformationPanel for Mobile, move to small screen */ 
+div.information-panel {
+  background-color: white;
+  border-radius: .5em;
+  position: absolute;
+  left: 0.5em;
+  right: 0.5em;
+  height: 80%;
+  padding: 1em;
+  border: 1px solid #CCC;
+  top: 0.5em;
+  z-index:10000;
+}
+
+div.information-panel .close {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  font-size: 0.8em;
+}
+
 /*
  *
  * Map
