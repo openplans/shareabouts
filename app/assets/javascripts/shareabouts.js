@@ -20,7 +20,8 @@ $.widget("ui.shareabout", (function() {
         markerIcon      : null, // custom icon
         newMarkerIcon   : null, // custom icon for markers representing unsaved features
         crosshairIcon   : null // icon for crosshair used when locating on touch screen devices
-      },                   
+      },
+      withinBounds         : true,                 
       featuresUrl          : null, // url to all features geoJSON
       // featurUrl: url to feature json - should return a 'view' that contains popup content, resource ID should be indicated as FEATURE_ID to be subbed
       featurUrl            : null, 
@@ -45,9 +46,15 @@ $.widget("ui.shareabout", (function() {
       }));
       
       map.on('layerremove', function(e){ if (e.layer == popup) self._resetState(); });
-      map.on('click', function(e){ self._removePopup(); });
+      map.on('click', function(e){ self._removePopup(); });      
     
       this._init_states();
+      
+      if (this.options.withinBounds) {
+        map.on('dragend', function(e){
+          fsm.loadFeatures(self.options.featuresUrl, self.options.withinBounds);
+        })
+      }
     },
     
     /*****************
@@ -164,12 +171,11 @@ $.widget("ui.shareabout", (function() {
     },
   
     _setupMarker : function(marker, properties) {
-      var shareabout = this;
+      var shareabout = this,
+          fId = properties.id;
       
       if (this.options.featurePopupTemplate)
         marker._html = $.mustache( this.options.featurePopupTemplate, properties );
-
-      var fId = properties.id;
     
       marker._id = fId;
       marker.on("click", function(click){
@@ -247,7 +253,9 @@ $.widget("ui.shareabout", (function() {
         $.getJSON(featuresUrl, function(data){
           var geojsonLayer = new L.GeoJSON(null, {
             // Assumes all features are points ATM
-            pointToLayer : function(latlng) {
+            pointToLayer : function(latlng, geojson) {
+              if ( features[geojson.properties.id] ) return false;
+              
               var markerOpts = {};
               if ( shareabout.options.map.markerIcon ) markerOpts.icon = new shareabout.options.map.markerIcon();
               return new L.Marker(latlng, markerOpts);
@@ -415,8 +423,8 @@ $.widget("ui.shareabout", (function() {
           shareabout.options.callbacks.onready();
       };
       
-      // Load initial data, only within the visible bounds
-      fsm.loadFeatures(this.options.featuresUrl, true);      
+      // Load initial data
+      fsm.loadFeatures(this.options.featuresUrl, this.options.withinBounds);      
     }
   }; // end widget function return
 })());
