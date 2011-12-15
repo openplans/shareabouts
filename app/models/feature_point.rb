@@ -27,6 +27,11 @@ class FeaturePoint < ActiveRecord::Base
   validates :the_geom,  :presence => true
   validates_with InRegionValidator  
   
+  # Returns points which are visible within the boundaries 
+  def self.visible_within(corners)
+    visible.where( "ST_Contains(ST_GeomFromText('POLYGON((#{corners[0][0]} #{corners[0][1]},#{corners[1][0]} #{corners[0][1]},#{corners[1][0]} #{corners[1][1]},#{corners[0][0]} #{corners[1][1]},#{corners[0][0]} #{corners[0][1]}))',4326), feature_points.the_geom)" )
+  end
+  
   def latitude
     return the_geom.y if the_geom
   end

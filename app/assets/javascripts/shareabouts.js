@@ -227,14 +227,22 @@ $.widget("ui.shareabout", (function() {
       });
     
       fsm.onchangestate = function(eventName, from, to) { 
-        if (window.console) window.console.info("Transitioning from " + from + " to " + to + " via " + eventName);
+        // if (window.console) window.console.info("Transitioning from " + from + " to " + to + " via " + eventName);
       };
 
       /*
        * Expects a geoJSON object or an array of geoJSON features whose properties contain a unique ID called 'id'
        */
-      fsm.onloadFeatures = function (eventName, from, to, featuresUrl) {
+      fsm.onloadFeatures = function (eventName, from, to, featuresUrl, withinBounds) {
         if (!featuresUrl) return;
+              
+        if (withinBounds) {
+          var bounds = map.getBounds(),
+              boundsQ = "bounds[]=" + bounds.getNorthEast().lng + "," + bounds.getNorthEast().lat + 
+            "&bounds[]=" + bounds.getSouthWest().lng + "," + bounds.getSouthWest().lat;
+          
+          featuresUrl += ( featuresUrl.indexOf("?") != -1 ? "&" : "?") + boundsQ;
+        }
 
         $.getJSON(featuresUrl, function(data){
           var geojsonLayer = new L.GeoJSON(null, {
@@ -407,8 +415,8 @@ $.widget("ui.shareabout", (function() {
           shareabout.options.callbacks.onready();
       };
       
-      // Load initial data
-      fsm.loadFeatures(this.options.featuresUrl);      
+      // Load initial data, only within the visible bounds
+      fsm.loadFeatures(this.options.featuresUrl, true);      
     }
   }; // end widget function return
 })());
