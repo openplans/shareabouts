@@ -51,9 +51,9 @@ $.widget("ui.shareabout", (function() {
       this._init_states();
       
       if (this.options.withinBounds) {
-        map.on('dragend', function(e){
-          fsm.loadFeatures(self.options.featuresUrl, self.options.withinBounds);
-        })
+        map.on('dragend', function(e){ fsm.loadFeatures(self.options.featuresUrl, self.options.withinBounds) })
+        map.on('zoomend', function(e){ fsm.loadFeatures(self.options.featuresUrl, self.options.withinBounds) })
+        $(window).resize( function(e){ fsm.loadFeatures(self.options.featuresUrl, self.options.withinBounds) })
       }
     },
     
