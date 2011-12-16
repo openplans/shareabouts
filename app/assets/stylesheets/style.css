@@ -390,6 +390,7 @@ div.information-panel {
   border: 1px solid #CCC;
   top: 0.5em;
   z-index:10000;
+  overflow-y:scroll;
 }
 
 div.information-panel .close {

@@ -182,24 +182,16 @@ $.widget("ui.shareabout", (function() {
     // Centers the map at a point that will center the actual point of interest in the visible view
     _scrollViewTo : function(latLng) {
       var mapWidth  = this.element[0].offsetWidth,
-          mapHeight = this.element[0].offsetHeight;
-
+          mapHeight = this.element[0].offsetHeight,
+          pos       = map.latLngToLayerPoint(latLng);
+      
       if (this._small_screen()) {
-        var ratioY = -0.37; // percentage of map height between map center and focal point, hard coded bad
-        map.panBy( new L.Point(0, mapHeight * ratioY) );
+        var ratioY = -0.37; // percentage of map height between map center and focal point, hard coded bad        
+        map.panTo(map.layerPointToLatLng( new L.Point(pos.x, pos.y + ratioY * mapHeight ) ));
       } else {
         var ratioX = 1/6; // percentage of map width between map center and focal point, hard coded bad
-        map.panBy( new L.Point(mapWidth * ratioX, 0) );
+        map.panTo(map.layerPointToLatLng( new L.Point(pos.x + ratioX * mapWidth, pos.y) ));        
       }
-    },
-    
-    _small_screen : function() {
-      return this.element[0].offsetWidth <= 400;
-    },
-    
-    _resetState : function() {
-      if (fsm.can("ready")) fsm.ready();
-      else if (fsm.can("cancel")) fsm.cancel();
     },
     
     _openPopupWith : function(layer, content) {
@@ -211,10 +203,26 @@ $.widget("ui.shareabout", (function() {
         this._scrollViewTo( layer.getLatLng() );
         popup.open( this._small_screen() );
         this.options.callbacks.onpopup();
+        var self = this;
+        window.setTimeout(function(){ // the map takes time to pan 
+          // height of the map, minus location of marker's top within the map 
+          var bottom = self.element[0].offsetHeight - ($(layer._icon).offset().top - self.element.offset().top);
+          popup.setStyle("bottom", bottom + "px");
+          popup.setStyle("height", "auto"); 
+        }, 400);
       } else {
         map.setView( layer.getLatLng(), map.getZoom(),true );
         if (!popup._opened) map.addLayer( popup );
       }
+    },
+    
+    _small_screen : function() {
+      return this.element[0].offsetWidth <= 400;
+    },
+    
+    _resetState : function() {
+      if (fsm.can("ready")) fsm.ready();
+      else if (fsm.can("cancel")) fsm.cancel();
     },
     
     _removePopup : function() {
