@@ -45,16 +45,18 @@ $.widget("ui.shareabout", (function() {
         maxZoom: this.options.map.maxZoom, attribution: this.options.map.tileAttribution
       }));
       
+      this.loadFeatures();
+      
       map.on('layerremove', function(e){ if (e.layer == popup) self._resetState(); });
       map.on('click', function(e){ self._removePopup(); });      
     
       this._init_states();
       
       if (this.options.withinBounds) {
-        map.on('dragend', function(e){ fsm.loadFeatures(self.options.featuresUrl, self.options.withinBounds) })
-        map.on('zoomend', function(e){ fsm.loadFeatures(self.options.featuresUrl, self.options.withinBounds) })
-        $(window).resize( function(e){ fsm.loadFeatures(self.options.featuresUrl, self.options.withinBounds) })
-      }
+        map.on('dragend', function(e){ self.loadFeatures() })
+        map.on('zoomend', function(e){ self.loadFeatures() })
+        $(window).resize( function(e){ self.loadFeatures() })
+      }      
     },
     
     /*****************
@@ -122,6 +124,45 @@ $.widget("ui.shareabout", (function() {
      */
     addClickEventListenerToPopup : function(selector, callback) {
       popup.addClickEventListener(selector, callback);
+    },
+    
+    loadFeatures : function(){
+      if (!this.options.featuresUrl) return;
+       
+      var url = this.options.featuresUrl;
+      
+      if (this.options.withinBounds) {
+        var bounds = map.getBounds(),
+            boundsQ = "bounds[]=" + bounds.getNorthEast().lng + "," + bounds.getNorthEast().lat + 
+          "&bounds[]=" + bounds.getSouthWest().lng + "," + bounds.getSouthWest().lat;
+        
+        url += ( this.options.featuresUrl.indexOf("?") != -1 ? "&" : "?") + boundsQ;
+      }
+      
+      var self = this;
+      $.getJSON(url, function(data){
+        var geojsonLayer = new L.GeoJSON(null, {
+          pointToLayer : function(latlng) {            
+            var markerOpts = {};
+            if ( self.options.map.markerIcon ) markerOpts.icon = new shareabout.options.map.markerIcon();
+            return new L.Marker(latlng, markerOpts);
+          }
+        });
+
+        // Triggered as features are individually parsed
+        geojsonLayer.on('featureparse', function(featureparse) {
+          self._setupMarker(featureparse.layer, featureparse.properties);
+        });
+
+        if (typeof data == "object") data = data.features;
+        $.each(data, function(i,f) { if (!features[f.properties.id]) geojsonLayer.addGeoJSON(f); });
+        map.addLayer(geojsonLayer);
+        fsm.ready();
+        
+        // Callback for after load
+        if (self.options.callbacks.onload) 
+          self.options.callbacks.onload();
+      });
     },
   
     /*
@@ -211,8 +252,6 @@ $.widget("ui.shareabout", (function() {
       fsm = StateMachine.create({
         initial : 'ready',
         events  : [
-          // if geoJSON object or data url in options
-          { name: 'loadFeatures', from: 'ready', to: 'loadingFeatures'},
           // UI triggered. drops a marker onto the map. if passed L.LatLng, drops marker there.
           { name: 'locateNewFeature', from: ['ready', 'viewingFeature'], to: 'locatingNewFeature'},
           // UI triggered. can move from ready to loadingNewFeatureForm without first locating if location not required, chosen later, etc
@@ -227,7 +266,7 @@ $.widget("ui.shareabout", (function() {
           // UI triggered. Pass ID of feature to view.
           { name: 'viewFeature', from: ['ready', 'locatingNewFeature', 'finalizingNewFeature', 'submittingNewFeature', 'viewingFeature'], to: 'viewingFeature'},
           // Ways to get back to ready
-          { name: 'ready', from : ['ready', 'loadingFeatures', 'submittingNewFeature', 'viewingFeature'], to: 'ready'},
+          { name: 'ready', from : ['ready', 'submittingNewFeature', 'viewingFeature'], to: 'ready'},
           { name: 'cancel', from: ['locatingNewFeature', 'finalizingNewFeature'], to: 'ready'}
         ]
       });
@@ -235,49 +274,7 @@ $.widget("ui.shareabout", (function() {
       fsm.onchangestate = function(eventName, from, to) { 
         // if (window.console) window.console.info("Transitioning from " + from + " to " + to + " via " + eventName);
       };
-
-      /*
-       * Expects a geoJSON object or an array of geoJSON features whose properties contain a unique ID called 'id'
-       */
-      fsm.onloadFeatures = function (eventName, from, to, featuresUrl, withinBounds) {
-        if (!featuresUrl) return;
-              
-        if (withinBounds) {
-          var bounds = map.getBounds(),
-              boundsQ = "bounds[]=" + bounds.getNorthEast().lng + "," + bounds.getNorthEast().lat + 
-            "&bounds[]=" + bounds.getSouthWest().lng + "," + bounds.getSouthWest().lat;
-          
-          featuresUrl += ( featuresUrl.indexOf("?") != -1 ? "&" : "?") + boundsQ;
-        }
-
-        $.getJSON(featuresUrl, function(data){
-          var geojsonLayer = new L.GeoJSON(null, {
-            // Assumes all features are points ATM
-            pointToLayer : function(latlng, geojson) {
-              if ( features[geojson.properties.id] ) return false;
-              
-              var markerOpts = {};
-              if ( shareabout.options.map.markerIcon ) markerOpts.icon = new shareabout.options.map.markerIcon();
-              return new L.Marker(latlng, markerOpts);
-            }
-          });
-
-          // Triggered as features are individually parsed
-          geojsonLayer.on('featureparse', function(featureparse) {
-            shareabout._setupMarker(featureparse.layer, featureparse.properties);
-          });
-
-          if (typeof data == "object") data = data.features;
-          $.each(data, function(i,f) { geojsonLayer.addGeoJSON(f); });
-          map.addLayer(geojsonLayer);
-          fsm.ready();
-          
-          // Callback for after load
-          if (shareabout.options.callbacks.onload) 
-            shareabout.options.callbacks.onload();
-        });      
-      }
-
+      
       /*
        * If touch screen, displays crosshair, else
        * Drops a marker on the map at the latlng, if provided, or in the middle
@@ -421,10 +418,7 @@ $.widget("ui.shareabout", (function() {
         
         if (shareabout.options.callbacks.onready) 
           shareabout.options.callbacks.onready();
-      };
-      
-      // Load initial data
-      fsm.loadFeatures(this.options.featuresUrl, this.options.withinBounds);      
+      };      
     }
   }; // end widget function return
 })());
