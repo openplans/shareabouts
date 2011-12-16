@@ -170,7 +170,7 @@ $.widget("ui.shareabout", (function() {
         $.each(data, function(i,f) { if (!features[f.properties.id]) geojsonLayer.addGeoJSON(f); });
         map.addLayer(geojsonLayer);
         
-        callback();
+        if (callback) callback();
       });
     },
   
