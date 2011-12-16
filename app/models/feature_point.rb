@@ -29,7 +29,9 @@ class FeaturePoint < ActiveRecord::Base
   
   # Returns points which are visible within the boundaries 
   def self.visible_within(corners)
-    visible.where( "ST_Contains(ST_GeomFromText('POLYGON((#{corners[0][0]} #{corners[0][1]},#{corners[1][0]} #{corners[0][1]},#{corners[1][0]} #{corners[1][1]},#{corners[0][0]} #{corners[1][1]},#{corners[0][0]} #{corners[0][1]}))',4326), feature_points.the_geom)" )
+    visible.where( ["ST_Contains(ST_GeomFromText('POLYGON((? ?,? ?,? ?,? ?,? ?))',4326), feature_points.the_geom)", 
+      corners[0][0], corners[0][1], corners[1][0], corners[0][1], corners[1][0], corners[1][1], corners[0][0], corners[1][1], corners[0][0], corners[0][1]] 
+    )
   end
   
   def latitude
