@@ -31,6 +31,10 @@ $(function() {
         if (window.shareabouts && window.shareabouts.feature) {
           $("#map").shareabout("viewFeature", window.shareabouts.feature.properties.id)
         }
+      },
+      onpopup : function() {
+        locate_feature.hide();
+        finalize_feature.hide();
       }
     },
     featuresUrl : '<%= url_help.feature_points_path %>',

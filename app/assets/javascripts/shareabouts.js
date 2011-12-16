@@ -27,7 +27,11 @@ $.widget("ui.shareabout", (function() {
       featureUrl           : null, 
       features             : [], // array of geojson objects to add to map. will be added to what's returned from featuresUrl
       featurePopupTemplate : null, 
-      callbacks : {} // callbacks : onload #after features are loaded, onready #after transitioning to ready state
+      callbacks : {
+        onready : function() {}, // after transitioning to "ready" state (closed popups, clean slate)
+        onload  : function() {}, // after the map is initially loaded
+        onpopup : function() {}  // after a popup is opened
+      }
     },
   
     /**
@@ -37,26 +41,26 @@ $.widget("ui.shareabout", (function() {
       var self = this;
 
       features = {};
-      popup    = this._small_screen() ? new InformationPanel({ onremove : function() { self._resetState(); } }) : new L.SidePopup();
+      popup    = this._small_screen() ? new InformationPanel({ onRemove : function() { self._resetState(); } }) : new L.SidePopup();
       map      = new L.Map( this.element.attr("id") );
       
+      // Set up Leaflet map
       map.setView(this.options.map.center, this.options.map.initialZoom);
-
       map.addLayer(new L.TileLayer( this.options.map.tileUrl, {
         maxZoom: this.options.map.maxZoom, attribution: this.options.map.tileAttribution
       }));
-      
+      map.on('layerremove', function(e){ if (e.layer == popup) self._resetState(); });
+      map.on('click', function(e){ self._removePopup(); });
+            
+      // Initial map feature load
       this.loadFeatures(this.options.features, self.options.callbacks.onload);
       this.options.features = []; // prevent reloading
-      this.options.callbacks.onload = null; // prevent double onload callbacks
+      this.options.callbacks.onload = function(){}; // prevent multiple onload callbacks
       
-      map.on('layerremove', function(e){ if (e.layer == popup) self._resetState(); });
-      map.on('click', function(e){ self._removePopup(); });      
-    
       this._init_states();
+      this.options.callbacks.onready(); // manually trigger transition to ready state
       
-      if (this.options.callbacks.onready) this.options.callbacks.onready();
-      
+      // If we're only loading features that are within the viewing bounds, load more features when bounds change
       if (this.options.withinBounds) {
         map.on('dragend', function(e){ self.loadFeatures() })
         map.on('zoomend', function(e){ self.loadFeatures() })
@@ -166,7 +170,7 @@ $.widget("ui.shareabout", (function() {
         $.each(data, function(i,f) { if (!features[f.properties.id]) geojsonLayer.addGeoJSON(f); });
         map.addLayer(geojsonLayer);
         
-        if (callback) callback();
+        callback();
       });
     },
   
@@ -204,6 +208,7 @@ $.widget("ui.shareabout", (function() {
       if (popup instanceof InformationPanel) {
         this._scrollViewTo( layer.getLatLng() );
         popup.open( this._small_screen() );
+        this.options.callbacks.onpopup();
       } else {
         map.setView( layer.getLatLng(), map.getZoom(),true );
         if (!popup._opened) map.addLayer( popup );
@@ -421,8 +426,7 @@ $.widget("ui.shareabout", (function() {
       fsm.onready = function (eventName, from, to) {
         shareabout._removePopup();
         
-        if (shareabout.options.callbacks.onready) 
-          shareabout.options.callbacks.onready();
+        shareabout.options.callbacks.onready();
       };      
     }
   }; // end widget function return
