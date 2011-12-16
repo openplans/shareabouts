@@ -4,7 +4,7 @@
 <script type="text/javascript" charset="utf-8">
   window.shareabouts = {};
   <% if @feature_point.present? %>
-    window.shareabouts.feature = <%= @feature_point.id %>;
+    window.shareabouts.feature = <%= @feature_point.as_geo_json.to_json.html_safe %>;
   <% end %>
 </script>
 <% end %>

@@ -24,7 +24,8 @@ $.widget("ui.shareabout", (function() {
       withinBounds         : true,                 
       featuresUrl          : null, // url to all features geoJSON
       // featurUrl: url to feature json - should return a 'view' that contains popup content, resource ID should be indicated as FEATURE_ID to be subbed
-      featurUrl            : null, 
+      featureUrl           : null, 
+      features             : [], // array of geojson objects to add to map. will be added to what's returned from featuresUrl
       featurePopupTemplate : null, 
       callbacks : {} // callbacks : onload #after features are loaded, onready #after transitioning to ready state
     },
@@ -45,16 +46,21 @@ $.widget("ui.shareabout", (function() {
         maxZoom: this.options.map.maxZoom, attribution: this.options.map.tileAttribution
       }));
       
-      this.loadFeatures();
+      this.loadFeatures(this.options.features, self.options.callbacks.onload);
+      this.options.features = []; // prevent reloading
+      this.options.callbacks.onload = null; // prevent double onload callbacks
       
       map.on('layerremove', function(e){ if (e.layer == popup) self._resetState(); });
       map.on('click', function(e){ self._removePopup(); });      
     
       this._init_states();
       
+      if (this.options.callbacks.onready) this.options.callbacks.onready();
+      
       if (this.options.withinBounds) {
         map.on('dragend', function(e){ self.loadFeatures() })
         map.on('zoomend', function(e){ self.loadFeatures() })
+        map.on('viewreset', function(e){ self.loadFeatures() })
         $(window).resize( function(e){ self.loadFeatures() })
       }      
     },
@@ -126,7 +132,7 @@ $.widget("ui.shareabout", (function() {
       popup.addClickEventListener(selector, callback);
     },
     
-    loadFeatures : function(){
+    loadFeatures : function(geojson, callback){
       if (!this.options.featuresUrl) return;
        
       var url = this.options.featuresUrl;
@@ -155,13 +161,12 @@ $.widget("ui.shareabout", (function() {
         });
 
         if (typeof data == "object") data = data.features;
+        if(geojson) data = data.concat(geojson);
+        
         $.each(data, function(i,f) { if (!features[f.properties.id]) geojsonLayer.addGeoJSON(f); });
         map.addLayer(geojsonLayer);
-        fsm.ready();
         
-        // Callback for after load
-        if (self.options.callbacks.onload) 
-          self.options.callbacks.onload();
+        if (callback) callback();
       });
     },
   
@@ -169,7 +174,7 @@ $.widget("ui.shareabout", (function() {
      * Private
      */
     // Centers the map at a point that will center the actual point of interest in the visible view
-    scrollViewTo : function(latLng) {
+    _scrollViewTo : function(latLng) {
       var mapWidth  = this.element[0].offsetWidth,
           mapHeight = this.element[0].offsetHeight;
 
@@ -197,7 +202,7 @@ $.widget("ui.shareabout", (function() {
 
       // Transitioning from leaflet popup to InformationPanel
       if (popup instanceof InformationPanel) {
-        this.scrollViewTo( layer.getLatLng() );
+        this._scrollViewTo( layer.getLatLng() );
         popup.open( this._small_screen() );
       } else {
         map.setView( layer.getLatLng(), map.getZoom(),true );

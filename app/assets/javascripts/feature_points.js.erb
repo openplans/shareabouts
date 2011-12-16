@@ -29,7 +29,7 @@ $(function() {
       },
       onload : function() {
         if (window.shareabouts && window.shareabouts.feature) {
-          $("#map").shareabout("viewFeature", window.shareabouts.feature)
+          $("#map").shareabout("viewFeature", window.shareabouts.feature.properties.id)
         }
       }
     },
@@ -38,6 +38,10 @@ $(function() {
   };
   
   var initShareabouts = function (mapCenter) {
+    if (window.shareabouts && window.shareabouts.feature){
+      shareaboutsCfg.features = [window.shareabouts.feature];
+    }
+    
     $.extend( true, shareaboutsCfg, { map : { center : mapCenter} } );
     
     $("#map").shareabout(shareaboutsCfg);
