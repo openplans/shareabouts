@@ -18,8 +18,10 @@ $.widget("ui.shareabout", (function() {
         maxZoom         : 18,
         initialZoom     : 13,
         markerIcon      : null, // custom icon
-        newMarkerIcon   : null, // custom icon for markers representing unsaved features
-        crosshairIcon   : null // icon for crosshair used when locating on touch screen devices
+        newMarkerOptions   : {
+          draggable : true
+        }, // options for the new feature point marker
+        crosshairIcon   : null // L.Icon for crosshair used when locating on touch screen devices
       },
       withinBounds         : true,                 
       featuresUrl          : null, // url to all features geoJSON
@@ -291,14 +293,13 @@ $.widget("ui.shareabout", (function() {
        */
       fsm.onlocateNewFeature = function (eventName, from, to, latlng) {   
         if (shareabout._touch_screen()) {
-          var crosshairIcon = new shareabout.options.map.crosshairIcon();
           var wrapper = $("<div>").attr("id", "crosshair"),
-              img     = $("<img>").attr("src", crosshairIcon.iconUrl);
+              img     = $("<img>").attr("src", shareabout.options.map.crosshairIcon.iconUrl);
               
           shareabout.element.append(wrapper.html(img));
           
-          $("#crosshair").css("left", shareabout.element[0].offsetWidth/2 - crosshairIcon.iconAnchor.x + "px");
-          $("#crosshair").css("top", shareabout.element[0].offsetHeight/2 - crosshairIcon.iconAnchor.y + "px");
+          $("#crosshair").css("left", shareabout.element[0].offsetWidth/2 - shareabout.options.map.crosshairIcon.iconAnchor.x + "px");
+          $("#crosshair").css("top", shareabout.element[0].offsetHeight/2 - shareabout.options.map.crosshairIcon.iconAnchor.y + "px");
                     
           hint = $("<div>").attr("class", "mobile-hint-overlay").html("Drag your location to the center of the map");
           shareabout.element.append(hint);
@@ -306,10 +307,7 @@ $.widget("ui.shareabout", (function() {
         } else {
           if (!latlng) latlng = map.getCenter();
 
-          var markerOpts = { draggable : true };
-          if ( shareabout.options.map.newMarkerIcon ) markerOpts.icon = new shareabout.options.map.newMarkerIcon();
-
-          newFeature = new L.Marker(latlng, markerOpts);
+          newFeature = new L.Marker(latlng, shareabout.options.map.newMarkerOptions);
           map.addLayer(newFeature);
 
           hint = new L.LabelOverlay(latlng, "Drag me!");
@@ -323,13 +321,13 @@ $.widget("ui.shareabout", (function() {
        * By default, if the json response contains a view property, that will be displayed in the marker popup.
        */
       fsm.onloadNewFeatureForm = function (eventName, from, to, ajaxOptions) {
-        if (newFeature && newFeature.dragging._enabled)
-          newFeature.dragging.disable();
-        else {
-          newFeature = new L.Marker(map.getCenter(), {icon : new shareabout.options.map.crosshairIcon(), clickable : false, draggable : false});
+        if (!newFeature || !newFeature.dragging._enabled) {
+          newFeature = new L.Marker(map.getCenter(), shareabout.options.map.newMarkerOptions);
           map.addLayer(newFeature); 
           $("#crosshair").remove();                
         }
+        
+        newFeature.dragging.disable();
           
         if (hint && hint._opened) map.removeLayer(hint)
         
