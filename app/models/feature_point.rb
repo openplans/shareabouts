@@ -47,7 +47,7 @@ class FeaturePoint < ActiveRecord::Base
   end
   
   def display_the_geom
-    "(#{sprintf('%.6f', longitude)}, #{sprintf('%.6f', latitude)})"
+    "(#{sprintf('%.6f', latitude)}, #{sprintf('%.6f', longitude)})"
   end
   
   def display_submitter
