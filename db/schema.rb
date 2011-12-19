@@ -99,6 +99,15 @@ ActiveRecord::Schema.define(:version => 20111209155206) do
 
   add_index "regions", ["the_geom"], :name => "index_regions_on_the_geom", :spatial => true
 
+  create_table "site_options", :force => true do |t|
+    t.string   "option_name"
+    t.text     "option_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "site_options", ["option_name"], :name => "index_site_options_on_option_name", :unique => true
+
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
