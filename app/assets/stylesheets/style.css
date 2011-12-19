@@ -401,15 +401,6 @@ div.information-panel .close {
 }
 
 /*
- *
- * Map
- *
- */
-#locate_feature, #finalize_feature {
-  display : none;
-}
-
-/*
  * 
  * Feature Popup Content
  *
