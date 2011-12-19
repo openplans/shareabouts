@@ -186,7 +186,7 @@ $.widget("ui.shareabout", (function() {
           pos       = map.latLngToLayerPoint(latLng);
       
       if (this._small_screen()) {
-        var ratioY = -0.37; // percentage of map height between map center and focal point, hard coded bad        
+        var ratioY = -0.42; // percentage of map height between map center and focal point, hard coded bad        
         map.panTo(map.layerPointToLatLng( new L.Point(pos.x, pos.y + ratioY * mapHeight ) ));
       } else {
         var ratioX = 1/6; // percentage of map width between map center and focal point, hard coded bad
@@ -206,7 +206,7 @@ $.widget("ui.shareabout", (function() {
         var self = this;
         window.setTimeout(function(){ // the map takes time to pan 
           // height of the map, minus location of marker's top within the map 
-          var bottom = self.element[0].offsetHeight - ($(layer._icon).offset().top - self.element.offset().top);
+          var bottom = self.element[0].offsetHeight - ($(layer._icon).offset().top - self.element.offset().top) + 15;
           popup.setStyle("bottom", bottom + "px");
           popup.setStyle("height", "auto"); 
         }, 400);

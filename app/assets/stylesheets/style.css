@@ -380,17 +380,25 @@ only screen and (min-device-pixel-ratio : 1.5) {
 
 /* InformationPanel for Mobile, move to small screen */ 
 div.information-panel {
-  background-color: white;
-  border-radius: .5em;
   position: absolute;
+  top: 0.5em;
   left: 0.5em;
   right: 0.5em;
   height: 80%;
+}
+
+div.information-panel-content-wrap {
+  position : relative;
+  background-color: white;
+  border-radius: .5em;  
   padding: 1em;
   border: 1px solid #CCC;
-  top: 0.5em;
   z-index:10000;
   overflow-y:scroll;
+  height:100%;
+}
+
+div.information-panel-content {
 }
 
 div.information-panel .close {
@@ -398,6 +406,35 @@ div.information-panel .close {
   top: 1em;
   right: 1em;
   font-size: 0.8em;
+  z-index: 10001;
+}
+
+div.information-panel .popup-tip-wrapper {
+  margin: -1px auto 0;
+	width: 40px;
+	height: 16px;
+	position: relative;
+	overflow: hidden;
+	z-index: 10002;
+}
+
+div.information-panel .popup-tip {
+  background: white;
+  width: 15px;
+	height: 15px;
+	padding: 1px;
+	
+	margin: -11px auto 0;
+	
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	
+	box-shadow: 0 1px 10px #888;
+	-moz-box-shadow: 0 1px 10px #888;
+	-webkit-box-shadow: 0 1px 14px #999;
 }
 
 /*
