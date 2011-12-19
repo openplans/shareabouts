@@ -60,7 +60,7 @@ RailsAdmin.config do |config|
   config.included_models += %w{SiteOption Admin FeaturePoint}
 
   # Application wide tried label methods for models' instances
-  # config.label_methods << [:description] # Default is [:name, :title]
+  config.label_methods << :option_name # Default is [:name, :title]
 
   #  ==> Global models configuration
   # config.models do

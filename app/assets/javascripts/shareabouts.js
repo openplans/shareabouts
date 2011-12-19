@@ -11,18 +11,18 @@ $.widget("ui.shareabout", (function() {
     
   return {
     options : {
-      map : {
-        tileUrl         : null, 
-        center          : null,
-        tileAttribution : '', 
-        maxZoom         : 18,
-        initialZoom     : 13,
-        markerIcon      : null, // custom icon
-        newMarkerOptions   : {
-          draggable : true
-        }, // options for the new feature point marker
-        crosshairIcon   : null // L.Icon for crosshair used when locating on touch screen devices
-      },
+      // Leaflet map options
+      map : {},
+      // Map-related
+      tileUrl         : null, 
+      tileAttribution : '', 
+      initialZoom     : 13,
+      markerIcon      : null, // custom icon
+      newMarkerOptions   : {
+        draggable : true
+      }, // options for the new feature point marker
+      crosshairIcon   : null, // L.Icon for crosshair used when locating on touch screen devices
+      //
       withinBounds         : true,                 
       featuresUrl          : null, // url to all features geoJSON
       // featurUrl: url to feature json - should return a 'view' that contains popup content, resource ID should be indicated as FEATURE_ID to be subbed
@@ -44,12 +44,12 @@ $.widget("ui.shareabout", (function() {
 
       features = {};
       popup    = this._small_screen() ? new InformationPanel({ onRemove : function() { self._resetState(); } }) : new L.SidePopup();
-      map      = new L.Map( this.element.attr("id") );
+      map      = new L.Map( this.element.attr("id"), this.options.map );
       
       // Set up Leaflet map
-      map.setView(this.options.map.center, this.options.map.initialZoom);
-      map.addLayer(new L.TileLayer( this.options.map.tileUrl, {
-        maxZoom: this.options.map.maxZoom, attribution: this.options.map.tileAttribution
+      map.setView(this.options.map.center, this.options.initialZoom);
+      map.addLayer(new L.TileLayer( this.options.tileUrl, {
+        maxZoom: this.options.map.maxZoom, attribution: this.options.tileAttribution
       }));
       map.on('layerremove', function(e){ if (e.layer == popup) self._resetState(); });
       map.on('click', function(e){ self._removePopup(); });
@@ -156,7 +156,7 @@ $.widget("ui.shareabout", (function() {
         var geojsonLayer = new L.GeoJSON(null, {
           pointToLayer : function(latlng) {            
             var markerOpts = {};
-            if ( self.options.map.markerIcon ) markerOpts.icon = new shareabout.options.map.markerIcon();
+            if ( self.options.markerIcon ) markerOpts.icon = new shareabout.options.markerIcon();
             return new L.Marker(latlng, markerOpts);
           }
         });
@@ -315,7 +315,7 @@ $.widget("ui.shareabout", (function() {
         } else {
           if (!latlng) latlng = map.getCenter();
 
-          newFeature = new L.Marker(latlng, shareabout.options.map.newMarkerOptions);
+          newFeature = new L.Marker(latlng, shareabout.options.newMarkerOptions);
           map.addLayer(newFeature);
 
           hint = new L.LabelOverlay(latlng, "Drag me!");
@@ -330,7 +330,7 @@ $.widget("ui.shareabout", (function() {
        */
       fsm.onloadNewFeatureForm = function (eventName, from, to, ajaxOptions) {
         if (!newFeature || !newFeature.dragging._enabled) {
-          newFeature = new L.Marker(map.getCenter(), shareabout.options.map.newMarkerOptions);
+          newFeature = new L.Marker(map.getCenter(), shareabout.options.newMarkerOptions);
           map.addLayer(newFeature); 
           $("#crosshair").remove();                
         }
@@ -377,7 +377,7 @@ $.widget("ui.shareabout", (function() {
       fsm.onleavesubmittingNewFeature = function (eventName, from, to, id, responseData) {
         if (to == "viewingFeature") {
           var markerOpts = { };
-          if ( shareabout.options.map.markerIcon ) markerOpts.icon = new shareabout.options.map.markerIcon();
+          if ( shareabout.options.markerIcon ) markerOpts.icon = new shareabout.options.markerIcon();
 
           var marker = new L.Marker(newFeature.getLatLng(), markerOpts);
 

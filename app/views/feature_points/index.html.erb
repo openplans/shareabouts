@@ -2,7 +2,7 @@
 
 <% content_for :javascript do %>
 <script type="text/javascript" charset="utf-8">
-  window.shareabouts = {};
+  if (!window.shareabouts) window.shareabouts = {};
   <% if @feature_point.present? %>
     window.shareabouts.feature = <%= @feature_point.as_geo_json.to_json.html_safe %>;
   <% end %>

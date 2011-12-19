@@ -18,16 +18,20 @@ $(function() {
     popupAnchor : new L.Point(0,0),
     shadowSize : new L.Point(0,0) // no shadow
   });
-  
+    
   var shareaboutsCfg = {
     map : {
-      tileUrl          : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-      tileAttribution  : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
-      newMarkerOptions : {
-        icon : new NewMarkerIcon()
-      },
-      crosshairIcon   : new CrosshairIcon()
+      maxZoom         : window.shareabouts.map_max_zoom,
+      minZoom         : window.shareabouts.map_min_zoom,
+      maxBounds       : window.shareabouts.map_bounds
     },
+    tileUrl          : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+    tileAttribution  : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
+    newMarkerOptions : {
+      icon : new NewMarkerIcon()
+    },
+    crosshairIcon   : new CrosshairIcon(),
+    initialZoom : window.shareabouts.map_initial_zoom,
     callbacks : {
       onready : function(something) {
         locate_feature.show();

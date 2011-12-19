@@ -1,0 +1,26 @@
+<%# 
+  # Applying SiteOptions to javascript. 
+  # It's important for this to live outside of an asset-pipeline-affected asset, 
+  # or else the app will require recompilation when the options are updated.
+%>
+
+<script type="text/javascript" charset="utf-8">
+  if (!window.shareabouts) window.shareabouts = {};
+  
+  window.shareabouts.map_initial_zoom = <%= SiteOption["map_initial_zoom"].try(:value) || 13 %>;
+  window.shareabouts.map_max_zoom = <%= SiteOption["map_max_zoom"].try(:value) || 18 %>;
+  window.shareabouts.map_min_zoom = <%= SiteOption["map_min_zoom"].try(:value) || 0 %>;
+  
+  <% if SiteOption.bounds? %>
+    window.shareabouts.map_bounds = new L.LatLngBounds(
+      new L.LatLng(<%= SiteOption["map_bounds_p1_lat"].value %>, <%= SiteOption["map_bounds_p1_long"].value %>), 
+      new L.LatLng(<%= SiteOption["map_bounds_p2_lat"].value %>, <%= SiteOption["map_bounds_p2_long"].value %>)
+    );
+  <% end %>  
+</script>
+
+<% if SiteOption["google_analytics_code"].try(:value).present? %>
+  <!-- Google Analytics Code Start -->
+  <%= SiteOption["google_analytics_code"].value.html_safe %>
+  <!-- END Google Analytics Code -->
+<% end %>
