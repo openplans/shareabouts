@@ -217,7 +217,7 @@ $.widget("ui.shareabout", (function() {
     },
     
     _small_screen : function() {
-      return this.element[0].offsetWidth <= 400;
+      return this.element[0].offsetWidth <= 480;
     },
     
     _resetState : function() {
