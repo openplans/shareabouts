@@ -45,6 +45,15 @@ Fixjour :verify => false do
       :email => Faker::Internet.email
     })
   end
+  
+  define_builder(Admin) do |klass, overrides|
+    klass.new({
+      :email => Faker::Internet.email, 
+      :password => 'password', 
+      :password_confirmation => 'password',
+      :level => 100
+    })
+  end
 end
 
 # Fixjour.verify!
