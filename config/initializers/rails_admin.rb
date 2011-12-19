@@ -32,7 +32,7 @@ RailsAdmin.config do |config|
 
   #  ==> Authorization
   # Use cancan https://github.com/ryanb/cancan for authorization:
-  # config.authorize_with :cancan
+  config.authorize_with :cancan
 
   # Or use simple custom authorization rule:
   # config.authorize_with do
@@ -57,7 +57,7 @@ RailsAdmin.config do |config|
   # config.excluded_models << []
 
   # Add models here if you want to go 'whitelist mode':
-  config.included_models += %w{Admin FeaturePoint}
+  config.included_models += %w{SiteOption Admin FeaturePoint}
 
   # Application wide tried label methods for models' instances
   # config.label_methods << [:description] # Default is [:name, :title]
@@ -81,6 +81,16 @@ RailsAdmin.config do |config|
   #
   #  ==> Model specific configuration
   # Try to override as few things as possible, in the most generic way. Try to avoid setting labels for models and attributes, use ActiveRecord I18n API instead.
+  config.model SiteOption do
+    list do
+      field :option_name
+      field :option_value
+      field :updated_at
+      filters [:option_name]
+      sort_by :option_name
+    end
+  end
+  
   config.model FeaturePoint do
     object_label_method :display_name     # Name of the method called for pretty printing an *instance* of ModelName
     weight 100                     # Navigation priority. Bigger is higher.
