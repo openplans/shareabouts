@@ -376,6 +376,7 @@ only screen and (min-device-pixel-ratio : 1.5) {
 /* Crosshair for touch screen */
 #crosshair {
   position : absolute;
+  z-index  : 10000;
 }
 
 /* InformationPanel for Mobile, move to small screen */ 

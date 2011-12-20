@@ -44,7 +44,7 @@ $.widget("ui.shareabout", (function() {
 
       features = {};
       map      = new L.Map( this.element.attr("id"), this.options.map );
-      popup    = new InformationPanel({ onRemove : function() { self._resetState(); } });
+      popup    = this._small_screen() ? new InformationPanel({ onRemove : function() { self._resetState(); } }) : new L.SidePopup();
       
       
       // Set up Leaflet map
@@ -303,12 +303,12 @@ $.widget("ui.shareabout", (function() {
       fsm.onlocateNewFeature = function (eventName, from, to, latlng) {   
         if (shareabout._touch_screen()) {
           var wrapper = $("<div>").attr("id", "crosshair"),
-              img     = $("<img>").attr("src", shareabout.options.map.crosshairIcon.iconUrl);
+              img     = $("<img>").attr("src", shareabout.options.crosshairIcon.iconUrl);
               
           shareabout.element.append(wrapper.html(img));
           
-          $("#crosshair").css("left", shareabout.element[0].offsetWidth/2 - shareabout.options.map.crosshairIcon.iconAnchor.x + "px");
-          $("#crosshair").css("top", shareabout.element[0].offsetHeight/2 - shareabout.options.map.crosshairIcon.iconAnchor.y + "px");
+          $("#crosshair").css("left", shareabout.element[0].offsetWidth/2 - shareabout.options.crosshairIcon.iconAnchor.x + "px");
+          $("#crosshair").css("top", shareabout.element[0].offsetHeight/2 - shareabout.options.crosshairIcon.iconAnchor.y + "px");
                     
           hint = $("<div>").attr("class", "mobile-hint-overlay").html("Drag your location to the center of the map");
           shareabout.element.append(hint);
