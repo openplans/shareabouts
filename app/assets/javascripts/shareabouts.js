@@ -43,8 +43,9 @@ $.widget("ui.shareabout", (function() {
       var self = this;
 
       features = {};
-      popup    = this._small_screen() ? new InformationPanel({ onRemove : function() { self._resetState(); } }) : new L.SidePopup();
       map      = new L.Map( this.element.attr("id"), this.options.map );
+      popup    = new InformationPanel({ onRemove : function() { self._resetState(); } });
+      
       
       // Set up Leaflet map
       map.setView(this.options.map.center, this.options.initialZoom);
