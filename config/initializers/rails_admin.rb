@@ -57,10 +57,10 @@ RailsAdmin.config do |config|
   # config.excluded_models << []
 
   # Add models here if you want to go 'whitelist mode':
-  config.included_models += %w{SiteOption Admin FeaturePoint}
+  config.included_models += %w{SiteOption Admin FeaturePoint Comment}
 
   # Application wide tried label methods for models' instances
-  config.label_methods << :option_name # Default is [:name, :title]
+  # config.label_methods << [:description] # Default is [:name, :title]
 
   #  ==> Global models configuration
   # config.models do
@@ -82,12 +82,26 @@ RailsAdmin.config do |config|
   #  ==> Model specific configuration
   # Try to override as few things as possible, in the most generic way. Try to avoid setting labels for models and attributes, use ActiveRecord I18n API instead.
   config.model SiteOption do
+    object_label_method :option_name 
+    weight 1000
+    
     list do
       field :option_name
       field :option_value
       field :updated_at
       filters [:option_name]
       sort_by :option_name
+    end
+  end
+  
+  config.model Admin do
+    weight 500
+  end
+  
+  config.model Comment do
+    object_label_method :comment 
+    configure :commentable do
+      # configuration here
     end
   end
   

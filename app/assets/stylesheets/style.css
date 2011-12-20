@@ -573,3 +573,13 @@ div.information-panel .popup-tip {
   font-size: 1.1em;
   margin-top: 0.5em;
 }
+
+.feature.show .feature-admin {
+  border : 1px dashed red;
+  padding: 10px;
+  background-color: #F8F8FF;
+}
+
+.feature.show .feature-admin *[type=submit] {
+  font-size: 1em;
+}
