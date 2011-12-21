@@ -44,7 +44,7 @@ $.widget("ui.shareabout", (function() {
 
       features = {};
       map      = new L.Map( this.element.attr("id"), this.options.map );
-      popup    = this._small_screen() ? new InformationPanel({ onRemove : function() { self._resetState(); } }) : new L.SidePopup();
+      popup    = new InformationPanel({ onRemove : function() { self._resetState(); } });
       
       
       // Set up Leaflet map
@@ -131,7 +131,7 @@ $.widget("ui.shareabout", (function() {
     },
     
     /**
-     * Add a click listener within the map popup (SidePopup only). 
+     * Add a click listener within the map popup. 
      * @param {String} selector CSS selector (within popup) to element(s) on which to add listener.
      * @param {function} callback function to be called on click of selected element
      */
@@ -190,31 +190,42 @@ $.widget("ui.shareabout", (function() {
         var ratioY = -0.42; // percentage of map height between map center and focal point, hard coded bad        
         map.panTo(map.layerPointToLatLng( new L.Point(pos.x, pos.y + ratioY * mapHeight ) ));
       } else {
-        var ratioX = 1/6; // percentage of map width between map center and focal point, hard coded bad
+        var ratioX = 1/4; // percentage of map width between map center and focal point, hard coded bad
         map.panTo(map.layerPointToLatLng( new L.Point(pos.x + ratioX * mapWidth, pos.y) ));        
       }
     },
     
+    // Opens the popup for the layer, populated with content.
     _openPopupWith : function(layer, content) {
       popup.setContent(content || layer._html);
-      popup.setLatLng(layer.getLatLng());
 
-      // Transitioning from leaflet popup to InformationPanel
-      if (popup instanceof InformationPanel) {
-        this._scrollViewTo( layer.getLatLng() );
-        popup.open( this._small_screen() );
-        this.options.callbacks.onpopup();
-        var self = this;
-        window.setTimeout(function(){ // the map takes time to pan 
-          // height of the map, minus location of marker's top within the map 
-          var bottom = self.element[0].offsetHeight - ($(layer._icon).offset().top - self.element.offset().top) + 15;
-          popup.setStyle("bottom", bottom + "px");
-          popup.setStyle("height", "auto"); 
-        }, 400);
-      } else {
-        map.setView( layer.getLatLng(), map.getZoom(),true );
-        if (!popup._opened) map.addLayer( popup );
+      this._scrollViewTo( layer.getLatLng() );
+      if (layer._icon) {
+        this._setFocusedIcon(layer);
       }
+      
+      var self = this;
+      window.setTimeout(function(){ // the map takes time to pan 
+        popup.positionFor($(layer._icon), self._small_screen());
+        popup.open();
+        
+        self.options.callbacks.onpopup();
+      }, 400);
+    },
+    
+    _setFocusedIcon : function(layer) {
+      this.focused = {
+        layer : layer,
+        icon  : layer._icon
+      };
+      layer.setIcon(this.options.newMarkerOptions.icon);
+    },
+    
+    _unsetFocusedIcon : function() {
+      this.focused.layer._removeIcon();
+      this.focused.layer._icon = this.focused.icon;
+      this.focused.layer._initIcon();
+      this.focused = null;
     },
     
     _small_screen : function() {
@@ -408,6 +419,7 @@ $.widget("ui.shareabout", (function() {
       
       fsm.onleaveviewingFeature = function(eventName, from, to) {
         shareabout._removePopup();
+        shareabout._unsetFocusedIcon();
       };
       
       fsm.onleavelocatingNewFeature = function(eventName, from, to) {

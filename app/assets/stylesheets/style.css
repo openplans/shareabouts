@@ -383,16 +383,13 @@ only screen and (min-device-pixel-ratio : 1.5) {
 div.information-panel {
   position: absolute;
   top: 0.5em;
-  left: 0.5em;
   right: 0.5em;
-  height: 80%;
 }
 
 div.information-panel-content-wrap {
   position : relative;
   background-color: white;
   border-radius: .5em;  
-  padding: 1em;
   border: 1px solid #CCC;
   z-index:10000;
   overflow-y:scroll;
@@ -400,6 +397,7 @@ div.information-panel-content-wrap {
 }
 
 div.information-panel-content {
+  padding : 1em;
 }
 
 div.information-panel .close {

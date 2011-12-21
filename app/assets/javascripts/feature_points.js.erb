@@ -91,7 +91,7 @@ $(function() {
     });
     
     // <IE9 does not support live detection of submit event and leaflet steals clicks within a popup.
-    // Thus, registering click event on popup's forms via SidePopup, who fires event on popup click.
+    // Thus, registering click event on popup's forms via InformationPanel, who fires event on popup click.
     $("#map").shareabout("addClickEventListenerToPopup", "form[data-behavior=load_result_in_popup] :submit", function(mouseEvent, target){
       mouseEvent.preventDefault();
       
