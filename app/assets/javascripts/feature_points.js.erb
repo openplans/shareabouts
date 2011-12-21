@@ -47,8 +47,15 @@ $(function() {
         finalize_feature.hide();
       }
     },
-    featuresUrl : '<%= url_help.feature_points_path %>',
-    featureUrl : '<%= url_help.feature_point_path("FEATURE_ID") %>'
+    featuresUrl    : '<%= url_help.feature_points_path %>',
+    featureUrl     : '<%= url_help.feature_point_path("FEATURE_ID") %>'
+  };
+  
+  /**
+   * @param {L.LatLng} latlng The location to translate to query string
+   */
+  var latLngToQueryString = function(latlng) {
+    return "latitude=" + latlng.lat + "&longitude=" + latlng.lng;
   };
   
   var initShareabouts = function (mapCenter) {
@@ -67,11 +74,18 @@ $(function() {
     });
      
     finalize_feature.click( function(event) { 
-      $("#map").shareabout("loadNewFeatureForm", {
-        url : '<%= url_help.new_feature_point_path %>' 
+      var newFeature = $("#map").shareabout("getNewFeatureMarker"),
+          latlng     = newFeature ? newFeature.getLatLng() : $("#map").shareabout("getMap").getCenter(),
+          data       = latLngToQueryString(latlng);
+          
+      $.getJSON("<%= url_help.within_region_feature_points_path %>", data, function(data){
+        if (!data || data.status != "error") { // Location is good
+          $("#map").shareabout("loadNewFeatureForm", {
+            url : '<%= url_help.new_feature_point_path %>' 
+          });
+          $(this).hide();
+        } else $("#map").shareabout("showHint", data.message, latlng);
       });
-      
-      $(this).hide();
     });
     
     $("#map").shareabout("addClickEventListenerToPopup", "form#new_feature_point input:submit", function(mouseEvent, target){
@@ -83,7 +97,7 @@ $(function() {
       var newFeature = $("#map").shareabout("getNewFeatureMarker");
       
       var ajaxOptions = { 
-        data : form.serialize() + "&latitude=" + newFeature.getLatLng().lat + "&longitude=" + newFeature.getLatLng().lng, 
+        data : form.serialize() + "&" + latLngToQueryString(newFeature.getLatLng()), 
         url : form.attr("action") 
       };
       

@@ -66,6 +66,20 @@ class FeaturePointsController < ApplicationController
     end
   end
   
+  def within_region
+    @feature_point = FeaturePoint.new :the_geom => the_geom_from_params(params)
+        
+    if !@feature_point.valid? && @feature_point.errors[:the_geom].present?
+      respond_to do |format|
+        format.json { render :json => { :status => "error", :message => @feature_point.errors[:the_geom].join(". ") } }
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => { :status => "ok" } }
+      end
+    end
+  end
+  
   private
   
   def the_geom_from_params(p)

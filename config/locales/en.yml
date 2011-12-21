@@ -26,3 +26,7 @@ en:
         body: "Check out the %{place} I suggested: %{url}"
       twitter:
         status: "Check out this %{place}! %{url}."
+  activerecord:
+    attributes:
+      feature_point:
+        the_geom: 'location'

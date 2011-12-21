@@ -4,7 +4,6 @@
 $.widget("ui.shareabout", (function() {
   var map, // leaflet map
       fsm, // state machine
-      newFeature, // marker for proposed feature
       hint, // label layer with UX hints
       features, // object that stores map features by their ID
       popup; // one popup on the map
@@ -88,7 +87,7 @@ $.widget("ui.shareabout", (function() {
     
     /**
      * Gets the form via the ajax options passes in. 
-     * Unless otherwise specified via success callback, loads form into popup for newFeature marker.
+     * Unless otherwise specified via success callback, loads form into popup for this.newFeature marker.
      * @param {Object} ajaxOptions options for jQuery.ajax(). By default, success loads responseData.view into popup.
      */
     loadNewFeatureForm : function(ajaxOptions) {
@@ -121,7 +120,7 @@ $.widget("ui.shareabout", (function() {
     /**
      * Returns the new Feature marker
      */
-    getNewFeatureMarker : function () { return newFeature },
+    getNewFeatureMarker : function () { return this.newFeature || null },
   
     /**
      * Opens the popup for a feature
@@ -137,6 +136,24 @@ $.widget("ui.shareabout", (function() {
      */
     addClickEventListenerToPopup : function(selector, callback) {
       popup.addClickEventListener(selector, callback);
+    },
+    
+    /**
+     * Displays a hint with content message at location latlng
+     * @param {String} message Content for the hint.
+     * @param {L.LatLng} latlng Location of hint.
+     */
+    showHint : function(message, latlng) {
+      var self = this;
+      if (this._small_screen()){
+        hint = $("<div>").attr("class", "mobile-hint-overlay").html(message);
+        this.element.append(hint);
+        map.on("drag", function(drag) { self._remove_hint() } ); 
+      } else {
+        hint = new L.LabelOverlay(latlng, message);
+        map.addLayer(hint);
+        this.newFeature.on("drag", function(drag) { self._remove_hint() } );               
+      }
     },
     
     loadFeatures : function(geojson, callback){
@@ -222,10 +239,12 @@ $.widget("ui.shareabout", (function() {
     },
     
     _unsetFocusedIcon : function() {
-      this.focused.layer._removeIcon();
-      this.focused.layer._icon = this.focused.icon;
-      this.focused.layer._initIcon();
-      this.focused = null;
+      if (this.focused) {
+        this.focused.layer._removeIcon();
+        this.focused.layer._icon = this.focused.icon;
+        this.focused.layer._initIcon();
+        this.focused = null;
+      }
     },
     
     _small_screen : function() {
@@ -311,28 +330,20 @@ $.widget("ui.shareabout", (function() {
        * If touch screen, displays crosshair, else
        * Drops a marker on the map at the latlng, if provided, or in the middle
        */
-      fsm.onlocateNewFeature = function (eventName, from, to, latlng) {   
+      fsm.onlocateNewFeature = function (eventName, from, to, latlng) {
         if (shareabout._touch_screen()) {
           var wrapper = $("<div>").attr("id", "crosshair"),
               img     = $("<img>").attr("src", shareabout.options.crosshairIcon.iconUrl);
               
           shareabout.element.append(wrapper.html(img));
-          
           $("#crosshair").css("left", shareabout.element[0].offsetWidth/2 - shareabout.options.crosshairIcon.iconAnchor.x + "px");
           $("#crosshair").css("top", shareabout.element[0].offsetHeight/2 - shareabout.options.crosshairIcon.iconAnchor.y + "px");
-                    
-          hint = $("<div>").attr("class", "mobile-hint-overlay").html("Drag your location to the center of the map");
-          shareabout.element.append(hint);
-          map.on("drag", function(drag) { shareabout._remove_hint() } );               
+          shareabout.showHint("Drag your location to the center of the map", null);
         } else {
           if (!latlng) latlng = map.getCenter();
-
-          newFeature = new L.Marker(latlng, shareabout.options.newMarkerOptions);
-          map.addLayer(newFeature);
-
-          hint = new L.LabelOverlay(latlng, "Drag me!");
-          map.addLayer(hint);
-          newFeature.on("drag", function(drag) { shareabout._remove_hint() } );               
+          shareabout.newFeature = new L.Marker(latlng, shareabout.options.newMarkerOptions);
+          map.addLayer(shareabout.newFeature);
+          shareabout.showHint("Drag me!", latlng);
         }
       };
       
@@ -341,13 +352,13 @@ $.widget("ui.shareabout", (function() {
        * By default, if the json response contains a view property, that will be displayed in the marker popup.
        */
       fsm.onloadNewFeatureForm = function (eventName, from, to, ajaxOptions) {
-        if (!newFeature || !newFeature.dragging._enabled) {
-          newFeature = new L.Marker(map.getCenter(), shareabout.options.newMarkerOptions);
-          map.addLayer(newFeature); 
+        if (!shareabout.newFeature || !shareabout.newFeature.dragging._enabled) {
+          shareabout.newFeature = new L.Marker(map.getCenter(), shareabout.options.newMarkerOptions);
+          map.addLayer(shareabout.newFeature); 
           $("#crosshair").remove();                
         }
         
-        newFeature.dragging.disable();
+        shareabout.newFeature.dragging.disable();
           
         if (hint && hint._opened) map.removeLayer(hint)
         
@@ -355,7 +366,7 @@ $.widget("ui.shareabout", (function() {
           type : 'GET', 
           success: function(data){
             if (data.view) {
-              shareabout._openPopupWith(newFeature, $("<div>").html($("<div class='shareabouts submit'>").html(data.view)).html());
+              shareabout._openPopupWith(shareabout.newFeature, $("<div>").html($("<div class='shareabouts submit'>").html(data.view)).html());
             }
             shareabout.finalizeNewFeature();
           },
@@ -391,11 +402,11 @@ $.widget("ui.shareabout", (function() {
           var markerOpts = { };
           if ( shareabout.options.markerIcon ) markerOpts.icon = new shareabout.options.markerIcon();
 
-          var marker = new L.Marker(newFeature.getLatLng(), markerOpts);
+          var marker = new L.Marker(shareabout.newFeature.getLatLng(), markerOpts);
 
           shareabout._setupMarker(marker, responseData.geoJSON.properties);
 
-          shareabout._destroyMarker(newFeature);
+          shareabout._destroyMarker(shareabout.newFeature);
           map.addLayer(marker);
         } else if (to == "finalizingNewFeature") {
           $(".shareabouts-side-popup-content").html(responseData.view);
@@ -426,7 +437,7 @@ $.widget("ui.shareabout", (function() {
         if (hint && hint._opened) map.removeLayer(hint);
         if (to != "loadingNewFeatureForm"){ 
           $("#crosshair").remove();
-          shareabout._destroyMarker(newFeature);
+          shareabout._destroyMarker(shareabout.newFeature);
         }
       };
       
@@ -436,7 +447,7 @@ $.widget("ui.shareabout", (function() {
       fsm.oncancel = function (eventName, from, to) {
         $("#crosshair").remove();
         shareabout._removePopup();
-        shareabout._destroyMarker(newFeature);
+        shareabout._destroyMarker(shareabout.newFeature);
       };
       
       /*
