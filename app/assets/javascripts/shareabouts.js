@@ -11,7 +11,7 @@ $.widget("ui.shareabout", (function() {
   return {
     options : {
       // Leaflet map options
-      map : {},
+      map : {}, // req: center
       // Map-related
       tileUrl         : null, 
       tileAttribution : '', 
@@ -356,15 +356,12 @@ $.widget("ui.shareabout", (function() {
           $("#crosshair").remove();                
         }
         
-        shareabout.newFeature.dragging.disable();          
         shareabout._remove_hint();
         
         var ajaxCfg = { 
           type : 'GET', 
           success: function(data){
-            if (data.view) {
-              shareabout._openPopupWith(shareabout.newFeature, $("<div>").html($("<div class='shareabouts submit'>").html(data.view)).html());
-            }
+            shareabout._openPopupWith(shareabout.newFeature, data.view);
             shareabout.finalizeNewFeature();
           },
           dataType : 'json'
