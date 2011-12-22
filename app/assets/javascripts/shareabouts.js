@@ -74,7 +74,7 @@ $.widget("ui.shareabout", (function() {
         map.on('dragend', function(e){ self.loadFeatures() })
         map.on('zoomend', function(e){ self.loadFeatures() })
         map.on('viewreset', function(e){ self.loadFeatures() })
-        $(window).resize( function(e){ self.loadFeatures() })
+        $(window).resize( function(e){ self._loadFeaturesWithDelay() })
       }      
     },
     
@@ -201,6 +201,17 @@ $.widget("ui.shareabout", (function() {
     /*
      * Private
      */
+    _loadFeaturesWithDelay : function(ms) {
+      if (this._waitingToLoad) return;
+      
+      var self = this;
+      if (!ms) ms = 500;
+      this._waitingToLoad = window.setTimeout( function(){
+        self._waitingToLoad = null;
+        self.loadFeatures();
+      }, ms);
+    },
+     
     // Centers the map at a point that will center the actual point of interest in the visible view
     _scrollViewTo : function(latLng) {
       var mapWidth  = this.element[0].offsetWidth,
