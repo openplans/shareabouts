@@ -75,7 +75,7 @@ $(function() {
      
     finalize_feature.click( function(event) { 
       var newFeature = $("#map").shareabout("getNewFeatureMarker"),
-          latlng     = newFeature ? newFeature.getLatLng() : $("#map").shareabout("getMap").getCenter(),
+          latlng     = newFeature._visible ? newFeature.getLatLng() : $("#map").shareabout("getMap").getCenter(),
           data       = latLngToQueryString(latlng);
           
       $.getJSON("<%= url_help.within_region_feature_points_path %>", data, function(data){
@@ -84,7 +84,7 @@ $(function() {
             url : '<%= url_help.new_feature_point_path %>' 
           });
           $(this).hide();
-        } else $("#map").shareabout("showHint", data.message, latlng);
+        } else $("#map").shareabout("showHint", data.message, newFeature._visible ? latlng : null);
       });
     });
     

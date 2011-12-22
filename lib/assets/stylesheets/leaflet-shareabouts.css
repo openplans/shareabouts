@@ -59,4 +59,5 @@
   line-height  : 1em;
   padding      : 1em;
   border-width : 1px;
+  z-index      : 1000;
 }

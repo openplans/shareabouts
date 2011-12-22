@@ -45,14 +45,21 @@ $.widget("ui.shareabout", (function() {
       map      = new L.Map( this.element.attr("id"), this.options.map );
       popup    = new InformationPanel({ onRemove : function() { self._resetState(); } });
       
+      this.newFeature = new L.Marker(this.options.map.center, this.options.newMarkerOptions);
+      this.newFeature.on("drag", function(drag) { self._remove_hint() } );      
       
       // Set up Leaflet map
       map.setView(this.options.map.center, this.options.initialZoom);
       map.addLayer(new L.TileLayer( this.options.tileUrl, {
         maxZoom: this.options.map.maxZoom, attribution: this.options.tileAttribution
       }));
-      map.on('layerremove', function(e){ if (e.layer == popup) self._resetState(); });
+      map.on('layerremove', function(e) { 
+        if (e.layer == popup) self._resetState(); 
+        else if (e.layer == self.newFeature) self.newFeature._visible = false;
+      });
+      map.on('layeradd', function(e){ if (e.layer == self.newFeature) self.newFeature._visible = true; })
       map.on('click', function(e){ self._removePopup(); });
+      map.on('drag', function(drag) { self._remove_hint() } );
             
       // Initial map feature load
       this.loadFeatures(this.options.features, self.options.callbacks.onload);
@@ -144,15 +151,12 @@ $.widget("ui.shareabout", (function() {
      * @param {L.LatLng} latlng Location of hint.
      */
     showHint : function(message, latlng) {
-      var self = this;
-      if (this._small_screen()){
+      if (this._small_screen() || !latlng){
         hint = $("<div>").attr("class", "mobile-hint-overlay").html(message);
         this.element.append(hint);
-        map.on("drag", function(drag) { self._remove_hint() } ); 
       } else {
         hint = new L.LabelOverlay(latlng, message);
         map.addLayer(hint);
-        this.newFeature.on("drag", function(drag) { self._remove_hint() } );               
       }
     },
     
@@ -285,15 +289,8 @@ $.widget("ui.shareabout", (function() {
     },
     
     _remove_hint : function() {
-       map.removeLayer(hint);
-       $(".mobile-hint-overlay").remove();
-    },
-    
-    _destroyMarker : function(layer) {
-      if (!layer) return;
-      
-      map.removeLayer(layer);
-      layer = null;
+      if (hint && hint._opened) map.removeLayer(hint);      
+      $(".mobile-hint-overlay").remove();
     },
   
     _init_states : function() {
@@ -338,10 +335,11 @@ $.widget("ui.shareabout", (function() {
           shareabout.element.append(wrapper.html(img));
           $("#crosshair").css("left", shareabout.element[0].offsetWidth/2 - shareabout.options.crosshairIcon.iconAnchor.x + "px");
           $("#crosshair").css("top", shareabout.element[0].offsetHeight/2 - shareabout.options.crosshairIcon.iconAnchor.y + "px");
-          shareabout.showHint("Drag your location to the center of the map", null);
+          shareabout.showHint("Drag your location to the center of the map");
         } else {
-          if (!latlng) latlng = map.getCenter();
-          shareabout.newFeature = new L.Marker(latlng, shareabout.options.newMarkerOptions);
+          if (!latlng) latlng = map.getCenter();            
+          shareabout.newFeature.setLatLng(latlng);
+          if (shareabout.newFeature.dragging) shareabout.newFeature.dragging.enable();
           map.addLayer(shareabout.newFeature);
           shareabout.showHint("Drag me!", latlng);
         }
@@ -352,15 +350,14 @@ $.widget("ui.shareabout", (function() {
        * By default, if the json response contains a view property, that will be displayed in the marker popup.
        */
       fsm.onloadNewFeatureForm = function (eventName, from, to, ajaxOptions) {
-        if (!shareabout.newFeature || !shareabout.newFeature.dragging._enabled) {
-          shareabout.newFeature = new L.Marker(map.getCenter(), shareabout.options.newMarkerOptions);
+        if (!shareabout.newFeature._visible) { // Touch screen, we located with crosshair
+          shareabout.newFeature.setLatLng(map.getCenter());
           map.addLayer(shareabout.newFeature); 
           $("#crosshair").remove();                
         }
         
-        shareabout.newFeature.dragging.disable();
-          
-        if (hint && hint._opened) map.removeLayer(hint)
+        shareabout.newFeature.dragging.disable();          
+        shareabout._remove_hint();
         
         var ajaxCfg = { 
           type : 'GET', 
@@ -403,10 +400,8 @@ $.widget("ui.shareabout", (function() {
           if ( shareabout.options.markerIcon ) markerOpts.icon = new shareabout.options.markerIcon();
 
           var marker = new L.Marker(shareabout.newFeature.getLatLng(), markerOpts);
-
           shareabout._setupMarker(marker, responseData.geoJSON.properties);
-
-          shareabout._destroyMarker(shareabout.newFeature);
+          map.removeLayer(shareabout.newFeature);
           map.addLayer(marker);
         } else if (to == "finalizingNewFeature") {
           $(".shareabouts-side-popup-content").html(responseData.view);
@@ -437,7 +432,7 @@ $.widget("ui.shareabout", (function() {
         if (hint && hint._opened) map.removeLayer(hint);
         if (to != "loadingNewFeatureForm"){ 
           $("#crosshair").remove();
-          shareabout._destroyMarker(shareabout.newFeature);
+          map.removeLayer(shareabout.newFeature);
         }
       };
       
@@ -447,7 +442,7 @@ $.widget("ui.shareabout", (function() {
       fsm.oncancel = function (eventName, from, to) {
         $("#crosshair").remove();
         shareabout._removePopup();
-        shareabout._destroyMarker(shareabout.newFeature);
+        map.removeLayer(shareabout.newFeature);
       };
       
       /*
