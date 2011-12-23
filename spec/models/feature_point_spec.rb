@@ -5,7 +5,7 @@ describe FeaturePoint do
   describe "validations" do
     describe "the_geom" do
       context "when absent" do
-        attr_accessor :point
+        attr_reader :point
         
         before do
           @point = new_feature_point :the_geom => nil
@@ -17,7 +17,7 @@ describe FeaturePoint do
       end
       
       context "when outside of any regions" do
-        attr_accessor :point
+        attr_reader :point
         
         before do
           @point = new_feature_point :the_geom => Point.from_x_y( -74.03291702270508, 40.74374551975831, 4326 ) #new jersey
@@ -36,7 +36,7 @@ describe FeaturePoint do
   end
   
   describe "associations" do
-    attr_accessor :point
+    attr_reader :point
     
     before do
       make_staten_island
@@ -44,7 +44,7 @@ describe FeaturePoint do
     end
     
     context "user" do
-      attr_accessor :user
+      attr_reader :user
       
       before do
         @user = create_user
@@ -57,7 +57,7 @@ describe FeaturePoint do
     end
     
     context "votes" do
-      attr_accessor :vote
+      attr_reader :vote
       
       before do
         @vote = create_vote :supportable => point
@@ -69,7 +69,7 @@ describe FeaturePoint do
     end
     
     context "comments" do
-      attr_accessor :comment
+      attr_reader :comment
       
       before do
         @comment = create_comment :commentable => point
@@ -79,11 +79,24 @@ describe FeaturePoint do
         point.comments.should include(comment)
       end
     end
+    
+    context "location_types" do
+      attr_reader :location_type
+      
+      before do
+        @location_type = create_location_type
+        create_feature_location_type :location_type => location_type, :feature => point
+      end
+      
+      it "has_many" do
+        point.location_types.should include(location_type)
+      end
+    end
   end
   
   # instance methods
   describe "a point" do
-    attr_accessor :point
+    attr_reader :point
     
     before do
       make_staten_island
@@ -109,7 +122,7 @@ describe FeaturePoint do
     end
     
     context "with name" do
-      attr_accessor :name
+      attr_reader :name
       before do 
         point.update_attribute :name, (@name = Faker::Lorem.words)
       end
@@ -130,7 +143,7 @@ describe FeaturePoint do
     end
     
     context "with submitter" do
-      attr_accessor :user
+      attr_reader :user
       
       before do
         point.user = (@user = create_user)
@@ -152,7 +165,7 @@ describe FeaturePoint do
     end
         
     context "that falls within a region" do
-      attr_accessor :region, :feature_point
+      attr_reader :region, :feature_point
       
       before do        
         @region = make_staten_island

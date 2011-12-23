@@ -16,6 +16,8 @@ class FeaturePoint < ActiveRecord::Base
   has_many :comments, :as => :commentable, :dependent => :destroy, :inverse_of => :commentable
   has_many :feature_regions, :as => :feature, :dependent => :destroy
   has_many :regions, :through => :feature_regions  
+  has_many :feature_location_types, :as => :feature, :dependent => :destroy, :inverse_of => :feature
+  has_many :location_types, :through => :feature_location_types
   belongs_to :user  
   
   before_create :find_regions

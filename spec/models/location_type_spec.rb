@@ -1,9 +1,31 @@
 require 'spec_helper'
 
 describe LocationType do
+  describe "associations" do
+    attr_reader :location_type
+    
+    before do
+      @location_type = create_location_type
+    end
+    
+    context "features" do
+      attr_reader :feature
+      
+      before do
+        make_staten_island
+        @feature = create_feature_point
+        create_feature_location_type :location_type => location_type, :feature => feature
+      end
+      
+      it "has_many" do
+        location_type.features.should include(feature)
+      end
+    end
+  end
+  
   describe "validations" do
     context "with no name" do
-      attr_accessor :location_type
+      attr_reader :location_type
       
       before do
         @location_type = new_location_type :name => nil

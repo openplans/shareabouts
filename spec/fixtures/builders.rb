@@ -60,6 +60,13 @@ Fixjour :verify => false do
       :name => Faker::Lorem.words(1)
     })
   end
+  
+  define_builder(FeatureLocationType) do |klass, overrides|
+    klass.new({
+      :feature => new_feature_point,
+      :location_type => new_location_type
+    })
+  end
 end
 
 # Fixjour.verify!
