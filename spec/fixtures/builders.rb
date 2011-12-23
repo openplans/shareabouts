@@ -54,6 +54,12 @@ Fixjour :verify => false do
       :level => 100
     })
   end
+  
+  define_builder(LocationType) do |klass, overrides|
+    klass.new({
+      :name => Faker::Lorem.words(1)
+    })
+  end
 end
 
 # Fixjour.verify!
