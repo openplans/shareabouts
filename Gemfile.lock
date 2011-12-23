@@ -80,6 +80,9 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    ckeditor (3.6.3)
+      mime-types (~> 1.16)
+      orm_adapter (~> 0.0.5)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
       railties (~> 3.1.0)
@@ -238,6 +241,7 @@ PLATFORMS
 DEPENDENCIES
   cancan
   capistrano
+  ckeditor
   cover_me (>= 1.2.0)
   dbf
   delayed_job
