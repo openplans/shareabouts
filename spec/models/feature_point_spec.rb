@@ -29,7 +29,7 @@ describe FeaturePoint do
         
         it "errors on base" do
           point.valid?
-          point.errors[:base].should include("Point doesn't fall within the defined regions")
+          point.errors[:the_geom].should include("Point doesn't fall within the defined regions")
         end
       end
     end
