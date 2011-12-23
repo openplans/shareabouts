@@ -57,7 +57,7 @@ RailsAdmin.config do |config|
   # config.excluded_models << []
 
   # Add models here if you want to go 'whitelist mode':
-  config.included_models += %w{SiteOption Admin FeaturePoint Comment LocationType}
+  config.included_models += %w{SiteOption Admin FeaturePoint Comment LocationType Page}
 
   # Application wide tried label methods for models' instances
   # config.label_methods << [:description] # Default is [:name, :title]
@@ -96,6 +96,7 @@ RailsAdmin.config do |config|
   
   config.model Admin do
     weight 500
+    object_label_method :email 
   end
   
   config.model Comment do
