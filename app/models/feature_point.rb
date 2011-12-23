@@ -24,7 +24,7 @@ class FeaturePoint < ActiveRecord::Base
   after_create :add_to_regions
   after_initialize :set_defaults
   
-  accepts_nested_attributes_for :comments
+  accepts_nested_attributes_for :feature_location_type
   
   validates :the_geom,  :presence => true
   validates_with InRegionValidator  
@@ -69,6 +69,10 @@ class FeaturePoint < ActiveRecord::Base
         :description    => description
       }
     }
+  end
+  
+  def meta_data
+    [location_type.try(:name), regions.map(&:display_name).join(", ")].compact
   end
   
   def find_regions

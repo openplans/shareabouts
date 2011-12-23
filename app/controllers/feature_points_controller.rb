@@ -1,6 +1,6 @@
 class FeaturePointsController < ApplicationController
 
-  before_filter :ignore_comments_fields_if_empty, :only => :create
+  before_filter :ignore_feature_location_type_fields_if_empty, :only => :create
   before_filter :set_cache_buster, :only => :show # for IE8
   
   def index
@@ -86,10 +86,9 @@ class FeaturePointsController < ApplicationController
     Point.from_x_y p[:longitude].to_f, p[:latitude].to_f, 4326
   end
   
-  def ignore_comments_fields_if_empty
-    if params[:feature_point] && params[:feature_point][:comments_attributes] && params[:feature_point][:comments_attributes]["0"][:comment].blank?
-      params[:feature_point].delete(:comments_attributes)
-    end
+  def ignore_feature_location_type_fields_if_empty
+    params[:feature_point].delete(:feature_location_type_attributes) if params[:feature_point] && params[:feature_point][:feature_location_type_attributes] && 
+      params[:feature_point][:feature_location_type_attributes][:location_type_id].blank?
   end
   
 end

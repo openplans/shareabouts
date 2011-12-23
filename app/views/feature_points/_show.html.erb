@@ -19,9 +19,11 @@
   
   <div class="meta weak">
     <ul>
-      <li class="first">
-        <%= feature_point.regions.map(&:display_name).join(", ") %>
+      <% feature_point.meta_data.each_with_index do |datum, index| %>
+      <li<%= " class=first" if index == 0 %>>
+      <%= datum %>
       </li>
+      <% end %>
     </ul>
   </div>
   
