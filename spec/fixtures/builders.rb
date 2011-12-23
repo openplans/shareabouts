@@ -67,6 +67,15 @@ Fixjour :verify => false do
       :location_type => new_location_type
     })
   end
+  
+  define_builder(Page) do |klass, overrides|
+    klass.new({
+      :author => create_admin,
+      :title => Faker::Lorem.sentence,
+      :slug => Faker::Internet.domain_word,
+      :status => Page::StatusOptions.first
+    })
+  end
 end
 
 # Fixjour.verify!
