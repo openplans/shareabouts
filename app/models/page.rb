@@ -7,6 +7,7 @@ class Page < ActiveRecord::Base
   has_many :pages, :foreign_key => :parent_id
 
   before_validation :populate_slug
+  before_validation :populate_author
   
   validates :slug, :presence => true, :uniqueness => true
   validates :title, :presence => true
@@ -18,6 +19,10 @@ class Page < ActiveRecord::Base
   end
   
   private
+  
+  def populate_author
+    self.author = Admin.current_admin
+  end
   
   def populate_slug
     return unless title.present?

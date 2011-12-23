@@ -110,6 +110,16 @@ RailsAdmin.config do |config|
     
   end
   
+  config.model Page do
+    edit do
+      field :title
+      field :content, :text do
+        ckeditor true
+      end
+      field :status
+    end
+  end
+  
   config.model FeaturePoint do
     object_label_method :display_name     # Name of the method called for pretty printing an *instance* of ModelName
     weight 100                     # Navigation priority. Bigger is higher.

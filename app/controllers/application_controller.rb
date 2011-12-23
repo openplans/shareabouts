@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :set_locale
+  before_filter :set_admin_current_admin
   
   def geo_json_for(things)
     {
@@ -38,6 +39,10 @@ class ApplicationController < ActionController::Base
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
+  
+  def set_admin_current_admin
+    Admin.current_admin = current_admin
   end
   
 end
