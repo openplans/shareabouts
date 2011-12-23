@@ -57,7 +57,7 @@ RailsAdmin.config do |config|
   # config.excluded_models << []
 
   # Add models here if you want to go 'whitelist mode':
-  config.included_models += %w{SiteOption Admin FeaturePoint Comment}
+  config.included_models += %w{SiteOption Admin FeaturePoint Comment LocationType}
 
   # Application wide tried label methods for models' instances
   # config.label_methods << [:description] # Default is [:name, :title]
@@ -103,6 +103,10 @@ RailsAdmin.config do |config|
     configure :commentable do
       # configuration here
     end
+  end
+  
+  config.model LocationType do
+    
   end
   
   config.model FeaturePoint do
