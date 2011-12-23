@@ -80,7 +80,7 @@ describe FeaturePoint do
       end
     end
     
-    context "location_types" do
+    context "location_type" do
       attr_reader :location_type
       
       before do
@@ -89,7 +89,7 @@ describe FeaturePoint do
       end
       
       it "has_many" do
-        point.location_types.should include(location_type)
+        point.location_type.should == location_type
       end
     end
   end
