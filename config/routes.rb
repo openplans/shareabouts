@@ -23,8 +23,10 @@ Shareabouts::Application.routes.draw do
     end
   end
   
+  resources :pages, :only => [:show]
+  
   match "regions/import", :to => "regions#import", :via => :get, :as => :import_regions
   match "regions/import", :to => "regions#upload", :via => :post, :as => :upload_regions
-
+  
   root :to => 'feature_points#index'
 end

@@ -14,8 +14,14 @@ class Page < ActiveRecord::Base
   validates :author_id, :presence => true
   validates :status, :presence => true, :inclusion => { :in => StatusOptions }
   
+  scope :published, where(:status => "published")
+  
   def status_enum
     StatusOptions
+  end
+  
+  def to_param
+    slug
   end
   
   private
