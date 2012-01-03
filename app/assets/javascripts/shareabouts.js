@@ -43,7 +43,10 @@ $.widget("ui.shareabout", (function() {
 
       features = {};
       map      = new L.Map( this.element.attr("id"), this.options.map );
-      popup    = new InformationPanel({ onRemove : function() { self._resetState(); } });
+      popup    = new InformationPanel({ 
+        onRemove : function() { self._resetState(); },
+        onOpen   : self.options.callbacks.onpopup 
+      });
       
       this.newFeature = new L.Marker(this.options.map.center, this.options.newMarkerOptions);
       this.newFeature.on("drag", function(drag) { self._remove_hint() } );      
@@ -54,8 +57,7 @@ $.widget("ui.shareabout", (function() {
         maxZoom: this.options.map.maxZoom, attribution: this.options.tileAttribution
       }));
       map.on('layerremove', function(e) { 
-        if (e.layer == popup) self._resetState(); 
-        else if (e.layer == self.newFeature) self.newFeature._visible = false;
+        if (e.layer == self.newFeature) self.newFeature._visible = false;
       });
       map.on('layeradd', function(e){ if (e.layer == self.newFeature) self.newFeature._visible = true; })
       map.on('click', function(e){ self._removePopup(); });
@@ -197,6 +199,12 @@ $.widget("ui.shareabout", (function() {
         if (callback) callback();
       });
     },
+    
+    openPopup : function(content) {
+      popup.setContent(content);
+      popup.positionFor(this._small_screen());
+      popup.open();
+    },
   
     /*
      * Private
@@ -238,10 +246,8 @@ $.widget("ui.shareabout", (function() {
       
       var self = this;
       window.setTimeout(function(){ // the map takes time to pan 
-        popup.positionFor($(layer._icon), self._small_screen());
-        popup.open();
-        
-        self.options.callbacks.onpopup();
+        popup.positionFor(self._small_screen(), $(layer._icon));
+        popup.open();        
       }, 400);
     },
     
@@ -267,14 +273,13 @@ $.widget("ui.shareabout", (function() {
     },
     
     _resetState : function() {
-      if (fsm.can("ready")) fsm.ready();
+      if (fsm.is("ready")) this.options.callbacks.onready();
+      else if (fsm.can("ready")) fsm.ready();
       else if (fsm.can("cancel")) fsm.cancel();
     },
     
     _removePopup : function() {
-      // Transitioning from leaflet popup to InformationPanel
-      if (popup instanceof InformationPanel && popup._opened()) popup.remove();
-      else if (popup._opened) map.removeLayer(popup);
+      if (popup._opened()) popup.remove();
     },
   
     _setupMarker : function(marker, properties) {

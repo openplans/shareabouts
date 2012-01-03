@@ -1,8 +1,9 @@
 <% url_help = Shareabouts::Application.routes.url_helpers %>
  
-$(function() {
+$(function() {  
   var locate_feature   = $("#locate_feature"),
-      finalize_feature = $("#finalize_feature");
+      finalize_feature = $("#finalize_feature"),
+      Map                 = $("#map");
       
   var NewMarkerIcon = L.Icon.extend({
     iconUrl     : '<%= image_path("marker-plus.png") %>',
@@ -12,18 +13,27 @@ $(function() {
   });
   
   var CrosshairIcon = L.Icon.extend({
-    iconUrl  : '<%= image_path("crosshair.png") %>',
-    iconSize : new L.Point(63, 64),
-    iconAnchor : new L.Point(33,32),
+    iconUrl     : '<%= image_path("crosshair.png") %>',
+    iconSize    : new L.Point(63, 64),
+    iconAnchor  : new L.Point(33,32),
     popupAnchor : new L.Point(0,0),
-    shadowSize : new L.Point(0,0) // no shadow
+    shadowSize  : new L.Point(0,0) // no shadow
   });
     
-  var shareaboutsCfg = {
+  /**
+   * @param {L.LatLng} latlng The location to translate to query string
+   */
+  var latLngToQueryString = function(latlng) {
+    return "latitude=" + latlng.lat + "&longitude=" + latlng.lng;
+  };
+  
+  // Initialize shareabouts map
+  Map.shareabout({
     map : {
-      maxZoom         : window.shareabouts.map_max_zoom,
-      minZoom         : window.shareabouts.map_min_zoom,
-      maxBounds       : window.shareabouts.map_bounds
+      maxZoom   : window.shareabouts.map_max_zoom,
+      minZoom   : window.shareabouts.map_min_zoom,
+      maxBounds : window.shareabouts.map_bounds,
+      center    : new L.LatLng(40.727857, -73.947151)
     },
     tileUrl          : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
     tileAttribution  : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
@@ -39,7 +49,7 @@ $(function() {
       },
       onload : function() {
         if (window.shareabouts && window.shareabouts.feature) {
-          $("#map").shareabout("viewFeature", window.shareabouts.feature.properties.id)
+          Map.shareabout("viewFeature", window.shareabouts.feature.properties.id)
         }
       },
       onpopup : function() {
@@ -47,76 +57,57 @@ $(function() {
         finalize_feature.hide();
       }
     },
-    featuresUrl    : '<%= url_help.feature_points_path %>',
-    featureUrl     : '<%= url_help.feature_point_path("FEATURE_ID") %>'
-  };
+    features    : [window.shareabouts.feature], // feature to first open
+    featuresUrl : '<%= url_help.feature_points_path %>',
+    featureUrl  : '<%= url_help.feature_point_path("FEATURE_ID") %>'
+  });
+   
+  locate_feature.click( function(event) { 
+    Map.shareabout("locateNewFeature");
+    $(this).hide();
+    finalize_feature.show();
+  });
+   
+  finalize_feature.click( function(event) { 
+    var newFeature = Map.shareabout("getNewFeatureMarker"),
+        latlng     = newFeature._visible ? newFeature.getLatLng() : Map.shareabout("getMap").getCenter(),
+        data       = latLngToQueryString(latlng);
+        
+    $.getJSON("<%= url_help.within_region_feature_points_path %>", data, function(data){
+      if (!data || data.status != "error") { // Location is good
+        Map.shareabout("loadNewFeatureForm", {
+          url : '<%= url_help.new_feature_point_path %>' 
+        });
+        $(this).hide();
+      } else Map.shareabout("showHint", data.message, newFeature._visible ? latlng : null);
+    });
+  });
   
-  /**
-   * @param {L.LatLng} latlng The location to translate to query string
-   */
-  var latLngToQueryString = function(latlng) {
-    return "latitude=" + latlng.lat + "&longitude=" + latlng.lng;
-  };
+  // Register click event within InformationPanel
+  Map.shareabout("addClickEventListenerToPopup", "form#new_feature_point input:submit", function(mouseEvent, target){    
+    var form = $(mouseEvent.target).closest("form");
+                
+    Map.shareabout("submitNewFeature", { 
+      data : form.serialize() + "&" + latLngToQueryString( Map.shareabout("getNewFeatureMarker").getLatLng() ), 
+      url : form.attr("action") 
+    });
+  });
   
-  var initShareabouts = function (mapCenter) {
-    if (window.shareabouts && window.shareabouts.feature){
-      shareaboutsCfg.features = [window.shareabouts.feature];
-    }
-    
-    $.extend( true, shareaboutsCfg, { map : { center : mapCenter} } );
-    
-    $("#map").shareabout(shareaboutsCfg);
-     
-    locate_feature.click( function(event) { 
-      $("#map").shareabout("locateNewFeature");
-      $(this).hide();
-      finalize_feature.show();
-    });
-     
-    finalize_feature.click( function(event) { 
-      var newFeature = $("#map").shareabout("getNewFeatureMarker"),
-          latlng     = newFeature._visible ? newFeature.getLatLng() : $("#map").shareabout("getMap").getCenter(),
-          data       = latLngToQueryString(latlng);
-          
-      $.getJSON("<%= url_help.within_region_feature_points_path %>", data, function(data){
-        if (!data || data.status != "error") { // Location is good
-          $("#map").shareabout("loadNewFeatureForm", {
-            url : '<%= url_help.new_feature_point_path %>' 
-          });
-          $(this).hide();
-        } else $("#map").shareabout("showHint", data.message, newFeature._visible ? latlng : null);
-      });
-    });
-    
-    $("#map").shareabout("addClickEventListenerToPopup", "form#new_feature_point input:submit", function(mouseEvent, target){
-      mouseEvent.preventDefault();
-      
-      var input = $(mouseEvent.target),
-          form  = input.closest("form");
-          
-      var newFeature = $("#map").shareabout("getNewFeatureMarker");
-      
-      var ajaxOptions = { 
-        data : form.serialize() + "&" + latLngToQueryString(newFeature.getLatLng()), 
-        url : form.attr("action") 
-      };
-      
-      $("#map").shareabout("submitNewFeature", ajaxOptions);
-    });
-    
-    // <IE9 does not support live detection of submit event and leaflet steals clicks within a popup.
-    // Thus, registering click event on popup's forms via InformationPanel, who fires event on popup click.
-    $("#map").shareabout("addClickEventListenerToPopup", "form[data-behavior=load_result_in_popup] :submit", function(mouseEvent, target){
-      mouseEvent.preventDefault();
-      
-      var input = $(mouseEvent.target),
-          form  = input.closest("form");
-          
-      $.post( form.attr("action"), form.serialize(), function(data) {
-        $("#map").shareabout("getPopup").setContent(data.view);
-      }, "json" );
-    });
-  };
+  // Register click event within InformationPanel
+  Map.shareabout("addClickEventListenerToPopup", "form[data-behavior=load_result_in_popup] :submit", function(mouseEvent, target){    
+    var form = $(mouseEvent.target).closest("form");
+        
+    $.post( form.attr("action"), form.serialize(), function(data) {
+      Map.shareabout("getPopup").setContent(data.view);
+    }, "json" );
+  });
   
-  initShareabouts( new L.LatLng(40.727857, -73.947151) ); 
+  $("#pages a").click(function(click){
+    click.preventDefault();
+    
+    $.get($(click.target).attr("href"), function(data){
+      Map.shareabout("openPopup", data.view);
+    }, "json");
+  });
+  
 });
