@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:psql] = "%Y-%m-%d %H:%M:%S.%6N"
