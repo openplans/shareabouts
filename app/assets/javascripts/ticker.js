@@ -12,7 +12,12 @@ $.widget("ui.ticker", (function() {
     _create : function() {
       var self = this;
       
-      this.list = $( "<ul>" ).appendTo( this.element );
+      this.expando = $( "<a>" ).attr("href", "#").text("toggle");
+      this.toolbar = $( "<div>" ).text("What's happening").append( this.expando ).appendTo( this.element );
+      this.list    = $( "<ul>" ).appendTo( this.element );
+      
+      this.expando.click(function(click) { self.element.toggleClass("closed") } );
+      
       this.refresh();
     },
     

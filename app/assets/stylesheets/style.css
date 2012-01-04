@@ -598,6 +598,23 @@ div.information-panel .popup-tip {
   background-color : #fff;
   overflow : auto;
 }
+
+#ticker.closed {
+  top : auto;
+}
+
+#ticker.closed > ul {
+  display : none;
+}
+
+#ticker > div {
+  padding    : .5em 1em;
+}
+
+#ticker > div > a {
+  float : right;
+}
+
 #ticker li {
   background   : transparent url('user.png') no-repeat scroll top left;
   padding-left : 30px;
