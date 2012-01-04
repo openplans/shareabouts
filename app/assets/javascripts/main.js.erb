@@ -61,7 +61,27 @@ $(function() {
     featuresUrl : '<%= url_help.feature_points_path %>',
     featureUrl  : '<%= url_help.feature_point_path("FEATURE_ID") %>'
   });
+  
+  // Register click event within InformationPanel
+  Map.shareabout("addClickEventListenerToPopup", "form#new_feature_point input:submit", function(mouseEvent, target){    
+    var form = $(mouseEvent.target).closest("form");
+                
+    Map.shareabout("submitNewFeature", { 
+      data : form.serialize() + "&" + latLngToQueryString( Map.shareabout("getNewFeatureMarker").getLatLng() ), 
+      url : form.attr("action") 
+    });
+  });
+  
+  // Register click event within InformationPanel
+  Map.shareabout("addClickEventListenerToPopup", "form[data-behavior=load_result_in_popup] :submit", function(mouseEvent, target){    
+    var form = $(mouseEvent.target).closest("form");
+        
+    $.post( form.attr("action"), form.serialize(), function(data) {
+      Map.shareabout("getPopup").setContent(data.view);
+    }, "json" );
+  });
    
+  // UI Elements that affect map state
   locate_feature.click( function(event) { 
     Map.shareabout("locateNewFeature");
     $(this).hide();
@@ -83,25 +103,7 @@ $(function() {
     });
   });
   
-  // Register click event within InformationPanel
-  Map.shareabout("addClickEventListenerToPopup", "form#new_feature_point input:submit", function(mouseEvent, target){    
-    var form = $(mouseEvent.target).closest("form");
-                
-    Map.shareabout("submitNewFeature", { 
-      data : form.serialize() + "&" + latLngToQueryString( Map.shareabout("getNewFeatureMarker").getLatLng() ), 
-      url : form.attr("action") 
-    });
-  });
-  
-  // Register click event within InformationPanel
-  Map.shareabout("addClickEventListenerToPopup", "form[data-behavior=load_result_in_popup] :submit", function(mouseEvent, target){    
-    var form = $(mouseEvent.target).closest("form");
-        
-    $.post( form.attr("action"), form.serialize(), function(data) {
-      Map.shareabout("getPopup").setContent(data.view);
-    }, "json" );
-  });
-  
+  // Display static pages in the popup
   $("#pages a").click(function(click){
     click.preventDefault();
     
@@ -110,4 +112,6 @@ $(function() {
     }, "json");
   });
   
+  // Start the ticker
+  $("#ticker").ticker({ url : "<%= url_help.news_index_path %>"});
 });
