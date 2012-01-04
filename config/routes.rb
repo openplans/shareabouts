@@ -24,6 +24,7 @@ Shareabouts::Application.routes.draw do
   end
   
   resources :pages, :only => [:show]
+  resources :news, :only => [:index]
   
   match "regions/import", :to => "regions#import", :via => :get, :as => :import_regions
   match "regions/import", :to => "regions#upload", :via => :post, :as => :upload_regions
