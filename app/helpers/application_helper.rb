@@ -37,7 +37,7 @@ module ApplicationHelper
   end
   
   def feature_meta(feature)
-    t "feature.meta", :by_author => by_author_name(feature), :date_s => feature.created_at.strftime("%m/%d/%Y")
+    t "feature.meta", :by_author => by_author_name(feature), :date_s => l(feature.created_at, :format => :display)
   end
   
   def by_author_name(authorable)

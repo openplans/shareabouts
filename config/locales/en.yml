@@ -30,3 +30,6 @@ en:
     attributes:
       feature_point:
         the_geom: 'location'
+  time:
+    formats:
+      display: "%-m/%-d/%Y"
