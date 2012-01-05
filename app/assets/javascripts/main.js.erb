@@ -113,5 +113,5 @@ $(function() {
   });
   
   // Start the ticker
-  $("#ticker").ticker({ url : "<%= url_help.news_index_path %>"});
+  if ( !Map.shareabout("smallScreen") ) $("#ticker").ticker({ url : "<%= url_help.news_index_path %>"});
 });
