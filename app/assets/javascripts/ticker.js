@@ -2,7 +2,7 @@ $.widget("ui.ticker", (function() {
   return {
     options : {
       url       : "",   // should return HTML of lis, like "<li>thing</li><li>thing2</li>"
-      frequency : 5000, // ms between checking for new items
+      frequency : 30000, // ms between checking for new items
       limit     : 10    // max number of items to add each refresh
     },
   
