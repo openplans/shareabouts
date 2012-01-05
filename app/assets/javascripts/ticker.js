@@ -16,7 +16,10 @@ $.widget("ui.ticker", (function() {
       this.toolbar = $( "<div>" ).text("What's happening").append( this.expando ).appendTo( this.element );
       this.list    = $( "<ul>" ).appendTo( this.element );
       
-      this.expando.click(function(click) { self.element.toggleClass("closed") } );
+      this.expando.click(function(click) { 
+        click.preventDefault();
+        self.element.toggleClass("closed") 
+      });
       
       this.refresh();
     },
