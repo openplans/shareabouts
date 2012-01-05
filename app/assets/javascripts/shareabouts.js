@@ -4,7 +4,6 @@
 $.widget("ui.shareabout", (function() {
   var map, // leaflet map
       fsm, // state machine
-      hint, // label layer with UX hints
       features, // object that stores map features by their ID
       popup; // one popup on the map
     
@@ -48,9 +47,10 @@ $.widget("ui.shareabout", (function() {
         onOpen   : self.options.callbacks.onpopup 
       });
       
+      this.hint       = new Hint(this.element, map);
       this.newFeature = new L.Marker(this.options.map.center, this.options.newMarkerOptions);
-      this.newFeature.on("drag", function(drag) { self._remove_hint() } );      
-      
+      this.newFeature.on("drag", function(drag) { self.hint.remove() } ); 
+            
       // Set up Leaflet map
       map.setView(this.options.map.center, this.options.initialZoom);
       map.addLayer(new L.TileLayer( this.options.tileUrl, {
@@ -61,7 +61,7 @@ $.widget("ui.shareabout", (function() {
       });
       map.on('layeradd', function(e){ if (e.layer == self.newFeature) self.newFeature._visible = true; })
       map.on('click', function(e){ self._removePopup(); });
-      map.on('drag', function(drag) { self._remove_hint() } );
+      map.on('drag', function(drag) { self.hint.remove() } );
             
       // Initial map feature load
       this.loadFeatures(this.options.features, self.options.callbacks.onload);
@@ -110,6 +110,15 @@ $.widget("ui.shareabout", (function() {
     submitNewFeature : function(ajaxOptions) {
       fsm.submitNewFeature(ajaxOptions);
     },
+    
+    /**
+     * Displays a hint with content message at location latlng
+     * @param {String} message Content for the hint.
+     * @param {L.LatLng} latlng Location of hint.
+     */
+    showHint : function(message, latlng) {
+      this.hint.open(message, latlng, this.smallScreen());
+    },
       
     /**
      * Returns the leaflet map
@@ -120,11 +129,6 @@ $.widget("ui.shareabout", (function() {
      * Returns the info popup
      */
     getPopup : function () { return popup; },
-  
-    /**
-     * Returns the state machine object
-     */
-    state : function () { return fsm; },
     
     /**
      * Returns the new Feature marker
@@ -145,21 +149,6 @@ $.widget("ui.shareabout", (function() {
      */
     addClickEventListenerToPopup : function(selector, callback) {
       popup.addClickEventListener(selector, callback);
-    },
-    
-    /**
-     * Displays a hint with content message at location latlng
-     * @param {String} message Content for the hint.
-     * @param {L.LatLng} latlng Location of hint.
-     */
-    showHint : function(message, latlng) {
-      if (this.smallScreen() || !latlng){
-        hint = $("<div>").attr("class", "mobile-hint-overlay").html(message);
-        this.element.append(hint);
-      } else {
-        hint = new L.LabelOverlay(latlng, message);
-        map.addLayer(hint);
-      }
     },
     
     loadFeatures : function(geojson, callback){
@@ -303,11 +292,6 @@ $.widget("ui.shareabout", (function() {
     _touch_screen : function() {
       return('ontouchstart' in window);
     },
-    
-    _remove_hint : function() {
-      if (hint && hint._opened) map.removeLayer(hint);      
-      $(".mobile-hint-overlay").remove();
-    },
   
     _init_states : function() {
       var shareabout = this;
@@ -372,7 +356,7 @@ $.widget("ui.shareabout", (function() {
           $("#crosshair").remove();                
         }
         
-        shareabout._remove_hint();
+        shareabout.hint.remove();
         
         var ajaxCfg = { 
           type : 'GET', 
@@ -442,7 +426,7 @@ $.widget("ui.shareabout", (function() {
       };
       
       fsm.onleavelocatingNewFeature = function(eventName, from, to) {
-        if (hint && hint._opened) map.removeLayer(hint);
+        shareabout.hint.remove();
         if (to != "loadingNewFeatureForm"){ 
           $("#crosshair").remove();
           map.removeLayer(shareabout.newFeature);
