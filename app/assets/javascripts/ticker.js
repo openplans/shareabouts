@@ -34,8 +34,7 @@ $.widget("ui.ticker", (function() {
         complete : function(data, status){
           self.list.prepend(data.responseText);
           
-          var date = new Date(),
-              utc  = date.getTime() + date.getTimezoneOffset() * 60000;
+          var utc  = (new Date()).getTime();
               
           self.timeout = window.setTimeout(function(){
             self.refresh(utc);
