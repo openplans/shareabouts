@@ -290,8 +290,7 @@ $.widget("ui.shareabout", (function() {
     },
     
     _touch_screen : function() {
-      return true
-      // return('ontouchstart' in window);
+      return('ontouchstart' in window);
     },
   
     _init_states : function() {
