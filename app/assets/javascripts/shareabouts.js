@@ -116,8 +116,8 @@ $.widget("ui.shareabout", (function() {
      * @param {String} message Content for the hint.
      * @param {L.LatLng} latlng Location of hint.
      */
-    showHint : function(message, latlng) {
-      this.hint.open(message, latlng, this.smallScreen());
+    showHint : function(message, layer) {
+      this.hint.open(message, this.smallScreen(), layer);
     },
       
     /**
@@ -290,7 +290,8 @@ $.widget("ui.shareabout", (function() {
     },
     
     _touch_screen : function() {
-      return('ontouchstart' in window);
+      return true
+      // return('ontouchstart' in window);
     },
   
     _init_states : function() {
@@ -325,9 +326,9 @@ $.widget("ui.shareabout", (function() {
       
       /*
        * If touch screen, displays crosshair, else
-       * Drops a marker on the map at the latlng, if provided, or in the middle
+       * Drops a marker on the map at the center
        */
-      fsm.onlocateNewFeature = function (eventName, from, to, latlng) {
+      fsm.onlocateNewFeature = function (eventName, from, to) {
         if (shareabout._touch_screen()) {
           var wrapper = $("<div>").attr("id", "crosshair"),
               img     = $("<img>").attr("src", shareabout.options.crosshairIcon.iconUrl);
@@ -337,11 +338,10 @@ $.widget("ui.shareabout", (function() {
           $("#crosshair").css("top", shareabout.element[0].offsetHeight/2 - shareabout.options.crosshairIcon.iconAnchor.y + "px");
           shareabout.showHint("Drag your location to the center of the map");
         } else {
-          if (!latlng) latlng = map.getCenter();            
-          shareabout.newFeature.setLatLng(latlng);
+          shareabout.newFeature.setLatLng(map.getCenter());
           if (shareabout.newFeature.dragging) shareabout.newFeature.dragging.enable();
           map.addLayer(shareabout.newFeature);
-          shareabout.showHint("Drag me!", latlng);
+          shareabout.showHint("Drag me!", shareabout.newFeature);
         }
       };
       

@@ -99,7 +99,7 @@ $(function() {
           url : '<%= url_help.new_feature_point_path %>' 
         });
         $(this).hide();
-      } else Map.shareabout("showHint", data.message, newFeature._visible ? latlng : null);
+      } else Map.shareabout("showHint", data.message, newFeature);
     });
   });
   
