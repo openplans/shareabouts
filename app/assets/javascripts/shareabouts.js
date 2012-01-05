@@ -153,7 +153,7 @@ $.widget("ui.shareabout", (function() {
      * @param {L.LatLng} latlng Location of hint.
      */
     showHint : function(message, latlng) {
-      if (this._small_screen() || !latlng){
+      if (this.smallScreen() || !latlng){
         hint = $("<div>").attr("class", "mobile-hint-overlay").html(message);
         this.element.append(hint);
       } else {
@@ -202,8 +202,12 @@ $.widget("ui.shareabout", (function() {
     
     openPopup : function(content) {
       popup.setContent(content);
-      popup.positionFor(this._small_screen());
+      popup.positionFor(this.smallScreen());
       popup.open();
+    },
+    
+    smallScreen : function() {
+      return this.element[0].offsetWidth <= 480;
     },
   
     /*
@@ -226,7 +230,7 @@ $.widget("ui.shareabout", (function() {
           mapHeight = this.element[0].offsetHeight,
           pos       = map.latLngToLayerPoint(latLng);
       
-      if (this._small_screen()) {
+      if (this.smallScreen()) {
         var ratioY = -0.42; // percentage of map height between map center and focal point, hard coded bad        
         map.panTo(map.layerPointToLatLng( new L.Point(pos.x, pos.y + ratioY * mapHeight ) ));
       } else {
@@ -246,7 +250,7 @@ $.widget("ui.shareabout", (function() {
       
       var self = this;
       window.setTimeout(function(){ // the map takes time to pan 
-        popup.positionFor(self._small_screen(), $(layer._icon));
+        popup.positionFor(self.smallScreen(), $(layer._icon));
         popup.open();        
       }, 400);
     },
@@ -266,10 +270,6 @@ $.widget("ui.shareabout", (function() {
         this.focused.layer._initIcon();
         this.focused = null;
       }
-    },
-    
-    _small_screen : function() {
-      return this.element[0].offsetWidth <= 480;
     },
     
     _resetState : function() {
