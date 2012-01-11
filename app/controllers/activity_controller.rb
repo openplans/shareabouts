@@ -1,4 +1,4 @@
-class NewsController < ApplicationController
+class ActivityController < ApplicationController
 
   def index
     respond_to do |format|
