@@ -3,10 +3,10 @@
     <%= link_to "permalink", feature_point_url(shareable), :class => "link" %>
   </li>
   <li>
-    <%= tweet t("feature.sharing.twitter.status", :place => "place", :url => feature_point_url(shareable)) -%>
+    <%= tweet t("feature.sharing.twitter.status", :thing => shareable.class.model_name.human, :url => feature_point_url(shareable)) -%>
   </li>
   <li>
-    <%= mail_to "", "email", :subject => t("feature.sharing.email.subject", :place => "place"), :body => t("feature.sharing.email.body", :place => "place", :url => feature_point_url(shareable)), :class => "email" -%>
+    <%= mail_to "", "email", :subject => t("feature.sharing.email.subject", :thing => shareable.class.model_name.human), :body => t("feature.sharing.email.body", :thing => shareable.class.model_name.human, :url => feature_point_url(shareable)), :class => "email" -%>
   </li>
   <li>
     <%= facebook_share_feature shareable -%>
