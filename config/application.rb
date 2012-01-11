@@ -31,7 +31,7 @@ module Shareabouts
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
     # Activate observers that should always be running.
-    # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+    config.active_record.observers = :activity_observer
 
     config.active_record.default_timezone = :utc
     config.time_zone = "UTC"
