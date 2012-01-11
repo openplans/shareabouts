@@ -6,6 +6,7 @@ require "#{::Rails.root}/spec/fixtures/staten_island_coordinates"
 
 Fixjour :verify => false do
   define_builder(FeaturePoint) do |klass, overrides|    
+    make_staten_island unless Region.any?
     klass.new({
       :the_geom => Point.from_x_y(-74.10003662109374, 40.625939917833925, 4326)
     })
