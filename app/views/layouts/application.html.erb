@@ -33,7 +33,7 @@
   <div id="wrapper">
     <header id="header" role="banner">
       <hgroup>
-        <h1 id="site-title"><span><%= t "app_name" %></span></h1>
+        <h1 id="site-title"><span><%= link_to t("app_name"), root_path %></span></h1>
       </hgroup>
       <nav id="pages">
         <% for page in Page.published %>
