@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111223185311) do
+ActiveRecord::Schema.define(:version => 20120111203947) do
+
+  create_table "activity_items", :force => true do |t|
+    t.string   "subject_type"
+    t.string   "user_name"
+    t.integer  "subject_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activity_items", ["subject_type", "subject_id"], :name => "index_activity_items_on_subject_type_and_subject_id"
 
   create_table "admins", :force => true do |t|
     t.string   "email",                             :default => "", :null => false

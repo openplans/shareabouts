@@ -76,6 +76,12 @@ Fixjour :verify => false do
       :status => Page::StatusOptions.first
     })
   end
+  
+  define_builder(ActivityItem) do |klass, overrides|
+    klass.new({
+      :subject => create_comment
+    })
+  end
 end
 
 # Fixjour.verify!
