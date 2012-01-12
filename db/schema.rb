@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111203947) do
+ActiveRecord::Schema.define(:version => 20120112212833) do
 
   create_table "activity_items", :force => true do |t|
     t.string   "subject_type"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20120111203947) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "subject_parent_id"
+    t.string   "subject_parent_type"
   end
 
   add_index "activity_items", ["subject_type", "subject_id"], :name => "index_activity_items_on_subject_type_and_subject_id"
