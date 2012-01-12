@@ -18,10 +18,11 @@ $.widget("ui.ticker", (function() {
       
       this.expando.click(function(click) { 
         click.preventDefault();
-        self.element.toggleClass("closed") 
+        self._trigger("toggle");
       });
       
       this.refresh();
+      this._trigger("toggle"); // Display the ticker
     },
     
     refresh : function(utc) {

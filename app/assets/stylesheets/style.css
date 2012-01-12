@@ -589,22 +589,23 @@ div.information-panel .popup-tip {
  *
  */
 #ticker {
+  display : none;
+}
+
+#content.ticker_on #map {
+  right : 14em;
+}
+
+#content.ticker_on #ticker {
+  display  : block;
   position : absolute;
-  width    : 33%;
+  width    : 14em;
   bottom   : 0;
-  left     : 1em;
-  top      : 1em;
+  right    : 0;
+  top      : 0;
   z-index  : 10000;
   background-color : #fff;
   overflow : auto;
-}
-
-#ticker.closed {
-  top : auto;
-}
-
-#ticker.closed > ul {
-  display : none;
 }
 
 #ticker > div {

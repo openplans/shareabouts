@@ -113,5 +113,12 @@ $(function() {
   });
   
   // Start the ticker
-  if ( !Map.shareabout("smallScreen") ) $("#ticker").ticker({ url : "<%= url_help.activity_index_path %>"});
+  if ( !Map.shareabout("smallScreen") ) {
+    $("#ticker").ticker({ 
+      url    : "<%= url_help.activity_index_path %>",
+      toggle : function(e){
+        $("#content").toggleClass("ticker_on");
+      }
+    });
+  }
 });
