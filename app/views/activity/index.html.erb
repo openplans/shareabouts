@@ -1,3 +1,9 @@
 <% @activity_items.each do |activity_item| %>
-<%= render "#{activity_item.subject_type.underscore}.html", :activity_item => activity_item  %>
+<li class="clearfix">
+  <div class="avatar">
+    <!-- img goes here -->
+    <div class="badge <%= activity_item.subject_type.underscore %>"></div>
+  </div>
+  <%= render "#{activity_item.subject_type.underscore}.html", :activity_item => activity_item  %>
+</li>
 <% end %>

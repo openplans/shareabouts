@@ -1,7 +1,5 @@
-<li>
-  <a href="<%= feature_point_path(activity_item.subject_parent) %>">
-    <strong><%= activity_item.user_name %><strong> 
-    <%= t("activity.vote.action") %> 
-    <%= activity_item.description %>. 
-  </a>
-</li>
+<a href="<%= feature_point_path(activity_item.subject_parent) %>">
+  <strong><%= activity_item.user_name %></strong> 
+  <%= t("activity.vote.action") %> 
+  <%= activity_item.description %>. 
+</a>
