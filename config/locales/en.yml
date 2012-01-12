@@ -23,13 +23,23 @@ en:
     sharing:
       email:
         subject: 'I suggested a %{thing}'
-        body: "Check out the %{thing} I suggested: %{url}"
+        body: 'Check out the %{thing} I suggested: %{url}'
       twitter:
-        status: "Check out this %{thing}! %{url}."
+        status: 'Check out this %{thing}! %{url}.'
+  activity:
+    vote:
+      action: supported
+    comment:
+      action: 'commented on'
+    point:
+      action: added
+      indefinite_article: a
+      by_name: "%{name}'s point"
   # Model names and model attribute names
   activerecord:
     models:
-      feature_point: poo
+      feature_point: point
+      user: someone
     attributes:
       feature_point:
         the_geom: location

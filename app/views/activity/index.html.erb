@@ -1,1 +1,3 @@
-<%= render :partial => "item.html", :collection => @items %>
+<% @activity_items.each do |activity_item| %>
+<%= render "#{activity_item.subject_type.underscore}.html", :activity_item => activity_item  %>
+<% end %>
