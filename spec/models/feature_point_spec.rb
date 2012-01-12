@@ -159,8 +159,8 @@ describe FeaturePoint do
         point.user.should_not be
       end
       
-      it "doesn't display submitter display name" do
-        point.display_submitter.should_not be
+      it "displays generic user model name" do
+        point.display_submitter.should == User.model_name.human.capitalize
       end
     end
         

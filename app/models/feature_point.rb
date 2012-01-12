@@ -54,7 +54,7 @@ class FeaturePoint < ActiveRecord::Base
   end
   
   def display_submitter
-    user.name if user.present?
+    user.present? ? user.name : User.model_name.human.capitalize
   end
   
   def as_geo_json
