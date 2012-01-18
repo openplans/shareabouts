@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120118170519) do
+ActiveRecord::Schema.define(:version => 20120118173115) do
 
   create_table "activity_items", :force => true do |t|
     t.string   "subject_type"
@@ -135,11 +135,11 @@ ActiveRecord::Schema.define(:version => 20120118170519) do
 
   create_table "regions", :force => true do |t|
     t.string        "name"
-    t.string        "kind"
     t.text          "description"
     t.datetime      "created_at"
     t.datetime      "updated_at"
-    t.multi_polygon "the_geom",    :limit => nil, :srid => 4326
+    t.multi_polygon "the_geom",     :limit => nil, :srid => 4326
+    t.integer       "shapefile_id"
   end
 
   add_index "regions", ["the_geom"], :name => "index_regions_on_the_geom", :spatial => true

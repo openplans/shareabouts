@@ -1,5 +1,7 @@
 class Shapefile < ActiveRecord::Base
-    
-  validates :kind, :presence => true
+  
+  has_many :regions, :inverse_of => :shapefile
+  
+  validates :kind, :presence => true, :uniqueness => true
   
 end
