@@ -57,7 +57,7 @@ RailsAdmin.config do |config|
   # config.excluded_models << []
 
   # Add models here if you want to go 'whitelist mode':
-  config.included_models += %w{SiteOption Admin FeaturePoint Comment LocationType Page}
+  config.included_models += %w{SiteOption Admin FeaturePoint Comment LocationType Page Shapefile}
 
   # Application wide tried label methods for models' instances
   # config.label_methods << [:description] # Default is [:name, :title]
@@ -81,6 +81,10 @@ RailsAdmin.config do |config|
   #
   #  ==> Model specific configuration
   # Try to override as few things as possible, in the most generic way. Try to avoid setting labels for models and attributes, use ActiveRecord I18n API instead.
+  config.model Shapefile do
+    
+  end
+  
   config.model SiteOption do
     object_label_method :option_name 
     weight 1000
@@ -123,6 +127,8 @@ RailsAdmin.config do |config|
   config.model FeaturePoint do
     object_label_method :display_name     # Name of the method called for pretty printing an *instance* of ModelName
     weight 100                     # Navigation priority. Bigger is higher.
+    label "Point"
+    label_plural "Points"
 
     list do
       items_per_page 100
@@ -141,8 +147,6 @@ RailsAdmin.config do |config|
       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
     end
     
-    # label 'My model'              # Name of ModelName (smartly defaults to ActiveRecord's I18n API)
-    # label_plural 'My models'      # Same, plural
     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
     #   show do

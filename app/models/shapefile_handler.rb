@@ -1,62 +1,70 @@
 require 'geo_ruby/shp'
+require 'zip/zip'
 
 class ShapefileHandler
   include GeoRuby::Shp4r
-  
-  TempDir = "#{Rails.root.to_s}/tmp"
-    
-  def initialize(files, directory_prefix, region_params, field_names)
-    @directory   = "#{TempDir}/#{directory_prefix}#{Time.now.to_i}"
-    @regions     = region_params
-    @field_names = field_names
-    
-    FileUtils.mkdir_p @directory
-
-    for type, file in files
-      name = file.original_filename
-      path = File.join(@directory, name)
       
-      FileUtils.mv file.tempfile.path, path
-      
-      instance_variable_set "@#{type}_file".to_sym, path
-    end
+  def initialize(shapefile_id, shapefile_path)
+    @shapefile_id   = shapefile_id
+    @shapefile_path = shapefile_path
   end
   
   def perform
-    Delayed::Worker.logger.info "INFO importing regions from #{@shp_file}"
+    log "importing regions from #{@shapefile_path}"
     
-    if @prj_file.present?
-      Delayed::Worker.logger.info "=====RUNNING ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{@shp_file}====="
-      Delayed::Worker.logger.info `export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH && ogr2ogr -t_srs EPSG:4326 #{File.join(@directory, "out_4326.shp")} #{@shp_file} 2>&1` 
-      @shp_file = File.join(@directory, "out_4326.shp")
+    output_dir = unzip @shapefile_path
+    
+                     # if there's a projection file
+    shapefile_path = if Dir.glob( "#{output_dir}/*.prj" ).first
+      shapefile_path = Dir.glob( "#{output_dir}/*.shp" ).first
+      output_path    = "#{output_dir}/out_4326.shp"
+      
+      command = "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH && ogr2ogr -t_srs EPSG:4326 #{output_path} #{shapefile_path} 2>&1"
+      log "=====RUNNING #{command}"
+      output = `#{command}` 
+      log output
+      
+      output_path
+    else #no projection file, use original shapefile
+      Dir.glob( "#{output_dir}/*.shp" ).first
     end
     
-    regions_count = create_regions @regions, @field_names
+    regions_count = create_regions shapefile_path
     
-    puts "INFO imported #{regions_count} regions."
-    
-    FileUtils.rm_rf @directory
+    log "imported #{regions_count} regions."    
   end
   
-  def create_regions(region_attrs, field_names)
-    file_fields_to_attrs = field_names.inject({}) { |m, (k, v)| m[v] = k if v.present?; m }
-    
+  def create_regions(shp_file)    
     count = 0
-    ShpFile.open(@shp_file) do |shp|
-      my_attrs = region_attrs
-      
+    
+    ShpFile.open(shp_file) do |shp|      
       shp.each do |shape|
-        my_attrs[:the_geom] = shape.geometry # GeoRuby SimpleFeature
-        
-        shp.fields.each do |field|
-          my_attrs[file_fields_to_attrs[field.name]] = shape.data[field.name] if file_fields_to_attrs.key?(field.name)
-        end
-                
-        Region.create my_attrs
+        r = Region.create :shapefile_id => @shapefile_id, :the_geom => shape.geometry # GeoRuby SimpleFeature
         count += 1
       end
     end
     
     count
+  end
+  
+  private
+  
+  def log(message)
+    Delayed::Worker.logger.info message
+  end
+  
+  def unzip(file)
+    destination = File.dirname file
+    output_dir  = destination 
+    
+    Zip::ZipFile.open(file) do |zip_file|
+      zip_file.each do |f|
+        f_path     = File.join(destination, f.name)
+        output_dir = FileUtils.mkdir_p( File.dirname f_path )
+        zip_file.extract( f, f_path ) unless File.exist?( f_path )
+      end
+    end
+    
+    output_dir.kind_of?(Array) ? output_dir.first : output_dir
   end
 end
