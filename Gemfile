@@ -19,6 +19,8 @@ gem 'spatial_adapter', :git => 'git://github.com/Empact/spatial_adapter.git'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'ckeditor'
 
+gem "paperclip", "~> 2.0"
+
 group :assets do
   gem 'uglifier', '>= 1.0.3'
 end

@@ -83,6 +83,7 @@ GEM
     ckeditor (3.6.3)
       mime-types (~> 1.16)
       orm_adapter (~> 0.0.5)
+    cocaine (0.2.1)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
       railties (~> 3.1.0)
@@ -161,6 +162,11 @@ GEM
       oauth2 (~> 0.5.0)
       omniauth (~> 1.0)
     orm_adapter (0.0.5)
+    paperclip (2.5.0)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
+      cocaine (>= 0.0.2)
+      mime-types
     pg (0.12.0)
       rake-compiler (~> 0.7)
     polyglot (0.3.3)
@@ -253,6 +259,7 @@ DEPENDENCIES
   jquery-rails
   libv8 (= 3.3.10.2)
   omniauth-facebook
+  paperclip (~> 2.0)
   pg
   rails (= 3.1.3)
   rails_admin!
