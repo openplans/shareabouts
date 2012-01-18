@@ -1,7 +1,3 @@
-#wrapper {
-  background: #ababab url(wrapper-gradient.png) 0 0 repeat-x scroll;
-}
-
 /*
  *
  * Header
@@ -9,12 +5,15 @@
  */
 #header {
   color: #fff;
-  background-color: rgba(85, 85, 85, 0.5);
+  background: #808080 url(header-gradient.png) 0 0 repeat-x scroll;
+     -moz-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
 }
 #site-title a {
   color: #eee;
   float: left;
-  text-shadow: 1px -1px 0 #000;
+  text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
   font-family: 'Dancing Script', cursive;
   text-decoration: none;
 }
@@ -351,6 +350,9 @@ div.information-panel .popup-tip {
  */
 #ticker {
   display : none;
+     -moz-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
 }
 
 #content.ticker_on #map {
@@ -370,8 +372,8 @@ div.information-panel .popup-tip {
 }
 
 #ticker ul {
-  margin: 0;
   padding-top: 4px;
+  margin: 0;
 }
 
 #ticker ul a {
