@@ -50,7 +50,7 @@ class ShapefileHandler
   private
   
   def log(message)
-    Delayed::Worker.logger.info message
+    Rails.logger.info message
   end
   
   def unzip(file)

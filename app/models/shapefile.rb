@@ -6,13 +6,5 @@ class Shapefile < ActiveRecord::Base
   
   validates :kind, :presence => true, :uniqueness => true
   validates_attachment_content_type :data, :content_type => "application/zip"
-    
-  after_create :create_regions
-  
-  private
-  
-  def create_regions
-    Delayed::Job.enqueue ShapefileHandler.new( self.id, self.data.path )
-  end
   
 end
