@@ -4,20 +4,38 @@ Shareabouts requires ruby, postgis, ogr2ogr, and a facebook API key.
 
 Ruby
 ----
-Shareabouts was built on top of ruby 1.9.2. The easiest way to get ruby is via 
-rvm. Follow the rvm installation instructions, found here:
-https://rvm.beginrescueend.com/rvm/install/. rvm requires git. Once rvm is 
-installed: 
+Shareabouts was built on top of ruby 1.9.2.
 
+The easiest way to get ruby is via rvm.  rvm requires git, so install
+git first.  Then follow the rvm installation instructions, preferably the
+single-user approach, found here:
+https://rvm.beginrescueend.com/rvm/install/
+
+(It is generally NOT recommended to use a system-specific package
+system such as apt-get, rpm, etc. to install rvm.  Doing so will
+probably set up a multi-user version of rvm and may make the rest of
+these instructions fail.)
+
+Don't forget to edit your .profile (or .bash_profile, or whatever)
+as per the instructions!
+
+Then install ruby 1.9.2:
 $ rvm install 1.9.2
+
+(On Ubuntu, if you get compile errors like "SSLv2_client_method’
+undeclared here", you may need to follow these instructions to get the
+right SSL library installed: http://29a.ch/2011/10/28/rvm-on-ubuntu-11-10
+But also note that doing a single-user install of rvm may "just work".)
+
+Now to use 1.9.2:
 $ rvm use 1.9.2
 
-To use ruby 1.9.2 always, run:
-
+Or to use ruby 1.9.2 always, run:
 $ rvm use 1.9.2 --default
 
 Postgis
 ------- 
+
 To run Shareabouts, you'll need postgis set up on top of postgres. You can
 install postgis via a package manager like apt-get or macports. If using 
 macports, you will probably need to also install postgresqlXX-server, where 
@@ -26,9 +44,15 @@ install instructions on OS X and setting up the initial database you get a
 fatal memory allocation error, see: 
 http://willbryant.net/software/mac_os_x/postgres_initdb_fatal_shared_memory_error_on_leopard
 
-Once you've installed postgres and postgis, you'll need to run scripts to set 
+Once you've installed postgres and postgis, depending on your system,
+you may need to to run scripts to set 
 up postgis and then you'll create a template spatial database that you can use 
-for your shareabouts database. 
+for your shareabouts database.
+
+To check if you need to create the template:
+$ psql -l | grep template_postgis
+
+If that turns up nothing, run these sql commands to create the template:
 
 -- Create a new database
 CREATE DATABASE template_postgis;
@@ -77,6 +101,11 @@ server and user info. You'll need to specify the template to use in order to
 get the spatial goodies:
   template: template_postgis
 
+Also change the database username and password as needed.
+
+Note that you need to check the config for *all* databases --
+development, test, and (if you're setting up a production server) production.
+
 Now you can run
 $ rake db:create 
 
@@ -86,11 +115,14 @@ $ rake db:migrate
 if rake db:migrate fails, try
 $ rake db:schema:load
 
-Server setup
-------------
+Server setup (for production)
+------------------------------
+
 Check out 
 http://kris.me.uk/2011/10/28/rails-rvm-passenger-capistrano-git-apache.html 
 for a good guide on setting up your app to run on Apache with passenger. 
+
+You don't need to do this for local development.
 
 Shapefile reprojection
 ----------------------
@@ -103,8 +135,11 @@ $ script/delayed_job start
 The deploy script will start and restart delayed jobs for you so you only
 need to start the delayed jobs locally for development. 
 
-Deploying
----------
+Deploying (production)
+-----------------------
+
+(You can skip this if you're only doing local development.)
+
 We deploy with capistrano. Our deploy script is config/deploy.rb.example. You 
 will have to copy the script to config/deploy.rb and update it to your own 
 server settings, and your own fork of the git repo if you have one. 
@@ -123,12 +158,27 @@ cap deploy will do.
 
 Admins
 ------
-You'll need to create an initial admin user. This can be done on the server by
+You'll need to create an initial admin user. This can be done in the
+rails console. In production you can get a rails console by
 moving into deploy_to/current and running:
 $ RAILS_ENV=production rails console
 
-then
+In development, you can do this in the root of your shareabouts
+checkout:
+
+$ RAILS_ENV=development rails console
+
+In the console, enter this:
+
 ruby > Admin.create :email => "some-email@addre.ss", :password => "coolpasswordbro", :password_confirmation => "coolpasswordbro"
+
+
+Starting the Development Server
+--------------------------------
+
+In the root of your shareabouts checkout, run this:
+
+$ rails server
 
 Feedback
 --------
