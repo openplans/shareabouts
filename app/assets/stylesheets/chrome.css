@@ -16,9 +16,20 @@
   text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
   font-family: 'Dancing Script', cursive;
   text-decoration: none;
+  margin-right: 0.5em;
 }
 #site-title a:hover {
   color: #fff;
+}
+#pages {
+  margin-top: 2.75em;
+}
+#pages a {
+  color: #A3C7D9;
+  text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
+  margin-right: 1em;
+  font-weight: bold;
+  text-decoration: none;
 }
 #access {
   text-align: right;
