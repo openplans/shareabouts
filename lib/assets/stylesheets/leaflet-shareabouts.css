@@ -15,8 +15,9 @@
 .shareabouts-label-overlay-content,
 .shareabouts-label-overlay-tip,
 .mobile-hint-overlay {
-  background-color : #fafa68;
-  border : 1px solid #a09793;
+  background-color : #fcf3c6;
+  background-color : rgba(252, 243, 198, 0.9);
+  border : 1px solid #c9a670;
 }
 
 .shareabouts-label-overlay-content,
