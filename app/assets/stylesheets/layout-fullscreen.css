@@ -32,7 +32,7 @@ html, body, #wrapper {
 #footer {
   color: #fff;
   position: absolute;
-  bottom: 4.5em;
+  bottom: 2.5em;
   left: 3em;
   z-index: 200;
 }
