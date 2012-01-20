@@ -21,3 +21,12 @@ coverage.data
 
 # junk
 .DS_Store
+
+# backup files and other cruft
+*~
+*#
+.#*
+*.orig
+*.rej
+*.swp
+*.bak
