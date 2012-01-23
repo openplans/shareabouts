@@ -369,7 +369,7 @@ div.information-panel .popup-tip {
           box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
 }
 
-#content.ticker_on #map {
+#content.ticker_on #map-container {
   right : 14em;
 }
 
