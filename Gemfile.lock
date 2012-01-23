@@ -96,13 +96,12 @@ GEM
     cover_me (1.2.0)
       configatron
       hashie
+    daemons (1.1.6)
     dbf (1.7.1)
       fastercsv (~> 1.5.4)
-    delayed_job (3.0.0)
+    delayed_job (2.1.4)
       activesupport (~> 3.0)
-    delayed_job_active_record (0.3.1)
-      activerecord (> 2.1.0)
-      delayed_job (~> 3.0.0)
+      daemons
     devise (1.5.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -253,7 +252,7 @@ DEPENDENCIES
   ckeditor
   cover_me (>= 1.2.0)
   dbf
-  delayed_job_active_record
+  delayed_job (= 2.1.4)
   devise
   faker!
   fgraph

@@ -10,7 +10,8 @@ gem "fgraph"
 
 gem 'jquery-rails'
 gem 'pg'
-gem 'delayed_job_active_record'
+
+gem 'delayed_job', "2.1.4"
 
 gem 'dbf'
 gem 'georuby', :git => 'git://github.com/nofxx/georuby.git'
