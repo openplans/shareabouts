@@ -82,7 +82,21 @@ RailsAdmin.config do |config|
   #  ==> Model specific configuration
   # Try to override as few things as possible, in the most generic way. Try to avoid setting labels for models and attributes, use ActiveRecord I18n API instead.
   config.model Shapefile do
+    object_label_method :kind 
+    list do
+      field :id
+      field :kind
+      field :data
+      field :workflow_state
+      field :default
+    end
     
+    edit do
+      field :data
+      field :kind
+      field :name_field
+      field :default
+    end
   end
   
   config.model SiteOption do
