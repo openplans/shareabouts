@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120118173115) do
+ActiveRecord::Schema.define(:version => 20120123152228) do
 
   create_table "activity_items", :force => true do |t|
     t.string   "subject_type"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(:version => 20120118173115) do
     t.datetime      "updated_at"
     t.multi_polygon "the_geom",     :limit => nil, :srid => 4326
     t.integer       "shapefile_id"
+    t.text          "metadata"
   end
 
   add_index "regions", ["the_geom"], :name => "index_regions_on_the_geom", :spatial => true
@@ -152,6 +153,9 @@ ActiveRecord::Schema.define(:version => 20120118173115) do
     t.string   "data_content_type"
     t.integer  "data_file_size"
     t.datetime "data_updated_at"
+    t.boolean  "default"
+    t.string   "name_field"
+    t.string   "workflow_state"
   end
 
   create_table "site_options", :force => true do |t|
