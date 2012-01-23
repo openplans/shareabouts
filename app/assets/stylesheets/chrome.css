@@ -53,11 +53,11 @@
  * UI Elements
  *
  */
-input[type=button], 
-input[type=submit], 
+input[type=button],
+input[type=submit],
 button {
   display: block;
-  background-color: #00aaff; 
+  background-color: #00aaff;
   border: 0;
   margin: 0 0 0.667em;
   padding: 0 1em;
@@ -74,13 +74,13 @@ button {
   -webkit-box-shadow: -4px 4px 0 rgba(0, 102, 170, 0.75);
           box-shadow: -4px 4px 0 rgba(0, 102, 170, 0.75);
 }
-input[type=button]:hover, 
-input[type=submit]:hover, 
+input[type=button]:hover,
+input[type=submit]:hover,
 button:hover {
-  color: #fff; 
+  color: #fff;
 }
-input[type=button]:active, 
-input[type=submit]:active, 
+input[type=button]:active,
+input[type=submit]:active,
 button:active {
   position: relative;
   top: 4px;
@@ -117,7 +117,7 @@ button:active {
 .leaflet-control-zoom-out {
   background-image: url(zoom-out.gif);
 }
-  
+
 /*
  *
  * Content & General Styles
@@ -126,23 +126,23 @@ button:active {
 #content {
   background-color: #fff;
 }
-table { 
-  text-align: left; 
+table {
+  text-align: left;
 }
 tr {
   border-bottom: 1px solid #fff;
   background-color: #eee;
 }
-tr:hover { 
-  background-color: #e9e9e9; 
+tr:hover {
+  background-color: #e9e9e9;
 }
-td, th { 
-  padding: 0.667em 1.5em 0.667em 10px; 
+td, th {
+  padding: 0.667em 1.5em 0.667em 10px;
 }
-th { 
-  background-color: #bbb; 
-  font-size: 0.667em; 
-  text-transform: uppercase; 
+th {
+  background-color: #bbb;
+  font-size: 0.667em;
+  text-transform: uppercase;
 }
 table.regions {
 }
@@ -153,7 +153,7 @@ table.regions {
   z-index  : 10000;
 }
 
-/* InformationPanel for Mobile, move to small screen */ 
+/* InformationPanel for Mobile, move to small screen */
 div.information-panel {
   position: absolute;
   top: 0.5em;
@@ -163,7 +163,7 @@ div.information-panel {
 div.information-panel-content-wrap {
   position : relative;
   background-color: white;
-  border-radius: .5em;  
+  border-radius: .5em;
   border: 1px solid #CCC;
   z-index:10000;
   overflow-y:scroll;
@@ -196,28 +196,28 @@ div.information-panel .popup-tip {
   width: 15px;
 	height: 15px;
 	padding: 1px;
-	
+
 	margin: -11px auto 0;
-	
+
 	-moz-transform: rotate(45deg);
 	-webkit-transform: rotate(45deg);
 	-ms-transform: rotate(45deg);
 	-o-transform: rotate(45deg);
 	transform: rotate(45deg);
-	
+
 	box-shadow: 0 1px 10px #888;
 	-moz-box-shadow: 0 1px 10px #888;
 	-webkit-box-shadow: 0 1px 14px #999;
 }
 
 /*
- * 
+ *
  * Feature Popup Content
  *
  */
 .feature  textarea {
   width : 98%;
-} 
+}
 
 .feature div{
   margin-bottom: 10px;
@@ -239,7 +239,7 @@ div.information-panel .popup-tip {
 .feature.show .meta ul li:before {
 	content: "|";
 }
-	
+
 .feature.show .meta ul li.first:before {
 	content: " ";
 }
@@ -287,47 +287,47 @@ div.information-panel .popup-tip {
   background: url("chain-16.png") no-repeat scroll 0 0 transparent;
 }
 
-.feature.show  div.support_button, 
+.feature.show  div.support_button,
 .feature.show form#new_vote button[type=submit] {
-  background-color: #e4e4e4; 
+  background-color: #e4e4e4;
   color: #444;
   font-weight: normal;
   font-size: auto;
   font-size: 1em;
   text-shadow: none;
-    
+
   border-radius : 6px;
   -moz-border-radius : 6px;
   -webkit-border-radius : 6px;
-  
+
   box-shadow: none;
-  -moz-box-shadow: none; 
-  -webkit-box-shadow: none; 
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
 }
 
-.feature.show  div.support_button {  
+.feature.show  div.support_button {
   height: 2.25em;
   line-height: 2.25em;
   margin: 0 0 0.667em;
-  padding: 0 1.3em 0 1.5em; 
+  padding: 0 1.3em 0 1.5em;
   text-align: center;
   white-space: nowrap;
   display : block;
   float: left;
 }
 
-.feature.show div.support_button span, 
+.feature.show div.support_button span,
 .feature.show form#new_vote button[type=submit] span {
   font-weight: bold;
   color: red;
 }
 
-.feature.show div.support_button span:before, 
+.feature.show div.support_button span:before,
 .feature.show form#new_vote button[type=submit] span:before {
   content: "♡ ";
 }
 
-.feature.show div.support_button span.supported:before, 
+.feature.show div.support_button span.supported:before,
 .feature.show form#new_vote button[type=submit] span.supported:before {
   content: "♥  ";
 }
@@ -340,7 +340,7 @@ div.information-panel .popup-tip {
   background   : transparent url('user.png') no-repeat scroll top left;
   padding-left : 30px;
   min-height   : 25px;
-} 
+}
 
 .feature.show div.discussion input[type=submit] {
   font-size: 1.1em;
@@ -359,7 +359,7 @@ div.information-panel .popup-tip {
 
 /*
  *
- * News Ticker 
+ * News Ticker
  *
  */
 #ticker {
@@ -437,7 +437,7 @@ div.information-panel .popup-tip {
 
 /*
  *
- * Media Queries for Layout & Style Overrides 
+ * Media Queries for Layout & Style Overrides
  *
  */
 
