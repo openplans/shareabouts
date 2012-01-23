@@ -19,6 +19,7 @@ gem 'spatial_adapter', :git => 'git://github.com/Empact/spatial_adapter.git'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'ckeditor'
 
+gem 'workflow'
 gem "paperclip", "~> 2.0"
 gem "rubyzip"
 

@@ -240,6 +240,7 @@ GEM
       multi_json (>= 1.0.2)
     warden (1.1.0)
       rack (>= 1.0)
+    workflow (0.8.1)
     yamler (0.1.0)
 
 PLATFORMS
@@ -269,3 +270,4 @@ DEPENDENCIES
   spatial_adapter!
   therubyracer
   uglifier (>= 1.0.3)
+  workflow
