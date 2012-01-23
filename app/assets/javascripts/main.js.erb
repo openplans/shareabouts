@@ -5,6 +5,10 @@ $(function() {
       finalize_feature = $("#finalize_feature"),
       Map                 = $("#map");
 
+  var FocusedMarkerIcon = L.Icon.extend({
+    iconUrl     : '<%= image_path("marker-focused.png") %>',
+  });
+
   var NewMarkerIcon = L.Icon.extend({
     iconUrl     : '<%= image_path("marker-plus.png") %>',
     iconSize    : new L.Point(25, 41),
@@ -37,6 +41,7 @@ $(function() {
     },
     tileUrl          : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
     tileAttribution  : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
+    focusedMarkerIcon: new FocusedMarkerIcon(),
     newMarkerOptions : {
       icon : new NewMarkerIcon()
     },
