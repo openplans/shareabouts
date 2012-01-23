@@ -3,10 +3,27 @@ require 'zip/zip'
 
 class ShapefileHandler
   include GeoRuby::Shp4r
-      
-  def initialize(shapefile_id, shapefile_path)
-    @shapefile_id   = shapefile_id
+        
+  def initialize(shapefile_path, shapefile_id=nil)
     @shapefile_path = shapefile_path
+    @shapefile_id   = shapefile_id
+  end
+  
+  def unzip(file=nil)
+    destination = File.dirname( file || @shapefile_path )
+    dir         = [] 
+    
+    file_list = Zip::ZipFile.open( file || @shapefile_path ) do |zip_file|
+      zip_file.each do |f|
+        f_path = File.join(destination, f.name)
+        dir    = FileUtils.mkdir_p( File.dirname f_path )
+        zip_file.extract( f, f_path ) unless File.exist?( f_path )
+      end
+    end
+    
+    @output_dir = dir.first
+    
+    file_list
   end
   
   def perform
@@ -53,18 +70,4 @@ class ShapefileHandler
     Rails.logger.info message
   end
   
-  def unzip(file)
-    destination = File.dirname file
-    output_dir  = destination 
-    
-    Zip::ZipFile.open(file) do |zip_file|
-      zip_file.each do |f|
-        f_path     = File.join(destination, f.name)
-        output_dir = FileUtils.mkdir_p( File.dirname f_path )
-        zip_file.extract( f, f_path ) unless File.exist?( f_path )
-      end
-    end
-    
-    output_dir.kind_of?(Array) ? output_dir.first : output_dir
-  end
 end
