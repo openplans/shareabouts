@@ -3,17 +3,14 @@
 $(function() {
   var locate_feature   = $("#locate_feature"),
       finalize_feature = $("#finalize_feature"),
-      Map                 = $("#map");
+      Map              = $("#map");
 
   var FocusedMarkerIcon = L.Icon.extend({
     iconUrl     : '<%= image_path("marker-focused.png") %>',
   });
 
   var NewMarkerIcon = L.Icon.extend({
-    iconUrl     : '<%= image_path("marker-plus.png") %>',
-    iconSize    : new L.Point(25, 41),
-    iconAnchor  : new L.Point(12, 41),
-    popupAnchor : new L.Point(13, -14)
+    iconUrl     : '<%= image_path("marker-plus.png") %>'
   });
 
   var CrosshairIcon = L.Icon.extend({
@@ -42,9 +39,7 @@ $(function() {
     tileUrl          : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
     tileAttribution  : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
     focusedMarkerIcon: new FocusedMarkerIcon(),
-    newMarkerOptions : {
-      icon : new NewMarkerIcon()
-    },
+    newMarkerIcon: new NewMarkerIcon(),
     crosshairIcon   : new CrosshairIcon(),
     initialZoom : window.shareabouts.map_initial_zoom,
     callbacks : {

@@ -10,17 +10,15 @@ $.widget("ui.shareabout", (function() {
   return {
     options : {
       // Leaflet map options
-      map : {}, // req: center
+      map                  : {}, // req: center
       // Map-related
-      tileUrl         : null,
-      tileAttribution : '',
-      initialZoom     : 13,
-      markerIcon      : new L.Icon(), //default icon, can be customized
-      focusedMarkerIcon: new L.Icon(), //default icon, can be customized
-      newMarkerOptions   : {
-        draggable : true
-      }, // options for the new feature point marker
-      crosshairIcon   : null, // L.Icon for crosshair used when locating on touch screen devices
+      tileUrl              : null,
+      tileAttribution      : '',
+      initialZoom          : 13,
+      markerIcon           : new L.Icon(), //default icon, can be customized
+      focusedMarkerIcon    : new L.Icon(), //default icon, can be customized
+      newMarkerIcon        : new L.Icon(), //default icon, can be customized
+      crosshairIcon        : null, // L.Icon for crosshair used when locating on touch screen devices
       //
       withinBounds         : true,
       featuresUrl          : null, // url to all features geoJSON
@@ -49,7 +47,10 @@ $.widget("ui.shareabout", (function() {
       });
 
       this.hint       = new Hint(this.element, map);
-      this.newFeature = new L.Marker(this.options.map.center, this.options.newMarkerOptions);
+      this.newFeature = new L.Marker(this.options.map.center, {
+        icon: self.options.newMarkerIcon,
+        draggable: true
+      });
       this.newFeature.on("drag", function(drag) { self.hint.remove(); } );
 
       // Set up Leaflet map
@@ -331,7 +332,11 @@ $.widget("ui.shareabout", (function() {
           shareabout.showHint("Drag your location to the center of the map");
         } else {
           shareabout.newFeature.setLatLng(map.getCenter());
-          if (shareabout.newFeature.dragging) shareabout.newFeature.dragging.enable();
+          if (shareabout.newFeature.dragging) { shareabout.newFeature.dragging.enable(); }
+
+          // Reset the icon when adding sincd we set it to the "focused" icon when confirming
+          shareabout.newFeature.setIcon(shareabout.options.newMarkerIcon);
+
           map.addLayer(shareabout.newFeature);
           shareabout.showHint("Drag me!", shareabout.newFeature);
         }
@@ -385,7 +390,7 @@ $.widget("ui.shareabout", (function() {
        */
       fsm.onleavesubmittingNewFeature = function (eventName, from, to, id, responseData) {
         if (to === "viewingFeature") {
-          var marker = new L.Marker(shareabout.newFeature.getLatLng(), { icon: shareabout.options.markerIcon });
+          var marker = new L.Marker(shareabout.newFeature.getLatLng(), { icon: shareabout.options.focusedMarkerIcon });
           shareabout._setupMarker(marker, responseData.geoJSON.properties);
           map.removeLayer(shareabout.newFeature);
           map.addLayer(marker);
