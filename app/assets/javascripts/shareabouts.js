@@ -10,16 +10,15 @@ $.widget("ui.shareabout", (function() {
   return {
     options : {
       // Leaflet map options
-      map : {}, // req: center
+      map                  : {}, // req: center
       // Map-related
-      tileUrl         : null,
-      tileAttribution : '',
-      initialZoom     : 13,
-      markerIcon      : null, // custom icon
-      newMarkerOptions   : {
-        draggable : true
-      }, // options for the new feature point marker
-      crosshairIcon   : null, // L.Icon for crosshair used when locating on touch screen devices
+      tileUrl              : null,
+      tileAttribution      : '',
+      initialZoom          : 13,
+      markerIcon           : new L.Icon(), //default icon, can be customized
+      focusedMarkerIcon    : new L.Icon(), //default icon, can be customized
+      newMarkerIcon        : new L.Icon(), //default icon, can be customized
+      crosshairIcon        : null, // L.Icon for crosshair used when locating on touch screen devices
       //
       withinBounds         : true,
       featuresUrl          : null, // url to all features geoJSON
@@ -48,7 +47,10 @@ $.widget("ui.shareabout", (function() {
       });
 
       this.hint       = new Hint(this.element, map);
-      this.newFeature = new L.Marker(this.options.map.center, this.options.newMarkerOptions);
+      this.newFeature = new L.Marker(this.options.map.center, {
+        icon: self.options.newMarkerIcon,
+        draggable: true
+      });
       this.newFeature.on("drag", function(drag) { self.hint.remove(); } );
 
       // Set up Leaflet map
@@ -168,9 +170,7 @@ $.widget("ui.shareabout", (function() {
       $.getJSON(url, function(data){
         var geojsonLayer = new L.GeoJSON(null, {
           pointToLayer : function(latlng) {
-            var markerOpts = {};
-            if ( self.options.markerIcon ) markerOpts.icon = new shareabout.options.markerIcon();
-            return new L.Marker(latlng, markerOpts);
+            return new L.Marker(latlng, { icon: self.options.markerIcon });
           }
         });
 
@@ -245,19 +245,13 @@ $.widget("ui.shareabout", (function() {
     },
 
     _setFocusedIcon : function(layer) {
-      this.focused = {
-        layer : layer,
-        icon  : layer._icon
-      };
-      layer.setIcon(this.options.newMarkerOptions.icon);
+      this.focusedMarkerLayer = layer;
+      layer.setIcon(this.options.focusedMarkerIcon);
     },
 
     _unsetFocusedIcon : function() {
-      if (this.focused) {
-        this.focused.layer._removeIcon();
-        this.focused.layer._icon = this.focused.icon;
-        this.focused.layer._initIcon();
-        this.focused = null;
+      if (this.focusedMarkerLayer) {
+        this.focusedMarkerLayer.setIcon(this.options.markerIcon);
       }
     },
 
@@ -338,7 +332,11 @@ $.widget("ui.shareabout", (function() {
           shareabout.showHint("Drag your location to the center of the map");
         } else {
           shareabout.newFeature.setLatLng(map.getCenter());
-          if (shareabout.newFeature.dragging) shareabout.newFeature.dragging.enable();
+          if (shareabout.newFeature.dragging) { shareabout.newFeature.dragging.enable(); }
+
+          // Reset the icon when adding sincd we set it to the "focused" icon when confirming
+          shareabout.newFeature.setIcon(shareabout.options.newMarkerIcon);
+
           map.addLayer(shareabout.newFeature);
           shareabout.showHint("Drag me!", shareabout.newFeature);
         }
@@ -391,15 +389,12 @@ $.widget("ui.shareabout", (function() {
        * Creates a marker for the new feature using the properties in responseData.geoJSON.
        */
       fsm.onleavesubmittingNewFeature = function (eventName, from, to, id, responseData) {
-        if (to == "viewingFeature") {
-          var markerOpts = { };
-          if ( shareabout.options.markerIcon ) markerOpts.icon = new shareabout.options.markerIcon();
-
-          var marker = new L.Marker(shareabout.newFeature.getLatLng(), markerOpts);
+        if (to === "viewingFeature") {
+          var marker = new L.Marker(shareabout.newFeature.getLatLng(), { icon: shareabout.options.focusedMarkerIcon });
           shareabout._setupMarker(marker, responseData.geoJSON.properties);
           map.removeLayer(shareabout.newFeature);
           map.addLayer(marker);
-        } else if (to == "finalizingNewFeature") {
+        } else if (to === "finalizingNewFeature") {
           $(".shareabouts-side-popup-content").html(responseData.view);
         }
       };
