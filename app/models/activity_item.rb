@@ -14,4 +14,12 @@ class ActivityItem < ActiveRecord::Base
       I18n.t "activity.point.by_name", :name => subject_parent.display_submitter
     end
   end
+  
+  def feature
+    subject_parent || subject
+  end
+  
+  def region
+    feature.region
+  end
 end

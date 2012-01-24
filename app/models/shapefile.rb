@@ -24,7 +24,7 @@ class Shapefile < ActiveRecord::Base
   validates_with ZipContentValidator, :if => :attachment_present?
   
   after_create :enqueue_importer
-  
+    
   include Workflow
   workflow do
     state :unprocessed do

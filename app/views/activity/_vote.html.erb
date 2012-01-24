@@ -1,5 +1,6 @@
 <a href="<%= feature_point_path(activity_item.subject_parent) %>">
   <strong><%= activity_item.user_name %></strong> 
   <%= t("activity.vote.action") %> 
-  <%= activity_item.description %>. 
+  <%= activity_item.description %> 
+  <%= t("activity.point.in_region", :region => activity_item.region.name) if activity_item.region.present? %>
 </a>

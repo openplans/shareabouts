@@ -35,6 +35,7 @@ en:
       action: added
       indefinite_article: a
       by_name: "%{name}'s point"
+      in_region: "in %{region}"
   # Model names and model attribute names
   activerecord:
     models:

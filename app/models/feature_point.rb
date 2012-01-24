@@ -56,6 +56,10 @@ class FeaturePoint < ActiveRecord::Base
   def display_submitter
     user.present? ? user.name : User.model_name.human.capitalize
   end
+  
+  def region
+    regions.find(&:default?) || regions.first
+  end
 
   def as_geo_json
     {
