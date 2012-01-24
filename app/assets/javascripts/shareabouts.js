@@ -51,7 +51,9 @@ $.widget("ui.shareabout", (function() {
         icon: self.options.newMarkerIcon,
         draggable: true
       });
-      this.newFeature.on("drag", function(drag) { self.hint.remove(); } );
+      this.newFeature.on("drag", function(drag) {
+        self.hint.remove();
+      } );
 
       // Set up Leaflet map
       map.setView(this.options.map.center, this.options.initialZoom);
@@ -63,7 +65,9 @@ $.widget("ui.shareabout", (function() {
       });
       map.on('layeradd', function(e){ if (e.layer == self.newFeature) self.newFeature._visible = true; });
       map.on('click', function(e){ self._removePopup(); });
-      map.on('drag', function(drag) { self.hint.remove(); } );
+      map.on('drag', function(drag) {
+        self.hint.remove();
+      } );
 
       // Initial map feature load
       this.loadFeatures(this.options.features, self.options.callbacks.onload);
