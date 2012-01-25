@@ -23,7 +23,9 @@ class Shapefile < ActiveRecord::Base
   validates_attachment_content_type :data, :content_type => "application/zip", :if => :attachment_present?
   validates_with ZipContentValidator, :if => :attachment_present?
   
+  before_save  :set_default_update_flag
   after_create :enqueue_importer
+  after_save   :update_other_region_defauls
     
   include Workflow
   workflow do
@@ -52,4 +54,13 @@ class Shapefile < ActiveRecord::Base
     Delayed::Job.enqueue ShapefileJob.new(data.path, id)
   end
   
+  private
+  
+  def set_default_update_flag
+    @update_other_regions_default = true if changes[:default] && changes[:default].last
+  end
+  
+  def update_other_region_defauls
+    Shapefile.update_all( "\"default\" = false", "id <> #{id} AND \"default\" = true" ) if @update_other_regions_default
+  end
 end
