@@ -12,7 +12,7 @@ class Shapefile < ActiveRecord::Base
     end
   end
   
-  has_many :regions, :inverse_of => :shapefile
+  has_many :regions, :inverse_of => :shapefile, :dependent => :destroy
   
   has_attached_file :data # zip file
   
