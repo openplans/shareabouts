@@ -9,7 +9,9 @@
     <h2 class="name"><%= feature_point.name %></h2>
   <% end %>
 
-  <div class="weak"><%= feature_meta(feature_point) %></div>
+  <div class="weak">
+    <%= t "feature.submitted_by", :author => feature_point.display_submitter, :date_s => l(feature_point.created_at, :format => :display) %>
+  </div>
 
   <% if feature_point.description.present? %>
     <div class="description">

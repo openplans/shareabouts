@@ -36,14 +36,6 @@ module ApplicationHelper
     link_to "recommend on fb", "https://www.facebook.com/sharer/sharer.php?u=#{feature_point_url(feature)}", :class => "facebook"
   end
   
-  def feature_meta(feature)
-    t "feature.meta", :by_author => by_author_name(feature), :date_s => l(feature.created_at, :format => :display)
-  end
-  
-  def by_author_name(authorable)
-    t "feature.by_author", :name => authorable.user.name if authorable.user.present?
-  end
-  
   def button_if(show_button, &block)
     if show_button
       content_tag( :button, :type => :submit, &block)

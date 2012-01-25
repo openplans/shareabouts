@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125143227) do
+ActiveRecord::Schema.define(:version => 20120125162553) do
 
   create_table "activity_items", :force => true do |t|
     t.string   "subject_type"
@@ -83,9 +83,10 @@ ActiveRecord::Schema.define(:version => 20120125143227) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.geometry "the_geom",    :limit => nil
+    t.geometry "the_geom",       :limit => nil
     t.integer  "user_id"
     t.boolean  "visible"
+    t.string   "submitter_name"
   end
 
   add_index "feature_points", ["the_geom"], :name => "index_feature_points_on_the_geom"

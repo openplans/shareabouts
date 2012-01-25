@@ -8,10 +8,12 @@ class ActivityObserver < ActiveRecord::Observer
       observed.supportable
     end
     
+    user_name = observed.respond_to?(:display_submitter) ? observed.display_submitter : observed.user.try(:name)
+    
     ActivityItem.create({
       :subject        => observed, 
       :user           => observed.user,
-      :user_name      => observed.user.try(:name),
+      :user_name      => user_name,
       :subject_parent => parent
     })
   end

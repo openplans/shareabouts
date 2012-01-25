@@ -12,9 +12,9 @@ en:
     form:
       title_label: Title
       description_label: Description...
+      submitter_name_label: 'Your Name'
       submit: 'Submit Point'
-    meta: 'Added %{by_author}on %{date_s}'
-    by_author: 'by %{name} '
+    submitted_by: 'Added by %{author} on %{date_s}'
     comment: 
       label: comment
       action: Reply
