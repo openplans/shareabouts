@@ -3,6 +3,7 @@
 $(function() {
   var locate_feature   = $("#locate_feature"),
       finalize_feature = $("#finalize_feature"),
+      pages            = $("#pages a"),
       Map              = $("#map");
 
   var FocusedMarkerIcon = L.Icon.extend({
@@ -105,13 +106,23 @@ $(function() {
   });
 
   // Display static pages in the popup
-  $("#pages a").click(function(click){
-    click.preventDefault();
-
-    $.get($(click.target).attr("href"), function(data){
+  var showPage = function(url) {
+    $.get(url, function(data){
       Map.shareabout("openPopup", data.view);
     }, "json");
+  };
+
+  // Display static pages in the popup when a link is clicked
+  pages.click(function(click){
+    click.preventDefault();
+    showPage($(click.target).attr("href"));
   });
+
+  // Show the welcome page on page load
+  // TODO: only do this if there is no location in the url
+  if (pages.is('[data-welcome-page]')) {
+    showPage(pages.filter('[data-welcome-page]').attr("href"));
+  }
 
   // Start the ticker
   if ( !Map.shareabout("smallScreen") ) {
