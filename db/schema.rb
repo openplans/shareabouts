@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120123222751) do
+ActiveRecord::Schema.define(:version => 20120125143227) do
 
   create_table "activity_items", :force => true do |t|
     t.string   "subject_type"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20120123222751) do
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "welcome_page"
   end
 
   add_index "pages", ["author_id"], :name => "index_pages_on_author_id"

@@ -37,7 +37,7 @@
       </hgroup>
       <nav id="pages">
         <% for page in Page.published %>
-          <%= link_to page.title, page_path(page) %>
+          <%= link_to page.title, page_path(page), page_link_attributes(page) %>
         <% end %>
       </nav>
       <nav id="access" role="navigation">

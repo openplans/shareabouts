@@ -52,6 +52,10 @@ module ApplicationHelper
     end
   end
   
+  def page_link_attributes(page)
+    page.welcome_page? ? {'data-welcome-page' => true} : {}
+  end
+  
   private
   
   def user_friends_hash(access_token)

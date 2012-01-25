@@ -135,6 +135,16 @@ RailsAdmin.config do |config|
         ckeditor true
       end
       field :status
+      field :welcome_page
+      field :menu_order
+    end
+    
+    list do
+      field :title
+      field :slug
+      field :status
+      field :welcome_page
+      field :menu_order
     end
   end
   

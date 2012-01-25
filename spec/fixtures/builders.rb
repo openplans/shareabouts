@@ -28,7 +28,6 @@ Fixjour :verify => false do
   define_builder(Region) do |klass, overrides|
     klass.new({
       :the_geom => MultiPolygon.from_coordinates( StatenIslandCoordinates, 4326 ),
-      :name     => Faker::Lorem.words,
       :kind     => Faker::Lorem.words(1)
     })
   end

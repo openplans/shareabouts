@@ -16,6 +16,10 @@ class Page < ActiveRecord::Base
   
   scope :published, where(:status => "published")
   
+  before_save :set_welcome_page_update_flag
+  after_save :update_other_welcome_pages
+  
+  # Necessary for rails_admin status dropdown
   def status_enum
     StatusOptions
   end
@@ -35,5 +39,15 @@ class Page < ActiveRecord::Base
     if slug.blank?
       self.slug = ActiveSupport::Inflector.transliterate(title).downcase.gsub(/[^a-z0-9 ]/,' ').strip.gsub(/[ ]+/,'-')
     end
+  end
+  
+  private
+  
+  def set_welcome_page_update_flag
+    @update_other_pages_welcome_page = true if changes[:welcome_page] && changes[:welcome_page].last
+  end
+  
+  def update_other_welcome_pages
+    Page.update_all( "welcome_page = false", "id <> #{id}" ) if @update_other_pages_welcome_page
   end
 end
