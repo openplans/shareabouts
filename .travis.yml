@@ -1,0 +1,15 @@
+# https://github.com/travis-ci/travis-ci/wiki/.travis.yml-options
+
+bundler_args: --without development
+script: "bundle exec rake spec"
+rvm:
+  - 1.8.7
+  - 1.9.2
+  - 1.9.3
+notifications:
+  irc:
+    channels:
+      - "irc.freenode.org#civicworks"
+branches:
+  only:
+    - master
