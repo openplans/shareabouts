@@ -9,6 +9,8 @@ en:
   auth:
     fb_signin: 'Sign in with Facebook'
   feature:
+    notice:
+      point_added: 'Thank you! Your point was added to the map. Please, share it with your friends.'
     form:
       title_label: Title
       description_label: Description...

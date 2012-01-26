@@ -29,13 +29,20 @@ class FeaturePointsController < ApplicationController
     if @feature_point.save
       respond_to do |format|
         format.json do
-          render :json => { :geoJSON => @feature_point.as_geo_json, :status => "success" } 
+          flash[:notice] = I18n.t( "feature.notice.point_added")
+          render :json => { :geoJSON => @feature_point.as_geo_json, :status => "success" }
         end
       end
     else
       respond_to do |format|
         format.json do
-          render :json => { :status => "error", :view => render_to_string(:partial => "form.html.erb") } 
+          flash[:error] = content_tag :ul, @feature_point.errors.full_messages.map do |msg| 
+            content_tag :li, msg
+          end
+          render :json => { 
+            :status => "error", 
+            :view => render_to_string(:partial => "form.html.erb" ) 
+          }
         end
       end
     end

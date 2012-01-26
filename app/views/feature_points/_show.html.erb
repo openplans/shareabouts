@@ -4,6 +4,8 @@
       <%= render "feature_points/admin.html", :feature_point => feature_point %>     
     </div>
   <% end %>
+    
+  <%= render "shared/flashes.html" -%>
 
   <% if feature_point.name.present? %>
     <h2 class="name"><%= feature_point.name %></h2>
