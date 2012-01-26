@@ -10,6 +10,11 @@ notifications:
   irc:
     channels:
       - "irc.freenode.org#civicworks"
+  email: false
+#    recipients:
+#    on_success: change
+#    on_failure: change
+
 branches:
   only:
     - master
