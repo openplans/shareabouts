@@ -118,9 +118,8 @@ $(function() {
     showPage($(click.target).attr("href"));
   });
 
-  // Show the welcome page on page load
-  // TODO: only do this if there is no location in the url
-  if (pages.is('[data-welcome-page]')) {
+  // Show the welcome page on page load ONLY if not starting with a feature visible
+  if (pages.is('[data-welcome-page]') && !window.shareabouts.feature) {
     showPage(pages.filter('[data-welcome-page]').attr("href"));
   }
 
