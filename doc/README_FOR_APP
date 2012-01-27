@@ -147,10 +147,13 @@ server settings, and your own fork of the git repo if you have one.
 To create the initial capistrano setup run:
 $ cap deploy:setup
 
-Then, go into the 'shared' directory under your deploy_to directory. Put your 
-customized config/database.yml and config/initializers/devise.rb into shared,
-preserving the config directory structure. You should be able to run 
-$ cap deploy:migrations
+Then, on the deployment server, go into the 'shared' directory under
+your deploy_to directory. Put your customized config/database.yml and
+config/initializers/devise.rb into shared, preserving the config
+directory structure.
+
+On your local machine you should be able to run
+ $ cap deploy:migrations
 
 which will deploy the app and run pending migrations. Whenever deploying with 
 pending migrations, use deploy:migrations. If there are no migrations, 
