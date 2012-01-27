@@ -9,25 +9,36 @@ require 'delayed/recipes'
 
 # main details
 set :application, "shareabouts.dev.openplans.org"
-role :web, "shareabouts.dev.openplans.org"
-role :app, "shareabouts.dev.openplans.org"
-role :db,  "shareabouts.dev.openplans.org", :primary => true
+set :domain, "shareabouts.dev.openplans.org"
 
-# server details
+# Roles are servers. Yup.
+# Web is the server that runs the front end, eg apache.
+role :web, domain
+# App is the server that runs the application layer, ie rails.
+role :app, domain
+# Db is the server where where migrations get run.
+role :db,  domain, :primary => true
+
+
+# Server details
 default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
 set :deploy_to, "/var/www/shareabouts.dev.openplans.org"
 set :deploy_via, :remote_cache
-set :user, "passenger"
 set :use_sudo, false
 
-# repo details
+# SSH config
+ssh_options[:forward_agent] = true
+ssh_options[:port] = 22
+set :user, "passenger"
+
+
+# Repo details
 set :scm, :git
 set :repository, "git@github.com:openplans/shareabouts.git"
 set :branch, "master"
 set :git_enable_submodules, 1
 
-# tasks
+# Tasks
 namespace :deploy do
   task :start, :roles => :app do
     run "touch #{current_path}/tmp/restart.txt"
@@ -46,7 +57,7 @@ end
 namespace :delayed_job do 
   desc "Restart the delayed_job process"
   task :restart, :roles => :app do
-    run "cd #{current_path}; RAILS_ENV=production script/delayed_job restart"
+    run "cd #{current_path} && RAILS_ENV=production script/delayed_job restart"
   end
 end
 
@@ -64,11 +75,11 @@ end
 
 namespace :assets do
   task :precompile do
-    run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
+    run "cd #{release_path} && RAILS_ENV=production bundle exec rake assets:precompile"
   end
 end
 
 after "deploy:finalize_update", "db:symlink"
 after 'deploy:update_code', "devise:symlink"
 after 'deploy:update_code', "assets:precompile"
-after "deploy:update_code", "delayed_job:restart"
+#after "deploy:update_code", "delayed_job:restart"
