@@ -12,7 +12,6 @@ describe LocationType do
       attr_reader :feature
       
       before do
-        make_staten_island
         @feature = create_feature_point
         create_feature_location_type :location_type => location_type, :feature => feature
       end

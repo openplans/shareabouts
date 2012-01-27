@@ -1,15 +1,19 @@
 require 'fixjour'
 require 'faker'
-require "#{::Rails.root}/spec/fixtures/staten_island_coordinates"
 
 # Default point lies in staten island, default region outlines staten island
 
 Fixjour :verify => false do
-  define_builder(FeaturePoint) do |klass, overrides|    
-    make_staten_island unless Region.any?
-    klass.new({
-      :the_geom => Point.from_x_y(-74.10003662109374, 40.625939917833925, 4326)
-    })
+  define_builder(FeaturePoint) do |klass, overrides|
+    if !overrides[:the_geom] && !overrides[:nil_the_geom]
+      create_regions unless Region.any?
+      result = ActiveRecord::Base.connection.execute "select ST_Centroid(the_geom) from regions where id=#{Region.last.id}"
+      overrides[:the_geom] = result.first["st_centroid"]
+    end
+    
+    overrides.send(:delete, :nil_the_geom)
+    
+    klass.new({}) # nothing required except the geom, default set above
   end
   
   define_builder(Vote) do |klass, overrides|
@@ -26,10 +30,7 @@ Fixjour :verify => false do
   end
   
   define_builder(Region) do |klass, overrides|
-    klass.new({
-      :the_geom => MultiPolygon.from_coordinates( StatenIslandCoordinates, 4326 ),
-      :kind     => Faker::Lorem.words(1)
-    })
+    klass.new({ })
   end
   
   define_builder(FeatureRegion) do |klass, overrides|
@@ -80,6 +81,14 @@ Fixjour :verify => false do
   define_builder(ActivityItem) do |klass, overrides|
     klass.new({
       :subject => create_comment
+    })
+  end
+  
+  define_builder(Shapefile) do |klass, overrides|
+    klass.new({
+      :kind => Faker::Lorem.words,
+      :name_field => Faker::Internet.domain_word,
+      :data => File.new(Rails.root + 'spec/fixtures/nybb_10cav.zip')
     })
   end
 end

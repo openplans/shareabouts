@@ -8,7 +8,7 @@ describe FeaturePoint do
         attr_reader :point
         
         before do
-          @point = new_feature_point :the_geom => nil
+          @point = new_feature_point :the_geom => nil, :nil_the_geom => true
         end
         
         it "is invalid" do
@@ -39,7 +39,6 @@ describe FeaturePoint do
     attr_reader :point
     
     before do
-      make_staten_island
       @point = create_feature_point
     end
     
@@ -99,7 +98,6 @@ describe FeaturePoint do
     attr_reader :point
     
     before do
-      make_staten_island
       @point = create_feature_point
     end
     
@@ -167,17 +165,16 @@ describe FeaturePoint do
     context "that falls within a region" do
       attr_reader :region, :feature_point
       
-      before do        
-        @region = make_staten_island
+      before do
+        create_regions unless Region.any?
+        @region = Region.first
+        result = ActiveRecord::Base.connection.execute "select ST_Centroid(the_geom) from regions where id=#{region.id}"
+        @feature_point = new_feature_point :the_geom => result.first["st_centroid"]
       end
       
-      context "after create" do
-        
-        before do
-          @feature_point = create_feature_point
-        end
-        
+      context "after create" do        
         it "is associated with that region" do
+          feature_point.save
           @feature_point.regions.should include(region)
         end
       end

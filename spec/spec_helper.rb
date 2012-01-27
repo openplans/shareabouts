@@ -6,7 +6,6 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require File.expand_path(File.dirname(__FILE__) + "/fixtures/builders.rb")
 require 'spatial_adapter/postgresql'
-require "#{::Rails.root}/spec/fixtures/staten_island_coordinates"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -39,6 +38,14 @@ ActiveRecord::Base.connection.execute("UPDATE feature_points SET the_geom = SETS
 ActiveRecord::Base.connection.execute("ALTER TABLE regions DROP CONSTRAINT \"enforce_srid_the_geom\" RESTRICT")
 ActiveRecord::Base.connection.execute("UPDATE regions SET the_geom = SETSRID (the_geom, 4326)")
 
-def make_staten_island
-  create_region :the_geom => MultiPolygon.from_coordinates(StatenIslandCoordinates, 4326)
+# Create a shapefile and regions
+def create_regions
+  shapefile = create_shapefile
+  shapefile_job = ShapefileJob.new(shapefile.data.path, shapefile.id)
+  shapefile_job.perform
+end
+
+def make_point_in_region(region)
+  result = ActiveRecord::Base.connection.execute "select ST_Centroid(the_geom) from regions where id=#{region.id}"
+  new_feature_point :the_geom => result.first["st_centroid"]
 end
