@@ -2,6 +2,9 @@ echo "Copy CI config files to the config directory"
 cp spec/ci/database.yml.ci config/database.yml
 cp spec/ci/facebook.yml.ci config/facebook.yml
 
+echo "Install ogr2ogr"
+sudo apt-get install gdal-bin
+
 echo "Install PostGIS"
 sudo apt-get install postgresql-8.4-postgis
 
