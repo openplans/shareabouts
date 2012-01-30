@@ -86,6 +86,7 @@ key and App Secret.
 Once you have those keys, copy config/facebook.yml.example to config/facebook.yml, 
 and fill in your keys for each environment.
 
+
 Gems
 -----------------
 Install your gems by running 
@@ -114,6 +115,13 @@ $ rake db:migrate
 
 if rake db:migrate fails, try
 $ rake db:schema:load
+
+Testing
+--------
+
+We use Rspec for testing, so you can run the tests like:
+
+$ rake spec
 
 Shapefile reprojection
 ----------------------
