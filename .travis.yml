@@ -5,15 +5,17 @@ script: "bundle exec rake spec"
 rvm:
   # - 1.8.7
   - 1.9.2
-  - 1.9.3
+  # - 1.9.3
+before_script:
+  - "psql --version"
 notifications:
 #  irc:
 #    channels:
 #      - "irc.freenode.org#civicworks"
   email: false
 # Turned off because the default policy is to spam ALL members of
-# the repositories' owner organization. 
-# If we decide we want email notifications, feel free to uncomment this and 
+# the repositories' owner organization.
+# If we decide we want email notifications, feel free to uncomment this and
 # add yourself to the recipient list:
 # email:
 #    recipients:
@@ -21,7 +23,6 @@ notifications:
 #     - foo2@bar.com
 #    on_success: change
 #    on_failure: change
-
 branches:
   only:
-    - master
+    - travis
