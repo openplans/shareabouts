@@ -7,7 +7,7 @@ rvm:
   - 1.9.2
   # - 1.9.3
 before_script:
-  - "echo `psql --version`"
+  - spec/ci/before_script
 notifications:
 #  irc:
 #    channels:
