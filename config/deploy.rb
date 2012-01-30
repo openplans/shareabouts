@@ -32,6 +32,14 @@ set :repository, "git@github.com:openplans/shareabouts.git"
 set :git_enable_submodules, 1
 set :deploy_via, :remote_cache
 
+set :branch do
+  default_tag = `git tag`.split("\n").last
+
+  tag = Capistrano::CLI.ui.ask "Tag to deploy (make sure to push the tag first): [#{default_tag}] "
+  tag = default_tag if tag.empty?
+  tag
+end
+
 # tasks
 namespace :deploy do
   task :start, :roles => :app do
@@ -51,7 +59,7 @@ end
 namespace :delayed_job do 
   desc "Restart the delayed_job process"
   task :restart, :roles => :app do
-    run "cd #{current_path}; RAILS_ENV=production script/delayed_job restart"
+    run "cd #{release_path}; #{rails_env} script/delayed_job restart"
   end
 end
 
@@ -69,11 +77,11 @@ end
 
 namespace :assets do
   task :precompile do
-    run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
+    run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
   end
 end
 
 after "deploy:finalize_update", "db:symlink"
 after 'deploy:update_code', "facebook:symlink"
 after 'deploy:update_code', "assets:precompile"
-# after "deploy:update_code", "delayed_job:restart"
+after "deploy:update_code", "delayed_job:restart"
