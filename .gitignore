@@ -12,8 +12,8 @@ public/system/*
 
 # things with example files
 config/database.yml
-config/deploy.rb
-config/initializers/devise.rb
+config/facebook.yml
+config/deploy/
 
 # cover_me generated
 coverage
