@@ -7,6 +7,6 @@ echo `ls config`
 
 sudo apt-get install postgresql-8.4-postgis
 
-echo `sudo find / -name postgis.sql'
+echo `sudo find / -name postgis.sql`
 
 # psql -c "CREATE DATABASE shareabouts_test WITH TEMPLATE = template_postgis;" -U postgres
