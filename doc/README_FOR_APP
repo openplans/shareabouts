@@ -115,15 +115,6 @@ $ rake db:migrate
 if rake db:migrate fails, try
 $ rake db:schema:load
 
-Server setup (for production)
-------------------------------
-
-Check out 
-http://kris.me.uk/2011/10/28/rails-rvm-passenger-capistrano-git-apache.html 
-for a good guide on setting up your app to run on Apache with passenger. 
-
-You don't need to do this for local development.
-
 Shapefile reprojection
 ----------------------
 We drop down to use the command line tool, ogr2ogr, in order to reproject 
@@ -134,30 +125,6 @@ $ script/delayed_job start
 
 The deploy script will start and restart delayed jobs for you so you only
 need to start the delayed jobs locally for development. 
-
-Deploying (production)
------------------------
-
-(You can skip this if you're only doing local development.)
-
-We deploy with capistrano. Our deploy script is config/deploy.rb.example. You 
-will have to copy the script to config/deploy.rb and update it to your own 
-server settings, and your own fork of the git repo if you have one. 
-
-To create the initial capistrano setup run:
-$ cap deploy:setup
-
-Then, on the deployment server, go into the 'shared' directory under
-your deploy_to directory. Put your customized config/database.yml and
-config/facebook.yml into shared, preserving the config
-directory structure.
-
-On your local machine you should be able to run
- $ cap deploy:migrations
-
-which will deploy the app and run pending migrations. Whenever deploying with 
-pending migrations, use deploy:migrations. If there are no migrations, 
-cap deploy will do.
 
 Admins
 ------
@@ -175,13 +142,47 @@ In the console, enter this:
 
 ruby > Admin.create :email => "some-email@addre.ss", :password => "coolpasswordbro", :password_confirmation => "coolpasswordbro"
 
-
 Starting the Development Server
 --------------------------------
 
 In the root of your shareabouts checkout, run this:
 
 $ rails server
+
+Server setup (for production)
+------------------------------
+
+Check out 
+http://kris.me.uk/2011/10/28/rails-rvm-passenger-capistrano-git-apache.html 
+for a good guide on setting up your app to run on Apache with passenger. 
+
+You don't need to do this for local development.
+
+Deploying (production)
+-----------------------
+
+(You can skip this if you're only doing local development or if you're 
+deploying to Heroku or another cloud platform.)
+
+We deploy with capistrano. Our deploy script is config/deploy.rb. We deploy to 
+multiple environments, so we have a production.rb and staging.rb deploy script
+in config/deploy, which contain server- and environment- specific variables, 
+such as :domain, :user, and :deploy_to.
+
+To create the initial capistrano setup run:
+$ cap deploy:setup
+
+Then, on the deployment server, go into the 'shared' directory under
+your deploy_to directory. Put your customized config/database.yml and
+config/facebook.yml into shared, preserving the config
+directory structure.
+
+On your local machine you should be able to run
+ $ cap deploy:migrations
+
+which will deploy the app and run pending migrations. Whenever deploying with 
+pending migrations, use deploy:migrations. If there are no migrations, 
+cap deploy will do.
 
 Feedback
 --------
