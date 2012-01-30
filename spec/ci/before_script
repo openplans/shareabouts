@@ -9,8 +9,11 @@ echo "Setup PostGIS template database"
 psql -c "CREATE DATABASE template_postgis;" -U postgres
 createlang plpgsql template_postgis -U postgres
 
-psql -d template_postgis -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql
-psql -d template_postgis -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql
+psql -d template_postgis -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql -q
+psql -d template_postgis -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql -q
 
 echo "Setup ShareAbouts test database"
 psql -c "CREATE DATABASE shareabouts_test WITH TEMPLATE = template_postgis;" -U postgres
+
+echo "Migrate the ShareAbouts test database"
+bundle exec rake db:migrate
