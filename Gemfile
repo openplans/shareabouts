@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
 gem 'capistrano'
+gem 'capistrano-ext'
 
 gem 'devise'
 gem 'cancan'

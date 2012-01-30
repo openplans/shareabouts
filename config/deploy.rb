@@ -5,40 +5,34 @@ set :rvm_ruby_string, '1.9.2-p290'
 
 # bundler bootstrap
 require 'bundler/capistrano'
+
+# multistage deployment
+set :stages, %w(staging production)
+set :default_stage, "production"
+require 'capistrano/ext/multistage'
+
 require 'delayed/recipes'
 
 # main details
-set :application, "shareabouts.dev.openplans.org"
-set :domain, "shareabouts.dev.openplans.org"
+set :application, "shareabouts"
 
-# Roles are servers. Yup.
-# Web is the server that runs the front end, eg apache.
-role :web, domain
-# App is the server that runs the application layer, ie rails.
-role :app, domain
-# Db is the server where where migrations get run.
-role :db,  domain, :primary => true
+set(:domain) { "#{domain}" }
+role(:web) { domain }
+role(:app) { domain }
+role(:db, :primary => true) { domain }
 
-
-# Server details
+# server details
 default_run_options[:pty] = true
-set :deploy_to, "/var/www/shareabouts.dev.openplans.org"
-set :deploy_via, :remote_cache
+ssh_options[:forward_agent] = true
 set :use_sudo, false
 
-# SSH config
-ssh_options[:forward_agent] = true
-ssh_options[:port] = 22
-set :user, "passenger"
-
-
-# Repo details
+# repo details
 set :scm, :git
 set :repository, "git@github.com:openplans/shareabouts.git"
-set :branch, "master"
 set :git_enable_submodules, 1
+set :deploy_via, :remote_cache
 
-# Tasks
+# tasks
 namespace :deploy do
   task :start, :roles => :app do
     run "touch #{current_path}/tmp/restart.txt"
@@ -57,7 +51,7 @@ end
 namespace :delayed_job do 
   desc "Restart the delayed_job process"
   task :restart, :roles => :app do
-    run "cd #{current_path} && RAILS_ENV=production script/delayed_job restart"
+    run "cd #{current_path}; RAILS_ENV=production script/delayed_job restart"
   end
 end
 
@@ -82,4 +76,4 @@ end
 after "deploy:finalize_update", "db:symlink"
 after 'deploy:update_code', "facebook:symlink"
 after 'deploy:update_code', "assets:precompile"
-after "deploy:update_code", "delayed_job:restart"
+# after "deploy:update_code", "delayed_job:restart"
