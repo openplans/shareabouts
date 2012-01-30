@@ -1,0 +1,12 @@
+echo `pwd`
+
+cp spec/ci/database.yml.ci config/database.yml
+cp spec/ci/facebook.yml.ci config/facebook.yml
+
+echo `ls config`
+
+sudo apt-get install postgresql-8.4-postgis
+
+echo `sudo find / -name postgis.sql'
+
+# psql -c "CREATE DATABASE shareabouts_test WITH TEMPLATE = template_postgis;" -U postgres
