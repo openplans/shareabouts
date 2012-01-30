@@ -5,4 +5,8 @@ class Comment < ActiveRecord::Base
   
   validates :commentable, :presence => true
   validates :comment, :presence => true
+  
+  def display_submitter
+    user.try(:name) || submitter_name
+  end
 end

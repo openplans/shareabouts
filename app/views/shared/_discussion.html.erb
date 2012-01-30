@@ -3,7 +3,7 @@
   <ul>
     <% for comment in commentable.comments %>
       <li>
-        <%= content_tag :strong, comment.user.name if comment.user %>
+        <%= content_tag :strong, comment.display_submitter if comment.display_submitter %>
         <span class="weak">
           <%= comment.created_at.strftime("%m/%d/%Y") %>
         </span> 
