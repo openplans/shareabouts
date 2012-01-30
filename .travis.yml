@@ -1,19 +1,23 @@
 # https://github.com/travis-ci/travis-ci/wiki/.travis.yml-options
 
 bundler_args: --without development
+before_script:
+  - spec/ci/before_script
 script: "bundle exec rake spec"
 rvm:
   # - 1.8.7
   - 1.9.2
   - 1.9.3
 notifications:
-#  irc:
-#    channels:
-#      - "irc.freenode.org#civicworks"
+ irc:
+   channels:
+     - "irc.freenode.org#civicworks"
+    on_success: change
+    on_failure: always
   email: false
 # Turned off because the default policy is to spam ALL members of
-# the repositories' owner organization. 
-# If we decide we want email notifications, feel free to uncomment this and 
+# the repositories' owner organization.
+# If we decide we want email notifications, feel free to uncomment this and
 # add yourself to the recipient list:
 # email:
 #    recipients:
@@ -21,7 +25,6 @@ notifications:
 #     - foo2@bar.com
 #    on_success: change
 #    on_failure: change
-
 branches:
   only:
     - master
