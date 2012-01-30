@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    <%= "#{@abstract_model.try(:pretty_name) || @page_name} | #{[_get_plugin_name[0] || 'Rails', _get_plugin_name[1] || 'Admin'].join(' ')}" %>
+  </title>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta name="robots" content="NONE,NOARCHIVE">
+  <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag "rails_admin/rails_admin.css" %>
+  <%= javascript_include_tag "rails_admin/rails_admin.js" %>
+</head>
+<body class="rails_admin" style="padding-top: 60px;">
+  <div class="topbar-wrapper" style="z-index: 5;">
+    <div class="topbar" data-dropdown="dropdown">
+      <div class="topbar-inner">
+        <div class="container-fluid">
+          <h3>
+            <%= link_to dashboard_path do %>
+              <%= _get_plugin_name[0] || 'Rails' %>
+              <small><%= _get_plugin_name[1] || 'Admin' %></small>
+            <% end %>
+          </h3>
+          <ul class="nav secondary-nav">
+            <%= render 'layouts/rails_admin/secondary_navigation' %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="sidebar">
+      <div class="well">
+        <h3><%=  t "admin.misc.navigation" %></h3>
+        <%= render 'layouts/rails_admin/navigation' %>
+      </div>
+    </div>
+    <div class="content">
+      <div class="page-header">
+        <h1><%= @page_name %></h1>
+        <%- flash && flash.each do |key, value| %>
+          <div class="alert-message fade in">
+            <a class="close" href="#">*</a>
+            <p><%= value %></p>
+          </div>
+        <% end %>
+        <%= breadcrumb %>
+        <!-- %ul.tabs
+          = menu_for((@abstract_model ? (@object.try(:id) ? :member : :collection) : :root), @abstract_model, @object)
+          = content_for :contextual_tabs -->
+        <span class="row"></span>
+        <%= yield %>
+        <footer>
+          <p> &copy; RailsAdmin 2011</p>
+        </footer>
+      </div>
+    </div>
+  </div>
+    
+</body>
+</html>
