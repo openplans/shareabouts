@@ -10,6 +10,8 @@ gem "omniauth-facebook"
 gem "fgraph"
 
 gem 'jquery-rails'
+gem 'no-ie6-rails'
+
 gem 'pg'
 
 gem 'delayed_job', "2.1.4"
