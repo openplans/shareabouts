@@ -7,9 +7,9 @@ rvm:
   - 1.9.2
   - 1.9.3
 notifications:
-  irc:
-    channels:
-      - "irc.freenode.org#civicworks"
+#  irc:
+#    channels:
+#      - "irc.freenode.org#civicworks"
   email: false
 # Turned off because the default policy is to spam ALL members of
 # the repositories' owner organization. 
