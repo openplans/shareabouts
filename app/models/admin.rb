@@ -3,7 +3,7 @@ class Admin < ActiveRecord::Base
   
   devise :database_authenticatable, :trackable, :timeoutable, :lockable
   
-  has_many :pages
+  has_many :pages, :foreign_key => :author_id, :inverse_of => :author
   
   def level
     read_attribute(:level) || 0

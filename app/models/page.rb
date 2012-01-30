@@ -2,7 +2,7 @@ class Page < ActiveRecord::Base
   
   StatusOptions = %w{draft published}
 
-  belongs_to :author, :class_name => "Admin"
+  belongs_to :author, :class_name => "Admin", :inverse_of => :pages
   belongs_to :parent, :class_name => "Page"
   has_many :pages, :foreign_key => :parent_id
 
