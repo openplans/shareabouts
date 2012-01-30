@@ -1,12 +1,14 @@
-echo `pwd`
-
+# Copy CI config files to the config directory
 cp spec/ci/database.yml.ci config/database.yml
 cp spec/ci/facebook.yml.ci config/facebook.yml
 
-echo `ls config`
-
+# Install PostGIS
 sudo apt-get install postgresql-8.4-postgis
 
-echo `sudo find / -name postgis.sql`
+# Setup PostGIS template database
+psql -c "CREATE DATABASE template_postgis;" -U postgres
+psql -d template_postgis -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql
+psql -d template_postgis -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql
 
-# psql -c "CREATE DATABASE shareabouts_test WITH TEMPLATE = template_postgis;" -U postgres
+# Setup ShareAbouts CI database
+psql -c "CREATE DATABASE shareabouts_test WITH TEMPLATE = template_postgis;" -U postgres
