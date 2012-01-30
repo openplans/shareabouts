@@ -126,21 +126,20 @@ $ script/delayed_job start
 The deploy script will start and restart delayed jobs for you so you only
 need to start the delayed jobs locally for development. 
 
-Admins
-------
-You'll need to create an initial admin user. This can be done in the
-rails console. In production you can get a rails console by
-moving into deploy_to/current and running:
-$ RAILS_ENV=production rails console
+Admins and Site Options
+-----------------------
+The seed script, located at db/seeds.rb, will generate the initial Site Options
+and Admin user. Run the script:
 
-In development, you can do this in the root of your shareabouts
-checkout:
+$ rake db:seed
 
-$ RAILS_ENV=development rails console
-
-In the console, enter this:
-
-ruby > Admin.create :email => "some-email@addre.ss", :password => "coolpasswordbro", :password_confirmation => "coolpasswordbro"
+It is VERY IMPORTANT to update the credentials for the generated Admin user 
+after you start up the server (see "Starting the Development Server"). Visit 
+http://0.0.0.0:3000/admin (or whatever the address for your local server is),
+log in with the default credentials found in db/seeds.rb, click "Admins" in the
+left nav, and click "Edit" on the line of the generated admin. Enter the email 
+address, new password, and password again (under Password Confirmation) and 
+click Save.
 
 Starting the Development Server
 --------------------------------
@@ -183,6 +182,14 @@ On your local machine you should be able to run
 which will deploy the app and run pending migrations. Whenever deploying with 
 pending migrations, use deploy:migrations. If there are no migrations, 
 cap deploy will do.
+
+Make sure to run RAILS_ENV=production rake db:seed from the current release 
+directory in order to create the initial site options and admin user. 
+*IT IS VERY IMPORTANT* to change the credentials for the generated Admin user. 
+Visit http://_yourserver_/admin, log in with the default credentials, click 
+"Admins" in the left nav, and click "Edit" on the line of the generated admin.
+Enter the email address, new password, and password again (under Password 
+Confirmation) and click Save. 
 
 Feedback
 --------
