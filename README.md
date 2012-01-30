@@ -1,4 +1,5 @@
-Shareabouts is a simple web app for crowdsourced mapping. We're in very early stages right now, so expect many rough edges. 
+Shareabouts is a simple web app for crowdsourced mapping. We're in very early stages right now, so expect many rough edges. [![Build Status](https://secure.travis-ci.org/openplans/shareabouts.png)](http://travis-ci.org/openplans/shareabouts)
+
 
 Shareabouts is intended for simple mapping applications. For example, you could use it to collect public input on suitable locations for stations in a city-wide bike share.
 
