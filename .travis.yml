@@ -1,13 +1,13 @@
 # https://github.com/travis-ci/travis-ci/wiki/.travis.yml-options
 
 bundler_args: --without development
+before_script:
+  - spec/ci/before_script
 script: "bundle exec rake spec"
 rvm:
   # - 1.8.7
   - 1.9.2
   # - 1.9.3
-before_install:
-  - spec/ci/before_script
 notifications:
 #  irc:
 #    channels:
