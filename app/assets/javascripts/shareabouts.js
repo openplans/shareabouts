@@ -194,6 +194,10 @@ $.widget("ui.shareabout", (function() {
     },
 
     openPopup : function(content) {
+      // Unsfocus the icon if highlighted
+      this._unsetFocusedIcon();
+
+      // Init the popup
       popup.setContent(content);
       popup.positionFor(this.smallScreen());
       popup.open();
