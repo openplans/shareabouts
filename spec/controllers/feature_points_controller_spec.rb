@@ -20,9 +20,8 @@ describe FeaturePointsController do
   describe "GET new" do
     context "with format JSON" do
       it "assigns a new feature point" do
-        pending
         xhr :get, :new
-        assigns(:feature_point).should eq(FeaturePoint.new)
+        assigns(:feature_point).as_json.should eq(FeaturePoint.new.as_json)
       end
     end
   end
