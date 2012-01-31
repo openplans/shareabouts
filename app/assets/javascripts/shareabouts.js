@@ -145,6 +145,13 @@ $.widget("ui.shareabout", (function() {
      * Opens the popup for a feature
      */
     viewFeature : function(fId) {
+      // Reset the state so we can show a feature
+      if (fsm.can("ready")) {
+        fsm.ready();
+      } else if (fsm.can("cancel")) {
+        fsm.cancel();
+      }
+
       fsm.viewFeature(fId);
     },
 
