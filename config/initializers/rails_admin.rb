@@ -171,6 +171,24 @@ RailsAdmin.config do |config|
       # sort_reverse true     # Sort direction (default is true for primary key, last created first)
     end
     
+    export do
+      field :id
+      field :latitude
+      field :longitude
+      field :name do
+        label 'Title'
+      end
+      field :description
+      field :support_count
+      field :user_id do
+        label 'Submitter id'
+      end
+      field :display_submitter do
+        label 'Sumbitter name'
+      end
+      field :created_at
+    end
+    
     # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
     # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
     #   show do

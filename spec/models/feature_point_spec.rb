@@ -101,6 +101,27 @@ describe FeaturePoint do
       @point = create_feature_point
     end
     
+    context "without supports" do
+      before do
+        point.votes.should_not be_present
+      end
+      
+      it "has a support_count of 0" do
+        point.support_count.should == 0
+      end
+    end
+    
+    context "with supports" do
+      before do
+        create_vote :supportable => point
+        point.votes.should be_present
+      end
+      
+      it "has a support_count of 1" do
+        point.support_count.should == 1
+      end
+    end
+    
     context "with the_geom" do
       before do
         point.the_geom.should be
