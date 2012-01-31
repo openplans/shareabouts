@@ -5,13 +5,16 @@ $.widget("ui.ticker", (function() {
       frequency : 30000, // ms between checking for new items
       limit     : 30,    // max number of items to add each refresh
       infinite  : true,  // ticker loads previous items in when scrolled to the bottom
-      bottomPixels : 50  // how far from the bottom we are when we pull for more items in infinite scroll
+      bottomPixels : 50, // how far from the bottom we are when we pull for more items in infinite scroll
+      onclick   : null   // callback for when someone clicks the link (ie. prevent page from reloading and do something else)
     },
 
     /**
      * Constructor
      */
     _create : function() {
+      var self = this;
+
       this.list = $( "<ul>" ).appendTo( this.element );
       this.refresh();
       this._trigger("toggle"); // Display the ticker
@@ -21,6 +24,14 @@ $.widget("ui.ticker", (function() {
         this.list.append( this.loader );
         this.element.on("scroll", {thisContext:this}, this._handleScroll );
       }
+
+      // Bind click event for the ticker links
+      this.list.on('click', 'li > a', function(e) {
+        if (self.options.onclick) {
+          e.preventDefault();
+          self.options.onclick.apply(this, arguments);
+        }
+      });
     },
 
     /**
