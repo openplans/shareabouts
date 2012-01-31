@@ -129,6 +129,10 @@ $(function() {
       url    : "<%= url_help.activity_index_path %>",
       toggle : function(e){
         $("#content").toggleClass("ticker_on");
+      },
+      onclick: function(e) {
+        var featureId = $(this).parent('li').attr('data-feature-id');
+        Map.shareabout('viewFeature', parseInt(featureId, 10));
       }
     });
   }
