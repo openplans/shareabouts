@@ -3,7 +3,7 @@
 bundler_args: --without development
 before_script:
   - spec/ci/before_script
-script: "bundle exec rake spec"
+script: "bundle exec rake spec coverage=no"
 rvm:
   - 1.9.2
   - 1.9.3
