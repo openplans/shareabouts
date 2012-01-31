@@ -59,6 +59,9 @@ $(function() {
         finalize_feature.hide();
       }
     },
+    // Current workaround to allow features to be selected from the activity stream.
+    // This breaks if a feature is selected but does not have a map marker.
+    withinBounds: false,
     features    : [window.shareabouts.feature], // feature to first open
     featuresUrl : '<%= url_help.feature_points_path %>',
     featureUrl  : '<%= url_help.feature_point_path("FEATURE_ID") %>'
