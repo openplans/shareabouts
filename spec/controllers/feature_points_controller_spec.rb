@@ -19,10 +19,9 @@ describe FeaturePointsController do
   
   describe "GET new" do
     context "with format JSON" do
-      it "is assigns a new feature point" do
+      it "assigns a new feature point" do
         pending
         xhr :get, :new
-        
         assigns(:feature_point).should eq(FeaturePoint.new)
       end
     end
@@ -31,7 +30,7 @@ describe FeaturePointsController do
   describe "POST create" do
     context "with format JSON" do
       context "with good params" do
-        it "is creates a feature point" do
+        it "creates a feature point" do
           pending
           xhr :post, :create
           
@@ -41,7 +40,7 @@ describe FeaturePointsController do
       end
       
       context "with bad params" do
-        it "is instantiates an infeature point" do
+        it "instantiates an infeature point" do
           pending
           xhr :post, :create
           assigns(:feature_point).should_not be_valid?
@@ -67,7 +66,7 @@ describe FeaturePointsController do
   end
   
   describe "GET show" do
-    context "eith format JSON" do
+    context "with format JSON" do
       it "assigns the feature point" do
         pending
         xhr :show
