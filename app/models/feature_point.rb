@@ -60,6 +60,10 @@ class FeaturePoint < ActiveRecord::Base
   def region
     regions.find(&:default?) || regions.first
   end
+  
+  def support_count
+    votes.count
+  end
 
   def as_geo_json
     {
