@@ -36,9 +36,7 @@ class FeaturePointsController < ApplicationController
     else
       respond_to do |format|
         format.json do
-          flash[:error] = content_tag :ul, @feature_point.errors.full_messages.map do |msg| 
-            content_tag :li, msg
-          end
+          flash[:error] = I18n.t( "feature.notice.invalid" )
           render :json => { 
             :status => "error", 
             :view => render_to_string(:partial => "form.html.erb" ) 

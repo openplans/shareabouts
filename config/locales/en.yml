@@ -11,6 +11,7 @@ en:
   feature:
     notice:
       point_added: 'Thank you! Your point was added to the map. Please, share it with your friends.'
+      invalid: 'There are some errors with your point.'
     form:
       title_label: Title
       description_label: Description...
@@ -39,7 +40,6 @@ en:
       by_name: "%{name}'s point"
       in_region: "in %{region}"
   # Model names and model attribute names
-  activerecord:
     models:
       feature_point: point
       user: someone

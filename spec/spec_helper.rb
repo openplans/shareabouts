@@ -43,6 +43,7 @@ def create_regions
   shapefile = create_shapefile
   shapefile_job = ShapefileJob.new(shapefile.data.path, shapefile.id)
   shapefile_job.perform
+  Region.all
 end
 
 def make_point_in_region(region)
