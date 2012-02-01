@@ -2014,14 +2014,21 @@ L.ImageOverlay = L.Class.extend({
 
 
 L.Icon = L.Class.extend({
-	iconUrl: L.ROOT_URL + 'images/marker.png',
-	shadowUrl: L.ROOT_URL + 'images/marker-shadow.png',
+  // iconUrl: L.ROOT_URL + 'images/marker.png',
+  // shadowUrl: L.ROOT_URL + 'images/marker-shadow.png',
+  // 
+  // iconSize: new L.Point(25, 41),
+  // shadowSize: new L.Point(41, 41),
+  // 
+  // iconAnchor: new L.Point(13, 41),
+  // popupAnchor: new L.Point(0, -33),
 
-	iconSize: new L.Point(25, 41),
-	shadowSize: new L.Point(41, 41),
+	iconUrl: L.ROOT_URL + 'images/feature-point.png',
 
-	iconAnchor: new L.Point(13, 41),
-	popupAnchor: new L.Point(0, -33),
+	iconSize: new L.Point(17, 18),
+
+	iconAnchor: new L.Point(9, 9),
+  popupAnchor: new L.Point(0, -9),
 
 	initialize: function (iconUrl) {
 		if (iconUrl) {
