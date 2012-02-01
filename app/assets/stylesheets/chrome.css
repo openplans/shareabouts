@@ -61,7 +61,7 @@ button {
   border: 0;
   margin: 0 0 0.667em;
   padding: 0 1em;
-  color: #f7f7f7;
+  color: #f3f3f3;
   font-weight: bold;
   font-size: 2.25em;
   text-align: center;
@@ -82,12 +82,11 @@ button:hover {
 input[type=button]:active,
 input[type=submit]:active,
 button:active {
-  position: relative;
-  top: 4px;
-  right: 4px;
-     -moz-box-shadow: 1px -1px 0 #0066aa;
-  -webkit-box-shadow: 1px -1px 0 #0066aa;
-          box-shadow: 1px -1px 0 #0066aa;
+  background-color: #00AEF2;
+  color: #fff;
+     -moz-box-shadow: -3px 3px 0 rgba(0, 102, 170, 0.75);
+  -webkit-box-shadow: -3px 3px 0 rgba(0, 102, 170, 0.75);
+          box-shadow: -3px 3px 0 rgba(0, 102, 170, 0.75);
 }
 
 /* leaflet */
