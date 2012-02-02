@@ -14,8 +14,8 @@ en:
       invalid: 'There are some errors with your point.'
     form:
       header: 'Tell us more...'
-      title_label: 'Restaurant or food cart name' 
-      description_label: 'My favorite because...'
+      title_label: Title
+      description_label: Description...
       submitter_name_label: 'Your Name'
       submit: 'Submit Point'
     submitted_by: 'Added by %{author} on %{date_s}'
