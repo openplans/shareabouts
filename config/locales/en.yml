@@ -2,27 +2,27 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  app_name: Shareabouts
+  app_name: 'San Diego'
   map_controls:
-    locate_feature: 'Add a point!'
-    finalize_feature: 'Confirm Location'
+    locate_feature: 'Add your fave taco spot!'
+    finalize_feature: 'Ok - save it to the map'
   auth:
     fb_signin: 'Sign in with Facebook'
   feature:
     notice:
-      point_added: 'Thank you! Your point was added to the map. Please, share it with your friends.'
+      point_added: 'Your fave food spot is on the map.'
       invalid: 'There are some errors with your point.'
     form:
-      title_label: Title
-      description_label: Description...
+      title_label: 'Restaurant or food cart name' 
+      description_label: 'My favorite because...'
       submitter_name_label: 'Your Name'
-      submit: 'Submit Point'
+      submit: 'Save details'
     submitted_by: 'Added by %{author} on %{date_s}'
     comment: 
       label: comment
-      action: Reply
+      action: 'Add your voice'
     voter_description: supporter
-    vote_action: 'Support This!'
+    vote_action: 'Vote this up!'
     sharing:
       email:
         subject: 'I suggested a %{thing}'
@@ -31,18 +31,18 @@ en:
         status: 'Check out this %{thing}! %{url}.'
   activity:
     vote:
-      action: supported
+      action: likes
     comment:
       action: 'commented on'
     point:
       action: added
       indefinite_article: a
-      by_name: "%{name}'s point"
+      by_name: "%{name}'s taco spot"
       in_region: "in %{region}"
   # Model names and model attribute names
     models:
       feature_point: point
-      user: someone
+      user: 'Anonymous eater' 
     attributes:
       feature_point:
         the_geom: location
