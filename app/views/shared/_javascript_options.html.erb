@@ -16,7 +16,11 @@
       new L.LatLng(<%= SiteOption["map_bounds_p1_lat"].value %>, <%= SiteOption["map_bounds_p1_long"].value %>), 
       new L.LatLng(<%= SiteOption["map_bounds_p2_lat"].value %>, <%= SiteOption["map_bounds_p2_long"].value %>)
     );
-  <% end %>  
+  <% end %>
+  
+  <% if SiteOption.center? %>
+    window.shareabouts.map_center = new L.LatLng(<%= SiteOption["map_center_lat"].value %>, <%= SiteOption["map_center_long"].value %>);
+  <% end %>
 </script>
 
 <% if SiteOption["google_analytics_code"].try(:value).present? %>
