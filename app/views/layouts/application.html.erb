@@ -68,5 +68,6 @@
   </div>
   <%= yield :javascript %>
   <%= render 'shared/javascript_options' %>
+  <div data-version="<%= Rails.application.config.version %>" style="display: none;"></div>
 </body>
 </html>

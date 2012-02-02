@@ -8,7 +8,7 @@ require 'bundler/capistrano'
 
 # multistage deployment
 set :stages, %w(staging production)
-set :default_stage, "production"
+set :default_stage, "staging"
 require 'capistrano/ext/multistage'
 
 require 'delayed/recipes'
@@ -54,6 +54,10 @@ namespace :deploy do
   task :restart, :roles => :app do
     run "touch #{current_path}/tmp/restart.txt"
   end
+  
+  task :write_tag_file do
+    put "#{branch}\n", File.join(release_path, 'TAG'), :roles => :app
+  end
 end
 
 namespace :delayed_job do 
@@ -85,3 +89,4 @@ after "deploy:finalize_update", "db:symlink"
 after 'deploy:update_code', "facebook:symlink"
 after 'deploy:update_code', "assets:precompile"
 after "deploy:update_code", "delayed_job:restart"
+after "deploy:update_code", "deploy:write_tag_file"
