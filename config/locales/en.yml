@@ -13,6 +13,7 @@ en:
       point_added: 'Your fave food spot is on the map.'
       invalid: 'There are some errors with your point.'
     form:
+      header: 'Tell us more...'
       title_label: 'Restaurant or food cart name' 
       description_label: 'My favorite because...'
       submitter_name_label: 'Your Name'
@@ -40,6 +41,7 @@ en:
       by_name: "%{name}'s taco spot"
       in_region: "in %{region}"
   # Model names and model attribute names
+  activerecord:
     models:
       feature_point: point
       user: 'Anonymous eater' 
