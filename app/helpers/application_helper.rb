@@ -48,6 +48,10 @@ module ApplicationHelper
     page.welcome_page? ? {'data-welcome-page' => true} : {}
   end
   
+  def facebook_avatar(user)
+    image_tag "https://graph.facebook.com/#{user.facebook_id}/picture" if user.facebook_id.present?
+  end
+  
   private
   
   def user_friends_hash(access_token)

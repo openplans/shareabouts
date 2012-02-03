@@ -10,6 +10,10 @@
   <% if feature_point.name.present? %>
     <h2 class="name"><%= feature_point.name %></h2>
   <% end %>
+  
+  <div class="avatar">
+    <%= facebook_avatar(feature_point.user) if feature_point.user.present? %>
+  </div>
 
   <div class="weak">
     <%= t "feature.submitted_by", :author => feature_point.display_submitter, :date_s => l(feature_point.created_at, :format => :display) %>

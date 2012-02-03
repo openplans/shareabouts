@@ -412,6 +412,11 @@ div.information-panel .popup-tip {
   float      : left;
   background : transparent url('user.png') no-repeat scroll top right;
   margin-right : 0.5em;
+  text-align : right;
+}
+
+#ticker .avatar img {
+  width : 90%;
 }
 
 #ticker div.badge {
