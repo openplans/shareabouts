@@ -11,19 +11,20 @@ class ShapefileJob
 
   def unzip(file=nil)
     destination = File.dirname( file || @shapefile_path )
-    dir         = [] 
+    dirs         = [] 
   
-    file_list = Zip::ZipFile.open( file || @shapefile_path ) do |zip_file|
+    Zip::ZipFile.open( file || @shapefile_path ) do |zip_file|
       zip_file.each do |f|
         f_path = File.join(destination, f.name)
-        dir    = FileUtils.mkdir_p( File.dirname f_path )
+        dirs  += FileUtils.mkdir_p( File.dirname f_path )
         zip_file.extract( f, f_path ) unless File.exist?( f_path )
       end
     end
   
-    @output_dir = dir.first
+    #output dir is the dir that contains the shp file
+    @output_dir = dirs.uniq!.select { |d| Dir.glob("#{d}/*.shp").first }.first
   
-    file_list
+    Dir.glob("#{@output_dir}/*") # return the files in the output dir
   end
 
   def perform
