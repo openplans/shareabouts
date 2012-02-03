@@ -45,9 +45,12 @@
           </div>
         <% end %>
         <%= breadcrumb %>
-        <!-- %ul.tabs
-          = menu_for((@abstract_model ? (@object.try(:id) ? :member : :collection) : :root), @abstract_model, @object)
-          = content_for :contextual_tabs -->
+        <% if @abstract_model || @object %>
+          <ul class="tabs">
+            <%= menu_for((@abstract_model ? (@object.try(:id) ? :member : :collection) : :root), @abstract_model, @object) %>
+            <%= content_for :contextual_tabs %>
+          </ul>
+        <% end %>
         <span class="row"></span>
         <%= yield %>
         <footer>
