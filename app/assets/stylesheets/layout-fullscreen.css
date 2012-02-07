@@ -36,6 +36,9 @@ html, body, #wrapper {
   left: 3em;
   z-index: 200;
 }
+
+
+/* The Map */
 #map-container {
   position : absolute;
   top:0;
@@ -44,10 +47,15 @@ html, body, #wrapper {
   right: 0;
   z-index: 50;
 }
-
 #map {
   position : absolute;
   top:0;
   bottom:0;
   width:100%;
+}
+
+/* Crosshair for touchscreens */
+#crosshair {
+  position : absolute;
+  z-index  : 10000;
 }
