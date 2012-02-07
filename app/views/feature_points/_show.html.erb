@@ -35,12 +35,14 @@
     </ul>
   </div>
   
-  <div class="support">
-    <%= render "votes/new.html", :supportable => feature_point %>
-  </div>
+  <div class="social">
+    <div class="support">
+      <%= render "votes/new.html", :supportable => feature_point %>
+    </div>
   
-  <div class="sharing">
-    <%= render "shared/share.html", :shareable => feature_point %>  
+    <div class="sharing">
+      <%= render "shared/share.html", :shareable => feature_point %>  
+    </div>
   </div>
 
   <div class="discussion">

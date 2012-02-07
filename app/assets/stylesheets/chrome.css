@@ -162,11 +162,13 @@ div.information-panel {
 div.information-panel-content-wrap {
   position : relative;
   background-color: white;
-  border-radius: .5em;
-  border: 1px solid #CCC;
+  border: 1px solid #a8a8a8;
   z-index:10000;
   overflow-y:scroll;
   height:100%;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
 }
 
 div.information-panel-content {
@@ -174,11 +176,27 @@ div.information-panel-content {
 }
 
 div.information-panel .close {
+  width: 14px;
+  height: 14px;
+  background: url("close-bttn.png") no-repeat scroll 0 0 transparent;
+  text-indent: -9999px;
   position: absolute;
-  top: 1em;
-  right: 1em;
-  font-size: 0.8em;
+  top: 5px;
+  right: 5px;
   z-index: 10001;
+}
+div.information-panel .close:hover {
+  background-position: bottom left;
+}
+
+div.information-panel .social {
+  height: 75px;
+  background-color: #eee;
+  border-bottom: 1px solid #a8a8a8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 div.information-panel .popup-tip-wrapper {
