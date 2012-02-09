@@ -86,6 +86,7 @@ table.regions {
   font-family: 'Dancing Script', cursive;
   text-decoration: none;
   margin-right: 0.5em;
+  line-height: 1.5;
 }
 #site-title a:hover {
   color: #eee;
@@ -200,7 +201,6 @@ table.regions {
 }
 .information-panel-content .feature.show {
   top: 76px;
-  padding-top: 0;
 }
 
 .information-panel .close {
@@ -298,6 +298,33 @@ table.regions {
   font-size: 1em;
 }
 
+/* Feature Popup - Flash Messages */
+.flash {
+  font-weight: bold;
+  text-align: center;
+  background-color: #fdf9e5;
+  border: 1px solid #e4d2b7;
+  position: relative;
+  padding: 0.75em 2em 0.75em 3.5em;
+}
+.flash.notice:after,
+.flash.error:after {
+  font-size: 2em;
+  text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px -1px 0 #fff, -1px 1px 0 #fff;
+  margin-top: -0.9em;
+  position: absolute;
+  top: 50%;
+  left: 0.5em;
+}
+.flash.notice:after {
+  content: "✔";
+  color: #00aaff;
+}
+.flash.error:after {
+  content: "☠";
+  color: #F61359;
+}
+
 /* Feature Popup - Social Buttons */
 .information-panel .social {
   height: 75px;
@@ -307,6 +334,7 @@ table.regions {
   top: 0;
   left: 0;
   right: 0;
+  overflow: hidden;
 }
 
 .social .support_button,
