@@ -7,7 +7,8 @@ class FeaturePointsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        render :json => json_for( FeaturePoint.visible )
+        @feature_points = FeaturePoint.visible.where [ "id > ?", params[:after].to_i ]
+        render :json => json_for( @feature_points )
       end
     end
   end
