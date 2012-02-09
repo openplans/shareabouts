@@ -107,7 +107,19 @@ describe FeaturePointsController do
     end
     context "with format JSON" do
       it "assigns the feature point" do
-        xhr :get, :show, :id => feature_point.id
+        xhr :get, :show, :id => feature_point.id, :format => "json"
+        assigns(:feature_point).should be
+      end
+      
+      context "for an invisible point" do
+        before do
+          feature_point.update_attribute :visible, false
+        end
+        it "raises record not found" do
+          lambda {
+            xhr :get, :show, :id => feature_point.id, :format => "json"
+          }.should raise_error(ActiveRecord::RecordNotFound)
+        end
       end
     end
   end

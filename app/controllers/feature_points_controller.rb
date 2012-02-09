@@ -60,7 +60,7 @@ class FeaturePointsController < ApplicationController
   end
   
   def show
-    @feature_point = FeaturePoint.find params[:id], :include => :comments
+    @feature_point = FeaturePoint.visible.find params[:id], :include => :comments
     respond_to do |format|
       format.html do
         render :action => 'index'
