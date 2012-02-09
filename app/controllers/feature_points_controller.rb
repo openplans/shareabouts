@@ -7,10 +7,7 @@ class FeaturePointsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        @feature_points = params[:bounds].present? ? 
-          FeaturePoint.visible_within(params[:bounds].map {|p| p.split(",").map &:to_f }) : 
-          FeaturePoint.visible
-        render :json => geo_json_for( @feature_points )
+        render :json => json_for( FeaturePoint.visible )
       end
     end
   end

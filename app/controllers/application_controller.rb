@@ -3,11 +3,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_admin_current_admin
   
-  def geo_json_for(things)
-    {
-      :type => "FeatureCollection",
-      :features => things.map(&:as_geo_json)
-    }
+  def json_for(things)
+    things.inject( {} ) { |memo, fp| memo.merge(fp.as_json) }
   end
   
   def set_locale
