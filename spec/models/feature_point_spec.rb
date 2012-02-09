@@ -200,6 +200,21 @@ describe FeaturePoint do
         end
       end
     end
+    
+    context "after being set to invisible" do
+      before do
+        point.activity_items.should be_present
+        create_vote :supportable => point
+        point.reload.children_activity_items.should be_present
+        
+        point.update_attribute :visible, false          
+      end
+      
+      it "destroys related activity items" do        
+        point.reload.children_activity_items.should_not be_present
+        point.reload.activity_items.should_not be_present
+      end
+    end
   end
   
   describe "after initialization" do

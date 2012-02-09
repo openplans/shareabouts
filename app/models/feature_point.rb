@@ -17,6 +17,7 @@ class FeaturePoint < ActiveRecord::Base
   has_many :feature_regions, :as => :feature, :dependent => :destroy
   has_many :regions, :through => :feature_regions
   has_many :activity_items, :as => :subject, :inverse_of => :subject, :dependent => :destroy
+  has_many :children_activity_items, :as => :subject_parent, :class_name => "ActivityItem", :dependent => :destroy
   has_one :feature_location_type, :as => :feature, :dependent => :destroy, :inverse_of => :feature
   has_one :location_type, :through => :feature_location_type
   belongs_to :user
@@ -24,6 +25,7 @@ class FeaturePoint < ActiveRecord::Base
   before_create :find_regions
   after_create :add_to_regions
   after_initialize :set_defaults
+  after_update :maybe_remove_activity_items
 
   accepts_nested_attributes_for :feature_location_type
 
@@ -100,5 +102,12 @@ class FeaturePoint < ActiveRecord::Base
   def set_defaults
     return unless new_record?
     self.visible = true
+  end
+  
+  def maybe_remove_activity_items
+    return if self.visible?
+    
+    self.activity_items.delete_all
+    self.children_activity_items.delete_all
   end
 end
