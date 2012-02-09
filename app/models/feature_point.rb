@@ -66,7 +66,7 @@ class FeaturePoint < ActiveRecord::Base
   end
   
   def as_json
-    { id => [longitude, latitude] }
+    { :id => id, :lat => latitude, :lon => longitude }
   end
 
   def as_geo_json

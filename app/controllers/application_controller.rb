@@ -3,10 +3,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_admin_current_admin
   
-  def json_for(things)
-    things.inject( {} ) { |memo, fp| memo.merge(fp.as_json) }
-  end
-  
   def set_locale
     I18n.locale = env['rack.locale'] || I18n.default_locale
   end
