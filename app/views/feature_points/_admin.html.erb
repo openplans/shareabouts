@@ -1,4 +1,4 @@
-<%= link_to "Edit point / Moderate comments", rails_admin.edit_path("feature_points", feature_point.id), :target => "_new" %>
+<%= link_to "Edit point / Moderate comments", rails_admin.edit_path("feature_point", feature_point.id), :target => "_new" %>
 Point is <%= "in" unless feature_point.visible? -%>visible.
 <%= form_for feature_point, :remote => true, :html => { "data-behavior" => "load_result_in_popup" } do |form| %>
   <%= form.label :visible, "Visible?" %>
