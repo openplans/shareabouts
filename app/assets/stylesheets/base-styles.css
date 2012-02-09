@@ -31,8 +31,8 @@ h6 { font-size: 1; }
 /* html { overflow-y: scroll; } */
 /* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
 a:hover, a:active { outline: none; }
-a, a:active, a:visited { color: #00eeff; }
-a:hover { color: #66ffff; }
+a, a:active, a:visited { color: #007fbf; }
+a:hover { color: #00aaff; }
 p { margin-bottom: 1.2em; }
 ul, ol { margin-left: 1.8em; margin-bottom: 0.6em; }
 ol { list-style-type: decimal; }

@@ -55,7 +55,7 @@
             Your friends: <%= list_friends %>
           </span>
         <% else %>
-          <%= link_to t("auth.fb_signin"), user_omniauth_authorize_path(:facebook) %>
+          <%= link_to t("auth.fb_signin"), user_omniauth_authorize_path(:facebook), :class => 'facebook-login' %>
         <% end %>
       </nav>
     </header>
