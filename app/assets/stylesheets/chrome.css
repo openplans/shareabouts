@@ -192,7 +192,8 @@ table.regions {
   line-height: 1.5;
 }
 
-.information-panel-content .feature {
+.information-panel-content .feature,
+.information-panel-content .page {
   overflow-y: auto;
   position: absolute;
   top: 0;
