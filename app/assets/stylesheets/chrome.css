@@ -418,7 +418,7 @@ table.regions {
 }
 
 #ticker li {
-  padding       : 0.8em;
+  padding       : 0.8em 0 0.8em 0.8em;
   min-height    : 25px;
   border-bottom : 3px solid #5d5d5d;
   font-size     : 0.8em;
