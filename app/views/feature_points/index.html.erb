@@ -9,7 +9,7 @@
 <script type="text/javascript" charset="utf-8">
   if (!window.shareabouts) window.shareabouts = {};
   <% if @feature_point.present? %>
-    window.shareabouts.feature = <%= @feature_point.as_geo_json.to_json.html_safe %>;
+    window.shareabouts.initialFeatureId = <%= @feature_point.id %>;
   <% end %>
 </script>
 <% end %>

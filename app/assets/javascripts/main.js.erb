@@ -60,8 +60,10 @@ $(function() {
       },
       onload : function() {
         // See views/feature_points/index.html.erb
-        if (window.shareabouts && window.shareabouts.feature) {
-          Map.shareabout("viewFeature", window.shareabouts.feature.properties.id)
+        // TODO: Should this just be handled automatically? A user shouldn't
+        // have to know about this, methinks.
+        if (window.shareabouts && window.shareabouts.initialFeatureId) {
+          Map.shareabout("viewFeature", window.shareabouts.initialFeatureId)
         }
       },
       onpopup : function() {
@@ -69,10 +71,8 @@ $(function() {
         finalize_feature.hide();
       }
     },
-    // Current workaround to allow features to be selected from the activity stream.
-    // This breaks if a feature is selected but does not have a map marker.
-    withinBounds: false,
-    features    : [window.shareabouts.feature], // feature to first open
+    // Intial feature to show
+    initialFeatureId : window.shareabouts.initialFeatureId,
     featuresUrl : '<%= url_help.feature_points_path %>',
     featureUrl  : '<%= url_help.feature_point_path("FEATURE_ID") %>'
   });
@@ -142,10 +142,10 @@ $(function() {
       url    : "<%= url_help.activity_index_path %>",
       toggle : function(e){
         $("#content").toggleClass("ticker_on");
-      },
-      onclick: function(e) {
-        var featureId = $(this).parent('li').attr('data-feature-id');
-        Map.shareabout('viewFeature', parseInt(featureId, 10));
+      // },
+      // onclick: function(e) {
+      //   var featureId = $(this).parent('li').attr('data-feature-id');
+      //   Map.shareabout('viewFeature', parseInt(featureId, 10));
       }
     });
   }
