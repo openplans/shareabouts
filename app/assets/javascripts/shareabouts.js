@@ -78,6 +78,16 @@ $.widget("ui.shareabout", (function() {
 
         map.on('moveend', function(e){ self.refreshMapFeatures(); });
         $(window).resize( function(e){ self._refreshMapFeaturesWithDelay(); });
+
+        // Check every 10 seconds for new points from another session
+        setInterval(function(){
+          // Update the cache
+          self._fetch(function(data){
+            if (data.length) {
+              self.refreshMapFeatures();
+            }
+          });
+        }, 10000);
       });
 
       this._init_states();
@@ -162,6 +172,17 @@ $.widget("ui.shareabout", (function() {
       popup.addClickEventListener(selector, callback);
     },
 
+    addMapFeature: function(feature){
+      markerLayer = new L.Marker(
+        new L.LatLng(feature.lat, feature.lon),
+        { icon: this.options.markerIcon }
+      );
+      this._setupMarker(markerLayer, { id: feature.id });
+
+      layersOnMap[feature.id] = markerLayer;
+      map.addLayer(markerLayer);
+    },
+
     // Refresh map features from the cache for the current extent.
     refreshMapFeatures : function(callback){
       var i,
@@ -181,14 +202,7 @@ $.widget("ui.shareabout", (function() {
 
         // If inBounds and not onMap, add it
         if (inBounds && !onMap) {
-          markerLayer = new L.Marker(
-            new L.LatLng(feature.lat, feature.lon),
-            { icon: this.options.markerIcon }
-          );
-          this._setupMarker(markerLayer, { id: feature.id });
-
-          layersOnMap[feature.id] = markerLayer;
-          map.addLayer(markerLayer);
+          this.addMapFeature(feature);
         }
 
         // If not inBounds and onMap, remove it
@@ -256,6 +270,19 @@ $.widget("ui.shareabout", (function() {
 
         return (feature.lat <= topLeft.lat && feature.lat >= bottomRight.lat &&
             feature.lon <= bottomRight.lng && feature.lon >= topLeft.lng);
+    },
+
+    _getCachedFeatureIndex: function(fId) {
+      var i,
+          len = featurePointsCache.length;
+
+      for (i=0; i<len; i++) {
+        if (featurePointsCache[i].id === fId) {
+          return i;
+        }
+      }
+
+      return null;
     },
 
     _refreshMapFeaturesWithDelay : function(ms) {
@@ -457,14 +484,53 @@ $.widget("ui.shareabout", (function() {
        *
        */
       fsm.onviewFeature = function(eventName, from, to, fId) {
-        if (layersOnMap[fId]._html) {
-          shareabout._openPopupWith( layersOnMap[fId] );
+        // Internal helper function
+        var openPopup = function(featureOnMap) {
+          var resource_path;
+
+          // Does the marker have content already? Does this mean the current
+          // marker?
+          if (featureOnMap._html) {
+            shareabout._openPopupWith( featureOnMap );
+          } else {
+            // No? Okay, go get it
+            resource_path = shareabout.options.featureUrl.replace(/FEATURE_ID/, fId);
+            $.get( resource_path, function(data){
+              shareabout._openPopupWith( featureOnMap, data.view);
+
+              // Update the url
+              if (window.history && window.history.pushState) {
+                window.history.pushState(null, null, resource_path);
+              }
+            }, "json");
+          }
+        };
+
+        var onMap = !!layersOnMap[fId],
+            cacheIndex = shareabout._getCachedFeatureIndex(fId),
+            inCache = cacheIndex !== null;
+
+        // If the marker is on the map, then open the popup!
+        if (onMap) {
+          openPopup(layersOnMap[fId]);
         } else {
-          var resource_path = shareabout.options.featureUrl.replace(/FEATURE_ID/, fId);
-          $.get( resource_path, function(data){
-            shareabout._openPopupWith( layersOnMap[fId], data.view);
-            if (window.history && window.history.pushState) window.history.pushState(null, null, resource_path);
-          }, "json");
+          // It's in the cache, but not on the map. Add it manually so
+          // the popup can open. That will trigger a map move and then
+          // the rest of the markers will sync up.
+          if (inCache) {
+            shareabout.addMapFeature(featurePointsCache[cacheIndex]);
+            openPopup(layersOnMap[fId]);
+          } else {
+            // Oops, we don't know about the guy at all. Let's sync up the
+            // cache, manually add the feature, then open the popup.
+            shareabout._fetch(function() {
+              // Fetch updates the cache, so let's get the index again
+              cacheIndex = shareabout._getCachedFeatureIndex(fId);
+
+              shareabout.addMapFeature(featurePointsCache[cacheIndex]);
+              openPopup(layersOnMap[fId]);
+            });
+          }
         }
       };
 
