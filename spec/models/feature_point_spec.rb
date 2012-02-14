@@ -32,6 +32,20 @@ describe FeaturePoint do
           point.errors[:the_geom].should include("Point doesn't fall within the defined regions")
         end
       end
+      
+      context "when there are no regions" do
+        attr_reader :a_point
+        before do
+          @a_point = create_feature_point
+          Region.destroy_all
+          Region.count.should == 0
+        end
+        
+        it "is valid" do
+          point = new_feature_point :the_geom => a_point.the_geom, :nil_the_geom => true # ensures we don't create regions
+          point.should be_valid
+        end
+      end
     end
   end
   
