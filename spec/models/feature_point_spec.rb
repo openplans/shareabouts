@@ -218,7 +218,7 @@ describe FeaturePoint do
     context "after being set to invisible" do
       before do
         point.activity_items.should be_present
-        create_vote :supportable => point
+        create_vote :supportable => point, :user => create_user
         point.reload.children_activity_items.should be_present
         
         point.update_attribute :visible, false          

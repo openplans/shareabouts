@@ -2,6 +2,8 @@ class ActivityObserver < ActiveRecord::Observer
   observe FeaturePoint, Comment, Vote
   
   def after_create(observed)
+    return true if observed.user.nil? && observed.is_a?(Vote)
+    
     parent = if observed.respond_to?(:commentable)
       observed.commentable
     elsif observed.respond_to?(:supportable)
