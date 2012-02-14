@@ -457,6 +457,11 @@ table.regions {
   margin-bottom : 0;
 }
 
+#ticker li.loading > div {
+  margin : 1em auto;
+  width  : 13px;
+}
+
 #ticker .avatar {
   width      : 35px;
   height     : 35px;

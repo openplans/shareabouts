@@ -14,7 +14,12 @@ class ActivityController < ApplicationController
         @activity_items = ActivityItem.where(where)
           .limit(params[:limit])
           .order('created_at desc')
-        render "index.html"
+        
+        if @activity_items.present?
+          render "index.html"
+        else 
+          render :nothing => true
+        end
       end
     end
   end

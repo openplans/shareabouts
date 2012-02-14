@@ -138,7 +138,7 @@ $(function() {
 
   // Start the ticker
   if ( !Map.shareabout("smallScreen") ) {
-    $("#ticker").ticker({
+    $("#ticker").activityticker({
       url    : "<%= url_help.activity_index_path %>",
       toggle : function(e){
         $("#content").toggleClass("ticker_on");
