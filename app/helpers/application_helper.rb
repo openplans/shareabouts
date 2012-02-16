@@ -1,15 +1,15 @@
 module ApplicationHelper
 
-  def supported?(supportable)
+  def vote_for(supportable)
     if current_user
-      current_user.votes.where(:supportable_type => supportable.class.to_s, :supportable_id => supportable.id).count > 0
+      current_user.votes.where(:supportable_type => supportable.class.to_s, :supportable_id => supportable.id).first
     else
       return false if cookies[:supportable].inspect == "nil"
       
       supported   = Marshal.load(cookies[:supportable])
       key         = supportable.class.to_s.to_sym
       
-      supported.key?(key) && supported[key].include?(supportable.id)
+      Vote.find(supported[key][supportable.id]) if supported.key?(key) && supported[key][supportable.id]
     end
   end
   
@@ -34,14 +34,6 @@ module ApplicationHelper
   # message is irrelevant for this
   def facebook_share_feature(feature)
     link_to "recommend on fb", "https://www.facebook.com/sharer/sharer.php?u=#{feature_point_url(feature)}", :class => "facebook"
-  end
-  
-  def button_if(show_button, &block)
-    if show_button
-      content_tag( :button, :type => :submit, &block)
-    else
-      yield(block)
-    end
   end
   
   def page_link_attributes(page)

@@ -342,7 +342,7 @@ table.regions {
 }
 
 .social .support_button,
-.social #new_vote button[type=submit] {
+.social form.vote button[type=submit] {
   background-color: #e4e4e4;
   color: #444;
   border: 1px solid #a8a8a8;
@@ -362,16 +362,16 @@ table.regions {
           box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
 }
 .social .support_button span,
-.social #new_vote button[type=submit] span {
+.social form.vote button[type=submit] span {
   font-weight: bold;
   color: #f61359;
 }
 .social .support_button span:before,
-.social #new_vote button[type=submit] span:before {
+.social form.vote button[type=submit] span:before {
   content: "♡ ";
 }
 .social .support_button span.supported:before,
-.social #new_vote button[type=submit] span.supported:before {
+.social form.vote button[type=submit] span.supported:before {
   content: "♥  ";
 }
 

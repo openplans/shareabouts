@@ -45,4 +45,13 @@ class ApplicationController < ActionController::Base
     Admin.current_admin = current_admin
   end
   
+  def supported?(supportable)
+    return false if cookies[:supportable].inspect == "nil"
+    
+    supported   = Marshal.load(cookies[:supportable])
+    key         = supportable.class.to_s.to_sym
+    
+    supported.key?(key) && supported[key][supportable.id]
+  end
+  
 end

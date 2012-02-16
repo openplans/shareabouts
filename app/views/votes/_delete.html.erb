@@ -1,0 +1,8 @@
+<%= form_for [supportable, vote], :method => :delete, :html => { :class => "vote", "data-behavior" => "load_result_in_popup" } do |form| %>
+  <button type="submit">
+    <div>
+      <span class="supported"><%= supportable.votes.count %></span>
+      <%= t 'feature.vote_action' %>
+    </div>
+  </button>
+<% end %>

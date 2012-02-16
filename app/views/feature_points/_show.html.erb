@@ -45,7 +45,11 @@
 <div class="social">
 
   <div class="support">
-    <%= render "votes/new.html", :supportable => feature_point %>
+    <% if vote = vote_for(feature_point) %>
+      <%= render "votes/delete.html", :supportable => feature_point, :vote => vote %>
+    <% else %>
+      <%= render "votes/new.html", :supportable => feature_point %>
+    <% end %>
   </div>
 
   <div class="sharing">
