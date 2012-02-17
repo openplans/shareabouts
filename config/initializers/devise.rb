@@ -1,4 +1,4 @@
-FACEBOOK_CONFIG = YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]
+FACEBOOK_CONFIG ||= YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]
 
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
