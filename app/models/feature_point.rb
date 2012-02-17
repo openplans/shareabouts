@@ -66,6 +66,10 @@ class FeaturePoint < ActiveRecord::Base
   def support_count
     votes.count
   end
+  
+  def as_json
+    { :id => id, :lat => latitude, :lon => longitude }
+  end
 
   def as_geo_json
     {

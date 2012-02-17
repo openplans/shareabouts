@@ -4,8 +4,9 @@
 $.widget("ui.shareabout", (function() {
   var map, // leaflet map
       fsm, // state machine
-      features, // object that stores map features by their ID
-      popup; // one popup on the map
+      layersOnMap, // object that stores map features (marker layers, specifically) by their ID
+      popup, // one popup on the map
+      featurePointsCache = []; // Cache of all of the feature points
 
   return {
     options : {
@@ -22,9 +23,9 @@ $.widget("ui.shareabout", (function() {
       //
       withinBounds         : true,
       featuresUrl          : null, // url to all features geoJSON
-      // featurUrl: url to feature json - should return a 'view' that contains popup content, resource ID should be indicated as FEATURE_ID to be subbed
+      // featureUrl: url to feature json - should return a 'view' that contains popup content, resource ID should be indicated as FEATURE_ID to be subbed
       featureUrl           : null,
-      features             : [], // array of geojson objects to add to map. will be added to what's returned from featuresUrl
+      initialFeatureId     : null, // this was permalinked, so show it on load
       featurePopupTemplate : null,
       callbacks : {
         onready : function() {}, // after transitioning to "ready" state (closed popups, clean slate)
@@ -39,7 +40,7 @@ $.widget("ui.shareabout", (function() {
     _create : function() {
       var self = this;
 
-      features = {};
+      layersOnMap = {};
       map      = new L.Map( this.element.attr("id"), this.options.map );
       popup    = new InformationPanel({
         onRemove : function() { self._resetState(); },
@@ -60,6 +61,7 @@ $.widget("ui.shareabout", (function() {
       map.addLayer(new L.TileLayer( this.options.tileUrl, {
         maxZoom: this.options.map.maxZoom, attribution: this.options.tileAttribution
       }));
+      // TODO: What is this doing?
       map.on('layerremove', function(e) {
         if (e.layer == self.newFeature) self.newFeature._visible = false;
       });
@@ -69,21 +71,27 @@ $.widget("ui.shareabout", (function() {
         self.hint.remove();
       } );
 
-      // Initial map feature load
-      this.loadFeatures(this.options.features, self.options.callbacks.onload);
-      this.options.features = []; // prevent reloading
-      this.options.callbacks.onload = function(){}; // prevent multiple onload callbacks
+      // Update featurePointsCache and populate the map
+      this._fetch(function(){
+        self.refreshMapFeatures(self.options.callbacks.onload);
+        self.options.callbacks.onload = function(){}; // prevent multiple onload callbacks
+
+        map.on('moveend', function(e){ self.refreshMapFeatures(); });
+        $(window).resize( function(e){ self._refreshMapFeaturesWithDelay(); });
+
+        // Check every 10 seconds for new points from another session
+        setInterval(function(){
+          // Update the cache
+          self._fetch(function(data){
+            if (data.length) {
+              self.refreshMapFeatures();
+            }
+          });
+        }, 10000);
+      });
 
       this._init_states();
       this.options.callbacks.onready(); // manually trigger transition to ready state
-
-      // If we're only loading features that are within the viewing bounds, load more features when bounds change
-      if (this.options.withinBounds) {
-        map.on('dragend', function(e){ self.loadFeatures(); });
-        map.on('zoomend', function(e){ self.loadFeatures(); });
-        map.on('viewreset', function(e){ self.loadFeatures(); });
-        $(window).resize( function(e){ self._loadFeaturesWithDelay(); });
-      }
     },
 
     /*****************
@@ -164,40 +172,47 @@ $.widget("ui.shareabout", (function() {
       popup.addClickEventListener(selector, callback);
     },
 
-    loadFeatures : function(geojson, callback){
-      if (!this.options.featuresUrl) return;
+    addMapFeature: function(feature){
+      markerLayer = new L.Marker(
+        new L.LatLng(feature.lat, feature.lon),
+        { icon: this.options.markerIcon }
+      );
+      this._setupMarker(markerLayer, { id: feature.id });
 
-      var url = this.options.featuresUrl;
+      layersOnMap[feature.id] = markerLayer;
+      map.addLayer(markerLayer);
+    },
 
-      if (this.options.withinBounds) {
-        var bounds = map.getBounds(),
-            boundsQ = "bounds[]=" + bounds.getNorthEast().lng + "," + bounds.getNorthEast().lat +
-          "&bounds[]=" + bounds.getSouthWest().lng + "," + bounds.getSouthWest().lat;
+    // Refresh map features from the cache for the current extent.
+    refreshMapFeatures : function(callback){
+      var i,
+          bounds = map.getBounds(),
+          len = featurePointsCache.length,
+          feature,
+          inBounds,
+          onMap,
+          markerLayer;
 
-        url += ( this.options.featuresUrl.indexOf("?") != -1 ? "&" : "?") + boundsQ;
+      for(i=0; i<len; i++) {
+        feature = featurePointsCache[i];
+
+        inBounds = this._isFeatureInBounds(feature, bounds);
+        // Not not something truthy is true
+        onMap = !!layersOnMap[feature.id];
+
+        // If inBounds and not onMap, add it
+        if (inBounds && !onMap) {
+          this.addMapFeature(feature);
+        }
+
+        // If not inBounds and onMap, remove it
+        if (!inBounds && onMap) {
+          map.removeLayer(layersOnMap[feature.id]);
+          delete layersOnMap[feature.id];
+        }
       }
 
-      var self = this;
-      $.getJSON(url, function(data){
-        var geojsonLayer = new L.GeoJSON(null, {
-          pointToLayer : function(latlng) {
-            return new L.Marker(latlng, { icon: self.options.markerIcon });
-          }
-        });
-
-        // Triggered as features are individually parsed
-        geojsonLayer.on('featureparse', function(featureparse) {
-          self._setupMarker(featureparse.layer, featureparse.properties);
-        });
-
-        if (typeof data == "object") data = data.features;
-        if(geojson) data = data.concat(geojson);
-
-        $.each(data, function(i,f) { if (!features[f.properties.id]) geojsonLayer.addGeoJSON(f); });
-        map.addLayer(geojsonLayer);
-
-        if (callback) callback();
-      });
+      if (callback) {callback();}
     },
 
     openPopup : function(content) {
@@ -217,14 +232,67 @@ $.widget("ui.shareabout", (function() {
     /*
      * Private
      */
-    _loadFeaturesWithDelay : function(ms) {
+
+    // Fetches feature locations from the server and populates
+    // the cache. This function will always check the cache
+    // and only request new feature locations.
+    _fetch: function(success, error) {
+      var self = this,
+          data = {};
+
+      if (!this.options.featuresUrl) {return;}
+
+      // Only fetch records with an id greater than our newest cached record.
+      if (featurePointsCache.length > 0) {
+        data.after = featurePointsCache[featurePointsCache.length - 1].id;
+      }
+
+      // Get the feature points from the server
+      $.ajax({
+        url: this.options.featuresUrl,
+        data: data,
+        dataType: 'json',
+        success: function(data){
+          if($.isArray(data) && data.length) {
+            featurePointsCache = featurePointsCache.concat(data);
+          }
+          if (success) {success(data);}
+        },
+        error: function() {
+          if (error) {error();}
+        }
+      });
+    },
+
+    _isFeatureInBounds: function(feature, bounds) {
+      var topLeft = bounds.getNorthWest(),
+          bottomRight = bounds.getSouthEast();
+
+        return (feature.lat <= topLeft.lat && feature.lat >= bottomRight.lat &&
+            feature.lon <= bottomRight.lng && feature.lon >= topLeft.lng);
+    },
+
+    _getCachedFeatureIndex: function(fId) {
+      var i,
+          len = featurePointsCache.length;
+
+      for (i=0; i<len; i++) {
+        if (featurePointsCache[i].id === fId) {
+          return i;
+        }
+      }
+
+      return null;
+    },
+
+    _refreshMapFeaturesWithDelay : function(ms) {
       if (this._waitingToLoad) return;
 
       var self = this;
       if (!ms) ms = 500;
       this._waitingToLoad = window.setTimeout( function(){
         self._waitingToLoad = null;
-        self.loadFeatures();
+        self.refreshMapFeatures();
       }, ms);
     },
 
@@ -294,8 +362,6 @@ $.widget("ui.shareabout", (function() {
 
         shareabout.viewFeature(this._id);
       });
-
-      features[fId] = marker;
     },
 
     _touch_screen : function() {
@@ -408,6 +474,9 @@ $.widget("ui.shareabout", (function() {
           var marker = new L.Marker(shareabout.newFeature.getLatLng(), { icon: shareabout.options.focusedMarkerIcon });
           shareabout._setupMarker(marker, responseData.geoJSON.properties);
           map.removeLayer(shareabout.newFeature);
+
+          // Indicate that the new marker is on the map
+          layersOnMap[id] = marker;
           map.addLayer(marker);
         } else if (to === "finalizingNewFeature") {
           $(".shareabouts-side-popup-content").html(responseData.view);
@@ -418,14 +487,53 @@ $.widget("ui.shareabout", (function() {
        *
        */
       fsm.onviewFeature = function(eventName, from, to, fId) {
-        if (features[fId]._html) {
-          shareabout._openPopupWith( features[fId] );
+        // Internal helper function
+        var openPopup = function(featureOnMap) {
+          var resource_path;
+
+          // Does the marker have content already? Does this mean the current
+          // marker?
+          if (featureOnMap._html) {
+            shareabout._openPopupWith( featureOnMap );
+          } else {
+            // No? Okay, go get it
+            resource_path = shareabout.options.featureUrl.replace(/FEATURE_ID/, fId);
+            $.get( resource_path, function(data){
+              shareabout._openPopupWith( featureOnMap, data.view);
+
+              // Update the url
+              if (window.history && window.history.pushState) {
+                window.history.pushState(null, null, resource_path);
+              }
+            }, "json");
+          }
+        };
+
+        var onMap = !!layersOnMap[fId],
+            cacheIndex = shareabout._getCachedFeatureIndex(fId),
+            inCache = cacheIndex !== null;
+
+        // If the marker is on the map, then open the popup!
+        if (onMap) {
+          openPopup(layersOnMap[fId]);
         } else {
-          var resource_path = shareabout.options.featureUrl.replace(/FEATURE_ID/, fId);
-          $.get( resource_path, function(data){
-            shareabout._openPopupWith( features[fId], data.view);
-            if (window.history && window.history.pushState) window.history.pushState(null, null, resource_path);
-          }, "json");
+          // It's in the cache, but not on the map. Add it manually so
+          // the popup can open. That will trigger a map move and then
+          // the rest of the markers will sync up.
+          if (inCache) {
+            shareabout.addMapFeature(featurePointsCache[cacheIndex]);
+            openPopup(layersOnMap[fId]);
+          } else {
+            // Oops, we don't know about the guy at all. Let's sync up the
+            // cache, manually add the feature, then open the popup.
+            shareabout._fetch(function() {
+              // Fetch updates the cache, so let's get the index again
+              cacheIndex = shareabout._getCachedFeatureIndex(fId);
+
+              shareabout.addMapFeature(featurePointsCache[cacheIndex]);
+              openPopup(layersOnMap[fId]);
+            });
+          }
         }
       };
 

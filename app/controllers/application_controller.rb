@@ -3,13 +3,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_admin_current_admin
   
-  def geo_json_for(things)
-    {
-      :type => "FeatureCollection",
-      :features => things.map(&:as_geo_json)
-    }
-  end
-  
   def set_locale
     I18n.locale = env['rack.locale'] || I18n.default_locale
   end
