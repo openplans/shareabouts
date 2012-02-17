@@ -6,13 +6,21 @@ $(function() {
       pages            = $("#pages a"),
       Map              = $("#map");
 
+  var MarkerIcon = L.Icon.extend({
+    iconUrl     : '<%= image_path("feature-point.png") %>',
+    iconSize    : new L.Point(17, 18),
+    iconAnchor  : new L.Point(9, 11),
+    popupAnchor : new L.Point(0, 0),
+    shadowSize  : new L.Point(0, 0)
+  });
+
   var FocusedMarkerIcon = L.Icon.extend({
     iconUrl     : '<%= image_path("marker-focused.png") %>',
   	iconSize    : new L.Point(25, 41),
   	iconAnchor  : new L.Point(13, 41),
   	popupAnchor : new L.Point(0, -33),
-  	shadowSize: new L.Point(41, 41),
-  	shadowUrl   : L.ROOT_URL + 'images/marker-shadow.png'
+  	shadowSize  : new L.Point(41, 41),
+  	shadowUrl   : '<%= image_path("marker-shadow.png") %>'
   });
 
   var NewMarkerIcon = L.Icon.extend({
@@ -20,8 +28,8 @@ $(function() {
   	iconSize    : new L.Point(25, 41),
   	iconAnchor  : new L.Point(13, 41),
   	popupAnchor : new L.Point(0, -33),
-  	shadowSize: new L.Point(41, 41),
-  	shadowUrl   : L.ROOT_URL + 'images/marker-shadow.png'
+  	shadowSize  : new L.Point(41, 41),
+  	shadowUrl   : '<%= image_path("marker-shadow.png") %>'
   });
 
   var CrosshairIcon = L.Icon.extend({
@@ -49,6 +57,7 @@ $(function() {
     },
     tileUrl          : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
     tileAttribution  : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
+    markerIcon: new MarkerIcon(),
     focusedMarkerIcon: new FocusedMarkerIcon(),
     newMarkerIcon: new NewMarkerIcon(),
     crosshairIcon   : new CrosshairIcon(),
