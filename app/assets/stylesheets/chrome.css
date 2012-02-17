@@ -341,7 +341,6 @@ table.regions {
   overflow: hidden;
 }
 
-.social .support_button,
 .social form.vote button[type=submit] {
   background-color: #e4e4e4;
   color: #444;
@@ -361,18 +360,17 @@ table.regions {
   -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
 }
-.social .support_button span,
 .social form.vote button[type=submit] span {
   font-weight: bold;
   color: #f61359;
 }
-.social .support_button span:before,
-.social form.vote button[type=submit] span:before {
-  content: "♡ ";
+.social form.vote button[type=submit] span {
+  background : transparent url(support-heart-empty.png) no-repeat scroll top left;
+  padding    : 0 0 0 18px;
 }
-.social .support_button span.supported:before,
-.social form.vote button[type=submit] span.supported:before {
-  content: "♥  ";
+.social form.vote button[type=submit] span.supported {
+  background : transparent url(support-heart.png) no-repeat scroll top left;
+  padding    : 0 0 0 18px;
 }
 
 .social .sharing {
