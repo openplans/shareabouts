@@ -1,4 +1,5 @@
-FACEBOOK_CONFIG ||= YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]
+FACEBOOK_APP_ID = ENV['FACEBOOK_APP_ID'] || YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]['app_id']
+FACEBOOK_APP_SECRET = ENV['FACEBOOK_APP_SECRET'] || YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]['app_secret']
 
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
@@ -198,7 +199,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :facebook, FACEBOOK_CONFIG['app_id'], FACEBOOK_CONFIG['app_secret']
+  config.omniauth :facebook, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
