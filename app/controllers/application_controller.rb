@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
+  include ValidBrowser
+  
   protect_from_forgery
+  before_filter :restrict_browser
   before_filter :set_locale
   before_filter :set_admin_current_admin
   
@@ -47,4 +50,10 @@ class ApplicationController < ActionController::Base
     supported.key?(key) && supported[key][supportable.id]
   end
   
+  def restrict_browser
+    unless valid_browser?
+      render :template => 'home/no_ie6.html.erb', :layout => false
+      return false
+    end
+  end
 end

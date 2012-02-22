@@ -10,7 +10,7 @@ gem "omniauth-facebook"
 gem "fgraph"
 
 gem 'jquery-rails'
-gem 'no-ie6-rails'
+gem "useragent"
 
 gem 'pg'
 

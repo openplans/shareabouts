@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div style="border:1px solid #ccc;width:650px;filter: alpha(opacity=95);background:#fff;padding:0 0 5px 0;margin:0 auto;text-align:center;">
+      <div style="font-family:Helvetica,Arial,sans-serif;font-size:16px;padding:5px 10px;color:#333">
+        <h1 style="font-size:22px">
+          <%= t "app_name" %> doesn't work in this version of <%= UserAgent.parse(request.user_agent).browser %>.
+        </h1>
+        <p>
+          To get the best possible experience using our website we recommend that you upgrade to a newer version or other web browser. A list of the most popular web browsers can be found below.
+        </p>
+        <p>
+          Just click on the icons to get to the download page.
+        </p>
+      </div>
+      <div style="font-family:Arial,Verdana,sans-serif;color:#4f4f4f;font-size:12px;padding-left: 5px;"></div>
+        <script type="text/javascript" charset="utf-8">
+          var browsers = [{
+          	name: "Internet Explorer 7+",
+          	url: "http://www.microsoft.com/windows/Internet-explorer/default.aspx",
+          	image: "<%= image_path('browser_ie.gif') %>"
+          }, {
+          	name: "Firefox 3+",
+          	url: "http://www.mozilla.com/firefox/",
+          	image: "<%= image_path('browser_firefox.gif') %>"
+          }, {
+          	name: "Safari 3+",
+          	url: "http://www.apple.com/safari/download/",
+          	image: "<%= image_path('browser_safari.gif') %>"
+          }, {
+          	name: "Opera 9.5+",
+          	url: "http://www.opera.com/download/",
+          	image: "<%= image_path('browser_opera.gif') %>"
+          }, {
+          	name: "Chrome 2.0+",
+          	url: "http://www.google.com/chrome",
+          	image: "<%= image_path('browser_chrome.gif') %>"
+          }];
+        
+          for (var i = 0; i < browsers.length; i += 1) {
+          	document.write("<div style='padding:0;margin:5px;float:left;display:inline;background: url(<%= image_path('background_browser.gif') %>) no-repeat scroll left top; width: 120px; height: 122px;'><a href='" + browsers[i].url + "' style='padding:0;margin:4px 10px;display:block;width:100px;height:96px;background:transparent url(" + browsers[i].image + ");'></a><div style='text-align:center;font-size:12px;line-height:12px;margin:0;padding:0'>" + browsers[i].name + "</div></div>");
+          }
+        </script>
+      <div style = 'clear:both'></div></div></div>
+    </div>
+  </body>
+</html>
