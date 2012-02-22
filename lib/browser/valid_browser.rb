@@ -50,8 +50,7 @@ module ValidBrowser
   protected
   
     def valid_browser?
-      return if request.user_agent.blank?
-      user_agent = UserAgent.parse(request.user_agent)
+      return true if request.user_agent.blank? || (user_agent = UserAgent.parse(request.user_agent)).version.blank?
       SupportedBrowsers.detect { |browser| user_agent >= browser }
     end
 end

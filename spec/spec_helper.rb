@@ -38,6 +38,8 @@ ActiveRecord::Base.connection.execute("UPDATE feature_points SET the_geom = SETS
 ActiveRecord::Base.connection.execute("ALTER TABLE regions DROP CONSTRAINT \"enforce_srid_the_geom\" RESTRICT")
 ActiveRecord::Base.connection.execute("UPDATE regions SET the_geom = SETSRID (the_geom, 4326)")
 
+ValidBrowser::SupportedBrowsers << Struct.new(:browser, :version).new("Rails Testing", "0")
+
 # Create a shapefile and regions
 def create_regions
   shapefile = create_shapefile
