@@ -15,6 +15,8 @@ class PostInstall
     if ! File.exist? infile
       puts infile + " not found. Are we not on dotcloud?"
       puts "Currently in " + Dir.pwd
+      puts "Environment is:"
+      puts ENV.to_hash.to_yaml
       return 1
     else
       dotcloud_env = YAML::load(File.open(infile, 'r'))
