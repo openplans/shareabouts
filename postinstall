@@ -3,18 +3,32 @@
 # Post-install hook for Dotcloud, see http://docs.dotcloud.com/guides/postinstall/
 
 require 'yaml'
+#require 'rake'
+#require 'rake/dsl_definition'
+# $LOAD_PATH.unshift File.dirname(__FILE__)
+#load 'Rakefile'
 
 class PostInstall
 
   def sanitycheck()
+    puts "Running in " + ENV['PWD']
     if ENV['USER'] != 'dotcloud'
       puts "Doesn't look like we're really running on dotcloud, skip postinstall"
       exit 1
     end
   end
 
-  def writeconfig()
+  def capture_stdout
+    s = StringIO.new
+    oldstdout = $stdout
+    $stdout = s
+    yield
+    s.string
+  ensure
+    $stdout = oldstdout
+  end
 
+  def writeconfig()
     infile = "../environment.yml"
     outfile = "config/database.yml"
     # Write our database config to the right place.
@@ -34,7 +48,6 @@ class PostInstall
           "pool"=> 5,
           "username"=> dotcloud_env["DOTCLOUD_DATA_SQL_LOGIN"],
           "password"=> dotcloud_env["DOTCLOUD_DATA_SQL_PASSWORD"],
-          "template"=> "template_postgis",
           "host"=> dotcloud_env["DOTCLOUD_DATA_SQL_HOST"],
           "port"=> dotcloud_env["DOTCLOUD_DATA_SQL_PORT"].to_i,
         }
@@ -47,9 +60,34 @@ class PostInstall
     end
   end
 
+  def database()
+    #results = capture_stdout {Rake.application['db:create'].invoke}
+    puts "Checking rake version..."
+    system 'which rake'
+    system 'rake --version'
+
+    if not system 'rake  db:create'
+      exit 1
+    end
+    if not system 'rake  db:migrate'
+      exit 1
+    end
+    #Rake::Task['db:create'].invoke
+    #Rake::Task['db:migrate'].invoke
+  end
+
+  def assets()
+    #Rake::Task['assets:precompile'].invoke
+    if not system 'rake assets:precompile'
+      exit 1
+    end
+  end
+
   def main()
     sanitycheck
     writeconfig
+    database
+    assets
   end
 
 end

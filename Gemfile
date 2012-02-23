@@ -29,6 +29,8 @@ gem "rubyzip"
 
 gem 'json'
 
+gem 'rake', '>=0.9.2'
+
 group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
