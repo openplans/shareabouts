@@ -6,18 +6,24 @@ require 'yaml'
 
 class PostInstall
 
+  def sanitycheck()
+    if ENV['USER'] != 'dotcloud'
+      puts "Doesn't look like we're really running on dotcloud, skip postinstall"
+      exit 1
+    end
+  end
+
   def writeconfig()
 
-    infile = "environment.yml"
-    outfile = "config/database.yml.TEST"
-
+    infile = "../environment.yml"
+    outfile = "config/database.yml"
     # Write our database config to the right place.
     if ! File.exist? infile
       puts infile + " not found. Are we not on dotcloud?"
       puts "Currently in " + Dir.pwd
-      puts "Environment is:"
-      puts ENV.to_hash.to_yaml
-      return 1
+      #puts "Environment is:"
+      #puts ENV.to_hash.to_yaml
+      exit 1
     else
       dotcloud_env = YAML::load(File.open(infile, 'r'))
       database_config = {
@@ -38,15 +44,15 @@ class PostInstall
       database_config_file.write(database_config.to_yaml)
       database_config_file.close()
       puts "Database config written to " + outfile + " based on " + infile
-      return 0
     end
   end
 
   def main()
+    sanitycheck
     writeconfig
   end
 
 end
 
 
-exit PostInstall.new.main
+PostInstall.new.main
