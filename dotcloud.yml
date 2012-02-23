@@ -1,3 +1,5 @@
 www:
   type: ruby
   approot: .
+data:
+  type: postgis
