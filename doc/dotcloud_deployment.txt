@@ -1,0 +1,31 @@
+Deploying Shareabouts on dotcloud.com
+======================================
+
+Install the dotcloud command line app and get a dotcloud API key.
+
+First Deployment
+=================
+
+Then, from the root of your shareabouts source tree:
+
+ dotcloud create shareabouts
+ dotcloud push shareabouts .
+ dotcloud run shareabouts.www -- rake -f current/Rakefile db:create db:migrate
+
+That should take care of everything.
+
+Note that if you have local changes to your shareabouts code,
+you must commit them before running ``dotcloud push``.
+
+If the build finishes but you get errors from the server, ssh in (by
+doing "dotcloud ssh shareabouts1") and check
+/home/dotcloud/current/log/production.log
+
+Pushing Updates
+================
+
+From the root of your shareabouts source tree:
+
+ dotcloud push shareabouts .
+ dotcloud run shareabouts.www -- rake -f current/Rakefile db:migrate
+

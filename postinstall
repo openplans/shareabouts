@@ -1,12 +1,9 @@
 #!/usr/bin/env ruby
 
-# Post-install hook for Dotcloud, see http://docs.dotcloud.com/guides/postinstall/
+# Post-install hook for Dotcloud, see
+# http://docs.dotcloud.com/guides/postinstall/
 
 require 'yaml'
-#require 'rake'
-#require 'rake/dsl_definition'
-# $LOAD_PATH.unshift File.dirname(__FILE__)
-#load 'Rakefile'
 
 class PostInstall
 
@@ -50,6 +47,7 @@ class PostInstall
           "password"=> dotcloud_env["DOTCLOUD_DATA_SQL_PASSWORD"],
           "host"=> dotcloud_env["DOTCLOUD_DATA_SQL_HOST"],
           "port"=> dotcloud_env["DOTCLOUD_DATA_SQL_PORT"].to_i,
+          # No template because dotcloud doesn't use one for postgis.
         }
       }
 
@@ -60,24 +58,25 @@ class PostInstall
     end
   end
 
-  def database()
-    #results = capture_stdout {Rake.application['db:create'].invoke}
-    puts "Checking rake version..."
-    system 'which rake'
-    system 'rake --version'
+  # def database()
+  #   ## This fails on the first run apparently because the database host isn't
+  #   ## pingable yet when we run it; dotcloud doesn't finish doing DNS
+  #   ## setup until you have a successful build? not sure.
+  #   #results = capture_stdout {Rake.application['db:create'].invoke}
+  #   puts "Checking rake version..."
+  #   system 'which rake'
+  #   system 'rake --version'
 
-    if not system 'rake  db:create'
-      exit 1
-    end
-    if not system 'rake  db:migrate'
-      exit 1
-    end
-    #Rake::Task['db:create'].invoke
-    #Rake::Task['db:migrate'].invoke
-  end
+  #   if not system 'rake  db:create'
+  #     exit 1
+  #   end
+  #   if not system 'rake  db:migrate'
+  #     exit 1
+  #   end
+  # end
 
   def assets()
-    #Rake::Task['assets:precompile'].invoke
+    puts 'Precompiling assets. Ignore messages like "fatal: Not a git repository"'
     if not system 'rake assets:precompile'
       exit 1
     end
@@ -86,7 +85,7 @@ class PostInstall
   def main()
     sanitycheck
     writeconfig
-    database
+    # database
     assets
   end
 
