@@ -1,5 +1,10 @@
-FACEBOOK_APP_ID = ENV['FACEBOOK_APP_ID'] || YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]['app_id']
-FACEBOOK_APP_SECRET = ENV['FACEBOOK_APP_SECRET'] || YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]['app_secret']
+if File.exists?("#{Rails.root}/config/facebook.yml")
+  FACEBOOK_APP_ID     = YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]['app_id']
+  FACEBOOK_APP_SECRET = YAML.load_file("#{Rails.root}/config/facebook.yml")[Rails.env]['app_secret']
+else
+  FACEBOOK_APP_ID     = ENV['FACEBOOK_APP_ID']
+  FACEBOOK_APP_SECRET = ENV['FACEBOOK_APP_SECRET']
+end
 
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
