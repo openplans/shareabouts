@@ -14,6 +14,7 @@ class PostInstall
     # Write our database config to the right place.
     if ! File.exist? infile
       puts infile + " not found. Are we not on dotcloud?"
+      puts "Currently in " + Dir.pwd
       return 1
     else
       dotcloud_env = YAML::load(File.open(infile, 'r'))

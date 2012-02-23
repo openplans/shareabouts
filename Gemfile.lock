@@ -265,6 +265,7 @@ DEPENDENCIES
   fixjour
   georuby!
   jquery-rails
+  json
   libv8 (= 3.3.10.2)
   omniauth-facebook
   paperclip (~> 2.0)
