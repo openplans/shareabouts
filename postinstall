@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+# Post-install hook for Dotcloud, see http://docs.dotcloud.com/guides/postinstall/
+
+require 'yaml'
+
+class PostInstall
+
+  def writeconfig()
+
+    infile = "environment.yml"
+    outfile = "config/database.yml.TEST"
+
+    # Write our database config to the right place.
+    if ! File.exist? infile
+      puts infile + " not found. Are we not on dotcloud?"
+      return 1
+    else
+      dotcloud_env = YAML::load(File.open(infile, 'r'))
+      database_config = {
+        "production"=> {
+          "adapter"=> "postgresql",
+          "encoding"=> "unicode",
+          "database"=> "shareabouts",
+          "pool"=> 5,
+          "username"=> dotcloud_env["DOTCLOUD_DATA_SQL_LOGIN"],
+          "password"=> dotcloud_env["DOTCLOUD_DATA_SQL_PASSWORD"],
+          "template"=> "template_postgis",
+          "host"=> dotcloud_env["DOTCLOUD_DATA_SQL_HOST"],
+          "port"=> dotcloud_env["DOTCLOUD_DATA_SQL_PORT"].to_i,
+        }
+      }
+
+      database_config_file = File.open(outfile, "w")
+      database_config_file.write(database_config.to_yaml)
+      database_config_file.close()
+      puts "Database config written to " + outfile + " based on " + infile
+      return 0
+    end
+  end
+
+  def main()
+    writeconfig
+  end
+
+end
+
+
+exit PostInstall.new.main
