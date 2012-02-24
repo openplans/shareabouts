@@ -1,0 +1,62 @@
+	- set up a new app and follow instructions accordingly until environment is set up
+	- stop instance
+	- "edit environment":
+		- application server stack:	passenger 3
+		- runtime:				ruby 1.9.2
+		- database stack:		postgreSQL 9.1.x
+	- "update environment"
+	- "boot"
+	- "Tools" > "SSH Public Keys"
+		- add your local public key
+	- Environment page: "Apply"
+	- copy ssh link under Instances
+	- ssh in
+=== server commands ===
+mkdir sources
+cd sources
+wget http://download.osgeo.org/geos/geos-3.3.2.tar.bz2
+tar -xjf geos-3.3.2.tar.bz2
+cd geos-3.3.2
+./configure
+make && sudo make install
+cd ..
+wget http://download.osgeo.org/proj/proj-4.7.0.tar.gz
+tar -zxvf proj-4.7.0.tar.gz
+cd proj-4.7.0
+./configure
+make && sudo make install
+cd ..
+wget  http://download.osgeo.org/gdal/gdal-1.9.0.tar.gz
+tar -zxvf gdal-1.9.0.tar.gz
+cd gdal-1.9.0
+./configure
+make && sudo make install
+wget http://postgis.refractions.net/download/postgis-1.5.3.tar.gz
+tar -zxvf postgis-1.5.3.tar.gz
+cd postgis-1.5.3
+./configure
+make && sudo make install
+sudo ldconfig
+cd
+sudo su postgres
+psql -d [YOUR_DATABASE]
+CREATE LANGUAGE plpgsql;
+\i /usr/share/postgresql-9.1/contrib/postgis-1.5/postgis.sql 
+\i /usr/share/postgresql-9.1/contrib/postgis-1.5/spatial_ref_sys.sql
+GRANT ALL ON geometry_columns TO PUBLIC;
+GRANT ALL ON geography_columns TO PUBLIC;
+GRANT ALL ON spatial_ref_sys TO PUBLIC;
+VACUUM FREEZE;
+\q
+exit
+=== end server commands ===
+	- Dashboard, deploy with db:migrate
+=== local commands ===
+git clone https://github.com/openplans/ey-cloud-recipes
+cd ey-cloud-recipes
+gem install engineyard
+ey-recipes upload -e production && ey-recipes apply -e production
+=== end local commands ===
+=== server commands ===
+cd /data/[APP_NAME]/current
+rake db:seed
