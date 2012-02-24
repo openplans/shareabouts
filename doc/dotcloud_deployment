@@ -1,14 +1,25 @@
 Deploying Shareabouts on dotcloud.com
 ======================================
 
-Install the dotcloud command line app and get a dotcloud API key.
+Preparation
+=============
+
+1. Get a dotcloud API key.
+2. Install the dotcloud command line app.
+3. Get a Facebook app ID and secret.
+
 
 First Deployment
 =================
 
-Then, from the root of your shareabouts source tree:
+From the root of your shareabouts source tree:
 
  dotcloud create shareabouts
+ dotcloud var set shareabouts FACEBOOK_APP_ID=<your facebook app id>
+ dotcloud var set shareabouts FACEBOOK_APP_SECRET=<your facebook app secret>
+
+Now do your first deployment:
+
  dotcloud push shareabouts .
  dotcloud run shareabouts.www -- rake -f current/Rakefile db:create db:migrate
 

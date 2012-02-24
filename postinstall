@@ -25,37 +25,56 @@ class PostInstall
     $stdout = oldstdout
   end
 
-  def writeconfig()
+  def get_dotcloud_environment()
     infile = "../environment.yml"
-    outfile = "config/database.yml"
-    # Write our database config to the right place.
     if ! File.exist? infile
       puts infile + " not found. Are we not on dotcloud?"
       puts "Currently in " + Dir.pwd
       #puts "Environment is:"
       #puts ENV.to_hash.to_yaml
       exit 1
-    else
-      dotcloud_env = YAML::load(File.open(infile, 'r'))
-      database_config = {
-        "production"=> {
-          "adapter"=> "postgresql",
-          "encoding"=> "unicode",
-          "database"=> "shareabouts",
-          "pool"=> 5,
-          "username"=> dotcloud_env["DOTCLOUD_DATA_SQL_LOGIN"],
-          "password"=> dotcloud_env["DOTCLOUD_DATA_SQL_PASSWORD"],
-          "host"=> dotcloud_env["DOTCLOUD_DATA_SQL_HOST"],
-          "port"=> dotcloud_env["DOTCLOUD_DATA_SQL_PORT"].to_i,
-          # No template because dotcloud doesn't use one for postgis.
-        }
-      }
-
-      database_config_file = File.open(outfile, "w")
-      database_config_file.write(database_config.to_yaml)
-      database_config_file.close()
-      puts "Database config written to " + outfile + " based on " + infile
     end
+    dotcloud_env = YAML::load(File.open(infile, 'r'))
+    return dotcloud_env
+  end
+
+  def write_db_config()
+    outfile = "config/database.yml"
+    # Write our database config to the right place.
+    dotcloud_env = get_dotcloud_environment
+    database_config = {
+      "production"=> {
+        "adapter"=> "postgresql",
+        "encoding"=> "unicode",
+        "database"=> "shareabouts",
+        "pool"=> 5,
+        "username"=> dotcloud_env["DOTCLOUD_DATA_SQL_LOGIN"],
+        "password"=> dotcloud_env["DOTCLOUD_DATA_SQL_PASSWORD"],
+        "host"=> dotcloud_env["DOTCLOUD_DATA_SQL_HOST"],
+        "port"=> dotcloud_env["DOTCLOUD_DATA_SQL_PORT"].to_i,
+        # No template because dotcloud doesn't use one for postgis.
+      }
+    }
+
+    database_config_file = File.open(outfile, "w")
+    database_config_file.write(database_config.to_yaml)
+    database_config_file.close()
+    puts "Database config written to " + outfile + " based on environment.yml"
+  end
+
+  def write_facebook_config()
+    outfile = "config/facebook.yml"
+    dotcloud_env = get_dotcloud_environment
+    fb_config = {
+      "production"=> {
+        "app_id"=> dotcloud_env["FACEBOOK_APP_ID"],
+        "app_secret"=> dotcloud_env["FACEBOOK_APP_SECRET"],
+      }
+    }
+    config_file = File.open(outfile, "w")
+    config_file.write(fb_config.to_yaml)
+    config_file.close()
+    puts "Facebook config written to " + outfile + " based on environment.yml"
   end
 
   # def database()
@@ -84,7 +103,8 @@ class PostInstall
 
   def main()
     sanitycheck
-    writeconfig
+    write_db_config
+    write_facebook_config
     # database
     assets
   end
