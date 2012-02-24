@@ -170,7 +170,7 @@ Deploying (production)
 
 (You can skip this if you're only doing local development or if you're 
 deploying to Heroku or another cloud platform.
-For deployment to dotcloud.com, see dotcloud_deployment.txt)
+For deployment to dotcloud.com, see doc/dotcloud_deployment)
 
 We deploy with capistrano. Our deploy script is config/deploy.rb. We deploy to 
 multiple environments, so we have a production.rb and staging.rb deploy script
