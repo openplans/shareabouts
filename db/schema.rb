@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120130213913) do
+ActiveRecord::Schema.define(:version => 20120228222619) do
 
   create_table "activity_items", :force => true do |t|
     t.string   "subject_type"
@@ -91,6 +91,23 @@ ActiveRecord::Schema.define(:version => 20120130213913) do
   end
 
   add_index "feature_points", ["the_geom"], :name => "index_feature_points_on_the_geom"
+
+  create_table "feature_polygons", :force => true do |t|
+    t.string        "name"
+    t.string        "submitter_name"
+    t.text          "description"
+    t.integer       "user_id"
+    t.boolean       "visible"
+    t.datetime      "created_at"
+    t.datetime      "updated_at"
+    t.multi_polygon "the_geom",               :limit => nil, :srid => 4326
+    t.string        "shapefile_file_name"
+    t.string        "shapefile_content_type"
+    t.integer       "shapefile_file_size"
+    t.datetime      "shapefile_updated_at"
+  end
+
+  add_index "feature_polygons", ["the_geom"], :name => "index_feature_polygons_on_the_geom", :spatial => true
 
   create_table "feature_regions", :force => true do |t|
     t.string   "feature_type"
