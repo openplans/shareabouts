@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120228222619) do
+ActiveRecord::Schema.define(:version => 20120229203732) do
 
   create_table "activity_items", :force => true do |t|
     t.string   "subject_type"
@@ -105,6 +105,8 @@ ActiveRecord::Schema.define(:version => 20120228222619) do
     t.string        "shapefile_content_type"
     t.integer       "shapefile_file_size"
     t.datetime      "shapefile_updated_at"
+    t.string        "workflow_state"
+    t.text          "job_error"
   end
 
   add_index "feature_polygons", ["the_geom"], :name => "index_feature_polygons_on_the_geom", :spatial => true

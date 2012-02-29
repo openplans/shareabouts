@@ -1,7 +1,8 @@
 class ShapefileContentValidator < ActiveModel::Validator
   def validate(record)
-    extensions = ShapefileJob.new(record.data.to_file.path).unzip.map { |z| File.extname z.to_s }
-  
+    files      = Dir.glob("#{ ShapefileImportHelper.unzip(record.attachment.to_file.path) }/*")
+    extensions = files.map { |z| File.extname z.to_s }
+    
     complete = %w{.shx .shp .dbf}.all? do |ext|
       extensions.include? ext
     end
