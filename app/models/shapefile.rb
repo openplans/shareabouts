@@ -1,17 +1,4 @@
 class Shapefile < ActiveRecord::Base
-  
-  class ZipContentValidator < ActiveModel::Validator
-    def validate(record)
-      extensions = ShapefileJob.new(record.data.to_file.path).unzip.map { |z| File.extname z.to_s }
-      
-      complete = %w{.shx .shp .dbf}.all? do |ext|
-        extensions.include? ext
-      end
-      
-      record.errors[:data] << "Zip file must at least contain .shx, .shp, and .dbf files." unless complete
-    end
-  end
-  
   has_many :regions, :inverse_of => :shapefile, :dependent => :destroy
   
   has_attached_file :data # zip file
@@ -21,7 +8,7 @@ class Shapefile < ActiveRecord::Base
   
   validates_attachment_presence :data
   validates_attachment_content_type :data, :content_type => "application/zip", :if => :attachment_present?
-  validates_with ZipContentValidator, :if => :attachment_present?
+  validates_with ShapefileContentValidator, :if => :attachment_present?
   
   before_save  :set_default_update_flag
   after_create :enqueue_importer
