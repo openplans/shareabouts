@@ -88,5 +88,5 @@ end
 after "deploy:finalize_update", "db:symlink"
 after 'deploy:update_code', "facebook:symlink"
 after 'deploy:update_code', "assets:precompile"
-after "deploy:update_code", "delayed_job:restart"
 after "deploy:update_code", "deploy:write_tag_file"
+after "deploy:restart", "delayed_job:restart"
