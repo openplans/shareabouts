@@ -27,6 +27,8 @@ $.widget("ui.shareabout", (function() {
       featureUrl           : null,
       initialFeatureId     : null, // this was permalinked, so show it on load
       featurePopupTemplate : null,
+      dragHint             : "",
+      dragHintLong         : "",
       callbacks : {
         onready : function() {}, // after transitioning to "ready" state (closed popups, clean slate)
         onload  : function() {}, // after the map is initially loaded
@@ -410,7 +412,7 @@ $.widget("ui.shareabout", (function() {
           shareabout.element.append(wrapper.html(img));
           $("#crosshair").css("left", shareabout.element[0].offsetWidth/2 - shareabout.options.crosshairIcon.iconAnchor.x + "px");
           $("#crosshair").css("top", shareabout.element[0].offsetHeight/2 - shareabout.options.crosshairIcon.iconAnchor.y + "px");
-          shareabout.showHint("Drag your location to the center of the map");
+          shareabout.showHint(shareabout.options.dragHintLong);
         } else {
           shareabout.newFeature.setLatLng(map.getCenter());
           if (shareabout.newFeature.dragging) { shareabout.newFeature.dragging.enable(); }
@@ -419,7 +421,7 @@ $.widget("ui.shareabout", (function() {
           shareabout.newFeature.setIcon(shareabout.options.newMarkerIcon);
 
           map.addLayer(shareabout.newFeature);
-          shareabout.showHint("Drag me!", shareabout.newFeature);
+          shareabout.showHint(shareabout.options.dragHint, shareabout.newFeature);
         }
       };
 

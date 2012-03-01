@@ -82,8 +82,10 @@ $(function() {
     },
     // Intial feature to show
     initialFeatureId : window.shareabouts.initialFeatureId,
-    featuresUrl : '<%= url_help.feature_points_path %>',
-    featureUrl  : '<%= url_help.feature_point_path("FEATURE_ID") %>'
+    featuresUrl      : '<%= url_help.feature_points_path %>',
+    featureUrl       : '<%= url_help.feature_point_path("FEATURE_ID") %>',
+    dragHint         : '<%= I18n.t "map_controls.drag_hint" %>',
+    dragHintLong     : '<%= I18n.t "map_controls.drag_hint_long" %>'
   });
 
   // Register click event within InformationPanel

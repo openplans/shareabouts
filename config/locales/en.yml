@@ -6,6 +6,8 @@ en:
   map_controls:
     locate_feature: 'Add a point!'
     finalize_feature: 'Confirm Location'
+    drag_hint: 'Drag me\! Then click confirm.'
+    drag_hint_long: 'Drag your location to the center of the map'
   auth:
     fb_signin: 'Sign in with Facebook'
   feature:
