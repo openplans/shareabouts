@@ -13,22 +13,7 @@ class FeaturePolygonJob
   
     log "importing polygon from #{@shapefile_path}"
   
-    output_dir = ShapefileImportHelper.unzip @shapefile_path
-  
-                     # if there's a projection file
-    shp_path = if Dir.glob( "#{output_dir}/*.prj" ).first
-      shapefile_path = Dir.glob( "#{output_dir}/*.shp" ).first
-      output_path    = "#{output_dir}/out_4326.shp"
-    
-      command = "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH && ogr2ogr -t_srs EPSG:4326 #{output_path} #{shapefile_path} 2>&1"
-      log "=====RUNNING #{command}"
-      output = `#{command}`
-      log output
-    
-      output_path
-    else #no projection file, use original shapefile
-      Dir.glob( "#{output_dir}/*.shp" ).firstb
-    end
+    shp_path = ShapefileImportHelper.reproject ShapefileImportHelper.unzip( @shapefile_path )
   
     create_polygon shp_path  
   end

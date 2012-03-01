@@ -16,4 +16,25 @@ class ShapefileImportHelper
     # return the dir that contains the shp file
     dirs.uniq!.select { |d| Dir.glob("#{d}/*.shp").first }.first
   end
+  
+  def self.reproject(output_dir)
+    # If there's a projection file, reproject
+    if Dir.glob( "#{output_dir}/*.prj" ).first
+      shapefile_path = Dir.glob( "#{output_dir}/*.shp" ).first
+      output_path    = "#{output_dir}/out_4326.shp"
+    
+      command = "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH && ogr2ogr -t_srs EPSG:4326 #{output_path} #{shapefile_path} 2>&1"
+      log "=====RUNNING #{command}"
+      output = `#{command}`
+      log output
+    
+      output_path
+    else # No projection file, use original shapefile
+      Dir.glob( "#{output_dir}/*.shp" ).first
+    end
+  end
+  
+  def self.log(message)
+    Delayed::Job.logger.info message
+  end
 end

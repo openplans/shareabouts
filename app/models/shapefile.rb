@@ -31,6 +31,10 @@ class Shapefile < ActiveRecord::Base
     update_attribute :job_error, message
   end
   
+  def attachment
+    data
+  end
+  
   private
   
   def attachment_present?

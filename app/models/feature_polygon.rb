@@ -1,3 +1,5 @@
+# A polygon that can be displayed on the map. 
+# Currently, the creation of FeaturePolygons is an admin-only function.
 class FeaturePolygon < ActiveRecord::Base
   include Workflow
 
