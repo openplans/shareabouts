@@ -36,11 +36,12 @@ en:
     vote: 
       action: "%{name} supported %{name}'s suggestion."
     comment: 
-      action: "%{name} commented on %{name}'s suggestion: \"comment text...\""
+      action: "commented on"
     point: 
-      action: "%{name} identified a %{thing} as sidewalk clutter."
+      action: "identified"
+      action_description: "as sidewalk clutter"
       indefinite_article: a
-      by_name: "%{name}'s point"
+      by_name: "%{name}'s suggestion"
       in_region: in %{region}
   activerecord: 
     models: 
