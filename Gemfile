@@ -7,6 +7,7 @@ gem 'capistrano-ext'
 gem 'devise'
 gem 'cancan'
 gem "omniauth-facebook"
+gem "omniauth-twitter"
 gem "fgraph"
 
 gem 'jquery-rails'

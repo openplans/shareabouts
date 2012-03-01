@@ -11,10 +11,27 @@ class User < ActiveRecord::Base
   has_many :feature_points
   has_many :votes
   has_many :comments
+
+  def self.find_for_twitter_oauth(access_token, signed_in_resource=nil)
+    data = access_token['extra']['raw_info']
+    
+    # Twitter does not give access to email, so possibility for double accounts.
+    screenname = "@#{data["screen_name"]}"
+    
+    if user = User.find_by_email(screenname)
+      user
+    else # Create a user with a stub password & twitter name for an email address
+      user = User.create!(:email => screenname) 
+      user.twitter_id         = data["id"]
+      user.name               = data["name"]
+      user.encrypted_password = Devise.friendly_token[0,20]
+      user.save
+      user
+    end
+  end
   
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info']
-    # data: <Hashie::Mash email="juliamae@gmail.com" first_name="Julia" gender="female" id="24403229" last_name="West" link="http://www.facebook.com/juliamae" locale="en_GB" name="Julia West" timezone=-5 updated_time="2011-10-19T21:14:59+0000" username="juliamae" verified=true>
     
     if user = User.find_by_email(data["email"])
       user

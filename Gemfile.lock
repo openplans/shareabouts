@@ -154,6 +154,7 @@ GEM
     net-ssh (2.2.1)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    oauth (0.4.5)
     oauth2 (0.5.1)
       faraday (~> 0.7.4)
       multi_json (~> 1.0.3)
@@ -162,9 +163,14 @@ GEM
       rack
     omniauth-facebook (1.1.0)
       omniauth-oauth2 (~> 1.0.0)
+    omniauth-oauth (1.0.0)
+      oauth
+      omniauth (~> 1.0)
     omniauth-oauth2 (1.0.0)
       oauth2 (~> 0.5.0)
       omniauth (~> 1.0)
+    omniauth-twitter (0.0.8)
+      omniauth-oauth (~> 1.0)
     orm_adapter (0.0.5)
     paperclip (2.5.0)
       activerecord (>= 2.3.0)
@@ -268,6 +274,7 @@ DEPENDENCIES
   json
   libv8 (= 3.3.10.2)
   omniauth-facebook
+  omniauth-twitter
   paperclip (~> 2.0)
   pg
   rails (= 3.1.3)

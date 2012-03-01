@@ -21,7 +21,8 @@ module ApplicationHelper
     send "#{commentable.class.to_s.underscore}_comments_path", commentable.id
   end
   
-  def list_friends   
+  def list_friends
+    return unless session[:fb_token]
     # facebook friends are grabbed every new session
     session[:fb_friends] ||= user_friends_hash session[:fb_token] 
     session[:fb_friends].map {|id,name| name}.join ", "
