@@ -1,54 +1,62 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+# AUTO-GENERATED
 
-en:
-  app_name: Shareabouts
-  map_controls:
-    locate_feature: 'Add a point!'
-    finalize_feature: 'Confirm Location'
-  auth:
-    fb_signin: 'Sign in with Facebook'
-  feature:
-    notice:
-      point_added: 'Thank you! Your point was added to the map. Please, share it with your friends.'
-      invalid: 'There are some errors with your point.'
-    form:
-      header: 'Tell us more...'
-      title_label: Title
-      description_label: Description...
-      submitter_name_label: 'Your Name'
-      submit: 'Submit Point'
-    submitted_by: 'Added by %{author} on %{date_s}'
+--- 
+en: 
+  app_name: "Manhattan Community Board 7: Sidewalk Clutter Map"
+  map_controls: 
+    locate_feature: Tell us about street clutter!
+    finalize_feature: Confirm location
+  auth: 
+    fb_signin: Login with Facebook
+  feature: 
+    notice: 
+      point_added: Thank you! Your submission was added to the map.
+      invalid: Sorry, something went wrong.
+    form: 
+      header: Tell us more...
+      title_label: Sidewalk object (e.g., newsstand on my block)
+      description_label: Tell us why this creates clutter on the sidewalk.
+      submitter_name_label: Your Name
+      submit: Submit Point
+    submitted_by: Added by %{author} on %{date_s}
     comment: 
-      label: comment
-      action: Reply
+      label: Comment
+      action: Comment
     voter_description: supporter
-    vote_action: 'Support This!'
-    sharing:
-      email:
-        subject: 'I suggested a %{thing}'
-        body: 'Check out the %{thing} I suggested: %{url}'
-      twitter:
-        status: 'Check out this %{thing}! %{url}.'
-  activity:
-    vote:
-      action: supported
-    comment:
-      action: 'commented on'
-    point:
-      action: added
+    vote_action: I agree!
+    sharing: 
+      email: 
+        subject: I suggested a %{thing}
+        body: "Check out the %{thing} I suggested: %{url}"
+      twitter: 
+        status: Check out this %{thing}! %{url}.
+  activity: 
+    vote: 
+      action: "%{name} supported %{name}'s suggestion."
+    comment: 
+      action: "%{name} commented on %{name}'s suggestion: \"comment text...\""
+    point: 
+      action: "%{name} identified a %{thing} as sidewalk clutter."
       indefinite_article: a
       by_name: "%{name}'s point"
-      in_region: "in %{region}"
-  # Model names and model attribute names
-  activerecord:
-    models:
+      in_region: in %{region}
+  activerecord: 
+    models: 
       feature_point: point
       user: someone
-    attributes:
-      feature_point:
+    attributes: 
+      feature_point: 
         the_geom: location
-  # Display formats
-  time:
-    formats:
+  time: 
+    formats: 
       display: "%-m/%-d/%Y"
+  sharing: 
+    email: 
+      subject: CB7 sidewalk clutter
+      body: |-
+        I'm helping CB7 make the Upper West Side a more livable neighborhood. 
+        Check out the %{thing} I identified as sidewalk clutter.
+  twitter: 
+    status: Check out this %{thing}!
