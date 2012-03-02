@@ -129,6 +129,7 @@ We use Rspec for testing, so you can run the tests like:
 
 $ rake spec
 
+
 Shapefile reprojection
 ----------------------
 We drop down to use the command line tool, ogr2ogr, in order to reproject 
@@ -139,6 +140,8 @@ $ script/delayed_job start
 
 The deploy script will start and restart delayed jobs for you so you only
 need to start the delayed jobs locally for development. 
+
+The script logs to logs/delayed_job.log.
 
 Admins and Site Options
 -----------------------
