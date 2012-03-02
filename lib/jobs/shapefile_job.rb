@@ -1,5 +1,4 @@
 require 'geo_ruby/shp'
-require 'zip/zip'
 
 class ShapefileJob
   include GeoRuby::Shp4r
@@ -9,47 +8,13 @@ class ShapefileJob
     @shapefile_id   = shapefile_id
   end
 
-  def unzip(file=nil)
-    destination = File.dirname( file || @shapefile_path )
-    dirs         = [] 
-  
-    Zip::ZipFile.open( file || @shapefile_path ) do |zip_file|
-      zip_file.each do |f|
-        f_path = File.join(destination, f.name)
-        dirs  += FileUtils.mkdir_p( File.dirname f_path )
-        zip_file.extract( f, f_path ) unless File.exist?( f_path )
-      end
-    end
-  
-    #output dir is the dir that contains the shp file
-    @output_dir = dirs.uniq!.select { |d| Dir.glob("#{d}/*.shp").first }.first
-  
-    Dir.glob("#{@output_dir}/*") # return the files in the output dir
-  end
-
   def perform
     shapefile.import!
   
     log "importing regions from #{@shapefile_path}"
   
-    unzip @shapefile_path
-  
-                     # if there's a projection file
-    shapefile_path = if Dir.glob( "#{@output_dir}/*.prj" ).first
-      shapefile_path = Dir.glob( "#{@output_dir}/*.shp" ).first
-      output_path    = "#{@output_dir}/out_4326.shp"
-    
-      command = "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH && ogr2ogr -t_srs EPSG:4326 #{output_path} #{shapefile_path} 2>&1"
-      log "=====RUNNING #{command}"
-      output = `#{command}`
-      log output
-    
-      output_path
-    else #no projection file, use original shapefile
-      Dir.glob( "#{@output_dir}/*.shp" ).first
-    end
-  
-    regions_count = create_regions shapefile_path
+    shp_path      = ShapefileImportHelper.reproject ShapefileImportHelper.unzip( @shapefile_path )
+    regions_count = create_regions shp_path
   
     log "imported #{regions_count} regions."    
   end

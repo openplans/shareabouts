@@ -8,6 +8,8 @@ en:
   map_controls: 
     locate_feature: Tell us about street clutter!
     finalize_feature: Confirm location
+    drag_hint: 'Drag me\! Then click confirm.'
+    drag_hint_long: 'Drag your location to the center of the map'
   auth: 
     fb_signin: Login with Facebook
   feature: 

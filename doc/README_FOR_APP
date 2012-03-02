@@ -116,6 +116,10 @@ $ rake db:migrate
 if rake db:migrate fails, try
 $ rake db:schema:load
 
+Finally, seed the database with an initial admin user and other data:
+
+$ rake db:seed
+
 Testing
 --------
 
@@ -149,12 +153,22 @@ left nav, and click "Edit" on the line of the generated admin. Enter the email
 address, new password, and password again (under Password Confirmation) and 
 click Save.
 
+Admin Interface
+---------------
+
+Shareabouts uses the rails_admin engine for some management tasks.
+
+To visit the admin UI, browse to /admin/ and use the admin user
+created by 'rake db:seed' as described above.
+
+
 Starting the Development Server
 --------------------------------
 
 In the root of your shareabouts checkout, run this:
 
 $ rails server
+
 
 Server setup (for production)
 ------------------------------
@@ -199,6 +213,7 @@ Visit http://_yourserver_/admin, log in with the default credentials, click
 "Admins" in the left nav, and click "Edit" on the line of the generated admin.
 Enter the email address, new password, and password again (under Password 
 Confirmation) and click Save. 
+
 
 Feedback
 --------

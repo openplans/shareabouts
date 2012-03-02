@@ -57,7 +57,7 @@ RailsAdmin.config do |config|
   # config.excluded_models << []
 
   # Add models here if you want to go 'whitelist mode':
-  config.included_models += %w{SiteOption Admin FeaturePoint Comment LocationType Page Shapefile}
+  config.included_models += %w{SiteOption Admin FeaturePoint FeaturePolygon Comment LocationType Page Shapefile}
 
   # Application wide tried label methods for models' instances
   # config.label_methods << [:description] # Default is [:name, :title]
@@ -81,6 +81,16 @@ RailsAdmin.config do |config|
   #
   #  ==> Model specific configuration
   # Try to override as few things as possible, in the most generic way. Try to avoid setting labels for models and attributes, use ActiveRecord I18n API instead.
+  config.model FeaturePolygon do
+    list do
+      fields :id, :name, :shapefile, :workflow_state, :visible
+    end
+    
+    edit do
+      fields :shapefile, :name, :description, :visible
+    end
+  end
+  
   config.model Shapefile do
     object_label_method :kind 
     list do
