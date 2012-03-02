@@ -13,6 +13,7 @@ en:
     drag_hint_long: 'Drag your location to the center of the map'
   auth: 
     fb_signin: Login with Facebook
+    twitter_signin: Login with Twitter
   feature: 
     notice: 
       point_added: Thank you! Your submission was added to the map.
