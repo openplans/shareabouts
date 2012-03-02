@@ -21,7 +21,7 @@ From the root of your shareabouts source tree:
 Now do your first deployment:
 
  dotcloud push shareabouts .
- dotcloud run shareabouts.www -- rake -f current/Rakefile db:create db:migrate
+ dotcloud run shareabouts.www -- rake -f current/Rakefile db:create db:migrate db:seed
 
 That should take care of everything.
 
@@ -39,4 +39,10 @@ From the root of your shareabouts source tree:
 
  dotcloud push shareabouts .
  dotcloud run shareabouts.www -- rake -f current/Rakefile db:migrate
+
+Caveats
+=======
+
+dotcloud doesn't have ogr2ogr installed so it's not possible currently
+to upload shapefiles in projections other than 4326.
 
