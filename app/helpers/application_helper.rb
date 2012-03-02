@@ -45,8 +45,12 @@ module ApplicationHelper
     page.welcome_page? ? {'data-welcome-page' => true} : {}
   end
   
-  def facebook_avatar(user)
-    image_tag "https://graph.facebook.com/#{user.facebook_id}/picture" if user.facebook_id.present?
+  def avatar_for(user)
+    if user.facebook_id.present?
+      image_tag "https://graph.facebook.com/#{user.facebook_id}/picture" 
+    elsif user.twitter_id.present?
+      image_tag "https://api.twitter.com/1/users/profile_image?id=#{user.twitter_id}"
+    end
   end
   
   private
