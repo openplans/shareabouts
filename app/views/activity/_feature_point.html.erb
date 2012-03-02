@@ -1,7 +1,7 @@
 <a href="<%= feature_point_path(activity_item.subject) %>">
-  <% @region_name = activity_item.region.present? ? activity_item.region.name : nil %>
+  <% @region_name = activity_item.feature.display_region %>
   <% @name = activity_item.user_name  %>
-  <% @thing = activity_item.feature.location_type ? activity_item.feature.location_type.name : FeaturePoint.model_name.human %>
+  <% @thing = activity_item.feature.display_type %>
   <% if @region_name  %>
     <%= t "activity.point.action_with_region_html", :name => @name, :region => @region_name, :thing => @thing %>
   <% else %>

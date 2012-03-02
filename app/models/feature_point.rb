@@ -58,7 +58,15 @@ class FeaturePoint < ActiveRecord::Base
   def display_submitter
     user.try(:name) || (submitter_name.present? ? submitter_name : User.model_name.human.capitalize)
   end
-  
+
+  def display_type
+    location_type ? location_type.name : FeaturePoint.model_name.human
+  end
+
+  def display_region
+    region.present? ? region.name : nil
+  end
+
   def region
     regions.find(&:default?) || regions.first
   end
@@ -114,4 +122,5 @@ class FeaturePoint < ActiveRecord::Base
     self.activity_items.delete_all
     self.children_activity_items.delete_all
   end
+
 end
