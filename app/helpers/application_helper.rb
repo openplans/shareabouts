@@ -1,3 +1,5 @@
+require 'cgi'
+
 module ApplicationHelper
 
   def vote_for(supportable)
@@ -33,7 +35,12 @@ module ApplicationHelper
   
   # message is irrelevant for this
   def facebook_share_feature(feature)
-    link_to "recommend on fb", "https://www.facebook.com/sharer/sharer.php?u=#{feature_point_url(feature)}", :class => "facebook"
+    url = CGI.escape(feature_point_url(feature))
+    title = I18n.t("feature.sharing.facebook.status", :name => feature.display_submitter, :thing => feature.display_type)
+    title = CGI.escape(title)
+    # Contrary to https://developers.facebook.com/docs/share/
+    # the title is ignored??
+    link_to "recommend on fb", "https://www.facebook.com/sharer.php?u=#{url}&t=#{title}", :class => "facebook"
   end
   
   def page_link_attributes(page)
