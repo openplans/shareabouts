@@ -9,6 +9,7 @@ gem 'cancan'
 gem "omniauth-facebook"
 gem "omniauth-twitter"
 gem "fgraph"
+gem "twitter"
 
 gem 'jquery-rails'
 gem "useragent"
