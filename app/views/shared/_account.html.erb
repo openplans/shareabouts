@@ -1,0 +1,11 @@
+<%= link_to "Sign out", destroy_user_session_path %>
+<br />
+<span id="user-status">
+  You've suggested 
+  <%= pluralize current_user.feature_points.count, "location" %> 
+  (<%= current_user.feature_points.map(&:id).join(", ") %>) 
+  and supported
+  <%= pluralize current_user.votes.count, "location" %>.
+  <br />
+  Your friends: <%= list_friends %>
+</span>

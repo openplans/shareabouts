@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120229203732) do
+ActiveRecord::Schema.define(:version => 20120301211836) do
 
   create_table "activity_items", :force => true do |t|
     t.string   "subject_type"
@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(:version => 20120229203732) do
     t.datetime "updated_at"
     t.integer  "facebook_id",            :limit => 8
     t.string   "name"
+    t.integer  "twitter_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -6,6 +6,14 @@ else
   FACEBOOK_APP_SECRET = ENV['FACEBOOK_APP_SECRET']
 end
 
+if File.exists?("#{Rails.root}/config/twitter.yml")
+  TWITTER_CONSUMER_KEY    = YAML.load_file("#{Rails.root}/config/twitter.yml")[Rails.env]['consumer_key']
+  TWITTER_CONSUMER_SECRET = YAML.load_file("#{Rails.root}/config/twitter.yml")[Rails.env]['consumer_secret']
+else
+  TWITTER_CONSUMER_KEY    = ENV['TWITTER_CONSUMER_KEY']
+  TWITTER_CONSUMER_SECRET = ENV['TWITTER_CONSUMER_SECRET']
+end
+
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
@@ -205,6 +213,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   config.omniauth :facebook, FACEBOOK_APP_ID, FACEBOOK_APP_SECRET
+  config.omniauth :twitter, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

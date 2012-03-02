@@ -42,19 +42,9 @@
       </nav>
       <nav id="access" role="navigation">
         <% if current_user %>
-          <%= link_to "Sign out", destroy_user_session_path %>
-          <br />
-          <span id="user-status">
-            You've suggested 
-            <%= pluralize current_user.feature_points.count, "location" %> 
-            (<%= current_user.feature_points.map(&:id).join(", ") %>) 
-            and supported
-            <%= pluralize current_user.votes.count, "location" %>.
-            <br />
-            Your friends: <%= list_friends %>
-          </span>
+        <%= render "shared/account" %>
         <% else %>
-          <%= link_to t("auth.fb_signin"), user_omniauth_authorize_path(:facebook), :class => 'facebook-login' %>
+          <%= render "shared/sign_in" %>
         <% end %>
       </nav>
     </header>

@@ -2,12 +2,17 @@
   <h6><%= pluralize commentable.comments.count, t("feature.comment.label") %></h6>
   <ul>
     <% for comment in commentable.comments %>
-      <li>
-        <%= content_tag :strong, comment.display_submitter if comment.display_submitter %>
-        <span class="weak">
-          <%= comment.created_at.strftime("%m/%d/%Y") %>
-        </span> 
-        <%= comment.comment %>
+      <li class="clearfix">
+        <div class="avatar">
+          <%= avatar_for(comment.user) if comment.user.present? %>
+        </div>
+        <div>
+          <%= content_tag :strong, comment.display_submitter if comment.display_submitter %>
+          <span class="weak">
+            <%= comment.created_at.strftime("%m/%d/%Y") %>
+          </span> 
+          <%= comment.comment %>
+        </div>
       </li>
     <% end %>
   </ul>

@@ -1,7 +1,7 @@
 <% @activity_items.each do |activity_item| %>
 <li class="clearfix" data-id="<%= activity_item.id %>" data-feature-id="<%= activity_item.feature.id %>">
   <div class="avatar">
-    <%= facebook_avatar(activity_item.user) if activity_item.user.present? %>
+    <%= avatar_for(activity_item.user) if activity_item.user.present? %>
     <div class="badge <%= activity_item.subject_type.underscore %>"></div>
   </div>
   <%= render "#{activity_item.subject_type.underscore}.html", :activity_item => activity_item  %>
