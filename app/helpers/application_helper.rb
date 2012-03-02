@@ -22,10 +22,14 @@ module ApplicationHelper
   end
   
   def list_friends
-    return unless session[:fb_token]
-    # facebook friends are grabbed every new session
-    session[:fb_friends] ||= user_friends_hash session[:fb_token] 
-    session[:fb_friends].map {|id,name| name}.join ", "
+    # Friends from other services are grabbed every new session
+    if session[:fb_token].present?
+      session[:fb_friends] ||= fb_friends_hash session[:fb_token] 
+      session[:fb_friends].map {|id,name| name}.join ", "
+    elsif session[:twitter_token].present?
+      session[:twitter_friends] ||= twitter_friends_hash session[:twitter_token], session[:twitter_secret]
+      session[:twitter_friends].map {|id,name| name}.join ", "
+    end
   end
   
   def tweet(message)
@@ -47,11 +51,26 @@ module ApplicationHelper
   
   private
   
-  def user_friends_hash(access_token)
+  def fb_friends_hash(access_token)
     friends_graph = FGraph.me('friends', :access_token => access_token)
     return {} if friends_graph.blank?
         
     User.where("facebook_id in (#{friends_graph.map { |h| h["id"] }.join(",")})").inject({}) do |memo, user|
+      memo[user.id] = user.name
+      memo
+    end
+  end
+  
+  def twitter_friends_hash(access_token, secret)
+    twitter_client = Twitter::Client.new(
+      :oauth_token => access_token,
+      :oauth_token_secret => secret
+    )
+    
+    friend_ids = twitter_client.friend_ids["ids"]
+    return {} if friend_ids.blank?
+        
+    User.where("twitter_id in (#{friend_ids.join(",")})").inject({}) do |memo, user|
       memo[user.id] = user.name
       memo
     end
