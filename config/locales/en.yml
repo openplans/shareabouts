@@ -38,11 +38,10 @@ en:
     comment: 
       action: "commented on"
     point: 
-      action: "identified"
-      action_description: "as sidewalk clutter"
-      indefinite_article: a
       by_name: "%{name}'s suggestion"
       in_region: in %{region}
+      action_with_region_html: "<strong>%{name}</strong> identified a %{thing} as sidewalk clutter in %{region}"
+      action_html: "<strong>%{name}</strong> identified a %{thing} as sidewalk clutter"
   activerecord: 
     models: 
       feature_point: point

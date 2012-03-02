@@ -1,9 +1,10 @@
 <a href="<%= feature_point_path(activity_item.subject) %>">
-  <strong><%= activity_item.user_name %></strong> 
-  <!-- This needs redoing as one string with variables: in this form, will force broken grammar in other languages -->
-  <%= t("activity.point.action") %> 
-  <%= t("activity.point.indefinite_article")%>
-  <%= FeaturePoint.model_name.human %> 
-  <%= t("activity.point.action_description") %> 
-  <%= t("activity.point.in_region", :region => activity_item.region.name) if activity_item.region.present? %>
+  <% @region_name = activity_item.region.present? ? activity_item.region.name : nil %>
+  <% @name = activity_item.user_name  %>
+  <% @thing = activity_item.feature.location_type ? activity_item.feature.location_type.name : FeaturePoint.model_name.human %>
+  <% if @region_name  %>
+    <%= t "activity.point.action_with_region_html", :name => @name, :region => @region_name, :thing => @thing %>
+  <% else %>
+    <%= t "activity.point.action_html", :name => @name, :thing => @thing %>
+  <% end %>
 </a>
