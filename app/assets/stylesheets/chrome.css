@@ -66,6 +66,14 @@ th {
 table.regions {
 }
 
+/* Global */
+.avatar {
+  background : transparent url('user.png') no-repeat scroll top right;
+  width      : 26px;
+  height     : 25px;
+  position   : relative;
+  float      : left;
+}
 
 /*
  *
@@ -280,13 +288,26 @@ table.regions {
   color : #888;
 }
 
+.feature.show > .avatar {
+  width: 48px;
+  height: 48px;
+  margin-right : 0.5em;
+}
+
 /* Feature Popup - Discussion */
 .feature.show div.discussion ul {
   margin-left: 0;
 }
+
+.feature.show div.discussion .avatar {
+  margin-right: 0.5em;
+}
+
+.feature.show div.discussion .avatar img {
+  width: 26px;
+}
+
 .feature.show div.discussion ul li {
-  background: transparent url('user.png') no-repeat scroll top left;
-  padding: 0 0 1em 35px;
   margin: 0 0 1em 0;
   min-height: 25px;
   border-bottom: 1px solid #ddd;
@@ -467,9 +488,6 @@ table.regions {
 #ticker .avatar {
   width      : 35px;
   height     : 35px;
-  position   : relative;
-  float      : left;
-  background : transparent url('user.png') no-repeat scroll top right;
   margin-right : 0.5em;
   text-align : right;
 }
