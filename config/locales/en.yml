@@ -4,7 +4,8 @@
 
 --- 
 en: 
-  app_name: "Manhattan Community Board 7: Sidewalk Clutter Map"
+
+  app_name: "Manhattan CB7: Sidewalk Clutter Map"
   map_controls: 
     locate_feature: Tell us about street clutter!
     finalize_feature: Confirm location
@@ -18,7 +19,7 @@ en:
       invalid: Sorry, something went wrong.
     form: 
       header: Tell us more...
-      title_label: Sidewalk object (e.g., newsstand on my block)
+      title_label: Sidewalk object
       description_label: Tell us why this creates clutter on the sidewalk.
       submitter_name_label: Your Name
       submit: Submit Point
@@ -30,10 +31,14 @@ en:
     vote_action: I agree!
     sharing: 
       email: 
-        subject: I suggested a %{thing}
-        body: "Check out the %{thing} I suggested: %{url}"
+        subject: CB7 sidewalk clutter
+        body: |-
+          I'm helping CB7 make the Upper West Side a more livable neighborhood. 
+          Check out the %{thing} I identified as sidewalk clutter: %{url}
       twitter: 
-        status: Check out this %{thing}! %{url}.
+        status: Check out this %{thing}! %{url}
+      facebook:
+        status: %{name} identified a %{thing} as sidewalk clutter in CB7.
   activity: 
     vote: 
       action: "%{name} supported %{name}'s suggestion."
@@ -54,11 +59,3 @@ en:
   time: 
     formats: 
       display: "%-m/%-d/%Y"
-  sharing: 
-    email: 
-      subject: CB7 sidewalk clutter
-      body: |-
-        I'm helping CB7 make the Upper West Side a more livable neighborhood. 
-        Check out the %{thing} I identified as sidewalk clutter.
-  twitter: 
-    status: Check out this %{thing}!
