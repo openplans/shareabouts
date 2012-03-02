@@ -1,13 +1,15 @@
 /*
- * This is a manifest file that'll automatically include all the stylesheets available in this directory
- * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
- * the top of the compiled file, but it's generally better to create a new file per style scope.
+ * This is a manifest file that includes all the stylesheets named
+ * below.  You're free to add application-wide styles to this file and
+ * they'll appear at the top of the compiled file, but it's generally
+ * better to create a new file per style scope.
  *= require_self
  *= require reset
  *= require base-styles
  *= require layout-fullscreen
  *= require chrome
  *= require ../../../lib/assets/stylesheets/externals
+ *= require_tree ./overrides/
 */
 
 /* define custom Google Web Font */

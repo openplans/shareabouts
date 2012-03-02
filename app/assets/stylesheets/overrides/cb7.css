@@ -1,0 +1,38 @@
+/* Forms, Inputs, & Buttons */
+
+input[type=button],
+input[type=submit],
+button {
+  font-size: 1.75em;
+  white-space: normal;
+  line-height: 1.75em;
+  height: 1.75em;
+}
+
+#site-title {
+  font-size: 2.5em;
+}
+
+#site-title a {
+  /* float: none; */
+}
+
+nav#pages {
+    display: inline;
+}
+
+/* smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+  #site-title {
+    font-size: 1.5em;
+  }
+  input[type=button],
+  input[type=submit],
+  button {
+    font-size: 1.25em;
+    line-height: 1.25em;
+    height: 1.25em;
+  }
+}
