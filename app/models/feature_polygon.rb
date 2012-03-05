@@ -23,6 +23,14 @@ class FeaturePolygon < ActiveRecord::Base
     state :import_error
   end
   
+  def as_json
+    { :id => id, :latlngs => the_geom.to_coordinates }
+  end
+  
+  def attachment
+    shapefile
+  end
+  
   # Creates the_geom from a 2D array of latlongs 
   # assumes this is actually not a multipolygon, but a polygon
   def the_geom_from_points=(coordinate_pairs)
@@ -31,10 +39,6 @@ class FeaturePolygon < ActiveRecord::Base
     end
 
     write_attribute :the_geom, MultiPolygon.from_polygons( [ Polygon.from_points([points]) ] )
-  end  
-  
-  def attachment
-    shapefile
   end
   
   private
