@@ -5,3 +5,5 @@ end
 
 # Create initial admin user
 Admin.create :email => "admin@example.com", :password => "p@ssw0rd", :password_confirmation => "p@ssw0rd", :level => 100
+puts "Created an initial user. Be sure to change admin user password!"
+
