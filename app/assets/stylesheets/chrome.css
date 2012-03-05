@@ -516,6 +516,14 @@ table.regions {
   background : transparent url('ticker-comment.png') no-repeat scroll top left;
 }
 
+/* HiderSlider Widget */
+.ui-sliderhider-container {
+  position: absolute;
+  right:0px;
+  bottom:20px;
+}
+
+
 /*
  *
  * Media Queries for Layout & Style Overrides

@@ -6,7 +6,9 @@ $.widget("ui.shareabout", (function() {
       fsm, // state machine
       layersOnMap, // object that stores map features (marker layers, specifically) by their ID
       popup, // one popup on the map
-      featurePointsCache = []; // Cache of all of the feature points
+      featurePointsCache = [],  // Cache of all of the feature points
+      popularityStats, // popularity stats about the current features in the cache
+      popularityThreshold = 0; // The min popularity to show
 
   return {
     options : {
@@ -193,28 +195,46 @@ $.widget("ui.shareabout", (function() {
           feature,
           inBounds,
           onMap,
+          isPopular,
           markerLayer;
 
       for(i=0; i<len; i++) {
         feature = featurePointsCache[i];
 
+        // Popular enough to show
+        isPopular = feature.pop >= popularityThreshold;
+        // In the current map bounds
         inBounds = this._isFeatureInBounds(feature, bounds);
         // Not not something truthy is true
         onMap = !!layersOnMap[feature.id];
 
         // If inBounds and not onMap, add it
-        if (inBounds && !onMap) {
+        if (inBounds && !onMap && isPopular) {
           this.addMapFeature(feature);
         }
 
-        // If not inBounds and onMap, remove it
-        if (!inBounds && onMap) {
+        // If not popular or not inBounds and onMap, remove it
+        if ((!isPopular || !inBounds) && onMap) {
           map.removeLayer(layersOnMap[feature.id]);
           delete layersOnMap[feature.id];
         }
       }
 
       if (callback) {callback();}
+    },
+
+    // Will update the map and only show features that are more popular
+    // than the given value.
+    filterByPopularity: function(pop) {
+      popularityThreshold = pop;
+      this.refreshMapFeatures();
+    },
+
+    // Will update the map and only show features that are more popular
+    // than the given percentage.
+    filterByPopularityPercentage: function(percent) {
+      var pop = (popularityStats.max - popularityStats.min) * percent;
+      this.filterByPopularity(pop);
     },
 
     openPopup : function(content) {
@@ -257,6 +277,7 @@ $.widget("ui.shareabout", (function() {
         success: function(data){
           if($.isArray(data) && data.length) {
             featurePointsCache = featurePointsCache.concat(data);
+            popularityStats = self._getPopularityStats();
           }
           if (success) {success(data);}
         },
@@ -285,6 +306,27 @@ $.widget("ui.shareabout", (function() {
       }
 
       return null;
+    },
+
+    _getPopularityStats: function() {
+      var i,
+          len = featurePointsCache.length,
+          min = Number.MAX_VALUE,
+          max = Number.MIN_VALUE;
+
+      for (i=0; i<len; i++) {
+        if (featurePointsCache[i].pop <= min) {
+          min = featurePointsCache[i].pop;
+        }
+        if (featurePointsCache[i].pop > max) {
+          max = featurePointsCache[i].pop;
+        }
+      }
+
+      return {
+        min: min,
+        max: max
+      };
     },
 
     _refreshMapFeaturesWithDelay : function(ms) {

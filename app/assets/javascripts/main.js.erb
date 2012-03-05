@@ -148,6 +148,15 @@ $(function() {
     showPage(pages.filter('[data-welcome-page]').attr("href"));
   }
 
+  $('#map-container').hiderslider({
+      title: 'Filter by Popularity',
+      slider: {
+        slide: function(e, data) {
+          Map.shareabout('filterByPopularityPercentage', data.value/100);
+        }
+      }
+    });
+
   // Start the ticker
   if ( !Map.shareabout("smallScreen") ) {
     $("#ticker").activityticker({
