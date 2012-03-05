@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
-# This command will populate the feature_points with geoms from db/seeds/points.csv. 
-# Feature points will have 100 supports.
-# Pass an integer argument to specify number of points, or else defaults to 1000 points.
+# This command will generate ActivityItems for all FeaturePoints, Votes,
+# and Comments in the database.
 
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require File.expand_path('../../config/boot',  __FILE__)
