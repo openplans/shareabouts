@@ -15,11 +15,12 @@ puts "#{LocationType.count} location types"
 data = YAML.load_file( File.join(Rails.root,'db','seeds','cb7_pages.yml'))
 pages = data['pages']
 pages.each do |slug,params|
-  page = Page.find_or_create_by_slug(slug)
+  page = Page.find_or_initialize_by_slug(slug)
   params.each do |name,value|
-    page.instance_variable_set("@#{name}", value)
+    page.send(name + "=", value)
   end
   page.save
+  p page
 end
 
 puts "#{Page.count} pages"
