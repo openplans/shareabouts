@@ -19,8 +19,13 @@ pages.each do |slug,params|
   params.each do |name,value|
     page.send(name + "=", value)
   end
-  page.save
-  p page
+  # I don't really care who, just need *some* admin
+  #Admin.current_admin = Admin.first
+  page.author_id = Admin.first.id
+  if not page.save
+    puts "Errors saving the page:"
+    puts page.errors.full_messages
+  end
 end
 
 puts "#{Page.count} pages"
