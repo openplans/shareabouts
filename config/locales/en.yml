@@ -4,19 +4,18 @@
 
 --- 
 en: 
-
   app_name: "Manhattan CB7: Sidewalk Clutter Map"
   map_controls: 
     locate_feature: Tell us about street clutter!
     finalize_feature: Confirm location
-    drag_hint: 'Drag me\! Then click confirm.'
-    drag_hint_long: 'Drag your location to the center of the map'
+    drag_hint: Drag me\! Then click confirm.
+    drag_hint_long: Drag your location to the center of the map
   auth: 
     fb_signin: Login with Facebook
     twitter_signin: Login with Twitter
-  account:
-    my_points: 'My Points'
-    my_supports: 'Supported'
+  account: 
+    my_points: My Points
+    my_supports: Supported
   feature: 
     notice: 
       point_added: Thank you! Your submission was added to the map.
@@ -41,18 +40,18 @@ en:
           Check out the %{thing} I identified as sidewalk clutter: %{url}
       twitter: 
         status: Check out this %{thing}! %{url}
-      facebook:
-        status: %{name} identified a %{thing} as sidewalk clutter in CB7.
+      facebook: 
+        status: "%{name} identified a %{thing} as sidewalk clutter in CB7."
   activity: 
     vote: 
       action: "%{name} supported %{name}'s suggestion."
     comment: 
-      action: "commented on"
+      action: commented on
     point: 
       by_name: "%{name}'s suggestion"
       in_region: in %{region}
-      action_with_region_html: "<strong>%{name}</strong> identified a %{thing} as sidewalk clutter in %{region}"
-      action_html: "<strong>%{name}</strong> identified a %{thing} as sidewalk clutter"
+      action_with_region_html: <strong>%{name}</strong> identified a %{thing} as sidewalk clutter in %{region}
+      action_html: <strong>%{name}</strong> identified a %{thing} as sidewalk clutter
   activerecord: 
     models: 
       feature_point: point
