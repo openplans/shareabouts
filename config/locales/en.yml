@@ -11,6 +11,9 @@ en:
   auth:
     fb_signin: 'Sign in with Facebook'
     twitter_signin: 'Sign in with Twitter'
+  account:
+    my_points: 'My Points'
+    my_supports: 'Supported'
   feature:
     notice:
       point_added: 'Thank you! Your point was added to the map. Please, share it with your friends.'
