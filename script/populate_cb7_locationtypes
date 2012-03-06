@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # This command will populate the location_type table with values from db/seeds/cb7_locationtypes.csv
+# And then populate the pages table with values from db/seeds/cb7_pages.yaml
 
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require File.expand_path('../../config/boot',  __FILE__)
@@ -10,3 +11,15 @@ CSV.foreach( File.join(Rails.root,'db','seeds','cb7_locationtypes.csv'), headers
 end
 
 puts "#{LocationType.count} location types"
+
+data = YAML.load_file( File.join(Rails.root,'db','seeds','cb7_pages.yml'))
+pages = data['pages']
+pages.each do |slug,params|
+  page = Page.find_or_create_by_slug(slug)
+  params.each do |name,value|
+    page.instance_variable_set("@#{name}", value)
+  end
+  page.save
+end
+
+puts "#{Page.count} pages"

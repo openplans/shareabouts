@@ -22,6 +22,7 @@ Now do your first deployment:
 
  dotcloud push shareabouts .
  dotcloud run shareabouts.www -- rake -f current/Rakefile db:create db:migrate db:seed
+ dotcloud run shareabouts.www -- current/script/
 
 That should take care of everything.
 
