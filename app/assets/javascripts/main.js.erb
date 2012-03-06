@@ -84,6 +84,7 @@ $(function() {
     initialFeatureId : window.shareabouts.initialFeatureId,
     featuresUrl      : '<%= url_help.feature_points_path %>',
     featureUrl       : '<%= url_help.feature_point_path("FEATURE_ID") %>',
+    polygonsUrl      : '<%= url_help.feature_polygons_path %>', // json of coordinates for multipolygon areas
     dragHint         : '<%= I18n.t "map_controls.drag_hint" %>',
     dragHintLong     : '<%= I18n.t "map_controls.drag_hint_long" %>'
   });

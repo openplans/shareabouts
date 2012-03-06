@@ -111,15 +111,68 @@ table.regions {
 }
 #pages {
   margin-top: 2.75em;
+  float : left;
 }
 #header .meta-separator {
   color: #777;
   margin: 0 0.25em;
 }
 #access {
-  bottom: 1em;
-  position: absolute;
-  right: 1em;
+  float:right;
+  margin-top: 1em;
+}
+#access .account,
+#access .account .my-points,
+#access .account .my-supports,
+#access .menu {
+  float: left;
+  font-size: 0.9em;
+}
+#access .account span {
+  padding-left: 1em;
+  font-size: 1.8em;
+  font-weight: bold;
+}
+#access .account > div {
+  margin-right: 1em;
+}
+#access .account .my-points span {
+  background: transparent url('feature-point.png') no-repeat scroll center left;
+  color: lightblue;
+}
+#access .account .my-supports span {
+  background: transparent url('support-heart.png') no-repeat scroll center left;
+  color: pink;
+}
+#access .menu a {
+  padding: 0 0.5em;
+  font-weight: normal;
+  margin: 0;
+  font-size: 0.8em;
+}
+#access .menu img {
+  height: 3em;
+  vertical-align: middle;
+}
+#access .menu span.arrow-s {
+  font-size: 0.5em;
+  border-top-color: #444;
+  margin: 0 0.5em;
+}
+#access .menu li {
+  background-color: #666;
+  border-style: solid;
+  border-color: #5D5D5D;
+  border-width: 2px 0;
+  display: none;
+}
+#access .menu:hover li {
+  display:block;
+}
+#access .menu li:first-child {
+  display: block;
+  border: 0;
+  line-height:0px;
 }
 .sign-in {
   float: right;

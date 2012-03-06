@@ -16,6 +16,8 @@ Shareabouts::Application.routes.draw do
     end
   end
   
+  resources :feature_polygons, :path => 'areas', :only => [:index]
+  
   resources :regions, :only => [:index] do
     collection do
       get 'import', :as => :import

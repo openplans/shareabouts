@@ -113,3 +113,56 @@ button {width: auto; overflow: visible;}
 .clearfix:after { clear: both; }
 /* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
 .clearfix { zoom: 1; }
+/* CSS Arrows */
+.arrow-n,
+.arrow-e,
+.arrow-s,
+.arrow-w {
+  /*
+   * In Internet Explorer, The"border-style: dashed" will never be
+   * rendered unless "(width * 5) >= border-width" is true.
+   * Since "width" is set to "0", the "dashed-border" remains
+   * invisible to the user, which renders the border just like how
+   * "border-color: transparent" renders.
+   */
+  border-style: dashed;
+  border-color: transparent;
+  border-width: 0.53em;
+  display: -moz-inline-box;
+  display: inline-block;
+  /* Use font-size to control the size of the arrow. */
+  font-size: 100px;
+  height: 0;
+  line-height: 0;
+  position: relative;
+  vertical-align: middle;
+  width: 0;
+}
+
+.arrow-n {
+  border-bottom-width: 1em;
+  border-bottom-style: solid;
+  border-bottom-color: #666;
+  bottom: 0.25em;
+}
+
+.arrow-e {
+  border-left-width: 1em;
+  border-left-style: solid;
+  border-left-color: #666;
+  left: 0.25em;
+}
+                    
+.arrow-s {
+  border-top-width: 1em;
+  border-top-style: solid;
+  border-top-color: #666;
+  top: 0.25em;
+}
+
+.arrow-w {
+  border-right-width: 1em;
+  border-right-style: solid;
+  border-right-color: #666;
+  right: 0.25em;
+}

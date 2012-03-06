@@ -14,6 +14,9 @@ en:
   auth: 
     fb_signin: Login with Facebook
     twitter_signin: Login with Twitter
+  account:
+    my_points: 'My Points'
+    my_supports: 'Supported'
   feature: 
     notice: 
       point_added: Thank you! Your submission was added to the map.
