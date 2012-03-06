@@ -6,12 +6,14 @@ APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require File.expand_path('../../config/boot',  __FILE__)
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
 
+puts "Populating LocationTypes"
 CSV.foreach( File.join(Rails.root,'db','seeds','cb7_locationtypes.csv'), headers: true ) do |r|
   loctype = LocationType.find_or_create_by_name(r['location_type'])
 end
 
 puts "#{LocationType.count} location types"
 
+puts "Populating Pages"
 data = YAML.load_file( File.join(Rails.root,'db','seeds','cb7_pages.yml'))
 pages = data['pages']
 pages.each do |slug,params|
@@ -29,3 +31,16 @@ pages.each do |slug,params|
 end
 
 puts "#{Page.count} pages"
+
+puts "Populating Site Options"
+data = YAML.load_file( File.join(Rails.root,'db','seeds','cb7_site_options.yml'))
+options = data['site_options']
+options.each do |name,value|
+  option = SiteOption.find_or_initialize_by_option_name(name)
+  option.send("option_value=", value)
+  if not option.save
+    puts "Errors saving the SiteOption:"
+    puts option.errors.full_messages
+  end
+end
+puts "#{SiteOption.count} site options"
