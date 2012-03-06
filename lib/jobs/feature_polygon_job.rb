@@ -24,6 +24,10 @@ class FeaturePolygonJob
       feature_polygon.update_attribute :the_geom, shape.geometry
     end
   end
+  
+  def max_attempts
+    1
+  end
 
   # Delayed::Job callbacks
   def success(job)
