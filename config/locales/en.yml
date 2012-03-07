@@ -4,7 +4,7 @@
 
 --- 
 en: 
-  app_name: "Manhattan CB7: Sidewalk Clutter Map"
+  app_name: Street clutter in CB7
   map_controls: 
     locate_feature: Tell us about street clutter!
     finalize_feature: Confirm location
