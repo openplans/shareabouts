@@ -20,6 +20,6 @@
 </ul>
 
 <div id="reply"<% if !commentable.comments.present? %>class="hide"<% end %>>
-  <strong>Leave a Comment</strong>
+  <h6 class="reply-header">Leave a Comment</h6>
   <%= render "comments/new", :commentable => commentable %>
 </div>

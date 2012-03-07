@@ -418,9 +418,20 @@ a.reply-link:hover {
 #reply.hide {
   display: none;
 }
-.discussion input[type=submit] {
+.reply-header {
+  margin: 1.5em 0 1em;
+}
+#reply div { 
+  margin: 0 0 0.5em;
+}
+#reply label { 
+  color: #888;
+  font-size: 0.8em;
+  display: block;
+}
+#reply input[type=submit] {
   font-size: 1.1em;
-  margin-top: 0.5em;
+  margin-top: 1em;
 }
 
 /* Feature Popup - Admin */
