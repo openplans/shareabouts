@@ -4,7 +4,7 @@ class Shapefile < ActiveRecord::Base
   has_attached_file :data # zip file
   
   validates :kind, :presence => true, :uniqueness => true
-  validates :name_field, :presence => true
+  validates :name_field, :presence => true  # which field of the shapefile contains feature names.
   
   validates_attachment_presence :data
   validates_attachment_content_type :data, :content_type => "application/zip", :if => :attachment_present?
