@@ -40,6 +40,23 @@ $(function() {
     shadowSize  : new L.Point(0,0) // no shadow
   });
 
+  // Init the slider for filtering the results by popularity
+  var initPopularitySlider = function(values) {
+    // Popularity Filter
+    $('#map-container').hiderslider({
+      title: 'Filter by Popularity',
+      slider: {
+        max: values.length-1,
+        slide: function(e, data) {
+          Map.shareabout('filterByPopularity', values[data.value]);
+        },
+        change: function(e, data) {
+          Map.shareabout('filterByPopularity', values[data.value]);
+        }
+      }
+    });
+  };
+
   /**
    * @param {L.LatLng} latlng The location to translate to query string
    */
@@ -73,6 +90,11 @@ $(function() {
         // have to know about this, methinks.
         if (window.shareabouts && window.shareabouts.initialFeatureId) {
           Map.shareabout("viewFeature", window.shareabouts.initialFeatureId)
+        }
+
+        // Popularity slider only shows up on the desktop
+        if ( !Map.shareabout("smallScreen") ) {
+          initPopularitySlider(Map.shareabout('getPopularityStats').uniqueVals);
         }
       },
       onpopup : function() {
@@ -165,19 +187,6 @@ $(function() {
 
         // Reset filtering
         $('#map-container').hiderslider('reset');
-      }
-    });
-
-    // Popularity Filter
-    $('#map-container').hiderslider({
-      title: 'Filter by Popularity',
-      slider: {
-        slide: function(e, data) {
-          Map.shareabout('filterByPopularityPercentage', data.value/100);
-        },
-        change: function(e, data) {
-          Map.shareabout('filterByPopularityPercentage', data.value/100);
-        }
       }
     });
   }

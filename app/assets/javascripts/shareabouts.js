@@ -230,11 +230,8 @@ $.widget("ui.shareabout", (function() {
       this.refreshMapFeatures();
     },
 
-    // Will update the map and only show features that are more popular
-    // than the given percentage.
-    filterByPopularityPercentage: function(percent) {
-      var pop = (popularityStats.max - popularityStats.min) * percent;
-      this.filterByPopularity(pop);
+    getPopularityStats: function() {
+      return popularityStats;
     },
 
     openPopup : function(content) {
@@ -311,21 +308,26 @@ $.widget("ui.shareabout", (function() {
     _getPopularityStats: function() {
       var i,
           len = featurePointsCache.length,
-          min = Number.MAX_VALUE,
-          max = Number.MIN_VALUE;
+          statsObj = {},
+          uniquePopVals = [],
+          key;
 
       for (i=0; i<len; i++) {
-        if (featurePointsCache[i].pop <= min) {
-          min = featurePointsCache[i].pop;
-        }
-        if (featurePointsCache[i].pop > max) {
-          max = featurePointsCache[i].pop;
+        statsObj[featurePointsCache[i].pop] = true;
+      }
+
+      if (Object.keys) {
+        uniquePopVals = Object.keys(statsObj);
+      } else {
+        for (key in statsObj) {
+          if (statsObj.hasOwnProperty(key)) {
+            uniquePopVals.push(key);
+          }
         }
       }
 
       return {
-        min: min,
-        max: max
+        uniqueVals: uniquePopVals.sort(function compareNumbers(a, b){ return a - b; })
       };
     },
 
