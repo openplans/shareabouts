@@ -84,10 +84,10 @@ ActiveRecord::Schema.define(:version => 20120301211836) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.geometry "the_geom",       :limit => nil
     t.integer  "user_id"
     t.boolean  "visible"
     t.string   "submitter_name"
+    t.geometry "the_geom",       :limit => nil
   end
 
   add_index "feature_points", ["the_geom"], :name => "index_feature_points_on_the_geom"
@@ -100,13 +100,13 @@ ActiveRecord::Schema.define(:version => 20120301211836) do
     t.boolean       "visible"
     t.datetime      "created_at"
     t.datetime      "updated_at"
-    t.multi_polygon "the_geom",               :limit => nil, :srid => 4326
     t.string        "shapefile_file_name"
     t.string        "shapefile_content_type"
     t.integer       "shapefile_file_size"
     t.datetime      "shapefile_updated_at"
     t.string        "workflow_state"
     t.text          "job_error"
+    t.multi_polygon "the_geom",               :limit => nil, :srid => 4326
   end
 
   add_index "feature_polygons", ["the_geom"], :name => "index_feature_polygons_on_the_geom", :spatial => true
@@ -160,9 +160,9 @@ ActiveRecord::Schema.define(:version => 20120301211836) do
     t.text          "description"
     t.datetime      "created_at"
     t.datetime      "updated_at"
-    t.multi_polygon "the_geom",     :limit => nil, :srid => 4326
     t.integer       "shapefile_id"
     t.text          "metadata"
+    t.multi_polygon "the_geom",     :limit => nil, :srid => 4326
   end
 
   add_index "regions", ["the_geom"], :name => "index_regions_on_the_geom", :spatial => true
