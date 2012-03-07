@@ -31,7 +31,11 @@ class ShapefileJob
   
     count
   end
-
+  
+  def max_attempts
+    1
+  end
+  
   # Delayed::Job callbacks
   def success(job)
     shapefile.complete!
