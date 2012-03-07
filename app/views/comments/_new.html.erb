@@ -1,7 +1,10 @@
 <%= form_for Comment.new(:commentable_id => commentable.id, :commentable_type => commentable.class.to_s), 
   :url => commentable_comments_path(commentable), :html => { "data-behavior" => "load_result_in_popup" } do |form| %>
-  <%= form.label :comment %>
-  <%= form.text_area :comment, :rows => 4 %>
+  <%= render "shared/signed_in.html" if current_user %>
+  <div>
+    <%= form.label :comment %>
+    <%= form.text_area :comment, :rows => 4 %>
+  </div>
   <% if !current_user %>
     <div>
       <%= form.label :submitter_name, t("feature.form.submitter_name_label") %>

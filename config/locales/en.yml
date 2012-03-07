@@ -4,13 +4,14 @@
 en:
   app_name: Shareabouts
   map_controls:
-    locate_feature: 'Add a point!'
+    locate_feature: 'Add a location!'
     finalize_feature: 'Confirm Location'
     drag_hint: 'Drag me\! Then click confirm.'
     drag_hint_long: 'Drag your location to the center of the map'
   auth:
     fb_signin: 'Sign in with Facebook'
     twitter_signin: 'Sign in with Twitter'
+    sign_in: 'sign in with'
   account:
     my_points: 'My Points'
     my_supports: 'Supported'
@@ -20,14 +21,16 @@ en:
       invalid: 'There are some errors with your point.'
     form:
       header: 'Tell us more...'
-      title_label: Title
+      title_label: Location Name
       description_label: Description...
       submitter_name_label: 'Your Name'
-      submit: 'Submit Point'
-    submitted_by: 'Added by %{author} on %{date_s}'
+      submit: 'Submit Location'
+    purpose: 'This location is a %{type}.'
+    submitted_by: 'added this point %{in_region}'
+    when: 'on %{date} at %{time}'
     comment: 
       label: comment
-      action: Reply
+      action: Comment
     voter_description: supporter
     vote_action: 'Support This!'
     sharing:
@@ -58,3 +61,5 @@ en:
   time:
     formats:
       display: "%-m/%-d/%Y"
+      date_long: "%B %-d, %Y"
+      just_time: "%l:%M %p"

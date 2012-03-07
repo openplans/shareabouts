@@ -9,7 +9,7 @@
         <div>
           <%= content_tag :strong, comment.display_submitter if comment.display_submitter %>
           <span class="weak">
-            <%= comment.created_at.strftime("%m/%d/%Y") %>
+            <%= t "feature.when", :time => l(comment.created_at, :format => :just_time), :date => l(comment.created_at, :format => :date_long) %>
           </span> 
           <%= comment.comment %>
         </div>
@@ -18,5 +18,4 @@
   </ul>
 <% end %>
 
-<h6><%= t("feature.comment.action") %></h6>
 <%= render "comments/new", :commentable => commentable %>
