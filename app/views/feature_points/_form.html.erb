@@ -15,10 +15,10 @@
       <div>
         <%= form.label :submitter_name, t("feature.form.submitter_name_label") %>
         <%= form.text_field :submitter_name, :placeholder => t("feature.form.submitter_name_label") %>
-      </div>
-      <div>
-        Or <%= t("auth.sign_in") %>
-        <%= render "shared/sign_in" %>
+        <p>
+          <span class="sign-in-text">Or <%= t("auth.sign_in") %></span>
+          <%= render "shared/sign_in" %>
+        </p>
       </div>
     </fieldset>
     <% end %>

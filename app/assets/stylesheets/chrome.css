@@ -8,6 +8,11 @@
 }
 
 /* Forms, Inputs, & Buttons */
+label { 
+  color: #888;
+  font-size: 0.8em;
+  display: block;
+}
 input[type=button],
 input[type=submit],
 button {
@@ -91,14 +96,14 @@ table.regions {
   -webkit-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
 }
-#header a {
+#pages a {
   color: #A3C7D9;
   text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.3);
   margin-right: 1em;
   font-weight: bold;
   text-decoration: none;
 }
-#header a:hover {
+#pages a:hover {
   color: #fff;
 }
 #site-title a {
@@ -124,6 +129,7 @@ table.regions {
 #access {
   float:right;
   margin-top: 1em;
+  padding-top: 0.5em;
 }
 #access .account,
 #access .account .my-points,
@@ -178,17 +184,35 @@ table.regions {
   border: 0;
   line-height:0px;
 }
+.sign-in-text {
+  float: left;
+  color: #888;
+  font-size: 0.8em;
+  line-height: 2;
+}
 .sign-in {
-  float: right;
-  width: 154px;
-  height: 22px;
+  float: left;
+  width: 16px;
+  height: 16px;
   text-indent: -9999px;
+  margin: 0.25em 0 0 0.25em;
 }
 .facebook-login {
-  background: url("facebook-login.gif") no-repeat scroll 0 0 transparent;
+  background: url("facebook-login-16.gif") no-repeat scroll 0 0 transparent;
 }
 .twitter-login {
-  background: url("twitter-login.png") no-repeat scroll 0 0 transparent;
+  background: url("twitter-login-16.gif") no-repeat scroll 0 0 transparent;
+}
+#access .sign-in {
+  width: 32px;
+  height: 32px;
+  text-indent: -9999px;
+}
+#access .facebook-login {
+  background: url("facebook-login-32.png") no-repeat scroll 0 0 transparent;
+}
+#access .twitter-login {
+  background: url("twitter-login-32.png") no-repeat scroll 0 0 transparent;
 }
 
 /*
@@ -423,11 +447,6 @@ a.reply-link:hover {
 }
 #reply div { 
   margin: 0 0 0.5em;
-}
-#reply label { 
-  color: #888;
-  font-size: 0.8em;
-  display: block;
 }
 #reply input[type=submit] {
   font-size: 1.1em;
