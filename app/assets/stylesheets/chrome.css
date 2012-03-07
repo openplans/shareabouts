@@ -363,6 +363,7 @@ table.regions {
 .discussion {
   position: relative;
   margin-top: 2em;
+  padding-bottom: 2em;
 }
 .discussion-header {
   margin: 1em 0;
