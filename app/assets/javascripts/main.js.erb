@@ -113,6 +113,9 @@ $(function() {
     Map.shareabout("locateNewFeature");
     $(this).hide();
     finalize_feature.show();
+
+    // Reset filtering
+    $('#map-container').hiderslider('reset');
   });
 
   finalize_feature.click( function(event) {
@@ -159,6 +162,9 @@ $(function() {
       click: function(e, ui) {
         e.preventDefault();
         Map.shareabout('viewFeature', ui.featureId);
+
+        // Reset filtering
+        $('#map-container').hiderslider('reset');
       }
     });
 
@@ -167,6 +173,9 @@ $(function() {
       title: 'Filter by Popularity',
       slider: {
         slide: function(e, data) {
+          Map.shareabout('filterByPopularityPercentage', data.value/100);
+        },
+        change: function(e, data) {
           Map.shareabout('filterByPopularityPercentage', data.value/100);
         }
       }
