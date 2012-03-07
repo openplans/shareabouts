@@ -148,17 +148,9 @@ $(function() {
     showPage(pages.filter('[data-welcome-page]').attr("href"));
   }
 
-  $('#map-container').hiderslider({
-      title: 'Filter by Popularity',
-      slider: {
-        slide: function(e, data) {
-          Map.shareabout('filterByPopularityPercentage', data.value/100);
-        }
-      }
-    });
-
-  // Start the ticker
+  // Desktop only
   if ( !Map.shareabout("smallScreen") ) {
+    // Start the ticker
     $("#ticker").activityticker({
       url    : "<%= url_help.activity_index_path %>",
       toggle : function(e){
@@ -167,6 +159,16 @@ $(function() {
       onclick: function(e) {
         var featureId = $(this).parent('li').attr('data-feature-id');
         Map.shareabout('viewFeature', parseInt(featureId, 10));
+      }
+    });
+
+    // Popularity Filter
+    $('#map-container').hiderslider({
+      title: 'Filter by Popularity',
+      slider: {
+        slide: function(e, data) {
+          Map.shareabout('filterByPopularityPercentage', data.value/100);
+        }
       }
     });
   }
