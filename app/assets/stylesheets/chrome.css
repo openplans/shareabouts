@@ -539,7 +539,7 @@ table.regions {
 .ui-sliderhider-slider {
 }
 .ui-sliderhider-close {
-  display: block;
+  display: none;
   width: 14px;
   height: 14px;
   background: url("close-bttn.png") no-repeat scroll 0 0 transparent;
@@ -551,7 +551,7 @@ table.regions {
   cursor: pointer;
 }
 .ui-sliderhider-container .ui-sliderhider-close:hover {
-  background-position: bottom left; 
+  background-position: bottom left;
 }
 
 /*
