@@ -156,9 +156,9 @@ $(function() {
       toggle : function(e){
         $("#content").toggleClass("ticker_on");
       },
-      onclick: function(e) {
-        var featureId = $(this).parent('li').attr('data-feature-id');
-        Map.shareabout('viewFeature', parseInt(featureId, 10));
+      click: function(e, ui) {
+        e.preventDefault();
+        Map.shareabout('viewFeature', ui.featureId);
       }
     });
 
