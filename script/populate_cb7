@@ -5,6 +5,7 @@
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require File.expand_path('../../config/boot',  __FILE__)
 require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
+require 'geo_ruby'
 
 puts "Populating LocationTypes"
 CSV.foreach( File.join(Rails.root,'db','seeds','cb7_locationtypes.csv'), headers: true ) do |r|
@@ -44,3 +45,34 @@ options.each do |name,value|
   end
 end
 puts "#{SiteOption.count} site options"
+
+
+puts "Populating CB7 region"
+have_cb7 = false
+Region.all.each do |r|
+  begin
+    # Bummer this isn't easy to just search for since it's in a
+    # serialized field.
+    if r.name == 107
+      have_cb7 = true
+      break
+    end
+  rescue Exception => e
+  end
+end
+if not have_cb7
+  data = File.open(File.join(Rails.root,'db','seeds','cb7.ewkt')).read
+  # Creating a Shapefile that doesn't actually have an attached file;
+  # we just need its metadata.
+  shapefile = Shapefile.new
+  shapefile.kind = 'Community Board'
+  shapefile.name_field = 'BoroCD'
+  shapefile.default = true
+  shapefile.save(:validate => false)
+  region = Region.new
+  region.shapefile = shapefile
+  region.the_geom = MultiPolygon.from_ewkt(data)
+  region.metadata = {shapefile.name_field => 107}
+  region.save
+end
+puts "#{Region.count} regions"
