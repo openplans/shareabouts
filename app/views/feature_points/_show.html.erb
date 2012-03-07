@@ -8,20 +8,25 @@
   
   <%= render "shared/flashes.html" -%>
 
-  <% if feature_point.name.present? %>
-    <h2 class="name"><%= feature_point.name %></h2>
-  <% end %>
+  <div class="feature-header">
+    <% if feature_point.name.present? %>
+      <h2 class="name"><%= feature_point.name %></h2>
+    <% end %>
 
-  <% if feature_point.user.present? %>
-    <div class="avatar">
-      <%= avatar_for(feature_point.user) %>
-    </div>
-  <% end %>
+    <% if feature_point.user.present? %>
+      <div class="avatar">
+        <%= avatar_for(feature_point.user) %>
+      </div>
+    <% end %>
 
-  <div class="weak">
-    <strong><%= feature_point.display_submitter %></strong>
-    <%= t "feature.submitted_by", :in_region => ("in #{feature_point.region.name}" if feature_point.region) %>
-    <%= t "feature.when", :time => l(feature_point.created_at, :format => :just_time), :date => l(feature_point.created_at, :format => :date_long) %>
+    <% if feature_point.display_submitter.present? %>
+    <strong class="feature-submitter"><%= feature_point.display_submitter %></strong>
+    <% end %>
+
+    <span class="weak comment-date">
+      <%= t "feature.submitted_by", :in_region => ("in #{feature_point.region.name}" if feature_point.region) %>
+      <%= t "feature.when", :time => l(feature_point.created_at, :format => :just_time), :date => l(feature_point.created_at, :format => :date_long) %>
+    </span>
   </div>
 
   <% if feature_point.description.present? %>

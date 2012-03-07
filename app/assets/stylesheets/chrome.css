@@ -323,16 +323,27 @@ table.regions {
 }
 
 /* Feature Popup - Content */
-.feature  textarea {
+.feature .name {
+  margin: 0 0 0.25em;
+}
+.feature-header > .avatar {
+  width: 48px;
+  height: 48px;
+  margin-right : 0.8em;
+}
+.feature .description {
+  clear: both;
+}
+.feature-submitter {
+}
+.feature.show .weak {
+  color : #888;
+}
+.feature textarea {
   width : 90%;
 }
 .feature div {
-  margin-bottom: 10px;
-}
-.feature h6 {
-  margin: 1em 0;
-  padding-bottom: 0.5em;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 1em;
 }
 .feature.show .meta ul {
   margin : 0;
@@ -347,23 +358,38 @@ table.regions {
 .feature.show .meta ul li.first:before {
 	content: " ";
 }
-.feature.show .weak {
-  color : #888;
-}
-
-.feature.show > .avatar {
-  width: 48px;
-  height: 48px;
-  margin-right : 0.5em;
-}
 
 /* Discussion */
+.discussion {
+  position: relative;
+  margin-top: 2em;
+}
+.discussion-header {
+  margin: 1em 0;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #ddd;
+}
+a.reply-link {
+  background: #A3C7D9;
+  color: #fff;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0 0.5em;
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+a.reply-link:hover {
+  background: #00aaff;
+}
 .discussion ul {
   margin-left: 0;
 }
 .discussion ul li {
   margin: 0 0 1em 0;
-  padding-left: 40px;
+  padding: 0 0 0.5em 40px;
   min-height: 25px;
   border-bottom: 1px solid #ddd;
   position: relative;
@@ -386,6 +412,10 @@ table.regions {
   font-size: 0.8em;
 }
 .comment-body {
+  font-size: 0.8em;
+}
+#reply.hide {
+  display: none;
 }
 .discussion input[type=submit] {
   font-size: 1.1em;

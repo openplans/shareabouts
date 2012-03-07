@@ -190,4 +190,9 @@ $(function() {
       }
     });
   }
+
+  // Show the hidden comment form
+  $(".reply-link").live("click", function(e) {
+    $("#reply").removeClass("hide");
+  });
 });
