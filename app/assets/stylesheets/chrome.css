@@ -357,25 +357,37 @@ table.regions {
   margin-right : 0.5em;
 }
 
-/* Feature Popup - Discussion */
-.feature.show div.discussion ul {
+/* Discussion */
+.discussion ul {
   margin-left: 0;
 }
-
-.feature.show div.discussion .avatar {
-  margin-right: 0.5em;
-}
-
-.feature.show div.discussion .avatar img {
-  width: 26px;
-}
-
-.feature.show div.discussion ul li {
+.discussion ul li {
   margin: 0 0 1em 0;
+  padding-left: 40px;
   min-height: 25px;
   border-bottom: 1px solid #ddd;
+  position: relative;
 }
-.feature.show div.discussion input[type=submit] {
+.comment-header {
+  line-height: 1.2;
+}
+.comment-header .avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.comment-header .avatar img {
+  width: 26px;
+}
+.comment-submitter {
+  display: block;
+}
+.comment-date {
+  font-size: 0.8em;
+}
+.comment-body {
+}
+.discussion input[type=submit] {
   font-size: 1.1em;
   margin-top: 0.5em;
 }

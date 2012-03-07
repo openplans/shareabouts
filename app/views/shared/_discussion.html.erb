@@ -3,16 +3,18 @@
   <ul>
     <% for comment in commentable.comments %>
       <li class="clearfix">
-        <div class="avatar">
-          <%= avatar_for(comment.user) if comment.user.present? %>
+        <div class="comment-header">
+          <div class="avatar"><%= avatar_for(comment.user) if comment.user.present? %></div>
+          <div>
+            <% if comment.display_submitter.present? %>
+            <strong class="comment-submitter"><%= comment.display_submitter %></strong>
+            <% end %>
+            <span class="weak comment-date">
+              <%= t "feature.when", :time => l(comment.created_at, :format => :just_time), :date => l(comment.created_at, :format => :date_long) %>
+            </span> 
+          </div>
         </div>
-        <div>
-          <%= content_tag :strong, comment.display_submitter if comment.display_submitter %>
-          <span class="weak">
-            <%= t "feature.when", :time => l(comment.created_at, :format => :just_time), :date => l(comment.created_at, :format => :date_long) %>
-          </span> 
-          <%= comment.comment %>
-        </div>
+        <div class="comment-body"><%= comment.comment %></div>
       </li>
     <% end %>
   </ul>
