@@ -8,7 +8,7 @@
 }
 
 /* Forms, Inputs, & Buttons */
-label { 
+label {
   color: #888;
   font-size: 0.8em;
   display: block;
@@ -445,7 +445,7 @@ a.reply-link:hover {
 .reply-header {
   margin: 1.5em 0 1em;
 }
-#reply div { 
+#reply div {
   margin: 0 0 0.5em;
 }
 #reply input[type=submit] {
@@ -653,6 +653,9 @@ a.reply-link:hover {
 }
 
 /* HiderSlider Widget */
+.ui-sliderhider-container .ui-widget-content { background: #eeeeee 50% top repeat-x; }
+.ui-sliderhider-container .ui-state-default, .ui-sliderhider-container .ui-widget-content .ui-state-default, .ui-sliderhider-container .ui-widget-header .ui-state-default { background: #f6f6f6 50% 50% repeat-x; }
+
 .ui-sliderhider-container {
   background: #fff url('ticker-heart.png') 10px center no-repeat scroll;
   padding: 0 30px;
