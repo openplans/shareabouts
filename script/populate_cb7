@@ -47,46 +47,33 @@ options.each do |name,value|
 end
 puts "#{SiteOption.count} site options"
 
-
-## For unknown reasons this fails to work: the region is created with
-## the correct SRID=4326, but FeaturePoints then can't be added
-## because of some sort of SRID error:
-## Started POST "/locations" for ::ffff:24.186.92.142 at 2012-03-07 05:18:37 +0000
-##  Processing by FeaturePointsController#create as */*
-##  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Ms6Tjz4Ek9lf6D5uyYM6dSkJnyOzudqJGRgPwK11twY=", "feature_point"=>{"name"=>"I bumped my shin on this bollard", "feature_location_type_attributes"=>{"location_type_id"=>"4"}, "description"=>"it's hard to get around"}, "latitude"=>"40.78600057329813", "longitude"=>"-73.98064613342285"}
-## Completed 500 Internal Server Error in 63ms
-##
-##ActiveRecord::StatementInvalid (PGError: ERROR:  new row for relation "feature_points" violates check constraint "enforce_srid_the_geom"
-## : INSERT INTO "feature_points" ("created_at", "description", "name", "submitter_name", "the_geom", "updated_at", "user_id", "visible") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"):
-##  app/controllers/feature_points_controller.rb:27:in `create'
-
-# puts "Populating CB7 region"
-# have_cb7 = false
-# Region.all.each do |r|
-#   begin
-#     # Bummer this isn't easy to just search for since it's in a
-#     # serialized field.
-#     if r.name == 107
-#       have_cb7 = true
-#       break
-#     end
-#   rescue Exception => e
-#   end
-# end
-# if not have_cb7
-#   data = File.open(File.join(Rails.root,'db','seeds','cb7.wkt')).read
-#   # Creating a Shapefile that doesn't actually have an attached file;
-#   # we just need its metadata.
-#   shapefile = Shapefile.new
-#   shapefile.kind = 'Community Board'
-#   shapefile.name_field = 'BoroCD'
-#   shapefile.default = true
-#   shapefile.save(:validate => false)
-#   region = Region.new
-#   region.shapefile = shapefile
-#   # APparently you use from_ewkt() even if you have vanilla WKT.
-#   region.the_geom = MultiPolygon.from_ewkt(data)
-#   region.metadata = {shapefile.name_field => 107}
-#   region.save
-# end
-# puts "#{Region.count} regions"
+puts "Populating CB7 region"
+have_cb7 = false
+Region.all.each do |r|
+  begin
+    # Bummer this isn't easy to just search for since it's in a
+    # serialized field.
+    if r.name == 107
+      have_cb7 = true
+      break
+    end
+  rescue Exception => e
+  end
+end
+if not have_cb7
+  data = File.open(File.join(Rails.root,'db','seeds','cb7.wkt')).read
+  # Creating a Shapefile that doesn't actually have an attached file;
+  # we just need its metadata.
+  shapefile = Shapefile.new
+  shapefile.kind = 'Community Board'
+  shapefile.name_field = 'BoroCD'
+  shapefile.default = true
+  shapefile.save(:validate => false)
+  region = Region.new
+  region.shapefile = shapefile
+  # APparently you use from_ewkt() even if you have vanilla WKT.
+  region.the_geom = MultiPolygon.from_ewkt(data)
+  region.metadata = {shapefile.name_field => 107}
+  region.save
+end
+puts "#{Region.count} regions"
