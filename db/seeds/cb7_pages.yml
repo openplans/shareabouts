@@ -1,8 +1,8 @@
 ---
 
 pages:
-  help-cb7-make-the-upper-west-side-a-more-livable-neighborhood:
-    title: Help CB7 make the Upper West Side a more livable neighborhood.
+  about:
+    title: About
     status: published
     welcome_page: true
     content: |
