@@ -7,10 +7,10 @@
 	- "update environment"
 	- "boot"
 	- "Tools" > "SSH Public Keys"
-		- add your local public key
+		- add your local public key (usually in ~/.ssh/id_rsa.pub)
 	- Environment page: "Apply"
 	- copy ssh link under Instances
-	- ssh in
+	- ssh in (ie. ssh deploy@ec2-XX-XX-XXX-XX.compute-1.amazonaws.com)
 === server commands ===
 mkdir sources
 cd sources
@@ -41,7 +41,7 @@ cd
 sudo su postgres
 psql -d [YOUR_DATABASE]
 CREATE LANGUAGE plpgsql;
-\i /usr/share/postgresql-9.1/contrib/postgis-1.5/postgis.sql 
+\i /usr/share/postgresql-9.1/contrib/postgis-1.5/postgis.sql
 \i /usr/share/postgresql-9.1/contrib/postgis-1.5/spatial_ref_sys.sql
 GRANT ALL ON geometry_columns TO PUBLIC;
 GRANT ALL ON geography_columns TO PUBLIC;
