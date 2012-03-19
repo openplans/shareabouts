@@ -20,7 +20,7 @@ Now do your first deployment:
 
  dotcloud push -b nyc-cb7 shareaboutscb7 .
 
- dotcloud var set shareaboutscb7.www FACEBOOK_APP_ID=<your facebook app id> \
+ dotcloud var set shareaboutscb7 FACEBOOK_APP_ID=<your facebook app id> \
    FACEBOOK_APP_SECRET=<your facebook app secret>
 
  dotcloud run shareaboutscb7.www -- rake -f current/Rakefile db:create db:migrate db:seed
