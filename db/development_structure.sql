@@ -10039,7 +10039,11 @@ CREATE TABLE location_types (
     id integer NOT NULL,
     name character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    image_file_name character varying(255),
+    image_content_type character varying(255),
+    image_file_size integer,
+    image_updated_at timestamp without time zone
 );
 
 
@@ -10832,3 +10836,5 @@ INSERT INTO schema_migrations (version) VALUES ('20120228222619');
 INSERT INTO schema_migrations (version) VALUES ('20120229203732');
 
 INSERT INTO schema_migrations (version) VALUES ('20120301211836');
+
+INSERT INTO schema_migrations (version) VALUES ('20120319211951');
