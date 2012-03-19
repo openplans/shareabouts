@@ -128,8 +128,13 @@ table.regions {
 }
 #access {
   float:right;
-  margin-top: 1em;
+  margin-top: 0.5em;
   padding-top: 0.5em;
+}
+#access > span {
+  text-transform: uppercase;
+  font-size: 0.7em;
+  display: block;
 }
 #access .account,
 #access .account .my-points,
