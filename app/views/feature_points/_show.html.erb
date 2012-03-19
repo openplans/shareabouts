@@ -37,6 +37,7 @@
 
   <% if feature_point.location_type.present? %>
     <div class="type">
+      <%= image_tag feature_point.location_type.image.url(:icon) if feature_point.location_type.image.present? %>
       <%= t "feature.purpose", :type => feature_point.location_type.name %>
     </div>
   <% end %>
