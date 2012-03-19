@@ -39,33 +39,30 @@ html, body, #wrapper {
  * Polularity Filter (SliderHider)
  */
 .ui-sliderhider-container {
-  overflow: auto;
+  overflow: visible;
   position: absolute;
   right: 40px;
   bottom: 50px;
   z-index: 5;
 }
 .ui-sliderhider-container > div {
-  float: right;
+  float: left;
 }
 .ui-sliderhider-title {
-  padding: 10px;
+  padding: 0 10px;
+  line-height:33px;
+  vertical-align: middle;
   cursor: pointer;
 }
 .ui-sliderhider-content {
+  position: relative;
   padding: 10px 0;
   overflow: hidden;
   width:1px;
 }
-.ui-sliderhider-inner {
-  width:222px;
-}
-.ui-sliderhider-inner > div {
-  float: left;
-  margin: 0 10px;
-}
 .ui-sliderhider-slider {
-  width: 200px;
+  width:167px;
+  margin:0 10px;
 }
 .ui-sliderhider-close {}
 

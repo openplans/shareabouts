@@ -686,7 +686,7 @@ a.reply-link:hover {
   text-indent: -9999px;
   position: absolute;
   top: 50%;
-  right: 0;
+  right: 10px;
   margin-top: -7px !important;
   cursor: pointer;
 }
