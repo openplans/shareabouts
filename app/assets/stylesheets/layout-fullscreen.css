@@ -1,7 +1,5 @@
 /*
- *
  * Structure & Layout
- *
  */
 html, body, #wrapper {
   height: 100%;
@@ -32,11 +30,41 @@ html, body, #wrapper {
 #footer {
   color: #fff;
   position: absolute;
-  bottom: 2.5em;
-  left: 3em;
+  bottom: 50px;
+  left: 40px;
   z-index: 200;
 }
 
+/*
+ * Polularity Filter (SliderHider)
+ */
+.ui-sliderhider-container {
+  overflow: visible;
+  position: absolute;
+  right: 40px;
+  bottom: 50px;
+  z-index: 5;
+}
+.ui-sliderhider-container > div {
+  float: left;
+}
+.ui-sliderhider-title {
+  padding: 0 10px;
+  line-height:33px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.ui-sliderhider-content {
+  position: relative;
+  padding: 10px 0;
+  overflow: hidden;
+  width:1px;
+}
+.ui-sliderhider-slider {
+  width:167px;
+  margin:0 10px;
+}
+.ui-sliderhider-close {}
 
 /* The Map */
 #map-container {

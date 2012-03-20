@@ -13,6 +13,7 @@ en:
   auth: 
     fb_signin: Login with Facebook
     twitter_signin: Login with Twitter
+    sign_in: 'sign in with'
   account: 
     my_points: My Points
     my_supports: Supported
@@ -26,7 +27,9 @@ en:
       description_label: Tell us why this creates clutter on the sidewalk.
       submitter_name_label: Your Name
       submit: Submit Point
+    purpose: 'This location is a %{type}.'
     submitted_by: Added by %{author} on %{date_s}
+    when: 'on %{date} at %{time}'
     comment: 
       label: Comment
       action: Comment
@@ -62,3 +65,5 @@ en:
   time: 
     formats: 
       display: "%-m/%-d/%Y"
+      date_long: "%B %-d, %Y"
+      just_time: "%l:%M %p"

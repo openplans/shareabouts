@@ -44,6 +44,7 @@
         <% if current_user %>
         <%= render "shared/account" %>
         <% else %>
+          <span><%= t("auth.sign_in") %></span>
           <%= render "shared/sign_in" %>
         <% end %>
       </nav>

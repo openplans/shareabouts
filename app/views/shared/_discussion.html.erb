@@ -1,22 +1,25 @@
-<% if commentable.comments.present? %>
-  <h6><%= pluralize commentable.comments.count, t("feature.comment.label") %></h6>
-  <ul>
-    <% for comment in commentable.comments %>
-      <li class="clearfix">
-        <div class="avatar">
-          <%= avatar_for(comment.user) if comment.user.present? %>
-        </div>
+<h6 class="discussion-header"><%= pluralize commentable.comments.count, t("feature.comment.label") %></h6>
+<a href="#reply" class="reply-link">Leave a Comment</a>
+<ul>
+  <% for comment in commentable.comments %>
+    <li class="clearfix">
+      <div class="comment-header">
+        <div class="avatar"><%= avatar_for(comment.user) if comment.user.present? %></div>
         <div>
-          <%= content_tag :strong, comment.display_submitter if comment.display_submitter %>
-          <span class="weak">
-            <%= comment.created_at.strftime("%m/%d/%Y") %>
+          <% if comment.display_submitter.present? %>
+          <strong class="comment-submitter"><%= comment.display_submitter %></strong>
+          <% end %>
+          <span class="weak comment-date">
+            <%= t "feature.when", :time => l(comment.created_at, :format => :just_time), :date => l(comment.created_at, :format => :date_long) %>
           </span> 
-          <%= comment.comment %>
         </div>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+      </div>
+      <div class="comment-body"><%= comment.comment %></div>
+    </li>
+  <% end %>
+</ul>
 
-<h6><%= t("feature.comment.action") %></h6>
-<%= render "comments/new", :commentable => commentable %>
+<div id="reply"<% if !commentable.comments.present? %>class="hide"<% end %>>
+  <h6 class="reply-header">Leave a Comment</h6>
+  <%= render "comments/new", :commentable => commentable %>
+</div>

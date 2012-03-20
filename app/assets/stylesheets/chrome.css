@@ -8,6 +8,11 @@
 }
 
 /* Forms, Inputs, & Buttons */
+label {
+  color: #888;
+  font-size: 0.8em;
+  display: block;
+}
 input[type=button],
 input[type=submit],
 button {
@@ -42,6 +47,10 @@ button:active {
      -moz-box-shadow: -3px 3px 0 rgba(0, 102, 170, 0.75);
   -webkit-box-shadow: -3px 3px 0 rgba(0, 102, 170, 0.75);
           box-shadow: -3px 3px 0 rgba(0, 102, 170, 0.75);
+}
+#locate_feature,
+#finalize_feature {
+  margin-bottom: 0;
 }
 
 /* Tables */
@@ -87,14 +96,14 @@ table.regions {
   -webkit-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
 }
-#header a {
+#pages a {
   color: #A3C7D9;
   text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.3);
   margin-right: 1em;
   font-weight: bold;
   text-decoration: none;
 }
-#header a:hover {
+#pages a:hover {
   color: #fff;
 }
 #site-title a {
@@ -119,7 +128,13 @@ table.regions {
 }
 #access {
   float:right;
-  margin-top: 1em;
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+}
+#access > span {
+  text-transform: uppercase;
+  font-size: 0.7em;
+  display: block;
 }
 #access .account,
 #access .account .my-points,
@@ -174,17 +189,35 @@ table.regions {
   border: 0;
   line-height:0px;
 }
+.sign-in-text {
+  float: left;
+  color: #888;
+  font-size: 0.8em;
+  line-height: 2;
+}
 .sign-in {
-  float: right;
-  width: 154px;
-  height: 22px;
+  float: left;
+  width: 16px;
+  height: 16px;
   text-indent: -9999px;
+  margin: 0.25em 0 0 0.25em;
 }
 .facebook-login {
-  background: url("facebook-login.gif") no-repeat scroll 0 0 transparent;
+  background: url("facebook-login-16.gif") no-repeat scroll 0 0 transparent;
 }
 .twitter-login {
-  background: url("twitter-login.png") no-repeat scroll 0 0 transparent;
+  background: url("twitter-login-16.gif") no-repeat scroll 0 0 transparent;
+}
+#access .sign-in {
+  width: 32px;
+  height: 32px;
+  text-indent: -9999px;
+}
+#access .facebook-login {
+  background: url("facebook-login-32.png") no-repeat scroll 0 0 transparent;
+}
+#access .twitter-login {
+  background: url("twitter-login-32.png") no-repeat scroll 0 0 transparent;
 }
 
 /*
@@ -237,10 +270,16 @@ table.regions {
   position : relative;
   z-index:10000;
   overflow-y: hidden;
-  height:100%;
+  height: 100%;
      -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
   -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  /* Explicit absolute, top/left/right/bottom instead of height:100% for IE7 only */
+  *position : absolute;
+  *top      : 0;
+  *left     : 0;
+  *right    : 0;
+  *bottom   : 0;
 }
 .information-panel-content-wrap:after {
 	content: "";
@@ -278,8 +317,8 @@ table.regions {
   background: url("close-bttn.png") no-repeat scroll 0 0 transparent;
   text-indent: -9999px;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 10px;
   z-index: 10001;
 }
 .information-panel .close:hover { background-position: bottom left; }
@@ -313,16 +352,27 @@ table.regions {
 }
 
 /* Feature Popup - Content */
-.feature  textarea {
+.feature .name {
+  margin: 0 0 0.25em;
+}
+.feature-header > .avatar {
+  width: 48px;
+  height: 48px;
+  margin-right : 0.8em;
+}
+.feature .description {
+  clear: both;
+}
+.feature-submitter {
+}
+.feature.show .weak {
+  color : #888;
+}
+.feature textarea {
   width : 90%;
 }
 .feature div {
-  margin-bottom: 10px;
-}
-.feature h6 {
-  margin: 1em 0;
-  padding-bottom: 0.5em;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 1em;
 }
 .feature.show .meta ul {
   margin : 0;
@@ -337,37 +387,75 @@ table.regions {
 .feature.show .meta ul li.first:before {
 	content: " ";
 }
-.feature.show .weak {
-  color : #888;
-}
 
-.feature.show > .avatar {
-  width: 48px;
-  height: 48px;
-  margin-right : 0.5em;
+/* Discussion */
+.discussion {
+  position: relative;
+  margin-top: 2em;
+  padding-bottom: 2em;
 }
-
-/* Feature Popup - Discussion */
-.feature.show div.discussion ul {
-  margin-left: 0;
-}
-
-.feature.show div.discussion .avatar {
-  margin-right: 0.5em;
-}
-
-.feature.show div.discussion .avatar img {
-  width: 26px;
-}
-
-.feature.show div.discussion ul li {
-  margin: 0 0 1em 0;
-  min-height: 25px;
+.discussion-header {
+  margin: 1em 0;
+  padding-bottom: 0.5em;
   border-bottom: 1px solid #ddd;
 }
-.feature.show div.discussion input[type=submit] {
+a.reply-link {
+  background: #A3C7D9;
+  color: #fff;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0 0.5em;
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+a.reply-link:hover {
+  background: #00aaff;
+}
+.discussion ul {
+  margin-left: 0;
+}
+.discussion ul li {
+  margin: 0 0 1em 0;
+  padding: 0 0 0.5em 40px;
+  min-height: 25px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+.comment-header {
+  line-height: 1.2;
+}
+.comment-header .avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.comment-header .avatar img {
+  width: 26px;
+}
+.comment-submitter {
+  display: block;
+}
+.comment-date {
+  font-size: 0.8em;
+}
+.comment-body {
+  font-size: 0.8em;
+}
+#reply.hide {
+  display: none;
+}
+.reply-header {
+  margin: 1.5em 0 1em;
+}
+#reply div {
+  margin: 0 0 0.5em;
+}
+#reply input[type=submit] {
   font-size: 1.1em;
-  margin-top: 0.5em;
+  margin-top: 1em;
 }
 
 /* Feature Popup - Admin */
@@ -567,6 +655,43 @@ table.regions {
 
 #ticker div.badge.comment {
   background : transparent url('ticker-comment.png') no-repeat scroll top left;
+}
+
+/* HiderSlider Widget */
+.ui-sliderhider-container .ui-widget-content { background: #eeeeee 50% top repeat-x; }
+.ui-sliderhider-container .ui-state-default, .ui-sliderhider-container .ui-widget-content .ui-state-default, .ui-sliderhider-container .ui-widget-header .ui-state-default { background: #f6f6f6 50% 50% repeat-x; }
+
+.ui-sliderhider-container {
+  background: #fff url('ticker-heart.png') 10px center no-repeat scroll;
+  padding: 0 30px;
+  font-size: 0.8em;
+  font-weight: bold;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+.ui-sliderhider-title {
+}
+.ui-sliderhider-content {
+}
+.ui-sliderhider-inner {
+}
+.ui-sliderhider-slider {
+}
+.ui-sliderhider-close {
+  display: none;
+  width: 14px;
+  height: 14px;
+  background: url("close-bttn.png") no-repeat scroll 0 0 transparent;
+  text-indent: -9999px;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -7px !important;
+  cursor: pointer;
+}
+.ui-sliderhider-container .ui-sliderhider-close:hover {
+  background-position: bottom left;
 }
 
 /*

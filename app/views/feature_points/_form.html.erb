@@ -10,24 +10,36 @@
   <% end %>
 
   <%= form_for @feature_point do |form| %>
-    <div>
-      <%= form.text_field :name, :placeholder => t("feature.form.title_label") %>
-    </div>
-    <% if LocationType.any? %>
-      <div>
-        <%= form.fields_for :feature_location_type, @feature_point.build_feature_location_type do |fields| %>
-          <%= fields.collection_select :location_type_id, LocationType.all, :id, :name, :include_blank => "Type" %>
-        <% end %>
-      </div>
-    <% end %>
-    <div>
-      <%= form.text_area :description, :placeholder => t("feature.form.description_label"), :cols => 1, :rows => 4 %>
-    </div>
     <% if !current_user %>
+    <fieldset>
       <div>
+        <%= form.label :submitter_name, t("feature.form.submitter_name_label") %>
         <%= form.text_field :submitter_name, :placeholder => t("feature.form.submitter_name_label") %>
+        <p>
+          <span class="sign-in-text">Or <%= t("auth.sign_in") %></span>
+          <%= render "shared/sign_in" %>
+        </p>
       </div>
+    </fieldset>
     <% end %>
+    <fieldset>
+      <div>
+        <%= form.label :name, t("feature.form.title_label") %>
+        <%= form.text_field :name, :placeholder => t("feature.form.title_label") %>
+      </div>
+      <% if LocationType.any? %>
+        <div>
+          <%= form.fields_for :feature_location_type, @feature_point.build_feature_location_type do |fields| %>
+            <%= fields.label :location_type_id %>
+            <%= fields.collection_select :location_type_id, LocationType.all, :id, :name, :include_blank => true %>
+          <% end %>
+        </div>
+      <% end %>
+      <div>
+        <%= form.label :description, t("feature.form.description_label") %>
+        <%= form.text_area :description, :placeholder => t("feature.form.description_label"), :cols => 1, :rows => 4 %>
+      </div>
+    </fieldset>
     <div>
     <%= form.submit t("feature.form.submit")%>  
     </div>

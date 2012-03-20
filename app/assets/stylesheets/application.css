@@ -6,6 +6,7 @@
  *= require_self
  *= require reset
  *= require base-styles
+ *= require ../../../vendor/assets/stylesheets/externals
  *= require layout-fullscreen
  *= require chrome
  *= require ../../../lib/assets/stylesheets/externals

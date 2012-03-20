@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.1.4'
 gem 'capistrano'
 gem 'capistrano-ext'
 
@@ -27,6 +27,7 @@ gem 'ckeditor'
 
 gem 'workflow'
 gem "paperclip", "~> 2.0"
+gem "rmagick"
 gem "rubyzip"
 
 gem 'json'

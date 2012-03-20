@@ -3,24 +3,37 @@
 <head>
   <title>The page you were looking for doesn't exist (404)</title>
   <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
+    body { 
+      color: #e7e7e7;
+      background-color: #808080;
+      font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+      text-align: center; 
+      font-size: 1.5em;
     }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
+    a, a:active, a:visited { 
+      color: #A3C7D9; 
+      text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.3);
+      text-decoration: none;
+    }
+    a:hover { color: #fff; }
+    .dialog {
+      max-width: 20em;
+      margin: 0 auto;
+      padding: 1em 0;
+    }
+    h1 { 
+      color: #fff; 
+      text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
+    }
   </style>
 </head>
 
 <body>
   <!-- This file lives in public/404.html -->
   <div class="dialog">
-    <h1>The page you were looking for doesn't exist.</h1>
-    <p>You may have mistyped the address or the page may have moved.</p>
+    <p><strong>404 Not Found</strong></p>
+    <h1>Sorry, the page you were looking for doesn't exist.</h1>
+    <p>Please make sure you haven't mistyped the address, or <a href="/">go to the home page</a>.</p>
   </div>
 </body>
 </html>

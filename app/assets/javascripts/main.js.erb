@@ -40,6 +40,23 @@ $(function() {
     shadowSize  : new L.Point(0,0) // no shadow
   });
 
+  // Init the slider for filtering the results by popularity
+  var initPopularitySlider = function(values) {
+    // Popularity Filter
+    $('#map-container').hiderslider({
+      title: 'Filter by Popularity',
+      slider: {
+        max: values.length-1,
+        slide: function(e, data) {
+          Map.shareabout('filterByPopularity', values[data.value]);
+        },
+        change: function(e, data) {
+          Map.shareabout('filterByPopularity', values[data.value]);
+        }
+      }
+    });
+  };
+
   /**
    * @param {L.LatLng} latlng The location to translate to query string
    */
@@ -56,7 +73,7 @@ $(function() {
       center    : window.shareabouts.map_center || new L.LatLng(40.719991, -73.999530)
     },
     tileUrl          : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-    tileAttribution  : 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
+    tileAttribution  : 'Map data &copy; 2012 <a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.0/">CCBYSA</a> - Tiles by <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
     markerIcon: new MarkerIcon(),
     focusedMarkerIcon: new FocusedMarkerIcon(),
     newMarkerIcon: new NewMarkerIcon(),
@@ -73,6 +90,11 @@ $(function() {
         // have to know about this, methinks.
         if (window.shareabouts && window.shareabouts.initialFeatureId) {
           Map.shareabout("viewFeature", window.shareabouts.initialFeatureId)
+        }
+
+        // Popularity slider only shows up on the desktop
+        if ( !Map.shareabout("smallScreen") ) {
+          initPopularitySlider(Map.shareabout('getPopularityStats').uniqueVals);
         }
       },
       onpopup : function() {
@@ -113,6 +135,9 @@ $(function() {
     Map.shareabout("locateNewFeature");
     $(this).hide();
     finalize_feature.show();
+
+    // Reset filtering
+    $('#map-container').hiderslider('reset');
   });
 
   finalize_feature.click( function(event) {
@@ -148,17 +173,26 @@ $(function() {
     showPage(pages.filter('[data-welcome-page]').attr("href"));
   }
 
-  // Start the ticker
+  // Desktop only
   if ( !Map.shareabout("smallScreen") ) {
+    // Start the ticker
     $("#ticker").activityticker({
       url    : "<%= url_help.activity_index_path %>",
       toggle : function(e){
         $("#content").toggleClass("ticker_on");
       },
-      onclick: function(e) {
-        var featureId = $(this).parent('li').attr('data-feature-id');
-        Map.shareabout('viewFeature', parseInt(featureId, 10));
+      click: function(e, ui) {
+        e.preventDefault();
+        Map.shareabout('viewFeature', ui.featureId);
+
+        // Reset filtering
+        $('#map-container').hiderslider('reset');
       }
     });
   }
+
+  // Show the hidden comment form
+  $(".reply-link").live("click", function(e) {
+    $("#reply").removeClass("hide");
+  });
 });
