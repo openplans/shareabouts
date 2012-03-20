@@ -77,6 +77,21 @@ class PostInstall
     puts "Facebook config written to " + outfile + " based on environment.yml"
   end
 
+  def write_twitter_config()
+    outfile = "config/twitter.yml"
+    dotcloud_env = get_dotcloud_environment
+    twitter_config = {
+      "production"=> {
+        "consumer_key"=> dotcloud_env["TWITTER_CONSUMER_KEY"],
+        "consumer_secret"=> dotcloud_env["TWITTER_CONSUMER_SECRET"],
+      }
+    }
+    config_file = File.open(outfile, "w")
+    config_file.write(twitter_config.to_yaml)
+    config_file.close()
+    puts "Twitter config written to " + outfile + " based on environment.yml"
+  end
+
   # def database()
   #   ## This fails on the first run apparently because the database host isn't
   #   ## pingable yet when we run it; dotcloud doesn't finish doing DNS
@@ -105,6 +120,7 @@ class PostInstall
     sanitycheck
     write_db_config
     write_facebook_config
+    write_twitter_config
     # database
     assets
   end
