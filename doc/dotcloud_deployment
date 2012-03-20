@@ -21,7 +21,9 @@ Now do your first deployment:
  dotcloud push -b nyc-cb7 $NAME .
 
  dotcloud var set $NAME FACEBOOK_APP_ID=<your facebook app id> \
-   FACEBOOK_APP_SECRET=<your facebook app secret>
+   FACEBOOK_APP_SECRET=<your facebook app secret> \
+   TWITTER_CONSUMER_KEY=<your twitter consumer key> \
+   TWITTER_CONSUMER_SECRET=<your twitter consumer secret
 
  dotcloud run $NAME.www -- rake -f current/Rakefile db:create db:migrate db:seed
  dotcloud run $NAME.www -- current/script/populate_cb7
@@ -40,7 +42,7 @@ Pushing Updates
 
 From the root of your shareabouts source tree:
 
- dotcloud push $NAME .
+ dotcloud push -b nyc-cb7 $NAME .
  dotcloud run $NAME.www -- rake -f current/Rakefile db:migrate
 
 Caveats
