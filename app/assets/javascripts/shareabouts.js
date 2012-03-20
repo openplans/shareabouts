@@ -442,6 +442,11 @@ $.widget("ui.shareabout", (function() {
 
       fsm.onchangestate = function(eventName, from, to) {
         // if (window.console) window.console.info("Transitioning from " + from + " to " + to + " via " + eventName);
+
+        // Allow callbacks for state change events
+        if (shareabout.options.callbacks[eventName]) {
+          shareabout.options.callbacks[eventName]();
+        }
       };
 
       /*
@@ -461,7 +466,7 @@ $.widget("ui.shareabout", (function() {
           shareabout.newFeature.setLatLng(map.getCenter());
           if (shareabout.newFeature.dragging) { shareabout.newFeature.dragging.enable(); }
 
-          // Reset the icon when adding sincd we set it to the "focused" icon when confirming
+          // Reset the icon when adding since we set it to the "focused" icon when confirming
           shareabout.newFeature.setIcon(shareabout.options.newMarkerIcon);
 
           map.addLayer(shareabout.newFeature);

@@ -100,6 +100,13 @@ $(function() {
       onpopup : function() {
         locate_feature.hide();
         finalize_feature.hide();
+
+        // Hide mobile dropdown menu if visible
+        $('#pages ul').removeClass('active');
+      },
+      locateNewFeature: function() {
+        // Hide mobile dropdown menu if visible
+        $('#pages ul').removeClass('active');
       }
     },
     // Intial feature to show
@@ -196,7 +203,7 @@ $(function() {
     $("#reply").removeClass("hide");
   });
 
-  // Toggle the mobile nave menu
+  // Toggle the mobile nav menu
   $('#pages').click(function(){
     $('#pages ul').toggleClass('active');
   });
