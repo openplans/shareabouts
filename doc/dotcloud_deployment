@@ -14,17 +14,17 @@ First Deployment
 
 From the root of your shareabouts source tree:
 
- dotcloud create shareaboutscb7
+ dotcloud create $NAME
 
 Now do your first deployment:
 
- dotcloud push -b nyc-cb7 shareaboutscb7 .
+ dotcloud push -b nyc-cb7 $NAME .
 
- dotcloud var set shareaboutscb7 FACEBOOK_APP_ID=<your facebook app id> \
+ dotcloud var set $NAME FACEBOOK_APP_ID=<your facebook app id> \
    FACEBOOK_APP_SECRET=<your facebook app secret>
 
- dotcloud run shareaboutscb7.www -- rake -f current/Rakefile db:create db:migrate db:seed
- dotcloud run shareaboutscb7.www -- current/script/populate_cb7
+ dotcloud run $NAME.www -- rake -f current/Rakefile db:create db:migrate db:seed
+ dotcloud run $NAME.www -- current/script/populate_cb7
 
 That should take care of everything.
 
@@ -32,7 +32,7 @@ Note that if you have local changes to your shareabouts code,
 you must commit them before running ``dotcloud push``.
 
 If the build finishes but you get errors from the server, ssh in (by
-doing "dotcloud ssh shareaboutscb7") and check
+doing "dotcloud ssh $NAME") and check
 /home/dotcloud/current/log/production.log
 
 Pushing Updates
@@ -40,8 +40,8 @@ Pushing Updates
 
 From the root of your shareabouts source tree:
 
- dotcloud push shareaboutscb7 .
- dotcloud run shareaboutscb7.www -- rake -f current/Rakefile db:migrate
+ dotcloud push $NAME .
+ dotcloud run $NAME.www -- rake -f current/Rakefile db:migrate
 
 Caveats
 =======
