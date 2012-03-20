@@ -2,9 +2,9 @@
   <% @region_name = activity_item.feature.display_region %>
   <% @name = activity_item.user_name  %>
   <% @thing = activity_item.description %>
-  <%= if @region_name %>
-    <%= t "activity.vote.action_with_region_html", :region = @region_name, :name => @name, :thing => @thing %>
+  <% if @region_name %>
+    <%= t "activity.vote.action_with_region_html", :region => @region_name, :name => @name, :thing => @thing %>
   <% else %>
     <%= t "activity.vote.action_html", :name => @name, :thing => @thing %>
-
+  <% end %>
 </a>
