@@ -89,6 +89,13 @@ and copy config/twitter.yml.example to config/twitter.yml. Then, fill in your ke
 for each environment for each service.
 
 
+Other Prerequisites
+--------------------
+
+The rmagick gem requires the Imagemagick development libraries; for
+example on Debian or Ubuntu, try: apt-get install libmagickwand-dev
+
+
 Gems
 -----------------
 Install your gems by running 
@@ -96,6 +103,7 @@ $ bundle install
 
 If the pg gem fails to install on OS X, check out the --with-pg-config option 
 as specified in config/database.yml.example.
+
 
 Databases
 ---------
