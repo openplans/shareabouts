@@ -64,7 +64,7 @@ class FeaturePoint < ActiveRecord::Base
   end
 
   def display_region
-    region.present? ? region.name : nil
+    region.present? ? region.display_name : nil
   end
 
   def region

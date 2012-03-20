@@ -12,7 +12,8 @@ class Region < ActiveRecord::Base
   after_create :add_feature_points_to_region
   
   def display_name
-    "#{kind} - #{name}"
+    #"#{kind} - #{name}"
+    'Upper West Side'
   end
   
   def kind
