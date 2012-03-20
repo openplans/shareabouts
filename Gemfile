@@ -14,6 +14,9 @@ gem "twitter"
 gem 'jquery-rails'
 gem "useragent"
 
+gem 'exception_notification'
+gem 'tlsmail'
+
 gem 'pg'
 
 gem 'delayed_job', "2.1.4"
