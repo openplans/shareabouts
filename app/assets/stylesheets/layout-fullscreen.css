@@ -16,6 +16,19 @@ html, body, #wrapper {
   left: 0;
   z-index: 300;
 }
+#pages {
+  margin-top: 2.75em;
+  float : left;
+}
+#pages ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#pages li {
+  float: left;
+  margin-right: 1em;
+}
 #content {
   position: absolute;
   top: 5em;
