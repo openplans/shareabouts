@@ -99,16 +99,17 @@ table.regions {
 #pages a {
   color: #A3C7D9;
   text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.3);
-  margin-right: 1em;
   font-weight: bold;
   text-decoration: none;
 }
 #pages a:hover {
   color: #fff;
 }
+#site-title {
+  float: left;
+}
 #site-title a {
   color: #eee;
-  float: left;
   text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
   font-family: 'Dancing Script', cursive;
   text-decoration: none;
@@ -117,10 +118,6 @@ table.regions {
 }
 #site-title a:hover {
   color: #eee;
-}
-#pages {
-  margin-top: 2.75em;
-  float : left;
 }
 #header .meta-separator {
   color: #777;
@@ -707,15 +704,13 @@ and (max-device-width : 480px) {
   #wrapper { font-size: 10px; }
   #header {
     height: 4em;
+    padding: 0 0.5em 0 1em;
   }
   #content {
     top: 4em;
   }
   #site-title {
-    font-size: 2.25em;
-  }
-  #access {
-    margin-top: 1.5em;
+    font-size: 2.75em;
   }
   #footer {
     bottom: 4.5em;
@@ -726,6 +721,50 @@ and (max-device-width : 480px) {
   }
   #footer button {
     display: inline;
+  }
+  #access {
+    margin: 0.25em 0 0;
+    padding: 0;
+  }
+  #access > span {
+    display: none;
+  }
+  #pages {
+    margin: 0.5em 0 0 0.5em;
+    float: right;
+    background: url(mobile-pages.gif) center center no-repeat scroll;
+    width: 28px;
+    height: 28px;
+    overflow: visible;
+  }
+  #pages ul {
+    display: none;
+    background: #666666;
+    position: absolute;
+    top: 4em;
+    left: 0;
+    right: 0;
+    text-align: center;
+       -moz-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
+    -webkit-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
+            box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
+  }
+  #pages ul.active {
+    display: block;
+  }
+  #pages li {
+    display: block;
+    float: none;
+    font-size: 2em;
+    border-top: 2px solid #5D5D5D;
+    margin: 0;
+  }
+  #pages a {
+    display: block;
+    padding: 0.5em 0;
+  }
+  #pages:hover a {
+    display: block;
   }
 }
 

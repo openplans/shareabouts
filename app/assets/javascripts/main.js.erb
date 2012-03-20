@@ -195,4 +195,9 @@ $(function() {
   $(".reply-link").live("click", function(e) {
     $("#reply").removeClass("hide");
   });
+
+  // Toggle the mobile nave menu
+  $('#pages').click(function(){
+    $('#pages ul').toggleClass('active');
+  });
 });

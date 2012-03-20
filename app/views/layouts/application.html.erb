@@ -35,10 +35,14 @@
       <hgroup>
         <h1 id="site-title"><span><%= link_to t("app_name"), root_path %></span></h1>
       </hgroup>
-      <nav id="pages">
-        <% for page in Page.published %>
-          <%= link_to page.title, page_path(page), page_link_attributes(page) %>
-        <% end %>
+      <nav id="pages" role="navigation">
+        <ul>
+          <% for page in Page.published %>
+          <li>
+            <%= link_to page.title, page_path(page), page_link_attributes(page) %>
+          </li>
+          <% end %>
+        </ul>
       </nav>
       <nav id="access" role="navigation">
         <% if current_user %>
