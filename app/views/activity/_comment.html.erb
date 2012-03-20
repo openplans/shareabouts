@@ -1,6 +1,5 @@
 <a href="<%= feature_point_path(activity_item.subject_parent) %>">
-  <strong><%= activity_item.user_name %></strong> 
-  <%= t("activity.comment.action") %> 
-  <%= activity_item.description %>: 
+
+  <%= t "activity.comment.action_html", :name => activity_item.user_name, :thing => activity_item.description, :excerpt => @excerpt %>:
   &ldquo;<%= truncate activity_item.subject.comment, :length => 25 %>&rdquo;
 </a>

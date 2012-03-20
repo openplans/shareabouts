@@ -28,7 +28,7 @@ en:
       submitter_name_label: Your Name
       submit: Submit Point
     purpose: 'This location is a %{type}.'
-    submitted_by: Added by %{author} on %{date_s}
+    submitted_by: added this point in %{in_region}
     when: 'on %{date} at %{time}'
     comment: 
       label: Comment
@@ -47,12 +47,12 @@ en:
         status: "%{name} identified a %{thing} as sidewalk clutter in CB7."
   activity: 
     vote: 
-      action: "%{name} supported %{name}'s suggestion."
+      action_with_region_html: "<strong>%{name}</strong> supported %{thing} in %{region}"
+      action_html: "<strong>%{name}</strong> supported %{thing}"
     comment: 
-      action: commented on
+      action_html: "<strong>%{name}</strong> commented on %{thing}"
     point: 
       by_name: "%{name}'s suggestion"
-      in_region: in %{region}
       action_with_region_html: <strong>%{name}</strong> identified a %{thing} as sidewalk clutter in %{region}
       action_html: <strong>%{name}</strong> identified a %{thing} as sidewalk clutter
   activerecord: 
