@@ -48,8 +48,8 @@ html, body, #wrapper {
   z-index: 200;
 }
 
-/* 
- * The Map 
+/*
+ * The Map
  */
 #map-container {
   position : absolute;
@@ -76,7 +76,7 @@ html, body, #wrapper {
   bottom: 45px;
 }
 .information-panel-content-wrap {
-  background-color: white;
+/*  background-color: white;
   border: 1px solid #a8a8a8;
   z-index: 10000;
   overflow: auto;
@@ -88,11 +88,17 @@ html, body, #wrapper {
      -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
   -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-}
+*/}
 .information-panel-content {
 }
 .information-panel-content .feature.show {
   padding-top: 75px;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 .information-panel .social {
   height: 75px;
@@ -175,8 +181,8 @@ html, body, #wrapper {
 }
 .ui-sliderhider-close {}
 
-/* 
- * Crosshair for touchscreens 
+/*
+ * Crosshair for touchscreens
  */
 #crosshair {
   position : absolute;
