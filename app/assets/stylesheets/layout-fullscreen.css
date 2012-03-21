@@ -76,22 +76,11 @@ html, body, #wrapper {
   bottom: 45px;
 }
 .information-panel-content-wrap {
-/*  background-color: white;
-  border: 1px solid #a8a8a8;
-  z-index: 10000;
-  overflow: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-*/}
+}
 .information-panel-content {
 }
-.information-panel-content .feature {
+.information-panel-content .feature,
+.information-panel-content .page {
   overflow: auto;
   position: absolute;
   z-index:10;
@@ -101,12 +90,12 @@ html, body, #wrapper {
   bottom: 0;
 }
 .information-panel-content .feature.show {
-  padding-top: 75px;
+  padding-top: 86px;
 }
 .information-panel .social {
-  height: 75px;
+  height: 74px;
   background-color: #eee;
-  border-bottom: 1px solid #a8a8a8;
+  border: 1px solid #a8a8a8;
   position: absolute;
   top: 0;
   left: 0;
