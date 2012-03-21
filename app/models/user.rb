@@ -23,9 +23,10 @@ class User < ActiveRecord::Base
     if user = User.find_by_email(screenname)
       user
     else # Create a user with a stub password & twitter name for an email address
-      user = User.create!(:email => screenname) 
+      user    = User.create!(:email => screenname) 
+      profile = user.create_profile :name => data["name"]
+      
       user.twitter_id         = data["id"]
-      user.name               = data["name"]
       user.encrypted_password = Devise.friendly_token[0,20]
       user.save
       user
@@ -33,14 +34,15 @@ class User < ActiveRecord::Base
   end
   
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
-    data = access_token['extra']['raw_info']
+    data = access_token['extra']['raw_info']    
     
     if user = User.find_by_email(data["email"])
       user
     else # Create a user with a stub password. 
-      user = User.create!(:email => data["email"]) 
+      user    = User.create!(:email => data["email"]) 
+      profile = user.create_profile :name => data["name"], :email => data["email"]
+      
       user.facebook_id        = data["id"]
-      user.name               = data["name"]
       user.encrypted_password = Devise.friendly_token[0,20]
       user.save
       user
