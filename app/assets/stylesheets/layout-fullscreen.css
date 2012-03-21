@@ -69,6 +69,9 @@ html, body, #wrapper {
 /*
  * Feature Popup
  */
+#popup {
+  z-index: 10;
+}
 .information-panel {
   position: absolute;
   top: 15px;
@@ -81,27 +84,28 @@ html, body, #wrapper {
 }
 .information-panel-content .feature,
 .information-panel-content .page {
-  overflow: auto;
+  overflow-y: auto;
   position: absolute;
-  z-index:10;
+  z-index:30;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
 }
 .information-panel-content .feature.show {
-  padding-top: 86px;
+  top: 75px;
 }
 .information-panel .social {
   height: 74px;
   background-color: #eee;
   border: 1px solid #a8a8a8;
+  border-bottom: 0;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   overflow: hidden;
-  z-index:11;
+  z-index: 20;
 }
 .information-panel .close {
   width: 14px;

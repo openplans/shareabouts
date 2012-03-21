@@ -425,6 +425,9 @@ a.reply-link:hover {
 
 /* Feature Popup - Social Buttons */
 .information-panel .social {
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
 }
 .social form.vote button[type=submit] {
   background-color: #e4e4e4;
