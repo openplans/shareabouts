@@ -255,7 +255,7 @@ table.regions {
  * Feature Popup
  *
  */
- .information-panel {
+/* .information-panel {
    position: absolute;
    top: 15px;
    right: 15px;
@@ -272,22 +272,22 @@ table.regions {
      -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
   -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-  /* Explicit absolute, top/left/right/bottom instead of height:100% for IE7 only */
-  *position : absolute;
+*/  /* Explicit absolute, top/left/right/bottom instead of height:100% for IE7 only */
+/*  *position : absolute;
   *top      : 0;
   *left     : 0;
   *right    : 0;
   *bottom   : 0;
 }
 .information-panel-content-wrap:after {
-	content: "";
-	height: 5px;
+  content: "";
+  height: 5px;
   background: url("popup-overflow.png") repeat-x scroll 0 0 transparent;
-	position: absolute;
-	right: 0.75em;
-	bottom: 0;
-	left: 0.75em;
-	border-bottom: 0.75em solid #fff;
+  position: absolute;
+  right: 0.75em;
+  bottom: 0;
+  left: 0.75em;
+  border-bottom: 0.75em solid #fff;
 }
 
 .information-panel-content {
@@ -323,34 +323,34 @@ table.regions {
 
 .information-panel .popup-tip-wrapper {
   margin: -1px auto 0;
-	width: 40px;
-	height: 16px;
-	position: relative;
-	overflow: hidden;
-	z-index: 10002;
+  width: 40px;
+  height: 16px;
+  position: relative;
+  overflow: hidden;
+  z-index: 10002;
 }
 
 .information-panel .popup-tip {
   background: white;
   width: 15px;
-	height: 15px;
-	padding: 1px;
+  height: 15px;
+  padding: 1px;
 
-	margin: -11px auto 0;
+  margin: -11px auto 0;
 
-	-moz-transform: rotate(45deg);
-	-webkit-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	-o-transform: rotate(45deg);
-	transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
 
-	box-shadow: 0 1px 10px #888;
-	-moz-box-shadow: 0 1px 10px #888;
-	-webkit-box-shadow: 0 1px 14px #999;
+  box-shadow: 0 1px 10px #888;
+  -moz-box-shadow: 0 1px 10px #888;
+  -webkit-box-shadow: 0 1px 14px #999;
 }
 
-/* Feature Popup - Content */
-.feature .name {
+*//* Feature Popup - Content */
+/*.feature .name {
   margin: 0 0 0.25em;
 }
 .feature-header > .avatar {
@@ -380,14 +380,14 @@ table.regions {
   display: inline;
 }
 .feature.show .meta ul li:before {
-	content: "|";
+  content: "|";
 }
 .feature.show .meta ul li.first:before {
-	content: " ";
+  content: " ";
 }
-
+*/
 /* Discussion */
-.discussion {
+/*.discussion {
   position: relative;
   margin-top: 2em;
   padding-bottom: 2em;
@@ -456,8 +456,8 @@ a.reply-link:hover {
   margin-top: 1em;
 }
 
-/* Feature Popup - Admin */
-.feature.show .feature-admin {
+*//* Feature Popup - Admin */
+/*.feature.show .feature-admin {
   border : 1px dashed red;
   padding: 10px;
   background-color: #F8F8FF;
@@ -466,8 +466,8 @@ a.reply-link:hover {
   font-size: 1em;
 }
 
-/* Feature Popup - Flash Messages */
-.flash {
+*//* Feature Popup - Flash Messages */
+/*.flash {
   font-weight: bold;
   text-align: center;
   background-color: #fdf9e5;
@@ -493,8 +493,8 @@ a.reply-link:hover {
   color: #F61359;
 }
 
-/* Feature Popup - Social Buttons */
-.information-panel .social {
+*//* Feature Popup - Social Buttons */
+/*.information-panel .social {
   height: 75px;
   background-color: #eee;
   border-bottom: 1px solid #a8a8a8;
@@ -568,7 +568,7 @@ a.reply-link:hover {
 .social .sharing li a.link {
   background: url("link.png") no-repeat scroll 0 0 transparent;
 }
-
+*/
 
 /*
  *

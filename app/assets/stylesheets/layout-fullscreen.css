@@ -48,6 +48,102 @@ html, body, #wrapper {
   z-index: 200;
 }
 
+/* 
+ * The Map 
+ */
+#map-container {
+  position : absolute;
+  top:0;
+  bottom:0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+#map {
+  position : absolute;
+  top:0;
+  bottom:0;
+  width:100%;
+}
+
+/*
+ * Feature Popup
+ */
+.information-panel {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  bottom: 45px;
+}
+.information-panel-content-wrap {
+  background-color: white;
+  border: 1px solid #a8a8a8;
+  z-index: 10000;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+.information-panel-content {
+}
+.information-panel-content .feature.show {
+  padding-top: 75px;
+}
+.information-panel .social {
+  height: 75px;
+  background-color: #eee;
+  border-bottom: 1px solid #a8a8a8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+.information-panel .close {
+  width: 14px;
+  height: 14px;
+  background: url("close-bttn.png") no-repeat scroll 0 0 transparent;
+  text-indent: -9999px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10001;
+}
+.information-panel .close:hover { background-position: bottom left; }
+
+.information-panel .popup-tip-wrapper {
+  margin: -1px auto 0;
+	width: 40px;
+	height: 16px;
+	position: relative;
+	overflow: hidden;
+	z-index: 10002;
+}
+
+.information-panel .popup-tip {
+  background: white;
+  width: 15px;
+  height: 15px;
+  padding: 1px;
+
+  margin: -11px auto 0;
+
+     -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+       -o-transform: rotate(45deg);
+          transform: rotate(45deg);
+
+  -webkit-box-shadow: 0 1px 14px #999;
+     -moz-box-shadow: 0 1px 10px #888;
+          box-shadow: 0 1px 10px #888;
+}
+
 /*
  * Polularity Filter (SliderHider)
  */
@@ -79,23 +175,9 @@ html, body, #wrapper {
 }
 .ui-sliderhider-close {}
 
-/* The Map */
-#map-container {
-  position : absolute;
-  top:0;
-  bottom:0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-}
-#map {
-  position : absolute;
-  top:0;
-  bottom:0;
-  width:100%;
-}
-
-/* Crosshair for touchscreens */
+/* 
+ * Crosshair for touchscreens 
+ */
 #crosshair {
   position : absolute;
   z-index  : 10000;
