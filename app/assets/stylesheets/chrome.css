@@ -133,6 +133,7 @@ table.regions {
   font-size: 0.7em;
   display: block;
 }
+
 #access .account,
 #access .account .my-points,
 #access .account .my-supports,
@@ -766,6 +767,8 @@ and (max-device-width : 480px) {
   #pages:hover a {
     display: block;
   }
+
+  #access .account { display:none; }
 }
 
 /* smartphones (landscape) ----------- */
