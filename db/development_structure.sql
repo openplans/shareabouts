@@ -10124,6 +10124,40 @@ ALTER SEQUENCE points_id_seq OWNED BY feature_points.id;
 
 
 --
+-- Name: profiles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE profiles (
+    id integer NOT NULL,
+    user_id integer,
+    zip_code character varying(255),
+    email character varying(255),
+    name character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE profiles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE profiles_id_seq OWNED BY profiles.id;
+
+
+--
 -- Name: rails_admin_histories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10439,6 +10473,13 @@ ALTER TABLE pages ALTER COLUMN id SET DEFAULT nextval('pages_id_seq'::regclass);
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE profiles ALTER COLUMN id SET DEFAULT nextval('profiles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE rails_admin_histories ALTER COLUMN id SET DEFAULT nextval('rails_admin_histories_id_seq'::regclass);
 
 
@@ -10566,6 +10607,14 @@ ALTER TABLE ONLY feature_points
 
 
 --
+-- Name: profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY profiles
+    ADD CONSTRAINT profiles_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: rails_admin_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10689,6 +10738,13 @@ CREATE UNIQUE INDEX index_pages_on_slug ON pages USING btree (slug);
 --
 
 CREATE INDEX index_pages_on_status ON pages USING btree (status);
+
+
+--
+-- Name: index_profiles_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_profiles_on_user_id ON profiles USING btree (user_id);
 
 
 --
@@ -10838,3 +10894,5 @@ INSERT INTO schema_migrations (version) VALUES ('20120229203732');
 INSERT INTO schema_migrations (version) VALUES ('20120301211836');
 
 INSERT INTO schema_migrations (version) VALUES ('20120319211951');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321165613');

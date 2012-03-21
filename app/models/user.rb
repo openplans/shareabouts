@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :feature_points
   has_many :votes
   has_many :comments
+  
+  has_one :profile
 
   def self.find_for_twitter_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info']

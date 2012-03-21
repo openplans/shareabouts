@@ -47,6 +47,12 @@ Fixjour :verify => false do
     })
   end
   
+  define_builder(Profile) do |klass, overrides|
+    klass.new({
+      :user => new_user
+    })
+  end
+  
   define_builder(Admin) do |klass, overrides|
     klass.new({
       :email => Faker::Internet.email, 
