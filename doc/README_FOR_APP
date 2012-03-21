@@ -84,6 +84,10 @@ Shareabouts uses facebook and/or twitter for authentication, via the omniauth ge
 You'll need to generate app keys and secrets at 
 https://developers.facebook.com/apps and https://dev.twitter.com/apps.
 
+On Twitter's settings page for your app, you must enter the Callback
+URL.  Use your site's public URL followed by /auth/twitter.
+For Access, you can choose "Read only".
+
 Once you have those keys, copy config/facebook.yml.example to config/facebook.yml, 
 and copy config/twitter.yml.example to config/twitter.yml. Then, fill in your keys 
 for each environment for each service.
