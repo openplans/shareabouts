@@ -91,14 +91,17 @@ html, body, #wrapper {
 */}
 .information-panel-content {
 }
-.information-panel-content .feature.show {
-  padding-top: 75px;
+.information-panel-content .feature {
   overflow: auto;
   position: absolute;
+  z-index:10;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+}
+.information-panel-content .feature.show {
+  padding-top: 75px;
 }
 .information-panel .social {
   height: 75px;
@@ -109,6 +112,7 @@ html, body, #wrapper {
   left: 0;
   right: 0;
   overflow: hidden;
+  z-index:11;
 }
 .information-panel .close {
   width: 14px;

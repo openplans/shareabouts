@@ -255,6 +255,15 @@ table.regions {
  * Feature Popup
  *
  */
+.information-panel-content .feature {
+  background-color: white;
+  border: 1px solid #a8a8a8;
+  padding:5px;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+
 /* .information-panel {
    position: absolute;
    top: 15px;
