@@ -3,7 +3,7 @@ class VotesController < ApplicationController
   before_filter :get_supportable
   
   def create
-    @vote = @supportable.votes.create :user => current_user
+    @vote = @supportable.votes.create :profile => current_profile
     
     store_vote_in_cookie @vote
     

@@ -9735,7 +9735,8 @@ CREATE TABLE activity_items (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     subject_parent_id integer,
-    subject_parent_type character varying(255)
+    subject_parent_type character varying(255),
+    profile_id integer
 );
 
 
@@ -9811,7 +9812,8 @@ CREATE TABLE comments (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_id integer,
-    submitter_name character varying(255)
+    submitter_name character varying(255),
+    profile_id integer
 );
 
 
@@ -9920,6 +9922,7 @@ CREATE TABLE feature_points (
     user_id integer,
     visible boolean,
     submitter_name character varying(255),
+    profile_id integer,
     CONSTRAINT enforce_dims_the_geom CHECK ((st_ndims(the_geom) = 2)),
     CONSTRAINT enforce_geotype_the_geom CHECK (((geometrytype(the_geom) = 'POINT'::text) OR (the_geom IS NULL))),
     CONSTRAINT enforce_srid_the_geom CHECK ((st_srid(the_geom) = 4326))
@@ -9946,6 +9949,7 @@ CREATE TABLE feature_polygons (
     shapefile_updated_at timestamp without time zone,
     workflow_state character varying(255),
     job_error text,
+    profile_id integer,
     CONSTRAINT enforce_dims_the_geom CHECK ((st_ndims(the_geom) = 2)),
     CONSTRAINT enforce_geotype_the_geom CHECK (((geometrytype(the_geom) = 'MULTIPOLYGON'::text) OR (the_geom IS NULL))),
     CONSTRAINT enforce_srid_the_geom CHECK ((st_srid(the_geom) = 4326))
@@ -10376,7 +10380,8 @@ CREATE TABLE votes (
     supportable_type character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    user_id integer
+    user_id integer,
+    profile_id integer
 );
 
 
@@ -10678,6 +10683,13 @@ CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at
 
 
 --
+-- Name: index_activity_items_on_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_activity_items_on_profile_id ON activity_items USING btree (profile_id);
+
+
+--
 -- Name: index_activity_items_on_subject_type_and_subject_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10692,6 +10704,13 @@ CREATE INDEX index_comments_on_commentable_type_and_commentable_id ON comments U
 
 
 --
+-- Name: index_comments_on_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_profile_id ON comments USING btree (profile_id);
+
+
+--
 -- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10699,10 +10718,24 @@ CREATE INDEX index_comments_on_user_id ON comments USING btree (user_id);
 
 
 --
+-- Name: index_feature_points_on_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_feature_points_on_profile_id ON feature_points USING btree (profile_id);
+
+
+--
 -- Name: index_feature_points_on_the_geom; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_feature_points_on_the_geom ON feature_points USING btree (the_geom);
+
+
+--
+-- Name: index_feature_polygons_on_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_feature_polygons_on_profile_id ON feature_polygons USING btree (profile_id);
 
 
 --
@@ -10780,6 +10813,13 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
+-- Name: index_votes_on_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_votes_on_profile_id ON votes USING btree (profile_id);
 
 
 --
@@ -10896,3 +10936,13 @@ INSERT INTO schema_migrations (version) VALUES ('20120301211836');
 INSERT INTO schema_migrations (version) VALUES ('20120319211951');
 
 INSERT INTO schema_migrations (version) VALUES ('20120321165613');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321180716');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321180734');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321180752');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321180809');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321180827');

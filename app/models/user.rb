@@ -7,19 +7,21 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email
-  
-  has_many :feature_points
-  has_many :votes
-  has_many :comments
-  
-  has_one :profile
+
+  has_one :profile  
+
+  has_many :activity_items, :through => :profile
+  has_many :feature_points, :through => :profile
+  has_many :feature_polygons, :through => :profile
+  has_many :votes, :through => :profile
+  has_many :comments, :through => :profile
 
   def self.find_for_twitter_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['raw_info']
     
     # Twitter does not give access to email, so possibility for double accounts.
     screenname = "@#{data["screen_name"]}"
-    
+        
     if user = User.find_by_email(screenname)
       user
     else # Create a user with a stub password & twitter name for an email address

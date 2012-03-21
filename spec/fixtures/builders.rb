@@ -48,8 +48,11 @@ Fixjour :verify => false do
   end
   
   define_builder(Profile) do |klass, overrides|
+    user_options = {}
+    user_options.email = overrides["email"] if overrides["email"].present?
+    
     klass.new({
-      :user => new_user
+      :user => new_user(user_options)
     })
   end
   

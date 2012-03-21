@@ -20,7 +20,7 @@ class FeaturePoint < ActiveRecord::Base
   has_many :children_activity_items, :as => :subject_parent, :class_name => "ActivityItem", :dependent => :destroy
   has_one :feature_location_type, :as => :feature, :dependent => :destroy, :inverse_of => :feature
   has_one :location_type, :through => :feature_location_type
-  belongs_to :user
+  belongs_to :profile
 
   before_create :find_regions
   after_create :add_to_regions
@@ -45,6 +45,10 @@ class FeaturePoint < ActiveRecord::Base
 
   def longitude
     return the_geom.x if the_geom
+  end
+  
+  def user
+    profile.user if profile.present?
   end
 
   def display_name

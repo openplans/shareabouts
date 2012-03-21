@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_filter :get_commentable, :only => :create
   
   def create
-    @comment = @commentable.comments.create  params[:comment].merge(:user => current_user)    
+    @comment = @commentable.comments.create params[:comment].merge(:profile => current_profile)    
     
     respond_to do |format|
       format.json { 
