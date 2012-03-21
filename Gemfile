@@ -46,6 +46,7 @@ group :development, :test do
   gem "fixjour"
   gem "rspec-rails", ">= 2.2.0"
   gem 'cover_me', '>= 1.2.0'
+  gem 'shoulda-matchers'
 end
 
 group :production do
