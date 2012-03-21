@@ -69,7 +69,8 @@ end
 
 namespace :config do
   task :symlink, :except => { :no_release => true } do
-    run "ln -nfs #{shared_path}/config/* #{release_path}/config/"
+    run "ln -nfs #{shared_path}/config/*.* #{release_path}/config/"
+    run "if [ -d #{shared_path}/config/initializers ]; then ln -nfs #{shared_path}/config/initializers/*.rb #{release_path}/config/initializers/; fi"
   end
 end
 
