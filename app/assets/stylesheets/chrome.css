@@ -527,7 +527,9 @@ a.reply-link:hover {
   color: #ddd;
   text-decoration: none;
   display: block;
-  padding: 10px 0 10px 45px;
+  padding: 10px 10px 10px 45px;
+  position: relative;
+  z-index: 10;
 }
 #ticker ul a:hover {
   color: #fff;
@@ -552,6 +554,7 @@ a.reply-link:hover {
   height: 28px;
   text-align: right;
   margin: 10px 0 10px 10px;
+  z-index: 5;
 }
 #ticker .avatar img {
   width: 28px;
