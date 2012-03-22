@@ -117,7 +117,7 @@ table.regions {
   line-height: 1.5;
 }
 #site-title a:hover {
-  color: #eee;
+  color: #fff;
 }
 #header .meta-separator {
   color: #777;
@@ -505,78 +505,72 @@ a.reply-link:hover {
   -webkit-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
           box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
 }
-
 #content.ticker_on #map-container {
   right : 14em;
 }
-
 #content.ticker_on #ticker {
-  display  : block;
-  position : absolute;
-  width    : 14em;
-  bottom   : 0;
-  right    : 0;
-  top      : 0;
-  z-index  : 10000;
-  background-color : #666666;
-  overflow : auto;
+  display: block;
+  position: absolute;
+  width: 14em;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  z-index: 10000;
+  background-color: #666666;
+  overflow: auto;
 }
-
 #ticker ul {
   padding-top: 4px;
   margin: 0;
 }
-
 #ticker ul a {
-  color           : #fff;
-  text-decoration : none;
-  display         : block;
-  float : left;
-  width : 12em;
+  color: #ddd;
+  text-decoration: none;
+  display: block;
+  padding: 10px 0 10px 45px;
 }
-
+#ticker ul a:hover {
+  color: #fff;
+}
 #ticker li {
-  padding       : 0.8em 0 0.8em 0.8em;
-  min-height    : 25px;
-  border-bottom : 3px solid #5d5d5d;
-  font-size     : 0.8em;
-  margin-bottom : 0;
+  padding: 0;
+  min-height: 25px;
+  border-bottom: 3px solid #5d5d5d;
+  font-size: 0.8em;
+  margin-bottom: 0;
+  position: relative;
 }
-
+#ticker li:hover {
+  background-color: #626262;
+}
 #ticker li.loading > div {
   margin : 1em auto;
   width  : 13px;
 }
-
 #ticker .avatar {
-  width      : 35px;
-  height     : 35px;
-  margin-right : 0.5em;
-  text-align : right;
+  width: 28px;
+  height: 28px;
+  text-align: right;
+  margin: 10px 0 10px 10px;
 }
-
 #ticker .avatar img {
-  width : 90%;
+  width: 28px;
 }
-
 #ticker div.badge {
-  width : 16px;
-  height : 16px;
-  bottom : 0;
-  left : 0;
-  position : absolute;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 20px;
+  right: 18px;
 }
-
 #ticker div.badge.feature_point {
-  background : transparent url('ticker-point.png') no-repeat scroll top left;
+  background : transparent url('ticker-point.png') no-repeat scroll center center;
 }
-
 #ticker div.badge.vote {
-  background : transparent url('ticker-heart.png') no-repeat scroll top left;
+  background : transparent url('ticker-heart.png') no-repeat scroll center center;
 }
-
 #ticker div.badge.comment {
-  background : transparent url('ticker-comment.png') no-repeat scroll top left;
+  background : transparent url('ticker-comment.png') no-repeat scroll center center;
 }
 
 /* HiderSlider Widget */
