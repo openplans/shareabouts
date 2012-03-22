@@ -75,7 +75,7 @@ html, body, #wrapper {
 .information-panel {
   position: absolute;
   top: 15px;
-  right: 15px;
+  right: 5px;
   bottom: 45px;
 }
 .information-panel-content-wrap {
@@ -121,12 +121,15 @@ html, body, #wrapper {
 
 .information-panel .popup-tip-wrapper {
   margin: -1px auto 0;
-	width: 40px;
-	height: 16px;
-	position: relative;
-	overflow: hidden;
-	z-index: 10002;
-}
+  width: 40px;
+  height: 16px;
+  position: absolute;
+  bottom:-15px;
+  left:50%;
+  margin-left:-20px;
+  overflow: hidden;
+  z-index: 10002;
+  }
 
 .information-panel .popup-tip {
   background: white;
