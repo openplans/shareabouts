@@ -27,7 +27,7 @@ en:
       description_label: Tell us why this creates clutter on the sidewalk.
       submitter_name_label: Your Name
       submit: Submit Point
-    purpose: 'This location is a %{type}.'
+    purpose: 'Street clutter: %{type}.'
     submitted_by: added this point in %{in_region}
     when: 'on %{date} at %{time}'
     comment: 
