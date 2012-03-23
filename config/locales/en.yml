@@ -21,7 +21,7 @@ en:
     notice: 
       point_added: Thank you! Your submission was added to the map.
       invalid: Sorry, something went wrong.
-      out_of_bounds: "Point doesn't fall within the defined regions"
+      out_of_bounds: "Looks like that location is outside CB7"
     form: 
       header: Tell us more...
       title_label: Sidewalk object
