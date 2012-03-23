@@ -19,6 +19,7 @@ en:
     notice:
       point_added: 'Thank you! Your point was added to the map. Please, share it with your friends.'
       invalid: 'There are some errors with your point.'
+      out_of_bounds: "Point doesn't fall within the defined regions"
     form:
       header: 'Tell us more...'
       title_label: Location Name

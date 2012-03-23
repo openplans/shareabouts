@@ -4,7 +4,7 @@ class FeaturePoint < ActiveRecord::Base
     def validate(record)
       record.find_regions[0]
     rescue IndexError
-      record.errors[:the_geom] << "Point doesn't fall within the defined regions"
+      record.errors[:the_geom] << I18n.t("feature.notice.out_of_bounds")
     end
   end
 
