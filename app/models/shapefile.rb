@@ -1,3 +1,9 @@
+# Shapefile represents a collection of Regions. Admins can upload a Shapefile
+# (or, a zip file that contains, at the least, a .shx, .shp, and .dbf file) 
+# and then the shapefile is parsed for Regions. Shapefile parsing and region 
+# creation happens in lib/jobs/shapefile_job.rb. Shapefiles that contain a .prj
+# file are reprojected via ogr2ogr.
+
 class Shapefile < ActiveRecord::Base
   has_many :regions, :inverse_of => :shapefile, :dependent => :destroy
   

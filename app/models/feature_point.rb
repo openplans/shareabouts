@@ -1,3 +1,10 @@
+# FeaturePoint represents a point that is displayed on the map.
+# If there are any Regions, which are created by an Admin uploading a 
+# shapefile, points must fall within at least one of those regions to be valid.
+# FeaturePoints can be marked as being not visible in the admin section.
+# When a FeaturePoint is marked as not visible, its associated activity items
+# are deleted.
+
 class FeaturePoint < ActiveRecord::Base
 
   class InRegionValidator < ActiveModel::Validator

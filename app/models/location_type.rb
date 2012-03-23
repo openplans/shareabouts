@@ -1,3 +1,6 @@
+# LocationTypes classify types of locations on the map. They are created in
+# the admin section and can optionally have an icon associated with them. 
+
 class LocationType < ActiveRecord::Base
   validates :name, :presence => true
   

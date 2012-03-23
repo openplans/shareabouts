@@ -1,3 +1,6 @@
+# Pages are created by admins, and by default, are linked to in the header of 
+# the app. Pages are loaded in the map's InformationPanel.
+
 class Page < ActiveRecord::Base
   
   StatusOptions = %w{draft published}
