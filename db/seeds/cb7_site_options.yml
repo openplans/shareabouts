@@ -1,12 +1,12 @@
 ---
 
 site_options:
-  map_bounds_p1_lat: ""
-  map_bounds_p1_long: ""
-  map_bounds_p2_lat: ""
-  map_bounds_p2_long: ""
+  map_bounds_p1_lat: "40.717079"
+  map_bounds_p1_long: "-74.124813"
+  map_bounds_p2_lat: "40.867834"
+  map_bounds_p2_long: "-73.787327"
   map_center_lat: "40.78639"
   map_center_long: "-73.965081"
   map_initial_zoom: "14"
-  map_min_zoom: "12"
   map_max_zoom: "19"
+  map_min_zoom: "12"
