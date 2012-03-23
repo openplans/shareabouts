@@ -511,6 +511,9 @@ $.widget("ui.shareabout", (function() {
        * Drops a marker on the map at the center
        */
       fsm.onlocateNewFeature = function (eventName, from, to) {
+        // Make sure the map is sized for its container correctly
+        map.invalidateSize();
+
         if (shareabout._touch_screen()) {
           var wrapper = $("<div>").attr("id", "crosshair"),
               img     = $("<img>").attr("src", shareabout.options.crosshairIcon.iconUrl);
