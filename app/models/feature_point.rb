@@ -1,10 +1,17 @@
+# FeaturePoint represents a point that is displayed on the map.
+# If there are any Regions, which are created by an Admin uploading a 
+# shapefile, points must fall within at least one of those regions to be valid.
+# FeaturePoints can be marked as being not visible in the admin section.
+# When a FeaturePoint is marked as not visible, its associated activity items
+# are deleted.
+
 class FeaturePoint < ActiveRecord::Base
 
   class InRegionValidator < ActiveModel::Validator
     def validate(record)
       record.find_regions[0]
     rescue IndexError
-      record.errors[:the_geom] << "Point doesn't fall within the defined regions"
+      record.errors[:the_geom] << I18n.t("feature.notice.out_of_bounds")
     end
   end
 

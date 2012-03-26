@@ -1,3 +1,8 @@
+# The ActivityObserver observes certain models for, at the moment, creation of 
+# new records, and then creates a new ActivityItem for those records. 
+# Read about ActiveRecord Observers here:
+# http://api.rubyonrails.org/classes/ActiveRecord/Observer.html
+
 class ActivityObserver < ActiveRecord::Observer
   observe FeaturePoint, Comment, Vote
   

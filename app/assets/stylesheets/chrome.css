@@ -117,7 +117,7 @@ table.regions {
   line-height: 1.5;
 }
 #site-title a:hover {
-  color: #eee;
+  color: #fff;
 }
 #header .meta-separator {
   color: #777;
@@ -133,6 +133,7 @@ table.regions {
   font-size: 0.7em;
   display: block;
 }
+
 #access .account,
 #access .account .my-points,
 #access .account .my-supports,
@@ -254,98 +255,28 @@ table.regions {
  * Feature Popup
  *
  */
- .information-panel {
-   position: absolute;
-   top: 15px;
-   right: 15px;
-   bottom: 45px;
- }
-
-.information-panel-content-wrap {
+.information-panel-content .feature,
+.information-panel-content .page {
   background-color: white;
   border: 1px solid #a8a8a8;
-  position : relative;
-  z-index:10000;
-  overflow-y: hidden;
-  height: 100%;
+  padding: 1.5em;
      -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
   -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-  /* Explicit absolute, top/left/right/bottom instead of height:100% for IE7 only */
-  *position : absolute;
-  *top      : 0;
-  *left     : 0;
-  *right    : 0;
-  *bottom   : 0;
 }
-.information-panel-content-wrap:after {
-	content: "";
-	height: 5px;
-  background: url("popup-overflow.png") repeat-x scroll 0 0 transparent;
-	position: absolute;
-	right: 0.75em;
-	bottom: 0;
-	left: 0.75em;
-	border-bottom: 0.75em solid #fff;
-}
-
 .information-panel-content {
   line-height: 1.5;
 }
-
-.information-panel-content .feature,
-.information-panel-content .page {
-  overflow-y: auto;
+.information-panel-content:after {
+  content: "";
+  height: 5px;
+  background: url("popup-overflow.png") repeat-x scroll 0 0 transparent;
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: 0;
-  padding: 1em 1em 2em 1em;
-}
-.information-panel-content .feature.show {
-  top: 76px;
-}
-
-.information-panel .close {
-  width: 14px;
-  height: 14px;
-  background: url("close-bttn.png") no-repeat scroll 0 0 transparent;
-  text-indent: -9999px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 10001;
-}
-.information-panel .close:hover { background-position: bottom left; }
-
-.information-panel .popup-tip-wrapper {
-  margin: -1px auto 0;
-	width: 40px;
-	height: 16px;
-	position: relative;
-	overflow: hidden;
-	z-index: 10002;
-}
-
-.information-panel .popup-tip {
-  background: white;
-  width: 15px;
-	height: 15px;
-	padding: 1px;
-
-	margin: -11px auto 0;
-
-	-moz-transform: rotate(45deg);
-	-webkit-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	-o-transform: rotate(45deg);
-	transform: rotate(45deg);
-
-	box-shadow: 0 1px 10px #888;
-	-moz-box-shadow: 0 1px 10px #888;
-	-webkit-box-shadow: 0 1px 14px #999;
+  right: 1em;
+  bottom: 1px;
+  left: 1em;
+  border-bottom: 0.75em solid #fff;
+  z-index: 100;
 }
 
 /* Feature Popup - Content */
@@ -379,10 +310,10 @@ table.regions {
   display: inline;
 }
 .feature.show .meta ul li:before {
-	content: "|";
+  content: "|";
 }
 .feature.show .meta ul li.first:before {
-	content: " ";
+  content: " ";
 }
 
 /* Discussion */
@@ -494,16 +425,10 @@ a.reply-link:hover {
 
 /* Feature Popup - Social Buttons */
 .information-panel .social {
-  height: 75px;
-  background-color: #eee;
-  border-bottom: 1px solid #a8a8a8;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
 }
-
 .social form.vote button[type=submit] {
   background-color: #e4e4e4;
   color: #444;
@@ -580,78 +505,75 @@ a.reply-link:hover {
   -webkit-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
           box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
 }
-
 #content.ticker_on #map-container {
   right : 14em;
 }
-
 #content.ticker_on #ticker {
-  display  : block;
-  position : absolute;
-  width    : 14em;
-  bottom   : 0;
-  right    : 0;
-  top      : 0;
-  z-index  : 10000;
-  background-color : #666666;
-  overflow : auto;
+  display: block;
+  position: absolute;
+  width: 14em;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  z-index: 10000;
+  background-color: #666666;
+  overflow: auto;
 }
-
 #ticker ul {
   padding-top: 4px;
   margin: 0;
 }
-
 #ticker ul a {
-  color           : #fff;
-  text-decoration : none;
-  display         : block;
-  float : left;
-  width : 12em;
+  color: #ddd;
+  text-decoration: none;
+  display: block;
+  padding: 10px 10px 10px 45px;
+  position: relative;
+  z-index: 10;
 }
-
+#ticker ul a:hover {
+  color: #fff;
+}
 #ticker li {
-  padding       : 0.8em 0 0.8em 0.8em;
-  min-height    : 25px;
-  border-bottom : 3px solid #5d5d5d;
-  font-size     : 0.8em;
-  margin-bottom : 0;
+  padding: 0;
+  min-height: 25px;
+  border-bottom: 3px solid #5d5d5d;
+  font-size: 0.8em;
+  margin-bottom: 0;
+  position: relative;
 }
-
+#ticker li:hover {
+  background-color: #626262;
+}
 #ticker li.loading > div {
   margin : 1em auto;
   width  : 13px;
 }
-
 #ticker .avatar {
-  width      : 35px;
-  height     : 35px;
-  margin-right : 0.5em;
-  text-align : right;
+  width: 28px;
+  height: 28px;
+  text-align: right;
+  margin: 10px 0 10px 10px;
+  z-index: 5;
 }
-
 #ticker .avatar img {
-  width : 90%;
+  width: 28px;
 }
-
 #ticker div.badge {
-  width : 16px;
-  height : 16px;
-  bottom : 0;
-  left : 0;
-  position : absolute;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 20px;
+  right: 18px;
 }
-
 #ticker div.badge.feature_point {
-  background : transparent url('ticker-point.png') no-repeat scroll top left;
+  background : transparent url('ticker-point.png') no-repeat scroll center center;
 }
-
 #ticker div.badge.vote {
-  background : transparent url('ticker-heart.png') no-repeat scroll top left;
+  background : transparent url('ticker-heart.png') no-repeat scroll center center;
 }
-
 #ticker div.badge.comment {
-  background : transparent url('ticker-comment.png') no-repeat scroll top left;
+  background : transparent url('ticker-comment.png') no-repeat scroll center center;
 }
 
 /* HiderSlider Widget */
@@ -766,6 +688,8 @@ and (max-device-width : 480px) {
   #pages:hover a {
     display: block;
   }
+
+  #access .account { display:none; }
 }
 
 /* smartphones (landscape) ----------- */

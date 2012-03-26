@@ -1,5 +1,9 @@
-# A polygon that can be displayed on the map. 
-# Currently, the creation of FeaturePolygons is an admin-only function.
+# A FeaturePolygon is a multipolygon that can be displayed on the map. 
+# Currently, the creation of FeaturePolygons is an admin-only function, via
+# uploading a shapefile. The display of FeaturePolygons is currently not 
+# implemented, although FeaturePolygonsController provides JSON that can be
+# used to create the polygons on the map.
+
 class FeaturePolygon < ActiveRecord::Base
   include Workflow
 

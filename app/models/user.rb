@@ -1,3 +1,8 @@
+# Represents an authenticated User. We're currently using facebook and twitter
+# to authenticate users, so users' passwords are bypassed. The creation of users
+# after oauth callbacks happens in User#find_for_twitter_oauth and 
+# User#find_for_facebook_oauth.
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
