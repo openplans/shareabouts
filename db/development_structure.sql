@@ -10138,7 +10138,9 @@ CREATE TABLE profiles (
     email character varying(255),
     name character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    user_agent character varying(255),
+    client_ip character varying(255)
 );
 
 
@@ -10774,6 +10776,13 @@ CREATE INDEX index_pages_on_status ON pages USING btree (status);
 
 
 --
+-- Name: index_profiles_on_user_agent_and_client_ip; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_profiles_on_user_agent_and_client_ip ON profiles USING btree (user_agent, client_ip);
+
+
+--
 -- Name: index_profiles_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10946,3 +10955,5 @@ INSERT INTO schema_migrations (version) VALUES ('20120321180752');
 INSERT INTO schema_migrations (version) VALUES ('20120321180809');
 
 INSERT INTO schema_migrations (version) VALUES ('20120321180827');
+
+INSERT INTO schema_migrations (version) VALUES ('20120326172058');

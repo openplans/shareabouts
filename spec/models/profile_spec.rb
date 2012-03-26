@@ -14,5 +14,6 @@ describe Profile do
   it { should have_many(:feature_polygons) }
   it { should have_many(:votes) }
   
+  it { should validate_uniqueness_of(:user_agent, :scoped_to => :client_ip) }
   it { should validate_uniqueness_of(:user_id) }
 end
