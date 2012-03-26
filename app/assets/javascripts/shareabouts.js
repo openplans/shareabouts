@@ -65,6 +65,8 @@ $.widget("ui.shareabout", (function() {
       map.addLayer(new L.TileLayer( this.options.tileUrl, {
         maxZoom: this.options.map.maxZoom, attribution: this.options.tileAttribution
       }));
+      map.attributionControl.setPrefix('');
+
       // TODO: What is this doing?
       map.on('layerremove', function(e) {
         if (e.layer == self.newFeature) self.newFeature._visible = false;
