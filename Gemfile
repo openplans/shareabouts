@@ -30,7 +30,7 @@ gem 'ckeditor'
 
 gem 'workflow'
 gem "paperclip", "~> 2.0"
-gem "rmagick"
+gem "rmagick", "2.12.2"
 gem "rubyzip"
 
 gem 'json'
