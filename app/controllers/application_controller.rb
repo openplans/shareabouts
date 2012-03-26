@@ -27,7 +27,14 @@ class ApplicationController < ActionController::Base
   end
   
   def current_profile
-    current_user.try(:profile)
+    @current_profile ||= if current_user.present?
+      current_user.profile
+    elsif cookies[:profile].inspect != "nil" # requires that we have set the profile cookie
+      require 'profile'
+      Marshal.load(cookies[:profile])
+    else
+      set_profile_cookie Profile.find_or_create_by_request_fingerprint(request)
+    end
   end
   
   def current_ability
@@ -59,5 +66,17 @@ class ApplicationController < ActionController::Base
       render :template => 'home/no_ie6.html.erb', :layout => false
       return false
     end
+  end
+  
+  private
+  
+  # Sets the profile in a cookie and returns the profile
+  def set_profile_cookie(profile)
+    cookies[:profile] = { 
+      :value => Marshal.dump(profile), 
+      :expires => 4.years.from_now
+    }
+    
+    profile
   end
 end

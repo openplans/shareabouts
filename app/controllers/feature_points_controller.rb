@@ -22,7 +22,7 @@ class FeaturePointsController < ApplicationController
   end
   
   def create
-    @feature_point = FeaturePoint.new params[:feature_point].merge({:the_geom => the_geom_from_params(params), :user_id => current_user.try(:id)})
+    @feature_point = FeaturePoint.new params[:feature_point].merge({:the_geom => the_geom_from_params(params), :profile_id => current_profile})
     
     if @feature_point.save
       respond_to do |format|
