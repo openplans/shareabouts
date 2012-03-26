@@ -52,7 +52,9 @@ Fixjour :verify => false do
     user_options.email = overrides["email"] if overrides["email"].present?
     
     klass.new({
-      :user => new_user(user_options)
+      :user => new_user(user_options), 
+      :user_agent => Faker::Lorem.sentence,
+      :client_ip => Array.new(4){rand(256)}.join('.')
     })
   end
   
