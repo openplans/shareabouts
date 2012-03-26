@@ -12,7 +12,7 @@ class CreateProfiles < ActiveRecord::Migration
       
       profile      = user.build_profile :email => user.email
       profile.name = user.name if user.respond_to?(:name)
-      profile.save
+      profile.save(:validate => false)
     end
   end
   
