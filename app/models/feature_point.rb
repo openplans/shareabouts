@@ -25,10 +25,11 @@ class FeaturePoint < ActiveRecord::Base
   has_many :regions, :through => :feature_regions
   has_many :activity_items, :as => :subject, :inverse_of => :subject, :dependent => :destroy
   has_many :children_activity_items, :as => :subject_parent, :class_name => "ActivityItem", :dependent => :destroy
+  belongs_to :profile
+  has_one :user, :through => :profile
   has_one :feature_location_type, :as => :feature, :dependent => :destroy, :inverse_of => :feature
   has_one :location_type, :through => :feature_location_type
-  belongs_to :profile
-
+  
   before_create :find_regions
   after_create :add_to_regions
   after_initialize :set_defaults
@@ -53,10 +54,6 @@ class FeaturePoint < ActiveRecord::Base
   def longitude
     return the_geom.x if the_geom
   end
-  
-  def user
-    profile.user if profile.present?
-  end
 
   def display_name
     name.present? ? name : display_the_geom
@@ -67,7 +64,7 @@ class FeaturePoint < ActiveRecord::Base
   end
 
   def display_submitter
-    user.try(:name) || (submitter_name.present? ? submitter_name : User.model_name.human.capitalize)
+    profile.try(:name) || (submitter_name.present? ? submitter_name : User.model_name.human.capitalize)
   end
   
   def region

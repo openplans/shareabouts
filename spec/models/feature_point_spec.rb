@@ -128,7 +128,7 @@ describe FeaturePoint do
       end
       
       it "displays submitter display name" do
-        point.display_submitter.should == point.user.name
+        point.display_submitter.should == point.profile.name
       end
     end
     

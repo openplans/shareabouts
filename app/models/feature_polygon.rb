@@ -10,6 +10,7 @@ class FeaturePolygon < ActiveRecord::Base
   scope :visible, where(:visible => true)
   
   belongs_to :profile
+  has_one    :user, :through => :profile
   
   has_attached_file :shapefile # zip file
   validates_attachment_content_type :shapefile, :content_type => "application/zip", :if => :attachment_present?
@@ -27,10 +28,6 @@ class FeaturePolygon < ActiveRecord::Base
     end
     state :complete
     state :import_error
-  end
-  
-  def user
-    profile.user if profile.present?
   end
   
   def as_json

@@ -53,6 +53,7 @@ Fixjour :verify => false do
     
     klass.new({
       :user => new_user(user_options), 
+      :name => Faker::Name.name,
       :user_agent => Faker::Lorem.sentence,
       :client_ip => Array.new(4){rand(256)}.join('.')
     })
