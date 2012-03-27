@@ -240,6 +240,18 @@ RailsAdmin.config do |config|
     parent Shapefile
     edit do
       fields :name, :image
+      field :marker
+    end
+    
+    show do 
+      fields :name, :image
+      field :marker
+    end
+  end
+  
+  config.model Marker do    
+    edit do
+      fields :icon_width, :icon_height, :icon_anchor_x, :icon_anchor_y, :popup_anchor_x, :popup_anchor_y
     end
   end
   

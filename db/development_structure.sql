@@ -10071,6 +10071,43 @@ ALTER SEQUENCE location_types_id_seq OWNED BY location_types.id;
 
 
 --
+-- Name: markers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE markers (
+    id integer NOT NULL,
+    location_type_id integer,
+    icon_width integer,
+    icon_height integer,
+    icon_anchor_x integer,
+    icon_anchor_y integer,
+    popup_anchor_x integer,
+    popup_anchor_y integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: markers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE markers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: markers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE markers_id_seq OWNED BY markers.id;
+
+
+--
 -- Name: pages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10473,6 +10510,13 @@ ALTER TABLE location_types ALTER COLUMN id SET DEFAULT nextval('location_types_i
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE markers ALTER COLUMN id SET DEFAULT nextval('markers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE pages ALTER COLUMN id SET DEFAULT nextval('pages_id_seq'::regclass);
 
 
@@ -10595,6 +10639,14 @@ ALTER TABLE ONLY geometry_columns
 
 ALTER TABLE ONLY location_types
     ADD CONSTRAINT location_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: markers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY markers
+    ADD CONSTRAINT markers_pkey PRIMARY KEY (id);
 
 
 --
@@ -10957,3 +11009,5 @@ INSERT INTO schema_migrations (version) VALUES ('20120321180809');
 INSERT INTO schema_migrations (version) VALUES ('20120321180827');
 
 INSERT INTO schema_migrations (version) VALUES ('20120326172058');
+
+INSERT INTO schema_migrations (version) VALUES ('20120327195149');
