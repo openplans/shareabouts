@@ -57,7 +57,7 @@ RailsAdmin.config do |config|
   # config.excluded_models << []
 
   # Add models here if you want to go 'whitelist mode':
-  config.included_models += %w{SiteOption Admin FeaturePoint FeaturePolygon Comment LocationType Page Shapefile}
+  config.included_models += %w{SiteOption Admin FeaturePoint FeaturePolygon Comment LocationType Page Shapefile Profile Region Vote}
 
   # Application wide tried label methods for models' instances
   # config.label_methods << [:description] # Default is [:name, :title]
@@ -81,7 +81,87 @@ RailsAdmin.config do |config|
   #
   #  ==> Model specific configuration
   # Try to override as few things as possible, in the most generic way. Try to avoid setting labels for models and attributes, use ActiveRecord I18n API instead.
+  
+  config.model FeaturePoint do
+    object_label_method :display_name     # Name of the method called for pretty printing an *instance* of ModelName
+    weight -1                     # Navigation priority. Bigger is higher.
+    label "Point"
+    label_plural "Points"
+    
+    navigation_label "Map features"
+
+    list do
+      items_per_page 100
+      field :visible
+      field :name
+      field :location_type do
+        searchable
+      end
+      field :profile do
+        label 'Contributer'
+        searchable [:id, :name]
+      end
+      field :display_submitter do
+        label 'Contributer name'
+        searchable :submitter_name
+      end
+      field :support_count
+      field :regions
+      field :display_the_geom do
+        label 'Location'
+      end
+      field :created_at
+    end
+    
+    show do
+      field :visible
+      field :name do
+        label 'Title'
+      end
+      field :description
+      field :location_type
+      field :profile do
+        label 'Contributer'
+      end
+      field :display_submitter do
+        label 'Contributer name'
+        searchable
+      end
+      field :regions
+      field :comments
+      field :support_count
+      field :display_the_geom do
+        label 'Location'
+      end
+      field :created_at
+    end
+    
+    export do
+      field :id
+      field :latitude
+      field :longitude
+      field :name do
+        label 'Title'
+      end
+      field :description
+      field :support_count
+      field :profile_id do
+        label 'Contributer id'
+      end
+      field :display_submitter do
+        label 'Sumbitter name'
+      end
+      field :location_type
+      field :regions
+      field :created_at
+    end
+  end
+  
   config.model FeaturePolygon do
+    parent FeaturePoint
+    label "Polygon"
+    label_plural "Polygons"
+    
     list do
       fields :id, :name, :shapefile, :workflow_state, :visible
     end
@@ -91,7 +171,50 @@ RailsAdmin.config do |config|
     end
   end
   
+  config.model Profile do
+    navigation_label "Community"
+    label "Contributer"
+    label_plural "Contributers"
+  end
+  
+  config.model Comment do
+    object_label_method :comment
+    parent Profile
+    
+    list do
+      field :comment
+      field :commentable
+      field :display_submitter
+      field :profile_id do
+        label 'Contributer id'
+      end
+      field :created_at
+    end
+    
+    edit do
+      field :comment
+      field :submitter_name
+    end
+    
+    show do
+      field :id
+      field :comment
+      field :submitter_name
+      field :profile_id do
+        label 'Contributer id'
+      end
+      field :commentable
+      fields :created_at, :updated_at
+    end    
+  end
+
+  config.model Vote do
+    parent Profile
+  end
+  
   config.model Shapefile do
+    navigation_label "Feature Metadata"
+    
     object_label_method :kind 
     list do
       field :id
@@ -109,7 +232,25 @@ RailsAdmin.config do |config|
     end
   end
   
+  config.model Region do
+    parent Shapefile
+  end
+  
+  config.model LocationType do
+    parent Shapefile
+    edit do
+      fields :name, :image
+    end
+  end
+  
+  config.model Admin do
+    navigation_label "Site Admin"
+    weight 500
+    object_label_method :email 
+  end
+  
   config.model SiteOption do
+    parent Admin
     object_label_method :option_name 
     weight 1000
     
@@ -122,23 +263,8 @@ RailsAdmin.config do |config|
     end
   end
   
-  config.model Admin do
-    weight 500
-    object_label_method :email 
-  end
-  
-  config.model Comment do
-    object_label_method :comment 
-    configure :commentable do
-      # configuration here
-    end
-  end
-  
-  config.model LocationType do
-    
-  end
-  
   config.model Page do
+
     edit do
       field :title
       field :content, :text do
@@ -157,71 +283,4 @@ RailsAdmin.config do |config|
       field :menu_order
     end
   end
-  
-  config.model FeaturePoint do
-    object_label_method :display_name     # Name of the method called for pretty printing an *instance* of ModelName
-    weight 100                     # Navigation priority. Bigger is higher.
-    label "Point"
-    label_plural "Points"
-
-    list do
-      items_per_page 100
-      field :id
-      field :visible
-      field :name
-      field :display_the_geom do
-        label 'Location'
-      end
-      # field :display_submitter do
-      #   label 'Submitter'
-      # end
-      field :created_at
-      # filters [:id, :name]  # Array of field names which filters should be shown by default in the table header
-      # sort_by :id           # Sort column (default is primary key)
-      # sort_reverse true     # Sort direction (default is true for primary key, last created first)
-    end
-    
-    export do
-      field :id
-      field :latitude
-      field :longitude
-      field :name do
-        label 'Title'
-      end
-      field :description
-      field :support_count
-      field :user_id do
-        label 'Submitter id'
-      end
-      field :display_submitter do
-        label 'Sumbitter name'
-      end
-      field :created_at
-    end
-    
-    # parent OtherModel             # Set parent model for navigation. MyModel will be nested below. OtherModel will be on first position of the dropdown
-    # navigation_label              # Sets dropdown entry's name in navigation. Only for parents!
-    #   show do
-    #     # Here goes the fields configuration for the show view
-    #   end
-    #   export do
-    #     # Here goes the fields configuration for the export view (CSV, yaml, XML)
-    #   end
-    #   edit do
-    #     # Here goes the fields configuration for the edit view (for create and update view)
-    #   end
-    #   create do
-    #     # Here goes the fields configuration for the create view, overriding edit section settings
-    #   end
-    #   update do
-    #     # Here goes the fields configuration for the update view, overriding edit section settings
-    #   end
-  end
-
-# fields configuration is described in the Readme, if you have other question, ask us on the mailing-list!
-
-#  ==> Your models configuration, to help you get started!
-
 end
-
-# You made it this far? You're looking for something that doesn't exist! Add it to RailsAdmin and send us a Pull Request!
