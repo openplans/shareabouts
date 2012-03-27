@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe FeaturePointsController do
+  before do
+    create_profile
+  end
+  
   describe "GET index" do
     context "with format JSON" do
       it "is a success" do
@@ -82,6 +86,52 @@ describe FeaturePointsController do
           
           assigns(:feature_point).should be_valid
           assigns(:feature_point).should_not be_new_record
+        end
+        
+        it "creates a new profile" do
+          lambda {
+            xhr :post, :create, params, :format => "json"
+          }.should change(Profile, :count).by(1)
+        end
+        
+        it "associates new point with new profile" do
+          xhr :post, :create, params, :format => "json"
+          
+          assigns(:feature_point).profile.should be
+          assigns(:feature_point).profile.should == Profile.last
+        end
+        
+        it "writes a cookie for new profile" do
+          xhr :post, :create, params, :format => "json"
+          response.cookies['profile'].inspect.should_not == "nil"
+        end
+        
+        context "when a profile cookie is present" do
+          attr_reader :profile
+          before do
+            @profile = create_profile
+            request.cookies['profile'] = Marshal.dump(profile)
+          end
+          
+          it "associates new point with logged in user's profile" do
+            xhr :post, :create, params, :format => "json"
+            
+            assigns(:feature_point).profile.should == profile
+          end
+        end
+        
+        context "when logged in" do
+          attr_reader :user
+          before do
+            @user = create_profile.user
+            controller.stub!(:current_user).and_return(user)
+          end
+          
+          it "associates new point with logged in user's profile" do
+            xhr :post, :create, params, :format => "json"
+            
+            assigns(:feature_point).profile.should == user.profile
+          end
         end
       end
       
