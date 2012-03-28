@@ -10,6 +10,7 @@ describe FeaturePoint do
   
   it { should have_one(:feature_location_type)}
   it { should have_one(:location_type)}
+  it { should have_one(:marker)}
   
   it { should belong_to(:profile)}
   
@@ -57,6 +58,32 @@ describe FeaturePoint do
     
     before do
       @point = create_feature_point
+    end
+    
+    describe "as json" do
+      context "with a location type" do
+        attr_reader :location_type
+        before do
+          @location_type = create_location_type
+          point.location_type = location_type
+          point.save
+        end
+        
+        context "without a marker" do
+          it "does not include location_type in json" do
+            point.as_json.has_key?(:location_type).should_not be
+          end
+        end
+        
+        context "with a marker" do
+          before do
+            create_marker :location_type => location_type
+          end
+          it "includes location_type in json" do
+            point.as_json.has_key?(:location_type).should be
+          end
+        end
+      end
     end
     
     context "without supports" do

@@ -70,7 +70,19 @@ Fixjour :verify => false do
   
   define_builder(LocationType) do |klass, overrides|
     klass.new({
-      :name => Faker::Lorem.words(1)
+      :name => Faker::Lorem.words(1).first
+    })
+  end
+  
+  define_builder(Marker) do |klass, overrides|
+    klass.new({
+      :location_type  => new_location_type,
+      :icon_width     => 16,
+      :icon_height    => 16,
+      :icon_anchor_x  => 8,
+      :icon_anchor_y  => 8,
+      :popup_anchor_x => 0,
+      :popup_anchor_y => 0
     })
   end
   

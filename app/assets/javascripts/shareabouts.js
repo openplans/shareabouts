@@ -186,12 +186,20 @@ $.widget("ui.shareabout", (function() {
     addMapFeature: function(feature){
       markerLayer = new L.Marker(
         new L.LatLng(feature.lat, feature.lon),
-        { icon: this.options.markerIcon }
+        { icon: this.iconFor(feature.location_type) }
       );
       this._setupMarker(markerLayer, { id: feature.id });
 
       layersOnMap[feature.id] = markerLayer;
       map.addLayer(markerLayer);
+    },
+    
+    // If a marker icon exists for this location's type, use that as the marker
+    iconFor : function(location_type) {
+      if (this.options.locationTypeMarkerIcons[location_type])
+        return new this.options.locationTypeMarkerIcons[location_type]();
+      else
+        return this.options.markerIcon;
     },
 
     // Refresh map features from the cache for the current extent.
@@ -440,7 +448,9 @@ $.widget("ui.shareabout", (function() {
 
     _unsetFocusedIcon : function() {
       if (this.focusedMarkerLayer) {
-        this.focusedMarkerLayer.setIcon(this.options.markerIcon);
+        var cacheIndex = this._getCachedFeatureIndex(this.focusedMarkerLayer._id);
+        this.focusedMarkerLayer.setIcon( 
+          this.iconFor(featurePointsCache[cacheIndex].location_type) );
       }
     },
 

@@ -29,6 +29,7 @@ class FeaturePoint < ActiveRecord::Base
   has_one :user, :through => :profile
   has_one :feature_location_type, :as => :feature, :dependent => :destroy, :inverse_of => :feature
   has_one :location_type, :through => :feature_location_type
+  has_one :marker, :through => :location_type
   
   before_create :find_regions
   after_create :add_to_regions
@@ -76,7 +77,9 @@ class FeaturePoint < ActiveRecord::Base
   end
   
   def as_json
-    { :id => id, :lat => latitude, :lon => longitude, :pop => support_count }
+    attrs = { :id => id, :lat => latitude, :lon => longitude, :pop => support_count }
+    attrs[:location_type] = location_type.name.parameterize.underscore if marker.present?
+    attrs
   end
 
   def as_geo_json
