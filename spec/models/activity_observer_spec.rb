@@ -29,7 +29,7 @@ describe ActivityObserver do
       context "when 'observed' is Vote" do
         def observed
           feature_point.save
-          @observed = create_vote :supportable => feature_point, :user => create_user
+          @observed = create_vote :supportable => feature_point, :profile => create_profile
         end
 
         it "is observed" do
@@ -38,7 +38,7 @@ describe ActivityObserver do
         
         context "when the user is nil" do          
           it "does not create an activity_item" do
-            create_vote( :user => nil ).activity_items.count.should == 0
+            create_vote( :profile => create_profile(:user => nil) ).activity_items.count.should == 0
           end
         end
       end

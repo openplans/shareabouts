@@ -5,7 +5,7 @@ describe VotesController do
   
   before do
     @feature_point = create_feature_point
-    @user          = create_user
+    @user          = create_profile.user
   end
   
   describe "POST create" do

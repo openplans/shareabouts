@@ -25,10 +25,12 @@ class FeaturePoint < ActiveRecord::Base
   has_many :regions, :through => :feature_regions
   has_many :activity_items, :as => :subject, :inverse_of => :subject, :dependent => :destroy
   has_many :children_activity_items, :as => :subject_parent, :class_name => "ActivityItem", :dependent => :destroy
+  belongs_to :profile
+  has_one :user, :through => :profile
   has_one :feature_location_type, :as => :feature, :dependent => :destroy, :inverse_of => :feature
   has_one :location_type, :through => :feature_location_type
-  belongs_to :user
-
+  has_one :marker, :through => :location_type
+  
   before_create :find_regions
   after_create :add_to_regions
   after_initialize :set_defaults
@@ -63,7 +65,7 @@ class FeaturePoint < ActiveRecord::Base
   end
 
   def display_submitter
-    user.try(:name) || (submitter_name.present? ? submitter_name : User.model_name.human.capitalize)
+    profile.try(:name) || (submitter_name.present? ? submitter_name : User.model_name.human.capitalize)
   end
   
   def region
@@ -75,7 +77,9 @@ class FeaturePoint < ActiveRecord::Base
   end
   
   def as_json
-    { :id => id, :lat => latitude, :lon => longitude, :pop => support_count }
+    attrs = { :id => id, :lat => latitude, :lon => longitude, :pop => support_count }
+    attrs[:location_type] = location_type.name.parameterize.underscore if marker.present?
+    attrs
   end
 
   def as_geo_json

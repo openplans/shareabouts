@@ -7,6 +7,7 @@ class ActivityObserver < ActiveRecord::Observer
   observe FeaturePoint, Comment, Vote
   
   def after_create(observed)
+    # Don't create activity items for anonymous votes
     return true if observed.user.nil? && observed.is_a?(Vote)
     
     parent = if observed.respond_to?(:commentable)
@@ -15,11 +16,11 @@ class ActivityObserver < ActiveRecord::Observer
       observed.supportable
     end
     
-    user_name = observed.respond_to?(:display_submitter) ? observed.display_submitter : observed.user.try(:name)
+    user_name = observed.respond_to?(:display_submitter) ? observed.display_submitter : observed.profile.try(:name)
     
     ActivityItem.create({
       :subject        => observed, 
-      :user           => observed.user,
+      :profile        => observed.profile,
       :user_name      => user_name,
       :subject_parent => parent
     })

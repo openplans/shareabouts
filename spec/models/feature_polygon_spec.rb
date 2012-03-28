@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe FeaturePolygon do
+  it { should belong_to(:profile) }
+  
   describe "a feature_polygon" do
     context "when setting the_geom_from_points" do
       attr_reader :feature_polygon

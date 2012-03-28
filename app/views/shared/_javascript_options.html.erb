@@ -1,5 +1,5 @@
 <%# 
-  # Applying SiteOptions to javascript. 
+  # Applying SiteOptions and other Admin settings to javascript. 
   # It's important for this to live outside of an asset-pipeline-affected asset, 
   # or else the app will require recompilation when the options are updated.
 %>
@@ -21,6 +21,22 @@
   <% if SiteOption.center? %>
     window.shareabouts.map_center = new L.LatLng(<%= SiteOption["map_center_lat"].value %>, <%= SiteOption["map_center_long"].value %>);
   <% end %>
+  
+  // Custom marker Icons for location types with markers
+  window.shareabouts.LocationTypeIcons = {
+    <%= Marker.all.map(&:location_type).map do |location_type|
+      <<-js
+      #{location_type.name.parameterize.underscore} : L.Icon.extend({
+        iconUrl     : '#{ location_type.image.url(:original) }',
+      	iconSize    : new L.Point(#{location_type.marker.icon_width}, #{location_type.marker.icon_height}),
+      	iconAnchor  : new L.Point(#{location_type.marker.icon_anchor_x}, #{location_type.marker.icon_anchor_y}),
+      	popupAnchor : new L.Point(#{location_type.marker.popup_anchor_x}, #{location_type.marker.popup_anchor_y}),
+      	shadowSize  : new L.Point(0, 0)
+      })
+      js
+    end.map(&:strip).join(",\n") %>
+  };
+  
 </script>
 
 <% if SiteOption["google_analytics_code"].try(:value).present? %>
