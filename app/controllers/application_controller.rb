@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
     stored_location_for(resource) || return_to || root_path  
   end
   
+  def find_or_create_profile
+    @profile = current_profile || set_profile_cookie(Profile.create_by_request_fingerprint(request))
+  end
+  
   def current_profile
     @current_profile ||= if current_user.present?
       current_user.profile
@@ -33,7 +37,7 @@ class ApplicationController < ActionController::Base
       require 'profile'
       Marshal.load(cookies[:profile])
     else
-      set_profile_cookie Profile.find_or_create_by_request_fingerprint(request)
+      set_profile_cookie Profile.find_by_request_fingerprint(request)
     end
   end
   

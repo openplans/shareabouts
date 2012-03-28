@@ -45,24 +45,34 @@ describe ApplicationController do
       end
       
       context "when there is no profile for the current ip and user agent" do
-        it "creates a new profile" do
+        it "does not create a new profile" do
           lambda {
             controller.current_profile
-          }.should change(Profile, :count).by(1)
+          }.should_not change(Profile, :count).by(1)
         end
-        
-        it "saves a profile to cookies" do
-          pending
-          controller.current_profile
-          cookies[:profile].should(be)
-          Marshal.load(cookies[:profile]).should(be_kind_of Profile)
-        end
-        
-        it "returns the new profile" do
-          profile = controller.current_profile
-          profile.client_ip.should == request.remote_ip
-          profile.user_agent.should == request.env["HTTP_USER_AGENT"]
-        end
+      end
+    end
+  end
+  
+  describe "find_or_create_profile" do
+    context "when there is no profile for the current ip and user agent" do
+      it "creates a new profile" do
+        lambda {
+          controller.find_or_create_profile
+        }.should change(Profile, :count).by(1)
+      end
+      
+      it "saves a profile to cookies" do
+        pending
+        controller.find_or_create_profile
+        cookies[:profile].should(be)
+        Marshal.load(cookies[:profile]).should(be_kind_of Profile)
+      end
+      
+      it "returns the new profile" do
+        profile = controller.find_or_create_profile
+        profile.client_ip.should == request.remote_ip
+        profile.user_agent.should == request.env["HTTP_USER_AGENT"]
       end
     end
   end

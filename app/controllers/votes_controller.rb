@@ -1,9 +1,10 @@
 class VotesController < ApplicationController
   
   before_filter :get_supportable
+  before_filter :find_or_create_profile, :only => :create
   
   def create
-    @vote = @supportable.votes.create :profile => current_profile
+    @vote = @supportable.votes.create :profile => @profile
     
     store_vote_in_cookie @vote
     
