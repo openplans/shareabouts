@@ -166,3 +166,13 @@ button {width: auto; overflow: visible;}
   border-right-color: #666;
   right: 0.25em;
 }
+
+/*
+ *
+ * Images
+ *
+ */
+img {
+  max-width: 100%; /* When images are too wide for containing element, force them to fit. */
+  height: auto; /* Override height to match resized width for correct aspect ratio. */
+}
