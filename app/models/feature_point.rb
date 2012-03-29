@@ -92,7 +92,8 @@ class FeaturePoint < ActiveRecord::Base
       :properties => {
         :id             => id,
         :name           => name,
-        :description    => description
+        :description    => description,
+        :location_type  => location_type
       }
     }
   end

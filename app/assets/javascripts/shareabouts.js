@@ -592,13 +592,7 @@ $.widget("ui.shareabout", (function() {
        */
       fsm.onleavesubmittingNewFeature = function (eventName, from, to, id, responseData) {
         if (to === "viewingFeature") {
-          var marker = new L.Marker(shareabout.newFeature.getLatLng(), { icon: shareabout.options.focusedMarkerIcon });
-          shareabout._setupMarker(marker, responseData.geoJSON.properties);
           map.removeLayer(shareabout.newFeature);
-
-          // Indicate that the new marker is on the map
-          layersOnMap[id] = marker;
-          map.addLayer(marker);
         } else if (to === "finalizingNewFeature") {
           $(".shareabouts-side-popup-content").html(responseData.view);
         }
