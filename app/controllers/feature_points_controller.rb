@@ -28,7 +28,7 @@ class FeaturePointsController < ApplicationController
       respond_to do |format|
         format.json do
           flash[:notice] = I18n.t( "feature.notice.point_added")
-          render :json => { :geoJSON => @feature_point.as_geo_json, :status => "success" }
+          render :json => { :feature_point => @feature_point.as_json, :status => "success" }
         end
       end
     else
