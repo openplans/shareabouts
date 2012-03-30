@@ -131,10 +131,10 @@ class PostInstall
     if not Dir.exists? new_system
       Dir.mkdir new_system
     end
-    # if not File.exists? old_system or File.symlink? old_system
-    #   puts "nothing at #{old_system}"
-    File.symlink(new_system, old_system)
-    # end
+    if not File.exists? old_system or File.symlink? old_system
+      puts "nothing at #{old_system}"
+      File.symlink(new_system, old_system)
+    end
   end
 
   def main()
