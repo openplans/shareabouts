@@ -1,5 +1,8 @@
 www:
   type: ruby
   approot: .
+  systempackages:
+    - gdal-bin
+
 data:
   type: postgis
