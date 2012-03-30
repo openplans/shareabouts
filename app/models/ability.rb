@@ -1,3 +1,7 @@
+# Abilities determine what actions a user can take on specified models. 
+# You can read up on how to set these abilities on the cancan wiki:
+# https://github.com/ryanb/cancan/wiki
+
 class Ability
   include CanCan::Ability
 

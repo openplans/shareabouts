@@ -267,7 +267,7 @@ table.regions {
 .information-panel-content {
   line-height: 1.5;
 }
-.information-panel-content:after {
+.overflowing .information-panel-content:after {
   content: "";
   height: 5px;
   background: url("popup-overflow.png") repeat-x scroll 0 0 transparent;
@@ -690,6 +690,13 @@ and (max-device-width : 480px) {
   }
 
   #access .account { display:none; }
+
+  .leaflet-control-attribution {
+    font-size:1.0em !important;
+  }
+  .leaflet-control-attribution img {
+    display:none;
+  }
 }
 
 /* smartphones (landscape) ----------- */

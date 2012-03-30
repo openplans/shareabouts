@@ -1,3 +1,7 @@
+# Regions are created in the Admin interface by uploading a Shapefile. Regions 
+# are used for classifying map features, by, for example, neighborhood or 
+# state. FeatureRegions associates map features with Regions. 
+
 class Region < ActiveRecord::Base
   
   has_many   :feature_regions

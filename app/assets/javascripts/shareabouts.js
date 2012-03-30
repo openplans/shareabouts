@@ -65,6 +65,8 @@ $.widget("ui.shareabout", (function() {
       map.addLayer(new L.TileLayer( this.options.tileUrl, {
         maxZoom: this.options.map.maxZoom, attribution: this.options.tileAttribution
       }));
+      map.attributionControl.setPrefix('');
+
       // TODO: What is this doing?
       map.on('layerremove', function(e) {
         if (e.layer == self.newFeature) self.newFeature._visible = false;
@@ -186,12 +188,20 @@ $.widget("ui.shareabout", (function() {
     addMapFeature: function(feature){
       markerLayer = new L.Marker(
         new L.LatLng(feature.lat, feature.lon),
-        { icon: this.options.markerIcon }
+        { icon: this.iconFor(feature.location_type) }
       );
       this._setupMarker(markerLayer, { id: feature.id });
 
       layersOnMap[feature.id] = markerLayer;
       map.addLayer(markerLayer);
+    },
+    
+    // If a marker icon exists for this location's type, use that as the marker
+    iconFor : function(location_type) {
+      if (this.options.locationTypeMarkerIcons[location_type])
+        return new this.options.locationTypeMarkerIcons[location_type]();
+      else
+        return this.options.markerIcon;
     },
 
     // Refresh map features from the cache for the current extent.
@@ -440,7 +450,9 @@ $.widget("ui.shareabout", (function() {
 
     _unsetFocusedIcon : function() {
       if (this.focusedMarkerLayer) {
-        this.focusedMarkerLayer.setIcon(this.options.markerIcon);
+        var cacheIndex = this._getCachedFeatureIndex(this.focusedMarkerLayer._id);
+        this.focusedMarkerLayer.setIcon( 
+          this.iconFor(featurePointsCache[cacheIndex].location_type) );
       }
     },
 
@@ -570,7 +582,7 @@ $.widget("ui.shareabout", (function() {
              if (data.status && data.status == "error")
                fsm.errorNewFeature(null, data);
              else
-               fsm.viewFeature(data.geoJSON.properties.id, data);
+               fsm.viewFeature(data.feature_point.id, data);
            }
          };
          if ( typeof ajaxOptions == "object" ) $.extend(true, ajaxCfg, ajaxOptions);
@@ -582,13 +594,20 @@ $.widget("ui.shareabout", (function() {
        */
       fsm.onleavesubmittingNewFeature = function (eventName, from, to, id, responseData) {
         if (to === "viewingFeature") {
+          // Set up focused marker
           var marker = new L.Marker(shareabout.newFeature.getLatLng(), { icon: shareabout.options.focusedMarkerIcon });
-          shareabout._setupMarker(marker, responseData.geoJSON.properties);
+          shareabout._setupMarker(marker, responseData.feature_point);
+          
+          // Remove new feature marker
           map.removeLayer(shareabout.newFeature);
 
           // Indicate that the new marker is on the map
           layersOnMap[id] = marker;
           map.addLayer(marker);
+          
+          // Add to cache
+          featurePointsCache = featurePointsCache.concat(responseData.feature_point);
+          popularityStats    = shareabout._getPopularityStats();
         } else if (to === "finalizingNewFeature") {
           $(".shareabouts-side-popup-content").html(responseData.view);
         }

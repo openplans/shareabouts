@@ -30,7 +30,7 @@ gem 'ckeditor'
 
 gem 'workflow'
 gem "paperclip", "~> 2.0"
-gem "rmagick"
+gem "rmagick", "2.12.2"
 gem "rubyzip"
 
 gem 'json'
@@ -46,6 +46,7 @@ group :development, :test do
   gem "fixjour"
   gem "rspec-rails", ">= 2.2.0"
   gem 'cover_me', '>= 1.2.0'
+  gem 'shoulda-matchers'
 end
 
 group :production do
