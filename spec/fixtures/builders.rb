@@ -47,6 +47,18 @@ Fixjour :verify => false do
     })
   end
   
+  define_builder(Profile) do |klass, overrides|
+    user_options = {}
+    user_options.email = overrides["email"] if overrides["email"].present?
+    
+    klass.new({
+      :user => new_user(user_options), 
+      :name => Faker::Name.name,
+      :user_agent => Faker::Lorem.sentence,
+      :client_ip => Array.new(4){rand(256)}.join('.')
+    })
+  end
+  
   define_builder(Admin) do |klass, overrides|
     klass.new({
       :email => Faker::Internet.email, 
@@ -58,7 +70,19 @@ Fixjour :verify => false do
   
   define_builder(LocationType) do |klass, overrides|
     klass.new({
-      :name => Faker::Lorem.words(1)
+      :name => Faker::Lorem.words(1).first
+    })
+  end
+  
+  define_builder(Marker) do |klass, overrides|
+    klass.new({
+      :location_type  => new_location_type,
+      :icon_width     => 16,
+      :icon_height    => 16,
+      :icon_anchor_x  => 8,
+      :icon_anchor_y  => 8,
+      :popup_anchor_x => 0,
+      :popup_anchor_y => 0
     })
   end
   

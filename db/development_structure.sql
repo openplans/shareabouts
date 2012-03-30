@@ -9735,7 +9735,8 @@ CREATE TABLE activity_items (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     subject_parent_id integer,
-    subject_parent_type character varying(255)
+    subject_parent_type character varying(255),
+    profile_id integer
 );
 
 
@@ -9811,7 +9812,8 @@ CREATE TABLE comments (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_id integer,
-    submitter_name character varying(255)
+    submitter_name character varying(255),
+    profile_id integer
 );
 
 
@@ -9920,6 +9922,7 @@ CREATE TABLE feature_points (
     user_id integer,
     visible boolean,
     submitter_name character varying(255),
+    profile_id integer,
     CONSTRAINT enforce_dims_the_geom CHECK ((st_ndims(the_geom) = 2)),
     CONSTRAINT enforce_geotype_the_geom CHECK (((geometrytype(the_geom) = 'POINT'::text) OR (the_geom IS NULL))),
     CONSTRAINT enforce_srid_the_geom CHECK ((st_srid(the_geom) = 4326))
@@ -9946,6 +9949,7 @@ CREATE TABLE feature_polygons (
     shapefile_updated_at timestamp without time zone,
     workflow_state character varying(255),
     job_error text,
+    profile_id integer,
     CONSTRAINT enforce_dims_the_geom CHECK ((st_ndims(the_geom) = 2)),
     CONSTRAINT enforce_geotype_the_geom CHECK (((geometrytype(the_geom) = 'MULTIPOLYGON'::text) OR (the_geom IS NULL))),
     CONSTRAINT enforce_srid_the_geom CHECK ((st_srid(the_geom) = 4326))
@@ -10067,6 +10071,43 @@ ALTER SEQUENCE location_types_id_seq OWNED BY location_types.id;
 
 
 --
+-- Name: markers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE markers (
+    id integer NOT NULL,
+    location_type_id integer,
+    icon_width integer,
+    icon_height integer,
+    icon_anchor_x integer,
+    icon_anchor_y integer,
+    popup_anchor_x integer,
+    popup_anchor_y integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: markers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE markers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: markers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE markers_id_seq OWNED BY markers.id;
+
+
+--
 -- Name: pages; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10121,6 +10162,42 @@ CREATE SEQUENCE points_id_seq
 --
 
 ALTER SEQUENCE points_id_seq OWNED BY feature_points.id;
+
+
+--
+-- Name: profiles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE profiles (
+    id integer NOT NULL,
+    user_id integer,
+    zip_code character varying(255),
+    email character varying(255),
+    name character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    user_agent character varying(255),
+    client_ip character varying(255)
+);
+
+
+--
+-- Name: profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE profiles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE profiles_id_seq OWNED BY profiles.id;
 
 
 --
@@ -10342,7 +10419,8 @@ CREATE TABLE votes (
     supportable_type character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    user_id integer
+    user_id integer,
+    profile_id integer
 );
 
 
@@ -10432,7 +10510,21 @@ ALTER TABLE location_types ALTER COLUMN id SET DEFAULT nextval('location_types_i
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE markers ALTER COLUMN id SET DEFAULT nextval('markers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE pages ALTER COLUMN id SET DEFAULT nextval('pages_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE profiles ALTER COLUMN id SET DEFAULT nextval('profiles_id_seq'::regclass);
 
 
 --
@@ -10550,6 +10642,14 @@ ALTER TABLE ONLY location_types
 
 
 --
+-- Name: markers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY markers
+    ADD CONSTRAINT markers_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10563,6 +10663,14 @@ ALTER TABLE ONLY pages
 
 ALTER TABLE ONLY feature_points
     ADD CONSTRAINT points_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY profiles
+    ADD CONSTRAINT profiles_pkey PRIMARY KEY (id);
 
 
 --
@@ -10629,6 +10737,13 @@ CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at
 
 
 --
+-- Name: index_activity_items_on_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_activity_items_on_profile_id ON activity_items USING btree (profile_id);
+
+
+--
 -- Name: index_activity_items_on_subject_type_and_subject_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10643,6 +10758,13 @@ CREATE INDEX index_comments_on_commentable_type_and_commentable_id ON comments U
 
 
 --
+-- Name: index_comments_on_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_comments_on_profile_id ON comments USING btree (profile_id);
+
+
+--
 -- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10650,10 +10772,24 @@ CREATE INDEX index_comments_on_user_id ON comments USING btree (user_id);
 
 
 --
+-- Name: index_feature_points_on_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_feature_points_on_profile_id ON feature_points USING btree (profile_id);
+
+
+--
 -- Name: index_feature_points_on_the_geom; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_feature_points_on_the_geom ON feature_points USING btree (the_geom);
+
+
+--
+-- Name: index_feature_polygons_on_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_feature_polygons_on_profile_id ON feature_polygons USING btree (profile_id);
 
 
 --
@@ -10692,6 +10828,20 @@ CREATE INDEX index_pages_on_status ON pages USING btree (status);
 
 
 --
+-- Name: index_profiles_on_user_agent_and_client_ip; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_profiles_on_user_agent_and_client_ip ON profiles USING btree (user_agent, client_ip);
+
+
+--
+-- Name: index_profiles_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_profiles_on_user_id ON profiles USING btree (user_id);
+
+
+--
 -- Name: index_rails_admin_histories; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -10724,6 +10874,13 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
+-- Name: index_votes_on_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_votes_on_profile_id ON votes USING btree (profile_id);
 
 
 --
@@ -10838,3 +10995,19 @@ INSERT INTO schema_migrations (version) VALUES ('20120229203732');
 INSERT INTO schema_migrations (version) VALUES ('20120301211836');
 
 INSERT INTO schema_migrations (version) VALUES ('20120319211951');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321165613');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321180716');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321180734');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321180752');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321180809');
+
+INSERT INTO schema_migrations (version) VALUES ('20120321180827');
+
+INSERT INTO schema_migrations (version) VALUES ('20120326172058');
+
+INSERT INTO schema_migrations (version) VALUES ('20120327195149');

@@ -1,36 +1,108 @@
 require 'spec_helper'
 
 describe User do
-  describe "associations" do
-    attr_accessor :user
-    
-    before do
-      @user = create_user
-    end
-    
-    context "feature_points" do
-      attr_accessor :feature_point
-
+  
+  it { should have_many(:activity_items)}
+  it { should have_many(:feature_points)}
+  it { should have_many(:feature_polygons)}
+  it { should have_many(:votes)}
+  it { should have_many(:comments)}
+  it { should have_one(:profile)}
+  
+  describe "OAuth finders" do
+    describe "find_for_twitter_oauth" do
+      attr_reader :access_token
+      
       before do
-        pending "feature points in specs"
-        @feature_point = create_feature_point :user_id => user.id
+        @access_token = {
+          "extra" => {
+            "raw_info" => {
+              "screen_name" => Faker::Internet.user_name,
+              "name"        => Faker::Name.name,
+              "id"          => 1
+            }
+          }
+        }
       end
       
-      it "has_many" do
-        @user.feature_points.should include(feature_point)
+      context "when an existing user" do
+        attr_reader :user
+        
+        before do
+          @user = create_profile(:email => "@#{access_token["extra"]["raw_info"]["screen_name"]}").user
+        end
+        
+        it "returns the existing user" do
+          pending "setting email in user builder not working"
+          User.find_for_twitter_oauth(access_token).should == user
+        end
+      end
+      
+      context "when a non-existing user" do
+        it "creates a new user" do
+          lambda{
+            User.find_for_twitter_oauth(access_token)
+          }.should change {User.count}.by(1)
+        end
+        
+        it "creates a new profile" do
+          lambda{
+            User.find_for_twitter_oauth(access_token)
+          }.should change {Profile.count}.by(1)
+        end
+        
+        it "populates the created profile's name" do
+          profile = User.find_for_twitter_oauth(access_token).profile
+          profile.name.should == access_token["extra"]["raw_info"]["name"]
+        end
       end
     end
     
-    context "votes" do
-      attr_accessor :vote
-
+    describe "find_for_facebook_oauth" do
+      attr_reader :access_token
+      
       before do
-        # not really supporting self, but getting around geom issues in specs
-        @vote = create_vote :user_id => user.id, :supportable => user
+        @access_token = {
+          "extra" => {
+            "raw_info" => {
+              "email" => Faker::Internet.email,
+              "name"  => Faker::Name.name,
+              "id"    => 1
+            }
+          }
+        }
       end
       
-      it "has_many" do
-        @user.votes.should include(vote)
+      context "when an existing user" do
+        attr_reader :user
+        
+        before do
+          @user = create_profile(:email => access_token["extra"]["raw_info"]["email"]).user          
+        end
+        
+        it "returns the existing user" do
+          pending "setting email in user builder not working"
+          User.find_for_facebook_oauth(access_token).should == user
+        end
+      end
+      
+      context "when a non-existing user" do
+        it "creates a new user" do
+          lambda{
+            User.find_for_facebook_oauth(access_token)
+          }.should change {User.count}.by(1)
+        end
+        
+        it "creates a new profile" do
+          lambda{
+            User.find_for_facebook_oauth(access_token)
+          }.should change {Profile.count}.by(1)
+        end
+        
+        it "populates the created profile's name" do
+          profile = User.find_for_facebook_oauth(access_token).profile
+          profile.name.should == access_token["extra"]["raw_info"]["name"]
+        end
       end
     end
   end
