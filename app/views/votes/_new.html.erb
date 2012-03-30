@@ -1,7 +1,7 @@
 <%= form_for [supportable, supportable.votes.new], :html => { :class => "vote", "data-behavior" => "load_result_in_popup" } do |form| %>
   <button type="submit">
     <div>
-      <span><%= supportable.votes.count %></span> 
+      <span class="vote-label"><%= supportable.votes.count %></span>
       <%= t 'feature.vote_action' %>
     </div>
   </button>
