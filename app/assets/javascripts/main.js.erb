@@ -143,15 +143,17 @@ $(function() {
     return function(mouseEvent, target){
       if (done) {
         done = false;
-        var form = $(mouseEvent.target).closest("form"),
-            $label = $('.vote-label', form),
-            votes = parseInt($label.text(), 10) || 1;
+        var $form = $(mouseEvent.target).closest("form"),
+            $button = $('button', $form),
+            $label = $('.vote-label', $form),
+            votes = parseInt($label.text(), 10);
 
         // Update the state of the button right away
-        $label.is('.supported') ? votes-- : votes++;
-        $label.text(votes).toggleClass('supported');
+        $button.is('.supported') ? votes-- : votes++;
+        $button.toggleClass('supported');
+        $label.text(votes);
 
-        $.post( form.attr("action"), form.serialize(), function(data) {
+        $.post( $form.attr("action"), $form.serialize(), function(data) {
           Map.shareabout("getPopup").setContent(data.view);
         },
         "json").complete(function() { done = true; });

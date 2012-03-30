@@ -456,7 +456,7 @@ a.reply-link:hover {
   background : transparent url(support-heart-empty.png) no-repeat scroll top left;
   padding    : 0 0 0 18px;
 }
-.social form.vote button[type=submit] span.supported {
+.social form.vote button[type=submit].supported span {
   background : transparent url(support-heart.png) no-repeat scroll top left;
   padding    : 0 0 0 18px;
 }
