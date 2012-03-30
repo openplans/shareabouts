@@ -118,10 +118,10 @@ class PostInstall
 
   def preserve_uploads()
     puts "Symlinking uploads directory to avoid discarding them on next push"
-    shared = File.absolute_path '../shared'
-    new_system = File.absolute_path '../shared/system'
+    datadir = File.absolute_path '../data'
+    new_system = File.absolute_path '../data/system'
     old_system = File.absolute_path 'public/system'
-    Dir.mkdir(shared) if not Dir.exists? shared
+    Dir.mkdir(datadir) if not Dir.exists? datadir
     if File.symlink? old_system
        File.delete old_system
     end
