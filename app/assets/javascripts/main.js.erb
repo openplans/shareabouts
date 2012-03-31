@@ -205,6 +205,23 @@ $(function() {
     showPage(pages.filter('[data-welcome-page]').attr("href"));
   }
 
+  // Focus the permalink text on focus
+  $(document).on('focus', '.copy-link', function(){
+    this.select();
+  });
+
+  // Show the permalink and allow it to be copied
+  $(document).on('click', '.link', function(e){
+    var $input = $('.copy-link');
+
+    $input.toggle();
+    if($input.is(':visible')) {
+      $input.focus();
+    }
+
+    e.preventDefault();
+  });
+
   // Desktop only
   if ( !Map.shareabout("smallScreen") ) {
     // Start the ticker
