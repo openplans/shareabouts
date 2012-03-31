@@ -77,6 +77,21 @@ class PostInstall
     puts "Facebook config written to " + outfile + " based on environment.yml"
   end
 
+  def write_twitter_config()
+    outfile = "config/twitter.yml"
+    dotcloud_env = get_dotcloud_environment
+    twitter_config = {
+      "production"=> {
+        "consumer_key"=> dotcloud_env["TWITTER_CONSUMER_KEY"],
+        "consumer_secret"=> dotcloud_env["TWITTER_CONSUMER_SECRET"],
+      }
+    }
+    config_file = File.open(outfile, "w")
+    config_file.write(twitter_config.to_yaml)
+    config_file.close()
+    puts "Twitter config written to " + outfile + " based on environment.yml"
+  end
+
   # def database()
   #   ## This fails on the first run apparently because the database host isn't
   #   ## pingable yet when we run it; dotcloud doesn't finish doing DNS
@@ -101,11 +116,34 @@ class PostInstall
     end
   end
 
+  def preserve_uploads()
+    puts "Symlinking uploads directory to avoid discarding them on next push"
+    datadir = File.absolute_path '../data'
+    new_system = File.absolute_path '../data/system'
+    old_system = File.absolute_path 'public/system'
+    Dir.mkdir(datadir) if not Dir.exists? datadir
+    if File.symlink? old_system
+       File.delete old_system
+    end
+    if Dir.exists? old_system
+      File.rename(old_system, new_system)
+    end
+    if not Dir.exists? new_system
+      Dir.mkdir new_system
+    end
+    if not File.exists? old_system or File.symlink? old_system
+      puts "nothing at #{old_system}"
+      File.symlink(new_system, old_system)
+    end
+  end
+
   def main()
     sanitycheck
     write_db_config
     write_facebook_config
+    write_twitter_config
     # database
+    preserve_uploads
     assets
   end
 

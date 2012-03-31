@@ -34,7 +34,9 @@ class Page < ActiveRecord::Base
   private
   
   def populate_author
-    self.author = Admin.current_admin
+    if author.blank?
+      self.author = Admin.current_admin
+    end
   end
   
   def populate_slug
