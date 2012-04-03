@@ -40,13 +40,26 @@ describe Profile do
   
   describe "self.find_by_request_fingerprint" do
     attr_reader :request
-    
-    before do
-      @request = OpenStruct.new :env => { 'HTTP_USER_AGENT' => profile.user_agent }, :remote_ip => profile.client_ip
+  
+    context "when an existing authenticated user matches fingerprint" do
+      before do
+        @request = OpenStruct.new :env => { 'HTTP_USER_AGENT' => profile.user_agent }, :remote_ip => profile.client_ip
+      end
+      
+      it "returns nil" do
+        Profile.find_by_request_fingerprint( request ).should == nil
+      end
     end
     
-    it "returns existing profile" do
-      Profile.find_by_request_fingerprint( request ).should == profile
+    context "when a non-authenticated user matches fingerprint" do
+      before do
+        @profile = create_profile :user => nil
+        @request = OpenStruct.new :env => { 'HTTP_USER_AGENT' => profile.user_agent }, :remote_ip => profile.client_ip
+      end
+
+      it "returns existing profile" do
+        Profile.find_by_request_fingerprint( request ).should == profile
+      end
     end
   end
 end

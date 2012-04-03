@@ -33,7 +33,7 @@ describe ApplicationController do
         attr_reader :profile
 
         before do
-          @profile = create_profile
+          @profile = create_profile :user => nil
           request.stub!(:env).and_return({ "HTTP_USER_AGENT" => profile.user_agent})
           request.stub!(:remote_ip).and_return( profile.client_ip )
         end
