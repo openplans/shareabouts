@@ -41,6 +41,13 @@ describe ActivityObserver do
             create_vote( :profile => create_profile(:user => nil) ).activity_items.count.should == 0
           end
         end
+        
+        context "when the vote is for user's own submission" do
+          it "does not create an activity_item" do
+            feature_point = create_feature_point :profile => create_profile
+            feature_point.votes.first.activity_items.count.should == 0
+          end
+        end
       end
 
       context "when 'observed' is Comment" do

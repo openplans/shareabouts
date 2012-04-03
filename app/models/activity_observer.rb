@@ -7,8 +7,10 @@ class ActivityObserver < ActiveRecord::Observer
   observe FeaturePoint, Comment, Vote
   
   def after_create(observed)
-    # Don't create activity items for anonymous votes
-    return true if observed.user.nil? && observed.is_a?(Vote)
+    if observed.is_a?(Vote)
+      # Don't create activity items for anonymous votes or vote votes for own submission
+      return true if observed.user.nil? || observed.user == observed.supportable.user
+    end
     
     parent = if observed.respond_to?(:commentable)
       observed.commentable

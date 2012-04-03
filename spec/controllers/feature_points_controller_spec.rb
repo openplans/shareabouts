@@ -106,6 +106,29 @@ describe FeaturePointsController do
           response.cookies['profile'].inspect.should_not == "nil"
         end
         
+        it "creates a new support" do
+          lambda {
+            xhr :post, :create, params, :format => "json"
+          }.should change(Vote, :count).by(1)
+        end
+        
+        it "associates created support with profile" do
+          xhr :post, :create, params, :format => "json"
+          
+          feature_point = assigns(:feature_point)
+          
+          feature_point.votes.last.profile.should == feature_point.profile
+        end
+        
+        it "writes a cookie for the created vote" do
+          xhr :post, :create, params, :format => "json"
+          
+          feature_point  = assigns(:feature_point)
+          supported_hash = Marshal.load(response.cookies['supportable'])
+          
+          supported_hash[:FeaturePoint][feature_point.id].should == feature_point.votes.last.id
+        end
+        
         context "when a profile cookie is present" do
           attr_reader :profile
           before do

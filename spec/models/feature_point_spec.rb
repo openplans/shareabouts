@@ -88,7 +88,7 @@ describe FeaturePoint do
     
     context "without supports" do
       before do
-        point.votes.should_not be_present
+        point.votes.destroy_all
       end
       
       it "has a support_count of 0" do
@@ -96,14 +96,11 @@ describe FeaturePoint do
       end
     end
     
-    context "with supports" do
-      before do
-        create_vote :supportable => point
-        point.votes.should be_present
-      end
-      
-      it "has a support_count of 1" do
-        point.support_count.should == 1
+    context "with supports" do      
+      it "vote_count increases" do
+        lambda {
+          create_vote :supportable => point
+        }.should change(point, :support_count).by(1)
       end
     end
     
@@ -208,6 +205,48 @@ describe FeaturePoint do
       it "is visible" do
         feature_point = FeaturePoint.new
         feature_point.should be_visible
+      end
+    end
+  end
+  
+  describe "after_create" do
+    context "when there is an associated user" do
+      attr_reader :user, :feature_point
+      
+      before do
+        @user          = create_profile.user
+        @feature_point = new_feature_point :profile => user.profile
+      end
+      
+      it "creates a new support" do
+        lambda {
+          feature_point.save
+        }.should change(Vote, :count).by(1)
+      end
+      
+      it "associates new support with user" do
+        feature_point.save
+        Vote.last.user.should == user
+      end
+    end
+    
+    context "when there is an associated profile" do
+      attr_reader :profile, :feature_point
+      
+      before do
+        @profile       = create_profile :user => nil
+        @feature_point = new_feature_point :profile => profile
+      end
+      
+      it "creates a new support" do
+        lambda {
+          feature_point.save
+        }.should change(Vote, :count).by(1)
+      end
+      
+      it "associates new support with profile" do
+        feature_point.save
+        Vote.last.profile.should == profile
       end
     end
   end
