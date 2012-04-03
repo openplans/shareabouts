@@ -26,11 +26,8 @@ class ShapefileImportHelper
       command = "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH && ogr2ogr -t_srs EPSG:4326 #{output_path} #{shapefile_path} 2>&1"
       log "=====RUNNING #{command}"
       output = `#{command}`
-      status = $?.to_i
       log output
-      if status != 0
-	raise RuntimeError, output
-      end
+    
       output_path
     else # No projection file, use original shapefile
       Dir.glob( "#{output_dir}/*.shp" ).first
