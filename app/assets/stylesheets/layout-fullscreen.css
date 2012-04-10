@@ -158,7 +158,7 @@ html, body, #wrapper {
   position: absolute;
   right: 40px;
   bottom: 50px;
-  z-index: 5;
+  z-index: 6;
 }
 .ui-hiderslider-container > div {
   float: left;
