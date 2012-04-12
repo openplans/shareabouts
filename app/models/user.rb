@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   end
   
   def name
-    read_attribute(:name) || email
+    profile.try(:name) || read_attribute(:name)
   end
   
 end
