@@ -24,7 +24,7 @@ en:
       out_of_bounds: "Looks like that location is outside CB7"
     form: 
       header: Tell us more...
-      title_label: Sidewalk object
+      title_label: Short description
       description_label: Tell us why this creates clutter on the sidewalk.
       submitter_name_label: Your Name
       submit: Submit Point
