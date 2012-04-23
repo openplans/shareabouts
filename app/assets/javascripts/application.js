@@ -10,3 +10,5 @@
 //= require ../../../lib/assets/javascripts/externals
 //= require shareabouts
 //= require main
+//= require util
+//= require page_links

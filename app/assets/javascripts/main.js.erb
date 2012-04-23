@@ -7,8 +7,8 @@ var Shareabouts = Shareabouts || {};
   S.init = function(){
     var locate_feature   = $("#locate_feature"),
         finalize_feature = $("#finalize_feature"),
-        pages            = $("#pages a"),
-        Map              = $("#map");
+        Map              = $("#map"),
+        pageLinks;
 
     var MarkerIcon = L.Icon.extend({
       iconUrl     : '<%= image_path("feature-point.png") %>',
@@ -101,7 +101,7 @@ var Shareabouts = Shareabouts || {};
           finalize_feature.hide();
 
           // Hide mobile dropdown menu if visible
-          $('#pages ul').removeClass('active');
+          pageLinks.hide();
 
           // Init the visibility indicator when the popup content loads
           setPopupOverflowIndicatorVisibility($('.page, .feature'));
@@ -113,7 +113,7 @@ var Shareabouts = Shareabouts || {};
         },
         locateNewFeature: function() {
           // Hide mobile dropdown menu if visible
-          $('#pages ul').removeClass('active');
+          pageLinks.hide();
         }
       },
       // Intial feature to show
@@ -123,6 +123,14 @@ var Shareabouts = Shareabouts || {};
       polygonsUrl      : '<%= url_help.feature_polygons_path %>', // json of coordinates for multipolygon areas
       dragHint         : '<%= I18n.t "map_controls.drag_hint" %>',
       dragHintLong     : '<%= I18n.t "map_controls.drag_hint_long" %>'
+    });
+
+    // Init the PageLinks object to handle page content in the popup
+    pageLinks = S.PageLinks({
+      showPageCallback: function(data) {
+        // TODO: handle this with custom events when shareabouts.js supports them
+        Map.shareabout("openPopup", data.view);
+      }
     });
 
     // Register click event within InformationPanel
@@ -185,24 +193,6 @@ var Shareabouts = Shareabouts || {};
       });
     });
 
-    // Display static pages in the popup
-    var showPage = function(url) {
-      $.get(url, function(data){
-        Map.shareabout("openPopup", data.view);
-      }, "json");
-    };
-
-    // Display static pages in the popup when a link is clicked
-    pages.click(function(click){
-      click.preventDefault();
-      showPage($(click.target).attr("href"));
-    });
-
-    // Show the welcome page on page load ONLY if not starting with a feature visible
-    if (pages.is('[data-welcome-page]') && !window.shareabouts.feature) {
-      showPage(pages.filter('[data-welcome-page]').attr("href"));
-    }
-
     // Focus the permalink text on focus
     $(document).on('focus', '.copy-link', function(){
       this.select();
@@ -241,11 +231,6 @@ var Shareabouts = Shareabouts || {};
     // Show the hidden comment form
     $(".reply-link").live("click", function(e) {
       $("#reply").removeClass("hide");
-    });
-
-    // Toggle the mobile nav menu
-    $('#pages').click(function(){
-      $('#pages ul').toggleClass('active');
     });
 
     // Sets the visibility of the overflow indicator in the popup
