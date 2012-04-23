@@ -8,4 +8,5 @@
 //= require jquery_ujs
 //= require ../../../vendor/assets/javascripts/externals
 //= require ../../../lib/assets/javascripts/externals
-//= require_tree .
+//= require shareabouts
+//= require main
