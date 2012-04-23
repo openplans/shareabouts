@@ -151,35 +151,35 @@ html, body, #wrapper {
 }
 
 /*
- * Polularity Filter (SliderHider)
+ * Popularity Filter (HiderSlider)
  */
-.ui-sliderhider-container {
+.ui-hiderslider-container {
   overflow: visible;
   position: absolute;
   right: 40px;
   bottom: 50px;
-  z-index: 5;
+  z-index: 6;
 }
-.ui-sliderhider-container > div {
+.ui-hiderslider-container > div {
   float: left;
 }
-.ui-sliderhider-title {
+.ui-hiderslider-title {
   padding: 0 10px;
   line-height:33px;
   vertical-align: middle;
   cursor: pointer;
 }
-.ui-sliderhider-content {
+.ui-hiderslider-content {
   position: relative;
   padding: 10px 0;
   overflow: hidden;
   width:1px;
 }
-.ui-sliderhider-slider {
+.ui-hiderslider-slider {
   width:167px;
   margin:0 10px;
 }
-.ui-sliderhider-close {}
+.ui-hiderslider-close {}
 
 /*
  * Crosshair for touchscreens

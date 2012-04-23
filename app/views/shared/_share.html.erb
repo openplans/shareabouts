@@ -1,6 +1,7 @@
 <ul>
-  <li>
+  <li class="copy-link-container">
     <%= link_to "permalink", feature_point_url(shareable), :class => "link" %>
+    <input type="text" class="copy-link" value="<%= feature_point_url(shareable) %>"></input>
   </li>
   <li>
     <%= tweet t("feature.sharing.twitter.status", :thing => shareable.class.model_name.human, :url => feature_point_url(shareable)) -%>

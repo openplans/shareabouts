@@ -50,9 +50,7 @@ class Shapefile < ActiveRecord::Base
   def enqueue_importer
     Delayed::Job.enqueue ShapefileJob.new(data.path, id)
   end
-  
-  private
-  
+    
   def set_default_update_flag
     @update_other_regions_default = true if changes[:default] && changes[:default].last
   end

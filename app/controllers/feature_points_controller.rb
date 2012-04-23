@@ -25,6 +25,8 @@ class FeaturePointsController < ApplicationController
     @feature_point = FeaturePoint.new params[:feature_point].merge({:the_geom => the_geom_from_params(params), :profile => @profile})
     
     if @feature_point.save
+      find_and_store_vote @feature_point
+      
       respond_to do |format|
         format.json do
           flash[:notice] = I18n.t( "feature.notice.point_added")
@@ -84,6 +86,11 @@ class FeaturePointsController < ApplicationController
   end
   
   private
+  
+  def find_and_store_vote(feature_point)
+    vote = @profile.votes.where(:supportable_id => feature_point.id, :supportable_type => feature_point.class.to_s).first
+    store_vote_in_cookie vote
+  end
   
   def the_geom_from_params(p)
     Point.from_x_y p[:longitude].to_f, p[:latitude].to_f, 4326

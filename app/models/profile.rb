@@ -23,7 +23,8 @@ class Profile < ActiveRecord::Base
   def self.request_fingerprint(request)
     { 
       :user_agent => request.env['HTTP_USER_AGENT'], 
-      :client_ip  => request.remote_ip 
+      :client_ip  => request.remote_ip, 
+      :user_id    => nil
     }
   end
   

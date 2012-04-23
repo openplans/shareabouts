@@ -70,7 +70,8 @@ $(function() {
       maxZoom   : window.shareabouts.map_max_zoom,
       minZoom   : window.shareabouts.map_min_zoom,
       maxBounds : window.shareabouts.map_bounds,
-      center    : window.shareabouts.map_center || new L.LatLng(40.719991, -73.999530)
+      center    : window.shareabouts.map_center || new L.LatLng(40.719991, -73.999530),
+      zoomAnimation : false
     },
     tileUrl          : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
     tileAttribution  : '&copy; 2012 <a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.0/">CCBYSA</a> - Tiles by <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
@@ -204,6 +205,23 @@ $(function() {
   if (pages.is('[data-welcome-page]') && !window.shareabouts.feature) {
     showPage(pages.filter('[data-welcome-page]').attr("href"));
   }
+
+  // Focus the permalink text on focus
+  $(document).on('focus', '.copy-link', function(){
+    this.select();
+  });
+
+  // Show the permalink and allow it to be copied
+  $(document).on('click', '.link', function(e){
+    var $input = $('.copy-link');
+
+    $input.toggle();
+    if($input.is(':visible')) {
+      $input.focus();
+    }
+
+    e.preventDefault();
+  });
 
   // Desktop only
   if ( !Map.shareabout("smallScreen") ) {
