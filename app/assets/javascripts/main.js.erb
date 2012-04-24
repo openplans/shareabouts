@@ -8,7 +8,8 @@ var Shareabouts = Shareabouts || {};
     var locate_feature   = $("#locate_feature"),
         finalize_feature = $("#finalize_feature"),
         Map              = $("#map"),
-        pageLinks;
+        pageLinks,
+        featurePopup;
 
     var MarkerIcon = L.Icon.extend({
       iconUrl     : '<%= image_path("feature-point.png") %>',
@@ -133,40 +134,10 @@ var Shareabouts = Shareabouts || {};
       }
     });
 
-    // Register click event within InformationPanel
-    Map.shareabout("addClickEventListenerToPopup", "form#new_feature_point input:submit", function(mouseEvent, target){
-      var form = $(mouseEvent.target).closest("form");
-
-      Map.shareabout("submitNewFeature", {
-        data : form.serialize() + "&" + S.Util.latLngToQueryString( Map.shareabout("getNewFeatureMarker").getLatLng() ),
-        url : form.attr("action")
-      });
+    // Init events on the popup when it has feature content
+    featurePopup = S.FeaturePopup({
+      popup: Map.shareabout('getPopup')
     });
-
-    // Register click event within InformationPanel
-    var throttledVoteCallback = (function() {
-      var done = true;
-      return function(mouseEvent, target){
-        if (done) {
-          done = false;
-          var $form = $(mouseEvent.target).closest("form"),
-              $button = $('button', $form),
-              $label = $('.vote-label', $form),
-              votes = parseInt($label.text(), 10);
-
-          // Update the state of the button right away
-          $button.is('.supported') ? votes-- : votes++;
-          $button.toggleClass('supported');
-          $label.text(votes);
-
-          $.post( $form.attr("action"), $form.serialize(), function(data) {
-            Map.shareabout("getPopup").setContent(data.view);
-          },
-          "json").complete(function() { done = true; });
-        }
-      };
-    })();
-    Map.shareabout("addClickEventListenerToPopup", "form[data-behavior=load_result_in_popup] :submit", throttledVoteCallback);
 
     // UI Elements that affect map state
     locate_feature.click( function(event) {
@@ -193,23 +164,6 @@ var Shareabouts = Shareabouts || {};
       });
     });
 
-    // Focus the permalink text on focus
-    $(document).on('focus', '.copy-link', function(){
-      this.select();
-    });
-
-    // Show the permalink and allow it to be copied
-    $(document).on('click', '.link', function(e){
-      var $input = $('.copy-link');
-
-      $input.toggle();
-      if($input.is(':visible')) {
-        $input.focus();
-      }
-
-      e.preventDefault();
-    });
-
     // Desktop only
     if ( !Map.shareabout("smallScreen") ) {
       // Start the ticker
@@ -227,11 +181,6 @@ var Shareabouts = Shareabouts || {};
         }
       });
     }
-
-    // Show the hidden comment form
-    $(".reply-link").live("click", function(e) {
-      $("#reply").removeClass("hide");
-    });
 
     // Sets the visibility of the overflow indicator in the popup
     function setPopupOverflowIndicatorVisibility($popupContent) {

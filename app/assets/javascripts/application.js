@@ -8,7 +8,8 @@
 //= require jquery_ujs
 //= require ../../../vendor/assets/javascripts/externals
 //= require ../../../lib/assets/javascripts/externals
-//= require shareabouts
 //= require main
+//= require shareabouts
 //= require util
 //= require page_links
+//= require feature_popup
