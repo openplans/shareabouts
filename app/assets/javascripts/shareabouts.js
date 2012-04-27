@@ -1,6 +1,9 @@
 /*
  * requires leaflet, jquery 1.1.4, mustache
  */
+(function(S){
+
+
 $.widget("ui.shareabout", (function() {
   var map, // leaflet map
       fsm, // state machine
@@ -76,6 +79,16 @@ $.widget("ui.shareabout", (function() {
       map.on('drag', function(drag) {
         self.hint.remove();
       } );
+
+      // Bind events
+      $(S).bind('savefeature', function(evt, $form, url){
+        var data = $form.serialize() + '&' + S.Util.latLngToQueryString(self.newFeature.getLatLng());
+
+        fsm.submitNewFeature({
+          'url': url,
+          'data': data
+        });
+      });
 
       // Update featurePointsCache and populate the map
       this._fetch(function(){
@@ -195,7 +208,7 @@ $.widget("ui.shareabout", (function() {
       layersOnMap[feature.id] = markerLayer;
       map.addLayer(markerLayer);
     },
-    
+
     // If a marker icon exists for this location's type, use that as the marker
     iconFor : function(location_type) {
       if (this.options.locationTypeMarkerIcons[location_type])
@@ -451,7 +464,7 @@ $.widget("ui.shareabout", (function() {
     _unsetFocusedIcon : function() {
       if (this.focusedMarkerLayer) {
         var cacheIndex = this._getCachedFeatureIndex(this.focusedMarkerLayer._id);
-        this.focusedMarkerLayer.setIcon( 
+        this.focusedMarkerLayer.setIcon(
           this.iconFor(featurePointsCache[cacheIndex].location_type) );
       }
     },
@@ -597,14 +610,14 @@ $.widget("ui.shareabout", (function() {
           // Set up focused marker
           var marker = new L.Marker(shareabout.newFeature.getLatLng(), { icon: shareabout.options.focusedMarkerIcon });
           shareabout._setupMarker(marker, responseData.feature_point);
-          
+
           // Remove new feature marker
           map.removeLayer(shareabout.newFeature);
 
           // Indicate that the new marker is on the map
           layersOnMap[id] = marker;
           map.addLayer(marker);
-          
+
           // Add to cache
           featurePointsCache = featurePointsCache.concat(responseData.feature_point);
           popularityStats    = shareabout._getPopularityStats();
@@ -653,3 +666,5 @@ $.widget("ui.shareabout", (function() {
     }
   }; // end widget function return
 })());
+
+})(Shareabouts);

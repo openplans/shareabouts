@@ -14,7 +14,7 @@
       var $form = $(mouseEvent.target).closest('form');
 
       // Send form data and url
-      $(S).trigger('submitNewFeature', [$form, $form.attr('action')]);
+      $(S).trigger('savefeature', [$form, $form.attr('action')]);
     });
 
     // Register click event within InformationPanel
