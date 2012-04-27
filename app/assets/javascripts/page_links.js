@@ -51,6 +51,10 @@
       self.getPageContents($pageLinks.filter('[data-welcome-page]').attr('href'), options.showPageCallback);
     }
 
+    $(S).bind('locateNewFeature', function() {
+      self.hide();
+    });
+
     return self;
   };
 })(Shareabouts);

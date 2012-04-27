@@ -81,12 +81,28 @@ $.widget("ui.shareabout", (function() {
       } );
 
       // Bind events
-      $(S).bind('savefeature', function(evt, $form, url){
+      $(S).bind('submitNewFeature', function(evt, $form, url){
         var data = $form.serialize() + '&' + S.Util.latLngToQueryString(self.newFeature.getLatLng());
 
         fsm.submitNewFeature({
           'url': url,
           'data': data
+        });
+      });
+
+      $(S).bind('locateNewFeature', function() {
+        fsm.locateNewFeature();
+      });
+
+      $(S).bind('loadNewFeatureForm', function(evt){
+        self._validateNewFeatureLocation(function(data){
+          if (!data || data.status !== 'error') { // Location is good
+            fsm.loadNewFeatureForm({
+              url : self.options.newFeatureUrl
+            });
+          } else {
+            this.showHint(data.message, newFeature);
+          }
         });
       });
 
@@ -110,7 +126,6 @@ $.widget("ui.shareabout", (function() {
       });
 
       this._init_states();
-      this.options.callbacks.onready(); // manually trigger transition to ready state
     },
 
     /*****************
@@ -132,16 +147,20 @@ $.widget("ui.shareabout", (function() {
      * Unless otherwise specified via success callback, loads form into popup for this.newFeature marker.
      * @param {Object} ajaxOptions options for jQuery.ajax(). By default, success loads responseData.view into popup.
      */
-    loadNewFeatureForm : function(ajaxOptions) {
-      fsm.loadNewFeatureForm(ajaxOptions);
+    loadNewFeatureForm : function() {
+      this._validateNewFeatureLocation(function(data){
+        if (!data || data.status !== 'error') { // Location is good
+          fsm.loadNewFeatureForm({
+            url : this.options.newFeatureUrl
+          });
+        } else {
+          this.showHint(data.message, newFeature);
+        }
+      });
     },
 
     finalizeNewFeature : function() {
       fsm.finalizeNewFeature();
-    },
-
-    submitNewFeature : function(ajaxOptions) {
-      fsm.submitNewFeature(ajaxOptions);
     },
 
     /**
@@ -492,6 +511,15 @@ $.widget("ui.shareabout", (function() {
       });
     },
 
+    _validateNewFeatureLocation: function(callback) {
+      var latlng = this.newFeature._visible ? this.newFeature.getLatLng() : map.getCenter(),
+          d = S.Util.latLngToQueryString(latlng);
+
+      $.getJSON(this.options.validatePointUrl, d, function(data){
+        callback(data);
+      });
+    },
+
     _touch_screen : function() {
       return('ontouchstart' in window);
     },
@@ -524,11 +552,6 @@ $.widget("ui.shareabout", (function() {
 
       fsm.onchangestate = function(eventName, from, to) {
         // if (window.console) window.console.info("Transitioning from " + from + " to " + to + " via " + eventName);
-
-        // Allow callbacks for state change events
-        if (shareabout.options.callbacks[eventName]) {
-          shareabout.options.callbacks[eventName]();
-        }
       };
 
       /*
