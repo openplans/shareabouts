@@ -8,4 +8,10 @@
 //= require jquery_ujs
 //= require ../../../vendor/assets/javascripts/externals
 //= require ../../../lib/assets/javascripts/externals
-//= require_tree .
+//= require main
+//= require shareabouts
+//= require util
+//= require page_links
+//= require feature_popup
+//= require add_feature
+//= require popularity_slider
