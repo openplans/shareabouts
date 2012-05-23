@@ -26,9 +26,6 @@
       $(S).trigger('locateNewFeature');
       $locateFeature.hide();
       $finalizeFeature.show();
-
-      // TODO: FIX! Reset filtering
-      $('#map-container').hiderslider('reset');
     });
 
     $finalizeFeature.click( function(event) {

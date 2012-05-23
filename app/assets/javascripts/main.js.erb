@@ -8,7 +8,8 @@ var Shareabouts = Shareabouts || {};
     var Map = $("#map"),
         pageLinks,
         featurePopup,
-        addFeature;
+        addFeature,
+        popularitySlider;
 
     var MarkerIcon = L.Icon.extend({
       iconUrl     : '<%= image_path("feature-point.png") %>',
@@ -44,23 +45,6 @@ var Shareabouts = Shareabouts || {};
       shadowSize  : new L.Point(0,0) // no shadow
     });
 
-    // Init the slider for filtering the results by popularity
-    var initPopularitySlider = function(values) {
-      // Popularity Filter
-      $('#map-container').hiderslider({
-        title: 'Filter by Popularity',
-        slider: {
-          max: values.length-1,
-          slide: function(e, data) {
-            Map.shareabout('filterByPopularity', values[data.value]);
-          },
-          change: function(e, data) {
-            Map.shareabout('filterByPopularity', values[data.value]);
-          }
-        }
-      });
-    };
-
     // Initialize shareabouts map
     Map.shareabout({
       map : {
@@ -84,15 +68,18 @@ var Shareabouts = Shareabouts || {};
         },
         onload : function() {
           // See views/feature_points/index.html.erb
-          // TODO: Should this just be handled automatically? A user shouldn't
-          // have to know about this, methinks.
           if (window.shareabouts && window.shareabouts.initialFeatureId) {
-            Map.shareabout("viewFeature", window.shareabouts.initialFeatureId)
+            $(S).trigger('viewFeature', [window.shareabouts.initialFeatureId]);
           }
 
           // Popularity slider only shows up on the desktop
           if ( !Map.shareabout("smallScreen") ) {
-            initPopularitySlider(Map.shareabout('getPopularityStats').uniqueVals);
+            popularitySlider = S.PopularitySlider({
+              values: Map.shareabout('getPopularityStats').uniqueVals,
+              onFilter: function(val) {
+                Map.shareabout('filterByPopularity', val);
+              }
+            });
           }
         },
         onpopup : function() {
@@ -142,10 +129,7 @@ var Shareabouts = Shareabouts || {};
         },
         click: function(e, ui) {
           e.preventDefault();
-          Map.shareabout('viewFeature', ui.featureId);
-
-          // Reset filtering
-          $('#map-container').hiderslider('reset');
+          $(S).trigger('viewFeature', [ui.featureId]);
         }
       });
     }

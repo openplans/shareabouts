@@ -14,6 +14,8 @@
       var $form = $(mouseEvent.target).closest('form');
 
       // Send form data and url
+      // TODO: serialize the form to an object literal instead of passing a
+      // jQuery object of the form
       $(S).trigger('submitNewFeature', [$form, $form.attr('action')]);
     });
 

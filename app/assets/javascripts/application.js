@@ -14,3 +14,4 @@
 //= require page_links
 //= require feature_popup
 //= require add_feature
+//= require popularity_slider

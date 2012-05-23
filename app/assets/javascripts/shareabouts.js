@@ -80,30 +80,32 @@ $.widget("ui.shareabout", (function() {
         self.hint.remove();
       } );
 
-      // Bind events
+      // Bind events to allow map interaction without having access to this object
+
+      // Locate a new feature on the map
+      $(S).bind('locateNewFeature', function() {
+        self.locateNewFeature();
+      });
+
+      // Click the confirm button and a blank form loads
+      $(S).bind('loadNewFeatureForm', function(evt){
+        self.loadNewFeatureForm();
+      });
+
+      // Submit a new feature from a form
       $(S).bind('submitNewFeature', function(evt, $form, url){
+        // TODO: pass in a data object and not the form
         var data = $form.serialize() + '&' + S.Util.latLngToQueryString(self.newFeature.getLatLng());
 
-        fsm.submitNewFeature({
+        self.submitNewFeature({
           'url': url,
           'data': data
         });
       });
 
-      $(S).bind('locateNewFeature', function() {
-        fsm.locateNewFeature();
-      });
-
-      $(S).bind('loadNewFeatureForm', function(evt){
-        self._validateNewFeatureLocation(function(data){
-          if (!data || data.status !== 'error') { // Location is good
-            fsm.loadNewFeatureForm({
-              url : self.options.newFeatureUrl
-            });
-          } else {
-            this.showHint(data.message, newFeature);
-          }
-        });
+      // Show the details for the given feature id
+      $(S).bind('viewFeature', function(evt, fId) {
+        self.viewFeature(fId);
       });
 
       // Update featurePointsCache and populate the map
@@ -132,6 +134,8 @@ $.widget("ui.shareabout", (function() {
       PUBLIC
     *****************/
 
+    // TODO: revisit these functions to see if they're still necessary
+
     /**
      * Drops a pin on the map - at latLng, if provided, or map center.
      * Advances map state to locatingFeature.
@@ -148,19 +152,24 @@ $.widget("ui.shareabout", (function() {
      * @param {Object} ajaxOptions options for jQuery.ajax(). By default, success loads responseData.view into popup.
      */
     loadNewFeatureForm : function() {
-      this._validateNewFeatureLocation(function(data){
+      var self = this;
+      self._validateNewFeatureLocation(function(data){
         if (!data || data.status !== 'error') { // Location is good
           fsm.loadNewFeatureForm({
-            url : this.options.newFeatureUrl
+            url : self.options.newFeatureUrl
           });
         } else {
-          this.showHint(data.message, newFeature);
+          self.showHint(data.message, newFeature);
         }
       });
     },
 
     finalizeNewFeature : function() {
       fsm.finalizeNewFeature();
+    },
+
+    submitNewFeature : function(ajaxOptions) {
+      fsm.submitNewFeature(ajaxOptions);
     },
 
     /**
