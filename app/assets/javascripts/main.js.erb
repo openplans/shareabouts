@@ -1,267 +1,142 @@
 <% url_help = Shareabouts::Application.routes.url_helpers %>
 
-$(function() {
-  var locate_feature   = $("#locate_feature"),
-      finalize_feature = $("#finalize_feature"),
-      pages            = $("#pages a"),
-      Map              = $("#map");
+// Namespace object
+var Shareabouts = Shareabouts || {};
 
-  var MarkerIcon = L.Icon.extend({
-    iconUrl     : '<%= image_path("feature-point.png") %>',
-    iconSize    : new L.Point(17, 18),
-    iconAnchor  : new L.Point(9, 11),
-    popupAnchor : new L.Point(0, 0),
-    shadowSize  : new L.Point(0, 0)
-  });
+(function(S){
+  S.init = function(){
+    var Map = $("#map"),
+        pageLinks,
+        featurePopup,
+        addFeature,
+        popularitySlider;
 
-  var FocusedMarkerIcon = L.Icon.extend({
-    iconUrl     : '<%= image_path("marker-focused.png") %>',
-    iconSize    : new L.Point(25, 41),
-    iconAnchor  : new L.Point(13, 41),
-    popupAnchor : new L.Point(0, -33),
-    shadowSize  : new L.Point(41, 41),
-    shadowUrl   : '<%= image_path("marker-shadow.png") %>'
-  });
+    var MarkerIcon = L.Icon.extend({
+      iconUrl     : '<%= image_path("feature-point.png") %>',
+      iconSize    : new L.Point(17, 18),
+      iconAnchor  : new L.Point(9, 11),
+      popupAnchor : new L.Point(0, 0),
+      shadowSize  : new L.Point(0, 0)
+    });
 
-  var NewMarkerIcon = L.Icon.extend({
-    iconUrl     : '<%= image_path("marker-plus.png") %>',
-    iconSize    : new L.Point(25, 41),
-    iconAnchor  : new L.Point(13, 41),
-    popupAnchor : new L.Point(0, -33),
-    shadowSize  : new L.Point(41, 41),
-    shadowUrl   : '<%= image_path("marker-shadow.png") %>'
-  });
+    var FocusedMarkerIcon = L.Icon.extend({
+      iconUrl     : '<%= image_path("marker-focused.png") %>',
+      iconSize    : new L.Point(25, 41),
+      iconAnchor  : new L.Point(13, 41),
+      popupAnchor : new L.Point(0, -33),
+      shadowSize  : new L.Point(41, 41),
+      shadowUrl   : '<%= image_path("marker-shadow.png") %>'
+    });
 
-  var CrosshairIcon = L.Icon.extend({
-    iconUrl     : '<%= image_path("crosshair.png") %>',
-    iconSize    : new L.Point(63, 64),
-    iconAnchor  : new L.Point(33,32),
-    popupAnchor : new L.Point(0,0),
-    shadowSize  : new L.Point(0,0) // no shadow
-  });
+    var NewMarkerIcon = L.Icon.extend({
+      iconUrl     : '<%= image_path("marker-plus.png") %>',
+      iconSize    : new L.Point(25, 41),
+      iconAnchor  : new L.Point(13, 41),
+      popupAnchor : new L.Point(0, -33),
+      shadowSize  : new L.Point(41, 41),
+      shadowUrl   : '<%= image_path("marker-shadow.png") %>'
+    });
 
-  // Init the slider for filtering the results by popularity
-  var initPopularitySlider = function(values) {
-    // Popularity Filter
-    $('#map-container').hiderslider({
-      title: 'Filter by Popularity',
-      slider: {
-        max: values.length-1,
-        slide: function(e, data) {
-          Map.shareabout('filterByPopularity', values[data.value]);
+    var CrosshairIcon = L.Icon.extend({
+      iconUrl     : '<%= image_path("crosshair.png") %>',
+      iconSize    : new L.Point(63, 64),
+      iconAnchor  : new L.Point(33,32),
+      popupAnchor : new L.Point(0,0),
+      shadowSize  : new L.Point(0,0) // no shadow
+    });
+
+    // Initialize shareabouts map
+    Map.shareabout({
+      map : {
+        maxZoom   : window.shareabouts.map_max_zoom,
+        minZoom   : window.shareabouts.map_min_zoom,
+        maxBounds : window.shareabouts.map_bounds,
+        center    : window.shareabouts.map_center || new L.LatLng(40.719991, -73.999530),
+        zoomAnimation : false
+      },
+      tileUrl          : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+      tileAttribution  : '&copy; 2012 <a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.0/">CCBYSA</a> - Tiles by <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
+      markerIcon: new MarkerIcon(),
+      focusedMarkerIcon: new FocusedMarkerIcon(),
+      newMarkerIcon: new NewMarkerIcon(),
+      crosshairIcon   : new CrosshairIcon(),
+      locationTypeMarkerIcons : window.shareabouts.LocationTypeIcons,
+      initialZoom : window.shareabouts.map_initial_zoom,
+      callbacks : {
+        onready : function(something) {
+          addFeature.reset();
         },
-        change: function(e, data) {
-          Map.shareabout('filterByPopularity', values[data.value]);
-        }
-      }
-    });
-  };
+        onload : function() {
+          // See views/feature_points/index.html.erb
+          if (window.shareabouts && window.shareabouts.initialFeatureId) {
+            $(S).trigger('viewFeature', [window.shareabouts.initialFeatureId]);
+          }
 
-  /**
-   * @param {L.LatLng} latlng The location to translate to query string
-   */
-  var latLngToQueryString = function(latlng) {
-    return "latitude=" + latlng.lat + "&longitude=" + latlng.lng;
-  };
-
-  // Initialize shareabouts map
-  Map.shareabout({
-    map : {
-      maxZoom   : window.shareabouts.map_max_zoom,
-      minZoom   : window.shareabouts.map_min_zoom,
-      maxBounds : window.shareabouts.map_bounds,
-      center    : window.shareabouts.map_center || new L.LatLng(40.719991, -73.999530),
-      zoomAnimation : false
-    },
-    tileUrl          : 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-    tileAttribution  : '&copy; 2012 <a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.0/">CCBYSA</a> - Tiles by <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">',
-    markerIcon: new MarkerIcon(),
-    focusedMarkerIcon: new FocusedMarkerIcon(),
-    newMarkerIcon: new NewMarkerIcon(),
-    crosshairIcon   : new CrosshairIcon(),
-    locationTypeMarkerIcons : window.shareabouts.LocationTypeIcons,
-    initialZoom : window.shareabouts.map_initial_zoom,
-    callbacks : {
-      onready : function(something) {
-        locate_feature.show();
-        finalize_feature.hide();
-      },
-      onload : function() {
-        // See views/feature_points/index.html.erb
-        // TODO: Should this just be handled automatically? A user shouldn't
-        // have to know about this, methinks.
-        if (window.shareabouts && window.shareabouts.initialFeatureId) {
-          Map.shareabout("viewFeature", window.shareabouts.initialFeatureId)
-        }
-
-        // Popularity slider only shows up on the desktop
-        if ( !Map.shareabout("smallScreen") ) {
-          initPopularitySlider(Map.shareabout('getPopularityStats').uniqueVals);
-        }
-      },
-      onpopup : function() {
-        locate_feature.hide();
-        finalize_feature.hide();
-
-        // Hide mobile dropdown menu if visible
-        $('#pages ul').removeClass('active');
-
-        // Init the visibility indicator when the popup content loads
-        setPopupOverflowIndicatorVisibility($('.page, .feature'));
-        // Check to see if the visibility indicator should be shown on scroll
-        $('.page, .feature').scroll(function(e) {
-          var $popupContent = $(this);
-          setPopupOverflowIndicatorVisibility($popupContent);
-        });
-      },
-      locateNewFeature: function() {
-        // Hide mobile dropdown menu if visible
-        $('#pages ul').removeClass('active');
-      }
-    },
-    // Intial feature to show
-    initialFeatureId : window.shareabouts.initialFeatureId,
-    featuresUrl      : '<%= url_help.feature_points_path %>',
-    featureUrl       : '<%= url_help.feature_point_path("FEATURE_ID") %>',
-    polygonsUrl      : '<%= url_help.feature_polygons_path %>', // json of coordinates for multipolygon areas
-    dragHint         : '<%= I18n.t "map_controls.drag_hint" %>',
-    dragHintLong     : '<%= I18n.t "map_controls.drag_hint_long" %>'
-  });
-
-  // Register click event within InformationPanel
-  Map.shareabout("addClickEventListenerToPopup", "form#new_feature_point input:submit", function(mouseEvent, target){
-    var form = $(mouseEvent.target).closest("form");
-
-    Map.shareabout("submitNewFeature", {
-      data : form.serialize() + "&" + latLngToQueryString( Map.shareabout("getNewFeatureMarker").getLatLng() ),
-      url : form.attr("action")
-    });
-  });
-
-  // Register click event within InformationPanel
-  var throttledVoteCallback = (function() {
-    var done = true;
-    return function(mouseEvent, target){
-      if (done) {
-        done = false;
-        var $form = $(mouseEvent.target).closest("form"),
-            $button = $('button', $form),
-            $label = $('.vote-label', $form),
-            votes = parseInt($label.text(), 10);
-
-        // Update the state of the button right away
-        $button.is('.supported') ? votes-- : votes++;
-        $button.toggleClass('supported');
-        $label.text(votes);
-
-        $.post( $form.attr("action"), $form.serialize(), function(data) {
-          Map.shareabout("getPopup").setContent(data.view);
+          // Popularity slider only shows up on the desktop
+          if ( !Map.shareabout("smallScreen") ) {
+            popularitySlider = S.PopularitySlider({
+              values: Map.shareabout('getPopularityStats').uniqueVals,
+              onFilter: function(val) {
+                Map.shareabout('filterByPopularity', val);
+              }
+            });
+          }
         },
-        "json").complete(function() { done = true; });
-      }
-    };
-  })();
-  Map.shareabout("addClickEventListenerToPopup", "form[data-behavior=load_result_in_popup] :submit", throttledVoteCallback);
+        onpopup : function() {
+          addFeature.hide();
 
-  // UI Elements that affect map state
-  locate_feature.click( function(event) {
-    Map.shareabout("locateNewFeature");
-    $(this).hide();
-    finalize_feature.show();
-
-    // Reset filtering
-    $('#map-container').hiderslider('reset');
-  });
-
-  finalize_feature.click( function(event) {
-    var newFeature = Map.shareabout("getNewFeatureMarker"),
-        latlng     = newFeature._visible ? newFeature.getLatLng() : Map.shareabout("getMap").getCenter(),
-        data       = latLngToQueryString(latlng);
-
-    $.getJSON("<%= url_help.within_region_feature_points_path %>", data, function(data){
-      if (!data || data.status != "error") { // Location is good
-        Map.shareabout("loadNewFeatureForm", {
-          url : '<%= url_help.new_feature_point_path %>'
-        });
-        $(this).hide();
-      } else Map.shareabout("showHint", data.message, newFeature);
+          // Hide mobile dropdown menu if visible
+          pageLinks.hide();
+        }
+      },
+      validatePointUrl: '<%= url_help.within_region_feature_points_path %>',
+      newFeatureUrl: '<%= url_help.new_feature_point_path %>',
+      // Intial feature to show
+      initialFeatureId : window.shareabouts.initialFeatureId,
+      featuresUrl      : '<%= url_help.feature_points_path %>',
+      featureUrl       : '<%= url_help.feature_point_path("FEATURE_ID") %>',
+      polygonsUrl      : '<%= url_help.feature_polygons_path %>', // json of coordinates for multipolygon areas
+      dragHint         : '<%= I18n.t "map_controls.drag_hint" %>',
+      dragHintLong     : '<%= I18n.t "map_controls.drag_hint_long" %>'
     });
-  });
 
-  // Display static pages in the popup
-  var showPage = function(url) {
-    $.get(url, function(data){
-      Map.shareabout("openPopup", data.view);
-    }, "json");
-  };
+    // Init the PageLinks object to handle page content in the popup
+    pageLinks = S.PageLinks({
+      showPageCallback: function(data) {
+        // TODO: handle this with custom events when shareabouts.js supports them
+        Map.shareabout("openPopup", data.view);
+      }
+    });
 
-  // Display static pages in the popup when a link is clicked
-  pages.click(function(click){
-    click.preventDefault();
-    showPage($(click.target).attr("href"));
-  });
+    // Init events on the popup when it has feature content
+    featurePopup = S.FeaturePopup({
+      popup: Map.shareabout('getPopup')
+    });
 
-  // Show the welcome page on page load ONLY if not starting with a feature visible
-  if (pages.is('[data-welcome-page]') && !window.shareabouts.feature) {
-    showPage(pages.filter('[data-welcome-page]').attr("href"));
-  }
+    // Init controls for adding a new feature
+    addFeature = S.AddFeature({
+      locateFeature: '#locate_feature',
+      finalizeFeature: '#finalize_feature'
+    });
 
-  // Focus the permalink text on focus
-  $(document).on('focus', '.copy-link', function(){
-    this.select();
-  });
-
-  // Show the permalink and allow it to be copied
-  $(document).on('click', '.link', function(e){
-    var $input = $('.copy-link');
-
-    $input.toggle();
-    if($input.is(':visible')) {
-      $input.focus();
+    // Desktop only
+    if ( !Map.shareabout("smallScreen") ) {
+      // Init the activity ticker
+      $("#ticker").activityticker({
+        url    : "<%= url_help.activity_index_path %>",
+        toggle : function(e){
+          $("#content").toggleClass("ticker_on");
+        },
+        click: function(e, ui) {
+          e.preventDefault();
+          $(S).trigger('viewFeature', [ui.featureId]);
+        }
+      });
     }
+  };
+})(Shareabouts);
 
-    e.preventDefault();
-  });
-
-  // Desktop only
-  if ( !Map.shareabout("smallScreen") ) {
-    // Start the ticker
-    $("#ticker").activityticker({
-      url    : "<%= url_help.activity_index_path %>",
-      toggle : function(e){
-        $("#content").toggleClass("ticker_on");
-      },
-      click: function(e, ui) {
-        e.preventDefault();
-        Map.shareabout('viewFeature', ui.featureId);
-
-        // Reset filtering
-        $('#map-container').hiderslider('reset');
-      }
-    });
-  }
-
-  // Show the hidden comment form
-  $(".reply-link").live("click", function(e) {
-    $("#reply").removeClass("hide");
-  });
-
-  // Toggle the mobile nav menu
-  $('#pages').click(function(){
-    $('#pages ul').toggleClass('active');
-  });
-
-  // Sets the visibility of the overflow indicator in the popup
-  function setPopupOverflowIndicatorVisibility($popupContent) {
-    var el = $popupContent.get(0),
-        padding = 10;
-
-    // Only show the indicator if...
-    $('.information-panel').toggleClass('overflowing', (
-      // ...this is scrollable
-      el.clientHeight < el.scrollHeight &&
-      // ...and we are not at the bottom
-      ($popupContent.scrollTop() + padding) < el.scrollHeight - el.clientHeight
-    ));
-  }
+// Init Shareabouts when document is ready
+$(function() {
+  Shareabouts.init();
 });

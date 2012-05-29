@@ -1,6 +1,9 @@
 /*
  * requires leaflet, jquery 1.1.4, mustache
  */
+(function(S){
+
+
 $.widget("ui.shareabout", (function() {
   var map, // leaflet map
       fsm, // state machine
@@ -77,6 +80,34 @@ $.widget("ui.shareabout", (function() {
         self.hint.remove();
       } );
 
+      // Bind events to allow map interaction without having access to this object
+
+      // Locate a new feature on the map
+      $(S).bind('locateNewFeature', function() {
+        self.locateNewFeature();
+      });
+
+      // Click the confirm button and a blank form loads
+      $(S).bind('loadNewFeatureForm', function(evt){
+        self.loadNewFeatureForm();
+      });
+
+      // Submit a new feature from a form
+      $(S).bind('submitNewFeature', function(evt, $form, url){
+        // TODO: pass in a data object and not the form
+        var data = $form.serialize() + '&' + S.Util.latLngToQueryString(self.newFeature.getLatLng());
+
+        self.submitNewFeature({
+          'url': url,
+          'data': data
+        });
+      });
+
+      // Show the details for the given feature id
+      $(S).bind('viewFeature', function(evt, fId) {
+        self.viewFeature(fId);
+      });
+
       // Update featurePointsCache and populate the map
       this._fetch(function(){
         self.refreshMapFeatures(self.options.callbacks.onload);
@@ -97,12 +128,13 @@ $.widget("ui.shareabout", (function() {
       });
 
       this._init_states();
-      this.options.callbacks.onready(); // manually trigger transition to ready state
     },
 
     /*****************
       PUBLIC
     *****************/
+
+    // TODO: revisit these functions to see if they're still necessary
 
     /**
      * Drops a pin on the map - at latLng, if provided, or map center.
@@ -119,8 +151,17 @@ $.widget("ui.shareabout", (function() {
      * Unless otherwise specified via success callback, loads form into popup for this.newFeature marker.
      * @param {Object} ajaxOptions options for jQuery.ajax(). By default, success loads responseData.view into popup.
      */
-    loadNewFeatureForm : function(ajaxOptions) {
-      fsm.loadNewFeatureForm(ajaxOptions);
+    loadNewFeatureForm : function() {
+      var self = this;
+      self._validateNewFeatureLocation(function(data){
+        if (!data || data.status !== 'error') { // Location is good
+          fsm.loadNewFeatureForm({
+            url : self.options.newFeatureUrl
+          });
+        } else {
+          self.showHint(data.message, newFeature);
+        }
+      });
     },
 
     finalizeNewFeature : function() {
@@ -195,7 +236,7 @@ $.widget("ui.shareabout", (function() {
       layersOnMap[feature.id] = markerLayer;
       map.addLayer(markerLayer);
     },
-    
+
     // If a marker icon exists for this location's type, use that as the marker
     iconFor : function(location_type) {
       if (this.options.locationTypeMarkerIcons[location_type])
@@ -451,7 +492,7 @@ $.widget("ui.shareabout", (function() {
     _unsetFocusedIcon : function() {
       if (this.focusedMarkerLayer) {
         var cacheIndex = this._getCachedFeatureIndex(this.focusedMarkerLayer._id);
-        this.focusedMarkerLayer.setIcon( 
+        this.focusedMarkerLayer.setIcon(
           this.iconFor(featurePointsCache[cacheIndex].location_type) );
       }
     },
@@ -476,6 +517,15 @@ $.widget("ui.shareabout", (function() {
       marker._id = fId;
       marker.on("click", function(click){
         shareabout.viewFeature(this._id);
+      });
+    },
+
+    _validateNewFeatureLocation: function(callback) {
+      var latlng = this.newFeature._visible ? this.newFeature.getLatLng() : map.getCenter(),
+          d = S.Util.latLngToQueryString(latlng);
+
+      $.getJSON(this.options.validatePointUrl, d, function(data){
+        callback(data);
       });
     },
 
@@ -511,11 +561,6 @@ $.widget("ui.shareabout", (function() {
 
       fsm.onchangestate = function(eventName, from, to) {
         // if (window.console) window.console.info("Transitioning from " + from + " to " + to + " via " + eventName);
-
-        // Allow callbacks for state change events
-        if (shareabout.options.callbacks[eventName]) {
-          shareabout.options.callbacks[eventName]();
-        }
       };
 
       /*
@@ -597,14 +642,14 @@ $.widget("ui.shareabout", (function() {
           // Set up focused marker
           var marker = new L.Marker(shareabout.newFeature.getLatLng(), { icon: shareabout.options.focusedMarkerIcon });
           shareabout._setupMarker(marker, responseData.feature_point);
-          
+
           // Remove new feature marker
           map.removeLayer(shareabout.newFeature);
 
           // Indicate that the new marker is on the map
           layersOnMap[id] = marker;
           map.addLayer(marker);
-          
+
           // Add to cache
           featurePointsCache = featurePointsCache.concat(responseData.feature_point);
           popularityStats    = shareabout._getPopularityStats();
@@ -653,3 +698,5 @@ $.widget("ui.shareabout", (function() {
     }
   }; // end widget function return
 })());
+
+})(Shareabouts);
