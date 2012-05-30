@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
   
   def restrict_browser
     unless valid_browser?
-      render :template => 'home/no_ie6.html.erb', :layout => false
+      render :template => 'shared/no_ie6.html.erb', :layout => false
       return false
     end
   end
