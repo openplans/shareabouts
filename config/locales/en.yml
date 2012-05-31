@@ -46,10 +46,9 @@ en:
     comment:
       action: 'commented on'
     point:
-      action: added
-      indefinite_article: a
-      by_name: "%{name}'s point"
+      action: added a point
       in_region: "in %{region}"
+      by_name: "%{name}'s point"
   # Model names and model attribute names
   activerecord:
     models:
