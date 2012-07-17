@@ -1,0 +1,7 @@
+# The server
+django
+gevent
+gunicorn
+
+# REST API
+djangorestframework
