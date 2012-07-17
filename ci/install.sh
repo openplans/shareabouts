@@ -20,6 +20,7 @@ psql -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatia
 # Initialize the database
 psql -U postgres <<EOF
     CREATE USER shareabouts WITH PASSWORD 'shareabouts';
+    ALTER USER shareabouts WITH CREATEDB;
     CREATE DATABASE shareabouts_v1 TEMPLATE template_postgis;
     GRANT ALL ON DATABASE shareabouts_v1 TO shareabouts;
 EOF
