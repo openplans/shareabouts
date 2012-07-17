@@ -28,6 +28,13 @@ To run the development server:
 
 The server will, by default, be started at http://localhost:8000/.
 
+Database
+--------
+
+Copy the file `src/project/local_settings.py.template` to `local_settings.py`
+and fill in the credentials for connecting to your development database.
+
+
 Static assets
 -------------
 
