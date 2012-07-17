@@ -1,12 +1,10 @@
 # https://github.com/travis-ci/travis-ci/wiki/.travis.yml-options
 
-bundler_args: --without development
-before_script:
-  - spec/ci/before_script
-script: "bundle exec rake spec coverage=no"
-rvm:
-  - 1.9.2
-  - 1.9.3
+install: "pip install -r requirements.txt --use-mirrors"
+script: "src/manage.py test"
+python:
+  - "2.6"
+  - "2.7"
 notifications:
   irc:
     channels:
@@ -26,4 +24,4 @@ notifications:
 #    on_failure: change
 branches:
   only:
-    - master
+    - v1
