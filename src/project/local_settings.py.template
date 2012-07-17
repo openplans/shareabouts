@@ -1,0 +1,10 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'shareabouts_v1',
+        'USER': 'shareabouts',
+        'PASSWORD': 'shareabouts',
+        'HOST': '',
+        'PORT': '',
+    }
+}

@@ -38,9 +38,7 @@ to activate your virtual environment every time you start a new terminal session
 
     source env/bin/activate
 
-
 Database
---------
 
 Copy the file `src/project/local_settings.py.template` to `local_settings.py`
 and fill in the credentials for connecting to your development database.
