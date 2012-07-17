@@ -11,7 +11,8 @@ sudo apt-get install binutils gdal-bin libproj-dev postgresql-9.1-postgis \
 # Install the python requirements
 sudo pip install -r requirements.txt
 
-sudo -u postgres psql <<EOF
+# Initialize the database
+psql -U postgres <<EOF
     CREATE USER shareabouts WITH PASSWORD 'shareabouts';
 EOF
 
