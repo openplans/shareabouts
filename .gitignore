@@ -1,5 +1,4 @@
 # user-specific
-.bundle
 db/*.sqlite3
 log/*.log
 
@@ -7,17 +6,17 @@ log/*.log
 tmp/
 .sass-cache/
 
-# stored data
-public/system/*
-
-# things with example files
-config/database.yml
-config/deploy.rb
-config/initializers/devise.rb
-
 # cover_me generated
 coverage
 coverage.data
 
 # junk
 .DS_Store
+*~
+
+# compiled files
+*.py[co]
+
+# environment
+env/
+.env/
