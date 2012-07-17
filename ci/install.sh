@@ -14,6 +14,8 @@ sudo pip install -r requirements.txt
 # Initialize the database
 psql -U postgres <<EOF
     CREATE USER shareabouts WITH PASSWORD 'shareabouts';
+    CREATE DATABASE shareabouts_v1 TEMPLATE template_postgis;
+    GRANT ALL ON DATABASE shareabouts_v1 TO shareabouts;
 EOF
 
 # Initialize the project settings
