@@ -11,6 +11,11 @@ requirements isolated from the rest of your machine.
     easy_install pip
     pip install virtualenv
 
+You may need to use `sudo` to install these tools.
+
+    sudo easy_install pip
+    sudo pip install virtualenv
+
 Create a new virtual environment inside of the repository folder, and install
 the project requirements:
 
@@ -27,6 +32,11 @@ To run the development server:
     src/manage.py runserver
 
 The server will, by default, be started at http://localhost:8000/.
+
+NOTE: If you're new to programming with virtual environments, be sure to remember
+to activate your virtual environment every time you start a new terminal session.
+
+    source env/bin/activate
 
 Static assets
 -------------
