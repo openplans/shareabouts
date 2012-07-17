@@ -351,16 +351,16 @@ a.add-feature-point:hover {
 	background:
 		linear-gradient(white 30%, rgba(255,255,255,0)),
 		linear-gradient(rgba(255,255,255,0), white 70%) 0 100%,
-		radial-gradient(25% 0, farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)),
-		radial-gradient(25% 100%,farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)) 0 100%;
+		radial-gradient(45% 0, farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)),
+		radial-gradient(45% 100%,farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)) 0 100%;
 	background:
 	  -webkit-linear-gradient(white 30%, rgba(255, 255, 255, 0)), 
 	  -webkit-linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, 
-	  -webkit-radial-gradient(25% 0, farthest-side, rgba(0, 0, 0, 0.25), transparent), 
-	  -webkit-radial-gradient(25% 100%,farthest-side, rgba(0, 0, 0, 0.25), transparent) 0 100%;
+	  -webkit-radial-gradient(45% 0, farthest-side, rgba(0, 0, 0, 0.25), transparent), 
+	  -webkit-radial-gradient(45% 100%,farthest-side, rgba(0, 0, 0, 0.25), transparent) 0 100%;
 	background-repeat: no-repeat;
 	background-color: white;
-	background-size: 100% 40px, 100% 40px, 150% 1.75em, 150% 1.75em;
+	background-size: 100% 40px, 100% 40px, 110% 1.75em, 110% 1.75em;
 	background-attachment: local, local, scroll, scroll;
 }
 a.close-bttn {
@@ -541,6 +541,11 @@ article.comment footer {
 	color: #fff;
 }
 .reply-header {
+}
+#reply input[type=text],
+#reply textarea {
+	background-color: rgba(255,255,255,0);
+	border: 1px solid #999;
 }
 #reply input[type=text] {
 	width: 60%;
