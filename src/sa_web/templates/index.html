@@ -65,7 +65,7 @@
   <div role="main" id="main">
     <div id="map-container">
       <div id="map"></div>
-      <a href="#" class="add-feature-point">Add a location!</a>
+      <a href="#" id="add-feature-point" class="add-feature-point visuallyhidden">Add a location!</a><!-- FIXME: toggling content should inversely toggle this button via .visuallyhidden -->
     </div>
 
     <div id="content">
@@ -284,7 +284,7 @@
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="javascripts/jquery-1.7.1.min.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
 
   <script src="http://code.leafletjs.com/leaflet-0.3.1/leaflet.js"></script>
   
@@ -316,6 +316,7 @@
         
         $('.close-bttn').click(function(){
           $('#content').toggle();
+          $('#add-feature-point').removeClass('visuallyhidden');
           return false; 
         });
 
