@@ -320,6 +320,13 @@ a.add-feature-point:hover {
   -webkit-border-radius: 0px;
           border-radius: 0px;
 }
+#crosshairs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -32px 0 0 -32px;
+  pointer-events: none;
+}
 
 /* Content */
 #content {

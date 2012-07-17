@@ -66,6 +66,7 @@
     <div id="map-container">
       <div id="map"></div>
       <a href="#" id="add-feature-point" class="add-feature-point visuallyhidden">Add a location!</a><!-- FIXME: toggling content should inversely toggle this button via .visuallyhidden -->
+      <img id="crosshairs" src="{{ STATIC_URL }}sa/images/crosshair.png" class="visuallyhidden" />
     </div>
 
     <div id="content">
@@ -317,6 +318,7 @@
         $('.close-bttn').click(function(){
           $('#content').toggle();
           $('#add-feature-point').removeClass('visuallyhidden');
+          $('#crosshairs').removeClass('visuallyhidden');
           return false; 
         });
 
