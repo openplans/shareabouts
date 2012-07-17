@@ -1,6 +1,6 @@
 # https://github.com/travis-ci/travis-ci/wiki/.travis.yml-options
 
-install: "pip install -r requirements.txt --use-mirrors"
+install: "sudo pip install -r requirements.txt --use-mirrors"
 script: "src/manage.py test"
 python:
   - "2.6"
