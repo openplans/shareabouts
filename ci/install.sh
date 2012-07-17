@@ -15,8 +15,13 @@ sudo pip install -r requirements.txt
 psql -c "CREATE DATABASE template_postgis;" -U postgres
 psql -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';" -U postgres
 createlang plpgsql template_postgis -U postgres
+# Loading the PostGIS SQL routines
 psql -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql -q
 psql -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql -q
+# Enabling users to alter spatial tables.
+psql -d template_postgis -c "GRANT ALL ON geometry_columns TO PUBLIC;"
+psql -d template_postgis -c "GRANT ALL ON geography_columns TO PUBLIC;"
+psql -d template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;"
 
 # Initialize the database
 psql -U postgres <<EOF
