@@ -5,6 +5,7 @@ gunicorn
 
 # Database
 psycopg2
+south
 
 # REST API
 djangorestframework
