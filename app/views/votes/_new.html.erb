@@ -1,9 +1,0 @@
-<%= form_for Vote.new(:supportable_id => supportable.id, :supportable_type => supportable.class.to_s), 
-  :url => supportable_votes_path(supportable), :html => { "data-behavior" => "load_result_in_popup" } do |form| %>
-  <% button_if !supported?(supportable) do %>
-    <div<%= " class=support_button" if supported?(supportable) %>>
-      <span<%= " class=supported" if supported?(supportable) %>><%= supportable.votes.count %></span> 
-      <%= t 'feature.vote_action' %>
-    </div>
-  <% end %>
-<% end %>
