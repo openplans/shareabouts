@@ -18,6 +18,10 @@ the project requirements:
     source env/bin/activate
     pip install -r requirements.txt
 
+NOTE: If you run in to trouble with gevent, you can safely comment it out of
+the requirements.txt file.  It is not needed for local development.  To comment
+it out, just add a hash to the beginning of the line for `gevent`.
+
 To run the development server:
 
     src/manage.py runserver
