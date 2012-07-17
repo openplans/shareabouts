@@ -155,3 +155,13 @@ LOGGING = {
         },
     }
 }
+
+##############################################################################
+# Local settings overrides
+# ------------------------
+# Override settings values by importing the local_settings.py module.
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
