@@ -122,7 +122,13 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'django.contrib.gis',
 
+    # 3rd-party reusaple apps
+    'djangorestframework',
+    'south',
+
+    # Project apps
     'sa_api',
     'sa_web',
 )
