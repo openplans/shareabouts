@@ -322,9 +322,9 @@ a.add-feature-point:hover {
 }
 #crosshairs {
   position: absolute;
-  top: 50%;
+  top: 33%;
   left: 50%;
-  margin: -32px 0 0 -32px;
+  margin: -33px 0 0 -33px;
   pointer-events: none;
 }
 
@@ -671,6 +671,9 @@ article.comment footer {
   }
   a.close-bttn span {
     display: none;
+  }
+  #crosshairs {
+    top: 40%;
   }
 }
 @media only screen and (min-width: 768px) { /* menu is visible */
