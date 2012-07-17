@@ -1,6 +1,6 @@
 # The server
 django
-gevent
+# gevent
 gunicorn
 
 # Database

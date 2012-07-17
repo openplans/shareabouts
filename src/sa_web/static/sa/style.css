@@ -1,0 +1,823 @@
+/* =html5doctor.com Reset Stylesheet \\v1.6.1 \\ Last Updated: 2010-09-17 \\ http://richclarkdesign.com \\ @rich_clark 
+-------------------------------------------------------------- */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section { display:block; }
+nav ul { list-style:none; }
+blockquote, q { quotes:none; }
+blockquote:before, blockquote:after,
+q:before, q:after { content:''; content:none; }
+a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
+ins { background-color:#ff9; color:#000; text-decoration:none; }
+mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
+del { text-decoration: line-through; }
+abbr[title], dfn[title] { border-bottom:1px dotted; cursor:help; }
+/* tables still need cellspacing="0" in the markup */
+table { border-collapse:collapse; border-spacing:0; }
+hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
+input, select { vertical-align:middle; }
+
+
+/* =Base Typography 
+-------------------------------------------------------------- */
+
+body { font:13px/1.231 sans-serif; *font-size:small; }
+select, input, textarea, button { font:99% sans-serif; }
+pre, code, kbd, samp { font-family: monospace, sans-serif; }
+
+
+/* =Base Styles 
+-------------------------------------------------------------- */
+
+body, select, input, textarea { 
+  /* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */ 
+  color: #444; 
+  /* set your base font here, to apply evenly */
+  font-family: "Helvetica Neue", Arial, Helvetica, serif;
+}
+/* Headers (h1,h2,etc) have no default font-size or margin,
+   you'll want to define those yourself. */ 
+h1,h2,h3,h4,h5,h6 { 
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 0 0 0.5em 0;
+}
+h1 { font-size: 2em; }
+h2 { font-size: 2em; }
+h3 { font-size: 1.75em; }
+h4 { font-size: 1.5em; }
+h5 { font-size: 1.25em; }
+h6 { font-size: 1em; }
+/* always force a scrollbar in non-IE */ 
+html { overflow-y: scroll; }
+/* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
+a:hover, a:active { outline: none; }
+a, a:active, a:visited { color: #007fbf; }
+a:hover { color: #00aaff; }
+ul, ol { margin-left: 1.8em; }
+ol { list-style-type: decimal; }
+/* Remove margins for navigation lists */
+nav ul, nav li { margin: 0; } 
+small { font-size: 85%; }
+strong, th { font-weight: bold; }
+td, td img { vertical-align: top; } 
+sub { vertical-align: sub; font-size: smaller; }
+sup { vertical-align: super; font-size: smaller; }
+pre { 
+  padding: 15px; 
+  /* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */
+  white-space: pre; /* CSS2 */
+  white-space: pre-wrap; /* CSS 2.1 */
+  white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+  word-wrap: break-word; /* IE */
+}
+textarea { overflow: auto; } /* thnx ivannikolic! www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
+.ie6 legend, .ie7 legend { margin-left: -7px; } /* thnx ivannikolic! */
+/* align checkboxes, radios, text inputs with their label
+   by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
+input[type="radio"] { vertical-align: text-bottom; }
+input[type="checkbox"] { vertical-align: bottom; }
+.ie7 input[type="checkbox"] { vertical-align: baseline; }
+.ie6 input { vertical-align: text-bottom; }
+/* hand cursor on clickable input elements */
+label, input[type=button], input[type=submit], button { cursor: pointer; }
+/* webkit browsers add a 2px margin outside the chrome of form elements */  
+button, input, select, textarea { margin: 0; }
+/* colors for form validity */
+input:valid, textarea:valid   {  }
+input:invalid, textarea:invalid { 
+      border-radius: 1px;
+    -moz-box-shadow: 0px 0px 5px red; 
+ -webkit-box-shadow: 0px 0px 5px red; 
+         box-shadow: 0px 0px 5px red;
+}
+.no-boxshadow input:invalid, 
+.no-boxshadow textarea:invalid { background-color: #f0dddd; }
+/* These selection declarations have to be separate.
+   No text-shadow: twitter.com/miketaylr/status/12228805301 
+   Also: hot pink. */
+::-moz-selection{ background: #FF5E99; color:#fff; text-shadow: none; }
+::selection { background:#FF5E99; color:#fff; text-shadow: none; } 
+/*  j.mp/webkit-tap-highlight-color */
+a:link { -webkit-tap-highlight-color: #FF5E99; } 
+/* make buttons play nice in IE:    
+   www.viget.com/inspire/styling-the-button-element-in-internet-explorer/ */
+button {width: auto; overflow: visible;}
+/* bicubic resizing for non-native sized IMG: 
+   code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
+.ie7 img {-ms-interpolation-mode: bicubic;}
+
+
+/* =Nonsemantic Base Styles 
+-------------------------------------------------------------- */
+
+/* Hide for both screenreaders and browsers: 
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden { display: none; visibility: hidden; } 
+/* Hide only visually, but have it available for screenreaders: 
+   www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden  */
+.visuallyhidden { position: absolute !important;    
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px); }
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+/* >> The Magnificent CLEARFIX: Updated to prevent margin-collapsing on child elements << j.mp/bestclearfix */
+.clearfix:before, .clearfix:after {
+  content: "\0020"; display: block; height: 0; visibility: hidden;	
+} 
+.clearfix:after { clear: both; }
+/* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
+.clearfix { zoom: 1; }
+
+
+/* =Structure & Layout
+-------------------------------------------------------------- */
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  background: #666;
+}
+#page {
+	display: block;
+  background: #fff;
+	padding: 0 1.2em 0 1.2em;
+	position: relative;
+}
+#site-header {
+  color: #eee;
+  background-color: #777;
+  height: 4em;
+  padding: 0 1em;
+	position: relative;
+  z-index: 50;
+     -moz-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
+}
+#site-header a, #site-header a:active, #site-header a:visited { color: #a3c7d9; }
+#site-header a:hover { color: #fff; }
+
+/* Logo */
+#site-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3em;
+  font-weight: bold;
+	text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
+	line-height: 1.325;
+  color: #eee;
+  float: left;
+  margin: 0 0.5em 0 0;
+}
+#site-title a:link,
+#site-title a:visited {
+  text-decoration: none;
+  color: #eee;
+}
+#site-title a:hover {
+  color: #fff;
+}
+
+/* Primary Menu */
+#nav-bttn {
+	float: right;
+  font-size: 2em;
+  line-height: 1;
+	background: #444;
+	text-decoration: none;
+	text-align: center;
+	padding: 0.125em 0.4em;
+	margin: 0.4em 0 0 0.5em;
+}
+#nav-bttn:hover {
+  background: #a3c7d9;
+}
+#access {
+  display: none;
+  width: 100%;
+  margin: -0.25em -1em 0;
+  border: 1em solid #777;
+  border-top: 0.5em solid #777;
+  font-weight: bold;
+  font-size: 1.5em;
+	background: #555;
+  text-align: center;
+  float: left;
+  position: relative;
+  z-index: 50;
+}
+#access.expose {
+  display: block;
+}
+#access li {
+	position: relative;
+	border-bottom: 1px solid #777;
+}
+#access li li {
+	border-top: 1px solid #777;
+	border-bottom: 0;
+}
+#access a {
+	display: block;
+	line-height: 3em;
+	padding: 0 1.2em;
+	text-decoration: none;
+}
+#access a:hover {
+	background: #00aaff;
+  color: #fff;
+}
+
+/* User Menu */
+#user-menu {
+  float: right;
+  padding-top: 1.5em;
+  line-height: 1.5;
+  position: relative;
+}
+#user-menu .sign-in-text {
+  float: left;
+  text-transform: uppercase;
+  font-size: 85%;
+}
+.login {
+  width: 16px;
+  height: 16px;
+  text-indent: -9999px;
+  margin-left: 5px;
+}
+.facebook-login {
+  float: left;
+  background: url(images/facebook-login-16.gif) 0 0 no-repeat scroll;
+}
+.twitter-login {
+  float: left;
+  background: url(images/twitter-login-16.gif) 0 0 no-repeat scroll;
+}
+
+/* Main (map & content, does not include ticker) */
+#main {
+}
+
+/* Map */
+#map-container {
+  position: absolute;
+  top: 4em; /* must match height of #site-header */
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+}
+#map {
+  height: 100%;
+}
+a.add-feature-point {
+  float: left;
+  position: absolute;
+  right: 1em;
+  bottom: 2em;
+  left: 1em;
+  z-index: 15;
+  background-color: #00aaff;
+  color: #f0f0f0;
+  padding: 0.75em 1em;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px -1px 0 #06A;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+a.add-feature-point:hover {
+  color: #fff;
+}
+#map .leaflet-popup-content-wrapper {
+     -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+          border-radius: 0px;
+}
+
+/* Content */
+#content {
+  background: #fff;
+  position: absolute;
+  top: 4em; /* must match height of #site-header */
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+  overflow: visible;
+}
+#content > article {
+  position: absolute;
+  top: 3em;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  padding: 1em;
+
+	background:
+		linear-gradient(white 30%, rgba(255,255,255,0)),
+		linear-gradient(rgba(255,255,255,0), white 70%) 0 100%,
+		radial-gradient(25% 0, farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)),
+		radial-gradient(25% 100%,farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)) 0 100%;
+	background:
+	  -webkit-linear-gradient(white 30%, rgba(255, 255, 255, 0)), 
+	  -webkit-linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, 
+	  -webkit-radial-gradient(25% 0, farthest-side, rgba(0, 0, 0, 0.25), transparent), 
+	  -webkit-radial-gradient(25% 100%,farthest-side, rgba(0, 0, 0, 0.25), transparent) 0 100%;
+	background-repeat: no-repeat;
+	background-color: white;
+	background-size: 100% 40px, 100% 40px, 150% 1.75em, 150% 1.75em;
+	background-attachment: local, local, scroll, scroll;
+}
+a.close-bttn {
+  color: #ff5e99;
+  font-size: 1.8em;
+  font-weight: bold;
+  text-decoration: none;
+  position: relative;
+  top: 0.4em;
+  left: 0.5em;
+}
+a.close-bttn:hover {
+  color: #dd3c77;
+}
+a.close-bttn span {
+  font-size: 0.625em;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+#content {
+  line-height: 20px;
+}
+#content p {
+  margin-bottom: 1.2em;
+}
+#content ul,
+#content ol {
+  margin-bottom: 0.6em;
+}
+#content ul li,
+#content ol li {
+  padding-bottom: 0.6em;
+}
+#content dl {
+  margin-bottom: 0.6em;
+}
+#content dt,
+#content dd {
+}
+#content dt {
+  font-weight: 700;
+}
+#content dd {
+  margin-left: 1.8em;
+  padding-bottom: 0.6em;
+}
+
+/* Images */
+img {
+	max-width: 100%; /* When images are too wide for containing element, force them to fit. */
+	height: auto; /* Override height to match resized width for correct aspect ratio. */
+}
+img.alignleft {
+	margin-right: 1em;
+}
+img.alignright {
+	margin-left: 1em;
+}
+
+/* Forms */
+fieldset {
+  padding-bottom: 1.2em;
+}
+label {
+  color: #888;
+  display: block;
+  font-weight: bold;
+}
+.required {
+	color: #cc0033;
+}
+.bttn {
+  background-color: #00aaff;
+  color: #f0f0f0;
+  padding: 0.75em 1em;
+  border: 0;
+  margin: 0 0 0.667em;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  text-shadow: 1px -1px 0 #06A;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+.bttn:hover {
+  color: #fff;
+}
+
+/* Feature Point */
+.point-header {
+  margin-bottom: 1em;
+}
+.point-header .comment-submitter {
+  font-size: 16px;
+}
+.description {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* Discussion */
+.discussion {
+  position: relative;
+}
+.discussion-header {
+  border-bottom: 1px solid #A8A8A8;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+}
+a.reply-link {
+  background: #A3C7D9;
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0 0.5em;
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+a.reply-link:hover {
+  background: #00aaff;
+}
+ol.commentlist {
+  list-style: none;
+  margin-left: 0;
+}
+.commentlist .comment {
+  padding-bottom: 1em;
+}
+.commentlist .children {
+  list-style: none;
+  margin-left: 2em;
+  margin-bottom: 0;
+}
+.commentlist .children .comment {
+  padding-top: 2em;
+  padding-bottom: 0;
+}
+.commentlist .bypostauthor {
+  background: #f7f7f7;
+  padding: 0.5em  0.5em  2.5em;
+  margin: 0 -0.5em;
+}
+article.comment {
+	display: block;
+}
+.comment-header {
+	line-height: 1.4;
+  margin-bottom: 1em;
+}
+.avatar {
+  float: left;
+  margin-right: 1.2em;
+}
+.comment-meta {
+}
+.comment-body {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+}
+article.comment footer {
+  text-align: right;
+}
+.comment-reply-link {
+  color: #999;
+	background: #eee;
+  padding: 0.5em 0.75em;
+	text-decoration: none;
+  font-weight: bold;
+}
+.comment-reply-link:hover {
+	background: #607890;
+	color: #fff;
+}
+.reply-header {
+}
+#reply input[type=text] {
+	width: 60%;
+}
+#reply .comment-form-comment label {
+	display: none;
+}
+#reply textarea {
+	width: 80%;
+}
+#reply p {
+}
+#reply p.comment-box {
+}
+.comment-box label {
+  display: none;
+}
+
+/* Ticker */
+#ticker {
+  display: none;
+  position: absolute;
+  top: 5em; /* must match height of #site-header */
+  right: 0;
+  bottom: 0;
+  left: auto;
+  width: 18em;
+  overflow: scroll;
+  z-index: 15;
+     -moz-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
+}
+#ticker ul {
+  list-style: none;
+  margin: 0;
+  color: #ddd;
+}
+#ticker li {
+  position: relative;
+  border-bottom: 3px solid #5D5D5D;
+}
+#ticker li:hover {
+  background: #606060;
+}
+#ticker .avatar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+#ticker a {
+  display: block;
+  padding: 10px 10px 10px 48px;
+  color: #ddd;
+  text-decoration: none;
+  position: relative;
+  z-index: 5;
+}
+#ticker a:hover {
+  color: #fff;
+}
+#ticker .badge {
+  background: transparent url(images/ticker-point.png) 0 0 no-repeat scroll;
+  width: 16px;
+  height: 16px;
+  display: block;
+  position: absolute;
+  top: 30px;
+  left: 4px;
+}
+#ticker .comment {
+  background-image: url(images/ticker-comment.png);
+}
+#ticker .vote {
+  background-image: url(images/ticker-heart.png);
+}
+
+/* Footer */
+#colophon {
+}
+
+
+/* =Media Queries for Responsive Layout
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 320px) {
+}
+@media only screen and (min-width: 480px) {
+  a.add-feature-point {
+    padding: 0.6em 0.8em;
+    right: auto;
+  }
+  #content {
+    top: 5.75em; /* height of #site-header + 1.75em*/
+    right: 0.75em;
+    bottom: 2.75em;
+    left: 50%;
+    border: 1px solid #A8A8A8;
+       -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+    -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+            box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  }
+  #content > article {
+    top: 0;
+  }
+  a.close-bttn {
+    float: right;
+    text-align: center;
+    line-height: 0.75;
+    background: #fff;
+    height: 1em;
+    width: 1em;
+    position: relative;
+    z-index: 5;
+    top: -0.6em;
+    right: 100%;
+    left: auto;
+    margin-right: -0.6em;
+    border: 0.1em solid #eee;
+    -webkit-border-radius: 0.7em;
+       -moz-border-radius: 0.7em;
+            border-radius: 0.7em;
+       -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+    -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+            box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  }
+  a.close-bttn:hover {
+  }
+  a.close-bttn span {
+    display: none;
+  }
+}
+@media only screen and (min-width: 768px) { /* menu is visible */
+  a.add-feature-point {
+    font-size: 2.5em;
+  }
+  #nav-bttn {
+    display: none;
+  }
+  /* Dropdown Menu */
+  #access {
+    display: block;
+    font-size: 1em;
+    background: transparent;
+    text-align: left;
+    width: auto;
+    margin: 1em 0 0;
+    border: 0;
+  }
+  #access li {
+    float: left;
+    border: 0;
+  }
+  #access ul ul {
+  	display: none;
+  	float: left;
+  	position: absolute;
+  	top: 3em;
+  	left: 0;
+  	z-index: 9999;
+       -moz-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5); 
+    -webkit-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5); 
+            box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
+  }
+  #access ul ul ul {
+  	left: 100%;
+  	top: -1px;
+  }
+  #access ul ul a {
+  	line-height: 2em;
+  	padding: .5em .5em .5em 1em;
+  	width: 12em;
+  	height: auto;
+  }
+  #access ul ul a,
+  #access li:hover > a,
+  #access ul ul :hover > a {
+  	background: #666;
+  	color: #fff;
+  }
+  #access li:hover > a:hover,
+  #access ul ul a:hover {
+  	background: #00aaff;
+  }
+  #access ul li:hover > ul {
+  	display: block;
+  }
+}
+@media only screen and (min-width: 1024px) { /* ticker is visible */
+  #site-header {
+    height: 5em;
+  }
+  #site-title {
+    font-size: 3.4em;
+    line-height: 1.5;
+  }
+  #access {
+    margin-top: 1.75em;
+  }
+  #map-container {
+    top: 5em; /* must match height of #site-header */
+    right: 18em; /* width of ticker */
+  }
+  #content {
+    top: 6.75em; /* height of #site-header + extra 1.75em */
+    right: 18.75em; /* width of ticker + extra 0.75em */
+    left: 40%;
+  }
+  #content > article {
+    padding: 2em;
+  }
+  #ticker {
+    display: block;
+  }
+  #user-menu {
+    padding-top: 0.75em;
+  }
+  #user-menu .sign-in-text {
+    float: none;
+    display: block;
+  }
+  .login {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+  }
+  .facebook-login {
+    float: left;
+    background: url(images/facebook-login-32.png) 0 0 no-repeat scroll;
+  }
+  .twitter-login {
+    float: right;
+    background: url(images/twitter-login-32.png) 0 0 no-repeat scroll;
+  }
+}
+@media only screen and (min-width: 1300px) {
+  a.add-feature-point {
+    font-size: 2.75em;
+  }
+  #site-header {
+    height: 6em;
+    padding: 0 1.5em;
+  }
+  #site-title {
+    font-size: 4.25em;
+  }
+  #access {
+    font-size: 1.25em;
+  }
+  #user-menu {
+    padding-top: 1.5em;
+  }
+  #map-container,
+  #ticker {
+    top: 6em; /* must match height of #site-header */
+  }
+  #content {
+    top: 7.75em; /* height of #site-header + extra 1.75em */
+  }
+}
+
+/* Base Print Styles, inline to save the HTTP request */
+@media print {
+  * { background: transparent !important; color: #444 !important; text-shadow: none !important; }
+  a, a:visited { color: #444 !important; text-decoration: underline; }
+  a:after { content: " (" attr(href) ")"; } 
+  abbr:after { content: " (" attr(title) ")"; }
+  .ir a:after { content: ""; }  /* Don't show links for images */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */ 
+  tr, img { page-break-inside: avoid; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3{ page-break-after: avoid; }
+}
+
+
+/* =Media Query Size Indicator
+-------------------------------------------------------------- */
+
+/* Uncomment the following to display the media query results in your browser. */
+/*body:after { content: "less than 320px"; font-size: 300%; font-weight: bold; position: fixed; bottom: 0; width: 100%; text-align: center; background-color: hsla(1,60%,40%,0.7); color: #fff; z-index: 99999; }
+@media only screen and (min-width: 320px) { body:after { content: "320 to 479px"; background-color: hsla(90,60%,40%,0.7); } }
+@media only screen and (min-width: 480px) { body:after { content: "480 to 767px"; background-color: hsla(180,60%,40%,0.7); } }
+@media only screen and (min-width: 768px) { body:after { content: "768 to 1023px"; background-color: hsla(270,60%,40%,0.7); } }
+@media only screen and (min-width: 1024px) { body:after { content: "1024 to 1299px"; background-color: hsla(360,60%,40%,0.7); } }
+@media only screen and (min-width: 1300px) { body:after { content: "1300 and up"; background-color: hsla(60,60%,40%,0.7); } }*/
