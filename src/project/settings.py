@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     # Project apps
     'sa_api',
     'sa_web',
+    'proxy',
 )
 
 # A sample logging configuration. The only tangible logging

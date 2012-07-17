@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 
     url(r'^api/v1/', include('sa_api.urls')),
+    url(r'^proxy/', include('proxy.urls')),
     url(r'^', include('sa_web.urls')),
 )
