@@ -11,6 +11,12 @@ sudo apt-get install binutils gdal-bin libproj-dev postgresql-9.1-postgis \
 # Install the python requirements
 sudo pip install -r requirements.txt
 
+# Create a PostGIS template database
+psql -c "CREATE DATABASE template_postgis;" -U postgres
+createlang plpgsql template_postgis -U postgres
+psql -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql -q
+psql -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql -q
+
 # Initialize the database
 psql -U postgres <<EOF
     CREATE USER shareabouts WITH PASSWORD 'shareabouts';
