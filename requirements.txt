@@ -3,5 +3,8 @@ django
 # gevent
 gunicorn
 
+# Database
+psycopg2
+
 # REST API
 djangorestframework
