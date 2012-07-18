@@ -39,9 +39,15 @@ to activate your virtual environment every time you start a new terminal session
     source env/bin/activate
 
 Database
+--------
 
-Copy the file `src/project/local_settings.py.template` to `local_settings.py`
-and fill in the credentials for connecting to your development database.
+The Shareabouts REST API requires GeoDjango.  To install GeoDjango on your
+platform, see https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/#platform-specific-instructions.
+
+Create a development database for the Shareabouts data store. Copy the file
+`src/project/local_settings.py.template` to `local_settings.py` and fill in the
+credentials for connecting to your development database.  This file will not be
+checked in to the repository.
 
 Static assets
 -------------
