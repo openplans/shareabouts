@@ -108,7 +108,7 @@ move the static files in to the right place:
 
     cd ../..
     src/manage.py syncdb --migrate
-    src/manage.py collectstatic
+    src/manage.py collectstatic --noinput
 
 Create an nginx configuration file so that the server knows where to look for
 the static files:
@@ -117,7 +117,7 @@ the static files:
 
 Enter the following into the nginx configuration:
 
-    location /static/ { root /home/dotcloud/volatile ; }
+    location /static/ { root /home/dotcloud ; }
 
 Save it and close the file. For good measure, back up your local_settings module
 and your nginx config:
