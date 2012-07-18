@@ -3,12 +3,12 @@ from . import models
 
 class PlaceResource (resources.ModelResource):
     model = models.Place
-    include = ['lat', 'lon']
+    include = ['lat', 'lng']
     exclude = ['location']
 
     # TODO: Included vote counts, without an additional query if possible.
     def lat(self, place):
         return place.location.y
 
-    def lon(self, place):
+    def lng(self, place):
         return place.location.x
