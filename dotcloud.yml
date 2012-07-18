@@ -1,0 +1,8 @@
+www:
+  type: python
+  systempackages:
+    - gdal-bin
+    - libgdal1-dev
+  prebuild: dotcloud/prebuild.sh
+db:
+  type: postgis
