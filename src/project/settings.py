@@ -20,6 +20,11 @@ DATABASES = {
     }
 }
 
+# The root to the Shareabouts API service. For now, this is on the
+# same server, so it's a little weird, but don't worry about that now.
+# It'll be fine. //TODO
+SHAREABOUTS_API_ROOT = 'http://localhost:8000/api/v1/'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
