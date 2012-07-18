@@ -288,20 +288,26 @@
   <script>window.jQuery || document.write('<script src="javascripts/jquery-1.7.1.min.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
 
   <script src="http://code.leafletjs.com/leaflet-0.3.1/leaflet.js"></script>
+  <script src="{{STATIC_URL}}libs/underscore-min.js"></script>
+  <script src="{{STATIC_URL}}libs/backbone-min.js"></script>
+
+  <script src="{{STATIC_URL}}sa/js/models.js"></script>
+  <script src="{{STATIC_URL}}sa/js/views.js"></script>
 
   <script type="text/javascript">
     //  The Map
-    var map = new L.Map('map');
-    var cloudmade = new L.TileLayer('http://{s}.tile.cloudmade.com/722cd4e6aef34e85a546ab3abee59146/1714/256/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-        maxZoom: 18
-    });
-    var newyorkcity = new L.LatLng(40.73, -73.95); // geographical point (longitude and latitude)
-    map.setView(newyorkcity, 13).addLayer(cloudmade);
+    // var map = new L.Map('map');
+    // var cloudmade = new L.TileLayer('http://{s}.tile.cloudmade.com/722cd4e6aef34e85a546ab3abee59146/1714/256/{z}/{x}/{y}.png', {
+    //     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+    //     maxZoom: 18
+    // });
+    // var newyorkcity = new L.LatLng(40.73, -73.95); // geographical point (longitude and latitude)
+    // map.setView(newyorkcity, 13).addLayer(cloudmade);
 
-    var markerLocation = new L.LatLng(40.73, -74);
-    var marker = new L.Marker(markerLocation);
-    map.addLayer(marker);
+    // var markerLocation = new L.LatLng(40.73, -74);
+    // var marker = new L.Marker(markerLocation);
+    // map.addLayer(marker);
+
 
     jQuery(function ($) {
       $(document).ready(function() {
@@ -321,6 +327,14 @@
           $('#crosshairs').removeClass('visuallyhidden');
           return false;
         });
+
+        window.mapView = new Shareabouts.MapView({
+          el: '#map',
+          lat: 39.9523524,
+          lng: -75.1636075,
+          zoom: 14,
+          collection: new Shareabouts.PlaceCollection()
+        })
 
       });
     });
