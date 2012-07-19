@@ -327,6 +327,76 @@ a.add-feature-point:hover {
   margin: -33px 0 0 -33px;
   pointer-events: none;
 }
+#newpin {
+  display: block;
+  height: 47px;
+  width: 47px;
+  overflow: visible;
+  position: absolute;
+  top: 40%;
+  left: 25%;
+  background: transparent url(images/marker-x.png) 3px 9px no-repeat scroll;
+  -webkit-transition: background-position 0.3s ease;
+  -moz-transition: background-position 0.3s ease;
+  -o-transition: background-position 0.3s ease;
+  -ms-transition: background-position 0.3s ease;
+  transition: background-position 0.3s ease;
+}
+#newpin:hover {
+  background-position: 3px 37px;
+}
+#newpin .shadow {
+  display: block;
+  height: 47px;
+  width: 47px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent url(images/marker-shadow.png) 0 3px no-repeat scroll;
+  -webkit-transition: opacity 0s, background-position 0.3s ease;
+  -moz-transition: opacity 0s, background-position 0.3s ease;
+  -o-transition: opacity 0s, background-position 0.3s ease;
+  -ms-transition: opacity 0s, background-position 0.3s ease;
+  transition: opacity 0s, background-position 0.3s ease;
+}
+#newpin:hover .shadow {
+  opacity: 0.1;
+  background-image: 
+    url(images/marker-shadow.png),
+    url(images/marker-shadow.png),
+    url(images/marker-shadow.png),
+    url(images/marker-shadow.png),
+    url(images/marker-shadow.png),
+    url(images/marker-shadow.png),
+    url(images/marker-shadow.png),
+    url(images/marker-shadow.png),
+    url(images/marker-shadow.png)
+    ;
+  background-position:
+    0px -3px,
+    3px -3px,
+    6px -3px,
+    0px -6px,
+    3px -6px,
+    6px -6px,
+    0px -9px,
+    3px -9px,
+    6px -9px
+  ;
+}
+#newpin img {
+  position: relative;
+  top: 3px;
+  -webkit-transition: top 0.3s ease;
+  -moz-transition: top 0.3s ease;
+  -o-transition: top 0.3s ease;
+  -ms-transition: top 0.3s ease;
+  transition: top 0.3s ease;
+}
+#newpin:hover img {
+  top: -30px;
+}
+
 
 /* Content */
 #content {
