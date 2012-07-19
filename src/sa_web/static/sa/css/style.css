@@ -440,7 +440,7 @@ a.add-feature-point:hover {
 	  -webkit-radial-gradient(45% 100%,farthest-side, rgba(0, 0, 0, 0.25), transparent) 0 100%;
 	background-repeat: no-repeat;
 	background-color: white;
-	background-size: 100% 40px, 100% 40px, 110% 1.75em, 110% 1.75em;
+	background-size: 100% 4em, 100% 4em, 110% 1.75em, 110% 1.75em;
 	background-attachment: local, local, scroll, scroll;
 }
 a.close-bttn {
