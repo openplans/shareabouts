@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# =============================================================================
+# Post-install hook file for configuring dotcloud server
+
+echo "Writing the local settings file..."
+cat >> src/project/local_settings.py <<EOF
+
+import json
+with open('/home/dotcloud/environment.json') as f:
+    env = json.load(f)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'shareabouts_v1',
+        'USER': env['DOTCLOUD_DB_SQL_LOGIN'],
+        'PASSWORD': env['DOTCLOUD_DB_SQL_PASSWORD'],
+        'HOST': env['DOTCLOUD_DB_SQL_HOST'],
+        'PORT': env['DOTCLOUD_DB_SQL_PORT'],
+    }
+}
+
+STATIC_ROOT = '/home/dotcloud/current/static/'
+
+EOF
+
+echo "Syncing the database..."
+src/manage.py syncdb --migrate --noinput
+
+echo "Setting up static file service..."
+src/manage.py collectstatic --noinput
+cat >> nginx.conf <<EOF
+location /static/ { root /home/dotcloud/current ; }
+EOF
