@@ -3,7 +3,7 @@
 # =============================================================================
 # Post-install hook file for configuring dotcloud server
 
-echo "Write the local settings file..."
+echo "Writing the local settings file..."
 cat >> src/project/local_settings.py <<EOF
 
 import json
@@ -15,11 +15,11 @@ SHAREABOUTS_API_ROOT = env.get('SHAREABOUTS_API_ROOT', 'SHAREABOUTS_API_ROOT-not
 
 EOF
 
-echo "Sync the database..."
+echo "Syncing the database..."
 src/manage.py syncdb --migrate --noinput
 
-echo "Set up static file service..."
+echo "Setting up static file service..."
 src/manage.py collectstatic --noinput
 cat >> nginx.conf <<EOF
-location /static/ { root /home/dotcloud ; }
+location /static/ { root /home/dotcloud/current ; }
 EOF
