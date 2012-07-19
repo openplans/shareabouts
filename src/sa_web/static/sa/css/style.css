@@ -322,7 +322,7 @@ a.add-feature-point:hover {
 }
 #crosshairs {
   position: absolute;
-  top: 33%;
+  top: 50%;
   left: 50%;
   margin: -33px 0 0 -33px;
   pointer-events: none;
@@ -333,8 +333,9 @@ a.add-feature-point:hover {
   height: 47px;
   overflow: visible;
   position: absolute;
-  top: 40%;
-  left: 25%;
+  top: 50%;
+  left: 50%;
+  margin: -43px 0 0 -13px;
 }
 #newpin .x {
   display: block;
@@ -755,9 +756,6 @@ article.comment footer {
   }
   a.close-bttn span {
     display: none;
-  }
-  #crosshairs {
-    top: 40%;
   }
 }
 @media only screen and (min-width: 768px) { /* menu is visible */
