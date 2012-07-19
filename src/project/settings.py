@@ -16,9 +16,7 @@ DATABASES = {
     }
 }
 
-# The root to the Shareabouts API service. For now, this is on the
-# same server, so it's a little weird, but don't worry about that now.
-# It'll be fine. //TODO
+# The root to the Shareabouts API service.
 SHAREABOUTS_API_ROOT = 'http://localhost:8000/api/v1/'
 
 # Local time zone for this installation. Choices can be found here:
