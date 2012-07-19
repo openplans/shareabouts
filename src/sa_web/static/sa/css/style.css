@@ -328,6 +328,15 @@ a.add-feature-point:hover {
   left: 50%;
   margin: -33px 0 0 -33px;
   pointer-events: none;
+  opacity: 0.5;
+  -webkit-transition: opacity 0.25s;
+  -moz-transition: opacity 0.25s;
+  -o-transition: opacity 0.25s;
+  -ms-transition: opacity 0.25s;
+  transition: opacity 0.25s;
+}
+#crosshairs.dragging {
+  opacity: 1;
 }
 #newpin {
   display: block;
@@ -338,6 +347,7 @@ a.add-feature-point:hover {
   top: 50%;
   left: 50%;
   margin: -43px 0 0 -13px;
+  pointer-events: none;
 }
 #newpin .x {
   display: block;
@@ -518,6 +528,19 @@ label {
   display: block;
   font-weight: bold;
 }
+input[type=text],
+textarea {
+	background-color: rgba(255,255,255,0);
+	border: 1px solid #999;
+	padding: 1em;
+}
+input[type=text] {
+	width: 80%;
+}
+textarea {
+	width: 80%;
+	height: 4.5em;
+}
 .required {
 	color: #cc0033;
 }
@@ -630,19 +653,8 @@ article.comment footer {
 }
 .reply-header {
 }
-#reply input[type=text],
-#reply textarea {
-	background-color: rgba(255,255,255,0);
-	border: 1px solid #999;
-}
-#reply input[type=text] {
-	width: 60%;
-}
 #reply .comment-form-comment label {
 	display: none;
-}
-#reply textarea {
-	width: 80%;
 }
 #reply p {
 }
