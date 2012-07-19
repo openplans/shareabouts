@@ -4,11 +4,7 @@ django
 gunicorn
 
 # Database
-psycopg2
 south
-
-# REST API
-djangorestframework
 
 # Web interface helpers
 requests
