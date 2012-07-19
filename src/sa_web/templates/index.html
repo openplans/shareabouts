@@ -65,88 +65,54 @@
   <div role="main" id="main">
     <div id="map-container">
       <div id="map"></div>
-      <a href="#" id="add-feature-point" class="add-feature-point visuallyhidden">Add a location!</a><!-- FIXME: toggling content should inversely toggle this button via .visuallyhidden -->
+      <a href="#" id="add-feature-point" class="add-feature-point visuallyhidden">Add Location</a><!-- FIXME: toggling content should inversely toggle this button via .visuallyhidden -->
       <img id="crosshairs" src="{{ STATIC_URL }}sa/css/images/crosshair.png" class="visuallyhidden" />
-      <span id="newpin"><span class="shadow"></span><span class="x"></span><img src="{{ STATIC_URL }}sa/css/images/marker-plus.png" /></span>
+      <span id="newpin" class="offcenter"><span class="shadow"></span><span class="x"></span><img src="{{ STATIC_URL }}sa/css/images/marker-plus.png" /></span>
     </div>
 
     <div id="content">
       <a href="#" class="close-bttn">&times;<span> Close</span></a>
       <article class="point"><!-- .point or .page -->
-        <header class="point-header clearfix">
-          <h1>Awesome Point Title</h1>
-          <img class="avatar" src="{{ STATIC_URL }}sa/css/images/user-50.png" />
-          <strong class="comment-submitter"><a href="#">Frank</a></strong> added this point in Manhattan <span class="comment-date">on February 10, 2012 at 1:00 pm</span>
-        </header>
+        <h4 class="">Tell us more&hellip;</h4>
 
-        <section class="description">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </section>
+        <form id="new_point" class="new_point" action="#" method="post">
 
-        <section class="discussion">
-          <h4 class="discussion-header">3 comments</h4>
-          <a href="#reply" class="reply-link">Leave a Comment</a>
+          <fieldset>
+            <p>
+              <label for="user_name">Your Name</label>
+              <input id="user_name" name="user_name" placeholder="Name" size="30" type="text">
+              <br />
+              <span class="sign-in-text">Or sign in with</span>
+              <a href="#" class="login facebook">Facebook</a>
+              <span class="">/</span>
+              <a href="#" class="login twitter">Twitter</a>
+            </p>
 
-          <ol class="commentlist">
-            <li>
-              <article class="comment">
-                <header class="comment-header clearfix">
-                  <img class="avatar" src="{{ STATIC_URL }}sa/css/images/user-36.png" />
-                  <strong class="comment-submitter"><a href="#">Frank</a> </strong><span class="comment-date">on February 10, 2012 at 1:00 pm</span>
-                </header>
-                <div class="comment-body">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </div>
-              </article>
-            </li>
+            <p>
+              <label for="point_name">Location Name</label>
+              <input id="point_name" name="point_name" placeholder="Location Name" size="30" type="text">
+            </p>
 
-            <li>
-              <article class="comment">
-                <header class="comment-header clearfix">
-                  <img class="avatar" src="{{ STATIC_URL }}sa/css/images/user-36.png" />
-                  <strong class="comment-submitter"><a href="#">Frank</a> </strong><span class="comment-date">on February 10, 2012 at 1:00 pm</span>
-                </header>
-                <div class="comment-body">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </div>
-              </article>
-            </li>
+            <p>
+              <label for="point_type">Location Type</label>
+              <select id="point_type" name="point_type">
+                <option value=""></option>
+                <option value="Foo">Foo</option>
+                <option value="Bar">Bar</option>
+                <option value="Querty">Querty</option>
+              </select>
+            </p>
 
-            <li>
-              <article class="comment">
-                <header class="comment-header clearfix">
-                  <img class="avatar" src="{{ STATIC_URL }}sa/css/images/user-36.png" />
-                  <strong class="comment-submitter"><a href="#">Frank</a> </strong><span class="comment-date">on February 10, 2012 at 1:00 pm</span>
-                </header>
-                <div class="comment-body">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </div>
-              </article>
-            </li>
-          </ol>
+            <p>
+              <label for="point_description">Description</label>
+              <textarea id="point_description" name="point_description" placeholder="Description..."></textarea>
+            </p>
+          </fieldset>
 
-          <div id="reply">
-            <h4 class="reply-header">Leave a Comment</h4>
-            <form id="new_comment" class="new_comment" action="#" method="post">
-              <fieldset>
-                <p class="comment-box">
-                  <label for="comment_comment">Comment</label>
-                  <textarea cols="40" id="comment_comment" name="comment[comment]" rows="4"></textarea>
-                </p>
-                <p>
-                  <label for="comment_submitter_name">Your Name</label>
-                  <input id="comment_submitter_name" name="comment[submitter_name]" size="30" type="text">
-                </p>
-                <p>
-                  <label for="comment_submitter_email">Email Address</label>
-                  <input id="comment_submitter_email" name="comment[submitter_email]" size="30" type="text">
-                </p>
-              </fieldset>
-              <input name="commit" type="submit" value="Comment" class="bttn">
-            </form>
-          </div>
+          <input name="new_point_submit" type="submit" value="Submit Location" class="bttn">
 
-        </section><!-- end .discussion -->
+        </form>
+
       </article>
     </div><!-- end #content -->
   </div><!-- end #main -->
@@ -326,6 +292,7 @@
           $('#content').toggle();
           $('#add-feature-point').removeClass('visuallyhidden');
           $('#crosshairs').removeClass('visuallyhidden');
+          $('#newpin').hide();
           return false;
         });
 
