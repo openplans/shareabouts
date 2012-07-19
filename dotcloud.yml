@@ -1,0 +1,7 @@
+www:
+  type: python
+  systempackages:
+    - gdal-bin
+    - libgdal1-dev
+db:
+  type: postgis

@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', views.index, name='index'),
+    url(r'^api/(.*)$', views.api, name='api_proxy'),
 )
