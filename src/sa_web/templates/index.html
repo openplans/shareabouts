@@ -262,6 +262,19 @@
   <script src="{{STATIC_URL}}sa/js/views.js"></script>
 
   <script type="text/javascript">
+    Shareabouts.App = Backbone.Router.extend({
+      routes: {
+        '': 'default'
+      },
+
+      default: function() {
+        this.appView = new Shareabouts.AppView({
+          el: 'body',
+          collection: new Shareabouts.PlaceCollection()
+        });
+      }
+    });
+
     Shareabouts.AppView = Backbone.View.extend({
       events: {
         'click #add-feature-point': 'addPlace'
@@ -328,11 +341,8 @@
           return false;
         });
 
-        window.appView = new Shareabouts.AppView({
-          el: 'body',
-          collection: new Shareabouts.PlaceCollection()
-        });
-
+        window.app = new Shareabouts.App();
+        Backbone.history.start();
       });
     });
   </script>

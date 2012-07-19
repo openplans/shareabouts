@@ -15,10 +15,7 @@ var Shareabouts = Shareabouts || {};
 
       this.$closeBtn.click(_.bind(this.hide, this));
     },
-    show: function(content){
-      if (content) {
-        this.setContent(content);
-      }
+    show: function(){
       this.$crosshairEl.hide();
       this.$panelEl.show();
     },
@@ -26,9 +23,6 @@ var Shareabouts = Shareabouts || {};
       this.$crosshairEl.show();
       this.$panelEl.hide();
     },
-    setContent: function(content) {
-      this.$el.html(content);
-    }
   });
 
   S.PlaceFormView = S.ContentView.extend({
@@ -45,14 +39,32 @@ var Shareabouts = Shareabouts || {};
     focus: function() {
       // Show thyself!
       this.show();
-    }
+    },
+    hide: function() {
+      S.PlaceFormView.__super__.hide.call(this);
 
+      // Also, cancel adding the model if it's new
+      if (this.model.isNew()) {
+        this.model.destroy();
+      }
+
+      // Otherwise, just unfocus
+      else {
+        this.model.trigger('unfocus');
+      }
+    }
   });
 
   S.LayerView = Backbone.View.extend({
     initialize: function(){
+      this.map = this.options.map;
+
       this.model.on('change', this.updateLayer, this);
       this.model.on('focus', this.focus, this);
+      this.model.on('unfocus', this.unfocus, this);
+      this.model.on('destroy', this.destroy, this);
+
+      this.map.on('dragend', this.render, this);
 
       this.initLayer();
     },
@@ -63,12 +75,15 @@ var Shareabouts = Shareabouts || {};
     },
     updateLayer: function() {
       if (this.layer) {
-        this.hide();
+        this.removeLayer();
       }
       this.initLayer();
     },
+    removeLayer: function() {
+      this.options.placeLayers.removeLayer(this.layer);
+    },
     render: function() {
-      var mapBounds = this.options.map.getBounds();
+      var mapBounds = this.map.getBounds();
       if (mapBounds.contains(this.latLng)) {
         this.show();
       } else {
@@ -76,9 +91,9 @@ var Shareabouts = Shareabouts || {};
       }
     },
     focus: function() {
-      var map = this.options.map,
-          mapSize = this.options.map.getSize(),
-          pos = this.options.map.latLngToLayerPoint(this.latLng),
+      var map = this.map,
+          mapSize = this.map.getSize(),
+          pos = this.map.latLngToLayerPoint(this.latLng),
           ratioX = 1/4; // percentage of map width between map center and focal point, hard coded bad
 
       map.panTo(map.layerPointToLatLng( new L.Point(pos.x + ratioX * mapSize.x, pos.y) ));
@@ -88,6 +103,10 @@ var Shareabouts = Shareabouts || {};
     unfocus: function() {
       // TODO turn the icon blue
     },
+    destroy: function() {
+      this.removeLayer();
+      this.map.off('dragend', this.render, this);
+    },
     setIcon: function() {
 
     },
@@ -95,7 +114,7 @@ var Shareabouts = Shareabouts || {};
       this.options.placeLayers.addLayer(this.layer);
     },
     hide: function() {
-      this.options.placeLayers.removeLayer(this.layer);
+      this.removeLayer();
     }
   });
 
@@ -116,11 +135,12 @@ var Shareabouts = Shareabouts || {};
       self.map.setView(new L.LatLng(self.options.lat, self.options.lng), self.options.zoom);
 
       // TODO move this to the LayerView?
-      self.map.on('dragend', self.onDragEnd, self);
+//      self.map.on('dragend', self.onDragEnd, self);
 
       // Bind data events
       self.collection.on('reset', self.render, self);
       self.collection.on('add', self.addLayerView, self);
+      self.collection.on('remove', self.removeLayerView, self);
 
       self.collection.fetch();
     },
@@ -142,6 +162,9 @@ var Shareabouts = Shareabouts || {};
         map: this.map,
         placeLayers: this.placeLayers
       });
+    },
+    removeLayerView: function(model) {
+      delete this.layerViews[model.cid];
     },
     onDragEnd: function() {
       // TODO move this to the LayerView?
