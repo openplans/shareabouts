@@ -262,19 +262,64 @@
   <script src="{{STATIC_URL}}sa/js/views.js"></script>
 
   <script type="text/javascript">
-    //  The Map
-    // var map = new L.Map('map');
-    // var cloudmade = new L.TileLayer('http://{s}.tile.cloudmade.com/722cd4e6aef34e85a546ab3abee59146/1714/256/{z}/{x}/{y}.png', {
-    //     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-    //     maxZoom: 18
-    // });
-    // var newyorkcity = new L.LatLng(40.73, -73.95); // geographical point (longitude and latitude)
-    // map.setView(newyorkcity, 13).addLayer(cloudmade);
+    Shareabouts.App = Backbone.Router.extend({
+      routes: {
+        '': 'default'
+      },
 
-    // var markerLocation = new L.LatLng(40.73, -74);
-    // var marker = new L.Marker(markerLocation);
-    // map.addLayer(marker);
+      default: function() {
+        this.appView = new Shareabouts.AppView({
+          el: 'body',
+          collection: new Shareabouts.PlaceCollection()
+        });
+      }
+    });
 
+    Shareabouts.AppView = Backbone.View.extend({
+      events: {
+        'click #add-feature-point': 'addPlace'
+      },
+      initialize: function(){
+        this.mapView = new Shareabouts.MapView({
+          el: '#map',
+          lat: 39.9523524,
+          lng: -75.1636075,
+          zoom: 14,
+          collection: this.collection
+        });
+
+        this.placeFormViews = {};
+
+        // this.collection.on('reset', , this);
+        this.collection.on('add', this.addPlaceFormView, this);
+      },
+      render: function(){},
+      addPlace: function() {
+        var center = this.mapView.map.getCenter(),
+            // Create a new place model at map center
+            placeModel = new Backbone.Model({
+              lat: center.lat,
+              lng: center.lng
+            });
+
+        // Add to the collection
+        this.collection.add(placeModel);
+
+        // Trigger 'focus' on the model
+        placeModel.trigger('focus');
+
+        // Hide the crosshairs
+      },
+      addPlaceFormView: function(model) {
+        this.placeFormViews[model.cid] = new Shareabouts.PlaceFormView({
+          el: '#content article',
+          panelEl: '#content',
+          crosshairEl: '#crosshairs',
+          closeBtnEl: '.close-bttn',
+          model: model
+        });
+      }
+    });
 
     jQuery(function ($) {
       $(document).ready(function() {
@@ -296,14 +341,8 @@
           return false;
         });
 
-        window.mapView = new Shareabouts.MapView({
-          el: '#map',
-          lat: 39.9523524,
-          lng: -75.1636075,
-          zoom: 14,
-          collection: new Shareabouts.PlaceCollection()
-        })
-
+        window.app = new Shareabouts.App();
+        Backbone.history.start();
       });
     });
   </script>

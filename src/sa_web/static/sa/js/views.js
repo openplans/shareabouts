@@ -7,9 +7,65 @@ var Shareabouts = Shareabouts || {};
   //   render: function(){}
   // });
 
+  S.ContentView = Backbone.View.extend({
+    initialize: function() {
+      this.$panelEl = $(this.options.panelEl);
+      this.$crosshairEl = $(this.options.crosshairEl);
+      this.$closeBtn = $(this.options.closeBtnEl);
+
+      this.$closeBtn.click(_.bind(this.hide, this));
+    },
+    show: function(){
+      this.$crosshairEl.hide();
+      this.$panelEl.show();
+    },
+    hide: function(){
+      this.$crosshairEl.show();
+      this.$panelEl.hide();
+    },
+  });
+
+  S.PlaceFormView = S.ContentView.extend({
+    initialize: function(){
+      // Super!
+      S.PlaceFormView.__super__.initialize.call(this);
+
+      this.model.on('focus', this.focus, this);
+    },
+    render: function(){
+
+      return this;
+    },
+    focus: function() {
+      // Show thyself!
+      this.show();
+    },
+    hide: function() {
+      S.PlaceFormView.__super__.hide.call(this);
+
+      // Also, cancel adding the model if it's new
+      if (this.model.isNew()) {
+        this.model.destroy();
+      }
+
+      // Otherwise, just unfocus
+      else {
+        this.model.trigger('unfocus');
+      }
+    }
+  });
+
   S.LayerView = Backbone.View.extend({
     initialize: function(){
+      this.map = this.options.map;
+
       this.model.on('change', this.updateLayer, this);
+      this.model.on('focus', this.focus, this);
+      this.model.on('unfocus', this.unfocus, this);
+      this.model.on('destroy', this.destroy, this);
+
+      this.map.on('dragend', this.render, this);
+
       this.initLayer();
     },
     initLayer: function() {
@@ -19,23 +75,46 @@ var Shareabouts = Shareabouts || {};
     },
     updateLayer: function() {
       if (this.layer) {
-        this.hide();
+        this.removeLayer();
       }
       this.initLayer();
     },
+    removeLayer: function() {
+      this.options.placeLayers.removeLayer(this.layer);
+    },
     render: function() {
-      var mapBounds = this.options.map.getBounds();
+      var mapBounds = this.map.getBounds();
       if (mapBounds.contains(this.latLng)) {
         this.show();
       } else {
         this.hide();
       }
     },
+    focus: function() {
+      var map = this.map,
+          mapSize = this.map.getSize(),
+          pos = this.map.latLngToLayerPoint(this.latLng),
+          ratioX = 1/4; // percentage of map width between map center and focal point, hard coded bad
+
+      map.panTo(map.layerPointToLatLng( new L.Point(pos.x + ratioX * mapSize.x, pos.y) ));
+
+      // TODO turn the icon red if not new
+    },
+    unfocus: function() {
+      // TODO turn the icon blue
+    },
+    destroy: function() {
+      this.removeLayer();
+      this.map.off('dragend', this.render, this);
+    },
+    setIcon: function() {
+
+    },
     show: function() {
       this.options.placeLayers.addLayer(this.layer);
     },
     hide: function() {
-      this.options.placeLayers.removeLayer(this.layer);
+      this.removeLayer();
     }
   });
 
@@ -55,11 +134,13 @@ var Shareabouts = Shareabouts || {};
       self.map.addLayer(self.placeLayers);
       self.map.setView(new L.LatLng(self.options.lat, self.options.lng), self.options.zoom);
 
-      self.map.on('dragend', self.onDragEnd, self);
+      // TODO move this to the LayerView?
+//      self.map.on('dragend', self.onDragEnd, self);
 
       // Bind data events
       self.collection.on('reset', self.render, self);
       self.collection.on('add', self.addLayerView, self);
+      self.collection.on('remove', self.removeLayerView, self);
 
       self.collection.fetch();
     },
@@ -69,21 +150,25 @@ var Shareabouts = Shareabouts || {};
       // Clear any existing stuff on the map, and free any views in
       // the list of layer views.
       this.placeLayers.clearLayers();
-      this.layerViews = [];
+      this.layerViews = {};
 
       this.collection.each(function(model, i) {
         self.addLayerView(model);
       });
     },
     addLayerView: function(model) {
-      this.layerViews.push(new S.LayerView({
+      this.layerViews[model.cid] = new S.LayerView({
         model: model,
         map: this.map,
         placeLayers: this.placeLayers
-      }));
+      });
+    },
+    removeLayerView: function(model) {
+      delete this.layerViews[model.cid];
     },
     onDragEnd: function() {
-      _.each(this.layerViews, function(view, i) {
+      // TODO move this to the LayerView?
+      _.each(this.layerViews, function(view, cid) {
         view.render();
       });
     }
