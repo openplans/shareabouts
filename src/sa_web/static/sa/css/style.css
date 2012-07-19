@@ -679,24 +679,24 @@ article.comment footer {
   -webkit-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
           box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
 }
-#ticker ul {
+ul.recent-points {
   list-style: none;
   margin: 0;
   color: #ddd;
 }
-#ticker li {
+.recent-points li {
   position: relative;
   border-bottom: 3px solid #5D5D5D;
 }
-#ticker li:hover {
+.recent-points li:hover {
   background: #606060;
 }
-#ticker .avatar {
+.recent-points .avatar {
   position: absolute;
   top: 10px;
   left: 10px;
 }
-#ticker a {
+.recent-points a {
   display: block;
   padding: 10px 10px 10px 48px;
   color: #ddd;
@@ -704,10 +704,10 @@ article.comment footer {
   position: relative;
   z-index: 5;
 }
-#ticker a:hover {
+.recent-points a:hover {
   color: #fff;
 }
-#ticker .badge {
+.recent-points .badge {
   background: transparent url(images/ticker-point.png) 0 0 no-repeat scroll;
   width: 16px;
   height: 16px;
@@ -716,10 +716,10 @@ article.comment footer {
   top: 30px;
   left: 4px;
 }
-#ticker .comment {
+.recent-points .comment {
   background-image: url(images/ticker-comment.png);
 }
-#ticker .vote {
+.recent-points .vote {
   background-image: url(images/ticker-heart.png);
 }
 
