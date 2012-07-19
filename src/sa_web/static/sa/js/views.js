@@ -44,8 +44,8 @@ var Shareabouts = Shareabouts || {};
     },
     focus: function() {
       // Show thyself!
-      this.show(this.render().el);
-    },
+      this.show();
+    }
 
   });
 
