@@ -9,6 +9,3 @@ south
 
 # REST API
 djangorestframework
-
-# Web interface helpers
-requests
