@@ -23,6 +23,7 @@ var Shareabouts = Shareabouts || {};
     show: function(){
       this.$crosshairEl.hide();
       this.$panelEl.show();
+      this.render();
     },
     hide: function(){
       this.$crosshairEl.show();
