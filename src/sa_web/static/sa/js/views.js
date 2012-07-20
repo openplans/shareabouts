@@ -24,11 +24,12 @@ var Shareabouts = Shareabouts || {};
       this.$crosshairEl.hide();
       this.$panelEl.show();
       this.render();
+
     },
     hide: function(){
       this.$crosshairEl.show();
       this.$panelEl.hide();
-    },
+    }
   });
 
   S.PlaceFormView = S.ContentView.extend({
@@ -36,14 +37,18 @@ var Shareabouts = Shareabouts || {};
      * View responsible for the form for adding and editing places.
      */
 
+    events: {
+      'submit form': 'onSubmit'
+    },
     initialize: function(){
       // Call super to initialize the panel-related element references
       S.PlaceFormView.__super__.initialize.call(this);
 
       this.model.on('focus', this.focus, this);
+      this.model.on('error', this.onError, this);
     },
     render: function(){
-
+      this.$el.html(ich['place-form'](this.model.toJSON()));
       return this;
     },
     focus: function() {
@@ -62,6 +67,21 @@ var Shareabouts = Shareabouts || {};
       else {
         this.model.trigger('unfocus');
       }
+    },
+    onError: function(model, res) {
+      // TODO
+      console.log('oh no errors!!', model, res);
+    },
+    getFormAttrs: function() {
+      var attrs = {};
+      _.each(self.$('form').serializeArray(), function(item, i) {
+        attrs[item.name] = item.value;
+      });
+      return attrs;
+    },
+    onSubmit: function(evt) {
+      evt.preventDefault();
+      this.model.save(this.getFormAttrs());
     }
   });
 
@@ -83,7 +103,8 @@ var Shareabouts = Shareabouts || {};
       this.initLayer();
     },
     initLayer: function() {
-      this.latLng = new L.LatLng(this.model.get('lat'), this.model.get('lng'));
+      var location = this.model.get('location');
+      this.latLng = new L.LatLng(location.lat, location.lng);
       this.layer = new L.Marker(this.latLng);
       this.render();
     },
@@ -146,7 +167,7 @@ var Shareabouts = Shareabouts || {};
 
       self.map.addLayer(baseTile);
       self.map.addLayer(self.placeLayers);
-      self.map.setView(new L.LatLng(self.options.lat, self.options.lng), self.options.zoom);
+      self.map.setView(new L.LatLng(self.options.center.lat, self.options.center.lng), self.options.zoom);
 
       // Bind data events
       self.collection.on('reset', self.render, self);

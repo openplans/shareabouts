@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $){
+(function(S, $) {
   S.PlaceCollection = Backbone.Collection.extend({
     url: '/api/places/'
   });

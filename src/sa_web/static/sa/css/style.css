@@ -1,4 +1,4 @@
-/* =html5doctor.com Reset Stylesheet \\v1.6.1 \\ Last Updated: 2010-09-17 \\ http://richclarkdesign.com \\ @rich_clark 
+/* =html5doctor.com Reset Stylesheet \\v1.6.1 \\ Last Updated: 2010-09-17 \\ http://richclarkdesign.com \\ @rich_clark
 -------------------------------------------------------------- */
 
 html, body, div, span, object, iframe,
@@ -10,7 +10,7 @@ b, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
+article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
   margin:0;
@@ -38,7 +38,7 @@ hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 
 input, select { vertical-align:middle; }
 
 
-/* =Base Typography 
+/* =Base Typography
 -------------------------------------------------------------- */
 
 body { font:13px/1.231 sans-serif; *font-size:small; }
@@ -46,18 +46,18 @@ select, input, textarea, button { font:99% sans-serif; }
 pre, code, kbd, samp { font-family: monospace, sans-serif; }
 
 
-/* =Base Styles 
+/* =Base Styles
 -------------------------------------------------------------- */
 
-body, select, input, textarea { 
-  /* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */ 
-  color: #444; 
+body, select, input, textarea {
+  /* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */
+  color: #444;
   /* set your base font here, to apply evenly */
   font-family: "Helvetica Neue", Arial, Helvetica, serif;
 }
 /* Headers (h1,h2,etc) have no default font-size or margin,
-   you'll want to define those yourself. */ 
-h1,h2,h3,h4,h5,h6 { 
+   you'll want to define those yourself. */
+h1,h2,h3,h4,h5,h6 {
   font-weight: bold;
   line-height: 1.2;
   margin: 0 0 0.5em 0;
@@ -68,7 +68,7 @@ h3 { font-size: 1.75em; }
 h4 { font-size: 1.5em; }
 h5 { font-size: 1.25em; }
 h6 { font-size: 1em; }
-/* always force a scrollbar in non-IE */ 
+/* always force a scrollbar in non-IE */
 html { overflow-y: scroll; }
 /* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
 a:hover, a:active { outline: none; }
@@ -77,14 +77,14 @@ a:hover { color: #00aaff; }
 ul, ol { margin-left: 1.8em; }
 ol { list-style-type: decimal; }
 /* Remove margins for navigation lists */
-nav ul, nav li { margin: 0; } 
+nav ul, nav li { margin: 0; }
 small { font-size: 85%; }
 strong, th { font-weight: bold; }
-td, td img { vertical-align: top; } 
+td, td img { vertical-align: top; }
 sub { vertical-align: sub; font-size: smaller; }
 sup { vertical-align: super; font-size: smaller; }
-pre { 
-  padding: 15px; 
+pre {
+  padding: 15px;
   /* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */
   white-space: pre; /* CSS2 */
   white-space: pre-wrap; /* CSS 2.1 */
@@ -101,50 +101,50 @@ input[type="checkbox"] { vertical-align: bottom; }
 .ie6 input { vertical-align: text-bottom; }
 /* hand cursor on clickable input elements */
 label, input[type=button], input[type=submit], button { cursor: pointer; }
-/* webkit browsers add a 2px margin outside the chrome of form elements */  
+/* webkit browsers add a 2px margin outside the chrome of form elements */
 button, input, select, textarea { margin: 0; }
 /* colors for form validity */
 input:valid, textarea:valid   {  }
-input:invalid, textarea:invalid { 
+input:invalid, textarea:invalid {
       border-radius: 1px;
-    -moz-box-shadow: 0px 0px 5px red; 
- -webkit-box-shadow: 0px 0px 5px red; 
+    -moz-box-shadow: 0px 0px 5px red;
+ -webkit-box-shadow: 0px 0px 5px red;
          box-shadow: 0px 0px 5px red;
 }
-.no-boxshadow input:invalid, 
+.no-boxshadow input:invalid,
 .no-boxshadow textarea:invalid { background-color: #f0dddd; }
 /* These selection declarations have to be separate.
-   No text-shadow: twitter.com/miketaylr/status/12228805301 
+   No text-shadow: twitter.com/miketaylr/status/12228805301
    Also: hot pink. */
 ::-moz-selection{ background: #FF5E99; color:#fff; text-shadow: none; }
-::selection { background:#FF5E99; color:#fff; text-shadow: none; } 
+::selection { background:#FF5E99; color:#fff; text-shadow: none; }
 /*  j.mp/webkit-tap-highlight-color */
-a:link { -webkit-tap-highlight-color: #FF5E99; } 
-/* make buttons play nice in IE:    
+a:link { -webkit-tap-highlight-color: #FF5E99; }
+/* make buttons play nice in IE:
    www.viget.com/inspire/styling-the-button-element-in-internet-explorer/ */
 button {width: auto; overflow: visible;}
-/* bicubic resizing for non-native sized IMG: 
+/* bicubic resizing for non-native sized IMG:
    code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
 .ie7 img {-ms-interpolation-mode: bicubic;}
 
 
-/* =Nonsemantic Base Styles 
+/* =Nonsemantic Base Styles
 -------------------------------------------------------------- */
 
-/* Hide for both screenreaders and browsers: 
+/* Hide for both screenreaders and browsers:
    css-discuss.incutio.com/wiki/Screenreader_Visibility */
-.hidden { display: none; visibility: hidden; } 
-/* Hide only visually, but have it available for screenreaders: 
+.hidden { display: none; visibility: hidden; }
+/* Hide only visually, but have it available for screenreaders:
    www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden  */
-.visuallyhidden { position: absolute !important;    
+.visuallyhidden { position: absolute !important;
   clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
   clip: rect(1px, 1px, 1px, 1px); }
 /* Hide visually and from screenreaders, but maintain layout */
 .invisible { visibility: hidden; }
 /* >> The Magnificent CLEARFIX: Updated to prevent margin-collapsing on child elements << j.mp/bestclearfix */
 .clearfix:before, .clearfix:after {
-  content: "\0020"; display: block; height: 0; visibility: hidden;	
-} 
+  content: "\0020"; display: block; height: 0; visibility: hidden;
+}
 .clearfix:after { clear: both; }
 /* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
 .clearfix { zoom: 1; }
@@ -293,7 +293,7 @@ body {
 #map {
   height: 100%;
 }
-a.add-feature-point {
+a.add-place {
   float: left;
   position: absolute;
   right: 1em;
@@ -312,7 +312,7 @@ a.add-feature-point {
   -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
 }
-a.add-feature-point:hover {
+a.add-place:hover {
   color: #fff;
 }
 #map .leaflet-popup-content-wrapper {
@@ -386,7 +386,7 @@ a.add-feature-point:hover {
 #newpin:hover .shadow,
 #newpin.dragging .shadow {
   opacity: 0.2;
-  background-image: 
+  background-image:
     url(images/marker-shadow.png),
     url(images/marker-shadow.png),
     url(images/marker-shadow.png),
@@ -437,6 +437,7 @@ a.add-feature-point:hover {
   left: 0;
   z-index: 40;
   overflow: visible;
+  display: none;
 }
 #content > article {
   position: absolute;
@@ -453,9 +454,9 @@ a.add-feature-point:hover {
 		radial-gradient(45% 0, farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)),
 		radial-gradient(45% 100%,farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)) 0 100%;
 	background:
-	  -webkit-linear-gradient(white 30%, rgba(255, 255, 255, 0)), 
-	  -webkit-linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, 
-	  -webkit-radial-gradient(45% 0, farthest-side, rgba(0, 0, 0, 0.25), transparent), 
+	  -webkit-linear-gradient(white 30%, rgba(255, 255, 255, 0)),
+	  -webkit-linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+	  -webkit-radial-gradient(45% 0, farthest-side, rgba(0, 0, 0, 0.25), transparent),
 	  -webkit-radial-gradient(45% 100%,farthest-side, rgba(0, 0, 0, 0.25), transparent) 0 100%;
 	background-repeat: no-repeat;
 	background-color: white;
@@ -736,7 +737,7 @@ ul.recent-points {
 @media only screen and (min-width: 320px) {
 }
 @media only screen and (min-width: 480px) {
-  a.add-feature-point {
+  a.add-place {
     padding: 0.6em 0.8em;
     right: auto;
   }
@@ -781,7 +782,7 @@ ul.recent-points {
   }
 }
 @media only screen and (min-width: 768px) { /* menu is visible */
-  a.add-feature-point {
+  a.add-place {
     font-size: 2.5em;
   }
   #nav-bttn {
@@ -808,8 +809,8 @@ ul.recent-points {
   	top: 3em;
   	left: 0;
   	z-index: 9999;
-       -moz-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5); 
-    -webkit-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5); 
+       -moz-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
+    -webkit-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
             box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
   }
   #access ul ul ul {
@@ -884,7 +885,7 @@ ul.recent-points {
   }
 }
 @media only screen and (min-width: 1300px) {
-  a.add-feature-point {
+  a.add-place {
     font-size: 2.75em;
   }
   #site-header {
@@ -913,11 +914,11 @@ ul.recent-points {
 @media print {
   * { background: transparent !important; color: #444 !important; text-shadow: none !important; }
   a, a:visited { color: #444 !important; text-decoration: underline; }
-  a:after { content: " (" attr(href) ")"; } 
+  a:after { content: " (" attr(href) ")"; }
   abbr:after { content: " (" attr(title) ")"; }
   .ir a:after { content: ""; }  /* Don't show links for images */
   pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
-  thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */ 
+  thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */
   tr, img { page-break-inside: avoid; }
   @page { margin: 0.5cm; }
   p, h2, h3 { orphans: 3; widows: 3; }

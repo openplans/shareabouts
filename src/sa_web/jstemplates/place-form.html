@@ -4,9 +4,9 @@
 
           <fieldset>
 
-            {{! TODO We need user data in the template to know whether a user
-              !      is already logged in.
-              }}
+            <!-- TODO We need user data in the template to know whether a user
+                      is already logged in.
+              -->
 
             <p>
               <label for="user-name">Your Name</label>
@@ -27,9 +27,9 @@
 
             <p>
 
-              {{!
-                ! TODO Need a list of all available types.
-              }}
+              <!--
+                TODO Need a list of all available types.
+              -->
 
               <label for="point-type">Location Type</label>
               <select id="point-type" name="type">
@@ -46,6 +46,6 @@
             </p>
           </fieldset>
 
-          <input name="save-place-btn" type="button" value="Submit Location" class="bttn">
+          <input name="save-place-btn" id="save-place-btn" type="submit" value="Submit Location" class="bttn">
 
         </form>
