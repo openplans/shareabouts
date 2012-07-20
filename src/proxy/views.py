@@ -1,23 +1,34 @@
 import requests
 from django.http import HttpResponse
+from django.http import QueryDict
 
-def proxy_view(request, url):
+def proxy_view(request, url, requests_args=None):
     """
     Forward as close to an exact copy of the request as possible along to the
     given url.  Respond with as close to an exact copy of the resulting
     response as possible.
+
+    If there are any additional arguments you wish to send to requests, put
+    them in the requests_args dictionary.
     """
+    requests_args = (requests_args or {}).copy()
     headers = get_headers(request.META)
+
+    if 'headers' not in requests_args:
+        requests_args['headers'] = {}
+    if 'data' not in requests_args:
+        requests_args['data'] = request.body
+    if 'params' not in requests_args:
+        requests_args['params'] = QueryDict('', mutable=True)
 
     # Explicitly set content-length request header, as some servers will
     # want it and complain without it.
-    headers['CONTENT-LENGTH'] = unicode(len(request.body))
+    headers['CONTENT-LENGTH'] = unicode(len(requests_args['data']))
 
-    response = requests.request(
-        request.method, url,
-        params=request.GET,
-        data=request.body,
-        headers=headers)
+    requests_args['headers'].update(headers)
+    requests_args['params'].update(request.GET)
+
+    response = requests.request(request.method, url, **requests_args)
 
     proxy_response = HttpResponse(
         response.content,
