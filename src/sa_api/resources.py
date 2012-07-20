@@ -9,7 +9,7 @@ class PlaceResource (resources.ModelResource):
     def location(self, place):
         return {
             'lat': place.location.y,
-            'lon': place.location.x,
+            'lng': place.location.x,
         }
 
     def validate_request(self, origdata, files=None):
