@@ -553,7 +553,7 @@ a.reply-link:hover {
   display: block;
   position: absolute;
   width: 14em;
-  bottom: 0;
+  bottom: 60px;
   right: 0;
   top: 0;
   z-index: 10000;
@@ -615,6 +615,26 @@ a.reply-link:hover {
 }
 #ticker div.badge.comment {
   background : transparent url('ticker-comment.png') no-repeat scroll center center;
+}
+
+/* Powered By */
+#poweredby {
+  display: none;
+  position: absolute;
+  width: 14em;
+  height: 60px;
+  bottom: 0;
+  right: 0;
+  z-index: 10001;
+  background: #808080 url('poweredby.png') center 13px no-repeat scroll;
+  overflow: hidden;
+  text-indent: -9999px;
+     -moz-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5), 0 -4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5), 0 -4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5), 0 -4px 0 rgba(85, 85, 85, 0.5);
+}
+#content.ticker_on #poweredby {
+  display: block;
 }
 
 /* HiderSlider Widget */
