@@ -8,6 +8,11 @@ var Shareabouts = Shareabouts || {};
   // });
 
   S.ContentView = Backbone.View.extend({
+    /*
+     * Base view for anything displayed in the side panel on the Shareabouts
+     * map screen.
+     */
+
     initialize: function() {
       this.$panelEl = $(this.options.panelEl);
       this.$crosshairEl = $(this.options.crosshairEl);
@@ -26,8 +31,12 @@ var Shareabouts = Shareabouts || {};
   });
 
   S.PlaceFormView = S.ContentView.extend({
+    /*
+     * View responsible for the form for adding and editing places.
+     */
+
     initialize: function(){
-      // Super!
+      // Call super to initialize the panel-related element references
       S.PlaceFormView.__super__.initialize.call(this);
 
       this.model.on('focus', this.focus, this);
@@ -56,6 +65,10 @@ var Shareabouts = Shareabouts || {};
   });
 
   S.LayerView = Backbone.View.extend({
+    /*
+     * A view responsible for the representation of a place on the map.
+     */
+
     initialize: function(){
       this.map = this.options.map;
 
