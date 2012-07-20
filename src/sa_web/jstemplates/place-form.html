@@ -1,0 +1,51 @@
+        <h4 class="">Tell us more&hellip;</h4>
+
+        <form id="place-form" class="place-form">
+
+          <fieldset>
+
+            {{! TODO We need user data in the template to know whether a user
+              !      is already logged in.
+              }}
+
+            <p>
+              <label for="user-name">Your Name</label>
+              <input id="user-name" name="user_name" placeholder="Name" size="30" type="text">
+              <br />
+              <span class="sign-in-text">Or sign in with</span>
+              <a href="#" class="login facebook">Facebook</a>
+              <span class="">/</span>
+              <a href="#" class="login twitter">Twitter</a>
+            </p>
+
+            <p>
+              <label for="place-name">Location Name</label>
+              <input id="place-name" name="name"
+                     placeholder="Location Name" size="30" type="text"
+                     value="{{ name }}">
+            </p>
+
+            <p>
+
+              {{!
+                ! TODO Need a list of all available types.
+              }}
+
+              <label for="point-type">Location Type</label>
+              <select id="point-type" name="type">
+                <option value=""></option>
+                <option value="Foo">Foo</option>
+                <option value="Bar">Bar</option>
+                <option value="Querty">Querty</option>
+              </select>
+            </p>
+
+            <p>
+              <label for="point-description">Description</label>
+              <textarea id="point-description" name="description" placeholder="Description...">{{ description }}</textarea>
+            </p>
+          </fieldset>
+
+          <input name="save-place-btn" type="button" value="Submit Location" class="bttn">
+
+        </form>

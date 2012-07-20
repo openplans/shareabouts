@@ -8,6 +8,11 @@ var Shareabouts = Shareabouts || {};
   // });
 
   S.ContentView = Backbone.View.extend({
+    /*
+     * Base view for anything displayed in the side panel on the Shareabouts
+     * map screen.
+     */
+
     initialize: function() {
       this.$panelEl = $(this.options.panelEl);
       this.$crosshairEl = $(this.options.crosshairEl);
@@ -18,6 +23,7 @@ var Shareabouts = Shareabouts || {};
     show: function(){
       this.$crosshairEl.hide();
       this.$panelEl.show();
+      this.render();
     },
     hide: function(){
       this.$crosshairEl.show();
@@ -26,8 +32,12 @@ var Shareabouts = Shareabouts || {};
   });
 
   S.PlaceFormView = S.ContentView.extend({
+    /*
+     * View responsible for the form for adding and editing places.
+     */
+
     initialize: function(){
-      // Super!
+      // Call super to initialize the panel-related element references
       S.PlaceFormView.__super__.initialize.call(this);
 
       this.model.on('focus', this.focus, this);
@@ -56,6 +66,10 @@ var Shareabouts = Shareabouts || {};
   });
 
   S.LayerView = Backbone.View.extend({
+    /*
+     * A view responsible for the representation of a place on the map.
+     */
+
     initialize: function(){
       this.map = this.options.map;
 
@@ -134,9 +148,6 @@ var Shareabouts = Shareabouts || {};
       self.map.addLayer(self.placeLayers);
       self.map.setView(new L.LatLng(self.options.lat, self.options.lng), self.options.zoom);
 
-      // TODO move this to the LayerView?
-//      self.map.on('dragend', self.onDragEnd, self);
-
       // Bind data events
       self.collection.on('reset', self.render, self);
       self.collection.on('add', self.addLayerView, self);
@@ -165,12 +176,6 @@ var Shareabouts = Shareabouts || {};
     },
     removeLayerView: function(model) {
       delete this.layerViews[model.cid];
-    },
-    onDragEnd: function() {
-      // TODO move this to the LayerView?
-      _.each(this.layerViews, function(view, cid) {
-        view.render();
-      });
     }
   });
 })(Shareabouts, jQuery);
