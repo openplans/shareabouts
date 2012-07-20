@@ -67,54 +67,14 @@
   <div role="main" id="main">
     <div id="map-container">
       <div id="map"></div>
-      <a href="#" id="add-feature-point" class="add-feature-point visuallyhidden">Add Location</a><!-- FIXME: toggling content should inversely toggle this button via .visuallyhidden -->
-      <img id="crosshairs" src="{{ STATIC_URL }}sa/css/images/crosshair.png" class="visuallyhidden" />
+      <a href="#" id="add-place" class="add-place">Add Location</a><!-- FIXME: toggling content should inversely toggle this button via .visuallyhidden -->
+      <img id="crosshairs" src="{{ STATIC_URL }}sa/css/images/crosshair.png" />
       <span id="newpin" class="offcenter"><span class="shadow"></span><span class="x"></span><img src="{{ STATIC_URL }}sa/css/images/marker-plus.png" /></span>
     </div>
 
     <div id="content">
       <a href="#" class="close-bttn">&times;<span> Close</span></a>
       <article class="point"><!-- .point or .page -->
-        <h4 class="">Tell us more&hellip;</h4>
-
-        <form id="new_point" class="new_point" action="#" method="post">
-
-          <fieldset>
-            <p>
-              <label for="user_name">Your Name</label>
-              <input id="user_name" name="user_name" placeholder="Name" size="30" type="text">
-              <br />
-              <span class="sign-in-text">Or sign in with</span>
-              <a href="#" class="login facebook">Facebook</a>
-              <span class="">/</span>
-              <a href="#" class="login twitter">Twitter</a>
-            </p>
-
-            <p>
-              <label for="point_name">Location Name</label>
-              <input id="point_name" name="point_name" placeholder="Location Name" size="30" type="text">
-            </p>
-
-            <p>
-              <label for="point_type">Location Type</label>
-              <select id="point_type" name="point_type">
-                <option value=""></option>
-                <option value="Foo">Foo</option>
-                <option value="Bar">Bar</option>
-                <option value="Querty">Querty</option>
-              </select>
-            </p>
-
-            <p>
-              <label for="point_description">Description</label>
-              <textarea id="point_description" name="point_description" placeholder="Description..."></textarea>
-            </p>
-          </fieldset>
-
-          <input name="new_point_submit" type="submit" value="Submit Location" class="bttn">
-
-        </form>
-
       </article>
     </div><!-- end #content -->
   </div><!-- end #main -->
@@ -259,6 +219,7 @@
   <script src="http://code.leafletjs.com/leaflet-0.3.1/leaflet.js"></script>
   <script src="{{STATIC_URL}}libs/underscore-min.js"></script>
   <script src="{{STATIC_URL}}libs/backbone-min.js"></script>
+  <script src="{{STATIC_URL}}libs/ICanHaz.min.js"></script>
 
   <script src="{{STATIC_URL}}sa/js/models.js"></script>
   <script src="{{STATIC_URL}}sa/js/views.js"></script>
@@ -281,7 +242,7 @@
 
     Shareabouts.AppView = Backbone.View.extend({
       events: {
-        'click #add-feature-point': 'addPlace'
+        'click #add-place': 'addPlace'
       },
       initialize: function(){
         this.mapView = new Shareabouts.MapView({
@@ -334,14 +295,6 @@
         // toggle menu visibility
         $('#nav-bttn').click(function(){
           $('#access').toggleClass('expose');
-          return false;
-        });
-
-        $('.close-bttn').click(function(){
-          $('#content').toggle();
-          $('#add-feature-point').removeClass('visuallyhidden');
-          $('#crosshairs').removeClass('visuallyhidden');
-          $('#newpin').hide();
           return false;
         });
 

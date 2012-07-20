@@ -24,11 +24,12 @@ var Shareabouts = Shareabouts || {};
       this.$crosshairEl.hide();
       this.$panelEl.show();
       this.render();
+
     },
     hide: function(){
       this.$crosshairEl.show();
       this.$panelEl.hide();
-    },
+    }
   });
 
   S.PlaceFormView = S.ContentView.extend({
@@ -43,7 +44,7 @@ var Shareabouts = Shareabouts || {};
       this.model.on('focus', this.focus, this);
     },
     render: function(){
-
+      this.$el.html(ich['place-form'](this.model.toJSON()));
       return this;
     },
     focus: function() {
