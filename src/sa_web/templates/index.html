@@ -227,6 +227,7 @@
   {% mustacheich "place-form" %}
 
   <script type="text/javascript">
+
     Shareabouts.App = Backbone.Router.extend({
       routes: {
         '': 'default'
@@ -247,8 +248,7 @@
       initialize: function(){
         this.mapView = new Shareabouts.MapView({
           el: '#map',
-          lat: 39.9523524,
-          lng: -75.1636075,
+          center: {lat: 39.9523524, lng: -75.1636075},
           zoom: 14,
           collection: this.collection
         });
@@ -263,8 +263,10 @@
         var center = this.mapView.map.getCenter(),
             // Create a new place model at map center
             placeModel = new Backbone.Model({
-              lat: center.lat,
-              lng: center.lng
+              location: {
+                lat: center.lat,
+                lng: center.lng
+              }
             });
 
         // Add to the collection
@@ -286,7 +288,7 @@
       }
     });
 
-    jQuery(function ($) {
+    jQuery(function($) {
       $(document).ready(function() {
 
         // add menu button for small screens
