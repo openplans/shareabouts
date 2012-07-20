@@ -147,9 +147,6 @@ var Shareabouts = Shareabouts || {};
       self.map.addLayer(self.placeLayers);
       self.map.setView(new L.LatLng(self.options.lat, self.options.lng), self.options.zoom);
 
-      // TODO move this to the LayerView?
-//      self.map.on('dragend', self.onDragEnd, self);
-
       // Bind data events
       self.collection.on('reset', self.render, self);
       self.collection.on('add', self.addLayerView, self);
@@ -178,12 +175,6 @@ var Shareabouts = Shareabouts || {};
     },
     removeLayerView: function(model) {
       delete this.layerViews[model.cid];
-    },
-    onDragEnd: function() {
-      // TODO move this to the LayerView?
-      _.each(this.layerViews, function(view, cid) {
-        view.render();
-      });
     }
   });
 })(Shareabouts, jQuery);
