@@ -328,6 +328,7 @@ a.add-feature-point:hover {
   left: 50%;
   margin: -33px 0 0 -33px;
   pointer-events: none;
+  z-index: 11;
   opacity: 0.5;
   -webkit-transition: opacity 0.25s;
   -moz-transition: opacity 0.25s;
