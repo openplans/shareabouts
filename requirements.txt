@@ -9,3 +9,7 @@ south
 
 # REST API
 djangorestframework
+
+# Testing, validating, and debugging
+nose
+django-nose
