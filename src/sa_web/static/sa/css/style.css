@@ -541,6 +541,7 @@ input[type=text] {
 textarea {
 	width: 80%;
 	height: 4.5em;
+	resize: vertical;
 }
 .required {
 	color: #cc0033;
