@@ -6,5 +6,8 @@ gunicorn
 # Database
 south
 
+# Templates
+django-mustachejs
+
 # Web interface helpers
 requests

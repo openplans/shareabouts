@@ -124,6 +124,7 @@ INSTALLED_APPS = (
 
     # 3rd-party reusaple apps
     'south',
+    'mustachejs',
 
     # Project apps
     'sa_web',
