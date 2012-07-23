@@ -7,32 +7,7 @@ var Shareabouts = Shareabouts || {};
   //   render: function(){}
   // });
 
-  S.ContentView = Backbone.View.extend({
-    /*
-     * Base view for anything displayed in the side panel on the Shareabouts
-     * map screen.
-     */
-
-    initialize: function() {
-      this.$panelEl = $(this.options.panelEl);
-      this.$crosshairEl = $(this.options.crosshairEl);
-      this.$closeBtn = $(this.options.closeBtnEl);
-
-      this.$closeBtn.click(_.bind(this.hide, this));
-    },
-    show: function(){
-      this.$crosshairEl.hide();
-      this.$panelEl.show();
-      this.render();
-
-    },
-    hide: function(){
-      this.$crosshairEl.show();
-      this.$panelEl.hide();
-    }
-  });
-
-  S.PlaceFormView = S.ContentView.extend({
+  S.PlaceFormView = Backbone.View.extend({
     /*
      * View responsible for the form for adding and editing places.
      */
@@ -41,47 +16,37 @@ var Shareabouts = Shareabouts || {};
       'submit form': 'onSubmit'
     },
     initialize: function(){
-      // Call super to initialize the panel-related element references
-      S.PlaceFormView.__super__.initialize.call(this);
-
-      this.model.on('focus', this.focus, this);
+      this.map = this.options.map;
       this.model.on('error', this.onError, this);
     },
     render: function(){
       this.$el.html(ich['place-form'](this.model.toJSON()));
       return this;
     },
-    focus: function() {
-      // Show thyself!
-      this.show();
-    },
-    hide: function() {
-      S.PlaceFormView.__super__.hide.call(this);
-
-      // Also, cancel adding the model if it's new
-      if (this.model.isNew()) {
-        this.model.destroy();
-      }
-
-      // Otherwise, just unfocus
-      else {
-        this.model.trigger('unfocus');
-      }
-    },
     onError: function(model, res) {
       // TODO
       console.log('oh no errors!!', model, res);
     },
-    getFormAttrs: function() {
-      var attrs = {};
+    getAttrs: function() {
+      var attrs = {},
+          center = this.map.getCenter();
+
+      // Get values from the form
       _.each(self.$('form').serializeArray(), function(item, i) {
         attrs[item.name] = item.value;
       });
+
+      // Get the location attributes from the map
+      attrs.location = {
+        lat: center.lat,
+        lng: center.lng
+      };
+
       return attrs;
     },
     onSubmit: function(evt) {
       evt.preventDefault();
-      this.model.save(this.getFormAttrs());
+      this.model.save(this.getAttrs());
     }
   });
 
@@ -103,10 +68,13 @@ var Shareabouts = Shareabouts || {};
       this.initLayer();
     },
     initLayer: function() {
-      var location = this.model.get('location');
-      this.latLng = new L.LatLng(location.lat, location.lng);
-      this.layer = new L.Marker(this.latLng);
-      this.render();
+      var location;
+      if (!this.model.isNew()) {
+        location = this.model.get('location');
+        this.latLng = new L.LatLng(location.lat, location.lng);
+        this.layer = new L.Marker(this.latLng);
+        this.render();
+      }
     },
     updateLayer: function() {
       if (this.layer) {
@@ -115,14 +83,19 @@ var Shareabouts = Shareabouts || {};
       this.initLayer();
     },
     removeLayer: function() {
-      this.options.placeLayers.removeLayer(this.layer);
+      if (this.layer) {
+        this.options.placeLayers.removeLayer(this.layer);
+      }
     },
     render: function() {
       var mapBounds = this.map.getBounds();
-      if (mapBounds.contains(this.latLng)) {
-        this.show();
-      } else {
-        this.hide();
+
+      if (this.latLng) {
+        if (mapBounds.contains(this.latLng)) {
+          this.show();
+        } else {
+          this.hide();
+        }
       }
     },
     focus: function() {
@@ -146,7 +119,9 @@ var Shareabouts = Shareabouts || {};
 
     },
     show: function() {
-      this.options.placeLayers.addLayer(this.layer);
+      if (this.layer) {
+        this.options.placeLayers.addLayer(this.layer);
+      }
     },
     hide: function() {
       this.removeLayer();
@@ -169,12 +144,13 @@ var Shareabouts = Shareabouts || {};
       self.map.addLayer(self.placeLayers);
       self.map.setView(new L.LatLng(self.options.center.lat, self.options.center.lng), self.options.zoom);
 
+      // Init the layer view cache
+      this.layerViews = {};
+
       // Bind data events
       self.collection.on('reset', self.render, self);
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
-
-      self.collection.fetch();
     },
     render: function() {
       var self = this;

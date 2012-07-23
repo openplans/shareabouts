@@ -68,8 +68,7 @@
     <div id="map-container">
       <div id="map"></div>
       <a href="#" id="add-place" class="add-place">Add Location</a><!-- FIXME: toggling content should inversely toggle this button via .visuallyhidden -->
-      <img id="crosshairs" src="{{ STATIC_URL }}sa/css/images/crosshair.png" />
-      <span id="newpin" class="offcenter"><span class="shadow"></span><span class="x"></span><img src="{{ STATIC_URL }}sa/css/images/marker-plus.png" /></span>
+      <span id="centerpoint"><span class="shadow"></span><span class="x"></span><span class="marker"></span></span>
     </div>
 
     <div id="content">
@@ -230,22 +229,38 @@
 
     Shareabouts.App = Backbone.Router.extend({
       routes: {
-        '': 'default'
+        'place/new': 'newPlace',
+        'place/:id': 'viewPlace',
+        'place/:id/edit': 'editPlace'
       },
 
-      default: function() {
+      initialize: function() {
+        this.collection = new Shareabouts.PlaceCollection();
         this.appView = new Shareabouts.AppView({
           el: 'body',
-          collection: new Shareabouts.PlaceCollection()
+          collection: this.collection,
+          router: this
         });
-      }
+
+        this.collection.fetch();
+      },
+
+      newPlace: function() {
+        this.appView.newPlace();
+      },
+
+      viewPlace: function(){},
+
+      editPlace: function(){}
     });
 
     Shareabouts.AppView = Backbone.View.extend({
       events: {
-        'click #add-place': 'addPlace'
+        'click #add-place': 'onClickAddPlaceBtn'
       },
       initialize: function(){
+        this.collection.on('add', this.onAddPlace, this);
+
         this.mapView = new Shareabouts.MapView({
           el: '#map',
           center: {lat: 39.9523524, lng: -75.1636075},
@@ -253,38 +268,41 @@
           collection: this.collection
         });
 
-        this.placeFormViews = {};
+        // Panel!!!
+        this.$panel = $('#content');
+        this.$panelContent = $('#content article');
 
-        // this.collection.on('reset', , this);
-        this.collection.on('add', this.addPlaceFormView, this);
+        // crosshairEl: '#crosshairs',
+        // closeBtnEl: '.close-bttn',
+
+        this.placeFormViews = {};
       },
       render: function(){},
-      addPlace: function() {
-        var center = this.mapView.map.getCenter(),
-            // Create a new place model at map center
-            placeModel = new Backbone.Model({
-              location: {
-                lat: center.lat,
-                lng: center.lng
-              }
+      onClickAddPlaceBtn: function(evt) {
+        evt.preventDefault();
+        this.options.router.navigate('/place/new', {trigger: true});
+      },
+      onAddPlace: function(model) {
+        var placeFormView = new Shareabouts.PlaceFormView({
+              model: model,
+              map: this.mapView.map
             });
 
-        // Add to the collection
-        this.collection.add(placeModel);
+        this.placeFormViews[model.cid] = placeFormView;
 
-        // Trigger 'focus' on the model
-        placeModel.trigger('focus');
-
-        // Hide the crosshairs
+        // TODO: keep an eye on this
+        this.showPanel(placeFormView);
       },
-      addPlaceFormView: function(model) {
-        this.placeFormViews[model.cid] = new Shareabouts.PlaceFormView({
-          el: '#content article',
-          panelEl: '#content',
-          crosshairEl: '#crosshairs',
-          closeBtnEl: '.close-bttn',
-          model: model
-        });
+      newPlace: function() {
+        var placeModel = new Backbone.Model();
+        this.collection.add(placeModel);
+      },
+      showPanel: function(view) {
+        this.$panelContent.html(view.render().$el);
+        this.$panel.show();
+      },
+      hidePanel: function() {
+        this.$panel.hide();
       }
     });
 
