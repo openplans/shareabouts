@@ -100,14 +100,20 @@ var Shareabouts = Shareabouts || {};
         location = this.model.get('location');
         this.latLng = new L.LatLng(location.lat, location.lng);
         this.layer = new L.Marker(this.latLng);
+
+        // Focus on the marker onclick
+        this.layer.on('click', this.focus, this);
+
         this.render();
       }
     },
     updateLayer: function() {
+      // Update the marker layer if the model changes and the layer exists
       if (this.layer) {
-        this.removeLayer();
+        this.layer.setLatLng(new L.LatLng(this.model.get('location').lat,
+                                          this.model.get('location').lng));
       }
-      this.initLayer();
+      this.render();
     },
     removeLayer: function() {
       if (this.layer) {
@@ -115,6 +121,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
     render: function() {
+      // Show if it is within the current map bounds
       var mapBounds = this.map.getBounds();
 
       if (this.latLng) {
@@ -127,6 +134,7 @@ var Shareabouts = Shareabouts || {};
     },
     focus: function() {
       // TODO turn the icon red if not new
+      this.options.router.navigate('/place/' + this.model.id, {trigger: true});
     },
     unfocus: function() {
       // TODO turn the icon blue
@@ -187,6 +195,7 @@ var Shareabouts = Shareabouts || {};
     addLayerView: function(model) {
       this.layerViews[model.cid] = new S.LayerView({
         model: model,
+        router: this.options.router,
         map: this.map,
         placeLayers: this.placeLayers
       });
