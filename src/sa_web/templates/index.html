@@ -321,7 +321,8 @@
       onAddPlace: function(model) {
         var placeFormView = new Shareabouts.PlaceFormView({
               model: model,
-              appView: this
+              appView: this,
+              router: this.options.router
             });
 
         this.placeFormViews[model.cid] = placeFormView;

@@ -44,8 +44,13 @@ var Shareabouts = Shareabouts || {};
       return attrs;
     },
     onSubmit: function(evt) {
+      var router = this.options.router,
+          model = this.model;
+
       evt.preventDefault();
-      this.model.save(this.getAttrs());
+      this.model.save(this.getAttrs(), {
+        success: function() { router.navigate('/place/' + model.id, {trigger: true}); }
+      });
     }
   });
 
