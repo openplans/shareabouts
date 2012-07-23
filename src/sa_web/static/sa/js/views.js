@@ -7,6 +7,21 @@ var Shareabouts = Shareabouts || {};
   //   render: function(){}
   // });
 
+  S.PlaceDetailView = Backbone.View.extend({
+    initialize: function() {
+      this.model.on('change', this.onChange, this);
+    },
+
+    render: function() {
+      this.$el.html(ich['place-detail'](this.model.toJSON()));
+      return this;
+    },
+
+    onChange: function() {
+      this.render();
+    }
+  });
+
   S.PlaceFormView = Backbone.View.extend({
     /*
      * View responsible for the form for adding and editing places.
@@ -17,10 +32,14 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function(){
       this.model.on('error', this.onError, this);
+      this.model.on('change', this.onChange, this);
     },
     render: function(){
       this.$el.html(ich['place-form'](this.model.toJSON()));
       return this;
+    },
+    onChange: function() {
+      this.render();
     },
     onError: function(model, res) {
       // TODO

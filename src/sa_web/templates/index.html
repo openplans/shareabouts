@@ -224,6 +224,7 @@
   <script src="{{STATIC_URL}}sa/js/views.js"></script>
 
   {% mustacheich "place-form" %}
+  {% mustacheich "place-detail" %}
 
   <script type="text/javascript">
 
@@ -287,6 +288,7 @@
         this.offsetRatio = {x: 0.2, y: 0.0};
 
         this.placeFormViews = {};
+        this.placeDetailViews = {};
       },
       render: function(){},
       getCenter: function() {
@@ -326,9 +328,13 @@
               model: model,
               appView: this,
               router: this.options.router
+            }),
+            placeDetailView = new Shareabouts.PlaceDetailView({
+              model: model
             });
 
         this.placeFormViews[model.cid] = placeFormView;
+        this.placeDetailViews[model.cid] = placeDetailView;
 
         if (model.isNew()) {
           // TODO: keep an eye on this; not sure whether we should be showing the
