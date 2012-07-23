@@ -4,6 +4,7 @@ from . import utils
 
 class PlaceResource (resources.ModelResource):
     model = models.Place
+    include = ['id']
 
     # TODO: Included vote counts, without an additional query if possible.
     def location(self, place):
