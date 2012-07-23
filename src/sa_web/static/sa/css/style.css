@@ -707,11 +707,13 @@ ul.recent-points {
 @media only screen and (min-width: 320px) {
 }
 @media only screen and (min-width: 480px) {
+  a.add-place {
+    padding: 0.6em 1em;
+    right: auto;
+  }
 }
 @media only screen and (min-width: 768px) { /* menu is visible */
   a.add-place {
-    padding: 0.6em 0.8em;
-    right: auto;
     font-size: 2.5em;
   }
   #content {
