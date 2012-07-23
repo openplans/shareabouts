@@ -252,7 +252,10 @@
         this.appView.newPlace();
       },
 
-      viewPlace: function(){},
+      viewPlace: function(id) {
+        var model = this.collection.get(id);
+        this.appView.viewPlace(model);
+      },
 
       editPlace: function(){}
     });
@@ -337,6 +340,9 @@
       newPlace: function() {
         var placeModel = new Backbone.Model();
         this.collection.add(placeModel);
+      },
+      viewPlace: function(model) {
+        this.hideNewPin();
       },
       showPanel: function(view) {
         this.$panelContent.html(view.render().$el);
