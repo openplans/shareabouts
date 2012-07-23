@@ -242,7 +242,10 @@
           router: this
         });
 
-        this.collection.fetch();
+        // Add to the collection instead of clobbering, in case we started on
+        // the /places/new route, which would mean we already have a(n unsaved)
+        // model in the collection.
+        this.collection.fetch({add: true});
       },
 
       newPlace: function() {
@@ -256,7 +259,8 @@
 
     Shareabouts.AppView = Backbone.View.extend({
       events: {
-        'click #add-place': 'onClickAddPlaceBtn'
+        'click #add-place': 'onClickAddPlaceBtn',
+        'click .close-bttn': 'onClickClosePanelBtn'
       },
       initialize: function(){
         this.collection.on('add', this.onAddPlace, this);
@@ -271,27 +275,63 @@
         // Panel!!!
         this.$panel = $('#content');
         this.$panelContent = $('#content article');
+        this.$panelCloseBtn = $('.close-bttn');
+        this.$centerpoint = $('#centerpoint');
 
-        // crosshairEl: '#crosshairs',
-        // closeBtnEl: '.close-bttn',
+        this.mapView.map.on('dragstart', this.onMapDragStart, this);
+        this.mapView.map.on('dragend', this.onMapDragEnd, this);
+
+        this.offsetRatio = {x: 0.2, y: 0.0};
 
         this.placeFormViews = {};
       },
       render: function(){},
+      getCenter: function() {
+        if (this.$panel.is(':visible')) {
+            return this.getFocusedCenter();
+        } else {
+          return this.mapView.map.getCenter();
+        }
+      },
+      getFocusedCenter: function() {
+        var map = this.mapView.map,
+            centerLatLng = map.getCenter(),
+            centerPoint = map.latLngToLayerPoint(centerLatLng),
+            mapSize = map.getSize(),
+            offsetPoint = new L.Point(centerPoint.x - mapSize.x * this.offsetRatio.x,
+                                      centerPoint.y - mapSize.y * this.offsetRatio.y);
+        return map.layerPointToLatLng(offsetPoint);
+      },
+      onMapDragStart: function(evt) {
+        this.$centerpoint.addClass('dragging');
+      },
+      onMapDragEnd: function(evt) {
+        this.$centerpoint.removeClass('dragging');
+      },
       onClickAddPlaceBtn: function(evt) {
         evt.preventDefault();
         this.options.router.navigate('/place/new', {trigger: true});
       },
+      onClickClosePanelBtn: function(evt) {
+        evt.preventDefault();
+        this.hidePanel();
+        this.hideNewPin();
+        this.options.router.navigate('/');
+      },
       onAddPlace: function(model) {
         var placeFormView = new Shareabouts.PlaceFormView({
               model: model,
-              map: this.mapView.map
+              appView: this
             });
 
         this.placeFormViews[model.cid] = placeFormView;
 
-        // TODO: keep an eye on this
-        this.showPanel(placeFormView);
+        if (model.isNew()) {
+          // TODO: keep an eye on this; not sure whether we should be showing the
+          //       panel every time a model is added to the collection.
+          this.showPanel(placeFormView);
+          this.showNewPin();
+        }
       },
       newPlace: function() {
         var placeModel = new Backbone.Model();
@@ -300,6 +340,21 @@
       showPanel: function(view) {
         this.$panelContent.html(view.render().$el);
         this.$panel.show();
+      },
+      showNewPin: function() {
+        var map = this.mapView.map,
+            mapSize = map.getSize(),
+            point = map.getCenter(),
+            pos = map.latLngToLayerPoint(point),
+            ratioX = 0.2; // percentage of map width between map center and focal point, hard coded bad
+
+        this.$centerpoint.addClass('newpin');
+        map.panTo(map.layerPointToLatLng(
+          new L.Point(pos.x + this.offsetRatio.x * mapSize.x,
+                      pos.y + this.offsetRatio.y * mapSize.y) ));
+      },
+      hideNewPin: function() {
+        this.$centerpoint.removeClass('newpin');
       },
       hidePanel: function() {
         this.$panel.hide();
