@@ -1,11 +1,18 @@
         <header class="point-header clearfix">
-          <h1>Awesome Point Title</h1>
+          <h1>{{ name }}</h1>
           <img class="avatar" src="{{ STATIC_URL }}images/user-50.png" />
-          <strong class="point-submitter"><a href="#">{{ submitter_name }}</a></strong> added this point in Manhattan <span class="comment-date">on February 10, 2012 at 1:00 pm</span>
+          <strong class="point-submitter"><a href="#">{{ submitter_name }}</a></strong> added this point
+          {{#region}}
+            in {{ region }}
+          {{/region}}
+
+          {{#create_date}}
+          <span class="comment-date">on {{ create_date }}</span>
+          {{/create_date}}
         </header>
 
         <section class="description">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>{{ description }}</p>
         </section>
 
         <section class="discussion">
