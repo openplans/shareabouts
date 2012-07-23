@@ -342,7 +342,8 @@
         this.collection.add(placeModel);
       },
       viewPlace: function(model) {
-        this.hideNewPin();
+        var placeDetailView = this.placeDetailViews[model.cid];
+        this.showPanel(placeDetailView);
       },
       showPanel: function(view) {
         this.$panelContent.html(view.render().$el);

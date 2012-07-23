@@ -44,12 +44,16 @@ var Shareabouts = Shareabouts || {};
       return attrs;
     },
     onSubmit: function(evt) {
-      var router = this.options.router,
+      var app = this.options.router.appView,
+          router = this.options.router,
           model = this.model;
 
       evt.preventDefault();
       this.model.save(this.getAttrs(), {
-        success: function() { router.navigate('/place/' + model.id, {trigger: true}); }
+        success: function() {
+          app.hideNewPin();
+          router.navigate('/place/' + model.id, {trigger: true});
+        }
       });
     }
   });
