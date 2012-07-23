@@ -1,0 +1,74 @@
+        <header class="point-header clearfix">
+          <h1>Awesome Point Title</h1>
+          <img class="avatar" src="{{ STATIC_URL }}images/user-50.png" />
+          <strong class="point-submitter"><a href="#">{{ submitter_name }}</a></strong> added this point in Manhattan <span class="comment-date">on February 10, 2012 at 1:00 pm</span>
+        </header>
+
+        <section class="description">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </section>
+
+        <section class="discussion">
+          <h4 class="discussion-header">3 comments</h4>
+          <a href="#reply" class="reply-link">Leave a Comment</a>
+
+          <ol class="commentlist">
+            <li>
+              <article class="comment">
+                <header class="comment-header clearfix">
+                  <img class="avatar" src="{{ STATIC_URL }}images/user-36.png" />
+                  <strong class="comment-submitter"><a href="#">Frank</a> </strong><span class="comment-date">on February 10, 2012 at 1:00 pm</span>
+                </header>
+                <div class="comment-body">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+              </article>
+            </li>
+
+            <li>
+              <article class="comment">
+                <header class="comment-header clearfix">
+                  <img class="avatar" src="{{ STATIC_URL }}images/user-36.png" />
+                  <strong class="comment-submitter"><a href="#">Frank</a> </strong><span class="comment-date">on February 10, 2012 at 1:00 pm</span>
+                </header>
+                <div class="comment-body">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+              </article>
+            </li>
+
+            <li>
+              <article class="comment">
+                <header class="comment-header clearfix">
+                  <img class="avatar" src="{{ STATIC_URL }}images/user-36.png" />
+                  <strong class="comment-submitter"><a href="#">Frank</a> </strong><span class="comment-date">on February 10, 2012 at 1:00 pm</span>
+                </header>
+                <div class="comment-body">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+              </article>
+            </li>
+          </ol>
+
+          <div id="reply">
+            <h4 class="reply-header">Leave a Comment</h4>
+            <form id="new_comment" class="new_comment" action="#" method="post">
+              <fieldset>
+                <p class="comment-box">
+                  <label for="comment_comment">Comment</label>
+                  <textarea cols="40" id="comment_comment" name="comment[comment]" rows="4"></textarea>
+                </p>
+                <p>
+                  <label for="comment_submitter_name">Your Name</label>
+                  <input id="comment_submitter_name" name="comment[submitter_name]" size="30" type="text">
+                </p>
+                <p>
+                  <label for="comment_submitter_email">Email Address</label>
+                  <input id="comment_submitter_email" name="comment[submitter_email]" size="30" type="text">
+                </p>
+              </fieldset>
+              <input name="commit" type="submit" value="Comment" class="bttn">
+            </form>
+          </div>
+
+        </section><!-- end .discussion -->

@@ -7,6 +7,21 @@ var Shareabouts = Shareabouts || {};
   //   render: function(){}
   // });
 
+  S.PlaceDetailView = Backbone.View.extend({
+    initialize: function() {
+      this.model.on('change', this.onChange, this);
+    },
+
+    render: function() {
+      this.$el.html(ich['place-detail'](this.model.toJSON()));
+      return this;
+    },
+
+    onChange: function() {
+      this.render();
+    }
+  });
+
   S.PlaceFormView = Backbone.View.extend({
     /*
      * View responsible for the form for adding and editing places.
@@ -16,12 +31,15 @@ var Shareabouts = Shareabouts || {};
       'submit form': 'onSubmit'
     },
     initialize: function(){
-      this.map = this.options.map;
       this.model.on('error', this.onError, this);
+      this.model.on('change', this.onChange, this);
     },
     render: function(){
       this.$el.html(ich['place-form'](this.model.toJSON()));
       return this;
+    },
+    onChange: function() {
+      this.render();
     },
     onError: function(model, res) {
       // TODO
@@ -29,7 +47,7 @@ var Shareabouts = Shareabouts || {};
     },
     getAttrs: function() {
       var attrs = {},
-          center = this.map.getCenter();
+          center = this.options.appView.getCenter();
 
       // Get values from the form
       _.each(self.$('form').serializeArray(), function(item, i) {
@@ -45,8 +63,17 @@ var Shareabouts = Shareabouts || {};
       return attrs;
     },
     onSubmit: function(evt) {
+      var app = this.options.router.appView,
+          router = this.options.router,
+          model = this.model;
+
       evt.preventDefault();
-      this.model.save(this.getAttrs());
+      this.model.save(this.getAttrs(), {
+        success: function() {
+          app.hideNewPin();
+          router.navigate('/place/' + model.id, {trigger: true});
+        }
+      });
     }
   });
 
@@ -99,13 +126,6 @@ var Shareabouts = Shareabouts || {};
       }
     },
     focus: function() {
-      var map = this.map,
-          mapSize = this.map.getSize(),
-          pos = this.map.latLngToLayerPoint(this.latLng),
-          ratioX = 1/4; // percentage of map width between map center and focal point, hard coded bad
-
-      map.panTo(map.layerPointToLatLng( new L.Point(pos.x + ratioX * mapSize.x, pos.y) ));
-
       // TODO turn the icon red if not new
     },
     unfocus: function() {
