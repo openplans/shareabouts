@@ -1,6 +1,15 @@
 from django.contrib.gis.db import models
 
-class Place (models.Model):
+
+class TimeStampedModel (models.Model):
+    created_datetime = models.DateTimeField(auto_now_add=True)
+    updated_datetime = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Place (TimeStampedModel):
     name = models.CharField(max_length=256, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     location = models.PointField()
