@@ -308,6 +308,17 @@
                                       centerPoint.y - mapSize.y * this.offsetRatio.y);
         return map.layerPointToLatLng(offsetPoint);
       },
+      // The lat/lng of what should be the new center of the map when you need to
+      // "focus" a marker between the content panel and the left side of the screen.
+      getOffsetCenter: function(latLng) {
+        var map = this.mapView.map,
+            mapSize = map.getSize(),
+            pos = map.latLngToLayerPoint(latLng);
+
+        return map.layerPointToLatLng(
+          new L.Point(pos.x + this.offsetRatio.x * mapSize.x,
+                      pos.y + this.offsetRatio.y * mapSize.y) );
+      },
       onMapDragStart: function(evt) {
         this.$centerpoint.addClass('dragging');
       },
@@ -349,24 +360,22 @@
         this.collection.add(placeModel);
       },
       viewPlace: function(model) {
-        var placeDetailView = this.placeDetailViews[model.cid];
+        var map = this.mapView.map,
+            location = model.get('location'),
+            placeDetailView = this.placeDetailViews[model.cid];
+
         this.showPanel(placeDetailView);
+        map.panTo(this.getOffsetCenter(new L.LatLng(location.lat, location.lng)));
       },
       showPanel: function(view) {
         this.$panelContent.html(view.render().$el);
         this.$panel.show();
       },
       showNewPin: function() {
-        var map = this.mapView.map,
-            mapSize = map.getSize(),
-            point = map.getCenter(),
-            pos = map.latLngToLayerPoint(point),
-            ratioX = 0.2; // percentage of map width between map center and focal point, hard coded bad
+        var map = this.mapView.map;
 
         this.$centerpoint.addClass('newpin');
-        map.panTo(map.layerPointToLatLng(
-          new L.Point(pos.x + this.offsetRatio.x * mapSize.x,
-                      pos.y + this.offsetRatio.y * mapSize.y) ));
+        map.panTo(this.getOffsetCenter(map.getCenter()));
       },
       hideNewPin: function() {
         this.$centerpoint.removeClass('newpin');
