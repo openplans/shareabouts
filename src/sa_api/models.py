@@ -16,7 +16,8 @@ class Place (TimeStampedModel):
     visible = models.BooleanField(default=True)
     location_type = models.CharField(max_length=100)
 
-    # TODO: Add submitter information
+    submitter_name = models.CharField(max_length=256, null=True, blank=True)
+
     # TODO: Add reference to Votes
     # TODO: Add reference to comments
 
