@@ -228,6 +228,24 @@
 
   <script type="text/javascript">
 
+    Shareabouts.icons = {
+      normal: L.Icon.extend({
+        iconUrl: '{{ STATIC_URL }}sa/css/images/feature-point.png',
+        shadowUrl: null,
+        iconSize: new L.Point(17, 18),
+        iconAnchor: new L.Point(9, 9),
+        popupAnchor: new L.Point(9, 9)
+      }),
+      focused: L.Icon.extend({
+        iconUrl: '{{ STATIC_URL }}sa/css/images/marker-focused.png',
+        shadowUrl: '{{ STATIC_URL }}sa/css/images/marker-shadow.png',
+        iconSize: new L.Point(25, 41),
+        shadowSize: new L.Point(41, 41),
+        iconAnchor: new L.Point(12, 41),
+        popupAnchor: new L.Point(12, 6)
+      })
+    };
+
     Shareabouts.App = Backbone.Router.extend({
       routes: {
         'place/new': 'newPlace',
@@ -261,6 +279,9 @@
       editPlace: function(){}
     });
 
+
+
+
     Shareabouts.AppView = Backbone.View.extend({
       events: {
         'click #add-place': 'onClickAddPlaceBtn',
@@ -274,7 +295,11 @@
           center: {lat: 39.9523524, lng: -75.1636075},
           zoom: 14,
           collection: this.collection,
-          router: this.options.router
+          router: this.options.router,
+          icons: {
+            normal: new Shareabouts.icons.normal(),
+            focused: new Shareabouts.icons.focused()
+          }
         });
 
         // Panel!!!
@@ -364,17 +389,15 @@
             placeDetailView = this.placeDetailViews[model.cid];
 
         this.showPanel(placeDetailView);
+        this.hideNewPin();
         this.hideCenterPoint();
         map.panTo(this.getOffsetCenter(new L.LatLng(location.lat, location.lng)));
 
-        // Unfocus all of the markers
-        this.collection.each(function(m){
-          m.trigger('unfocus');
-        });
         // Focus the one we're looking
         model.trigger('focus');
       },
       showPanel: function(view) {
+        this.unfocusAllMarkers();
         this.$panelContent.html(view.render().$el);
         this.$panel.show();
       },
@@ -388,10 +411,19 @@
         this.$centerpoint.hide();
       },
       hidePanel: function() {
+        this.unfocusAllMarkers();
         this.$panel.hide();
       },
       hideNewPin: function() {
         this.$centerpoint.show().removeClass('newpin');
+      },
+      unfocusAllMarkers: function() {
+        // Unfocus all of the markers
+        this.collection.each(function(m){
+          if (!m.isNew()) {
+            m.trigger('unfocus');
+          }
+        });
       }
     });
 

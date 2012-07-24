@@ -63,14 +63,12 @@ var Shareabouts = Shareabouts || {};
       return attrs;
     },
     onSubmit: function(evt) {
-      var app = this.options.router.appView,
-          router = this.options.router,
+      var router = this.options.router,
           model = this.model;
 
       evt.preventDefault();
       this.model.save(this.getAttrs(), {
         success: function() {
-          app.hideNewPin();
           router.navigate('/place/' + model.id, {trigger: true});
         }
       });
@@ -99,7 +97,7 @@ var Shareabouts = Shareabouts || {};
       if (!this.model.isNew()) {
         location = this.model.get('location');
         this.latLng = new L.LatLng(location.lat, location.lng);
-        this.layer = new L.Marker(this.latLng);
+        this.layer = new L.Marker(this.latLng, {icon: this.options.icons.normal});
 
         // Focus on the marker onclick
         this.layer.on('click', this.onMarkerClick, this);
@@ -137,18 +135,18 @@ var Shareabouts = Shareabouts || {};
     },
     focus: function() {
       // TODO turn the icon red if not new
-      console.log('turn the icon red');
+      this.setIcon(this.options.icons.focused);
     },
     unfocus: function() {
       // TODO turn the icon blue
-      console.log('turn the icon blue');
+      this.setIcon(this.options.icons.normal);
     },
     destroy: function() {
       this.removeLayer();
       this.map.off('dragend', this.render, this);
     },
-    setIcon: function() {
-
+    setIcon: function(icon) {
+      this.layer.setIcon(icon);
     },
     show: function() {
       if (this.layer) {
@@ -201,7 +199,8 @@ var Shareabouts = Shareabouts || {};
         model: model,
         router: this.options.router,
         map: this.map,
-        placeLayers: this.placeLayers
+        placeLayers: this.placeLayers,
+        icons: this.options.icons
       });
     },
     removeLayerView: function(model) {
