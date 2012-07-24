@@ -294,7 +294,7 @@ a.add-place {
   z-index: 15;
   background-color: #00aaff;
   color: #f0f0f0;
-  padding: 0.75em 1em;
+  padding: 0.3em;
   font-size: 2em;
   font-weight: bold;
   text-align: center;
@@ -311,6 +311,11 @@ a.add-place:hover {
      -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
           border-radius: 0px;
+}
+
+/* keep iPhone from getting smart with the font sizes */
+.leaflet-control-attribution {
+  -webkit-text-size-adjust: none;
 }
 
 /* Center Point: crosshairs and new point icon */
@@ -705,11 +710,32 @@ ul.recent-points {
 -------------------------------------------------------------- */
 
 @media only screen and (min-width: 320px) {
+  a.add-place {
+    padding: 0.75em 1em;
+  }
 }
 @media only screen and (min-width: 480px) {
   a.add-place {
     padding: 0.6em 1em;
     right: auto;
+  }
+}
+@media only screen and (max-width: 480px) and (orientation: landscape) {
+  a.add-place {
+    float: right;
+    top: 8px;
+    right: 8px;
+    bottom: auto;
+    left: auto;
+    z-index: 15;
+    padding: 0.1em 0.4em 0.2em 0.4em;
+    font-size: 2em;
+  }
+  a.add-place span {
+    display: none;
+  }
+  a.add-place:before {
+    content: "+";
   }
 }
 @media only screen and (min-width: 768px) { /* menu is visible */
