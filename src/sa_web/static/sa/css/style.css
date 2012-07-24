@@ -350,7 +350,7 @@ a.add-place:hover {
   width: 18px;
   height: 12px;
   background: transparent url(images/marker-x.png) 0 0 no-repeat scroll;
-  left: 3px;
+  left: 4px;
   top: 37px;
   opacity: 0;
   -webkit-transition: opacity 0.25s;
@@ -418,7 +418,7 @@ a.add-place:hover {
 }
 #centerpoint.newpin:hover .marker,
 #centerpoint.newpin.dragging .marker {
-  top: -30px;
+  top: -20px;
 }
 
 /* Content */
