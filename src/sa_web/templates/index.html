@@ -219,7 +219,9 @@
   <script src="{{STATIC_URL}}libs/underscore-min.js"></script>
   <script src="{{STATIC_URL}}libs/backbone-min.js"></script>
   <script src="{{STATIC_URL}}libs/ICanHaz.min.js"></script>
+  <script src="{{STATIC_URL}}libs/moment.min.js"></script>
 
+  <script src="{{STATIC_URL}}sa/js/utils.js"></script>
   <script src="{{STATIC_URL}}sa/js/models.js"></script>
   <script src="{{STATIC_URL}}sa/js/views.js"></script>
 
@@ -227,6 +229,7 @@
   {% mustacheich "place-detail" %}
 
   <script type="text/javascript">
+    // moment.lang({{locale}});
 
     Shareabouts.icons = {
       normal: L.Icon.extend({
