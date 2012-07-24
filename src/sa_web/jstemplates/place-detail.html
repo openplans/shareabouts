@@ -6,9 +6,9 @@
             in {{ region }}
           {{/region}}
 
-          {{#created_datetime}}
-          <span class="comment-date">on {{ created_datetime }}</span>
-          {{/created_datetime}}
+          {{#pretty_created_datetime}}
+          <time datetime="{{ created_datetime }}" class="comment-date">{{ pretty_created_datetime }}</time>
+          {{/pretty_created_datetime}}
         </header>
 
         <section class="description">
