@@ -213,7 +213,6 @@ body {
   border: 1em solid #777;
   border-top: 0.5em solid #777;
   font-weight: bold;
-  font-size: 1.5em;
 	background: #555;
   text-align: center;
   float: left;
@@ -225,11 +224,8 @@ body {
 }
 #access li {
 	position: relative;
-	border-bottom: 1px solid #777;
-}
-#access li li {
-	border-top: 1px solid #777;
-	border-bottom: 0;
+	border-bottom: 2px solid #777;
+  font-size: 1.25em;
 }
 #access a {
 	display: block;
@@ -803,13 +799,12 @@ ul.recent-points {
     display: none;
   }
 
-  /* Dropdown Menu */
+  /* Page Menu */
   #nav-bttn {
     display: none;
   }
   #access {
     display: block;
-    font-size: 1em;
     background: transparent;
     text-align: left;
     width: auto;
@@ -817,42 +812,12 @@ ul.recent-points {
     border: 0;
   }
   #access li {
+    font-size: 1em;
     float: left;
     border: 0;
   }
-  #access ul ul {
-  	display: none;
-  	float: left;
-  	position: absolute;
-  	top: 3em;
-  	left: 0;
-  	z-index: 9999;
-       -moz-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
-    -webkit-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
-            box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
-  }
-  #access ul ul ul {
-  	left: 100%;
-  	top: -1px;
-  }
-  #access ul ul a {
-  	line-height: 2em;
-  	padding: .5em .5em .5em 1em;
-  	width: 12em;
-  	height: auto;
-  }
-  #access ul ul a,
-  #access li:hover > a,
-  #access ul ul :hover > a {
-  	background: #666;
-  	color: #fff;
-  }
-  #access li:hover > a:hover,
-  #access ul ul a:hover {
+  #access a:hover {
   	background: #00aaff;
-  }
-  #access ul li:hover > ul {
-  	display: block;
   }
 }
 @media only screen and (min-width: 1024px) { /* ticker is visible */
@@ -913,7 +878,7 @@ ul.recent-points {
   #site-title {
     font-size: 4.25em;
   }
-  #access {
+  #access li {
     font-size: 1.25em;
   }
   #user-menu {
