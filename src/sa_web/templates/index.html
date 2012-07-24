@@ -219,7 +219,9 @@
   <script src="{{STATIC_URL}}libs/underscore-min.js"></script>
   <script src="{{STATIC_URL}}libs/backbone-min.js"></script>
   <script src="{{STATIC_URL}}libs/ICanHaz.min.js"></script>
+  <script src="{{STATIC_URL}}libs/moment.min.js"></script>
 
+  <script src="{{STATIC_URL}}sa/js/utils.js"></script>
   <script src="{{STATIC_URL}}sa/js/models.js"></script>
   <script src="{{STATIC_URL}}sa/js/views.js"></script>
 
@@ -227,6 +229,7 @@
   {% mustacheich "place-detail" %}
 
   <script type="text/javascript">
+    // moment.lang({{locale}});
 
     Shareabouts.icons = {
       normal: L.Icon.extend({
@@ -261,10 +264,9 @@
           router: this
         });
 
-        // Add to the collection instead of clobbering, in case we started on
-        // the /places/new route, which would mean we already have a(n unsaved)
-        // model in the collection.
-        this.collection.fetch({add: true});
+        // Call reset after the views are created, since they're all going to
+        // be listening to reset.
+        this.collection.reset({{ places_json|safe }});
       },
 
       newPlace: function() {
@@ -290,7 +292,7 @@
       initialize: function(){
         this.collection.on('add', this.onAddPlace, this);
         this.collection.on('remove', this.onRemovePlace, this);
-
+        this.collection.on('reset', this.onResetPlaces, this);
 
         this.mapView = new Shareabouts.MapView({
           el: '#map',
@@ -389,6 +391,12 @@
         delete this.placeFormViews[model.cid];
         delete this.placeDetailViews[model.cid];
       },
+      onResetPlaces: function(collection) {
+        var self = this;
+        collection.each(function(model) {
+          self.onAddPlace(model);
+        });
+      },
       newPlace: function() {
         var placeModel = new Backbone.Model();
         this.collection.add(placeModel);
@@ -442,6 +450,9 @@
             m.destroy();
           }
         });
+      },
+      render: function() {
+        this.mapView.render();
       }
     });
 

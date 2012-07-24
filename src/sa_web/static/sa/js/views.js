@@ -13,7 +13,13 @@ var Shareabouts = Shareabouts || {};
     },
 
     render: function() {
-      this.$el.html(ich['place-detail'](this.model.toJSON()));
+      var data = _.extend({
+        pretty_created_datetime: function() {
+          return S.Util.getPrettyDateTime(this.created_datetime);
+        }
+      }, this.model.toJSON());
+
+      this.$el.html(ich['place-detail'](data));
       return this;
     },
 
@@ -136,8 +142,6 @@ var Shareabouts = Shareabouts || {};
           this.hide();
         }
       }
-
-      console.log('render');
     },
     onMarkerClick: function() {
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
