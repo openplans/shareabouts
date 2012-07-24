@@ -16,6 +16,6 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^$', views.index, name='index'),
     url(r'^api/(.*)$', views.api, name='api_proxy'),
+    url(r'^', views.index, name='index'),
 )
