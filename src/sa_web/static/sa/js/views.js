@@ -102,7 +102,7 @@ var Shareabouts = Shareabouts || {};
         this.layer = new L.Marker(this.latLng);
 
         // Focus on the marker onclick
-        this.layer.on('click', this.focus, this);
+        this.layer.on('click', this.onMarkerClick, this);
 
         this.render();
       }
@@ -113,7 +113,7 @@ var Shareabouts = Shareabouts || {};
         this.layer.setLatLng(new L.LatLng(this.model.get('location').lat,
                                           this.model.get('location').lng));
       }
-      this.render();
+      this.initLayer();
     },
     removeLayer: function() {
       if (this.layer) {
@@ -132,12 +132,16 @@ var Shareabouts = Shareabouts || {};
         }
       }
     },
+    onMarkerClick: function() {
+      this.options.router.navigate('/place/' + this.model.id, {trigger: true});
+    },
     focus: function() {
       // TODO turn the icon red if not new
-      this.options.router.navigate('/place/' + this.model.id, {trigger: true});
+      console.log('turn the icon red');
     },
     unfocus: function() {
       // TODO turn the icon blue
+      console.log('turn the icon blue');
     },
     destroy: function() {
       this.removeLayer();

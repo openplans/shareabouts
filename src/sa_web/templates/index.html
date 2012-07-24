@@ -283,15 +283,14 @@
         this.$panelCloseBtn = $('.close-bttn');
         this.$centerpoint = $('#centerpoint');
 
-        this.mapView.map.on('dragstart', this.onMapDragStart, this);
-        this.mapView.map.on('dragend', this.onMapDragEnd, this);
+        this.mapView.map.on('movestart', this.onMapMoveStart, this);
+        this.mapView.map.on('moveend', this.onMapMoveEnd, this);
 
         this.offsetRatio = {x: 0.2, y: 0.0};
 
         this.placeFormViews = {};
         this.placeDetailViews = {};
       },
-      render: function(){},
       getCenter: function() {
         if (this.$panel.is(':visible')) {
             return this.getFocusedCenter();
@@ -319,10 +318,10 @@
           new L.Point(pos.x + this.offsetRatio.x * mapSize.x,
                       pos.y + this.offsetRatio.y * mapSize.y) );
       },
-      onMapDragStart: function(evt) {
+      onMapMoveStart: function(evt) {
         this.$centerpoint.addClass('dragging');
       },
-      onMapDragEnd: function(evt) {
+      onMapMoveEnd: function(evt) {
         this.$centerpoint.removeClass('dragging');
       },
       onClickAddPlaceBtn: function(evt) {
@@ -365,7 +364,15 @@
             placeDetailView = this.placeDetailViews[model.cid];
 
         this.showPanel(placeDetailView);
+        this.hideCenterPoint();
         map.panTo(this.getOffsetCenter(new L.LatLng(location.lat, location.lng)));
+
+        // Unfocus all of the markers
+        this.collection.each(function(m){
+          m.trigger('unfocus');
+        });
+        // Focus the one we're looking
+        model.trigger('focus');
       },
       showPanel: function(view) {
         this.$panelContent.html(view.render().$el);
@@ -374,14 +381,17 @@
       showNewPin: function() {
         var map = this.mapView.map;
 
-        this.$centerpoint.addClass('newpin');
+        this.$centerpoint.show().addClass('newpin');
         map.panTo(this.getOffsetCenter(map.getCenter()));
       },
-      hideNewPin: function() {
-        this.$centerpoint.removeClass('newpin');
+      hideCenterPoint: function() {
+        this.$centerpoint.hide();
       },
       hidePanel: function() {
         this.$panel.hide();
+      },
+      hideNewPin: function() {
+        this.$centerpoint.show().removeClass('newpin');
       }
     });
 
@@ -398,7 +408,7 @@
         });
 
         window.app = new Shareabouts.App();
-        Backbone.history.start();
+        Backbone.history.start({pushState: true});
       });
     });
   </script>
