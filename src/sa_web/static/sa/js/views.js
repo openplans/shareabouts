@@ -136,8 +136,6 @@ var Shareabouts = Shareabouts || {};
           this.hide();
         }
       }
-
-      console.log('render');
     },
     onMarkerClick: function() {
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
