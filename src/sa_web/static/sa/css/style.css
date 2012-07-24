@@ -294,7 +294,7 @@ a.add-place {
   z-index: 15;
   background-color: #00aaff;
   color: #f0f0f0;
-  padding: 0.75em 1em;
+  padding: 0.3em;
   font-size: 2em;
   font-weight: bold;
   text-align: center;
@@ -311,6 +311,11 @@ a.add-place:hover {
      -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
           border-radius: 0px;
+}
+
+/* keep iPhone from getting smart with the font sizes */
+.leaflet-control-attribution {
+  -webkit-text-size-adjust: none;
 }
 
 /* Center Point: crosshairs and new point icon */
@@ -350,7 +355,7 @@ a.add-place:hover {
   width: 18px;
   height: 12px;
   background: transparent url(images/marker-x.png) 0 0 no-repeat scroll;
-  left: 3px;
+  left: 4px;
   top: 37px;
   opacity: 0;
   -webkit-transition: opacity 0.25s;
@@ -418,7 +423,7 @@ a.add-place:hover {
 }
 #centerpoint.newpin:hover .marker,
 #centerpoint.newpin.dragging .marker {
-  top: -30px;
+  top: -20px;
 }
 
 /* Content */
@@ -705,11 +710,32 @@ ul.recent-points {
 -------------------------------------------------------------- */
 
 @media only screen and (min-width: 320px) {
+  a.add-place {
+    padding: 0.75em 1em;
+  }
 }
 @media only screen and (min-width: 480px) {
   a.add-place {
     padding: 0.6em 1em;
     right: auto;
+  }
+}
+@media only screen and (max-width: 480px) and (orientation: landscape) {
+  a.add-place {
+    float: right;
+    top: 8px;
+    right: 8px;
+    bottom: auto;
+    left: auto;
+    z-index: 15;
+    padding: 0.1em 0.4em 0.2em 0.4em;
+    font-size: 2em;
+  }
+  a.add-place span {
+    display: none;
+  }
+  a.add-place:before {
+    content: "+";
   }
 }
 @media only screen and (min-width: 768px) { /* menu is visible */
