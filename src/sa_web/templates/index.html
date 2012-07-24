@@ -261,10 +261,9 @@
           router: this
         });
 
-        // Add to the collection instead of clobbering, in case we started on
-        // the /places/new route, which would mean we already have a(n unsaved)
-        // model in the collection.
-        this.collection.fetch({add: true});
+        // Call reset after the views are created, since they're all going to
+        // be listening to reset.
+        this.collection.reset({{ places_json|safe }});
       },
 
       newPlace: function() {
@@ -290,7 +289,7 @@
       initialize: function(){
         this.collection.on('add', this.onAddPlace, this);
         this.collection.on('remove', this.onRemovePlace, this);
-
+        this.collection.on('reset', this.onResetPlaces, this);
 
         this.mapView = new Shareabouts.MapView({
           el: '#map',
@@ -389,6 +388,12 @@
         delete this.placeFormViews[model.cid];
         delete this.placeDetailViews[model.cid];
       },
+      onResetPlaces: function(collection) {
+        var self = this;
+        collection.each(function(model) {
+          self.onAddPlace(model);
+        });
+      },
       newPlace: function() {
         var placeModel = new Backbone.Model();
         this.collection.add(placeModel);
@@ -442,6 +447,9 @@
             m.destroy();
           }
         });
+      },
+      render: function() {
+        this.mapView.render();
       }
     });
 
