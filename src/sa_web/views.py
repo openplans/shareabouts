@@ -7,22 +7,22 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from proxy.views import proxy_view
 
 
+class ShareaboutsApi (object):
+    def __init__(self, root=settings.SHAREABOUTS_API_ROOT):
+        self.root = root
+
+    def get(self, path, default=None):
+        res = requests.get(self.root + path)
+        return (res.text if res.status_code == 200 else default)
+
+
 @ensure_csrf_cookie
 def index(request):
     # Bootstrapping initial data.
-    apiroot = settings.SHAREABOUTS_API_ROOT
+    api = ShareaboutsApi()
+    places_json = api.get('places/?format=json', u'[]')
 
-    places_res = requests.get(apiroot + 'places/',
-                              headers={'Accepts':'application/json'})
-    if places_res.status_code == 200:
-        places_json = places_res.text
-    else:
-        import pdb; pdb.set_trace()
-        places_json = u'[]'
-
-    context = {
-        'places_json': places_json
-    }
+    context = {'places_json': places_json}
     return render(request, 'index.html', context)
 
 
