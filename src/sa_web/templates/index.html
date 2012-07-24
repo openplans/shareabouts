@@ -289,6 +289,8 @@
       },
       initialize: function(){
         this.collection.on('add', this.onAddPlace, this);
+        this.collection.on('remove', this.onRemovePlace, this);
+
 
         this.mapView = new Shareabouts.MapView({
           el: '#map',
@@ -357,6 +359,7 @@
         evt.preventDefault();
         this.hidePanel();
         this.hideNewPin();
+        this.destroyNewModels();
         this.options.router.navigate('/');
       },
       onAddPlace: function(model) {
@@ -379,6 +382,13 @@
           this.showNewPin();
         }
       },
+      onRemovePlace: function(model) {
+        this.placeFormViews[model.cid].remove();
+        this.placeDetailViews[model.cid].remove();
+
+        delete this.placeFormViews[model.cid];
+        delete this.placeDetailViews[model.cid];
+      },
       newPlace: function() {
         var placeModel = new Backbone.Model();
         this.collection.add(placeModel);
@@ -390,6 +400,7 @@
 
         this.showPanel(placeDetailView);
         this.hideNewPin();
+        this.destroyNewModels();
         this.hideCenterPoint();
         map.panTo(this.getOffsetCenter(new L.LatLng(location.lat, location.lng)));
 
@@ -422,6 +433,13 @@
         this.collection.each(function(m){
           if (!m.isNew()) {
             m.trigger('unfocus');
+          }
+        });
+      },
+      destroyNewModels: function() {
+        this.collection.each(function(m){
+          if (m.isNew()) {
+            m.destroy();
           }
         });
       }

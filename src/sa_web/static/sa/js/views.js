@@ -17,6 +17,10 @@ var Shareabouts = Shareabouts || {};
       return this;
     },
 
+    remove: function() {
+      // Nothing yet
+    },
+
     onChange: function() {
       this.render();
     }
@@ -37,6 +41,9 @@ var Shareabouts = Shareabouts || {};
     render: function(){
       this.$el.html(ich['place-form'](this.model.toJSON()));
       return this;
+    },
+    remove: function() {
+      this.unbind();
     },
     onChange: function() {
       this.render();
@@ -86,9 +93,8 @@ var Shareabouts = Shareabouts || {};
       this.model.on('change', this.updateLayer, this);
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
-      this.model.on('destroy', this.destroy, this);
 
-      this.map.on('dragend', this.render, this);
+      this.map.on('moveend', this.render, this);
 
       this.initLayer();
     },
@@ -141,9 +147,9 @@ var Shareabouts = Shareabouts || {};
       // TODO turn the icon blue
       this.setIcon(this.options.icons.normal);
     },
-    destroy: function() {
+    remove: function() {
       this.removeLayer();
-      this.map.off('dragend', this.render, this);
+      this.map.off('moveend', this.render, this);
     },
     setIcon: function(icon) {
       this.layer.setIcon(icon);
@@ -204,6 +210,7 @@ var Shareabouts = Shareabouts || {};
       });
     },
     removeLayerView: function(model) {
+      this.layerViews[model.cid].remove();
       delete this.layerViews[model.cid];
     }
   });
