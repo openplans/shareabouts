@@ -89,12 +89,13 @@ var Shareabouts = Shareabouts || {};
 
     initialize: function(){
       this.map = this.options.map;
+      this.throttledRender = _.throttle(this.render, 300);
 
       this.model.on('change', this.updateLayer, this);
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
 
-      this.map.on('moveend', this.render, this);
+      this.map.on('move', this.throttledRender, this);
 
       this.initLayer();
     },
@@ -135,6 +136,8 @@ var Shareabouts = Shareabouts || {};
           this.hide();
         }
       }
+
+      console.log('render');
     },
     onMarkerClick: function() {
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
@@ -149,7 +152,7 @@ var Shareabouts = Shareabouts || {};
     },
     remove: function() {
       this.removeLayer();
-      this.map.off('moveend', this.render, this);
+      this.map.off('move', this.throttledRender, this);
     },
     setIcon: function(icon) {
       this.layer.setIcon(icon);
