@@ -5,6 +5,10 @@ var Shareabouts = Shareabouts || {};
     url: '/api/places/'
   });
 
+  S.ActivityCollection = Backbone.Collection.extend({
+    url: '/api/activity/'
+  })
+
 })(Shareabouts, jQuery);
 
 

@@ -221,4 +221,92 @@ var Shareabouts = Shareabouts || {};
       delete this.layerViews[model.cid];
     }
   });
+  S.ActivityListView = Backbone.View.extend({
+    initialize: function() {
+      this.activityViews = [];
+
+      this.collection.on('add', this.onAddActivity, this);
+      this.collection.on('reset', this.onResetActivities, this);
+
+      this.checkForNewActivity();
+    },
+
+    checkForNewActivity: function() {
+      // Search only for things after that latest time.
+      if (this.latest_activity_time) {
+        this.collection.fetch({
+          data: {after: this.latest_activity_time},
+          add: true
+        });
+      }
+
+      console.log('calling again')
+      _.delay(_.bind(this.checkForNewActivity, this), 1000);
+    },
+
+    onAddActivity: function(model) {
+      this.addActivityView(model);
+
+      if (this.latest_activity_time < model.get('created_datetime')) {
+        this.latest_activity_time = model.get('created_datetime');
+      }
+
+      // TODO Only do the following if the activity instance is a place.
+      this.options.places.add(model.attributes);
+      console.log('added')
+    },
+
+    onResetActivities: function(collection) {
+      this.clearActivityViews();
+
+      if (collection.length) {
+        this.latest_activity_time = collection.at(0).get('created_datetime');
+
+        // The time string sent from the server will have 3 decimal places on
+        // the seconds, but the times in the database may be stored with more
+        // precision.  Just to make sure we're actually getting only things
+        // after the last activity, add one to the thousandths-seconds place.
+        var lowest_digit = this.latest_activity_time[22];
+        this.latest_activity_time =
+          this.latest_activity_time.substr(0, 22) +
+          (lowest_digit + 1) +
+          this.latest_activity_time.substr(23);
+      } else {
+        this.latest_activity_time = Date(1900, 0, 0, 0, 0, 0, 0);
+      }
+
+      this.render();
+    },
+
+    addActivityView: function(model) {
+        var activityView = new S.ActivityView({model: model});
+        this.activityViews[model.cid] = activityView;
+        this.$el.append(activityView.render().$el);
+    },
+
+    clearActivityViews: function() {
+      _.each(this.activityViews, function(activityView) {
+        activityView.remove();
+      });
+      this.activityViews = [];
+    },
+
+    render: function(){
+      var self = this;
+
+      self.$el.html(ich['activity-list']());
+      self.collection.each(function(model) {
+        self.addActivityView(model);
+      });
+      return self;
+    }
+  });
+  S.ActivityView = Backbone.View.extend({
+    initialize: function() {},
+
+    render: function() {
+      this.$el.html(ich['activity-list-item'](this.model.toJSON()));
+      return this;
+    }
+  });
 })(Shareabouts, jQuery);

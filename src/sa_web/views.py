@@ -12,7 +12,8 @@ class ShareaboutsApi (object):
         self.root = root
 
     def get(self, path, default=None):
-        res = requests.get(self.root + path)
+        res = requests.get(self.root + path,
+                           headers={'Accept': 'application/json'})
         return (res.text if res.status_code == 200 else default)
 
 
@@ -20,9 +21,13 @@ class ShareaboutsApi (object):
 def index(request):
     # Bootstrapping initial data.
     api = ShareaboutsApi()
-    places_json = api.get('places/?format=json', u'[]')
 
-    context = {'places_json': places_json}
+    # TODO These requests should be done asynchronously (in parallel).
+    places_json = api.get('places/', u'[]')
+    activity_json = api.get('activity/?limit=10', u'[]')
+
+    context = {'places_json': places_json,
+               'activity_json': activity_json}
     return render(request, 'index.html', context)
 
 
