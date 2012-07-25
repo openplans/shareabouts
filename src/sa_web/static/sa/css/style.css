@@ -213,7 +213,6 @@ body {
   border: 1em solid #777;
   border-top: 0.5em solid #777;
   font-weight: bold;
-  font-size: 1.5em;
 	background: #555;
   text-align: center;
   float: left;
@@ -225,11 +224,8 @@ body {
 }
 #access li {
 	position: relative;
-	border-bottom: 1px solid #777;
-}
-#access li li {
-	border-top: 1px solid #777;
-	border-bottom: 0;
+	border-bottom: 2px solid #777;
+  font-size: 1.25em;
 }
 #access a {
 	display: block;
@@ -294,7 +290,7 @@ a.add-place {
   z-index: 15;
   background-color: #00aaff;
   color: #f0f0f0;
-  padding: 0.75em 1em;
+  padding: 0.3em;
   font-size: 2em;
   font-weight: bold;
   text-align: center;
@@ -311,6 +307,11 @@ a.add-place:hover {
      -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
           border-radius: 0px;
+}
+
+/* keep iPhone from getting smart with the font sizes */
+.leaflet-control-attribution {
+  -webkit-text-size-adjust: none;
 }
 
 /* Center Point: crosshairs and new point icon */
@@ -350,7 +351,7 @@ a.add-place:hover {
   width: 18px;
   height: 12px;
   background: transparent url(images/marker-x.png) 0 0 no-repeat scroll;
-  left: 3px;
+  left: 4px;
   top: 37px;
   opacity: 0;
   -webkit-transition: opacity 0.25s;
@@ -418,7 +419,7 @@ a.add-place:hover {
 }
 #centerpoint.newpin:hover .marker,
 #centerpoint.newpin.dragging .marker {
-  top: -30px;
+  top: -20px;
 }
 
 /* Content */
@@ -705,11 +706,32 @@ ul.recent-points {
 -------------------------------------------------------------- */
 
 @media only screen and (min-width: 320px) {
+  a.add-place {
+    padding: 0.75em 1em;
+  }
 }
 @media only screen and (min-width: 480px) {
   a.add-place {
     padding: 0.6em 1em;
     right: auto;
+  }
+}
+@media only screen and (max-width: 480px) and (orientation: landscape) {
+  a.add-place {
+    float: right;
+    top: 8px;
+    right: 8px;
+    bottom: auto;
+    left: auto;
+    z-index: 15;
+    padding: 0.1em 0.4em 0.2em 0.4em;
+    font-size: 2em;
+  }
+  a.add-place span {
+    display: none;
+  }
+  a.add-place:before {
+    content: "+";
   }
 }
 @media only screen and (min-width: 768px) { /* menu is visible */
@@ -777,13 +799,12 @@ ul.recent-points {
     display: none;
   }
 
-  /* Dropdown Menu */
+  /* Page Menu */
   #nav-bttn {
     display: none;
   }
   #access {
     display: block;
-    font-size: 1em;
     background: transparent;
     text-align: left;
     width: auto;
@@ -791,42 +812,12 @@ ul.recent-points {
     border: 0;
   }
   #access li {
+    font-size: 1em;
     float: left;
     border: 0;
   }
-  #access ul ul {
-  	display: none;
-  	float: left;
-  	position: absolute;
-  	top: 3em;
-  	left: 0;
-  	z-index: 9999;
-       -moz-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
-    -webkit-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
-            box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
-  }
-  #access ul ul ul {
-  	left: 100%;
-  	top: -1px;
-  }
-  #access ul ul a {
-  	line-height: 2em;
-  	padding: .5em .5em .5em 1em;
-  	width: 12em;
-  	height: auto;
-  }
-  #access ul ul a,
-  #access li:hover > a,
-  #access ul ul :hover > a {
-  	background: #666;
-  	color: #fff;
-  }
-  #access li:hover > a:hover,
-  #access ul ul a:hover {
+  #access a:hover {
   	background: #00aaff;
-  }
-  #access ul li:hover > ul {
-  	display: block;
   }
 }
 @media only screen and (min-width: 1024px) { /* ticker is visible */
@@ -887,7 +878,7 @@ ul.recent-points {
   #site-title {
     font-size: 4.25em;
   }
-  #access {
+  #access li {
     font-size: 1.25em;
   }
   #user-menu {

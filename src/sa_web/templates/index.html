@@ -49,7 +49,7 @@
   <div role="main" id="main">
     <div id="map-container">
       <div id="map"></div>
-      <a href="#" id="add-place" class="add-place">Add Location</a><!-- FIXME: toggling content should inversely toggle this button via .visuallyhidden -->
+      <a href="#" id="add-place" class="add-place"><span>Add Location</span></a>
       <span id="centerpoint"><span class="shadow"></span><span class="x"></span><span class="marker"></span></span>
     </div>
 
@@ -209,6 +209,8 @@
 
   {% mustacheich "place-form" %}
   {% mustacheich "place-detail" %}
+  {% mustacheich "activity-list" %}
+  {% mustacheich "activity-list-item" %}
 
   <script type="text/javascript">
     // moment.lang({{locale}});
@@ -240,15 +242,18 @@
 
       initialize: function() {
         this.collection = new Shareabouts.PlaceCollection();
+        this.activities = new Shareabouts.ActivityCollection();
         this.appView = new Shareabouts.AppView({
           el: 'body',
           collection: this.collection,
+          activities: this.activities,
           router: this
         });
 
         // Call reset after the views are created, since they're all going to
         // be listening to reset.
         this.collection.reset({{ places_json|safe }});
+        this.activities.reset({{ activity_json|safe }});
       },
 
       newPlace: function() {
@@ -272,6 +277,9 @@
         'click .close-bttn': 'onClickClosePanelBtn'
       },
       initialize: function(){
+        this.activities = this.options.activities;
+        this.places = this.collection;
+
         this.collection.on('add', this.onAddPlace, this);
         this.collection.on('remove', this.onRemovePlace, this);
         this.collection.on('reset', this.onResetPlaces, this);
@@ -286,6 +294,11 @@
             normal: new Shareabouts.icons.normal(),
             focused: new Shareabouts.icons.focused()
           }
+        });
+
+        this.activityListView = new Shareabouts.ActivityListView({
+          collection: this.activities,
+          places: this.places
         });
 
         // Panel!!!
