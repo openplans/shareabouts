@@ -9,6 +9,7 @@ south
 
 # REST API
 djangorestframework
+markdown
 
 # Testing, validating, and debugging
 nose
