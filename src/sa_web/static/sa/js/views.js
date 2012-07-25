@@ -221,9 +221,19 @@ var Shareabouts = Shareabouts || {};
       delete this.layerViews[model.cid];
     }
   });
+
+
   S.ActivityListView = Backbone.View.extend({
     initialize: function() {
+      var self = this;
       this.activityViews = [];
+
+      this.interval = this.options.interval || 5000;
+
+      this.$el.delegate('a', 'click', function(evt){
+        evt.preventDefault();
+        self.options.router.navigate(this.getAttribute('href'), {trigger: true});
+      });
 
       this.collection.on('add', this.onAddActivity, this);
       this.collection.on('reset', this.onResetActivities, this);
@@ -236,29 +246,26 @@ var Shareabouts = Shareabouts || {};
       if (this.latest_activity_time) {
         this.collection.fetch({
           data: {after: this.latest_activity_time},
-          add: true
+          add: true,
+          at: 0
         });
       }
 
-      console.log('calling again')
-      _.delay(_.bind(this.checkForNewActivity, this), 1000);
+      _.delay(_.bind(this.checkForNewActivity, this), this.interval);
     },
 
-    onAddActivity: function(model) {
-      this.addActivityView(model);
+    onAddActivity: function(model, collection, options) {
+      this.renderActivity(model, options.index);
 
       if (this.latest_activity_time < model.get('created_datetime')) {
         this.latest_activity_time = model.get('created_datetime');
       }
 
       // TODO Only do the following if the activity instance is a place.
-      this.options.places.add(model.attributes);
-      console.log('added')
+      this.options.places.add(model.toJSON());
     },
 
     onResetActivities: function(collection) {
-      this.clearActivityViews();
-
       if (collection.length) {
         this.latest_activity_time = collection.at(0).get('created_datetime');
 
@@ -278,35 +285,23 @@ var Shareabouts = Shareabouts || {};
       this.render();
     },
 
-    addActivityView: function(model) {
-        var activityView = new S.ActivityView({model: model});
-        this.activityViews[model.cid] = activityView;
-        this.$el.append(activityView.render().$el);
-    },
-
-    clearActivityViews: function() {
-      _.each(this.activityViews, function(activityView) {
-        activityView.remove();
-      });
-      this.activityViews = [];
+    renderActivity: function(model, index) {
+      var template = ich['activity-list-item'](model.toJSON());
+      if (index >= this.$el.children().length) {
+        this.$el.append(template);
+      } else {
+        this.$el.find('.activity-item:nth-child('+index+1+')').before(template);
+      }
     },
 
     render: function(){
       var self = this;
 
-      self.$el.html(ich['activity-list']());
+      self.$el.empty();
       self.collection.each(function(model) {
-        self.addActivityView(model);
+        self.renderActivity(model, self.collection.length);
       });
       return self;
-    }
-  });
-  S.ActivityView = Backbone.View.extend({
-    initialize: function() {},
-
-    render: function() {
-      this.$el.html(ich['activity-list-item'](this.model.toJSON()));
-      return this;
     }
   });
 })(Shareabouts, jQuery);

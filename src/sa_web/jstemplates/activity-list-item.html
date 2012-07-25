@@ -1,5 +1,5 @@
-      <li class="clearfix" data-id="137" data-feature-id="68">
-        <img class="avatar" src="{{ STATIC_URL }}sa/css/images/user-28.png" />
+      <li class="activity-item clearfix">
+        <img class="avatar" src="{{ static_url }}sa/css/images/user.png" />
         <span class="badge add"></span><!-- .add, .vote, or .comment -->
-        <a href="#"><strong>Username</strong> added a point in Manhattan</a>
+        <a href="/place/{{ id }}"><strong>{{ submitter_name }}</strong> added a place {{#region}} in {{ region }}{{/region}}</a>
       </li>
