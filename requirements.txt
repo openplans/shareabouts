@@ -10,6 +10,7 @@ south
 # REST API
 djangorestframework
 markdown
+python-dateutil
 
 # Testing, validating, and debugging
 nose
