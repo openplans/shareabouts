@@ -281,7 +281,7 @@ var Shareabouts = Shareabouts || {};
       this.renderActivity(model, options.index);
 
       // TODO Only do the following if the activity instance is a place.
-      this.options.places.add(model.toJSON());
+      this.options.places.add(model.get('data'));
     },
 
     onResetActivities: function(collection) {
