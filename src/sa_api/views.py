@@ -11,9 +11,17 @@ from . import forms
 
 
 class CachedMixin (object):
+    @property
+    def cache_prefix(self):
+        return self.__class__.__name__.lower()
+
     def dispatch(self, request, *args, **kwargs):
+        # Only do the cache for GET method.
+        if request.method.lower() != 'get':
+            return super(CachedMixin, self).dispatch(request, *args, **kwargs)
+
         # Check whether the response data is in the cache.
-        key = ''.join([self.__class__.__name__,
+        key = ''.join([self.cache_prefix,
                        request.META['QUERY_STRING'],
                        request.META['HTTP_ACCEPT']])
         response_data = cache.get(key)
@@ -26,6 +34,7 @@ class CachedMixin (object):
             return response
 
     def respond_from_cache(self, cached_data):
+        # Given some cached data, construct a response.
         content, status, headers = cached_data
         response = HttpResponse(content,
                                 status=status)
@@ -35,16 +44,23 @@ class CachedMixin (object):
         return response
 
     def cache_response(self, key, response):
+        # Cache enough info to recreate the response.
         content = response.content
         status = response.status_code
         headers = response.items()
         cache.set(key, (content, status, headers))
 
+        # Also, add the key to the set of pages cached from this view.
+        keys = cache.get(self.cache_prefix + '_keys') or set()
+        keys.add(key)
+        cache.set(self.cache_prefix + '_keys', keys)
 
-class PlaceCollectionView (views.ListOrCreateModelView):
+
+class PlaceCollectionView (CachedMixin, views.ListOrCreateModelView):
     # TODO: Decide whether pagination is appropriate/necessary.
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
+    cache_prefix = 'place_collection'
 
 class PlaceInstanceView (views.InstanceModelView):
     resource = resources.PlaceResource
@@ -76,6 +92,7 @@ class ActivityView (CachedMixin, views.View):
         /activity/?earliest=<last_known_datetime>
     """
     resource = resources.ActivityResource
+    cache_prefix = 'activity'
 
     def get_queryset(self, query_params):
         """

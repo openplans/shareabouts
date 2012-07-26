@@ -1,5 +1,5 @@
 from django.contrib.gis.db import models
-
+from django.core.cache import cache
 
 class TimeStampedModel (models.Model):
     created_datetime = models.DateTimeField(auto_now_add=True)
@@ -22,3 +22,14 @@ class Place (TimeStampedModel):
     # TODO: Add reference to comments
 
     objects = models.GeoManager()
+
+    def save(self, *args, **kwargs):
+        keys = cache.get('place_collection_keys') or set()
+        keys.add('place_collection_keys')
+        cache.delete_many(keys)
+
+        keys = cache.get('activity_keys') or set()
+        keys.add('activity_keys')
+        cache.delete_many(keys)
+
+        super(Place, self).save(*args, **kwargs)
