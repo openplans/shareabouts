@@ -226,14 +226,19 @@ var Shareabouts = Shareabouts || {};
   S.ActivityListView = Backbone.View.extend({
     initialize: function() {
       var self = this;
-      this.activityViews = [];
 
+      this.activityViews = [];
+      this.$container = this.$el.parent();
       this.interval = this.options.interval || 5000;
+      this.infiniteScrollBuffer = this.options.infiniteScrollBuffer || 25;
+      this.debouncedOnScroll = _.debounce(this.onScroll, 600);
 
       this.$el.delegate('a', 'click', function(evt){
         evt.preventDefault();
         self.options.router.navigate(this.getAttribute('href'), {trigger: true});
       });
+
+      this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
       this.collection.on('add', this.onAddActivity, this);
       this.collection.on('reset', this.onResetActivities, this);
@@ -242,10 +247,10 @@ var Shareabouts = Shareabouts || {};
     },
 
     checkForNewActivity: function() {
-      // Search only for things after that latest time.
-      if (this.latest_activity_time) {
+      // Only get new activity where id is greater than the newest id
+      if (this.collection.size() > 0) {
         this.collection.fetch({
-          data: {after: this.latest_activity_time},
+          data: {after: this.collection.first().get('id')},
           add: true,
           at: 0
         });
@@ -254,34 +259,32 @@ var Shareabouts = Shareabouts || {};
       _.delay(_.bind(this.checkForNewActivity, this), this.interval);
     },
 
+    onScroll: function(evt) {
+      var self = this,
+          notFetchingDelay = 500,
+          notFetching = function() { self.fetching = false; },
+          shouldFetch = (this.$el.height() - this.$container.height() <=
+                        this.$container.scrollTop() + this.infiniteScrollBuffer);
+
+      if (shouldFetch && !self.fetching) {
+        self.fetching = true;
+        this.collection.fetch({
+          data: {before: this.collection.last().get('id'), limit: 10},
+          add: true,
+          success: function() { _.delay(notFetching, notFetchingDelay); },
+          error: function() {_.delay(notFetching, notFetchingDelay); }
+        });
+      }
+    },
+
     onAddActivity: function(model, collection, options) {
       this.renderActivity(model, options.index);
-
-      if (this.latest_activity_time < model.get('created_datetime')) {
-        this.latest_activity_time = model.get('created_datetime');
-      }
 
       // TODO Only do the following if the activity instance is a place.
       this.options.places.add(model.toJSON());
     },
 
     onResetActivities: function(collection) {
-      if (collection.length) {
-        this.latest_activity_time = collection.at(0).get('created_datetime');
-
-        // The time string sent from the server will have 3 decimal places on
-        // the seconds, but the times in the database may be stored with more
-        // precision.  Just to make sure we're actually getting only things
-        // after the last activity, add one to the thousandths-seconds place.
-        var lowest_digit = this.latest_activity_time[22];
-        this.latest_activity_time =
-          this.latest_activity_time.substr(0, 22) +
-          (lowest_digit + 1) +
-          this.latest_activity_time.substr(23);
-      } else {
-        this.latest_activity_time = Date(1900, 0, 0, 0, 0, 0, 0);
-      }
-
       this.render();
     },
 

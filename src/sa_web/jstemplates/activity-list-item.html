@@ -1,5 +1,5 @@
       <li class="activity-item clearfix">
         <img class="avatar" src="{{ static_url }}sa/css/images/user.png" />
         <span class="badge add"></span><!-- .add, .vote, or .comment -->
-        <a href="/place/{{ id }}"><strong>{{ submitter_name }}</strong> added a place {{#region}} in {{ region }}{{/region}}</a>
+        <a href="/place/{{ place_id }}"><strong>{{ data.submitter_name }}</strong> added a place {{#data.region}} in {{ data.region }}{{/data.region}}</a>
       </li>
