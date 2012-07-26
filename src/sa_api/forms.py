@@ -14,8 +14,8 @@ class IsoDateTimeField (forms.DateTimeField):
 
 
 class ActivityForm (forms.Form):
-    before = IsoDateTimeField(required=False)
-    after = IsoDateTimeField(required=False)
+    before = forms.IntegerField(required=False)
+    after = forms.IntegerField(required=False)
     limit = forms.IntegerField(required=False)
 
     format = forms.CharField(required=False)

@@ -1,3 +1,4 @@
+from django.contrib.contenttypes import generic
 from django.contrib.gis.db import models
 from django.core.cache import cache
 
@@ -28,8 +29,23 @@ class Place (TimeStampedModel):
         keys.add('place_collection_keys')
         cache.delete_many(keys)
 
+        r = super(Place, self).save(*args, **kwargs)
+
+        activity = Activity()
+        activity.data = self
+        activity.save()
+
+        return r
+
+class Activity (TimeStampedModel):
+    action = models.CharField(max_length=16, default='create')
+    data_content_type = models.ForeignKey('contenttypes.ContentType')
+    data_object_id = models.PositiveIntegerField()
+    data = generic.GenericForeignKey('data_content_type', 'data_object_id')
+
+    def save(self, *args, **kwargs):
         keys = cache.get('activity_keys') or set()
         keys.add('activity_keys')
         cache.delete_many(keys)
 
-        super(Place, self).save(*args, **kwargs)
+        return super(Activity, self).save(*args, **kwargs)

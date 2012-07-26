@@ -66,7 +66,7 @@ class PlaceInstanceView (views.InstanceModelView):
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
 
-class ActivityView (CachedMixin, views.View):
+class ActivityView (CachedMixin, views.ListModelView):
     """
     Get a list of activities ordered by the `created_datetime` in reverse.
 
@@ -92,48 +92,29 @@ class ActivityView (CachedMixin, views.View):
         /activity/?earliest=<last_known_datetime>
     """
     resource = resources.ActivityResource
+    form = forms.ActivityForm
     cache_prefix = 'activity'
 
-    def get_queryset(self, query_params):
+    def get_queryset(self):
         """
         Get a list containing objects of all the activity matching the given
         query parameters.
         """
         # Validate the query and get the parameters
-        latest_time = query_params.get('before')
-        earliest_time = query_params.get('after')
+        query_params = self.PARAMS
+        latest_id = query_params.get('before')
+        earliest_id = query_params.get('after')
         limit = query_params.get('limit')
 
-        # For each type of activity, get enough to satisfy the query.
-        places = models.Place.objects.order_by('-created_datetime')
+        activity = models.Activity.objects.order_by('-id')
 
-        if earliest_time:
-            places = places.filter(created_datetime__gt=earliest_time)
+        if earliest_id:
+            activity = activity.filter(id__gt=earliest_id)
 
-        if latest_time:
-            places = places.filter(created_datetime__lte=latest_time)
+        if latest_id:
+            activity = activity.filter(id__lte=latest_id)
 
         if limit:
-            places = places[:limit]
+            activity = activity[:limit]
 
-        # Merge the lists and sort them all.
-        all_activity = chain(places, )# other lists
-        all_activity = sorted(all_activity,
-                              key=lambda m: m.created_datetime)
-
-        # Now, only keep however many the user wanted.
-        if limit:
-            all_activity = all_activity[-limit:]
-
-        return all_activity
-
-    def get(self, request):
-        """
-        Handler for HTTP GET method.
-        """
-        activity = self.get_queryset(self.PARAMS)
-
-        # Reverse the list (latest first) and return.
-        # TODO If I just merge-sorted them in get_queryset, I wouldn't have to
-        #      reverse them here.
-        return activity[::-1]
+        return activity
