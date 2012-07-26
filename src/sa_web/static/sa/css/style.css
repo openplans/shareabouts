@@ -324,7 +324,7 @@ a.add-place:hover {
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: -33px 0 0 -33px;
+  margin: -32px 0 0 -32px;
   pointer-events: none;
   z-index: 11;
   opacity: 0.5;
@@ -342,7 +342,7 @@ a.add-place:hover {
   height: 47px;
   background: transparent;
   left: 30%;
-  margin: -43px 0 0 -13px;
+  margin: -44px 0 0 -12px;
   opacity: 1;
 }
 #centerpoint.newpin .x {
