@@ -1,4 +1,5 @@
 from djangorestframework import resources
+from . import forms
 from . import models
 from . import utils
 
@@ -30,3 +31,17 @@ class PlaceResource (resources.ModelResource):
         else:
             data = origdata
         return super(PlaceResource, self).validate_request(data, files)
+
+class ActivityResource (resources.FormResource):
+    form = forms.ActivityForm
+
+    def serialize(self, obj):
+        if isinstance(obj, models.Place):
+            activity = {
+              'action': u'create',
+              'instance': u'place',
+              'place_id': obj.id,
+              'data': PlaceResource().serialize(obj)
+            }
+            return activity
+        return super(ActivityResource, self).serialize(obj)

@@ -17,3 +17,5 @@ class ActivityForm (forms.Form):
     before = IsoDateTimeField(required=False)
     after = IsoDateTimeField(required=False)
     limit = forms.IntegerField(required=False)
+
+    format = forms.CharField(required=False)
