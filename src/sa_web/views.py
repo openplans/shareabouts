@@ -24,7 +24,7 @@ def index(request):
 
     # TODO These requests should be done asynchronously (in parallel).
     places_json = api.get('places/', u'[]')
-    activity_json = api.get('activity/?limit=10', u'[]')
+    activity_json = api.get('activity/?limit=20', u'[]')
 
     context = {'places_json': places_json,
                'activity_json': activity_json}
