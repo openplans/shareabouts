@@ -56,7 +56,8 @@ class CachedMixin (object):
         cache.set(self.cache_prefix + '_keys', keys)
 
 
-class PlaceCollectionView (CachedMixin, views.ListOrCreateModelView):
+# TODO derive from CachedMixin to enable caching
+class PlaceCollectionView (views.ListOrCreateModelView):
     # TODO: Decide whether pagination is appropriate/necessary.
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
@@ -66,7 +67,8 @@ class PlaceInstanceView (views.InstanceModelView):
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
 
-class ActivityView (CachedMixin, views.ListModelView):
+# TODO derive from CachedMixin to enable caching
+class ActivityView (views.ListModelView):
     """
     Get a list of activities ordered by the `created_datetime` in reverse.
 
