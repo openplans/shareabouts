@@ -672,7 +672,7 @@ ul.recent-points {
 }
 .recent-points a {
   display: block;
-  padding: 10px 10px 10px 48px;
+  padding: 10px 10px 10px 10px;
   color: #ddd;
   text-decoration: none;
   position: relative;
