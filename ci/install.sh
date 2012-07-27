@@ -35,4 +35,4 @@ EOF
 # Initialize the project settings
 cp src/project/local_settings.py.template src/project/local_settings.py
 
-bundle install --gemfile="src/sa_web/jasmine/GemFile"
+bundle install --gemfile="src/sa_web/jasmine/Gemfile"
