@@ -24,4 +24,4 @@ notifications:
 #    on_failure: change
 branches:
   only:
-    - v1
+    - sa-web
