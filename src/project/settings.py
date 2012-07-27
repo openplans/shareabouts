@@ -1,4 +1,5 @@
 # Django settings for project project.
+import os.path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -15,6 +16,9 @@ DATABASES = {
         'NAME': 'stub.db',  # In this case, the database is not important, but Django needs it to be here.
     }
 }
+
+# Application config
+SHAREABOUTS_CONFIG = os.path.join(os.path.dirname(__file__), 'config.yml')
 
 # The root to the Shareabouts API service.
 SHAREABOUTS_API_ROOT = 'http://localhost:8000/api/v1/'

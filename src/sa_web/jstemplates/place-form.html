@@ -34,9 +34,9 @@
               <label for="point-type">Location Type</label>
               <select id="point-type" name="location_type">
                 <option value=""></option>
-                <option value="Foo">Foo</option>
-                <option value="Bar">Bar</option>
-                <option value="Querty">Querty</option>
+                {{#placeTypes}}
+                <option value="{{.}}">{{.}}</option>
+                {{/placeTypes}}
               </select>
             </p>
 

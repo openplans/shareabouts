@@ -1,10 +1,12 @@
 import requests
+import yaml
+import json
 
 from django.shortcuts import render
-from django.template import RequestContext
 from django.conf import settings
 from django.views.decorators.csrf import ensure_csrf_cookie
 from proxy.views import proxy_view
+
 
 
 class ShareaboutsApi (object):
@@ -22,12 +24,20 @@ def index(request):
     # Bootstrapping initial data.
     api = ShareaboutsApi()
 
+    # Load app config settings
+    with open(settings.SHAREABOUTS_CONFIG) as config_yml:
+        config = yaml.load(config_yml)
+    place_types_json = json.dumps(config['place_types'])
+    place_type_icons_json = json.dumps(config['place_type_icons'])
+
     # TODO These requests should be done asynchronously (in parallel).
     places_json = api.get('places/', u'[]')
     activity_json = api.get('activity/?limit=20', u'[]')
 
     context = {'places_json': places_json,
-               'activity_json': activity_json}
+               'activity_json': activity_json,
+               'place_types_json': place_types_json,
+               'place_type_icons_json': place_type_icons_json}
     return render(request, 'index.html', context)
 
 

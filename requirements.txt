@@ -11,3 +11,6 @@ django-mustachejs
 
 # Web interface helpers
 requests
+
+# Config
+pyyaml

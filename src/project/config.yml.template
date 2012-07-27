@@ -1,0 +1,35 @@
+# The keys show up in the dropdown list when you are adding a new place
+# The values map the place type to map icons (defined below).
+place_types: {
+  Park: {
+    default: blue,
+    focused: red
+  },
+  School: {
+    default: blue,
+    focused: red
+  },
+  Landmark: {
+    default: blue,
+    focused: red
+  }
+}
+
+# Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
+# for documention of each property. Any omitted property will be undefined.
+place_type_icons: {
+  blue: {
+    iconUrl: /static/sa/css/images/feature-point.png,
+    iconSize: { width: 17, height: 18 },
+    iconAnchor: { x: 9, y: 9 },
+    popupAnchor: { x: 9, y: 9 }
+  },
+  red: {
+    iconUrl: /static/sa/css/images/marker-focused.png,
+    shadowUrl: /static/sa/css/images/marker-shadow.png,
+    iconSize: { width: 25, height: 41 },
+    shadowSize: { width: 41, height: 41 },
+    iconAnchor: { x: 12, y: 41 },
+    popupAnchor: { x: 12, y: 6 }
+  }
+}

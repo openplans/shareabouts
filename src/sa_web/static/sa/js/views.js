@@ -43,9 +43,15 @@ var Shareabouts = Shareabouts || {};
     initialize: function(){
       this.model.on('error', this.onError, this);
       this.model.on('change', this.onChange, this);
+
+      this.placeTypes = _.keys(this.options.placeTypes);
     },
     render: function(){
-      this.$el.html(ich['place-form'](this.model.toJSON()));
+      var data = _.extend({
+        placeTypes: this.placeTypes
+      }, this.model.toJSON());
+
+      this.$el.html(ich['place-form'](data));
       return this;
     },
     remove: function() {
@@ -107,10 +113,20 @@ var Shareabouts = Shareabouts || {};
     },
     initLayer: function() {
       var location;
+
+      this.placeType = this.options.placeTypes[this.model.get('location_type')];
+
+      if (!this.placeType) {
+        console.warn('Place type', this.model.get('location_type'),
+          'is not configured so it will not appear on the map.');
+        return;
+      }
+
       if (!this.model.isNew()) {
         location = this.model.get('location');
         this.latLng = new L.LatLng(location.lat, location.lng);
-        this.layer = new L.Marker(this.latLng, {icon: this.options.icons.normal});
+
+        this.layer = new L.Marker(this.latLng, {icon: this.placeType['default']});
 
         // Focus on the marker onclick
         this.layer.on('click', this.onMarkerClick, this);
@@ -147,19 +163,23 @@ var Shareabouts = Shareabouts || {};
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
     },
     focus: function() {
-      // TODO turn the icon red if not new
-      this.setIcon(this.options.icons.focused);
+      if (this.placeType) {
+        this.setIcon(this.placeType.focused);
+      }
     },
     unfocus: function() {
-      // TODO turn the icon blue
-      this.setIcon(this.options.icons.normal);
+      if (this.placeType) {
+        this.setIcon(this.placeType['default']);
+      }
     },
     remove: function() {
       this.removeLayer();
       this.map.off('move', this.throttledRender, this);
     },
     setIcon: function(icon) {
-      this.layer.setIcon(icon);
+      if (this.layer) {
+        this.layer.setIcon(icon);
+      }
     },
     show: function() {
       if (this.layer) {
@@ -213,7 +233,7 @@ var Shareabouts = Shareabouts || {};
         router: this.options.router,
         map: this.map,
         placeLayers: this.placeLayers,
-        icons: this.options.icons
+        placeTypes: this.options.placeTypes
       });
     },
     removeLayerView: function(model) {
