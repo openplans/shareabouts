@@ -289,11 +289,20 @@ var Shareabouts = Shareabouts || {};
     },
 
     renderActivity: function(model, index) {
-      var template = ich['activity-list-item'](model.toJSON());
+      var $template = ich['activity-list-item'](model.toJSON());
       if (index >= this.$el.children().length) {
-        this.$el.append(template);
+        this.$el.append($template);
       } else {
-        this.$el.find('.activity-item:nth-child('+index+1+')').before(template);
+        $template
+          // Hide first so that slideDown does something
+          .hide()
+          // Insert before the index-th element
+          .insertBefore(this.$el.find('.activity-item:nth-child('+index+1+')'))
+          // Nice transition into view ()
+          .slideDown();
+
+        // Just adds it with no transition
+        // this.$el.find('.activity-item:nth-child('+index+1+')').before($template);
       }
     },
 
