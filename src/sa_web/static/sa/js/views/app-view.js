@@ -114,7 +114,8 @@ var Shareabouts = Shareabouts || {};
             placeTypes: this.options.placeTypes
           }),
           placeDetailView = new S.PlaceDetailView({
-            model: model
+            model: model,
+            surveyConfig: this.options.surveyConfig
           });
 
       this.placeFormViews[model.cid] = placeFormView;

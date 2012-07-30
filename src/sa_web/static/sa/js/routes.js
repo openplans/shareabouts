@@ -16,6 +16,7 @@ var Shareabouts = Shareabouts || {};
         collection: this.collection,
         activities: this.activities,
         placeTypes: options.placeTypes,
+        surveyConfig: options.surveyConfig,
         router: this
       });
 

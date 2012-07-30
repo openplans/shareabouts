@@ -5,9 +5,74 @@
             in {{ region }}
           {{/region}}
 
-          <time datetime="{{ created_datetime }}" class="comment-date">{{ pretty_created_datetime }}</time>.
+          <time datetime="{{ created_datetime }}" class="submission-date">{{ pretty_created_datetime }}</time>.
         </header>
 
         <section class="description">
           <p>{{ description }}</p>
         </section>
+
+        {{#survey_config}}
+        <section class="survey">
+
+          {{#show_submissions}}
+          <h4 class="survey-header">{{ submissions.length }} {{ submission_name }}</h4>
+          <a href="#reply" class="reply-link">{{ form_link_text }}</a>
+
+          <ol class="submissions">
+            {{#submissions}}
+            <li>
+              <article class="submission">
+                <header class="submission-header clearfix">
+                  <img class="avatar" src="{{ STATIC_URL }}images/user-36.png" />
+                  <strong class="submission-submitter">
+                    <a href="#">
+                      {{#submitter_name}}
+                      {{ submitter_name }}
+                      {{/submitter_name}}
+                      {{^submitter_name}}
+                      Someone
+                      {{/submitter_name}}
+                    </a>
+                  </strong>
+                  <span class="submission-date">
+                    on {{ pretty_created_datetime }}
+                  </span>
+                </header>
+
+                <div class="submission-body">
+                  {{#items}}
+                  <span class="label {{ name }}-label">{{ label }}</span>
+                  <p class="value {{ name }}-value">{{ value }}</p>
+                  {{/items}}
+                </div>
+              </article>
+            </li>
+            {{/submissions}}
+          </ol>
+          {{/show_submissions}}
+
+          <div id="reply">
+            <h4 class="reply-header">{{ title }}</h4>
+            <form id="new_submission" class="new_submission" action="#" method="post">
+
+              {{#items}}
+              <fieldset>
+                <p>
+                  <label for="submission-{{ name }}">{{ prompt }}{{# optional }} (optional){{/ optional }}</label>
+                  {{#is_textarea}}
+                  <textarea name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
+                  {{/is_textarea}}
+                  {{^is_textarea}}
+                  <input name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                  {{/is_textarea}}
+                </p>
+              </fieldset>
+              {{/items}}
+
+              <input name="commit" type="button" value="{{ submit_btn_text }}" class="bttn">
+            </form>
+          </div>
+
+        </section><!-- end .survey -->
+        {{/survey_config}}

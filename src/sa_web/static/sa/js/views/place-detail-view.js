@@ -11,7 +11,9 @@ var Shareabouts = Shareabouts || {};
       var data = _.extend({
         pretty_created_datetime: function() {
           return S.Util.getPrettyDateTime(this.created_datetime);
-        }
+        },
+        survey_config: this.options.surveyConfig,
+        submissions: []
       }, this.model.toJSON());
 
       this.$el.html(ich['place-detail'](data));

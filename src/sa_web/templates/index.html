@@ -102,7 +102,9 @@
     var placeTypesConfig = {{ place_types_json|safe }},
         placeTypeIconsConfig = {{ place_type_icons_json|safe }},
         placeTypeIcons = {},
-        placeTypes = {};
+        placeTypes = {},
+
+        surveyConfig = {{ survey_config_json|safe }};
 
     // Define each Leaflet Icon type
     _.each(placeTypeIconsConfig, function(config, name) {
@@ -123,6 +125,10 @@
       };
     });
 
+    _.each(surveyConfig.items, function(item, index) {
+      item['is_textarea'] = (item['type'] === 'textarea');
+    });
+
     $(function() {
       // add menu button for small screens
       $('<a href="#" id="nav-bttn">&equiv;</a>').insertAfter('#site-title');
@@ -137,7 +143,8 @@
       window.app = new Shareabouts.App({
         places: {{ places_json|safe }},
         activity: {{ activity_json|safe }},
-        placeTypes: placeTypes
+        placeTypes: placeTypes,
+        surveyConfig: surveyConfig
       });
       Backbone.history.start({pushState: true});
     });

@@ -40,14 +40,16 @@ survey: {
   submit_btn_text: Comment,
   show_submissions: true,
   submission_type: comments,
-  submission_name: comment,
-  questions:
-    -
-      title: Comment,
+  submission_name: comment(s),
+  items: [
+    {
+      prompt: Comment,
       type: textarea,
       name: comment
-    -
-      title: Your Name,
+    },
+    {
+      prompt: Your Name,
       type: text,
       name: submitter_name
+    }]
 }
