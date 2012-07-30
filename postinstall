@@ -15,6 +15,9 @@ SHAREABOUTS_API_ROOT = env.get('SHAREABOUTS_API_ROOT', 'SHAREABOUTS_API_ROOT-not
 
 EOF
 
+echo "Setting up the config file(s)"
+cp src/project/config.yml.template src/project/config.yml
+
 echo "Syncing the database..."
 src/manage.py syncdb --migrate --noinput
 
