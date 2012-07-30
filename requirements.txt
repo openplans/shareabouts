@@ -8,6 +8,7 @@ south
 
 # Templates
 django-mustachejs
+django_compressor
 
 # Web interface helpers
 requests

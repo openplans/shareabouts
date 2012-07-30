@@ -1,4 +1,5 @@
 {% load mustachejs %}
+{% load compress %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
@@ -71,6 +72,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="javascripts/jquery-1.7.1.min.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
 
+  {% compress js %}
   <script src="{{STATIC_URL}}libs/leaflet.js"></script>
   <script src="{{STATIC_URL}}libs/underscore-min.js"></script>
   <script src="{{STATIC_URL}}libs/backbone-min.js"></script>
@@ -86,7 +88,7 @@
   <script src="{{STATIC_URL}}sa/js/views/place-detail-view.js"></script>
   <script src="{{STATIC_URL}}sa/js/views/place-form-view.js"></script>
   <script src="{{STATIC_URL}}sa/js/routes.js"></script>
-
+  {% endcompress %}
 
   {% mustacheich "place-form" %}
   {% mustacheich "place-detail" %}
