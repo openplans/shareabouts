@@ -33,3 +33,21 @@ place_type_icons: {
     popupAnchor: { x: 12, y: 6 }
   }
 }
+
+survey: {
+  title: Leave a Comment,
+  form_link_text: Leave a Comment,
+  submit_btn_text: Comment,
+  show_submissions: true,
+  submission_type: comments,
+  submission_name: comment,
+  questions:
+    -
+      title: Comment,
+      type: textarea,
+      name: comment
+    -
+      title: Your Name,
+      type: text,
+      name: submitter_name
+}
