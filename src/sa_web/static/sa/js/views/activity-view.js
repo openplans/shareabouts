@@ -1,23 +1,32 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $){
-  S.ActivityListView = Backbone.View.extend({
+  S.ActivityView = Backbone.View.extend({
     initialize: function() {
       var self = this;
 
       this.activityViews = [];
+
+      // Infinite scroll elements and functions
+      // Window where the activity lives
       this.$container = this.$el.parent();
+      // How often to check for new content
       this.interval = this.options.interval || 5000;
+      // How many pixel from the bottom until we look for more/older actions
       this.infiniteScrollBuffer = this.options.infiniteScrollBuffer || 25;
+      // Debounce the scroll handler for efficiency
       this.debouncedOnScroll = _.debounce(this.onScroll, 600);
 
+      // Bind click event to an action so that you can see it in a map
       this.$el.delegate('a', 'click', function(evt){
         evt.preventDefault();
         self.options.router.navigate(this.getAttribute('href'), {trigger: true});
       });
 
+      // Check to see if we're at the bottom of the list and then fetch more results.
       this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
+      // Bind collection events
       this.collection.on('add', this.onAddAction, this);
       this.collection.on('reset', this.onResetActivity, this);
 
@@ -56,7 +65,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     onAddAction: function(model, collection, options) {
-      this.renderActivity(model, options.index);
+      this.renderAction(model, options.index);
 
       // TODO Only do the following if the activity instance is a place.
       this.options.places.add(model.get('data'));
@@ -66,7 +75,7 @@ var Shareabouts = Shareabouts || {};
       this.render();
     },
 
-    renderActivity: function(model, index) {
+    renderAction: function(model, index) {
       var $template = ich['activity-list-item'](model.toJSON());
       if (index >= this.$el.children().length) {
         this.$el.append($template);
@@ -89,7 +98,7 @@ var Shareabouts = Shareabouts || {};
 
       self.$el.empty();
       self.collection.each(function(model) {
-        self.renderActivity(model, self.collection.length);
+        self.renderAction(model, self.collection.length);
       });
       return self;
     }

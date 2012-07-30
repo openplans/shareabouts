@@ -7,6 +7,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     render: function() {
+      // TODO: figure out the best way to augment template data
       var data = _.extend({
         pretty_created_datetime: function() {
           return S.Util.getPrettyDateTime(this.created_datetime);

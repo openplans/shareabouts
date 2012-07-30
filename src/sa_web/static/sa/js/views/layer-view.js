@@ -2,18 +2,19 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $){
   S.LayerView = Backbone.View.extend({
-    /*
-     * A view responsible for the representation of a place on the map.
-     */
-
+     // A view responsible for the representation of a place on the map.
     initialize: function(){
       this.map = this.options.map;
+
+      // A throttled version of the render function
       this.throttledRender = _.throttle(this.render, 300);
 
+      // Bind model events
       this.model.on('change', this.updateLayer, this);
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
 
+      // On map move, adjust the visibility of the markers for max efficiency
       this.map.on('move', this.throttledRender, this);
 
       this.initLayer();
@@ -21,14 +22,16 @@ var Shareabouts = Shareabouts || {};
     initLayer: function() {
       var location;
 
+      // Handle if an existing place type does not match the list of available
+      // place types.
       this.placeType = this.options.placeTypes[this.model.get('location_type')];
-
       if (!this.placeType) {
         console.warn('Place type', this.model.get('location_type'),
           'is not configured so it will not appear on the map.');
         return;
       }
 
+      // Don't draw new places. They are shown by the centerpoint in the app view
       if (!this.model.isNew()) {
         location = this.model.get('location');
         this.latLng = new L.LatLng(location.lat, location.lng);
@@ -43,10 +46,7 @@ var Shareabouts = Shareabouts || {};
     },
     updateLayer: function() {
       // Update the marker layer if the model changes and the layer exists
-      if (this.layer) {
-        this.layer.setLatLng(new L.LatLng(this.model.get('location').lat,
-                                          this.model.get('location').lng));
-      }
+      this.removeLayer();
       this.initLayer();
     },
     removeLayer: function() {
