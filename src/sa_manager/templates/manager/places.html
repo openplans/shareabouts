@@ -1,0 +1,13 @@
+{% extends "manager/base.html" %}
+
+{% block content %}
+
+<h2>Places <a class="btn btn-primary" href="new">Add New Place</a></h2>
+
+<ul>
+{% for place in places %}
+  <li><a href="{{ place.id }}">Place named "{{ place.name }}"</a></li>
+{% endfor %}
+</ul>
+
+{% endblock content %}

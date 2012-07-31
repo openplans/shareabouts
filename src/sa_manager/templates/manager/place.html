@@ -1,0 +1,28 @@
+{% extends "manager/base.html" %}
+
+{% block content %}
+
+<h2>{{ place.name }}</h2>
+
+<form method="POST" class="form-horizontal">{% csrf_token %}
+  <fieldset>
+    {% include "manager/_field.html" with label="Place Name" name="name" value=place.name %}
+    {% include "manager/_field.html" with label="Submitter Name" name="submitter_name" value=place.submitter_name|default:'' %}
+    {% include "manager/_field.html" with label="Visible?" name="visible" value=place.visible type="checkbox" %}
+    {% include "manager/_field.html" with label="Latitude" name="lat" value=place.location.lat %}
+    {% include "manager/_field.html" with label="Longitude" name="lng" value=place.location.lng %}
+
+    {% for label, key, value in data_fields %}
+      {% include "manager/_field.html" with label=label name=key value=value %}
+    {% endfor %}
+  </fieldset>
+
+  <div class="form-actions">
+    <button class="btn btn-primary" name="action" value="save" type="submit">Save</button>
+    {% if place.id %}
+    <button class="btn" name="action" value="delete" type="submit">Delete</button>
+    {% endif %}
+  </div>
+</form>
+
+{% endblock content %}

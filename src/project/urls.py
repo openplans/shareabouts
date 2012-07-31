@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 
     url(r'^v1/', include('sa_api.urls')),
+    url(r'^manage/', include('sa_manager.urls')),
 )

@@ -1,0 +1,14 @@
+<div class="control-group">
+  <label class="control-label">{{ label }}</label>
+  <div class="controls">
+  <input
+      name="{{ name }}"
+      type="{{ type|default:'text' }}"
+      {% if type == 'checkbox' %}
+        {% if value %}checked="checked"{% endif %}
+      value="on"
+      {% else %}
+      value="{{ value }}"
+      {% endif %}>
+  </div>
+</div>
