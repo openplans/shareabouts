@@ -2,6 +2,7 @@ from django.contrib.contenttypes import generic
 from django.contrib.gis.db import models
 from django.core.cache import cache
 
+
 class TimeStampedModel (models.Model):
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
@@ -10,20 +11,37 @@ class TimeStampedModel (models.Model):
         abstract = True
 
 
-class ContributedThing (TimeStampedModel):
+class SubmittedThing (TimeStampedModel):
+    """
+    A SubmittedThing generally comes from the end-user.  It may be a place, a
+    comment, a vote, etc.
+
+    """
     submitter_name = models.CharField(max_length=256, null=True, blank=True)
     data = models.TextField(default='{}')
 
     class Meta:
         abstract = True
 
+    def save(self, *args, **kwargs):
+        ret = super(SubmittedThing, self).save(*args, **kwargs)
 
-class Place (ContributedThing):
+        # All submitted things generate an action.
+        activity = Activity()
+        activity.data = self
+        activity.save()
+
+        return ret
+
+
+class Place (SubmittedThing):
+    """
+    A Place is a submitted thing with some geographic information, to which
+    other submissions such as comments or surveys can be attached.
+
+    """
     location = models.PointField()
     visible = models.BooleanField(default=True)
-
-    # TODO: Add reference to Votes
-    # TODO: Add reference to comments
 
     objects = models.GeoManager()
 
@@ -32,13 +50,23 @@ class Place (ContributedThing):
         keys.add('place_collection_keys')
         cache.delete_many(keys)
 
-        r = super(Place, self).save(*args, **kwargs)
+        return super(Place, self).save(*args, **kwargs)
 
-        activity = Activity()
-        activity.data = self
-        activity.save()
 
-        return r
+class SubmissionSet (models.Model):
+    """
+    A submission set is a collection of user submissions attached to a place.
+    For example, comments will be a submission set with a submission_type of
+    'comment'
+
+    """
+    place = models.ForeignKey(Place, related_name='submission_sets')
+    submission_type = models.CharField(max_length=128)
+
+
+class Submission (SubmittedThing):
+    parent = models.ForeignKey(SubmissionSet, related_name='children')
+
 
 class Activity (TimeStampedModel):
     action = models.CharField(max_length=16, default='create')
@@ -53,11 +81,11 @@ class Activity (TimeStampedModel):
 
         return super(Activity, self).save(*args, **kwargs)
 
-## TODO Consider this: We could have a ContributedThing from which both Place
-##      and Contribution derive.  A ContributedThing stores arbitrary data
+## TODO Consider this: We could have a SubmittedThing from which both Place
+##      and Contribution derive.  A SubmittedThing stores arbitrary data
 ##      however we want to do that (a text blob, a related table, whatever).
 ##
-#class ContributedThing (models.Model):
+#class SubmittedThing (models.Model):
 #    person = models.CharField(max_length=256)
 #    data = models.TextField()
 #
@@ -65,7 +93,7 @@ class Activity (TimeStampedModel):
 #        abstract = True
 #
 #
-#class Place (ContributedThing):
+#class Place (SubmittedThing):
 #    location = models.PointField()
 #    visible = models.BooleanField(default=True)
 #
@@ -80,7 +108,7 @@ class Activity (TimeStampedModel):
 #    contribution_type = models.CharField(max_length=128)
 #
 #
-#class Contribution (ContributedThing):
+#class Contribution (SubmittedThing):
 #    parent = models.ForeignKey(ContributionSet, related_name='children')
 #
 #

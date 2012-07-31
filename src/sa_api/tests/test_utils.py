@@ -7,7 +7,8 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from nose.tools import *
-from . import utils
+from .. import utils
+
 
 class TestToWkt (TestCase):
 
@@ -24,6 +25,7 @@ class TestToWkt (TestCase):
         wkt = utils.to_wkt(data)
 
         assert_equal(wkt, 'POINT (150 70)')
+
 
 class TestActivityCaching (TestCase):
     pass

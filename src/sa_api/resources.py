@@ -48,6 +48,11 @@ class PlaceResource (resources.ModelResource):
             data = origdata
         return super(PlaceResource, self).validate_request(data, files)
 
+class SubmissionResource (resources.ModelResource):
+    model = models.Submission
+    exclude = ['parent']
+
+
 class ActivityResource (resources.ModelResource):
     model = models.Activity
     fields = ['action', 'type', 'id', 'place_id']
@@ -55,8 +60,13 @@ class ActivityResource (resources.ModelResource):
     def get_fields(self, obj):
         self.fields = ActivityResource.fields[:]
 
+        # If the obj is a Place, use the PlaceResource to render it.
         if obj.data_content_type.name == 'place':
             self.fields.append(('data', PlaceResource))
+
+        # If the obj is a Submission, use the SubmissionResource to render it.
+        elif obj.data_content_type.name == 'submission':
+            self.fields.append(('data', SubmissionResource))
 
         return super(ActivityResource, self).get_fields(obj)
 
@@ -64,5 +74,10 @@ class ActivityResource (resources.ModelResource):
         return obj.data_content_type.name
 
     def place_id(self, obj):
-        if obj.data_content_type.name == 'place':
+        # If the obj is a Place, get the place_id directly from it.
+        if isinstance(obj.data, models.Place):
             return obj.data.id
+
+        # If the obj is a Submission, get the place_id from the attached Place.
+        elif isinstance(obj.data, models.Submission):
+            return obj.data.place.id

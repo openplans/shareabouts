@@ -67,6 +67,9 @@ class PlaceInstanceView (views.InstanceModelView):
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
 
+class SubmissionCollectionView (views.ListOrCreateModelView):
+    resource = resources.SubmissionResource
+
 # TODO derive from CachedMixin to enable caching
 class ActivityView (views.ListModelView):
     """
