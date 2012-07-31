@@ -24,3 +24,6 @@ class TestToWkt (TestCase):
         wkt = utils.to_wkt(data)
 
         assert_equal(wkt, 'POINT (150 70)')
+
+class TestActivityCaching (TestCase):
+    pass

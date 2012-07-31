@@ -10,14 +10,17 @@ class TimeStampedModel (models.Model):
         abstract = True
 
 
-class Place (TimeStampedModel):
-    name = models.CharField(max_length=256, null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
+class ContributedThing (TimeStampedModel):
+    submitter_name = models.CharField(max_length=256, null=True, blank=True)
+    data = models.TextField(default='{}')
+
+    class Meta:
+        abstract = True
+
+
+class Place (ContributedThing):
     location = models.PointField()
     visible = models.BooleanField(default=True)
-    location_type = models.CharField(max_length=100)
-
-    submitter_name = models.CharField(max_length=256, null=True, blank=True)
 
     # TODO: Add reference to Votes
     # TODO: Add reference to comments
@@ -49,3 +52,54 @@ class Activity (TimeStampedModel):
         cache.delete_many(keys)
 
         return super(Activity, self).save(*args, **kwargs)
+
+## TODO Consider this: We could have a ContributedThing from which both Place
+##      and Contribution derive.  A ContributedThing stores arbitrary data
+##      however we want to do that (a text blob, a related table, whatever).
+##
+#class ContributedThing (models.Model):
+#    person = models.CharField(max_length=256)
+#    data = models.TextField()
+#
+#    class Meta:
+#        abstract = True
+#
+#
+#class Place (ContributedThing):
+#    location = models.PointField()
+#    visible = models.BooleanField(default=True)
+#
+#    objects = models.GeoManager()
+#
+#
+##      Places could have many ContributionSets named, for example, 'comments'
+##      or 'votes'.
+##
+#class ContributionSet (models.Model):
+#    place = models.ForeignKey(Place, related_name='contribution_sets')
+#    contribution_type = models.CharField(max_length=128)
+#
+#
+#class Contribution (ContributedThing):
+#    parent = models.ForeignKey(ContributionSet, related_name='children')
+#
+#
+##      Serializing a place would be something like:
+##
+##        {
+##          "contributor": "{{ contributor }}",
+##          "location": "{{ location }}",
+##          "data": {{ data }},
+##
+##          {{# contribution_sets }}
+##          "{{ contribution_type }}": [
+##            {{# contributions }}
+##            {
+##              "contributor": "{{ contributor }}",
+##              "data": {{ data }}
+##            },
+##            {{/ contributions }}
+##          ],
+##          {{/ contribution_sets }}
+##        }
+##
