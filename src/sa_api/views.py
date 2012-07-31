@@ -63,12 +63,26 @@ class PlaceCollectionView (views.ListOrCreateModelView):
     authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'place_collection'
 
+
 class PlaceInstanceView (views.InstanceModelView):
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
 
+
 class SubmissionCollectionView (views.ListOrCreateModelView):
     resource = resources.SubmissionResource
+
+    def post(self, request, parent__place_id, parent__submission_type):
+        submission_set, created = models.SubmissionSet.objects.get_or_create(
+            place_id=parent__place_id,
+            submission_type=parent__submission_type,
+        )
+
+        return super(SubmissionCollectionView, self).post(
+            request,
+            parent_id=submission_set.id
+        )
+
 
 # TODO derive from CachedMixin to enable caching
 class ActivityView (views.ListModelView):

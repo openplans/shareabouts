@@ -1,13 +1,3 @@
-"""
-GET /places/:id/:type/
-  - should return a list of submissions of the type for the place
-  - should return an empty list if the place has no submissions of the type
-POST /places/:id/:type/
-  - should create a new submission of the given type on the place
-  - should create the submission set of the given type if none exists for the place
-
-"""
-
 from django.test import TestCase
 from django.test.client import Client
 from django.test.client import RequestFactory
@@ -23,12 +13,12 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         client = Client()
 
         with patch('sa_api.views.SubmissionCollectionView.get') as getter:
-            client.get('/v1/places/1/comment_list/')
+            client.get('/v1/places/1/comments/')
             args, kwargs = getter.call_args
             assert_equal(
                 kwargs,
                 {'parent__place_id': u'1',
-                 'parent__submission_type': u'comment'}
+                 'parent__submission_type': u'comments'}
             )
 
     @istest
@@ -39,15 +29,15 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         Submission.objects.all().delete()
 
         place = Place.objects.create(location='POINT(0 0)')
-        comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comment')
+        comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
         Submission.objects.create(parent_id=comments.id)
         Submission.objects.create(parent_id=comments.id)
 
-        request = RequestFactory().get('/places/1/comment_list/')
+        request = RequestFactory().get('/places/1/comments/')
         view = SubmissionCollectionView.as_view()
 
         response = view(request, parent__place_id=1,
-                        parent__submission_type='comment')
+                        parent__submission_type='comments')
         data = json.loads(response.content)
         assert_equal(len(data), 2)
 
@@ -60,14 +50,43 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         Submission.objects.all().delete()
 
         place = Place.objects.create(location='POINT(0 0)')
-        comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comment')
+        comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
         Submission.objects.create(parent_id=comments.id)
         Submission.objects.create(parent_id=comments.id)
 
-        request = RequestFactory().get('/places/1/vote_list/')
+        request = RequestFactory().get('/places/1/votes/')
         view = SubmissionCollectionView.as_view()
 
         response = view(request, parent__place_id=1,
-                        parent__submission_type='vote')
+                        parent__submission_type='votes')
         data = json.loads(response.content)
         assert_equal(len(data), 0)
+
+
+class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
+
+    @istest
+    def should_create_a_new_submission_of_the_given_type_on_the_place(self):
+        import json
+
+        Place.objects.all().delete()
+        Submission.objects.all().delete()
+        SubmissionSet.objects.all().delete()
+
+        place = Place.objects.create(location='POINT(0 0)')
+        comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
+
+        data = {
+            'submitter_name': 'Mjumbe Poe',
+            'age': 12,
+            'comment': 'This is rad!',
+        }
+        request = RequestFactory().post('/places/1/comments/', data=json.dumps(data), content_type='application/json')
+        view = SubmissionCollectionView.as_view()
+
+        response = view(request, parent__place_id=1,
+                        parent__submission_type='comments')
+        data = json.loads(response.content)
+        print response
+        assert_equal(response.status_code, 201)
+        assert_in('age', data)

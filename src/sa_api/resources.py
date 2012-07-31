@@ -2,28 +2,20 @@ import json
 from djangorestframework import resources
 from . import models
 from . import utils
+from . import forms
 
-class PlaceResource (resources.ModelResource):
-    model = models.Place
-    exclude = ['data']
 
-    # TODO: Included vote counts, without an additional query if possible.
-    def location(self, place):
-        return {
-            'lat': place.location.y,
-            'lng': place.location.x,
-        }
-
+class ModelResourceWithDataBlob (resources.ModelResource):
     def serialize(self, obj):
         # If the object is a place, parse the data blob and add it to the
         # place's fields.
-        serialization = super(PlaceResource, self).serialize(obj)
+        serialization = super(ModelResourceWithDataBlob, self).serialize(obj)
 
-        if isinstance(obj, models.Place):
+        if isinstance(obj, self.model):
             data = json.loads(obj.data)
             serialization.update(data)
 
-        return rep
+        return serialization
 
     def validate_request(self, origdata, files=None):
         if origdata:
@@ -40,6 +32,26 @@ class PlaceResource (resources.ModelResource):
                     del data[key]
             data['data'] = json.dumps(blob_data, indent=2)
 
+        else:
+            data = origdata
+        return super(ModelResourceWithDataBlob, self).validate_request(data, files)
+
+
+class PlaceResource (ModelResourceWithDataBlob):
+    model = models.Place
+    exclude = ['data']
+
+    # TODO: Included vote counts, without an additional query if possible.
+    def location(self, place):
+        return {
+            'lat': place.location.y,
+            'lng': place.location.x,
+        }
+
+    def validate_request(self, origdata, files=None):
+        if origdata:
+            data = origdata.copy()
+
             # Convert the location into something that GeoDjango knows how to
             # deal with.
             data['location'] = utils.to_wkt(origdata.get('location'))
@@ -48,9 +60,10 @@ class PlaceResource (resources.ModelResource):
             data = origdata
         return super(PlaceResource, self).validate_request(data, files)
 
-class SubmissionResource (resources.ModelResource):
+class SubmissionResource (ModelResourceWithDataBlob):
     model = models.Submission
-    exclude = ['parent']
+    form = forms.SubmissionForm
+    exclude = ['parent', 'data']
 
 
 class ActivityResource (resources.ModelResource):
@@ -80,4 +93,4 @@ class ActivityResource (resources.ModelResource):
 
         # If the obj is a Submission, get the place_id from the attached Place.
         elif isinstance(obj.data, models.Submission):
-            return obj.data.place.id
+            return obj.data.parent.place.id

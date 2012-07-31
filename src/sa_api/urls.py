@@ -6,7 +6,7 @@ urlpatterns = patterns('sa_api',
         views.PlaceCollectionView.as_view(),
         name='place_collection'),
     url((r'^places/(?P<parent__place_id>\d+)/'
-         r'(?P<parent__submission_type>[^/]+)_list/$'),
+         r'(?P<parent__submission_type>[^/]+)/$'),
         views.SubmissionCollectionView.as_view(),
         name='submission_collection'),
     url(r'^activity/$',
