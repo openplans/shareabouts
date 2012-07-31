@@ -18,6 +18,31 @@ def places_view(request):
     return render(request, "manager/places.html", {'places': places})
 
 
+def process_place_data(data):
+    """
+    Prepare place data to be sent to the service for creating or updating.
+    """
+    # Pull out data we don't want to send to the server
+    if 'csrfmiddlewaretoken' in data:
+        del data['csrfmiddlewaretoken']
+    if 'action' in data:
+        del data['action']
+
+    # Fix the location to be something the server will understand
+    location = {
+      'lat': data.get('lat'),
+      'lng': data.get('lng')
+    }
+    del data['lat']
+    del data['lng']
+    data['location'] = location
+
+    # Fix the visibility to be either true or false (boolean)
+    data['visible'] = ('visible' in data)
+
+    return data
+
+
 def new_place_view(request):
     places_uri = request.build_absolute_uri('/v1/places/')
 
@@ -27,24 +52,7 @@ def new_place_view(request):
     def create(request):
         # Make a copy of the POST data, since we can't edit the original.
         data = request.POST.dict()
-
-        # Pull out data we don't want to send to the server
-        if 'csrfmiddlewaretoken' in data:
-            del data['csrfmiddlewaretoken']
-        if 'action' in data:
-            del data['action']
-
-        # Fix the location to be something the server will understand
-        location = {
-          'lat': data.get('lat'),
-          'lng': data.get('lng')
-        }
-        del data['lat']
-        del data['lng']
-        data['location'] = location
-
-        # Fix the visibility to be either true or false (boolean)
-        data['visible'] = ('visible' in data)
+        data = process_place_data(data)
 
         # Send the save request
         response = requests.post(places_uri, data=json.dumps(data),
@@ -55,6 +63,7 @@ def new_place_view(request):
             return redirect(reverse('manager_place_detail', args=[place_id]))
         else:
             return HttpResponse(response.text)
+
 
     if request.method == 'GET':
         return new(request)
@@ -69,13 +78,14 @@ def place_view(request, pk):
     place_uri = request.build_absolute_uri('/v1/places/{0}/'.format(pk))
 
     def read(request, pk):
+        # Retrieve the place data.
         response = requests.get(place_uri)
-
         place = json.loads(response.text)
+
+        # Arrange the place data fields for display on the form
+        data_fields = []
         special_fields = ('id', 'location', 'submitter_name', 'name', 'visible',
                           'created_datetime', 'updated_datetime', 'url')
-        data_fields = []
-
         for key, value in place.items():
             if key not in special_fields:
                 label = key.replace('_', ' ').title()
@@ -90,24 +100,7 @@ def place_view(request, pk):
     def update(request, pk):
         # Make a copy of the POST data, since we can't edit the original.
         data = request.POST.dict()
-
-        # Pull out data we don't want to send to the server
-        if 'csrfmiddlewaretoken' in data:
-            del data['csrfmiddlewaretoken']
-        if 'action' in data:
-            del data['action']
-
-        # Fix the location to be something the server will understand
-        location = {
-          'lat': data.get('lat'),
-          'lng': data.get('lng')
-        }
-        del data['lat']
-        del data['lng']
-        data['location'] = location
-
-        # Fix the visibility to be either true or false (boolean)
-        data['visible'] = ('visible' in data)
+        data = process_place_data(data)
 
         # Send the save request
         response = requests.put(place_uri, data=json.dumps(data),
@@ -116,7 +109,6 @@ def place_view(request, pk):
             return redirect(request.get_full_path())
         else:
             return HttpResponse(response.text)
-
 
     def delete(request, pk):
         # Send the delete request
