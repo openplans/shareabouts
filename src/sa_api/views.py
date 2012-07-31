@@ -73,11 +73,18 @@ class SubmissionCollectionView (views.ListOrCreateModelView):
     resource = resources.SubmissionResource
 
     def post(self, request, parent__place_id, parent__submission_type):
+        # From the URL string, we should have the necessary information to get
+        # the submission set.
         submission_set, created = models.SubmissionSet.objects.get_or_create(
             place_id=parent__place_id,
             submission_type=parent__submission_type,
         )
 
+        # TODO If there's a validation error with the submission, we may end up
+        #      with a dangling submission_set.  We should either defer the
+        #      creation of the set, or make sure it gets cleaned up on error.
+
+        # Pass the submission set in to the base class's
         return super(SubmissionCollectionView, self).post(
             request,
             parent_id=submission_set.id
