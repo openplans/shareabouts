@@ -74,7 +74,7 @@ class AbsUrlMixin (object):
                 self.process_urls(val)
 
         elif isinstance(data, dict):
-            if 'url' in data:
+            if data.get('url') is not None:
                 data['url'] = self.request.build_absolute_uri(data['url'])
 
             for val in data.itervalues():
