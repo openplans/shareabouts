@@ -26,7 +26,15 @@ class ModelResourceWithDataBlob (resources.ModelResource):
             # Pull off any fields that the model doesn't know about directly
             # and put them into the data blob.
             known_fields = set(self.model._meta.get_all_field_names())
-            known_fields -= set(['data'])
+
+            # Also ignore the following field names (treat them like reserved
+            # words).
+            known_fields.update(['submissions'])
+
+            # And allow an arbitrary value field named 'data' (don't let the
+            # data blob get in the way).
+            known_fields.remove('data')
+
             for key in origdata:
                 if key not in known_fields:
                     blob_data[key] = data[key]

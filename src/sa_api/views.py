@@ -8,6 +8,8 @@ from itertools import chain
 from . import resources
 from . import models
 from . import forms
+from . import parsers
+from . import utils
 
 
 class CachedMixin (object):
@@ -83,20 +85,32 @@ class AbsUrlMixin (object):
         return data
 
 
+class ModelViewWithDataBlobMixin (object):
+    parsers = parsers.DEFAULT_DATA_BLOB_PARSERS
+
+    def _perform_form_overloading(self):
+        """
+        Overloaded to handle the data blob as submitted from a form.
+        """
+        super(ModelViewWithDataBlobMixin, self)._perform_form_overloading()
+        if hasattr(self, '_data'):
+            utils.unpack_data_blob(self._data)
+
+
 # TODO derive from CachedMixin to enable caching
-class PlaceCollectionView (AbsUrlMixin, views.ListOrCreateModelView):
+class PlaceCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     # TODO: Decide whether pagination is appropriate/necessary.
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'place_collection'
 
 
-class PlaceInstanceView (AbsUrlMixin, views.InstanceModelView):
+class PlaceInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
 
 
-class SubmissionCollectionView (AbsUrlMixin, views.ListOrCreateModelView):
+class SubmissionCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.SubmissionResource
 
     def get(self, request, place_id, submission_type):
