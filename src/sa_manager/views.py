@@ -6,12 +6,14 @@ import json
 import re
 import requests
 
+API_ROOT = '/api/v1/'
+
 def index_view(request):
     return render(request, "manager/index.html")
 
 
 def places_view(request):
-    places_uri = request.build_absolute_uri('/v1/places/')
+    places_uri = request.build_absolute_uri(API_ROOT + 'places/')
 
     # TODO Is this the best way to get the API data?
     response = requests.get(places_uri)
@@ -76,7 +78,7 @@ def process_place_data(data):
 
 
 def new_place_view(request):
-    places_uri = request.build_absolute_uri('/v1/places/')
+    places_uri = request.build_absolute_uri(API_ROOT + 'places/')
 
     def new(request):
         return render(request, "manager/place.html")
@@ -111,7 +113,7 @@ def new_place_view(request):
 
 
 def place_view(request, pk):
-    place_uri = request.build_absolute_uri('/v1/places/{0}/'.format(pk))
+    place_uri = request.build_absolute_uri(API_ROOT + 'places/{0}/'.format(pk))
 
     def read(request, pk):
         # Retrieve the place data.
