@@ -2,10 +2,27 @@
 
 {% block content %}
 
+<ul class="breadcrumb">
+  <li>
+    <a href="../..">Manager</a> <span class="divider">/</span>
+  </li>
+  <li>
+    <a href="..">Places</a> <span class="divider">/</span>
+  </li>
+  <li>
+    {% if place.id %}
+    Place {{ place.id }}
+    {% else %}
+    New Place
+    {% endif %}
+  </li>
+</ul>
+
 <h2>{{ place.name }}</h2>
 
 <form method="POST" class="form-horizontal">{% csrf_token %}
   <fieldset>
+    <legend>Edit existing properties</legend>
     {% include "manager/_field.html" with label="Place Name" name="name" value=place.name %}
     {% include "manager/_field.html" with label="Submitter Name" name="submitter_name" value=place.submitter_name|default:'' %}
     {% include "manager/_field.html" with label="Visible?" name="visible" value=place.visible type="checkbox" %}
@@ -15,6 +32,27 @@
     {% for label, key, value in data_fields %}
       {% include "manager/_field.html" with label=label name=key value=value %}
     {% endfor %}
+  </fieldset>
+
+  <fieldset>
+    <legend>Add more properties</legend>
+    <div class="control-group">
+      <label class="control-label" style="padding-top: 0px; padding-bottom: 0px;">
+        <input class="input-small" name="_new_key1" type="text" placeholder="Attr Name">
+      </label>
+      <div class="controls">
+        <input name="_new_val1" type="text" placeholder="Attr Value">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" style="padding-top: 0px; padding-bottom: 0px;">
+        <input class="input-small" name="_new_key2" type="text" placeholder="Attr Name">
+      </label>
+      <div class="controls">
+        <input name="_new_val2" type="text" placeholder="Attr Value">
+        <p class="help-block">Save to add more</p>
+      </div>
+    </div>
   </fieldset>
 
   <div class="form-actions">

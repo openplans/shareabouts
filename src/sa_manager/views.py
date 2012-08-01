@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 import json
+import re
 import requests
 
 def index_view(request):
@@ -16,6 +18,24 @@ def places_view(request):
 
     places = json.loads(response.text)
     return render(request, "manager/places.html", {'places': places})
+
+
+def process_new_attr(data, num):
+    meta_key = '_new_key{0}'.format(num)
+    meta_val = '_new_val{0}'.format(num)
+
+    new_key = data.get(meta_key, '').strip()
+    new_val = data.get(meta_val, '')
+
+    if meta_key in data:
+        del data[meta_key]
+    if meta_val in data:
+        del data[meta_val]
+
+    if new_key and new_val:
+        data[new_key] = new_val
+
+    return new_key, new_val
 
 
 def process_place_data(data):
@@ -40,6 +60,18 @@ def process_place_data(data):
     # Fix the visibility to be either true or false (boolean)
     data['visible'] = ('visible' in data)
 
+    for key, value in data.items():
+        # Get rid of any empty data
+        if value == '':
+            del data[key]
+            continue
+
+        # Add any new keys to the data dictionary
+        if key.startswith('_new_key'):
+            num = key[8:]
+            process_new_attr(data, num)
+            continue
+
     return data
 
 
@@ -60,9 +92,13 @@ def new_place_view(request):
         if response.status_code == 201:
             data = json.loads(response.text)
             place_id = data.get('id')
+
+            messages.success(request, 'Successfully saved!')
             return redirect(reverse('manager_place_detail', args=[place_id]))
+
         else:
-            return HttpResponse(response.text)
+            messages.error(request, 'Error: ' + response.text)
+            return redirect(request.get_full_path())
 
 
     if request.method == 'GET':
@@ -105,18 +141,26 @@ def place_view(request, pk):
         # Send the save request
         response = requests.put(place_uri, data=json.dumps(data),
             headers={'Content-type': 'application/json'})
+
         if response.status_code == 200:
-            return redirect(request.get_full_path())
+            messages.success(request, 'Successfully saved!')
+
         else:
-            return HttpResponse(response.text)
+            messages.error(request, 'Error: ' + response.text)
+
+        return redirect(request.get_full_path())
 
     def delete(request, pk):
         # Send the delete request
         response = requests.delete(place_uri)
+
         if response.status_code == 204:
+            messages.success(request, 'Successfully deleted!')
             return redirect(reverse('manager_place_list'))
+
         else:
-            return HttpResponse(response.text)
+            messages.error(request, 'Error: ' + response.text)
+            return redirect(request.get_full_path())
 
 
     if request.method == 'GET':
