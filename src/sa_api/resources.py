@@ -41,7 +41,7 @@ class ModelResourceWithDataBlob (resources.ModelResource):
 class PlaceResource (ModelResourceWithDataBlob):
     model = models.Place
     exclude = ['data']
-    include = ['url']
+    include = ['url', 'submissions']
 
     # TODO: Included vote counts, without an additional query if possible.
     def location(self, place):
@@ -52,6 +52,19 @@ class PlaceResource (ModelResourceWithDataBlob):
 
     def url(self, place):
         return reverse('place_instance', args=[place.pk])
+
+    def submissions(self, place):
+        submissions_metadata = []
+        for submission_set in place.submission_sets.all():
+            submissions_metadata.append({
+                'type': submission_set.submission_type,
+                'count': submission_set.children.count(),
+                'url': reverse('submission_collection', kwargs={
+                    'place_id': place.id,
+                    'submission_type': submission_set.submission_type
+                })
+            })
+        return submissions_metadata
 
     def validate_request(self, origdata, files=None):
         if origdata:
