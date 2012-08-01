@@ -1,3 +1,10 @@
       <li class="activity-item clearfix">
-        <a href="/place/{{ place_id }}"><strong>{{ data.submitter_name }}</strong> added a place {{#data.region}} in {{ data.region }}{{/data.region}}</a>
+        <a href="/place/{{ place_id }}"><strong>
+          {{#data.submitter_name}}
+          {{ data.submitter_name }}
+          {{/data.submitter_name}}
+          {{^data.submitter_name}}
+          Someone
+          {{/data.submitter_name}}
+        </strong> added a {{ type }} {{#data.region}} in {{ data.region }}{{/data.region}}</a>
       </li>

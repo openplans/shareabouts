@@ -1,13 +1,35 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $) {
+  S.SubmissionCollection = Backbone.Collection.extend({
+    initialize: function(models, options) {
+      this.options = options;
+    },
+
+    url: function() {
+      if (!this.options.placeModel) { throw new Error('Place model id is not defined. ' +
+                          'You must save the Place before saving its Comments.'); }
+
+      return '/api/places/' + this.options.placeModel.id + '/comments/';
+    }
+  });
+
+  S.PlaceModel = Backbone.Model.extend({
+    initialize: function() {
+      this.commentCollection = new S.SubmissionCollection([], {
+        placeModel: this
+      });
+    }
+  });
+
   S.PlaceCollection = Backbone.Collection.extend({
-    url: '/api/places/'
+    url: '/api/places/',
+    model: S.PlaceModel
   });
 
   S.ActivityCollection = Backbone.Collection.extend({
     url: '/api/activity/'
-  })
+  });
 
 })(Shareabouts, jQuery);
 

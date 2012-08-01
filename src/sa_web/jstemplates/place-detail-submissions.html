@@ -1,0 +1,32 @@
+          <h4 class="survey-header">{{ submissions.length }} {{ survey_config.submission_name }}</h4>
+          <a href="#reply" class="reply-link">{{ survey_config.form_link_text }}</a>
+
+          <ol class="submissions">
+            {{#submissions}}
+            <li>
+              <article class="submission">
+                <header class="submission-header clearfix">
+                  <strong class="submission-submitter">
+                    {{#submitter_name}}
+                    {{ submitter_name }}
+                    {{/submitter_name}}
+                    {{^submitter_name}}
+                    Someone
+                    {{/submitter_name}}
+                  </strong>
+
+                  <span class="submission-date">
+                    around {{ pretty_created_datetime }}
+                  </span>
+                </header>
+
+                <div class="submission-body">
+                  {{#items}}
+                  <span class="label {{ name }}-label">{{ label }}</span>
+                  <p class="value {{ name }}-value">{{ value }}</p>
+                  {{/items}}
+                </div>
+              </article>
+            </li>
+            {{/submissions}}
+          </ol>

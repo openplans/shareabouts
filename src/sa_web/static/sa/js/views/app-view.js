@@ -142,7 +142,7 @@ var Shareabouts = Shareabouts || {};
     },
     newPlace: function() {
       // Called by the router
-      var placeModel = new Backbone.Model();
+      var placeModel = new S.PlaceModel();
       this.collection.add(placeModel);
     },
     viewPlace: function(model) {

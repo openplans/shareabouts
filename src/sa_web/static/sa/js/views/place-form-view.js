@@ -60,7 +60,8 @@ var Shareabouts = Shareabouts || {};
       this.model.save(this.getAttrs(), {
         success: function() {
           router.navigate('/place/' + model.id, {trigger: true});
-        }
+        },
+        wait: true
       });
     }
   });
