@@ -65,6 +65,7 @@ class PlaceResource (ModelResourceWithDataBlob):
             data = origdata
         return super(PlaceResource, self).validate_request(data, files)
 
+
 class SubmissionResource (ModelResourceWithDataBlob):
     model = models.Submission
     form = forms.SubmissionForm
