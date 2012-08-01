@@ -12,6 +12,9 @@ djangorestframework
 markdown
 python-dateutil
 
+# The manager interface
+requests
+
 # Testing, validating, and debugging
 nose
 django-nose
