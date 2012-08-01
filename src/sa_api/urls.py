@@ -9,8 +9,8 @@ urlpatterns = patterns('sa_api',
         views.PlaceInstanceView.as_view(),
         name='place_instance'),
 
-    url((r'^places/(?P<parent__place_id>\d+)/'
-         r'(?P<parent__submission_type>[^/]+)/$'),
+    url((r'^places/(?P<place_id>\d+)/'
+         r'(?P<submission_type>[^/]+)/$'),
         views.SubmissionCollectionView.as_view(),
         name='submission_collection'),
 

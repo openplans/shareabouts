@@ -99,12 +99,12 @@ class PlaceInstanceView (AbsUrlMixin, views.InstanceModelView):
 class SubmissionCollectionView (AbsUrlMixin, views.ListOrCreateModelView):
     resource = resources.SubmissionResource
 
-    def post(self, request, parent__place_id, parent__submission_type):
+    def post(self, request, place_id, submission_type):
         # From the URL string, we should have the necessary information to get
         # the submission set.
         submission_set, created = models.SubmissionSet.objects.get_or_create(
-            place_id=parent__place_id,
-            submission_type=parent__submission_type,
+            place_id=place_id,
+            submission_type=submission_type,
         )
 
         # TODO If there's a validation error with the submission, we may end up
