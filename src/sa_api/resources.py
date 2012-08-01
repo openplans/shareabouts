@@ -1,4 +1,5 @@
 import json
+from django.core.urlresolvers import reverse
 from djangorestframework import resources
 from . import models
 from . import utils
@@ -40,6 +41,7 @@ class ModelResourceWithDataBlob (resources.ModelResource):
 class PlaceResource (ModelResourceWithDataBlob):
     model = models.Place
     exclude = ['data']
+    include = ['url']
 
     # TODO: Included vote counts, without an additional query if possible.
     def location(self, place):
@@ -47,6 +49,9 @@ class PlaceResource (ModelResourceWithDataBlob):
             'lat': place.location.y,
             'lng': place.location.x,
         }
+
+    def url(self, place):
+        return reverse('place_instance', args=[place.pk])
 
     def validate_request(self, origdata, files=None):
         if origdata:

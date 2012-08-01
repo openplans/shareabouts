@@ -56,20 +56,47 @@ class CachedMixin (object):
         cache.set(self.cache_prefix + '_keys', keys)
 
 
+class AbsUrlMixin (object):
+    def filter_response(self, obj):
+        """
+        Given the response content, filter it into a serializable object.
+        """
+        filtered = super(AbsUrlMixin, self).filter_response(obj)
+        return self.process_urls(filtered)
+
+    def process_urls(self, data):
+        """
+        Recursively replace all 'url' attributes with absolute URIs.  Operation
+        is done in place.
+        """
+        if isinstance(data, list):
+            for val in data:
+                self.process_urls(val)
+
+        elif isinstance(data, dict):
+            if 'url' in data:
+                data['url'] = self.request.build_absolute_uri(data['url'])
+
+            for val in data.itervalues():
+                self.process_urls(val)
+
+        return data
+
+
 # TODO derive from CachedMixin to enable caching
-class PlaceCollectionView (views.ListOrCreateModelView):
+class PlaceCollectionView (AbsUrlMixin, views.ListOrCreateModelView):
     # TODO: Decide whether pagination is appropriate/necessary.
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'place_collection'
 
 
-class PlaceInstanceView (views.InstanceModelView):
+class PlaceInstanceView (AbsUrlMixin, views.InstanceModelView):
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
 
 
-class SubmissionCollectionView (views.ListOrCreateModelView):
+class SubmissionCollectionView (AbsUrlMixin, views.ListOrCreateModelView):
     resource = resources.SubmissionResource
 
     def post(self, request, parent__place_id, parent__submission_type):
@@ -92,7 +119,7 @@ class SubmissionCollectionView (views.ListOrCreateModelView):
 
 
 # TODO derive from CachedMixin to enable caching
-class ActivityView (views.ListModelView):
+class ActivityView (AbsUrlMixin, views.ListModelView):
     """
     Get a list of activities ordered by the `created_datetime` in reverse.
 
