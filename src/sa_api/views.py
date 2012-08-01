@@ -99,6 +99,15 @@ class PlaceInstanceView (AbsUrlMixin, views.InstanceModelView):
 class SubmissionCollectionView (AbsUrlMixin, views.ListOrCreateModelView):
     resource = resources.SubmissionResource
 
+    def get(self, request, place_id, submission_type):
+        # rename the URL parameters as necessary, and pass to the
+        # base class's handler
+        return super(SubmissionCollectionView, self).get(
+            request,
+            parent__place_id=place_id,
+            parent__submission_type=submission_type
+        )
+
     def post(self, request, place_id, submission_type):
         # From the URL string, we should have the necessary information to get
         # the submission set.
