@@ -13,12 +13,12 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         client = Client()
 
         with patch('sa_api.views.SubmissionCollectionView.get') as getter:
-            client.get('/v1/places/1/comments/')
+            client.get('/api/v1/places/1/comments/')
             args, kwargs = getter.call_args
             assert_equal(
                 kwargs,
-                {'parent__place_id': u'1',
-                 'parent__submission_type': u'comments'}
+                {'place_id': u'1',
+                 'submission_type': u'comments'}
             )
 
     @istest
@@ -36,8 +36,8 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         request = RequestFactory().get('/places/1/comments/')
         view = SubmissionCollectionView.as_view()
 
-        response = view(request, parent__place_id=1,
-                        parent__submission_type='comments')
+        response = view(request, place_id=1,
+                        submission_type='comments')
         data = json.loads(response.content)
         assert_equal(len(data), 2)
 
@@ -57,8 +57,8 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         request = RequestFactory().get('/places/1/votes/')
         view = SubmissionCollectionView.as_view()
 
-        response = view(request, parent__place_id=1,
-                        parent__submission_type='votes')
+        response = view(request, place_id=1,
+                        submission_type='votes')
         data = json.loads(response.content)
         assert_equal(len(data), 0)
 
@@ -84,8 +84,8 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
         request = RequestFactory().post('/places/1/comments/', data=json.dumps(data), content_type='application/json')
         view = SubmissionCollectionView.as_view()
 
-        response = view(request, parent__place_id=1,
-                        parent__submission_type='comments')
+        response = view(request, place_id=1,
+                        submission_type='comments')
         data = json.loads(response.content)
         print response
         assert_equal(response.status_code, 201)
