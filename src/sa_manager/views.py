@@ -123,7 +123,8 @@ def place_view(request, pk):
         # Arrange the place data fields for display on the form
         data_fields = []
         special_fields = ('id', 'location', 'submitter_name', 'name', 'visible',
-                          'created_datetime', 'updated_datetime', 'url')
+                          'created_datetime', 'updated_datetime', 'url',
+                          'submissions')
         for key, value in place.items():
             if key not in special_fields:
                 label = key.replace('_', ' ').title()
