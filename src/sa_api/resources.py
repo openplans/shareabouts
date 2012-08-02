@@ -50,6 +50,7 @@ class PlaceResource (ModelResourceWithDataBlob):
     model = models.Place
     exclude = ['data', 'submittedthing_ptr']
     include = ['url', 'submissions']
+    queryset = model.objects.prefetch_related('submission_sets')
 
     # TODO: Included vote counts, without an additional query if possible.
     def location(self, place):
@@ -101,6 +102,7 @@ class GeneralSubmittedThingResource (ModelResourceWithDataBlob):
 class ActivityResource (resources.ModelResource):
     model = models.Activity
     fields = ['action', 'type', 'id', 'place_id', ('data', GeneralSubmittedThingResource)]
+    queryset = model.objects.select_related('data', 'data__place', 'data__submission', 'data__submission__parent', 'data__submission__parent__place')
 
     def type(self, obj):
         try:
