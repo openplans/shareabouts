@@ -7,8 +7,8 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function() {
       this.model.on('change', this.onChange, this);
-      this.model.commentCollection.on('reset', this.onCommentChange, this);
-      this.model.commentCollection.on('add', this.onCommentChange, this);
+      this.model.submissionCollection.on('reset', this.onSubmissionsChange, this);
+      this.model.submissionCollection.on('add', this.onSubmissionsChange, this);
     },
 
     render: function() {
@@ -23,7 +23,7 @@ var Shareabouts = Shareabouts || {};
       this.$el.html(ich['place-detail'](data));
       this.renderSubmissions();
 
-      this.model.commentCollection.fetch();
+      this.model.submissionCollection.fetch();
 
       return this;
     },
@@ -34,7 +34,7 @@ var Shareabouts = Shareabouts || {};
 
       // Submissions should be an array of objects with submitter_name,
       // pretty_created_datetime, and items (name, label, and prompt)
-      this.model.commentCollection.each(function(model, i) {
+      this.model.submissionCollection.each(function(model, i) {
         var items = [];
         _.each(self.options.surveyConfig.items, function(item, j){
           if (item.name !== 'submitter_name') {
@@ -66,7 +66,7 @@ var Shareabouts = Shareabouts || {};
       this.render();
     },
 
-    onCommentChange: function() {
+    onSubmissionsChange: function() {
       this.renderSubmissions();
     },
 
@@ -84,7 +84,7 @@ var Shareabouts = Shareabouts || {};
 
     onSubmit: function(evt) {
       evt.preventDefault();
-      this.model.commentCollection.create(this.getAttrs());
+      this.model.submissionCollection.create(this.getAttrs());
 
       // Clear the form
       this.$('form').get(0).reset();

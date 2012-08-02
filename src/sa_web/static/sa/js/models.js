@@ -7,24 +7,41 @@ var Shareabouts = Shareabouts || {};
     },
 
     url: function() {
-      if (!this.options.placeModel) { throw new Error('Place model id is not defined. ' +
-                          'You must save the Place before saving its Comments.'); }
+      var submissionType = this.options.submissionType,
+          placeId = this.options.placeModel.id;
 
-      return '/api/places/' + this.options.placeModel.id + '/comments/';
+      if (!placeId) { throw new Error('Place model id is not defined. You ' +
+                                      'must save the Place before saving ' +
+                                      'its ' + submissionType + '.'); }
+
+      return '/api/places/' + placeId + '/' + submissionType + '/';
     }
   });
 
   S.PlaceModel = Backbone.Model.extend({
-    initialize: function() {
-      this.commentCollection = new S.SubmissionCollection([], {
-        placeModel: this
+    initialize: function(attributes, options) {
+      this.submissionCollection = new S.SubmissionCollection([], {
+        placeModel: this,
+        submissionType: options.submissionType
       });
     }
   });
 
   S.PlaceCollection = Backbone.Collection.extend({
     url: '/api/places/',
-    model: S.PlaceModel
+    model: S.PlaceModel,
+
+    initialize: function(models, options) {
+      this.options = options
+    },
+
+    add: function(models, options) {
+      // Pass the submissionType into each PlaceModel so that it makes its way
+      // to the SubmissionCollections
+      options = options || {};
+      options.submissionType = this.options.submissionType;
+      return S.PlaceCollection.__super__.add.call(this, models, options);
+    }
   });
 
   S.ActivityCollection = Backbone.Collection.extend({

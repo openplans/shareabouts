@@ -9,7 +9,9 @@ var Shareabouts = Shareabouts || {};
     },
 
     initialize: function(options) {
-      this.collection = new S.PlaceCollection();
+      this.collection = new S.PlaceCollection([], {
+        submissionType: options.surveyConfig['submission_type']
+      });
       this.activities = new S.ActivityCollection();
       this.appView = new S.AppView({
         el: 'body',
