@@ -24,10 +24,13 @@ class SubmittedThing (TimeStampedModel):
         abstract = True
 
     def save(self, *args, **kwargs):
+        is_new = (self.id == None)
+
         ret = super(SubmittedThing, self).save(*args, **kwargs)
 
         # All submitted things generate an action.
         activity = Activity()
+        activity.action = 'create' if is_new else 'update'
         activity.data = self
         activity.save()
 
