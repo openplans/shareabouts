@@ -20,9 +20,6 @@ class SubmittedThing (TimeStampedModel):
     submitter_name = models.CharField(max_length=256, null=True, blank=True)
     data = models.TextField(default='{}')
 
-    class Meta:
-        abstract = True
-
     def save(self, *args, **kwargs):
         is_new = (self.id == None)
 

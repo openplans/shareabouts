@@ -48,7 +48,7 @@ class ModelResourceWithDataBlob (resources.ModelResource):
 
 class PlaceResource (ModelResourceWithDataBlob):
     model = models.Place
-    exclude = ['data']
+    exclude = ['data', 'submittedthing_ptr']
     include = ['url', 'submissions']
 
     # TODO: Included vote counts, without an additional query if possible.
@@ -90,7 +90,7 @@ class PlaceResource (ModelResourceWithDataBlob):
 class SubmissionResource (ModelResourceWithDataBlob):
     model = models.Submission
     form = forms.SubmissionForm
-    exclude = ['parent', 'data']
+    exclude = ['parent', 'data', 'submittedthing_ptr']
 
 
 class ActivityResource (resources.ModelResource):
@@ -111,6 +111,8 @@ class ActivityResource (resources.ModelResource):
         return super(ActivityResource, self).get_fields(obj)
 
     def type(self, obj):
+        if isinstance(obj.data, models.Submission):
+            return obj.data.parent.submission_type
         return obj.data_content_type.name
 
     def place_id(self, obj):
