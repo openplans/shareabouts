@@ -80,7 +80,7 @@ def process_place_data(data):
 def new_place_view(request):
     places_uri = request.build_absolute_uri(API_ROOT + 'places/')
 
-    def new(request):
+    def initial(request):
         return render(request, "manager/place.html")
 
     def create(request):
@@ -104,7 +104,7 @@ def new_place_view(request):
 
 
     if request.method == 'GET':
-        return new(request)
+        return initial(request)
     elif request.method == 'POST':
         return create(request)
     else:
