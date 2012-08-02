@@ -21,6 +21,7 @@ var Shareabouts = Shareabouts || {};
       }, this.model.toJSON());
 
       this.$el.html(ich['place-detail'](data));
+      this.renderSubmissions();
 
       this.model.commentCollection.fetch();
 
