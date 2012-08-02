@@ -70,9 +70,7 @@ class Submission (SubmittedThing):
 
 class Activity (TimeStampedModel):
     action = models.CharField(max_length=16, default='create')
-    data_content_type = models.ForeignKey('contenttypes.ContentType')
-    data_object_id = models.PositiveIntegerField()
-    data = generic.GenericForeignKey('data_content_type', 'data_object_id')
+    data = models.ForeignKey(SubmittedThing)
 
     def save(self, *args, **kwargs):
         keys = cache.get('activity_keys') or set()

@@ -93,33 +93,32 @@ class SubmissionResource (ModelResourceWithDataBlob):
     exclude = ['parent', 'data', 'submittedthing_ptr']
 
 
+class GeneralSubmittedThingResource (ModelResourceWithDataBlob):
+    model = models.SubmittedThing
+    exclude = ['data']
+
+
 class ActivityResource (resources.ModelResource):
     model = models.Activity
-    fields = ['action', 'type', 'id', 'place_id']
-
-    def get_fields(self, obj):
-        self.fields = ActivityResource.fields[:]
-
-        # If the obj is a Place, use the PlaceResource to render it.
-        if obj.data_content_type.name == 'place':
-            self.fields.append(('data', PlaceResource))
-
-        # If the obj is a Submission, use the SubmissionResource to render it.
-        elif obj.data_content_type.name == 'submission':
-            self.fields.append(('data', SubmissionResource))
-
-        return super(ActivityResource, self).get_fields(obj)
+    fields = ['action', 'type', 'id', 'place_id', ('data', GeneralSubmittedThingResource)]
 
     def type(self, obj):
-        if isinstance(obj.data, models.Submission):
-            return obj.data.parent.submission_type
-        return obj.data_content_type.name
+        try:
+            return obj.data.submission.parent.submission_type
+        except models.Submission.DoesNotExist:
+            pass
+
+        return 'place'
 
     def place_id(self, obj):
         # If the obj is a Place, get the place_id directly from it.
-        if isinstance(obj.data, models.Place):
-            return obj.data.id
+        try:
+            return obj.data.place.id
+        except models.Place.DoesNotExist:
+            pass
 
         # If the obj is a Submission, get the place_id from the attached Place.
-        elif isinstance(obj.data, models.Submission):
-            return obj.data.parent.place.id
+        try:
+            return obj.data.submission.parent.place.id
+        except models.Submission.DoesNotExist:
+            pass
