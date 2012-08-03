@@ -142,8 +142,7 @@ var Shareabouts = Shareabouts || {};
     },
     newPlace: function() {
       // Called by the router
-      var placeModel = new S.PlaceModel();
-      this.collection.add(placeModel);
+      this.collection.add({});
     },
     viewPlace: function(model) {
       // Called by the router
