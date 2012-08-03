@@ -14,4 +14,7 @@ urlpatterns = patterns('sa_api',
     url(r'^places/(?P<pk>\d+)/$',
         views.place_view,
         name='manager_place_detail'),
+    url(r'^places/(?P<pk>\d+)/submissions/$',
+        views.place_submissions_view,
+        name='manager_place_submissions_list'),
 )

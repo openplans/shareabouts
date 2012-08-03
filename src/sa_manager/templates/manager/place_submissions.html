@@ -1,0 +1,48 @@
+{% extends "manager/place_base.html" %}
+
+{% block place_content %}
+
+{% include "manager/place_tabs.html" with submissions_active=1 link_prefix='../' %}
+
+{% for submission_set in place.submissions %}
+<legend>{{ submission_set.label }}</legend>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Submitter</th>
+      <th>Date/Time</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for submission in submission_set.submissions %}
+    {% for label, key, value in submission.data_fields %}
+
+    <tr>
+      {% if forloop.first %}
+      <td rowspan="{{ submission.data_fields|length }}">{{ submission.submitter_name }}</td>
+      <td rowspan="{{ submission.data_fields|length }}">{{ submission.created_datetime }}</td>
+      {% endif %}
+
+      <td>{{ label }}:</td>
+      <td><pre>{{ value }}</pre></td>
+    </tr>
+
+    {% empty %}
+
+    <tr>
+      {% if forloop.first %}
+      <td>{{ submission.submitter_name }}</td>
+      <td>{{ submission.created_datetime }}</td>
+      {% endif %}
+    </tr>
+
+    {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+
+{% endblock place_content %}

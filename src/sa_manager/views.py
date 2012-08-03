@@ -179,3 +179,42 @@ def place_view(request, pk):
     else:
         # TODO 405 on other
         pass
+
+def place_submissions_view(request, pk):
+    place_uri = request.build_absolute_uri(API_ROOT + 'places/{0}/'.format(pk))
+    submissions_uri = lambda submission_type: request.build_absolute_uri(API_ROOT + 'places/{0}/{1}/'.format(pk, submission_type))
+
+    def index():
+        # Retrieve the place data.
+        response = requests.get(place_uri)
+        place = json.loads(response.text)
+
+        submission_sets = place['submissions']
+        for submission_set in submission_sets:
+            stype = submission_set['type']
+            response = requests.get(submissions_uri(stype))
+
+            submission_set['label'] = submission_set['type'].replace('_', ' ').title()
+            submission_set['submissions'] = json.loads(response.text)
+
+            for submission in submission_set['submissions']:
+                # Arrange the place data fields for display on the form
+                data_fields = []
+                special_fields = ('id', 'submitter_name', 'url',
+                                  'created_datetime', 'updated_datetime')
+                for key, value in submission.items():
+                    if key not in special_fields:
+                        label = key.replace('_', ' ').title()
+                        data_fields.append((label, key, value))
+                data_fields.sort()
+
+                submission['data_fields'] = data_fields
+
+
+
+        return render(request, "manager/place_submissions.html", {
+            'place': place,
+        })
+
+    if request.method == 'GET':
+        return index()

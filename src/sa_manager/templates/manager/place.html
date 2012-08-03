@@ -1,24 +1,8 @@
-{% extends "manager/base.html" %}
+{% extends "manager/place_base.html" %}
 
-{% block content %}
+{% block place_content %}
 
-<ul class="breadcrumb">
-  <li>
-    <a href="../..">Manager</a> <span class="divider">/</span>
-  </li>
-  <li>
-    <a href="..">Places</a> <span class="divider">/</span>
-  </li>
-  <li>
-    {% if place.id %}
-    Place {{ place.id }}
-    {% else %}
-    New Place
-    {% endif %}
-  </li>
-</ul>
-
-<h2>{{ place.name }}</h2>
+{% include "manager/place_tabs.html" with data_active=1 %}
 
 <form method="POST" class="form-horizontal">{% csrf_token %}
   <fieldset>
@@ -63,4 +47,4 @@
   </div>
 </form>
 
-{% endblock content %}
+{% endblock %}

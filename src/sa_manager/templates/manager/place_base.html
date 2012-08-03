@@ -1,0 +1,27 @@
+{% extends "manager/base.html" %}
+{% load url from future %}
+
+{% block content %}
+
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url 'manager_index' %}">Manager</a> <span class="divider">/</span>
+  </li>
+  <li>
+    <a href="{% url 'manager_place_list' %}">Places</a> <span class="divider">/</span>
+  </li>
+  <li>
+    {% if place.id %}
+    Place {{ place.id }}
+    {% else %}
+    New Place
+    {% endif %}
+  </li>
+</ul>
+
+<h2>{{ place.name }}</h2>
+
+{% block place_content %}
+{% endblock place_content %}
+
+{% endblock content %}
