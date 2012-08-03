@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
+from django.views.generic import View
 import json
 import re
 import requests
@@ -22,74 +23,116 @@ def places_view(request):
     return render(request, "manager/places.html", {'places': places})
 
 
-def process_new_attr(data, num):
-    meta_key = '_new_key{0}'.format(num)
-    meta_val = '_new_val{0}'.format(num)
+class BaseDataBlobView (View):
+    def make_data_fields_tuples(self, data):
+        """
+        Take a dictionary of data and turn it into tuples containing a label, a
+        key and a value.  Reqires special_fields to be defined on the view.
 
-    new_key = data.get(meta_key, '').strip()
-    new_val = data.get(meta_val, '')
+        """
+        data_fields = []
+        for key, value in data.items():
+            if key not in self.special_fields:
+                label = key.replace('_', ' ').title()
+                data_fields.append((label, key, value))
+        data_fields.sort()
 
-    if meta_key in data:
-        del data[meta_key]
-    if meta_val in data:
-        del data[meta_val]
-
-    if new_key and new_val:
-        data[new_key] = new_val
-
-    return new_key, new_val
-
-
-def process_place_data(data):
-    """
-    Prepare place data to be sent to the service for creating or updating.
-    """
-    # Pull out data we don't want to send to the server
-    if 'csrfmiddlewaretoken' in data:
-        del data['csrfmiddlewaretoken']
-    if 'action' in data:
-        del data['action']
-
-    # Fix the location to be something the server will understand
-    location = {
-      'lat': data.get('lat'),
-      'lng': data.get('lng')
-    }
-    del data['lat']
-    del data['lng']
-    data['location'] = location
-
-    # Fix the visibility to be either true or false (boolean)
-    data['visible'] = ('visible' in data)
-
-    for key, value in data.items():
-        # Get rid of any empty data
-        if value == '':
-            del data[key]
-            continue
-
-        # Add any new keys to the data dictionary
-        if key.startswith('_new_key'):
-            num = key[8:]
-            process_new_attr(data, num)
-            continue
-
-    return data
+        return data_fields
 
 
-def new_place_view(request):
-    places_uri = request.build_absolute_uri(API_ROOT + 'places/')
+class BaseDataBlobFormView (BaseDataBlobView):
+    def process_new_attr(self, num):
+        data = self.data_blob
 
-    def initial(request):
+        meta_key = '_new_key{0}'.format(num)
+        meta_val = '_new_val{0}'.format(num)
+
+        new_key = data.get(meta_key, '').strip()
+        new_val = data.get(meta_val, '')
+
+        if meta_key in data:
+            del data[meta_key]
+        if meta_val in data:
+            del data[meta_val]
+
+        if new_key and new_val:
+            data[new_key] = new_val
+
+        return new_key, new_val
+
+    def eliminate_unwanted_fields(self):
+        """
+        Pull data out of the blob that we don't want to send to the Shareabouts
+        service server.
+        """
+        data = self.data_blob
+        if 'csrfmiddlewaretoken' in data:
+            del data['csrfmiddlewaretoken']
+        if 'action' in data:
+            del data['action']
+
+    def process_specific_fields(self):
+        """
+        Override this in the child view to do any extra processing necessary.
+        """
+        raise NotImplementedError()
+
+    def check_for_new_fields(self):
+        data = self.data_blob
+
+        for key, value in data.items():
+            # Get rid of any empty data
+            if value == '':
+                del data[key]
+                continue
+
+            # Add any new keys to the data dictionary
+            if key.startswith('_new_key'):
+                num = key[8:]
+                self.process_new_attr(num)
+                continue
+
+    def process_data_blob(self):
+        """
+        Prepare place data to be sent to the service for creating or updating.
+        """
+        self.eliminate_unwanted_fields()
+        self.process_specific_fields()
+        self.check_for_new_fields()
+
+
+class PlaceFormView (BaseDataBlobFormView):
+    def dispatch(self, request, *args, **kwargs):
+        self.special_fields = ('id', 'location', 'submitter_name', 'name',
+                               'created_datetime', 'updated_datetime', 'url',
+                               'visible', 'submissions')
+        return super(PlaceFormView, self).dispatch(request, *args, **kwargs)
+
+    def process_specific_fields(self):
+        data = self.data_blob
+
+        # Fix the location to be something the server will understand
+        location = {
+          'lat': data.get('lat'),
+          'lng': data.get('lng')
+        }
+        del data['lat']
+        del data['lng']
+        data['location'] = location
+
+        # Fix the visibility to be either true or false (boolean)
+        data['visible'] = ('visible' in data)
+
+    def initial(self, request):
         return render(request, "manager/place.html")
 
-    def create(request):
+    def create(self, request):
         # Make a copy of the POST data, since we can't edit the original.
-        data = request.POST.dict()
-        data = process_place_data(data)
+        self.data_blob = data = request.POST.dict()
+        self.process_data_blob()
 
         # Send the save request
-        response = requests.post(places_uri, data=json.dumps(data),
+        response = requests.post(self.places_uri, data=json.dumps(data),
             headers={'Content-type': 'application/json'})
         if response.status_code == 201:
             data = json.loads(response.text)
@@ -102,47 +145,26 @@ def new_place_view(request):
             messages.error(request, 'Error: ' + response.text)
             return redirect(request.get_full_path())
 
-
-    if request.method == 'GET':
-        return initial(request)
-    elif request.method == 'POST':
-        return create(request)
-    else:
-        # TODO 405 on other
-        pass
-
-
-def place_view(request, pk):
-    place_uri = request.build_absolute_uri(API_ROOT + 'places/{0}/'.format(pk))
-
-    def read(request, pk):
+    def read(self, request, pk):
         # Retrieve the place data.
-        response = requests.get(place_uri)
+        response = requests.get(self.place_uri)
         place = json.loads(response.text)
 
         # Arrange the place data fields for display on the form
-        data_fields = []
-        special_fields = ('id', 'location', 'submitter_name', 'name', 'visible',
-                          'created_datetime', 'updated_datetime', 'url',
-                          'submissions')
-        for key, value in place.items():
-            if key not in special_fields:
-                label = key.replace('_', ' ').title()
-                data_fields.append((label, key, value))
-        data_fields.sort()
+        data_fields = self.make_data_fields_tuples(place)
 
         return render(request, "manager/place.html", {
             'place': place,
             'data_fields': data_fields
         })
 
-    def update(request, pk):
+    def update(self, request, pk):
         # Make a copy of the POST data, since we can't edit the original.
-        data = request.POST.dict()
-        data = process_place_data(data)
+        self.data_blob = data = request.POST.dict()
+        self.process_data_blob()
 
         # Send the save request
-        response = requests.put(place_uri, data=json.dumps(data),
+        response = requests.put(self.place_uri, data=json.dumps(data),
             headers={'Content-type': 'application/json'})
 
         if response.status_code == 200:
@@ -153,9 +175,9 @@ def place_view(request, pk):
 
         return redirect(request.get_full_path())
 
-    def delete(request, pk):
+    def delete(self, request, pk):
         # Send the delete request
-        response = requests.delete(place_uri)
+        response = requests.delete(self.place_uri)
 
         if response.status_code == 204:
             messages.success(request, 'Successfully deleted!')
@@ -166,19 +188,34 @@ def place_view(request, pk):
             return redirect(request.get_full_path())
 
 
-    if request.method == 'GET':
-        return read(request, pk)
-    elif request.method == 'POST':
+class NewPlaceView (PlaceFormView):
+    def dispatch(self, request):
+        self.places_uri = request.build_absolute_uri(API_ROOT + 'places/')
+        return super(NewPlaceView, self).dispatch(request)
+
+    def get(self, request):
+        return self.initial(request)
+
+    def post(self, request):
+        return self.create(request)
+
+
+class ExistingPlaceView (PlaceFormView):
+    def dispatch(self, request, pk):
+        self.place_uri = request.build_absolute_uri(API_ROOT + 'places/{0}/'.format(pk))
+        return super(ExistingPlaceView, self).dispatch(request, pk)
+
+    def get(self, request, pk):
+        return self.read(request, pk)
+
+    def post(self, request, pk):
         if request.POST.get('action') == 'save':
-            return update(request, pk)
+            return self.update(request, pk)
         elif request.POST.get('action') == 'delete':
-            return delete(request, pk)
+            return self.delete(request, pk)
         else:
             # TODO ???
             pass
-    else:
-        # TODO 405 on other
-        pass
 
 def place_submissions_view(request, pk):
     place_uri = request.build_absolute_uri(API_ROOT + 'places/{0}/'.format(pk))
