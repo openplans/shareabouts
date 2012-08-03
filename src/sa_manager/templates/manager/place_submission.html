@@ -1,0 +1,71 @@
+{% extends "manager/place_base.html" %}
+{% load url from future %}
+
+{% block more_breadcrumbs %}
+<li>
+  <a href="{% url 'manager_place_submission_list' place.id 'submissions' %}">Place {{ place.id }}</a> <span class="divider">/</span>
+</li>
+<li>
+  {% if submission.id %}
+  {{ submission_type }} {{ submission.id }}
+  {% else %}
+  New Submission
+  {% endif %}
+</li>
+{% endblock %}
+
+{% block place_content %}
+
+{% comment %}
+{%
+{% TODO Much of this form is the same as for the place form.  Abstract out
+{%      whatever's reasonable into partials.
+{%
+{% endcomment %}
+
+<form method="POST" class="form-horizontal">{% csrf_token %}
+  <fieldset>
+    <legend>Edit existing properties</legend>
+    {% include "manager/_field.html" with label="Submitter Name" name="submitter_name" value=submission.submitter_name|default:'' %}
+    {% if submission_type %}
+    <input type="hidden" name="submission_type" value="{{ submission_type }}">
+    {% else %}
+    {% include "manager/_field.html" with label="Submission Type" name="submission_type" value="" %}
+    {% endif %}
+    {% include "manager/_field.html" with label="Visible?" name="visible" value=submission.visible type="checkbox" %}
+
+    {% for label, key, value in data_fields %}
+      {% include "manager/_field.html" with label=label name=key value=value %}
+    {% endfor %}
+  </fieldset>
+
+  <fieldset>
+    <legend>Add more properties</legend>
+    <div class="control-group">
+      <label class="control-label" style="padding-top: 0px; padding-bottom: 0px;">
+        <input class="input-small" name="_new_key1" type="text" placeholder="Attr Name">
+      </label>
+      <div class="controls">
+        <input name="_new_val1" type="text" placeholder="Attr Value">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" style="padding-top: 0px; padding-bottom: 0px;">
+        <input class="input-small" name="_new_key2" type="text" placeholder="Attr Name">
+      </label>
+      <div class="controls">
+        <input name="_new_val2" type="text" placeholder="Attr Value">
+        <p class="help-block">Save to add more</p>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="form-actions">
+    <button class="btn btn-primary" name="action" value="save" type="submit">Save</button>
+    {% if place.id %}
+    <button class="btn" name="action" value="delete" type="submit">Delete</button>
+    {% endif %}
+  </div>
+</form>
+
+{% endblock %}

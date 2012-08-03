@@ -1,4 +1,5 @@
 {% extends "manager/place_base.html" %}
+{% load url from future %}
 
 {% block place_content %}
 
@@ -7,12 +8,16 @@
 {% for submission_set in place.submissions %}
 <legend>{{ submission_set.label }}</legend>
 
+
+
 <table class="table">
   <thead>
     <tr>
+      <th><!-- Edit link --></th>
       <th>Submitter</th>
       <th>Date/Time</th>
-      <th>Data</th>
+      <th>Data<!-- Key --></th>
+      <th><!-- Value --></th>
     </tr>
   </thead>
 
@@ -22,6 +27,7 @@
 
     <tr>
       {% if forloop.first %}
+      <td rowspan="{{ submission.data_fields|length }}"><a href="{% url 'manager_place_submission_detail' place.id submission_set.type submission.id %}">Edit</a></td>
       <td rowspan="{{ submission.data_fields|length }}">{{ submission.submitter_name }}</td>
       <td rowspan="{{ submission.data_fields|length }}">{{ submission.created_datetime }}</td>
       {% endif %}
@@ -34,6 +40,7 @@
 
     <tr>
       {% if forloop.first %}
+      <td><a href="{% url 'manager_place_submission_detail' place.id submission.type submission.id %}">Edit</a></td>
       <td>{{ submission.submitter_name }}</td>
       <td>{{ submission.created_datetime }}</td>
       {% endif %}
