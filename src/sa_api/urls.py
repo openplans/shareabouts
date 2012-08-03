@@ -13,6 +13,10 @@ urlpatterns = patterns('sa_api',
          r'(?P<submission_type>[^/]+)/$'),
         views.SubmissionCollectionView.as_view(),
         name='submission_collection'),
+    url((r'^places/(?P<place_id>\d+)/'
+         r'(?P<submission_type>[^/]+)/(?P<pk>\d+)/$'),
+        views.SubmissionInstanceView.as_view(),
+        name='submission_instance'),
 
     url(r'^activity/$',
         views.ActivityView.as_view(),

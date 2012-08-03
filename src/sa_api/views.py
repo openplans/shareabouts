@@ -141,6 +141,34 @@ class SubmissionCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.L
         )
 
 
+class SubmissionInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
+    resource = resources.SubmissionResource
+
+    def get(self, request, place_id, submission_type, pk):
+        return super(SubmissionInstanceView, self).get(
+            request,
+            parent__place_id=place_id,
+            parent__submission_type=submission_type,
+            pk=pk
+        )
+
+    def put(self, request, place_id, submission_type, pk):
+        return super(SubmissionInstanceView, self).put(
+            request,
+            parent__place_id=place_id,
+            parent__submission_type=submission_type,
+            pk=pk
+        )
+
+    def delete(self, request, place_id, submission_type, pk):
+        return super(SubmissionInstanceView, self).delete(
+            request,
+            parent__place_id=place_id,
+            parent__submission_type=submission_type,
+            pk=pk
+        )
+
+
 # TODO derive from CachedMixin to enable caching
 class ActivityView (AbsUrlMixin, views.ListModelView):
     """
