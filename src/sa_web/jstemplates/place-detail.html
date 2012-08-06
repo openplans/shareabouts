@@ -18,32 +18,5 @@
         </section>
 
         {{#survey_config}}
-        <section class="survey">
-          {{#show_submissions}}
-          <div class="submissions-container"></div>
-          {{/show_submissions}}
-
-          <div id="reply">
-            <h4 class="reply-header">{{ title }}</h4>
-            <form id="new_submission" class="new_submission" action="#" method="post">
-
-              {{#items}}
-              <fieldset>
-                <p>
-                  <label for="submission-{{ name }}">{{ prompt }}{{# optional }} (optional){{/ optional }}</label>
-                  {{#is_textarea}}
-                  <textarea name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
-                  {{/is_textarea}}
-                  {{^is_textarea}}
-                  <input name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-                  {{/is_textarea}}
-                </p>
-              </fieldset>
-              {{/items}}
-
-              <input name="commit" type="submit" value="{{ submit_btn_text }}" class="bttn">
-            </form>
-          </div>
-
-        </section><!-- end .survey -->
+        <section class="survey"></section>
         {{/survey_config}}

@@ -1,3 +1,4 @@
+          {{#survey_config.show_submissions}}
           <h4 class="survey-header">{{ submissions.length }} {{ survey_config.submission_name }}</h4>
           <a href="#reply" class="reply-link">{{ survey_config.form_link_text }}</a>
 
@@ -30,3 +31,26 @@
             </li>
             {{/submissions}}
           </ol>
+          {{/survey_config.show_submissions}}
+
+          <div id="reply">
+            <h4 class="reply-header">{{ title }}</h4>
+            <form id="new_submission" class="new_submission" action="#" method="post">
+
+              {{#survey_config.items}}
+              <fieldset>
+                <p>
+                  <label for="submission-{{ name }}">{{ prompt }}{{# optional }} (optional){{/ optional }}</label>
+                  {{#is_textarea}}
+                  <textarea name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
+                  {{/is_textarea}}
+                  {{^is_textarea}}
+                  <input name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                  {{/is_textarea}}
+                </p>
+              </fieldset>
+              {{/survey_config.items}}
+
+              <input name="commit" type="submit" value="{{ survey_config.submit_btn_text }}" class="bttn">
+            </form>
+          </div>
