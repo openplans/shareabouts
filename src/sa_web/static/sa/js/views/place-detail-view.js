@@ -21,6 +21,7 @@ var Shareabouts = Shareabouts || {};
       }, this.model.toJSON());
 
       this.$el.html(ich['place-detail'](data));
+      // Render what you have, if anything. This avoids flickering
       this.renderSubmissions();
 
       this.model.submissionCollection.fetch();
