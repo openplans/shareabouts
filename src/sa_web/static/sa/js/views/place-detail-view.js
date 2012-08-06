@@ -9,6 +9,11 @@ var Shareabouts = Shareabouts || {};
         collection: this.model.submissionCollection,
         surveyConfig: this.options.surveyConfig
       });
+
+      this.supportView = new S.SupportView({
+        collection: this.model.supportCollection,
+        supportConfig: this.options.supportConfig
+      });
     },
 
     render: function() {
@@ -27,6 +32,11 @@ var Shareabouts = Shareabouts || {};
       this.$('.survey').html(this.submissionsView.render().el);
       // Fetch for submissions and automatically update the element
       this.model.submissionCollection.fetch();
+
+
+      this.$('.support').html(this.supportView.render().el);
+      // Fetch for submissions and automatically update the element
+      this.model.supportCollection.fetch();
 
       return this;
     },

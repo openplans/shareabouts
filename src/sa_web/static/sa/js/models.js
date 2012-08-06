@@ -24,6 +24,11 @@ var Shareabouts = Shareabouts || {};
         placeModel: this,
         submissionType: options.submissionType
       });
+
+      this.supportCollection = new S.SubmissionCollection([], {
+        placeModel: this,
+        submissionType: 'support'
+      });
     }
   });
 
@@ -32,7 +37,7 @@ var Shareabouts = Shareabouts || {};
     model: S.PlaceModel,
 
     initialize: function(models, options) {
-      this.options = options
+      this.options = options;
     },
 
     add: function(models, options) {
