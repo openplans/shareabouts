@@ -50,24 +50,16 @@ var Shareabouts = Shareabouts || {};
       this.render();
     },
 
-    // Get the attributes from the form
-    getAttrs: function() {
-      var attrs = {};
-
-      // Get values from the form
-      _.each(this.$('form').serializeArray(), function(item, i) {
-        attrs[item.name] = item.value;
-      });
-
-      return attrs;
-    },
-
     onSubmit: function(evt) {
       evt.preventDefault();
-      this.collection.create(this.getAttrs());
+      var $form = this.$('form'),
+          attrs = S.Util.getAttrs($form);
+
+      // Create a model with the attributes from the form
+      this.collection.create(attrs);
 
       // Clear the form
-      this.$('form').get(0).reset();
+      $form.get(0).reset();
     }
 
   });
