@@ -30,6 +30,7 @@ def index(request):
     place_types_json = json.dumps(config['place_types'])
     place_type_icons_json = json.dumps(config['place_type_icons'])
     survey_config_json = json.dumps(config['survey'])
+    support_config_json = json.dumps(config['support'])
 
     # TODO These requests should be done asynchronously (in parallel).
     places_json = api.get('places/', u'[]')
@@ -39,7 +40,8 @@ def index(request):
                'activity_json': activity_json,
                'place_types_json': place_types_json,
                'place_type_icons_json': place_type_icons_json,
-               'survey_config_json': survey_config_json}
+               'survey_config_json': survey_config_json,
+               'support_config_json': support_config_json}
     return render(request, 'index.html', context)
 
 

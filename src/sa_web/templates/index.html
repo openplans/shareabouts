@@ -106,7 +106,8 @@
         placeTypeIcons = {},
         placeTypes = {},
 
-        surveyConfig = {{ survey_config_json|safe }};
+        surveyConfig = {{ survey_config_json|safe }},
+        supportConfig = {{ support_config_json|safe }};
 
     // Define each Leaflet Icon type
     _.each(placeTypeIconsConfig, function(config, name) {
@@ -146,7 +147,8 @@
         places: {{ places_json|safe }},
         activity: {{ activity_json|safe }},
         placeTypes: placeTypes,
-        surveyConfig: surveyConfig
+        surveyConfig: surveyConfig,
+        supportConfig: supportConfig
       });
       Backbone.history.start({pushState: true});
     });

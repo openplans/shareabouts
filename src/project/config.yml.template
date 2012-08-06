@@ -53,3 +53,8 @@ survey: {
       name: submitter_name
     }]
 }
+
+support: {
+  submit_btn_text: Support This!,
+  submission_type: support
+}
