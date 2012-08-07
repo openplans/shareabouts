@@ -1,5 +1,6 @@
 {% load mustachejs %}
 {% load compress %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
@@ -11,7 +12,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Shareabouts</title>
+  <title>{% trans "app_name" %}</title>
   <meta name="description" content="Shareabouts is awesome!">
   <meta name="author" content="">
 
@@ -48,18 +49,18 @@
 <body>
 
   <header id="site-header" class="clearfix">
-    <h1 id="site-title"><a href="#">Shareabouts</a></h1>
+    <h1 id="site-title"><a href="#">{% trans "app_name"  %}</a></h1>
   </header>
 
   <div role="main" id="main">
     <div id="map-container">
       <div id="map"></div>
-      <a href="#" id="add-place" class="add-place"><span>Add Location</span></a>
+      <a href="#" id="add-place" class="add-place"><span>{% trans "map_controls.locate_feature" %}</span></a>
       <span id="centerpoint"><span class="shadow"></span><span class="x"></span><span class="marker"></span></span>
     </div>
 
     <div id="content">
-      <a href="#" class="close-bttn">&times;<span> Close</span></a>
+      <a href="#" class="close-bttn">&times;<span>{% trans "close_button" %}</span></a>
       <article class="point"><!-- .point or .page -->
       </article>
     </div><!-- end #content -->
