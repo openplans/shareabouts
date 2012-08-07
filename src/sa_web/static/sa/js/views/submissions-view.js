@@ -33,6 +33,7 @@ var Shareabouts = Shareabouts || {};
         });
         submissions.push({
           submitter_name: model.get('submitter_name'),
+          submitter_is_anonymous: (!model.get('submitter_name')),
           pretty_created_datetime: S.Util.getPrettyDateTime(model.get('created_datetime')),
           items: items
         });

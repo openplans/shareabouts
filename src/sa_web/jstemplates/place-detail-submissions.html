@@ -8,12 +8,7 @@
               <article class="submission">
                 <header class="submission-header clearfix">
                   <strong class="submission-submitter">
-                    {{#submitter_name}}
-                    {{ submitter_name }}
-                    {{/submitter_name}}
-                    {{^submitter_name}}
-                    Someone
-                    {{/submitter_name}}
+                    {{> submitter-or-anonymous }}
                   </strong>
 
                   <span class="submission-date">

@@ -24,6 +24,7 @@ var Shareabouts = Shareabouts || {};
             pretty_created_datetime: function() {
               return S.Util.getPrettyDateTime(this.created_datetime);
             },
+            submitter_is_anonymous: (!this.model.get('submitter_name')),
             survey_config: this.options.surveyConfig
           }, this.model.toJSON());
 
