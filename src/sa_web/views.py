@@ -10,7 +10,6 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from proxy.views import proxy_view
 
 
-
 class ShareaboutsApi (object):
     def __init__(self, root=settings.SHAREABOUTS_API_ROOT):
         self.root = root
@@ -43,7 +42,7 @@ def index(request):
     # 'username:mjumbewu' or 'ip:123.231.132.213', etc.  If the user is
     # unauthenticated, the token will be session-based.
     if 'user_token' not in request.session:
-        t = int(time.time()*1000)
+        t = int(time.time() * 1000)
         ip = request.META['REMOTE_ADDR']
         unique_string = str(t) + str(ip)
         session_token = 'session:' + hashlib.md5(unique_string).hexdigest()
