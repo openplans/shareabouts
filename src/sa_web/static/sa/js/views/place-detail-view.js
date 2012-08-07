@@ -30,12 +30,12 @@ var Shareabouts = Shareabouts || {};
       this.$el.html(ich['place-detail'](data));
 
       // Render the view as-is (collection may have content already)
-      this.$('.survey').html(this.submissionsView.render().el);
+      this.$('.survey').html(this.submissionsView.render().$el);
       // Fetch for submissions and automatically update the element
       this.model.submissionCollection.fetch();
 
 
-      this.$('.support').html(this.supportView.render().el);
+      this.$('.support').html(this.supportView.render().$el);
       // Fetch for submissions and automatically update the element
       this.model.supportCollection.fetch();
 

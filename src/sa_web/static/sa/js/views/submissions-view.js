@@ -14,6 +14,10 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           submissions = [];
 
+      // I don't understand why we need to redelegate the event here, but they
+      // are definitely unbound after the first render.
+      this.delegateEvents();
+
       // Submissions should be an array of objects with submitter_name,
       // pretty_created_datetime, and items (name, label, and prompt)
       this.collection.each(function(model, i) {
@@ -43,7 +47,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     remove: function() {
-      // Nothing yet
+      this.unbind();
+      this.$el.remove();
     },
 
     onChange: function() {

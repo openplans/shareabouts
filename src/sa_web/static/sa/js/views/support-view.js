@@ -11,10 +11,15 @@ var Shareabouts = Shareabouts || {};
       this.collection.on('add', this.onChange, this);
       this.collection.on('remove', this.onChange, this);
 
+
       this.updateSupportStatus();
     },
 
     render: function() {
+      // I don't understand why we need to redelegate the event here, but they
+      // are definitely unbound after the first render.
+      this.delegateEvents();
+
       this.$el.html(ich['place-detail-support']({
         count: this.collection.size() || '',
         user_token: this.options.userToken,
@@ -30,12 +35,11 @@ var Shareabouts = Shareabouts || {};
     },
 
     updateSupportStatus: function() {
-      var userToken = this.options.userToken,
-          userSupport = this.collection.find(function(model) {
-            return model.get('user_token') == userToken; });
+      var userToken = this.options.userToken;
 
-      this.userSupport = userSupport;
-      return userSupport;
+      this.userSupport = this.collection.find(function(model) {
+        return model.get('user_token') === userToken;
+      });
     },
 
     onChange: function() {
