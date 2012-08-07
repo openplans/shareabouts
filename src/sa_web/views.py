@@ -1,6 +1,8 @@
 import requests
 import yaml
 import json
+import time
+import hashlib
 
 from django.shortcuts import render
 from django.conf import settings
@@ -40,7 +42,16 @@ def index(request):
     # of identification, and the second being an identifier. It could be
     # 'username:mjumbewu' or 'ip:123.231.132.213', etc.  If the user is
     # unauthenticated, the token will be session-based.
-    user_token = u'"session:{0}"'.format(request.session.session_key)
+    if 'user_token' not in request.session:
+        t = int(time.time()*1000)
+        ip = request.META['REMOTE_ADDR']
+        unique_string = str(t) + str(ip)
+        session_token = 'session:' + hashlib.md5(unique_string).hexdigest()
+        request.session['user_token'] = session_token
+        request.session.set_expiry(0)
+
+    user_token_json = u'"{0}"'.format(request.session['user_token'])
+#    user_token_json = u'"{0}"'.format(12345)
 
     context = {'places_json': places_json,
                'activity_json': activity_json,
@@ -48,7 +59,7 @@ def index(request):
                'place_type_icons_json': place_type_icons_json,
                'survey_config_json': survey_config_json,
                'support_config_json': support_config_json,
-               'user_token_json': user_token}
+               'user_token_json': user_token_json}
     return render(request, 'index.html', context)
 
 
