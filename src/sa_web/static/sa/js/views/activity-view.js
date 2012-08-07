@@ -76,7 +76,11 @@ var Shareabouts = Shareabouts || {};
     },
 
     renderAction: function(model, index) {
-      var $template = ich['activity-list-item'](model.toJSON());
+      var modelData = _.extend({
+            submitter_is_anonymous: (!model.get('data').submitter_name)
+          }, model.toJSON()),
+          $template = ich['activity-list-item'](modelData);
+
       if (index >= this.$el.children().length) {
         this.$el.append($template);
       } else {
