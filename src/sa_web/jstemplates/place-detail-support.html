@@ -1,4 +1,5 @@
     <form id="user_support" action="#" method="post">
-      <input type="checkbox" id="support">
+      <input type="hidden" name="user_token" value="{{{ user_token }}}">
+      <input type="checkbox" id="support"{{# is_supporting }} checked="checked"{{/ is_supporting }}>
       <label for="support"><span class="support-count">{{ count }}</span> {{ support_config.submit_btn_text }}</label>
     </form>

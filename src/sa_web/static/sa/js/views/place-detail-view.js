@@ -12,7 +12,8 @@ var Shareabouts = Shareabouts || {};
 
       this.supportView = new S.SupportView({
         collection: this.model.supportCollection,
-        supportConfig: this.options.supportConfig
+        supportConfig: this.options.supportConfig,
+        userToken: this.options.userToken
       });
     },
 

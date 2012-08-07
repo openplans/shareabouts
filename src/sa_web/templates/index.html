@@ -149,6 +149,7 @@
       window.app = new Shareabouts.App({
         places: {{ places_json|safe }},
         activity: {{ activity_json|safe }},
+        userToken: {{ user_token_json|safe }},
         placeTypes: placeTypes,
         surveyConfig: surveyConfig,
         supportConfig: supportConfig

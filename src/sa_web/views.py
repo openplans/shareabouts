@@ -36,12 +36,19 @@ def index(request):
     places_json = api.get('places/', u'[]')
     activity_json = api.get('activity/?limit=20', u'[]')
 
+    # The user token will be a pair, with the first element being the type
+    # of identification, and the second being an identifier. It could be
+    # 'username:mjumbewu' or 'ip:123.231.132.213', etc.  If the user is
+    # unauthenticated, the token will be session-based.
+    user_token = u'"session:{0}"'.format(request.session.session_key)
+
     context = {'places_json': places_json,
                'activity_json': activity_json,
                'place_types_json': place_types_json,
                'place_type_icons_json': place_type_icons_json,
                'survey_config_json': survey_config_json,
-               'support_config_json': support_config_json}
+               'support_config_json': support_config_json,
+               'user_token_json': user_token}
     return render(request, 'index.html', context)
 
 

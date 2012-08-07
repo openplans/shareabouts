@@ -20,6 +20,7 @@ var Shareabouts = Shareabouts || {};
         placeTypes: options.placeTypes,
         surveyConfig: options.surveyConfig,
         supportConfig: options.supportConfig,
+        userToken: options.userToken,
         router: this
       });
 
