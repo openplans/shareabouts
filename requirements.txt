@@ -12,6 +12,7 @@ django_compressor
 
 # Web interface helpers
 requests
+hashlib
 
 # Config
 pyyaml
