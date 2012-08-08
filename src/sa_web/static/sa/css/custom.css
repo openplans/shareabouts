@@ -1,0 +1,142 @@
+body {
+  background: red;
+}
+body, select, input, textarea {
+  color: gray;
+  font-family: Georgia, serif;
+}
+a:hover, a:active { outline: none; }
+a, a:active, a:visited { color: Navy; }
+a:hover { color: DarkRed; }
+
+#site-header {
+  color: purple;
+  background-color: SkyBlue;
+}
+#site-header a, #site-header a:active, #site-header a:visited { color: pink; }
+#site-header a:hover { color: red; }
+
+/* Logo */
+#site-title {
+  font-family: Courier, monospace;
+  color: purple;
+  text-shadow: none;
+}
+#site-title a:link,
+#site-title a:visited {
+  color: Navy;
+}
+#site-title a:hover {
+  color: DarkRed;
+}
+
+/* Primary Menu */
+a#nav-bttn {
+	background: purple;
+}
+a#nav-bttn:hover {
+  background: red;
+  color: pink;
+}
+#access {
+  border: 1em solid pink;
+  border-top: 0.5em solid pink;
+  font-weight: bold;
+	background: red;
+}
+#access li {
+	border-bottom: 2px solid #pink;
+}
+#access a:hover {
+	background: #00aaff;
+  color: #fff;
+}
+
+a.add-place {
+  background-color: red;
+  color: pink;
+  font-family: Courier, monospace;
+}
+a.add-place:hover {
+  background-color: purple;
+  color: white;
+}
+
+
+/* Content */
+a.close-bttn {
+  color: red;
+  /* This should always be a Helvetica stack */
+  font-family: "Helvetica Neue", Arial, Helvetica, serif;
+}
+a.close-bttn:hover {
+  background-color: purple;
+  color: pink;
+}
+
+/* Forms */
+label {
+  color: gray;
+}
+input[type=text],
+textarea {
+	border: 1px solid purple;
+}
+.required {
+	color: orange;
+}
+
+.bttn {
+  font-family: Courier, monospace;
+  background-color: red;
+  color: LightBlue;
+}
+.bttn:hover {
+  background-color: purple;
+  color: white;
+}
+
+
+/* Survey */
+a.reply-link {
+  background: purple;
+  color: white;
+}
+a.reply-link:hover {
+  background: red;
+}
+.submissions .bypostauthor {
+  background: pink;
+}
+.submission-body {
+  border-bottom: 1px solid purple;
+}
+.submission-reply-link {
+  color: red;
+	background: pink;
+}
+.submission-reply-link:hover {
+	background: red;
+	color: pink;
+}
+
+/* Ticker */
+#ticker {
+  background-color: white;
+}
+ul.recent-points {
+  color: LightBlue;
+}
+.recent-points li {
+  border-bottom: 3px solid LightGray;
+}
+.recent-points li:hover {
+  background: LightBlue;
+}
+.recent-points a {
+  color: LightBlue;
+}
+.recent-points li:hover a,
+.recent-points a:hover {
+  color: white;
+}
