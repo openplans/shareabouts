@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-07 15:33-0500\n"
+"POT-Creation-Date: 2012-08-08 15:56-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,13 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: templates/index.html:15 templates/index.html.py:48
-msgid "app_name"
+msgid "App Name"
 msgstr "Shareabouts"
 
 #: templates/index.html:54
-msgid "map_controls.locate_feature"
+msgid "Add Place"
 msgstr "Add Location"
 
 #: templates/index.html:59
-msgid "close_button"
+#, fuzzy
+msgid "Close Button"
 msgstr "Close"
