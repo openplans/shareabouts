@@ -104,6 +104,7 @@ class SubmissionResource (ModelResourceWithDataBlob):
     model = models.Submission
     form = forms.SubmissionForm
     exclude = ['parent', 'data', 'submittedthing_ptr']
+    queryset = model.objects.order_by('created_datetime')
 
 
 class GeneralSubmittedThingResource (ModelResourceWithDataBlob):
