@@ -10,7 +10,8 @@ var Shareabouts = Shareabouts || {};
 
     initialize: function(options) {
       this.collection = new S.PlaceCollection([], {
-        submissionType: options.surveyConfig['submission_type']
+        responseType: options.surveyConfig['submission_type'],
+        supportType: options.supportConfig['submission_type']
       });
       this.activities = new S.ActivityCollection();
       this.appView = new S.AppView({

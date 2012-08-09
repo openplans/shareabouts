@@ -105,17 +105,17 @@ a.reply-link {
 a.reply-link:hover {
   background: red;
 }
-.submissions .bypostauthor {
+.responses .bypostauthor {
   background: pink;
 }
-.submission-body {
+.response-body {
   border-bottom: 1px solid purple;
 }
-.submission-reply-link {
+.response-reply-link {
   color: red;
 	background: pink;
 }
-.submission-reply-link:hover {
+.response-reply-link:hover {
 	background: red;
 	color: pink;
 }

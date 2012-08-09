@@ -38,9 +38,9 @@ survey: {
   title: Leave a Comment,
   form_link_text: Leave a Comment,
   submit_btn_text: Comment,
-  show_submissions: true,
+  show_responses: true,
   submission_type: comments,
-  submission_name: comment(s),
+  response_name: comment(s),
   items: [
     {
       prompt: Comment,

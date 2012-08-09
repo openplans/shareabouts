@@ -1,7 +1,7 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $){
-  S.SubmissionsView = Backbone.View.extend({
+  S.SurveyView = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit'
     },
@@ -12,13 +12,13 @@ var Shareabouts = Shareabouts || {};
 
     render: function() {
       var self = this,
-          submissions = [];
+          responses = [];
 
       // I don't understand why we need to redelegate the event here, but they
       // are definitely unbound after the first render.
       this.delegateEvents();
 
-      // Submissions should be an array of objects with submitter_name,
+      // Responses should be an array of objects with submitter_name,
       // pretty_created_datetime, and items (name, label, and prompt)
       this.collection.each(function(model, i) {
         var items = [];
@@ -31,7 +31,7 @@ var Shareabouts = Shareabouts || {};
             });
           }
         });
-        submissions.push({
+        responses.push({
           submitter_name: model.get('submitter_name'),
           submitter_is_anonymous: (!model.get('submitter_name')),
           pretty_created_datetime: S.Util.getPrettyDateTime(model.get('created_datetime')),
@@ -39,8 +39,8 @@ var Shareabouts = Shareabouts || {};
         });
       });
 
-      this.$el.html(ich['place-detail-submissions']({
-        submissions: submissions,
+      this.$el.html(ich['place-detail-survey']({
+        responses: responses,
         survey_config: this.options.surveyConfig
       }));
 

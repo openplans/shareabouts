@@ -5,8 +5,8 @@ var Shareabouts = Shareabouts || {};
     initialize: function() {
       this.model.on('change', this.onChange, this);
 
-      this.submissionsView = new S.SubmissionsView({
-        collection: this.model.submissionCollection,
+      this.surveyView = new S.SurveyView({
+        collection: this.model.responseCollection,
         surveyConfig: this.options.surveyConfig
       });
 
@@ -31,9 +31,9 @@ var Shareabouts = Shareabouts || {};
       this.$el.html(ich['place-detail'](data));
 
       // Render the view as-is (collection may have content already)
-      this.$('.survey').html(this.submissionsView.render().$el);
+      this.$('.survey').html(this.surveyView.render().$el);
       // Fetch for submissions and automatically update the element
-      this.model.submissionCollection.fetch();
+      this.model.responseCollection.fetch();
 
 
       this.$('.support').html(this.supportView.render().$el);
