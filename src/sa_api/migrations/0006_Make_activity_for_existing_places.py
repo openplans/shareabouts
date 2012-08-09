@@ -14,6 +14,9 @@ class Migration(DataMigration):
         Activity = orm['sa_api.Activity']
         ContentType = orm['contenttypes.ContentType']
 
+        # Need to do this before we can use ContentTypes.
+        db.send_pending_create_signals()
+
         place_type = ContentType.objects.get(name='place', app_label='sa_api')
 
         for place in Place.objects.all():
