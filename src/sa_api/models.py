@@ -1,5 +1,6 @@
 from django.contrib.contenttypes import generic
 from django.contrib.gis.db import models
+from django.contrib.auth import models as auth_models
 from django.core.cache import cache
 
 
@@ -34,6 +35,14 @@ class SubmittedThing (TimeStampedModel):
         return ret
 
 
+class DataSet (models.Model):
+    """
+    A DataSet is a collection of data eg. Places, owned by a user,
+    intended for a coherent purpose, eg. display on a single map.
+    """
+    owner = models.ForeignKey(auth_models.User)
+
+
 class Place (SubmittedThing):
     """
     A Place is a submitted thing with some geographic information, to which
@@ -42,6 +51,8 @@ class Place (SubmittedThing):
     """
     location = models.PointField()
     visible = models.BooleanField(default=True)
+    dataset = models.ForeignKey(DataSet, related_name='place_set',
+                                blank=True, null=True)
 
     objects = models.GeoManager()
 
@@ -78,6 +89,10 @@ class Activity (TimeStampedModel):
         cache.delete_many(keys)
 
         return super(Activity, self).save(*args, **kwargs)
+
+    @property
+    def submitter_name(self):
+        return self.data.submitter_name
 
 ## TODO Consider this: We could have a SubmittedThing from which both Place
 ##      and Contribution derive.  A SubmittedThing stores arbitrary data
