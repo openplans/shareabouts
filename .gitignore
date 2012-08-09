@@ -13,6 +13,9 @@ coverage.data
 # junk
 .DS_Store
 *~
+*#
+*flymake*
+
 
 # compiled files
 *.py[co]

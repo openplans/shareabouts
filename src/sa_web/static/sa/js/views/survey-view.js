@@ -3,7 +3,8 @@ var Shareabouts = Shareabouts || {};
 (function(S, $){
   S.SurveyView = Backbone.View.extend({
     events: {
-      'submit form': 'onSubmit'
+      'submit form': 'onSubmit',
+      'click .reply-link': 'onReplyClick'
     },
     initialize: function() {
       this.collection.on('reset', this.onChange, this);
@@ -66,6 +67,11 @@ var Shareabouts = Shareabouts || {};
 
       // Clear the form
       $form.get(0).reset();
+    },
+
+    onReplyClick: function(evt) {
+      evt.preventDefault();
+      this.$('textarea, input').not('[type="hidden"]').first().focus();
     }
 
   });

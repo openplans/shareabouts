@@ -5,12 +5,12 @@
 
         <header class="point-header clearfix">
           <h1>{{ name }}</h1>
-          <strong class="point-submitter">
+          {{#_}}<strong class="point-submitter">
             {{> submitter-or-anonymous }}
           </strong> added this point
           {{#region}}
             in {{ region }}
-          {{/region}}
+          {{/region}}{{/_}}
 
           <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.
         </header>

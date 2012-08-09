@@ -7,13 +7,13 @@
             <li>
               <article class="response">
                 <header class="response-header clearfix">
-                  <strong class="response-submitter">
+                  {{#_}}<strong class="response-submitter">
                     {{> submitter-or-anonymous }}
                   </strong>
-
                   <span class="response-date">
                     around {{ pretty_created_datetime }}
                   </span>
+		  {{/_}}
                 </header>
 
                 <div class="response-body">
@@ -35,7 +35,13 @@
               {{#survey_config.items}}
               <fieldset>
                 <p>
+<<<<<<< HEAD:src/sa_web/jstemplates/place-detail-survey.html
                   <label for="response-{{ name }}">{{ prompt }}{{# optional }} (optional){{/ optional }}</label>
+=======
+                  <label for="submission-{{ name }}">
+		    {{#_}}{{ prompt }}{{# optional }} (optional){{/ optional }}{{/_}}
+		  </label>
+>>>>>>> ca6ca00a0bc71388f814bf3542b6601097e5e87f:src/sa_web/jstemplates/place-detail-submissions.html
                   {{#is_textarea}}
                   <textarea name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
                   {{/is_textarea}}
