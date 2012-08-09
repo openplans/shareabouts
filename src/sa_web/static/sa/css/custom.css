@@ -1,142 +1,134 @@
 body {
-  background: red;
+  background: #EEF8FD;
 }
 body, select, input, textarea {
-  color: gray;
-  font-family: Georgia, serif;
+  color: #000;
+  font-family: Arial, sans-serif;
 }
-a:hover, a:active { outline: none; }
-a, a:active, a:visited { color: Navy; }
-a:hover { color: DarkRed; }
+a, a:active, a:visited { 
+  color: #1e5395; 
+}
+a:hover { 
+  color: #1e5395;
+}
 
 #site-header {
-  color: purple;
-  background-color: SkyBlue;
+  color: #d8d8d8;
+  background-color: #000;
 }
-#site-header a, #site-header a:active, #site-header a:visited { color: pink; }
-#site-header a:hover { color: red; }
-
-/* Logo */
+#site-header a, #site-header a:active, #site-header a:visited { 
+  color: #fff;
+}
+#site-header a:hover { 
+/*  color: red;*/
+}
 #site-title {
-  font-family: Courier, monospace;
-  color: purple;
+  font-family: Arial, sans-serif;
+  color: #fff;
   text-shadow: none;
 }
 #site-title a:link,
 #site-title a:visited {
-  color: Navy;
+  /* setting #site-title font size here works with media queries*/
+  font-size: 0.75em;
+  color: #fff;
 }
 #site-title a:hover {
-  color: DarkRed;
+  color: #fff;
 }
-
-/* Primary Menu */
 a#nav-bttn {
-	background: purple;
+  background: #b2c045;
 }
 a#nav-bttn:hover {
-  background: red;
-  color: pink;
+  background: #fff;
+  color: #b2c045;
 }
 #access {
-  border: 1em solid pink;
-  border-top: 0.5em solid pink;
-  font-weight: bold;
-	background: red;
+  border: 1em solid #b2c045;
+  border-top: 0.5em solid #b2c045;
+  background: #e2d795;
 }
 #access li {
-	border-bottom: 2px solid #pink;
+  border-bottom: 2px solid #b2c045;
 }
 #access a:hover {
-	background: #00aaff;
-  color: #fff;
+  background: #b2c045;
+  color: #1e5395;
 }
 
 a.add-place {
-  background-color: red;
-  color: pink;
-  font-family: Courier, monospace;
+  background-color: #b2c045;
+  color: #000;
+  text-shadow: none;
 }
 a.add-place:hover {
-  background-color: purple;
-  color: white;
+  color: #fff;
 }
-
-
-/* Content */
 a.close-bttn {
-  color: red;
+  color: #e2d795;
+  border-color: #e2d795;
   /* This should always be a Helvetica stack */
   font-family: "Helvetica Neue", Arial, Helvetica, serif;
 }
 a.close-bttn:hover {
-  background-color: purple;
-  color: pink;
+  background-color: #e2d795;
+  color: #1e5395;
 }
-
-/* Forms */
 label {
-  color: gray;
+  color: #000;
 }
 input[type=text],
 textarea {
-	border: 1px solid purple;
+/*  border: 1px solid purple;*/
 }
 .required {
-	color: orange;
+  color: red;
 }
-
 .bttn {
-  font-family: Courier, monospace;
-  background-color: red;
-  color: LightBlue;
+  background-color: #e2d795;
+  color: #000;
+  text-shadow: none;
 }
 .bttn:hover {
-  background-color: purple;
-  color: white;
+  background-color: #b2c045;
+  color: #fff;
 }
-
-
-/* Survey */
 a.reply-link {
-  background: purple;
-  color: white;
+  background: #eef8fd;
+  color: #1e5395; 
 }
 a.reply-link:hover {
-  background: red;
+  background-color: #e2d795; 
+  color: #fff;
 }
-.responses .bypostauthor {
-  background: pink;
+.promotion {
+  background-color: #b2c045;
+  border-bottom: 0.5em solid #e2d795;
 }
-.response-body {
-  border-bottom: 1px solid purple;
+#user_support label {
+  background-color: #eef8fd;
+  color: #1e5395; 
 }
-.response-reply-link {
-  color: red;
-	background: pink;
+#user_support:hover label,
+#user_support label:hover {
+  color: #000;
 }
-.response-reply-link:hover {
-	background: red;
-	color: pink;
-}
-
-/* Ticker */
 #ticker {
-  background-color: white;
+  background-color: #54718f;
 }
 ul.recent-points {
-  color: LightBlue;
+  color: #eef8fd;
 }
 .recent-points li {
-  border-bottom: 3px solid LightGray;
+  border-bottom: 3px solid #456280;
 }
 .recent-points li:hover {
-  background: LightBlue;
+  background: #203e5a;
 }
 .recent-points a {
-  color: LightBlue;
+  color: #eef8fd;
 }
 .recent-points li:hover a,
 .recent-points a:hover {
-  color: white;
+  color: #fff;
 }
