@@ -1,10 +1,6 @@
-from datetime import datetime, timedelta
 from django.core.cache import cache
 from django.http import HttpResponse
-from django.utils import timezone
-from djangorestframework import views, authentication, status, response
-from djangorestframework.response import Response
-from itertools import chain
+from djangorestframework import views, authentication
 from . import resources
 from . import models
 from . import forms
