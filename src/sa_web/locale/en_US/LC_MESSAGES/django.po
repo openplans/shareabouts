@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-08 23:28-0500\n"
+"POT-Creation-Date: 2012-08-09 09:17-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,32 +50,36 @@ msgid ""
 "          {{/region}}"
 msgstr ""
 
-#: jstemplates/place-form.html:1
+#: jstemplates/place-form.html:1 jstemplates/place-form_flymake.html:1
 msgid "Location Type"
 msgstr ""
 
-#: jstemplates/place-form.html:2 jstemplates/place-form_flymake.html:1
+#: jstemplates/place-form.html:2 jstemplates/place-form_flymake.html:2
 #, fuzzy
 msgid "Submitter Name"
 msgstr "Your Name"
 
-#: jstemplates/place-form.html:3
+#: jstemplates/place-form.html:3 jstemplates/place-form_flymake.html:3
 msgid "Submitter Name Placeholder"
 msgstr "Name"
 
 #: jstemplates/place-form.html:4
+msgid "Place Form Header"
+msgstr "Tell us more&hellip;"
+
+#: jstemplates/place-form.html:5 jstemplates/place-form_flymake.html:4
 msgid "Description Placeholder"
 msgstr "Description..."
 
-#: jstemplates/place-form.html:5
+#: jstemplates/place-form.html:6 jstemplates/place-form_flymake.html:5
 msgid "Location Name"
 msgstr ""
 
-#: jstemplates/place-form.html:6
+#: jstemplates/place-form.html:7 jstemplates/place-form_flymake.html:6
 msgid "Submit Location Button"
 msgstr "Submit Location"
 
-#: jstemplates/place-form.html:7
+#: jstemplates/place-form.html:8 jstemplates/place-form_flymake.html:7
 msgid ""
 "<span class=\"sign-in-text\">Or sign in with</span>\n"
 "              <a href=\"#\" class=\"login facebook\">Facebook</a>\n"
@@ -83,7 +87,7 @@ msgid ""
 "              <a href=\"#\" class=\"login twitter\">Twitter</a>"
 msgstr ""
 
-#: jstemplates/place-form.html:11
+#: jstemplates/place-form.html:12 jstemplates/place-form_flymake.html:11
 msgid "Point Description"
 msgstr "Description"
 
