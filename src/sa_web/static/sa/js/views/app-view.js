@@ -126,6 +126,8 @@ var Shareabouts = Shareabouts || {};
       // If it's new, then show the form in order to edit and save it.
       if (model.isNew()) {
         this.showPanel(placeFormView);
+        // Autofocus on the first input element
+        placeFormView.$('textarea, input').not('[type="hidden"]').first().focus();
         this.showNewPin();
       }
     },
