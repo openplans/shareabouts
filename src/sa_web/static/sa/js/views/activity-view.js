@@ -102,7 +102,14 @@ var Shareabouts = Shareabouts || {};
 
       self.$el.empty();
       self.collection.each(function(model) {
-        self.renderAction(model, self.collection.length);
+        // Handle if an existing place type does not match the list of available
+        // place types.
+        var placeModel = self.options.places.get(model.get('place_id')),
+            placeType = self.options.placeTypes[placeModel.get('location_type')];
+
+        if (placeType) {
+          self.renderAction(model, self.collection.length);
+        }
       });
       return self;
     }

@@ -32,7 +32,8 @@ var Shareabouts = Shareabouts || {};
         el: 'ul.recent-points',
         collection: this.activities,
         places: this.places,
-        router: this.options.router
+        router: this.options.router,
+        placeTypes: this.options.placeTypes
       });
 
       // Cache panel elements that we use a lot
