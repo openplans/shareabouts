@@ -1,7 +1,7 @@
       <li class="activity-item clearfix">
         {{# data }}
-          <a href="/place/{{ place_id }}"><strong>
+          <a href="/place/{{ place_id }}">{{#_}}<strong>
           {{> submitter-or-anonymous }}
-          </strong> added a {{ type }} {{# region }} in {{ region }}{{/ region }}</a>
+          </strong> added a {{ type }} {{# region }} in {{ region }}{{/ region }}{{/_}}</a>
         {{/ data }}
       </li>
