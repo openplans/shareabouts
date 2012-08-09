@@ -25,16 +25,16 @@ msgid ""
 "region }}"
 msgstr ""
 
-#: jstemplates/place-detail-submissions.html:1
+#: jstemplates/place-detail-survey.html:1
 msgid "{{ prompt }}{{# optional }} (optional){{/ optional }}"
 msgstr ""
 
-#: jstemplates/place-detail-submissions.html:2
+#: jstemplates/place-detail-survey.html:2
 msgid ""
-"<strong class=\"submission-submitter\">\n"
+"<strong class=\"response-submitter\">\n"
 "                    {{> submitter-or-anonymous }}\n"
 "                  </strong>\n"
-"                  <span class=\"submission-date\">\n"
+"                  <span class=\"response-date\">\n"
 "                    around {{ pretty_created_datetime }}\n"
 "                  </span>\n"
 "\t\t  "

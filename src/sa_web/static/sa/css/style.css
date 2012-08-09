@@ -586,7 +586,7 @@ textarea {
 .point-header {
   margin-bottom: 1em;
 }
-.point-header .submission-submitter {
+.point-header .response-submitter {
   font-size: 16px;
 }
 .description {
@@ -617,31 +617,31 @@ a.reply-link {
 a.reply-link:hover {
   background: #00aaff;
 }
-ol.submissions {
+ol.responses {
   list-style: none;
   margin-left: 0;
 }
-.submissions .submission {
+.responses .response {
   padding-bottom: 1em;
 }
-.submissions .children {
+.responses .children {
   list-style: none;
   margin-left: 2em;
   margin-bottom: 0;
 }
-.submissions .children .submission {
+.responses .children .response {
   padding-top: 2em;
   padding-bottom: 0;
 }
-.submissions .bypostauthor {
+.responses .bypostauthor {
   background: #f7f7f7;
   padding: 0.5em  0.5em  2.5em;
   margin: 0 -0.5em;
 }
-article.submission {
+article.response {
 	display: block;
 }
-.submission-header {
+.response-header {
 	line-height: 1.4;
   margin-bottom: 1em;
 }
@@ -649,36 +649,36 @@ article.submission {
   float: left;
   margin-right: 1.2em;
 }
-.submission-meta {
+.response-meta {
 }
-.submission-body {
+.response-body {
   border-bottom: 1px solid #ddd;
   padding-bottom: 1em;
 }
-article.submission footer {
+article.response footer {
   text-align: right;
 }
-.submission-reply-link {
+.survey-reply-link {
   color: #999;
 	background: #eee;
   padding: 0.5em 0.75em;
 	text-decoration: none;
   font-weight: bold;
 }
-.submission-reply-link:hover {
+.survey-reply-link:hover {
 	background: #607890;
 	color: #fff;
 }
 .reply-header {
 }
-#reply .submission-form-submission label {
+#reply .survey-form-response label {
 	display: none;
 }
 #reply p {
 }
-#reply p.submission-box {
+#reply p.response-box {
 }
-.submission-box label {
+.response-box label {
   display: none;
 }
 
