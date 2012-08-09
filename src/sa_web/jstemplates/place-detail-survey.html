@@ -13,7 +13,7 @@
                   <span class="response-date">
                     around {{ pretty_created_datetime }}
                   </span>
-		  {{/_}}
+                  {{/_}}
                 </header>
 
                 <div class="response-body">
@@ -36,8 +36,8 @@
               <fieldset>
                 <p>
                   <label for="response-{{ name }}">
-		    {{#_}}{{ prompt }}{{# optional }} (optional){{/ optional }}{{/_}}
-		  </label>
+                    {{#_}}{{ prompt }}{{# optional }} (optional){{/ optional }}{{/_}}
+                  </label>
                   {{#is_textarea}}
                   <textarea name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
                   {{/is_textarea}}
