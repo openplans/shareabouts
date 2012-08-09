@@ -7,7 +7,7 @@ gunicorn
 south
 
 # Templates
-django-mustachejs
+django-mustachejs>=0.7.3
 django_compressor
 
 # Web interface helpers

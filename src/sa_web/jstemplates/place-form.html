@@ -9,19 +9,19 @@
               -->
 
             <p>
-              <label for="submitter-name">Your Name</label>
-              <input id="submitter-name" name="submitter_name" placeholder="Name" size="30" type="text">
+              <label for="submitter-name">{{#_}}Submitter Name{{/_}}</label>
+              <input id="submitter-name" name="submitter_name" placeholder="{{#_}}Submitter Name Placeholder{{/_}}" size="30" type="text">
               <br />
-              <span class="sign-in-text">Or sign in with</span>
+              {{#_}}<span class="sign-in-text">Or sign in with</span>
               <a href="#" class="login facebook">Facebook</a>
               <span class="">/</span>
-              <a href="#" class="login twitter">Twitter</a>
+              <a href="#" class="login twitter">Twitter</a>{{/_}}
             </p>
 
             <p>
-              <label for="place-name">Location Name</label>
+              <label for="place-name">{{#_}}Location Name{{/_}}</label>
               <input id="place-name" name="name"
-                     placeholder="Location Name" size="30" type="text"
+                     placeholder="{{#_}}Location Name{{/_}}" size="30" type="text"
                      value="{{ name }}">
             </p>
 
@@ -31,7 +31,7 @@
                 TODO Need a list of all available types.
               -->
 
-              <label for="point-type">Location Type</label>
+              <label for="point-type">{{#_}}Location Type{{/_}}</label>
               <select id="point-type" name="location_type">
                 <option value=""></option>
                 {{#placeTypes}}
@@ -41,11 +41,11 @@
             </p>
 
             <p>
-              <label for="point-description">Description</label>
-              <textarea id="point-description" name="description" placeholder="Description...">{{ description }}</textarea>
+              <label for="point-description">{{#_}}Point Description{{/_}}</label>
+              <textarea id="point-description" name="description" placeholder="{{#_}}Description Placeholder{{/_}}">{{ description }}</textarea>
             </p>
           </fieldset>
 
-          <input name="save-place-btn" id="save-place-btn" type="submit" value="Submit Location" class="bttn">
+          <input name="save-place-btn" id="save-place-btn" type="submit" value="{{#_}}Submit Location Button{{/_}}" class="bttn">
 
         </form>

@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-08 23:28-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: jstemplates/activity-list-item.html:1
+msgid ""
+"<strong>\n"
+"          {{> submitter-or-anonymous }}\n"
+"          </strong> added a {{ type }} {{# region }} in {{ region }}{{/ "
+"region }}"
+msgstr ""
+
+#: jstemplates/place-detail-submissions.html:1
+msgid "{{ prompt }}{{# optional }} (optional){{/ optional }}"
+msgstr ""
+
+#: jstemplates/place-detail-submissions.html:2
+msgid ""
+"<strong class=\"submission-submitter\">\n"
+"                    {{> submitter-or-anonymous }}\n"
+"                  </strong>\n"
+"                  <span class=\"submission-date\">\n"
+"                    around {{ pretty_created_datetime }}\n"
+"                  </span>\n"
+"\t\t  "
+msgstr ""
+
+#: jstemplates/place-detail.html:1
+msgid ""
+"<strong class=\"point-submitter\">\n"
+"            {{> submitter-or-anonymous }}\n"
+"          </strong> added this point\n"
+"          {{#region}}\n"
+"            in {{ region }}\n"
+"          {{/region}}"
+msgstr ""
+
+#: jstemplates/place-form.html:1
+msgid "Location Type"
+msgstr ""
+
+#: jstemplates/place-form.html:2 jstemplates/place-form_flymake.html:1
+#, fuzzy
+msgid "Submitter Name"
+msgstr "Your Name"
+
+#: jstemplates/place-form.html:3
+msgid "Submitter Name Placeholder"
+msgstr "Name"
+
+#: jstemplates/place-form.html:4
+msgid "Description Placeholder"
+msgstr "Description..."
+
+#: jstemplates/place-form.html:5
+msgid "Location Name"
+msgstr ""
+
+#: jstemplates/place-form.html:6
+msgid "Submit Location Button"
+msgstr "Submit Location"
+
+#: jstemplates/place-form.html:7
+msgid ""
+"<span class=\"sign-in-text\">Or sign in with</span>\n"
+"              <a href=\"#\" class=\"login facebook\">Facebook</a>\n"
+"              <span class=\"\">/</span>\n"
+"              <a href=\"#\" class=\"login twitter\">Twitter</a>"
+msgstr ""
+
+#: jstemplates/place-form.html:11
+msgid "Point Description"
+msgstr "Description"
+
+#: jstemplates/submitter-or-anonymous.html:1
+msgid "Anonymous Name"
+msgstr "Someone"
+
+#: templates/index.html:15 templates/index.html.py:52
+#: templates/index_flymake.html:15 templates/index_flymake.html.py:52
+msgid "App Name"
+msgstr "Shareabouts"
+
+#: templates/index.html:58 templates/index_flymake.html:58
+msgid "Add Place"
+msgstr "Add Location"
+
+#: templates/index.html:63 templates/index_flymake.html:63
+#, fuzzy
+msgid "Close Button"
+msgstr "Close"
