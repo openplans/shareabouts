@@ -1,2 +1,4 @@
 www:
   type: python
+  systempackages:
+    - gettext
