@@ -2,6 +2,10 @@ from django.conf.urls import patterns, url
 from . import views
 
 urlpatterns = patterns('sa_api',
+    url(r'^datasets/$',
+        views.DataSetCollectionView.as_view(),
+        name='dataset_collection'),
+
     url(r'^places/$',
         views.PlaceCollectionView.as_view(),
         name='place_collection'),

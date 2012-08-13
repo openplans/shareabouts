@@ -7,6 +7,14 @@ from . import utils
 from . import forms
 
 
+def simple_user(user):
+    """Return a minimal representation of an auth.User"""
+    return {
+        'id': user.pk,
+        'username': user.username,
+    }
+
+
 class ModelResourceWithDataBlob (resources.ModelResource):
     def serialize(self, obj):
         # If the object is a place, parse the data blob and add it to the
@@ -47,9 +55,13 @@ class ModelResourceWithDataBlob (resources.ModelResource):
         return super(ModelResourceWithDataBlob, self).validate_request(data, files)
 
 
+
 class PlaceResource (ModelResourceWithDataBlob):
     model = models.Place
-    exclude = ['data', 'submittedthing_ptr']
+
+    # TODO: un-exclude dataset once i figure out how to avoid exposing user info
+    # in related resources.
+    exclude = ['data', 'submittedthing_ptr', 'dataset']
     include = ['url', 'submissions']
 
     @utils.cached_property
@@ -98,6 +110,24 @@ class PlaceResource (ModelResourceWithDataBlob):
         else:
             data = origdata
         return super(PlaceResource, self).validate_request(data, files)
+
+
+class DataSetResource (resources.ModelResource):
+    model = models.DataSet
+    include = ['url', 'place_set']
+
+    def owner(self, dataset):
+        return simple_user(dataset.owner)
+
+    def _simple_place(self, place):
+        # TODO: it's a pain to explicitly serialize this, but if I don't
+        # override place_set below, the automatic serialization includes all
+        # of the DataSet.owner info, which is a security hole.
+        # There must be an easier way?
+        return {'id': place.id, 'url': reverse('place_instance', args=[place.id])}
+
+    def place_set(self, dataset):
+        return [self._simple_place(place) for place in dataset.place_set.all()]
 
 
 class SubmissionResource (ModelResourceWithDataBlob):

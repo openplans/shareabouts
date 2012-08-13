@@ -1,4 +1,3 @@
-from django.contrib.contenttypes import generic
 from django.contrib.gis.db import models
 from django.contrib.auth import models as auth_models
 from django.core.cache import cache
@@ -37,11 +36,15 @@ class SubmittedThing (TimeStampedModel):
 
 class DataSet (models.Model):
     """
-    A DataSet is a collection of data eg. Places, owned by a user,
-    intended for a coherent purpose, eg. display on a single map.
+    A DataSet is a named collection of data, eg. Places, owned by a user,
+    and intended for a coherent purpose, eg. display on a single map.
     """
     owner = models.ForeignKey(auth_models.User)
+    display_name = models.CharField(max_length=128)
+    short_name = models.SlugField(max_length=128, unique=True)
 
+    def __unicode__(self):
+        return self.short_name
 
 class Place (SubmittedThing):
     """

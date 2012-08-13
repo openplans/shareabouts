@@ -92,6 +92,11 @@ class ModelViewWithDataBlobMixin (object):
         if hasattr(self, '_data'):
             utils.unpack_data_blob(self._data)
 
+# TODO derive from CachedMixin to enable caching
+class DataSetCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
+    resource = resources.DataSetResource
+    authentication = (authentication.BasicAuthentication,)
+    cache_prefix = 'dataset_collection'
 
 # TODO derive from CachedMixin to enable caching
 class PlaceCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
