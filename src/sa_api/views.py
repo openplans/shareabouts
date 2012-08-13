@@ -98,6 +98,11 @@ class DataSetCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.List
     authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'dataset_collection'
 
+class DataSetInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
+    resource = resources.DataSetResource
+    authentication = (authentication.BasicAuthentication,)
+
+
 # TODO derive from CachedMixin to enable caching
 class PlaceCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     # TODO: Decide whether pagination is appropriate/necessary.

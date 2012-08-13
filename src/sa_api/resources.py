@@ -114,7 +114,7 @@ class PlaceResource (ModelResourceWithDataBlob):
 
 class DataSetResource (resources.ModelResource):
     model = models.DataSet
-    include = ['url', 'place_set']
+    include = ['id', 'url', 'place_set']
 
     def owner(self, dataset):
         return simple_user(dataset.owner)
