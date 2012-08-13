@@ -114,7 +114,7 @@ class PlaceResource (ModelResourceWithDataBlob):
 
 class DataSetResource (resources.ModelResource):
     model = models.DataSet
-    include = ['id', 'url', 'place_set']
+    fields = ['id', 'url', 'owner', 'places']
 
     def owner(self, dataset):
         return simple_user(dataset.owner)
@@ -126,7 +126,7 @@ class DataSetResource (resources.ModelResource):
         # There must be an easier way?
         return {'id': place.id, 'url': reverse('place_instance', args=[place.id])}
 
-    def place_set(self, dataset):
+    def places(self, dataset):
         return [self._simple_place(place) for place in dataset.place_set.all()]
 
 
