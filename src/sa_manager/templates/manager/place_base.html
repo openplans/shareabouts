@@ -22,7 +22,8 @@
   {% endblock %}
 </ul>
 
-<h2>{{ place.name }} <a class="btn btn-primary" href="{% url 'manager_place_submission_create' place.id submission_type|default:'submissions' %}">Add New Submission</a></h2>
+{% if place.id %}<h2>{{ place.name }} <a class="btn btn-primary" href="{% url 'manager_place_submission_create' place.id submission_type|default:'submissions' %}">Add New Submission</a></h2>
+{% endif %}
 
 {% block place_content %}
 {% endblock place_content %}
