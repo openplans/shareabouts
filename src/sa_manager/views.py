@@ -1,10 +1,8 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.views.generic import View
 import json
-import re
 import requests
 
 API_ROOT = '/api/v1/'
