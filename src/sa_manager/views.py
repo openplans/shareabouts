@@ -226,6 +226,50 @@ class ExistingPlaceView (PlaceFormMixin, View):
             pass
 
 
+def datasets_view(request):
+    # TODO: do this in-process, not with a subrequest
+    datasets_uri = request.build_absolute_uri(API_ROOT + 'datasets/')
+    response = requests.get(datasets_uri)
+    import pdb; pdb.set_trace()
+    datasets = json.loads(response.text)
+    return render(request, "manager/datasets.html", {'datasets': datasets})
+
+
+class DataSetFormMixin (BaseDataBlobFormMixin):
+    pass
+
+class NewDataSetView (DataSetFormMixin, View):
+    pass
+    # def dispatch(self, request):
+    #     self.places_uri = request.build_absolute_uri(API_ROOT + 'places/')
+    #     return super(NewPlaceView, self).dispatch(request)
+
+    # def get(self, request):
+    #     return self.initial(request)
+
+    # def post(self, request):
+    #     return self.create(request)
+
+
+class ExistingDataSetView (DataSetFormMixin, View):
+    pass
+    # def dispatch(self, request, pk):
+    #     self.place_uri = request.build_absolute_uri(API_ROOT + 'places/{0}/'.format(pk))
+    #     return super(ExistingPlaceView, self).dispatch(request, pk)
+
+    # def get(self, request, pk):
+    #     return self.read(request, pk)
+
+    # def post(self, request, pk):
+    #     if request.POST.get('action') == 'save':
+    #         return self.update(request, pk)
+    #     elif request.POST.get('action') == 'delete':
+    #         return self.delete(request, pk)
+    #     else:
+    #         # TODO ???
+    #         pass
+
+
 class SubmissionMixin (BaseDataBlobFormMixin):
     def dispatch(self, request, place_id, submission_type, *args, **kwargs):
         self.place_uri = request.build_absolute_uri(API_ROOT + 'places/{0}/'.format(place_id))

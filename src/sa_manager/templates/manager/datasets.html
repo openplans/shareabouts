@@ -1,0 +1,39 @@
+{% extends "manager/base.html" %}
+{% load url from future %}
+
+{% block content %}
+
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url 'manager_index' %}">Manager</a> <span class="divider">/</span>
+  </li>
+  <li>
+    DataSets
+  </li>
+</ul>
+
+<h2>DataSets <a class="btn btn-primary" href="new">Add New DataSet</a></h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>DataSet Short Name</th>
+      <th>DataSet Display Name</th>
+      <th>Places</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for dataset in datasets %}
+    <tr>
+      <td><a href="{{ dataset.thing }}">{{ dataset.short_name }}</a></td>
+      <td><a href="{{ dataset.id }}">{{ dataset.display_name }}</a></td>
+      <td>
+        {{ dataset.places|length }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
