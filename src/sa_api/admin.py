@@ -16,6 +16,7 @@ class DataSetAdmin(admin.ModelAdmin):
     prepopulated_fields = {'short_name': ['display_name']}
 
 class PlaceAdmin(SubmittedThingAdmin):
+    list_display = SubmittedThingAdmin.list_display + ('dataset', )
     model = models.Place
 
 class SubmissionSetAdmin(admin.ModelAdmin):
