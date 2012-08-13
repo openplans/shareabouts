@@ -6,11 +6,11 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from nose.tools import *
+from nose.tools import istest, assert_equal
 from .. import utils
 
 
-class TestToWkt (TestCase):
+class TestToWkt (object):
 
     @istest
     def converts_from_dict_with_lat_and_lng_to_point(self):

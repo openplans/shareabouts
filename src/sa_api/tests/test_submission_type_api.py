@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.test.client import Client
 from django.test.client import RequestFactory
 from mock import patch
-from nose.tools import *
+from nose.tools import istest, assert_equal, assert_in
 from ..models import Place, Submission, SubmissionSet
 from ..views import SubmissionCollectionView
 
@@ -68,7 +68,6 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
     @istest
     def should_create_a_new_submission_of_the_given_type_on_the_place(self):
         import json
-
         Place.objects.all().delete()
         Submission.objects.all().delete()
         SubmissionSet.objects.all().delete()
