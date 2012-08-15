@@ -1,3 +1,6 @@
+from djangorestframework import status
+
+
 def isiterable(obj):
     try:
         iter(obj)
@@ -6,12 +9,14 @@ def isiterable(obj):
     else:
         return True
 
+
 def to_wkt(orig):
     if isiterable(orig) and 'lat' in orig and 'lng' in orig:
         return 'POINT ({lng} {lat})'.format(**orig)
     else:
         # Otherwise, assume it's already WKT
         return orig
+
 
 def unpack_data_blob(data):
     """
@@ -41,6 +46,7 @@ def unpack_data_blob(data):
 
         del data['data']
         data.update(data_blob)
+
 
 def cached_property(f):
     """
