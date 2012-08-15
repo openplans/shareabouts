@@ -11,11 +11,15 @@ def isiterable(obj):
 
 
 def to_wkt(orig):
+    if isinstance(orig, basestring):
+        # assume it's already WKT
+        return orig
     if isiterable(orig) and 'lat' in orig and 'lng' in orig:
+        # Raises TypeError if orig isn't a mapping
         return 'POINT ({lng} {lat})'.format(**orig)
     else:
-        # Otherwise, assume it's already WKT
-        return orig
+        raise TypeError("to_wkt should take a mapping or string, not %s"
+                        % type(orig))
 
 
 def unpack_data_blob(data):
