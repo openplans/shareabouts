@@ -1,5 +1,6 @@
-from djangorestframework import parsers
 from .utils import unpack_data_blob
+from djangorestframework import parsers
+
 
 class FormDataWithDataBlobMixin (object):
     def parse(self, stream):
