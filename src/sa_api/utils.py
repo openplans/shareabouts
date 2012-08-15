@@ -11,6 +11,10 @@ def isiterable(obj):
 
 
 def to_wkt(orig):
+    """
+    Given a dict, convert 'lat' and 'lng' keys to a WKT POINT.
+    Given a string, return it.
+    """
     if isinstance(orig, basestring):
         # assume it's already WKT
         return orig
@@ -24,8 +28,9 @@ def to_wkt(orig):
 
 def unpack_data_blob(data):
     """
-    Extract the data blob from form-submitted data.
-
+    Input is a mapping.  Find a key named 'data', decode it as a JSON
+    blob, and merge the result into the mapping (in place; returns
+    None).
     """
     import json
     from djangorestframework.response import ErrorResponse
@@ -57,6 +62,8 @@ def cached_property(f):
     Returns a cached property that is calculated by function f.  Lifted from
     http://code.activestate.com/recipes/576563-cached-property/
 
+    f cannot take arguments except 'self' (the object on which to
+    store the cache, permanently).
     """
     def get(self):
         try:

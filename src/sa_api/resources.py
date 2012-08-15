@@ -1,3 +1,6 @@
+"""
+DjangoRestFramework resources for the Shareabouts REST API.
+"""
 import json
 from collections import defaultdict
 from django.core.urlresolvers import reverse
@@ -16,6 +19,12 @@ def simple_user(user):
 
 
 class ModelResourceWithDataBlob (resources.ModelResource):
+
+    """
+    Like ModelResource, but automatically serializes/deserializes a
+    'data' JSON blob of arbitrary key/value pairs.
+    """
+
     def serialize(self, obj):
         # If the object is a place, parse the data blob and add it to the
         # place's fields.
@@ -124,7 +133,8 @@ class DataSetResource (resources.ModelResource):
         # override place_set below, the automatic serialization includes all
         # of the DataSet.owner info, which is a security hole.
         # There must be an easier way?
-        return {'id': place.id, 'url': reverse('place_instance', args=[place.id])}
+        return {'id': place.id,
+                'url': reverse('place_instance', args=[place.id])}
 
     def places(self, dataset):
         return [self._simple_place(place) for place in dataset.place_set.all()]
