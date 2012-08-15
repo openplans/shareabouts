@@ -9,6 +9,7 @@ tmp/
 # cover_me generated
 coverage
 coverage.data
+.coverage
 
 # junk
 .DS_Store
