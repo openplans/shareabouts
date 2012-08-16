@@ -46,6 +46,7 @@ class DataSet (models.Model):
     def __unicode__(self):
         return self.short_name
 
+
 class Place (SubmittedThing):
     """
     A Place is a submitted thing with some geographic information, to which

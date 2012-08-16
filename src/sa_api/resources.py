@@ -29,7 +29,6 @@ class ModelResourceWithDataBlob (resources.ModelResource):
         # If the object is a place, parse the data blob and add it to the
         # place's fields.
         serialization = super(ModelResourceWithDataBlob, self).serialize(obj)
-
         if isinstance(obj, self.model):
             data = json.loads(obj.data)
             serialization.update(data)
@@ -83,6 +82,9 @@ class PlaceResource (ModelResourceWithDataBlob):
         submission_sets = defaultdict(list)
 
         from django.db.models import Count
+        qs = models.SubmissionSet.objects.all()
+        qs.annotate(x=1)
+
         for submission_set in models.SubmissionSet.objects.all().annotate(count=Count('children')):
             submission_sets[submission_set.place_id].append({
                 'type': submission_set.submission_type,
