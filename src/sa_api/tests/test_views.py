@@ -10,6 +10,42 @@ from ..views import SubmissionCollectionView
 import json
 
 
+
+class TestDataSetCollectionView(TestCase):
+
+    @istest
+    def post_creates_an_api_key(self):
+        from ..models import DataSet
+        from ..apikey.models import ApiKey
+        from django.contrib.auth.models import User
+        DataSet.objects.all().delete()
+        ApiKey.objects.all().delete()
+        User.objects.all().delete()
+        user = User.objects.create()
+        # TODO: mock the models
+
+        url = reverse('dataset_collection')
+        data = {
+            'owner': user.id,
+            'display_name': 'Test DataSet',
+            'short_name': 'test-dataset',
+        }
+
+        from ..views import DataSetCollectionView
+
+        # Simulate a POST with logged-in user.
+        request = RequestFactory().post(url, data=json.dumps(data),
+                                        content_type='application/json')
+        request.user = user
+        view = DataSetCollectionView().as_view()
+        response = view(request)
+
+        assert_equal(response.status_code, 201)
+        response_data = json.loads(response.content)
+        assert_equal(response_data['display_name'], 'Test DataSet')
+        assert_equal(response_data['short_name'], 'test-dataset')
+
+
 class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
 
     @istest

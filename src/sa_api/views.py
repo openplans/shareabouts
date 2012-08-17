@@ -92,11 +92,25 @@ class ModelViewWithDataBlobMixin (object):
         if hasattr(self, '_data'):
             utils.unpack_data_blob(self._data)
 
+
 # TODO derive from CachedMixin to enable caching
 class DataSetCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.DataSetResource
     authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'dataset_collection'
+
+    def post(self, request, *args, **kwargs):
+        response = super(DataSetCollectionView, self).post(request, *args, **kwargs)
+        # Create an API key for the DataSet we just created.
+        dataset = response.raw_content
+        from .apikey.models import ApiKey, generate_unique_api_key
+        key = ApiKey()
+        key.user_id = request.user.id  # TODO: do not allow anonymous
+        key.key = generate_unique_api_key()
+        key.save()
+        dataset.api_keys.add(key)
+        return response
+
 
 class DataSetInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.DataSetResource
