@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from mock import patch
 from nose.tools import istest, assert_equal, assert_in
 from ..models import Place, Submission, SubmissionSet
+from ..models import SubmittedThing, Activity
 from ..views import SubmissionCollectionView
 import json
 
@@ -28,16 +29,17 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
     def should_return_a_list_of_submissions_of_the_type_for_the_place(self):
         Place.objects.all().delete()
         Submission.objects.all().delete()
+        SubmissionSet.objects.all().delete()
 
         place = Place.objects.create(location='POINT(0 0)')
         comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
         Submission.objects.create(parent_id=comments.id)
         Submission.objects.create(parent_id=comments.id)
 
-        request = RequestFactory().get('/places/1/comments/')
+        request = RequestFactory().get('/places/%d/comments/' % place.id)
         view = SubmissionCollectionView.as_view()
 
-        response = view(request, place_id=1,
+        response = view(request, place_id=place.id,
                         submission_type='comments')
         data = json.loads(response.content)
         assert_equal(len(data), 2)
@@ -53,10 +55,10 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         Submission.objects.create(parent_id=comments.id)
         Submission.objects.create(parent_id=comments.id)
 
-        request = RequestFactory().get('/places/1/votes/')
+        request = RequestFactory().get('/places/%d/votes/' % place.id)
         view = SubmissionCollectionView.as_view()
 
-        response = view(request, place_id=1,
+        response = view(request, place_id=place.id,
                         submission_type='votes')
         data = json.loads(response.content)
         assert_equal(len(data), 0)
@@ -78,10 +80,11 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
             'age': 12,
             'comment': 'This is rad!',
         }
-        request = RequestFactory().post('/places/1/comments/', data=json.dumps(data), content_type='application/json')
+        request = RequestFactory().post('/places/%d/comments/' % place.id,
+                                        data=json.dumps(data), content_type='application/json')
         view = SubmissionCollectionView.as_view()
 
-        response = view(request, place_id=1,
+        response = view(request, place_id=place.id,
                         submission_type='comments')
         data = json.loads(response.content)
         #print response
@@ -147,3 +150,84 @@ class TestSubmissionInstanceAPI (TestCase):
         assert_equal(response.status_code, 200)
         data = json.loads(response.content)
         assert_equal(data['animal'], 'tree frog')
+
+
+class TestActivityView(TestCase):
+
+    def setUp(self):
+        SubmittedThing.objects.all().delete()
+        Activity.objects.all().delete()
+        self.submitted_thing = SubmittedThing.objects.create()
+        # Note this implicitly creates an Activity.
+        activity1 = Activity.objects.get(data_id=self.submitted_thing.id)
+        self.activities = [
+            activity1,
+            Activity.objects.create(data=self.submitted_thing, action='update'),
+            Activity.objects.create(data=self.submitted_thing, action='delete'),
+        ]
+        self.url = reverse('activity_collection')
+
+    @istest
+    def get_queryset_no_params_returns_all(self):
+        from ..views import ActivityView
+        view = ActivityView()
+        view.request = RequestFactory().get(self.url)
+        qs = view.get_queryset()
+        self.assertEqual(qs.count(), len(self.activities))
+
+    @istest
+    def get_queryset_before(self):
+        from ..views import ActivityView
+        view = ActivityView()
+        ids = sorted([a.id for a in self.activities])
+        view.request = RequestFactory().get(self.url + '?before=%d' % ids[0])
+        self.assertEqual(view.get_queryset().count(), 1)
+        view.request = RequestFactory().get(self.url + '?before=%d' % ids[-1])
+        self.assertEqual(view.get_queryset().count(), len(self.activities))
+
+    @istest
+    def get_queryset_after(self):
+        from ..views import ActivityView
+        view = ActivityView()
+        ids = sorted([a.id for a in self.activities])
+        view.request = RequestFactory().get(self.url + '?after=%d' % (ids[0] - 1))
+        self.assertEqual(view.get_queryset().count(), 3)
+        view.request = RequestFactory().get(self.url + '?after=%d' % ids[0])
+        self.assertEqual(view.get_queryset().count(), 2)
+        view.request = RequestFactory().get(self.url + '?after=%d' % ids[-1])
+        self.assertEqual(view.get_queryset().count(), 0)
+
+    @istest
+    def get_queryset_limit(self):
+        from ..views import ActivityView
+        view = ActivityView()
+        view.request = RequestFactory().get(self.url + '?limit')
+        self.assertEqual(view.get_queryset().count(), len(self.activities))
+        view.request = RequestFactory().get(self.url + '?limit=99')
+        self.assertEqual(view.get_queryset().count(), len(self.activities))
+        view.request = RequestFactory().get(self.url + '?limit=0')
+        self.assertEqual(view.get_queryset().count(), 0)
+        view.request = RequestFactory().get(self.url + '?limit=1')
+        self.assertEqual(view.get_queryset().count(), 1)
+
+
+class TestAbsUrlMixin (object):
+
+    @istest
+    def test_process_urls(self):
+        data = {
+            'url': '/foo/bar',
+            'x': 'y',
+            'children': [{'x': 'y', 'url': '/hello/cats'},
+                         {'a': 'b', 'url': 'bye/../dogs'},
+                         ]
+        }
+        from ..views import AbsUrlMixin
+        aum = AbsUrlMixin()
+        aum.request = RequestFactory().get('/path_is_irrelevant')
+        aum.process_urls(data)
+        assert_equal(data['url'], 'http://testserver/foo/bar')
+        assert_equal(data['children'][0]['url'],
+                     'http://testserver/hello/cats')
+        assert_equal(data['children'][1]['url'],
+                     'http://testserver/dogs')
