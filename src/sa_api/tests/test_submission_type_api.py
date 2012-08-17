@@ -1,10 +1,13 @@
 from django.test import TestCase
 from django.test.client import Client
 from django.test.client import RequestFactory
+from django.core.urlresolvers import reverse
 from mock import patch
 from nose.tools import istest, assert_equal, assert_in
 from ..models import Place, Submission, SubmissionSet
 from ..views import SubmissionCollectionView
+import json
+
 
 class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
 
@@ -23,8 +26,6 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
 
     @istest
     def should_return_a_list_of_submissions_of_the_type_for_the_place(self):
-        import json
-
         Place.objects.all().delete()
         Submission.objects.all().delete()
 
@@ -44,8 +45,6 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
 
     @istest
     def should_return_an_empty_list_if_the_place_has_no_submissions_of_the_type(self):
-        import json
-
         Place.objects.all().delete()
         Submission.objects.all().delete()
 
@@ -67,7 +66,6 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
 
     @istest
     def should_create_a_new_submission_of_the_given_type_on_the_place(self):
-        import json
         Place.objects.all().delete()
         Submission.objects.all().delete()
         SubmissionSet.objects.all().delete()
@@ -86,6 +84,66 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
         response = view(request, place_id=1,
                         submission_type='comments')
         data = json.loads(response.content)
-        print response
+        #print response
         assert_equal(response.status_code, 201)
         assert_in('age', data)
+
+
+class TestSubmissionInstanceAPI (TestCase):
+
+    def setUp(self):
+        Place.objects.all().delete()
+        Submission.objects.all().delete()
+        SubmissionSet.objects.all().delete()
+
+        self.place = Place.objects.create(location='POINT(0 0)')
+        self.comments = SubmissionSet.objects.create(place_id=self.place.id,
+                                                submission_type='comments')
+        self.submission = Submission.objects.create(parent_id=self.comments.id)
+        self.url = reverse('submission_instance',
+                           kwargs=dict(place_id=self.place.id,
+                                       pk=self.submission.id,
+                                       submission_type='comments'))
+        from ..views import SubmissionInstanceView
+        self.view = SubmissionInstanceView.as_view()
+
+    @istest
+    def put_request_should_modify_instance(self):
+        data = {
+            'submitter_name': 'Paul Winkler',
+            'age': 99,
+            'comment': 'Get off my lawn!',
+        }
+
+        request = RequestFactory().put(self.url, data=json.dumps(data),
+                                       content_type='application/json')
+
+        response = self.view(request, place_id=self.place.id,
+                             pk=self.submission.id,
+                             submission_type='comments')
+        response_data = json.loads(response.content)
+        assert_equal(response.status_code, 200)
+        self.assertDictContainsSubset(data, response_data)
+
+    @istest
+    def delete_request_should_delete_submission(self):
+        request = RequestFactory().delete(self.url)
+        response = self.view(request, place_id=self.place.id,
+                             pk=self.submission.id,
+                             submission_type='comments')
+
+        assert_equal(response.status_code, 204)
+        assert_equal(Submission.objects.all().count(), 0)
+
+    @istest
+    def submission_get_request_retrieves_data(self):
+        self.submission.data = json.dumps({'animal': 'tree frog'})
+        self.submission.save()
+        request = RequestFactory().get(self.url)
+        response = self.view(request, place_id=self.place.id,
+                             pk=self.submission.id,
+                             submission_type='comments')
+
+        assert_equal(response.status_code, 200)
+        data = json.loads(response.content)
+        assert_equal(data['animal'], 'tree frog')
