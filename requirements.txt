@@ -19,3 +19,4 @@ requests
 nose
 django-nose
 mock
+mock_django
