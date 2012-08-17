@@ -182,12 +182,12 @@ class ActivityView (AbsUrlMixin, views.ListModelView):
 
     Query String Parameters
     -----------------------
-    - `before` -- The date and time of the latest activity to return.  The
-                  most recent results on and after the given time will be
+    - `before` -- The id of the latest activity to return.  The
+                  most recent results with the given id or lower will be
                   returned.
-    - `after` -- The date and time of the earliest activity to return.  The
-                 most recent results before *but not up to* the given time
-                 will be returned.
+    - `after` -- The id of the earliest activity to return.  The
+                 most recent results with ids higher than *but not including*
+                 the given time will be returned.
     - `limit` -- The maximum number of results to be returned.
 
     Examples
@@ -224,7 +224,7 @@ class ActivityView (AbsUrlMixin, views.ListModelView):
         if latest_id:
             activity = activity.filter(id__lte=latest_id)
 
-        if limit:
+        if limit is not None:
             activity = activity[:limit]
 
         return activity
