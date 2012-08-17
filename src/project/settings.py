@@ -131,6 +131,7 @@ INSTALLED_APPS = (
 
     # Project apps
     'sa_api',
+    'sa_api.apikey',
     'sa_manager',
 )
 
