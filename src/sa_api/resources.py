@@ -125,7 +125,7 @@ class PlaceResource (ModelResourceWithDataBlob):
 
 class DataSetResource (resources.ModelResource):
     model = models.DataSet
-    fields = ['id', 'url', 'owner', 'places']
+    fields = ['id', 'url', 'owner', 'places', 'short_name', 'display_name']
 
     def owner(self, dataset):
         return simple_user(dataset.owner)

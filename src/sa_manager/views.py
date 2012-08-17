@@ -228,10 +228,11 @@ class ExistingPlaceView (PlaceFormMixin, View):
 
 def datasets_view(request):
     # TODO: do this in-process, not with a subrequest
-    datasets_uri = request.build_absolute_uri(API_ROOT + 'datasets/')
+    datasets_uri = request.build_absolute_uri(reverse('dataset_collection'))
     response = requests.get(datasets_uri)
-    import pdb; pdb.set_trace()
     datasets = json.loads(response.text)
+    for ds in datasets:
+        ds['manage_uri'] = reverse('manager_dataset_detail', kwargs={'pk': ds['id']})
     return render(request, "manager/datasets.html", {'datasets': datasets})
 
 

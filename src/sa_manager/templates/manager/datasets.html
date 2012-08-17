@@ -26,8 +26,8 @@
   <tbody>
     {% for dataset in datasets %}
     <tr>
-      <td><a href="{{ dataset.thing }}">{{ dataset.short_name }}</a></td>
-      <td><a href="{{ dataset.id }}">{{ dataset.display_name }}</a></td>
+      <td><a href="{{ dataset.manage_uri }}">{{ dataset.short_name }}</a></td>
+      <td><a href="{{ dataset.manage_uri }}">{{ dataset.display_name }}</a></td>
       <td>
         {{ dataset.places|length }}
       </td>
