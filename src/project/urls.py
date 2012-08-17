@@ -15,6 +15,11 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
+    # For now, use basic auth.
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+
+    # For now, the API and the management console are hosted together.
     url(r'^api/v1/', include('sa_api.urls')),
     url(r'^manage/', include('sa_manager.urls')),
+
 )

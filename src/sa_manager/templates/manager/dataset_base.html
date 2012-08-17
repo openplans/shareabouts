@@ -1,0 +1,28 @@
+{% extends "manager/base.html" %}
+{% load url from future %}
+
+{% block content %}
+
+<ul class="breadcrumb">
+  <li>
+    <a href="{% url 'manager_index' %}">Manager</a> <span class="divider">/</span>
+  </li>
+  <li>
+    <a href="{% url 'manager_dataset_list' %}">Datasets</a> <span class="divider">/</span>
+  </li>
+
+  {% block more_breadcrumbs %}
+  <li>
+    {% if dataset.id %}
+    Dataset {{ dataset.id }}
+    {% else %}
+    New Dataset
+    {% endif %}
+  </li>
+  {% endblock %}
+</ul>
+
+{% block dataset_content %}
+{% endblock dataset_content %}
+
+{% endblock content %}

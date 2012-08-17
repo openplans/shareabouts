@@ -1,0 +1,24 @@
+{% load url from future %}
+<html>
+<body>
+
+<h1> placeholder login form </h1>
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+{% csrf_token %}
+
+<table>
+{{ form }}
+</table>
+
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+</body>
+</html>
+

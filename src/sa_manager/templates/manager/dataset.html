@@ -1,0 +1,20 @@
+{% extends "manager/dataset_base.html" %}
+
+{% block dataset_content %}
+
+<form method="POST" class="form-horizontal">{% csrf_token %}
+  <fieldset>
+    <legend>{% if dataset.id %}Edit Dataset{% else %}New Dataset{% endif %}</legend>
+    {% include "manager/_field.html" with label="Display Name" name="display_name" value=dataset.display_name %}
+    {% include "manager/_field.html" with label="Short Name" name="short_name" value=dataset.short_name|default:'' %}
+  </fieldset>
+
+  <div class="form-actions">
+    <button class="btn btn-primary" name="action" value="save" type="submit">Save</button>
+    {% if dataset.id %}
+    <button class="btn" name="action" value="delete" type="submit">Delete</button>
+    {% endif %}
+  </div>
+</form>
+
+{% endblock dataset_content %}
