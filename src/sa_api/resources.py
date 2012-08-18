@@ -63,7 +63,6 @@ class ModelResourceWithDataBlob (resources.ModelResource):
         return super(ModelResourceWithDataBlob, self).validate_request(data, files)
 
 
-
 class PlaceResource (ModelResourceWithDataBlob):
     model = models.Place
 
@@ -83,9 +82,7 @@ class PlaceResource (ModelResourceWithDataBlob):
 
         from django.db.models import Count
         qs = models.SubmissionSet.objects.all()
-        qs.annotate(x=1)
-
-        for submission_set in models.SubmissionSet.objects.all().annotate(count=Count('children')):
+        for submission_set in qs.annotate(count=Count('children')):
             submission_sets[submission_set.place_id].append({
                 'type': submission_set.submission_type,
                 'count': submission_set.count,
