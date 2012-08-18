@@ -65,7 +65,8 @@ class TestModelResourceWithDataBlob(object):
         # JSON blog.
         assert_equal(
             result,
-            {'submitter_name': u'ralphie', 'data': u'{\n  "x": "xylophone"\n}'}
+            {'submitter_name': u'ralphie', 'dataset': None,
+             'data': u'{\n  "x": "xylophone"\n}'}
         )
 
     @istest
@@ -146,26 +147,32 @@ class TestDataSetResource(object):
     @istest
     def test_places_empty(self):
         from ..resources import DataSetResource
-        resource = DataSetResource()
-        dataset = mock.Mock()
-        dataset.place_set.all.return_value = []
-        assert_equal(resource.places(dataset), [])
+        from mock_django.managers import ManagerMock
+        from ..models import Place
+        place_mgr = ManagerMock(Place.objects)
+        with mock.patch.object(Place, 'objects', place_mgr):
+            resource = DataSetResource()
+            dataset = mock.Mock()
+            assert_equal(resource.places(dataset), [])
 
     @istest
     def test_places(self):
         from ..resources import DataSetResource
-        resource = DataSetResource()
-        dataset = mock.Mock()
+        from mock_django.managers import ManagerMock
+        from ..models import Place
         place1 = mock.Mock()
         place1.id = 123
         place2 = mock.Mock()
         place2.id = 456
+        place_mgr = ManagerMock(Place.objects, place1, place2)
 
-        dataset.place_set.all.return_value = [place1, place2]
-        assert_equal(resource.places(dataset),
-                     [{'id': 123, 'url': '/api/v1/places/123/'},
-                      {'id': 456, 'url': '/api/v1/places/456/'}
-                      ])
+        with mock.patch.object(Place, 'objects', place_mgr):
+            resource = DataSetResource()
+            dataset = mock.Mock()
+            assert_equal(resource.places(dataset),
+                         [{'id': 123, 'url': '/api/v1/places/123/'},
+                          {'id': 456, 'url': '/api/v1/places/456/'}
+                          ])
 
 
 class TestActivityResource(object):

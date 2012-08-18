@@ -19,6 +19,8 @@ class SubmittedThing (TimeStampedModel):
     """
     submitter_name = models.CharField(max_length=256, null=True, blank=True)
     data = models.TextField(default='{}')
+    dataset = models.ForeignKey('DataSet', related_name='submitted_thing_set',
+                                blank=True, null=True)
 
     def save(self, *args, **kwargs):
         is_new = (self.id == None)
@@ -41,10 +43,14 @@ class DataSet (models.Model):
     """
     owner = models.ForeignKey(auth_models.User)
     display_name = models.CharField(max_length=128)
-    short_name = models.SlugField(max_length=128, unique=True)
+    short_name = models.SlugField(max_length=128)
 
     def __unicode__(self):
         return self.short_name
+
+    class Meta:
+        unique_together = (('owner', 'short_name'),
+                           )
 
 
 class Place (SubmittedThing):
@@ -55,8 +61,6 @@ class Place (SubmittedThing):
     """
     location = models.PointField()
     visible = models.BooleanField(default=True)
-    dataset = models.ForeignKey(DataSet, related_name='place_set',
-                                blank=True, null=True)
 
     objects = models.GeoManager()
 

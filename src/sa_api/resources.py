@@ -136,7 +136,10 @@ class DataSetResource (resources.ModelResource):
                 'url': reverse('place_instance', args=[place.id])}
 
     def places(self, dataset):
-        return [self._simple_place(place) for place in dataset.place_set.all()]
+        # TODO: this should probably just be a (paginated) child resource
+        # as there may be thousands, millions, ...
+        places = models.Place.objects.filter(dataset=dataset)
+        return [self._simple_place(place) for place in places]
 
 
 class SubmissionResource (ModelResourceWithDataBlob):
