@@ -1,3 +1,4 @@
+import posixpath
 import requests
 import yaml
 import json
@@ -11,31 +12,41 @@ from proxy.views import proxy_view
 
 
 class ShareaboutsApi (object):
-    def __init__(self, root=settings.SHAREABOUTS_API_ROOT):
+    def __init__(self, dataset, root=settings.SHAREABOUTS_API_ROOT):
         self.root = root
+        self.dataset = dataset
 
-    def get(self, path, default=None):
-        res = requests.get(self.root + path,
+    def get(self, resource, default=None, **kwargs):
+        resource = resource.strip('/')
+        dataset = self.dataset.strip('/')
+        root = self.root.rstrip('/')
+        uri = '%s/datasets/%s/%s/' % (root, dataset, resource)
+        res = requests.get(uri, params=kwargs,
                            headers={'Accept': 'application/json'})
         return (res.text if res.status_code == 200 else default)
 
 
 @ensure_csrf_cookie
 def index(request):
-    # Bootstrapping initial data.
-    api = ShareaboutsApi()
 
     # Load app config settings
     with open(settings.SHAREABOUTS_CONFIG) as config_yml:
         config = yaml.load(config_yml)
+
+    # TODO: Is it weird to get the API_ROOT and the dataset path from
+    # separate config files?
+
+    # Bootstrapping initial data.
+    api = ShareaboutsApi(dataset=config['dataset'])
+
     place_types_json = json.dumps(config['place_types'])
     place_type_icons_json = json.dumps(config['place_type_icons'])
     survey_config_json = json.dumps(config['survey'])
     support_config_json = json.dumps(config['support'])
 
     # TODO These requests should be done asynchronously (in parallel).
-    places_json = api.get('places/', u'[]')
-    activity_json = api.get('activity/?limit=20', u'[]')
+    places_json = api.get('places', default=u'[]')
+    activity_json = api.get('activity', limit=20, default=u'[]')
 
     # The user token will be a pair, with the first element being the type
     # of identification, and the second being an identifier. It could be
