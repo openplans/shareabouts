@@ -9,6 +9,7 @@ import requests
 
 API_ROOT = '/api/v1/'
 
+
 class ShareaboutsApi (object):
     def __init__(self, root=API_ROOT):
         self.root = root
@@ -125,9 +126,9 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
 
         # Fix the location to be something the server will understand
         location = {
-          'lat': data.get('lat'),
-          'lng': data.get('lng')
-        }
+            'lat': data.get('lat'),
+            'lng': data.get('lng')
+          }
         del data['lat']
         del data['lng']
         data['location'] = location
@@ -145,7 +146,7 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
 
         # Send the save request
         response = requests.post(self.places_uri, data=json.dumps(data),
-            headers={'Content-type': 'application/json'})
+                                 headers={'Content-type': 'application/json'})
         if response.status_code == 201:
             data = json.loads(response.text)
             place_id = data.get('id')
@@ -177,7 +178,7 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
 
         # Send the save request
         response = requests.put(self.place_uri, data=json.dumps(data),
-            headers={'Content-type': 'application/json'})
+                                headers={'Content-type': 'application/json'})
 
         if response.status_code == 200:
             messages.success(request, 'Successfully saved!')
@@ -318,7 +319,6 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
             return redirect(request.get_full_path())
 
 
-
 class NewDataSetView (DataSetFormMixin, View):
 
     @method_decorator(login_required)
@@ -402,8 +402,8 @@ class SubmissionMixin (BaseDataBlobFormMixin):
         place = json.loads(response.text)
 
         return render(request, "manager/place_submission.html", {
-            'submission_type': None if submission_type == 'submissions'\
-                                    else submission_type,
+            'submission_type': None if submission_type == 'submissions'
+                               else submission_type,
             'place': place
         })
 
@@ -430,7 +430,7 @@ class SubmissionMixin (BaseDataBlobFormMixin):
 
         # Send the save request
         response = requests.post(self.submissions_uri, data=json.dumps(data),
-            headers={'Content-type': 'application/json'})
+                                 headers={'Content-type': 'application/json'})
         if response.status_code == 201:
             data = json.loads(response.text)
             submission_id = data.get('id')
@@ -467,7 +467,7 @@ class SubmissionMixin (BaseDataBlobFormMixin):
 
         # Send the save request
         response = requests.put(self.submission_uri, data=json.dumps(data),
-            headers={'Content-type': 'application/json'})
+                                headers={'Content-type': 'application/json'})
 
         if response.status_code == 200:
             messages.success(request, 'Successfully saved!')
