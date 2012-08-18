@@ -234,17 +234,20 @@ class TestActivityView(TestCase):
         self.assertEqual(view.get_queryset().count(), 0)
 
     @istest
-    def get_queryset_limit(self):
+    def get_with_limit(self):
         from ..views import ActivityView
         view = ActivityView()
         view.request = RequestFactory().get(self.url + '?limit')
-        self.assertEqual(view.get_queryset().count(), len(self.activities))
+        self.assertEqual(view.get(view.request).count(), len(self.activities))
+
         view.request = RequestFactory().get(self.url + '?limit=99')
-        self.assertEqual(view.get_queryset().count(), len(self.activities))
+        self.assertEqual(view.get(view.request).count(), len(self.activities))
+
         view.request = RequestFactory().get(self.url + '?limit=0')
-        self.assertEqual(view.get_queryset().count(), 0)
+        self.assertEqual(view.get(view.request).count(), 0)
+
         view.request = RequestFactory().get(self.url + '?limit=1')
-        self.assertEqual(view.get_queryset().count(), 1)
+        self.assertEqual(view.get(view.request).count(), 1)
 
 
 class TestAbsUrlMixin (object):

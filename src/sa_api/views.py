@@ -217,10 +217,10 @@ class ActivityView (AbsUrlMixin, views.ListModelView):
 
         /activity/?limit=50
 
-    When polling for all new updates, use the `created_date` of the last known
-    activity:
+    When polling for all new updates, use the id of the last known
+    activity with the `after` parameter:
 
-        /activity/?earliest=<last_known_datetime>
+        /activity/?after=<last_known_id>
     """
     resource = resources.ActivityResource
     form = forms.ActivityForm
@@ -230,14 +230,17 @@ class ActivityView (AbsUrlMixin, views.ListModelView):
         """
         Get a list containing objects of all the activity matching the given
         query parameters.
+
+        We don't do 'limit' here because subclasses may want to do
+        additional filtering; do it in get() instead. (Also easier to test.)
         """
         # Validate the query and get the parameters
+        activity = super(ActivityView, self).get_queryset()
         query_params = self.PARAMS
         latest_id = query_params.get('before')
         earliest_id = query_params.get('after')
-        limit = query_params.get('limit')
 
-        activity = models.Activity.objects.order_by('-id')
+        activity = activity.order_by('-id')
 
         if earliest_id:
             activity = activity.filter(id__gt=earliest_id)
@@ -245,7 +248,14 @@ class ActivityView (AbsUrlMixin, views.ListModelView):
         if latest_id:
             activity = activity.filter(id__lte=latest_id)
 
-        if limit is not None:
-            activity = activity[:limit]
-
         return activity
+
+    def get(self, request, *args, **kwargs):
+        """
+        Optionally limit number of items per the 'limit' query param.
+        """
+        queryset = super(ActivityView, self).get(request, *args, **kwargs)
+        limit = self.PARAMS.get('limit')
+        if limit is not None:
+            queryset = queryset[:limit]
+        return queryset
