@@ -5,12 +5,26 @@ urlpatterns = patterns('sa_api',
     url(r'^datasets/$',
         views.DataSetCollectionView.as_view(),
         name='dataset_collection'),
-    url(r'^datasets/(?P<username>[^/]+)/(?P<short_name>[^/]+)/$',
-        views.dataset_instance_by_user,
+
+    url(r'^datasets/(?P<dataset__owner__username>[^/]+)/(?P<dataset__short_name>[^/]+)/places/$',
+        views.PlaceCollectionView.as_view(),
+        name='place_collection_by_dataset'),
+
+    url(r'^datasets/(?P<data__dataset__owner__username>[^/]+)/(?P<data__dataset__short_name>[^/]+)/activity/$',
+        views.ActivityView.as_view(),
+        name='activity_collection_by_dataset'),
+
+    url(r'^datasets/(?P<owner__username>[^/]+)/(?P<short_name>[^/]+)/$',
+        views.DataSetInstanceView.as_view(),
         name='dataset_instance_by_user'),
+
     url(r'^datasets/(?P<pk>\d+)/$',
         views.DataSetInstanceView.as_view(),
         name='dataset_instance'),
+
+    ###############################################
+    # Views with no specified dataset. Deprecate?
+
     url(r'^places/$',
         views.PlaceCollectionView.as_view(),
         name='place_collection'),
