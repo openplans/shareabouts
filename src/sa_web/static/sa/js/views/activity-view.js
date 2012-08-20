@@ -67,7 +67,10 @@ var Shareabouts = Shareabouts || {};
     onAddAction: function(model, collection, options) {
       this.renderAction(model, options.index);
 
-      // TODO Only do the following if the activity instance is a place.
+      // ===== IMPORTANT =====
+      // TODO: The following should only happen when this client instance gets
+      //       a new place created action that was initiated by a different
+      //       client instance.  I'm not sure what effect it's having now.
       this.options.places.add(model.get('data'));
     },
 
