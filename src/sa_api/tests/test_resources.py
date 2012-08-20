@@ -90,7 +90,6 @@ class TestPlaceResource(object):
     def submission_sets_non_empty(self):
         from ..resources import models, PlaceResource
         from mock_django.managers import ManagerMock
-        ss1 = ModelMock(models.SubmissionSet)
         mock_manager = ManagerMock(models.SubmissionSet.objects,
                                    make_model_mock(models.SubmissionSet,
                                                    count=3, place_id=123,
