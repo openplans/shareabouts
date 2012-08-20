@@ -140,21 +140,23 @@ class PlaceInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.Instance
 class SubmissionCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.SubmissionResource
 
-    def get(self, request, place_id, submission_type):
+    def get(self, request, place_id, submission_type, **kwargs):
         # rename the URL parameters as necessary, and pass to the
         # base class's handler
         return super(SubmissionCollectionView, self).get(
             request,
             parent__place_id=place_id,
-            parent__submission_type=submission_type
+            parent__submission_type=submission_type,
+            **kwargs
         )
 
-    def post(self, request, place_id, submission_type):
+    def post(self, request, place_id, submission_type, **kwargs):
         # From the URL string, we should have the necessary information to get
         # the submission set.
         submission_set, created = models.SubmissionSet.objects.get_or_create(
             place_id=place_id,
             submission_type=submission_type,
+            **kwargs
         )
 
         # TODO If there's a validation error with the submission, we may end up

@@ -145,8 +145,13 @@ class DataSetResource (resources.ModelResource):
 class SubmissionResource (ModelResourceWithDataBlob):
     model = models.Submission
     form = forms.SubmissionForm
-    exclude = ['parent', 'data', 'submittedthing_ptr']
+    # TODO: show dataset, but not detailed owner info
+    exclude = ['parent', 'data', 'submittedthing_ptr', 'dataset']
+    include = ['type']
     queryset = model.objects.order_by('created_datetime')
+
+    def type(self, submission):
+        return submission.parent.submission_type
 
 
 class GeneralSubmittedThingResource (ModelResourceWithDataBlob):
