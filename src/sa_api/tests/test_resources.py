@@ -131,6 +131,22 @@ class TestPlaceResource(object):
             data, files = resource.validate_request({})
             assert_equal(data, {})
 
+    @istest
+    def test_url(self):
+        from ..resources import models, PlaceResource
+        # White-box test - we mock up the stuff we know it uses.
+        place = make_model_mock(models.Place, id=123)
+        place.dataset_id = 456
+        place.dataset.short_name = 'test-set'
+        place.dataset.owner.username = 'test-user'
+        resource = PlaceResource()
+        # TODO: call reverse() here to avoid breaking if using a different urls.py?
+        assert_equal(resource.url(place),
+                     '/api/v1/datasets/test-user/test-set/places/123/')
+        # Called twice to get coverage of memoization.
+        assert_equal(resource.url(place),
+                     '/api/v1/datasets/test-user/test-set/places/123/')
+
 
 class TestDataSetResource(object):
 

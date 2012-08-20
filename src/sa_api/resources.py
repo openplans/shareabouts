@@ -102,7 +102,18 @@ class PlaceResource (ModelResourceWithDataBlob):
         }
 
     def url(self, place):
-        return reverse('place_instance', args=[place.pk])
+        # Looking up the same parent dataset for 1000 places would be
+        # pointless and expensive.
+        self._reverse_args_cache = getattr(self, '_reverse_args_cache', {})
+        if place.dataset_id in self._reverse_args_cache:
+            args = self._reverse_args_cache[place.dataset_id]
+        else:
+            args = self._reverse_args_cache[place.dataset_id] = (
+                place.dataset.owner.username,
+                place.dataset.short_name,
+                place.id,
+            )
+        return reverse('place_instance_by_dataset', args=args)
 
     def submissions(self, place):
         return self.submission_sets[place.id]
