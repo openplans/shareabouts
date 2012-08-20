@@ -17,7 +17,10 @@ var Shareabouts = Shareabouts || {};
     render: function(){
       // Augment the model data with place types for the drop down
       var data = _.extend({
-        placeTypes: this.placeTypes
+        placeTypes: this.placeTypes,
+        zeroTypes: this.placeTypes.length == 0,
+        oneType: this.placeTypes.length == 1,
+        manyTypes: this.placeTypes.length > 1
       }, this.model.toJSON());
 
       this.$el.html(ich['place-form'](data));
