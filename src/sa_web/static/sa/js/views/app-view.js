@@ -33,7 +33,9 @@ var Shareabouts = Shareabouts || {};
         collection: this.activities,
         places: this.places,
         router: this.options.router,
-        placeTypes: this.options.placeTypes
+        placeTypes: this.options.placeTypes,
+        surveyConfig: this.options.surveyConfig,
+        supportConfig: this.options.supportConfig
       });
 
       // Cache panel elements that we use a lot
