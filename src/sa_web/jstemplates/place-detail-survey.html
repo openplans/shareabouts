@@ -17,10 +17,14 @@
                 </header>
 
                 <div class="response-body">
+
                   {{#items}}
-                  <span class="label {{ name }}-label">{{ label }}</span>
-                  <p class="value {{ name }}-value">{{ value }}</p>
+                  <div class="item {{ name }}-item">
+                    <span class="label {{ name }}-label">{{ label }}</span>
+                    <p class="value {{ name }}-value">{{ value }}</p>
+                  </div>
                   {{/items}}
+
                 </div>
               </article>
             </li>
