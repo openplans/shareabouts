@@ -142,15 +142,6 @@
     });
 
     $(function() {
-      // add menu button for small screens
-      $('<a href="#" id="nav-bttn">&equiv;</a>').insertAfter('#site-title');
-
-      // toggle menu visibility
-      $('#nav-bttn').click(function(){
-        $('#access').toggleClass('expose');
-        return false;
-      });
-
       // Ready set go!
       window.app = new Shareabouts.App({
         places: {{ places_json|safe }},
