@@ -74,20 +74,31 @@ class Place (SubmittedThing):
 
 class SubmissionSet (models.Model):
     """
-    A submission set is a collection of user submissions attached to a place.
+    A submission set is a collection of user Submissions attached to a place.
     For example, comments will be a submission set with a submission_type of
-    'comment'
+    'comment'.
 
     """
     place = models.ForeignKey(Place, related_name='submission_sets')
     submission_type = models.CharField(max_length=128)
 
+    # TODO: require (place, submission_type) to be unique?
+
 
 class Submission (SubmittedThing):
+    """
+    A Submission is the simplest flavor of SubmittedThing.
+    It belongs to a SubmissionSet, and thus indirectly to a Place.
+    Used for representing eg. comments, votes, ...
+    """
     parent = models.ForeignKey(SubmissionSet, related_name='children')
 
 
 class Activity (TimeStampedModel):
+    """
+    Metadata about SubmittedThings:
+    what happened when.
+    """
     action = models.CharField(max_length=16, default='create')
     data = models.ForeignKey(SubmittedThing)
 
