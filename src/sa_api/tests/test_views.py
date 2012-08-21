@@ -20,7 +20,7 @@ class TestDataSetCollectionView(TestCase):
         DataSet.objects.all().delete()
         ApiKey.objects.all().delete()
         User.objects.all().delete()
-        user = User.objects.create()
+        user = User.objects.create(username='bob')
         # TODO: mock the models?
 
         url = reverse('dataset_collection')
@@ -40,11 +40,11 @@ class TestDataSetCollectionView(TestCase):
         response = view(request)
 
         assert_equal(response.status_code, 201)
+        assert_in(url + 'bob/test-dataset', response.get('Location'))
+
         response_data = json.loads(response.content)
         assert_equal(response_data['display_name'], 'Test DataSet')
         assert_equal(response_data['short_name'], 'test-dataset')
-        # TODO: apparently we're not setting Location
-        #assert_in(url, response.get('Location'))
 
 
 class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):

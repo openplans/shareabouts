@@ -1,6 +1,7 @@
 from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse
 from djangorestframework import views, authentication
 from . import resources
 from . import models
@@ -110,6 +111,10 @@ class DataSetCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.List
         key.key = generate_unique_api_key()
         key.save()
         dataset.api_keys.add(key)
+        response.headers['Location'] = reverse(
+            'dataset_instance_by_user',
+            kwargs={'owner__username': request.user.username,
+                    'short_name': dataset.short_name})
         return response
 
 
