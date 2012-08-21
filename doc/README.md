@@ -2,6 +2,9 @@ From 0 to Shareabouts in about an hour
 ======================================
 Shareabouts requires python2.6 or greater.
 
+If you are converting from Shareabouts 1.0, note that
+we have switched platforms. See UPGRADE.md.
+
 Local set up
 ------------
 

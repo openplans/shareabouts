@@ -1,4 +1,3 @@
-import posixpath
 import requests
 import yaml
 import json
@@ -11,16 +10,21 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from proxy.views import proxy_view
 
 
+def make_resource_uri(dataset, resource, root=settings.SHAREABOUTS_API_ROOT):
+    resource = resource.strip('/')
+    dataset = dataset.strip('/')
+    root = root.rstrip('/')
+    uri = '%s/datasets/%s/%s/' % (root, dataset, resource)
+    return uri
+
+
 class ShareaboutsApi (object):
     def __init__(self, dataset, root=settings.SHAREABOUTS_API_ROOT):
         self.root = root
         self.dataset = dataset
 
     def get(self, resource, default=None, **kwargs):
-        resource = resource.strip('/')
-        dataset = self.dataset.strip('/')
-        root = self.root.rstrip('/')
-        uri = '%s/datasets/%s/%s/' % (root, dataset, resource)
+        uri = make_resource_uri(self.dataset, resource, root=self.root)
         res = requests.get(uri, params=kwargs,
                            headers={'Accept': 'application/json'})
         return (res.text if res.status_code == 200 else default)
@@ -74,5 +78,8 @@ def index(request):
 
 
 def api(request, path):
-    url = settings.SHAREABOUTS_API_ROOT + path
+    with open(settings.SHAREABOUTS_CONFIG) as config_yml:
+        config = yaml.load(config_yml)
+    dataset = config['dataset']
+    url = make_resource_uri(dataset, path)
     return proxy_view(request, url)
