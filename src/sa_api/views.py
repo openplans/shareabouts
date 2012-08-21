@@ -1,5 +1,6 @@
 from django.core.cache import cache
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from djangorestframework import views, authentication
 from . import resources
 from . import models
@@ -130,6 +131,16 @@ class PlaceCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOr
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'place_collection'
+
+    def get_instance_data(self, model, content, **kwargs):
+        # Used by djangorestframework to build an instance for POST
+        dataset = get_object_or_404(
+            models.DataSet,
+            short_name=kwargs.pop('dataset__short_name'),
+            owner__username=kwargs.pop('dataset__owner__username'),
+        )
+        content['dataset'] = dataset
+        return super(PlaceCollectionView, self).get_instance_data(model, content, **kwargs)
 
 
 class PlaceInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
