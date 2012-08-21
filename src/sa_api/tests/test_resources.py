@@ -1,6 +1,7 @@
+from django.test import TestCase
 from mock_django.models import ModelMock
 from nose.tools import istest
-from nose.tools import assert_equal, assert_raises
+from nose.tools import assert_equal, assert_raises, assert_in
 from djangorestframework.response import ErrorResponse
 import mock
 
@@ -76,7 +77,37 @@ class TestModelResourceWithDataBlob(object):
         assert_raises(ErrorResponse, resource.validate_request, {})
 
 
-class TestPlaceResource(object):
+class TestPlaceResource(TestCase):
+
+    def _cleanup(self):
+        from sa_api import models
+        models.Submission.objects.all().delete()
+        models.SubmissionSet.objects.all().delete()
+        models.Place.objects.all().delete()
+        models.DataSet.objects.all().delete()
+
+    def setUp(self):
+        self._cleanup()
+
+    def tearDown(self):
+        self._cleanup()
+
+    def populate(self):
+        from ..resources import models
+        location = 'POINT (1.0 2.0)'
+        models.Place.objects.create(id=123, location=location)
+        models.Place.objects.create(id=456, location=location)
+        # A couple of SubmissionSets: one with 3 children, one with 2.
+        ss1 = models.SubmissionSet.objects.create(place_id=123,
+                                                  submission_type='foo')  # count=3
+
+        for i in range(3):
+            models.Submission.objects.create(parent=ss1)
+
+        ss2 = models.SubmissionSet.objects.create(place_id=456,
+                                                  submission_type='bar')
+        for i in range(2):
+            models.Submission.objects.create(parent=ss2)
 
     @istest
     def submission_sets_empty(self):
@@ -89,22 +120,14 @@ class TestPlaceResource(object):
     @istest
     def submission_sets_non_empty(self):
         from ..resources import models, PlaceResource
-        from mock_django.managers import ManagerMock
-        mock_manager = ManagerMock(models.SubmissionSet.objects,
-                                   make_model_mock(models.SubmissionSet,
-                                                   count=3, place_id=123,
-                                                   submission_type='foo'),
-                                   make_model_mock(models.SubmissionSet,
-                                                   count=2, place_id=456,
-                                                   submission_type='bar'),
-                                   )
-
-        with mock.patch.object(models.SubmissionSet, 'objects', mock_manager):
-            result = {
-                123: [{'count': 3, 'url': '/api/v1/places/123/foo/', 'type': 'foo'}],
-                456: [{'count': 2, 'url': '/api/v1/places/456/bar/', 'type': 'bar'}],
-            }
-            assert_equal(PlaceResource().submission_sets.items(), result.items())
+        self.populate()
+        expected_result = {
+            123: [{'count': 3, 'url': '/api/v1/places/123/foo/', 'type': 'foo'}],
+            456: [{'count': 2, 'url': '/api/v1/places/456/bar/', 'type': 'bar'}],
+        }
+        assert_equal(dict(PlaceResource().submission_sets), expected_result)
+        for place in models.Place.objects.all():
+            assert_in(place.id, expected_result)
 
     @istest
     def test_location(self):
@@ -133,13 +156,16 @@ class TestPlaceResource(object):
 
     @istest
     def test_url(self):
+        self.populate()
         from ..resources import models, PlaceResource
-        # White-box test - we mock up the stuff we know it uses.
-        place = make_model_mock(models.Place, id=123)
-        place.dataset_id = 456
-        place.dataset.short_name = 'test-set'
-        place.dataset.owner.username = 'test-user'
+        # White-box test - we hook up the stuff we know it uses.
         resource = PlaceResource()
+        place = models.Place.objects.get(id=123)
+        from django.contrib.auth.models import User
+        user = User.objects.create(username='test-user')
+        dataset = models.DataSet.objects.create(id=456, short_name='test-set',
+                                                owner=user)
+        place.dataset = dataset
         # TODO: call reverse() here to avoid breaking if using a different urls.py?
         assert_equal(resource.url(place),
                      '/api/v1/datasets/test-user/test-set/places/123/')

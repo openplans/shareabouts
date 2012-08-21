@@ -77,6 +77,7 @@ class PlaceResource (ModelResourceWithDataBlob):
         A mapping from Place ids to attributes.  Helps to cut down
         significantly on the number of queries.
 
+        There should be at most one SubmissionSet of a given type for one place.
         """
         submission_sets = defaultdict(list)
 
@@ -101,18 +102,23 @@ class PlaceResource (ModelResourceWithDataBlob):
             'lng': place.location.x,
         }
 
-    def url(self, place):
+    def _get_dataset_url_args(self, dataset_id):
         # Looking up the same parent dataset for 1000 places would be
         # pointless and expensive.
         self._reverse_args_cache = getattr(self, '_reverse_args_cache', {})
-        if place.dataset_id in self._reverse_args_cache:
-            args = self._reverse_args_cache[place.dataset_id]
+        if dataset_id in self._reverse_args_cache:
+            args = self._reverse_args_cache[dataset_id]
         else:
-            args = self._reverse_args_cache[place.dataset_id] = (
-                place.dataset.owner.username,
-                place.dataset.short_name,
-                place.id,
+            dataset = models.DataSet.objects.get(id=dataset_id)
+            args = self._reverse_args_cache[dataset_id] = (
+                dataset.owner.username,
+                dataset.short_name,
             )
+        return args
+
+    def url(self, place):
+        args = self._get_dataset_url_args(place.dataset_id)
+        args = args + (place.id,)
         return reverse('place_instance_by_dataset', args=args)
 
     def submissions(self, place):
