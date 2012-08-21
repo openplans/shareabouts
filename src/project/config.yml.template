@@ -39,15 +39,22 @@ place_type_icons: {
 }
 
 survey: {
+  submission_type: comments,
+
+  # Response display config
+  show_responses: true,
+  response_name: comment,
+  response_plural_name: comments,
+  action_text: "commented on",
+
+  # Survey form config
   title: Leave a Comment,
   form_link_text: Leave a Comment,
   submit_btn_text: Comment,
-  show_responses: true,
-  submission_type: comments,
-  response_name: comment(s),
   items: [
     {
       prompt: Comment,
+      label: Comment,
       type: textarea,
       name: comment
     },
@@ -59,6 +66,8 @@ survey: {
 }
 
 support: {
+  submission_type: support,
+
   submit_btn_text: Support This!,
-  submission_type: support
+  action_text: "supported"
 }

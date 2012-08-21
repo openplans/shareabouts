@@ -163,12 +163,13 @@ body {
   background-color: #777;
   height: 4em;
   padding: 0 1em;
-	position: relative;
+  position: relative;
   z-index: 50;
      -moz-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
   -webkit-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
 }
+#site-header a { white-space: nowrap; }
 #site-header a, #site-header a:active, #site-header a:visited { color: #a3c7d9; }
 #site-header a:hover { color: #fff; }
 
@@ -202,6 +203,8 @@ body {
 	text-align: center;
 	padding: 0.125em 0.4em;
 	margin: 0.4em 0 0 0.5em;
+	position: absolute;
+	right: 0.4em;
 }
 #nav-bttn:hover {
   background: #a3c7d9;

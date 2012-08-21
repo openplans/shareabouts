@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $){
+(function(S, $, console){
   S.PlaceFormView = Backbone.View.extend({
     // View responsible for the form for adding and editing places.
     events: {
@@ -17,7 +17,10 @@ var Shareabouts = Shareabouts || {};
     render: function(){
       // Augment the model data with place types for the drop down
       var data = _.extend({
-        placeTypes: this.placeTypes
+        placeTypes: this.placeTypes,
+        zeroTypes: this.placeTypes.length == 0,
+        oneType: this.placeTypes.length == 1,
+        manyTypes: this.placeTypes.length > 1
       }, this.model.toJSON());
 
       this.$el.html(ich['place-form'](data));
@@ -66,4 +69,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, jQuery);
+})(Shareabouts, jQuery, Shareabouts.Util.console);

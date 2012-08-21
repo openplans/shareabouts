@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $){
+(function(S, $, console){
   S.AppView = Backbone.View.extend({
     events: {
       'click #add-place': 'onClickAddPlaceBtn',
@@ -33,7 +33,9 @@ var Shareabouts = Shareabouts || {};
         collection: this.activities,
         places: this.places,
         router: this.options.router,
-        placeTypes: this.options.placeTypes
+        placeTypes: this.options.placeTypes,
+        surveyConfig: this.options.surveyConfig,
+        supportConfig: this.options.supportConfig
       });
 
       // Cache panel elements that we use a lot
@@ -41,6 +43,7 @@ var Shareabouts = Shareabouts || {};
       this.$panelContent = $('#content article');
       this.$panelCloseBtn = $('.close-bttn');
       this.$centerpoint = $('#centerpoint');
+      this.$addButton = $('#add-place');
 
       // Bind to map move events so we can style our center points
       // with utmost awesomeness.
@@ -103,6 +106,7 @@ var Shareabouts = Shareabouts || {};
       this.hidePanel();
       this.hideNewPin();
       this.destroyNewModels();
+      this.showAddButton();
       this.options.router.navigate('/');
     },
     // This gets called for every model that gets added to the place
@@ -130,6 +134,7 @@ var Shareabouts = Shareabouts || {};
         // Autofocus on the first input element
         placeFormView.$('textarea, input').not('[type="hidden"]').first().focus();
         this.showNewPin();
+        this.hideAddButton();
       }
     },
     onRemovePlace: function(model) {
@@ -159,6 +164,7 @@ var Shareabouts = Shareabouts || {};
       this.hideNewPin();
       this.destroyNewModels();
       this.hideCenterPoint();
+      this.hideAddButton();
       map.panTo(this.getOffsetCenter(new L.LatLng(location.lat, location.lng)));
 
       // Focus the one we're looking
@@ -174,6 +180,12 @@ var Shareabouts = Shareabouts || {};
 
       this.$centerpoint.show().addClass('newpin');
       map.panTo(this.getOffsetCenter(map.getCenter()));
+    },
+    showAddButton: function() {
+      this.$addButton.show();
+    },
+    hideAddButton: function() {
+      this.$addButton.hide();
     },
     hideCenterPoint: function() {
       this.$centerpoint.hide();
@@ -204,4 +216,4 @@ var Shareabouts = Shareabouts || {};
       this.mapView.render();
     }
   });
-})(Shareabouts, jQuery);
+})(Shareabouts, jQuery, Shareabouts.Util.console);

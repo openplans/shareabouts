@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $){
+(function(S, $, console){
   S.SurveyView = Backbone.View.extend({
     events: {
       'submit form': 'onSubmit',
@@ -42,6 +42,7 @@ var Shareabouts = Shareabouts || {};
 
       this.$el.html(ich['place-detail-survey']({
         responses: responses,
+        has_single_response: (responses.length === 1),
         survey_config: this.options.surveyConfig
       }));
 
@@ -76,4 +77,4 @@ var Shareabouts = Shareabouts || {};
 
   });
 
-})(Shareabouts, jQuery);
+})(Shareabouts, jQuery, Shareabouts.Util.console);

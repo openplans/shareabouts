@@ -20,12 +20,12 @@
                      value="{{ name }}">
             </p>
 
+            {{# oneType }}
+            <input type="hidden" name="location_type" value="{{ placeTypes.0 }}">
+            {{/ oneType }}
+
+            {{# manyTypes }}
             <p>
-
-              <!--
-                TODO Need a list of all available types.
-              -->
-
               <label for="point-type">{{#_}}Location Type{{/_}}</label>
               <select id="point-type" name="location_type">
                 <option value=""></option>
@@ -34,6 +34,7 @@
                 {{/placeTypes}}
               </select>
             </p>
+            {{/ manyTypes }}
 
             <p>
               <label for="point-description">{{#_}}Point Description{{/_}}</label>

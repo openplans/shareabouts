@@ -2,6 +2,17 @@
         {{# data }}
           <a href="/place/{{ place_id }}">{{#_}}<strong>
           {{> submitter-or-anonymous }}
-          </strong> added a {{ type }} {{# region }} in {{ region }}{{/ region }}{{/_}}</a>
+          </strong>
+          {{# is_place }}
+            created a <span class="place-type">{{ place.location_type }}</span>
+            {{# place.name }} named <span class="place-name">{{ place.name }}</span>{{/ place.name }}
+          {{/ is_place }}
+
+          {{^ is_place }}
+            {{ action }}
+            {{# place.name }}<span class="place-name">{{ place.name }}</span>{{/ place.name }}
+            {{^ place.name }}a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }} {{ place.location_type }}{{/ place.name }}
+          {{/ is_place }}
+          {{/_}}</a>
         {{/ data }}
       </li>

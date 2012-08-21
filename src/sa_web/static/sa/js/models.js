@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $) {
+(function(S, $, console) {
   S.SubmissionCollection = Backbone.Collection.extend({
     initialize: function(models, options) {
       this.options = options;
@@ -54,7 +54,7 @@ var Shareabouts = Shareabouts || {};
     url: '/api/activity/'
   });
 
-})(Shareabouts, jQuery);
+})(Shareabouts, jQuery, Shareabouts.Util.console);
 
 
 /*****************************************************************************

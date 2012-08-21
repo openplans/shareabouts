@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $){
+(function(S, $, console){
   S.PlaceDetailView = Backbone.View.extend({
     initialize: function() {
       this.model.on('change', this.onChange, this);
@@ -52,4 +52,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, jQuery);
+})(Shareabouts, jQuery, Shareabouts.Util.console);

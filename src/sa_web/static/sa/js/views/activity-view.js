@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $){
+(function(S, $, console){
   S.ActivityView = Backbone.View.extend({
     initialize: function() {
       var self = this;
@@ -67,7 +67,10 @@ var Shareabouts = Shareabouts || {};
     onAddAction: function(model, collection, options) {
       this.renderAction(model, options.index);
 
-      // TODO Only do the following if the activity instance is a place.
+      // ===== IMPORTANT =====
+      // TODO: The following should only happen when this client instance gets
+      //       a new place created action that was initiated by a different
+      //       client instance.  I'm not sure what effect it's having now.
       this.options.places.add(model.get('data'));
     },
 
@@ -76,10 +79,44 @@ var Shareabouts = Shareabouts || {};
     },
 
     renderAction: function(model, index) {
-      var modelData = _.extend({
-            submitter_is_anonymous: (!model.get('data').submitter_name)
-          }, model.toJSON()),
-          $template = ich['activity-list-item'](modelData);
+      var actionType = model.get('type'),
+          isPlaceAction = (actionType === 'places'),
+          surveyConfig = this.options.surveyConfig,
+          supportConfig = this.options.supportConfig,
+          placeData,
+          modelData,
+          actionText,
+          $template;
+
+      // Get the place that the action is about.
+      if (isPlaceAction) {
+        placeData = model.get('data');
+      } else {
+        placeData = this.options.places.get(model.get('place_id')).toJSON();
+
+        if (actionType == surveyConfig.submission_type) {
+          actionText = this.options.surveyConfig.action_text;
+        } else if (actionType == supportConfig.submission_type) {
+          actionText = this.options.supportConfig.action_text
+        }
+      }
+
+      // Check whether the location type starts with a vowel; useful for
+      // choosing between 'a' and 'an'.  Not language-independent.
+      if ('aeiou'.indexOf(placeData['location_type'][0]) > -1) {
+        placeData['type_starts_with_vowel'] = true;
+      }
+
+      modelData = _.extend({
+        submitter_is_anonymous: (!model.get('data').submitter_name),
+        place: placeData,
+        action: actionText,
+        is_place: isPlaceAction,
+      }, model.toJSON());
+
+      modelData.action = actionText;
+
+      $template = ich['activity-list-item'](modelData);
 
       if (index >= this.$el.children().length) {
         this.$el.append($template);
@@ -115,4 +152,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, jQuery);
+})(Shareabouts, jQuery, Shareabouts.Util.console);

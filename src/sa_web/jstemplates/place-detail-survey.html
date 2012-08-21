@@ -1,5 +1,10 @@
           {{#survey_config.show_responses}}
-          <h4 class="survey-header">{{ responses.length }} {{ survey_config.response_name }}</h4>
+          <h4 class="survey-header">
+            {{ responses.length }}
+            {{# has_single_response }}{{ survey_config.response_name }}{{/ has_single_response }}
+            {{^ has_single_response }}{{ survey_config.response_plural_name }}{{/ has_single_response }}
+          </h4>
+
           <a href="#reply" class="reply-link">{{ survey_config.form_link_text }}</a>
 
           <ol class="responses">
@@ -17,10 +22,14 @@
                 </header>
 
                 <div class="response-body">
+
                   {{#items}}
-                  <span class="label {{ name }}-label">{{ label }}</span>
-                  <p class="value {{ name }}-value">{{ value }}</p>
+                  <div class="response-item response-item-{{ name }}">
+                    <span class="response-label response-label-{{ name }}">{{ label }}</span>
+                    <p class="response-value response-value-{{ name }}">{{ value }}</p>
+                  </div>
                   {{/items}}
+
                 </div>
               </article>
             </li>
@@ -32,21 +41,26 @@
             <h4 class="reply-header">{{ title }}</h4>
             <form id="new_response" class="new_response" action="#" method="post">
 
-              {{#survey_config.items}}
               <fieldset>
-                <p>
-                  <label for="response-{{ name }}">
+              {{#survey_config.items}}
+
+                <div class="survey-field survey-field-{{ name }}">
+                  <label class="survey-label survey-label-{{ name }}" for="survey-{{ name }}">
                     {{#_}}{{ prompt }}{{# optional }} (optional){{/ optional }}{{/_}}
                   </label>
-                  {{#is_textarea}}
-                  <textarea name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
-                  {{/is_textarea}}
-                  {{^is_textarea}}
-                  <input name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-                  {{/is_textarea}}
-                </p>
-              </fieldset>
+
+                  <div class="survey-widgets survey-widgets-{{ name }}">
+                    {{#is_textarea}}
+                    <textarea id="survey-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
+                    {{/is_textarea}}
+                    {{^is_textarea}}
+                    <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                    {{/is_textarea}}
+                  </div>
+                </div>
+
               {{/survey_config.items}}
+              </fieldset>
 
               <input name="commit" type="submit" value="{{ survey_config.submit_btn_text }}" class="bttn">
             </form>
