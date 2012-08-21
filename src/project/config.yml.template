@@ -39,7 +39,8 @@ survey: {
 
   # Response display config
   show_responses: true,
-  response_name: comment(s),
+  response_name: comment,
+  response_plural_name: comments,
   action_text: "commented on",
 
   # Survey form config
@@ -49,6 +50,7 @@ survey: {
   items: [
     {
       prompt: Comment,
+      label: Comment,
       type: textarea,
       name: comment
     },
