@@ -319,8 +319,7 @@ class TestPlaceCollectionView(TestCase):
 
         # We got a Created status...
         assert_equal(response.status_code, 201)
-        # TODO: apparently we're not setting Location
-        #assert_in(uri, response.get('Location'))
+        assert_in(uri, response.get('Location'))
 
         # And we have a place:
         assert_equal(models.Place.objects.count(), 1)

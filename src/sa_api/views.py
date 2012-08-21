@@ -111,10 +111,11 @@ class DataSetCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.List
         key.key = generate_unique_api_key()
         key.save()
         dataset.api_keys.add(key)
-        response.headers['Location'] = reverse(
-            'dataset_instance_by_user',
-            kwargs={'owner__username': request.user.username,
-                    'short_name': dataset.short_name})
+        # djangorestframework will magically add a Location header
+        # if the model includes a get_absolute_url() method,
+        # but it does not *call* that method.  That's a bit too bizarre,
+        # so let's just do it ourselves.
+        response.headers['Location'] = self._resource.url(dataset)
         return response
 
 
@@ -146,6 +147,14 @@ class PlaceCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOr
         )
         content['dataset'] = dataset
         return super(PlaceCollectionView, self).get_instance_data(model, content, **kwargs)
+
+
+    def post(self, request, *args, **kwargs):
+        response = super(PlaceCollectionView, self).post(request, *args, **kwargs)
+        # djangorestframework automagically sets Location, but ...
+        # see comment on DataSetCollectionView.post()
+        response.headers['Location'] = self._resource.url(response.raw_content)
+        return response
 
 
 class PlaceInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):

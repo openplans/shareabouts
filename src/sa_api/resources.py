@@ -158,6 +158,11 @@ class DataSetResource (resources.ModelResource):
         places = models.Place.objects.filter(dataset=dataset)
         return [self._simple_place(place) for place in places]
 
+    def url(self, instance):
+        return reverse('dataset_instance_by_user',
+                       kwargs={'owner__username': instance.owner.username,
+                               'short_name': instance.short_name})
+
 
 class SubmissionResource (ModelResourceWithDataBlob):
     model = models.Submission
