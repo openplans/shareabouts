@@ -10,7 +10,6 @@ from ..views import SubmissionCollectionView
 import json
 
 
-
 class TestDataSetCollectionView(TestCase):
 
     @istest
@@ -22,7 +21,7 @@ class TestDataSetCollectionView(TestCase):
         ApiKey.objects.all().delete()
         User.objects.all().delete()
         user = User.objects.create()
-        # TODO: mock the models
+        # TODO: mock the models?
 
         url = reverse('dataset_collection')
         data = {
@@ -44,6 +43,8 @@ class TestDataSetCollectionView(TestCase):
         response_data = json.loads(response.content)
         assert_equal(response_data['display_name'], 'Test DataSet')
         assert_equal(response_data['short_name'], 'test-dataset')
+        # TODO: apparently we're not setting Location
+        #assert_in(url, response.get('Location'))
 
 
 class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
@@ -270,3 +271,56 @@ class TestAbsUrlMixin (object):
                      'http://testserver/hello/cats')
         assert_equal(data['children'][1]['url'],
                      'http://testserver/dogs')
+
+
+class TestPlaceCollectionView(TestCase):
+
+    def _cleanup(self):
+        from sa_api import models
+        from django.contrib.auth.models import User
+        models.Submission.objects.all().delete()
+        models.SubmissionSet.objects.all().delete()
+        models.Place.objects.all().delete()
+        models.DataSet.objects.all().delete()
+        User.objects.all().delete()
+
+    def setUp(self):
+        self._cleanup()
+
+    def tearDown(self):
+        self._cleanup()
+
+    @istest
+    def post_creates_a_place(self):
+        from ..views import PlaceCollectionView, models
+        view = PlaceCollectionView().as_view()
+        # Need an existing DataSet.
+        from django.contrib.auth.models import User
+        user = User.objects.create(username='test-user')
+        ds = models.DataSet.objects.create(owner=user, id=789,
+                                           short_name='stuff')
+        #place = models.Place.objects.create(dataset=ds, id=123)
+        uri_args = {
+            'dataset__owner__username': user.username,
+            'dataset__short_name': ds.short_name,
+        }
+        uri = reverse('place_collection_by_dataset', kwargs=uri_args)
+        data = {'location': {'lat': 39.94494, 'lng': -75.06144},
+                'description': 'hello', 'location_type': 'School',
+                'name': 'Ward Melville HS',
+                'submitter_name': 'Joe',
+                }
+        request = RequestFactory().post(uri, data=json.dumps(data),
+                                        content_type='application/json')
+        # Ready to post. Verify there are no Places yet...
+        assert_equal(models.Place.objects.count(), 0)
+
+        response = view(request, **uri_args)
+
+        # We got a Created status...
+        assert_equal(response.status_code, 201)
+        # TODO: apparently we're not setting Location
+        #assert_in(uri, response.get('Location'))
+
+        # And we have a place:
+        assert_equal(models.Place.objects.count(), 1)

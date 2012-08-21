@@ -81,10 +81,12 @@ class TestPlaceResource(TestCase):
 
     def _cleanup(self):
         from sa_api import models
+        from django.contrib.auth.models import User
         models.Submission.objects.all().delete()
         models.SubmissionSet.objects.all().delete()
         models.Place.objects.all().delete()
         models.DataSet.objects.all().delete()
+        User.objects.all().delete()
 
     def setUp(self):
         self._cleanup()
