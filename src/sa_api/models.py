@@ -82,7 +82,9 @@ class SubmissionSet (models.Model):
     place = models.ForeignKey(Place, related_name='submission_sets')
     submission_type = models.CharField(max_length=128)
 
-    # TODO: require (place, submission_type) to be unique?
+    class Meta(object):
+        unique_together = (('place', 'submission_type'),
+                           )
 
 
 class Submission (SubmittedThing):
