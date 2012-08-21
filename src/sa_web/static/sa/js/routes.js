@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $){
+(function(S, $, console){
   S.App = Backbone.Router.extend({
     routes: {
       'place/new': 'newPlace',
@@ -43,4 +43,4 @@ var Shareabouts = Shareabouts || {};
     editPlace: function(){}
   });
 
-})(Shareabouts, jQuery);
+})(Shareabouts, jQuery, Shareabouts.Util.console);

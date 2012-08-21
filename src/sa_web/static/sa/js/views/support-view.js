@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $){
+(function(S, $, console){
   S.SupportView = Backbone.View.extend({
     events: {
       'change #support': 'onSupportChange'
@@ -67,4 +67,4 @@ var Shareabouts = Shareabouts || {};
 
   });
 
-})(Shareabouts, jQuery);
+})(Shareabouts, jQuery, Shareabouts.Util.console);

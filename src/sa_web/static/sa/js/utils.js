@@ -19,6 +19,15 @@ var Shareabouts = Shareabouts || {};
       });
 
       return attrs;
+    },
+
+    // For browsers without a console
+    console: window.console || {
+      log: function(){},
+      debug: function(){},
+      info: function(){},
+      warn: function(){},
+      error: function(){}
     }
   };
 })(Shareabouts, moment);
