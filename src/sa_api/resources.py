@@ -25,10 +25,10 @@ class ModelResourceWithDataBlob (resources.ModelResource):
     'data' JSON blob of arbitrary key/value pairs.
     """
 
-    def serialize(self, obj):
+    def serialize(self, obj, *args, **kwargs):
         # If the object is a place, parse the data blob and add it to the
         # place's fields.
-        serialization = super(ModelResourceWithDataBlob, self).serialize(obj)
+        serialization = super(ModelResourceWithDataBlob, self).serialize(obj, *args, **kwargs)
         if isinstance(obj, self.model):
             data = json.loads(obj.data)
             serialization.update(data)
