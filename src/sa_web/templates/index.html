@@ -132,7 +132,7 @@
     // Init each icon and attach it to its type
     _.each(placeTypesConfig, function(config, name) {
       placeTypes[name] = {
-        'default': new placeTypeIcons[config.default](),
+        'default': new placeTypeIcons[config['default']](),
         'focused': new placeTypeIcons[config.focused]()
       };
     });
