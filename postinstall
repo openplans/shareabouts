@@ -29,6 +29,7 @@ echo "Syncing the database..."
 src/manage.py syncdb --migrate --noinput
 
 echo "Setting up static file service..."
-#src/manage.py collectstatic --noinput
+src/manage.py collectstatic --noinput
 #cat >> nginx.conf <<EOF
+#location /static/ { root /home/dotcloud/current ; }
 #EOF
