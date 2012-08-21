@@ -15,6 +15,10 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
+    # Django REST framework needs its namespace declared in order to render
+    # the browsable API pages.
+    url(r'^restframework', include('djangorestframework.urls', namespace='djangorestframework')),
+
     # For now, use basic auth.
     url(r'^accounts/', include('django.contrib.auth.urls')),
 
