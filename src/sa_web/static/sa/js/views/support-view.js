@@ -11,7 +11,6 @@ var Shareabouts = Shareabouts || {};
       this.collection.on('add', this.onChange, this);
       this.collection.on('remove', this.onChange, this);
 
-
       this.updateSupportStatus();
     },
 
@@ -47,6 +46,13 @@ var Shareabouts = Shareabouts || {};
       this.render();
     },
 
+    handleError: function() {
+      // None of the model events will be triggered, update the
+      // checked status of the checkbox
+      this.render();
+      alert('Oh dear. It looks like that didn\'t save.');
+    },
+
     onSupportChange: function(evt) {
       var checked = evt.target.checked,
           $form,
@@ -57,14 +63,11 @@ var Shareabouts = Shareabouts || {};
       if (checked) {
         $form = this.$('form'),
         attrs = S.Util.getAttrs($form);
-        this.collection.create(attrs, {wait: true});
+        this.collection.create(attrs, {wait: true, error: _.bind(this.handleError, this)});
       } else {
-        this.userSupport.destroy();
+        this.userSupport.destroy({wait: true, error: _.bind(this.handleError, this)});
       }
-
-      console.log('checked?', checked);
     }
-
   });
 
 })(Shareabouts, jQuery, Shareabouts.Util.console);
