@@ -44,7 +44,6 @@ var Shareabouts = Shareabouts || {};
     },
 
     onChange: function() {
-      console.log('onchange');
       this.updateSupportStatus();
       this.render();
     },
