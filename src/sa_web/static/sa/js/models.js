@@ -1,10 +1,22 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console) {
+  S.SubmissionModel = Backbone.Model.extend({
+    url: function() {
+      // This is to make Django happy. I'm sad to have to add it.
+      var url = S.SubmissionModel.__super__.url.call(this);
+      url += url.charAt(url.length-1) === '/' ? '' : '/';
+
+      return url;
+    }
+  });
+
   S.SubmissionCollection = Backbone.Collection.extend({
     initialize: function(models, options) {
       this.options = options;
     },
+
+    model: S.SubmissionModel,
 
     url: function() {
       var submissionType = this.options.submissionType,
