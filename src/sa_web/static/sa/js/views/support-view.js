@@ -33,39 +33,48 @@ var Shareabouts = Shareabouts || {};
       // Nothing yet
     },
 
-    updateSupportStatus: function() {
-      var userToken = this.options.userToken;
-
-      this.userSupport = this.collection.find(function(model) {
+    getSupportStatus: function(userToken) {
+      return this.collection.find(function(model) {
         return model.get('user_token') === userToken;
       });
     },
 
+    updateSupportStatus: function() {
+      this.userSupport = this.getSupportStatus(this.options.userToken);
+    },
+
     onChange: function() {
+      console.log('onchange');
       this.updateSupportStatus();
       this.render();
     },
 
-    handleError: function() {
-      // None of the model events will be triggered, update the
-      // checked status of the checkbox
-      this.render();
-      alert('Oh dear. It looks like that didn\'t save.');
-    },
-
     onSupportChange: function(evt) {
-      var checked = evt.target.checked,
+      var self = this,
+          checked = evt.target.checked,
           $form,
-          attrs;
+          attrs,
+          userSupport;
 
       evt.target.disabled = true;
 
       if (checked) {
         $form = this.$('form'),
         attrs = S.Util.getAttrs($form);
-        this.collection.create(attrs, {wait: true, error: _.bind(this.handleError, this)});
+        this.collection.create(attrs, {
+          error: function() {
+            self.getSupportStatus(self.options.userToken).destroy();
+            alert('Oh dear. It looks like that didn\'t save.');
+          }
+        });
       } else {
-        this.userSupport.destroy({wait: true, error: _.bind(this.handleError, this)});
+        userSupport = this.userSupport;
+        this.userSupport.destroy({
+          error: function() {
+            self.collection.add(userSupport);
+            alert('Oh dear. It looks like that didn\'t save.');
+          }
+        });
       }
     }
   });
