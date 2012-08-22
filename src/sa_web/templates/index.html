@@ -88,6 +88,7 @@
 
   <script src="{{STATIC_URL}}sa/js/utils.js"></script>
   <script src="{{STATIC_URL}}sa/js/models.js"></script>
+  <script src="{{STATIC_URL}}sa/js/views/pages-nav-view.js"></script>
   <script src="{{STATIC_URL}}sa/js/views/activity-view.js"></script>
   <script src="{{STATIC_URL}}sa/js/views/app-view.js"></script>
   <script src="{{STATIC_URL}}sa/js/views/layer-view.js"></script>
@@ -152,7 +153,8 @@
         userToken: {{ user_token_json|safe }},
         placeTypes: placeTypes,
         surveyConfig: surveyConfig,
-        supportConfig: supportConfig
+        supportConfig: supportConfig,
+        pagesConfig: pagesConfig
       });
       Backbone.history.start({pushState: true});
     });

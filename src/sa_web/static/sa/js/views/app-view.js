@@ -16,6 +16,12 @@ var Shareabouts = Shareabouts || {};
       this.collection.on('remove', this.onRemovePlace, this);
       this.collection.on('reset', this.onResetPlaces, this);
 
+      this.pagesNavView = (new S.PagesNavView({
+              el: '#pages-nav-container',
+              pagesConfig: this.options.pagesConfig,
+              router: this.options.router
+            })).render();
+
       // Init the map view to display the places
       // TODO: remove hard coded values here, add to config
       this.mapView = new S.MapView({
@@ -130,7 +136,7 @@ var Shareabouts = Shareabouts || {};
 
       // If it's new, then show the form in order to edit and save it.
       if (model.isNew()) {
-        this.showPanel(placeFormView);
+        this.showPanel(placeFormView.render().$el);
         // Autofocus on the first input element
         placeFormView.$('textarea, input').not('[type="hidden"]').first().focus();
         this.showNewPin();
@@ -160,7 +166,7 @@ var Shareabouts = Shareabouts || {};
           location = model.get('location'),
           placeDetailView = this.placeDetailViews[model.cid];
 
-      this.showPanel(placeDetailView);
+      this.showPanel(placeDetailView.render().$el);
       this.hideNewPin();
       this.destroyNewModels();
       this.hideCenterPoint();
@@ -170,9 +176,16 @@ var Shareabouts = Shareabouts || {};
       // Focus the one we're looking
       model.trigger('focus');
     },
-    showPanel: function(view) {
-      this.unfocusAllMarkers();
-      this.$panelContent.html(view.render().$el);
+    viewPage: function(slug) {
+      var pageConfig = _.find(this.options.pagesConfig, function(pageConfig) {
+        return pageConfig.slug ===  slug;
+      });
+
+      this.showPanel(pageConfig.content);
+    },
+    showPanel: function(markup) {
+      this.unfocusAllPlaces();
+      this.$panelContent.html(markup);
       this.$panel.show();
     },
     showNewPin: function() {
@@ -191,13 +204,13 @@ var Shareabouts = Shareabouts || {};
       this.$centerpoint.hide();
     },
     hidePanel: function() {
-      this.unfocusAllMarkers();
+      this.unfocusAllPlaces();
       this.$panel.hide();
     },
     hideNewPin: function() {
       this.$centerpoint.show().removeClass('newpin');
     },
-    unfocusAllMarkers: function() {
+    unfocusAllPlaces: function() {
       // Unfocus all of the markers
       this.collection.each(function(m){
         if (!m.isNew()) {

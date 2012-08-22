@@ -5,7 +5,8 @@ var Shareabouts = Shareabouts || {};
     routes: {
       'place/new': 'newPlace',
       'place/:id': 'viewPlace',
-      'place/:id/edit': 'editPlace'
+      'place/:id/edit': 'editPlace',
+      'page/:slug': 'viewPage'
     },
 
     initialize: function(options) {
@@ -21,6 +22,7 @@ var Shareabouts = Shareabouts || {};
         placeTypes: options.placeTypes,
         surveyConfig: options.surveyConfig,
         supportConfig: options.supportConfig,
+        pagesConfig: options.pagesConfig,
         userToken: options.userToken,
         router: this
       });
@@ -40,7 +42,11 @@ var Shareabouts = Shareabouts || {};
       this.appView.viewPlace(model);
     },
 
-    editPlace: function(){}
+    editPlace: function(){},
+
+    viewPage: function(slug) {
+      this.appView.viewPage(slug);
+    }
   });
 
 })(Shareabouts, jQuery, Shareabouts.Util.console);

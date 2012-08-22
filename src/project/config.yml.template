@@ -77,6 +77,6 @@ pages:
     slug: why
     url: /static/sa/pages/why.html
 
-  - title: Fetures
+  - title: Features
     slug: features
     url: /static/sa/pages/features.html
