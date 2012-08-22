@@ -83,6 +83,19 @@ class AbsUrlMixin (object):
         return data
 
 
+class Ignore_CacheBusterMixin (object):
+    def dispatch(self, request, *args, **kwargs):
+        # In order to ensure the return of a non-cached version of the view,
+        # jQuery adds an _ query parameter with random data.  Ignore that
+        # parameter so that it doesn't get passed along to our form validation.
+        get_params = request.GET.copy()
+        if '_' in get_params:
+            get_params.pop('_')
+        request.GET = get_params
+
+        return super(Ignore_CacheBusterMixin, self).dispatch(request, *args, **kwargs)
+
+
 class ModelViewWithDataBlobMixin (object):
     parsers = parsers.DEFAULT_DATA_BLOB_PARSERS
 
@@ -96,7 +109,7 @@ class ModelViewWithDataBlobMixin (object):
 
 
 # TODO derive from CachedMixin to enable caching
-class DataSetCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
+class DataSetCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.DataSetResource
     authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'dataset_collection'
@@ -119,7 +132,7 @@ class DataSetCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.List
         return response
 
 
-class DataSetInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
+class DataSetInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.DataSetResource
     authentication = (authentication.BasicAuthentication,)
 
@@ -132,7 +145,7 @@ def dataset_instance_by_user(request, username, short_name):
 
 
 # TODO derive from CachedMixin to enable caching
-class PlaceCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
+class PlaceCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     # TODO: Decide whether pagination is appropriate/necessary.
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
@@ -157,12 +170,12 @@ class PlaceCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOr
         return response
 
 
-class PlaceInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
+class PlaceInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
 
 
-class SubmissionCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
+class SubmissionCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.SubmissionResource
 
     def get(self, request, place_id, submission_type, **kwargs):
@@ -204,7 +217,7 @@ class SubmissionCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.L
         return super(SubmissionCollectionView, self).get_instance_data(model, content,)
 
 
-class SubmissionInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
+class SubmissionInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.SubmissionResource
 
     def get(self, request, place_id, submission_type, pk):
@@ -233,7 +246,7 @@ class SubmissionInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.Ins
 
 
 # TODO derive from CachedMixin to enable caching
-class ActivityView (AbsUrlMixin, views.ListModelView):
+class ActivityView (Ignore_CacheBusterMixin, AbsUrlMixin, views.ListModelView):
     """
     Get a list of activities ordered by the `created_datetime` in reverse.
 
