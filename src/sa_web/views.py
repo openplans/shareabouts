@@ -37,6 +37,29 @@ def index(request):
     places_json = api.get('places/', u'[]')
     activity_json = api.get('activity/?limit=20', u'[]')
 
+    # Get the content of the static pages linked in the menu.
+    pages_config = config.get('pages', [])
+    for page_config in pages_config:
+        page_url = page_config.pop('url')
+        page_url = request.build_absolute_uri(page_url)
+
+        # TODO It would be best if this were also asynchronous.
+        response = requests.get(page_url)
+
+        # If we successfully got the content, stick it into the config instead
+        # of the URL.
+        if response.status_code == 200:
+            page_config['content'] = response.text
+
+        # If there was an error, let the client know what the URL, status code,
+        # and text of the error was.
+        else:
+            page_config['url'] = page_url
+            page_config['status'] = response.status_code
+            page_config['error'] = response.text
+
+    pages_config_json = json.dumps(pages_config)
+
     # The user token will be a pair, with the first element being the type
     # of identification, and the second being an identifier. It could be
     # 'username:mjumbewu' or 'ip:123.231.132.213', etc.  If the user is
@@ -50,7 +73,6 @@ def index(request):
         request.session.set_expiry(0)
 
     user_token_json = u'"{0}"'.format(request.session['user_token'])
-#    user_token_json = u'"{0}"'.format(12345)
 
     context = {'places_json': places_json,
                'activity_json': activity_json,
@@ -58,7 +80,8 @@ def index(request):
                'place_type_icons_json': place_type_icons_json,
                'survey_config_json': survey_config_json,
                'support_config_json': support_config_json,
-               'user_token_json': user_token_json}
+               'user_token_json': user_token_json,
+               'pages_config_json': pages_config_json }
     return render(request, 'index.html', context)
 
 
