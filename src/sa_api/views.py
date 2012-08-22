@@ -139,7 +139,7 @@ class PlaceCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOr
     cache_prefix = 'place_collection'
 
     def get_instance_data(self, model, content, **kwargs):
-        # Used by djangorestframework to build an instance for POST
+        # Used by djangorestframework to make args to build an instance for POST
         dataset = get_object_or_404(
             models.DataSet,
             short_name=kwargs.pop('dataset__short_name'),
@@ -176,23 +176,32 @@ class SubmissionCollectionView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.L
         )
 
     def post(self, request, place_id, submission_type, **kwargs):
-        # From the URL string, we should have the necessary information to get
-        # the submission set.
+        # TODO: Location
+        return super(SubmissionCollectionView, self).post(
+            request, place_id=place_id, submission_type=submission_type, **kwargs)
+
+    def get_instance_data(self, model, content, **kwargs):
+        # Used by djangorestframework to make args to build an instance for POST
+        # From the URL string, we should have the necessary
+        # information to get the submission set.  The DataSet is
+        # implicit from the Place, which we get by ID, so ignore the
+        # extra kwargs.
+        place_id = kwargs['place_id']
+        submission_type = kwargs['submission_type']
+        place = get_object_or_404(models.Place, id=place_id)
         submission_set, created = models.SubmissionSet.objects.get_or_create(
-            place_id=place_id,
-            submission_type=submission_type,
-            **kwargs
-        )
+            place_id=place_id, submission_type=submission_type)
 
         # TODO If there's a validation error with the submission, we may end up
         #      with a dangling submission_set.  We should either defer the
         #      creation of the set, or make sure it gets cleaned up on error.
 
-        # Pass the submission set in to the base class's
-        return super(SubmissionCollectionView, self).post(
-            request,
-            parent_id=submission_set.id
-        )
+        content['dataset'] = place.dataset
+        content['parent'] = submission_set
+        # We don't pass the remaining kwargs as we already have the
+        # DatSet they indirectly identify, and Submission can't
+        # directly handle them anyway.
+        return super(SubmissionCollectionView, self).get_instance_data(model, content,)
 
 
 class SubmissionInstanceView (AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
