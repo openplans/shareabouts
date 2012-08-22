@@ -112,3 +112,11 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     }
 });
+
+// Disable caching for all ajax calls. This is required because IE
+// is ridiculous about the way it caches AJAX calls. If we don't do this,
+// it won't even send send requests to the server and just assume that
+// the content has not changed and return a 304. So strange. So sad.
+jQuery.ajaxSetup ({
+  cache: false
+});
