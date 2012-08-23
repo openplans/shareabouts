@@ -25,11 +25,12 @@ var Shareabouts = Shareabouts || {};
       switch (userAgent.browser.name) {
         case "Chrome":
         case "Firefox":
+        case "Safari":
           return true;
           break;
         case "Microsoft Internet Explorer":
-          var firstDot = browser.version.find('.'),
-              major = parseInt(browser.version.substr(0, firstDot));
+          var firstDot = userAgent.browser.version.indexOf('.'),
+              major = parseInt(userAgent.browser.version.substr(0, firstDot));
 
           if (major > 7) {
             return true;
