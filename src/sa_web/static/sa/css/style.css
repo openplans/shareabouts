@@ -587,6 +587,8 @@ textarea {
   width: 100%;
   height: 100%;
   opacity: 0;
+  -ms-filter: "alpha(opacity=0)";
+  zoom: 1;
 }
 #user_support input[type=checkbox]:checked ~ label {
   background-image: url(images/heart.png);
