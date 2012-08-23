@@ -137,13 +137,6 @@ class DataSetInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDa
     authentication = (authentication.BasicAuthentication,)
 
 
-def dataset_instance_by_user(request, username, short_name):
-    # This kind of implies that 'datasets/<username>' is
-    # also a resource, but let's ignore that for now...
-    view = DataSetInstanceView().as_view()
-    return view(request, owner__username=username, short_name=short_name)
-
-
 # TODO derive from CachedMixin to enable caching
 class PlaceCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     # TODO: Decide whether pagination is appropriate/necessary.
