@@ -21,6 +21,24 @@ var Shareabouts = Shareabouts || {};
       return attrs;
     },
 
+    isSupported: function(userAgent) {
+      switch (userAgent.browser.name) {
+        case "Chrome":
+        case "Firefox":
+          return true;
+          break;
+        case "Microsoft Internet Explorer":
+          var firstDot = browser.version.find('.'),
+              major = parseInt(browser.version.substr(0, firstDot));
+
+          if (major > 7) {
+            return true;
+          }
+      }
+
+      return false;
+    },
+
     // For browsers without a console
     console: window.console || {
       log: function(){},

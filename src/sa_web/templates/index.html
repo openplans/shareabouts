@@ -53,6 +53,8 @@
     <div id="pages-nav-container"></div>
   </header>
 
+  <div class="unsupported-overlay"></div>
+
   <div role="main" id="main">
     <noscript>
       <div class="noscript">
@@ -116,6 +118,7 @@
   {% mustacheich "activity-list-item" %}
   {% mustacheich "submitter-or-anonymous" %}
   {% mustacheich "pages-nav" %}
+  {% mustacheich "unsupported-overlay" %}
 
   <script type="text/javascript">
   // moment.lang({{locale}});
@@ -168,6 +171,22 @@
         pagesConfig: pagesConfig
       });
       Backbone.history.start({pushState: true});
+
+      // Check official browser support.
+      if (!Shareabouts.Util.isSupported(userAgent)) {
+        var unsupportedHtml = ich['unsupported-overlay'](userAgent),
+            $unsupportedEl = $('.unsupported-overlay');
+
+        $unsupportedEl.hide();
+        $unsupportedEl.html(unsupportedHtml);
+        $unsupportedEl.slideDown();
+
+        $unsupportedEl.find('.close-bttn').click(function(evt) {
+          evt.preventDefault();
+          $unsupportedEl.slideUp();
+          return false;
+        })
+      }
     });
   })(Shareabouts, jQuery);
   </script>

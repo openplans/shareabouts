@@ -756,6 +756,44 @@ ul.recent-points {
 #colophon {
 }
 
+/* Unsupported Browser message */
+.unsupported-overlay {
+  position: absolute;
+  top: 0px;
+  z-index: 9000;
+  background-color: #0AF;
+  color: white;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.unsupported-overlay p {
+  padding: 1em;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+.unsupported-overlay p a {
+  color: white;
+}
+
+.unsupported-overlay .close-bttn {
+  position: static;
+  float: right;
+  margin-right: 1em;
+  margin-top: 1em;
+
+  color: white;
+  border: none;
+  background: none;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.unsupported-overlay .close-bttn:hover {
+  color: #444;
+}
 
 /* =Media Queries for Responsive Layout
 -------------------------------------------------------------- */
