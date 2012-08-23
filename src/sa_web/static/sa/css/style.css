@@ -594,10 +594,10 @@ textarea {
 }
 
 /* Feature Point */
-.point-header {
+.place-header {
   margin-bottom: 1em;
 }
-.point-header .response-submitter {
+.place-header .response-submitter {
   font-size: 16px;
 }
 .description {
