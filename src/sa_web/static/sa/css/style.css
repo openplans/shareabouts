@@ -68,8 +68,6 @@ h3 { font-size: 1.75em; }
 h4 { font-size: 1.5em; }
 h5 { font-size: 1.25em; }
 h6 { font-size: 1em; }
-/* always force a scrollbar in non-IE */
-html { overflow-y: scroll; }
 /* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
 a:hover, a:active { outline: none; }
 a, a:active, a:visited { color: #007fbf; }
@@ -703,7 +701,7 @@ article.response footer {
   bottom: 0;
   left: auto;
   width: 18em;
-  overflow: scroll;
+  overflow: auto;
   z-index: 15;
      -moz-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
   -webkit-box-shadow: -4px 0 0 rgba(85, 85, 85, 0.5);
