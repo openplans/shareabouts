@@ -3,6 +3,7 @@ import yaml
 import json
 import time
 import hashlib
+import httpagentparser
 
 from django.shortcuts import render
 from django.conf import settings
@@ -75,6 +76,11 @@ def index(request):
 
     user_token_json = u'"{0}"'.format(request.session['user_token'])
 
+    # Get the browser that the user is using.
+    user_agent_string = request.META['HTTP_USER_AGENT']
+    user_agent = httpagentparser.detect(user_agent_string)
+    user_agent_json = json.dumps(user_agent)
+
     context = {'places_json': places_json,
                'activity_json': activity_json,
                'place_types_json': place_types_json,
@@ -82,7 +88,8 @@ def index(request):
                'survey_config_json': survey_config_json,
                'support_config_json': support_config_json,
                'user_token_json': user_token_json,
-               'pages_config_json': pages_config_json }
+               'pages_config_json': pages_config_json,
+               'user_agent_json': user_agent_json }
     return render(request, 'index.html', context)
 
 

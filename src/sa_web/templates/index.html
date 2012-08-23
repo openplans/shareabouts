@@ -129,7 +129,9 @@
 
         surveyConfig = {{ survey_config_json|safe }},
         supportConfig = {{ support_config_json|safe }},
-        pagesConfig = {{ pages_config_json|safe }};
+        pagesConfig = {{ pages_config_json|safe }}
+
+        userAgent = {{ user_agent_json|safe }};
 
     // Define each Leaflet Icon type
     _.each(placeTypeIconsConfig, function(config, name) {
