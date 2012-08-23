@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-09 09:17-0500\n"
+"POT-Creation-Date: 2012-08-23 18:33-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,8 +21,22 @@ msgstr ""
 msgid ""
 "<strong>\n"
 "          {{> submitter-or-anonymous }}\n"
-"          </strong> added a {{ type }} {{# region }} in {{ region }}{{/ "
-"region }}"
+"          </strong>\n"
+"          {{# is_place }}\n"
+"            created a <span class=\"place-type\">{{ place.location_type }}</"
+"span>\n"
+"            {{# place.name }} named <span class=\"place-name\">{{ place."
+"name }}</span>{{/ place.name }}\n"
+"          {{/ is_place }}\n"
+"\n"
+"          {{^ is_place }}\n"
+"            {{ action }}\n"
+"            {{# place.name }}<span class=\"place-name\">{{ place.name }}</"
+"span>{{/ place.name }}\n"
+"            {{^ place.name }}a{{# place.type_starts_with_vowel }}n{{/ place."
+"type_starts_with_vowel }} {{ place.location_type }}{{/ place.name }}\n"
+"          {{/ is_place }}\n"
+"          "
 msgstr ""
 
 #: jstemplates/place-detail-survey.html:1
@@ -37,74 +51,94 @@ msgid ""
 "                  <span class=\"response-date\">\n"
 "                    around {{ pretty_created_datetime }}\n"
 "                  </span>\n"
-"\t\t  "
+"                  "
 msgstr ""
 
 #: jstemplates/place-detail.html:1
 msgid ""
 "<strong class=\"point-submitter\">\n"
-"            {{> submitter-or-anonymous }}\n"
-"          </strong> added this point\n"
-"          {{#region}}\n"
-"            in {{ region }}\n"
-"          {{/region}}"
+"              {{> submitter-or-anonymous }}\n"
+"            </strong> added this point\n"
+"            {{#region}}\n"
+"              in {{ region }}\n"
+"            {{/region}}"
 msgstr ""
 
-#: jstemplates/place-form.html:1 jstemplates/place-form_flymake.html:1
+#: jstemplates/place-form.html:1
 msgid "Location Type"
 msgstr ""
 
-#: jstemplates/place-form.html:2 jstemplates/place-form_flymake.html:2
-#, fuzzy
+#: jstemplates/place-form.html:2
 msgid "Submitter Name"
 msgstr "Your Name"
 
-#: jstemplates/place-form.html:3 jstemplates/place-form_flymake.html:3
+#: jstemplates/place-form.html:3
 msgid "Submitter Name Placeholder"
 msgstr "Name"
 
 #: jstemplates/place-form.html:4
-msgid "Place Form Header"
-msgstr "Tell us more&hellip;"
-
-#: jstemplates/place-form.html:5 jstemplates/place-form_flymake.html:4
 msgid "Description Placeholder"
 msgstr "Description..."
 
-#: jstemplates/place-form.html:6 jstemplates/place-form_flymake.html:5
+#: jstemplates/place-form.html:5
 msgid "Location Name"
 msgstr ""
 
-#: jstemplates/place-form.html:7 jstemplates/place-form_flymake.html:6
-msgid "Submit Location Button"
-msgstr "Submit Location"
+#: jstemplates/place-form.html:6
+msgid "Place Form Header"
+msgstr "Tell us more&hellip;"
 
-#: jstemplates/place-form.html:8 jstemplates/place-form_flymake.html:7
-msgid ""
-"<span class=\"sign-in-text\">Or sign in with</span>\n"
-"              <a href=\"#\" class=\"login facebook\">Facebook</a>\n"
-"              <span class=\"\">/</span>\n"
-"              <a href=\"#\" class=\"login twitter\">Twitter</a>"
-msgstr ""
-
-#: jstemplates/place-form.html:12 jstemplates/place-form_flymake.html:11
+#: jstemplates/place-form.html:7
 msgid "Point Description"
 msgstr "Description"
+
+#: jstemplates/place-form.html:8
+msgid "Submit Location Button"
+msgstr "Submit Location"
 
 #: jstemplates/submitter-or-anonymous.html:1
 msgid "Anonymous Name"
 msgstr "Someone"
 
-#: templates/index.html:15 templates/index.html.py:52
-#: templates/index_flymake.html:15 templates/index_flymake.html.py:52
+#: jstemplates/unsupported-overlay.html:1
+msgid ""
+"\n"
+"    App Name is not officially supported in {{browser.name}}\n"
+"    {{browser.version}}. Things may not work. Or they may, we're not sure. "
+"If\n"
+"    you want to be safe, we suggest using one of <a\n"
+"    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> "
+"instead.\n"
+"    "
+msgstr ""
+"Shareabouts is not officially supported in {{browser.name}}\n"
+"    {{browser.version}}. Things may not work. Or they may, we're not sure. "
+"If\n"
+"    you want to be safe, we suggest using one of <a\n"
+"    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> "
+"instead.\n"
+"    "
+
+#: jstemplates/unsupported-overlay.html:7
+msgid ""
+"\n"
+"    For Internet Explorer, you could also install <a\n"
+"    href=\"http://www.google.com/chromeframe\" target=\"_blank\">Google "
+"Chrome\n"
+"    Frame</a>, a plug-in which gives you access to Google's Chrome browser\n"
+"    technology rom within IE.\n"
+"    "
+msgstr ""
+
+#: jstemplates/unsupported-overlay.html:13 templates/index.html:76
+msgid "Close Button"
+msgstr "Close"
+
+#: templates/index.html:15 templates/index.html.py:53 templates/index.html:62
+#: templates/index.html.py:63
 msgid "App Name"
 msgstr "Shareabouts"
 
-#: templates/index.html:58 templates/index_flymake.html:58
+#: templates/index.html:71
 msgid "Add Place"
 msgstr "Add Location"
-
-#: templates/index.html:63 templates/index_flymake.html:63
-#, fuzzy
-msgid "Close Button"
-msgstr "Close"
