@@ -54,6 +54,15 @@
   </header>
 
   <div role="main" id="main">
+    <noscript>
+      <div class="noscript">
+      <h3>Oops, {% trans "App Name"  %} needs JavaScript to achieve full awesomeness.</h3>
+      <p>{% trans "App Name"  %} is great but it needs something called JavaScript to work
+        properly. But fear not, it's really easy to turn on. Click
+        <a href="http://enable-javascript.com/" target="_blank">here</a> for simple instructions!</p>
+      </div>
+    </noscript>
+
     <div id="map-container">
       <div id="map"></div>
       <a href="#" id="add-place" class="add-place"><span>{% trans "Add Place" %}</span></a>
