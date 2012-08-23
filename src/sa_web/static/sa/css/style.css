@@ -272,8 +272,15 @@ body {
 #main {
 }
 
+.noscript {
+  padding:1.4em;
+  position: relative;
+  z-index: 9999;
+}
+
 /* Map */
 #map-container {
+  background: #eee;
   position: absolute;
   top: 4em; /* must match height of #site-header */
   right: 0;
@@ -285,6 +292,7 @@ body {
   height: 100%;
 }
 a.add-place {
+  display: none;
   float: left;
   position: absolute;
   right: 1em;
@@ -319,7 +327,7 @@ a.add-place:hover {
 
 /* Center Point: crosshairs and new point icon */
 #centerpoint {
-  display: block;
+  display: none;
   width: 65px;
   height: 65px;
   background: transparent url(images/crosshair.png) 0 0 no-repeat scroll;

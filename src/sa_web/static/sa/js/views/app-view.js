@@ -62,6 +62,10 @@ var Shareabouts = Shareabouts || {};
       // Caches of the views (one per place)
       this.placeFormViews = {};
       this.placeDetailViews = {};
+
+      // Show tools for adding data
+      this.showAddButton();
+      this.showCenterPoint();
     },
     // Get the appropriate center, depending on the visibility of the
     // content panel
@@ -200,6 +204,9 @@ var Shareabouts = Shareabouts || {};
     hideAddButton: function() {
       this.$addButton.hide();
     },
+    showCenterPoint: function() {
+      this.$centerpoint.show().removeClass('newpin');
+    },
     hideCenterPoint: function() {
       this.$centerpoint.hide();
     },
@@ -208,7 +215,7 @@ var Shareabouts = Shareabouts || {};
       this.$panel.hide();
     },
     hideNewPin: function() {
-      this.$centerpoint.show().removeClass('newpin');
+      this.showCenterPoint();
     },
     unfocusAllPlaces: function() {
       // Unfocus all of the markers
