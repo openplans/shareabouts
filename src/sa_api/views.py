@@ -161,7 +161,6 @@ class PlaceCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDa
         content['dataset'] = dataset
         return super(PlaceCollectionView, self).get_instance_data(model, content, **kwargs)
 
-
     def post(self, request, *args, **kwargs):
         response = super(PlaceCollectionView, self).post(request, *args, **kwargs)
         # djangorestframework automagically sets Location, but ...
@@ -220,29 +219,13 @@ class SubmissionCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewW
 class SubmissionInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.SubmissionResource
 
-    def get(self, request, place_id, submission_type, pk):
-        return super(SubmissionInstanceView, self).get(
-            request,
-            parent__place_id=place_id,
-            parent__submission_type=submission_type,
-            pk=pk
-        )
-
-    def put(self, request, place_id, submission_type, pk):
-        return super(SubmissionInstanceView, self).put(
-            request,
-            parent__place_id=place_id,
-            parent__submission_type=submission_type,
-            pk=pk
-        )
-
-    def delete(self, request, place_id, submission_type, pk):
-        return super(SubmissionInstanceView, self).delete(
-            request,
-            parent__place_id=place_id,
-            parent__submission_type=submission_type,
-            pk=pk
-        )
+    def get_instance(self, **kwargs):
+        """
+        Get a model instance for read/update/delete requests.
+        """
+        # This could do more joins using the kwargs if necessary,
+        # but as long as we have pk in the URL, that's a fast query...
+        return super(SubmissionInstanceView, self).get_instance(pk=kwargs['pk'])
 
 
 # TODO derive from CachedMixin to enable caching
