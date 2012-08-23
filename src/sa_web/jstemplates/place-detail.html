@@ -3,16 +3,18 @@
           <div class="social"></div>
         </section>
 
-        <header class="point-header clearfix">
+        <header class="place-header clearfix">
           <h1>{{ name }}</h1>
-          {{#_}}<strong class="point-submitter">
-            {{> submitter-or-anonymous }}
-          </strong> added this point
-          {{#region}}
-            in {{ region }}
-          {{/region}}{{/_}}
+          <span class="place-submission-details">
+            {{#_}}<strong class="point-submitter">
+              {{> submitter-or-anonymous }}
+            </strong> added this point
+            {{#region}}
+              in {{ region }}
+            {{/region}}{{/_}}
 
-          <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.
+            <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.
+          </span>
         </header>
 
         <section class="description">

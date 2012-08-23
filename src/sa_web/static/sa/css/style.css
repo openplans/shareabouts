@@ -178,8 +178,8 @@ body {
   font-family: 'Dancing Script', cursive;
   font-size: 3em;
   font-weight: bold;
-	text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
-	line-height: 1.325;
+  text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
+  line-height: 1.325;
   color: #eee;
   float: left;
   margin: 0 0.5em 0 0;
@@ -195,16 +195,16 @@ body {
 
 /* Primary Menu */
 #nav-bttn {
-	float: right;
+  float: right;
   font-size: 2em;
   line-height: 1;
-	background: #444;
-	text-decoration: none;
-	text-align: center;
-	padding: 0.125em 0.4em;
-	margin: 0.4em 0 0 0.5em;
-	position: absolute;
-	right: 0.4em;
+  background: #444;
+  text-decoration: none;
+  text-align: center;
+  padding: 0.125em 0.4em;
+  margin: 0.4em 0 0 0.5em;
+  position: absolute;
+  right: 0.4em;
 }
 #nav-bttn:hover {
   background: #a3c7d9;
@@ -216,7 +216,7 @@ body {
   border: 1em solid #777;
   border-top: 0.5em solid #777;
   font-weight: bold;
-	background: #555;
+  background: #555;
   text-align: center;
   float: left;
   position: relative;
@@ -226,18 +226,18 @@ body {
   display: block;
 }
 #access li {
-	position: relative;
-	border-bottom: 2px solid #777;
+  position: relative;
+  border-bottom: 2px solid #777;
   font-size: 1.25em;
 }
 #access a {
-	display: block;
-	line-height: 3em;
-	padding: 0 1.2em;
-	text-decoration: none;
+  display: block;
+  line-height: 3em;
+  padding: 0 1.2em;
+  text-decoration: none;
 }
 #access a:hover {
-	background: #00aaff;
+  background: #00aaff;
   color: #fff;
 }
 
@@ -493,14 +493,14 @@ a.close-bttn span {
 
 /* Images */
 img {
-	max-width: 100%; /* When images are too wide for containing element, force them to fit. */
-	height: auto; /* Override height to match resized width for correct aspect ratio. */
+  max-width: 100%; /* When images are too wide for containing element, force them to fit. */
+  height: auto; /* Override height to match resized width for correct aspect ratio. */
 }
 img.alignleft {
-	margin-right: 1em;
+  margin-right: 1em;
 }
 img.alignright {
-	margin-left: 1em;
+  margin-left: 1em;
 }
 
 /* Forms */
@@ -514,20 +514,20 @@ label {
 }
 input[type=text],
 textarea {
-	background-color: rgba(255,255,255,0);
-	border: 1px solid #999;
-	padding: 1em;
+  background-color: rgba(255,255,255,0);
+  border: 1px solid #999;
+  padding: 1em;
 }
 input[type=text] {
-	width: 80%;
+  width: 80%;
 }
 textarea {
-	width: 80%;
-	height: 4.5em;
-	resize: vertical;
+  width: 80%;
+  height: 4.5em;
+  resize: vertical;
 }
 .required {
-	color: #cc0033;
+  color: #cc0033;
 }
 .bttn {
   background-color: #00aaff;
@@ -553,7 +553,8 @@ textarea {
 .promotion {
   background: #eee;
   background: rgba(88,88,88,0.1);
-  margin-bottom: 1em;
+  margin: -0.5em -1em 1em -1em;
+  padding: 0.6em;
 }
 
 #user_support {
@@ -594,10 +595,10 @@ textarea {
 }
 
 /* Feature Point */
-.point-header {
+.place-header {
   margin-bottom: 1em;
 }
-.point-header .response-submitter {
+.place-header .response-submitter {
   font-size: 16px;
 }
 .description {
@@ -650,10 +651,10 @@ ol.responses {
   margin: 0 -0.5em;
 }
 article.response {
-	display: block;
+  display: block;
 }
 .response-header {
-	line-height: 1.4;
+  line-height: 1.4;
   margin-bottom: 1em;
 }
 .avatar {
@@ -671,19 +672,19 @@ article.response footer {
 }
 .survey-reply-link {
   color: #999;
-	background: #eee;
+  background: #eee;
   padding: 0.5em 0.75em;
-	text-decoration: none;
+  text-decoration: none;
   font-weight: bold;
 }
 .survey-reply-link:hover {
-	background: #607890;
-	color: #fff;
+  background: #607890;
+  color: #fff;
 }
 .reply-header {
 }
 #reply .survey-form-response label {
-	display: none;
+  display: none;
 }
 #reply p {
 }
@@ -852,20 +853,20 @@ ul.recent-points {
     overflow: auto;
     padding: 1.5em 1em;
 
-  	background:
-  		linear-gradient(white 30%, rgba(255,255,255,0)),
-  		linear-gradient(rgba(255,255,255,0), white 70%) 0 100%,
-  		radial-gradient(45% 0, farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)),
-  		radial-gradient(45% 100%,farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)) 0 100%;
-  	background:
-  	  -webkit-linear-gradient(white 30%, rgba(255, 255, 255, 0)),
-  	  -webkit-linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
-  	  -webkit-radial-gradient(45% 0, farthest-side, rgba(0, 0, 0, 0.25), transparent),
-  	  -webkit-radial-gradient(45% 100%,farthest-side, rgba(0, 0, 0, 0.25), transparent) 0 100%;
-  	background-repeat: no-repeat;
-  	background-color: white;
-  	background-size: 100% 6em, 100% 6em, 110% 1.75em, 110% 1.75em;
-  	background-attachment: local, local, scroll, scroll;
+    background:
+      linear-gradient(white 30%, rgba(255,255,255,0)),
+      linear-gradient(rgba(255,255,255,0), white 70%) 0 100%,
+      radial-gradient(45% 0, farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)),
+      radial-gradient(45% 100%,farthest-side, rgba(0,0,0,0.25), rgba(0,0,0,0)) 0 100%;
+    background:
+      -webkit-linear-gradient(white 30%, rgba(255, 255, 255, 0)),
+      -webkit-linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
+      -webkit-radial-gradient(45% 0, farthest-side, rgba(0, 0, 0, 0.25), transparent),
+      -webkit-radial-gradient(45% 100%,farthest-side, rgba(0, 0, 0, 0.25), transparent) 0 100%;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 100% 6em, 100% 6em, 110% 1.75em, 110% 1.75em;
+    background-attachment: local, local, scroll, scroll;
   }
   a.close-bttn {
     float: right;
@@ -894,7 +895,7 @@ ul.recent-points {
 
   /* Voting & Sharing */
   .promotion {
-    margin: -2em;
+    margin: -1.5em -1em;
     margin-bottom: 1em;
     padding: 1em;
     border-bottom: 1px solid #A8A8A8;
@@ -918,7 +919,7 @@ ul.recent-points {
     border: 0;
   }
   #access a:hover {
-  	background: #00aaff;
+    background: #00aaff;
   }
 }
 @media only screen and (min-width: 1024px) { /* ticker is visible */
@@ -966,6 +967,9 @@ ul.recent-points {
   .twitter-login {
     float: right;
     background: url(images/twitter-login-32.png) 0 0 no-repeat scroll;
+  }
+  .promotion {
+    margin: -2em -2em 1em -2em;
   }
 }
 @media only screen and (min-width: 1300px) {
