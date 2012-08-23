@@ -8,6 +8,10 @@ urlpatterns = patterns('sa_api',
         views.DataSetCollectionView.as_view(),
         name='dataset_collection'),
 
+    url(r'^datasets/(?P<owner__username>[^/]+)/$',
+        views.DataSetCollectionView.as_view(),
+        name='dataset_collection_by_user'),
+
     url(r'^datasets/(?P<owner__username>[^/]+)/(?P<short_name>[^/]+)/$',
         views.DataSetInstanceView.as_view(),
         name='dataset_instance_by_user'),

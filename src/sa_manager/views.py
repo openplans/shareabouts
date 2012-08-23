@@ -20,10 +20,11 @@ class ShareaboutsApi (object):
         return (res.text if res.status_code == 200 else default)
 
 
+@login_required
 def index_view(request):
     return render(request, "manager/index.html")
 
-
+@login_required
 def places_view(request):
     places_uri = request.build_absolute_uri(API_ROOT + 'places/')
 
@@ -234,10 +235,11 @@ class ExistingPlaceView (PlaceFormMixin, View):
             # TODO ???
             pass
 
-
+@login_required
 def datasets_view(request):
     # TODO: do this in-process, not with a subrequest
-    datasets_uri = request.build_absolute_uri(reverse('dataset_collection'))
+    datasets_uri = request.build_absolute_uri(
+        reverse('dataset_collection_by_user', args=[request.user.username]))
     response = requests.get(datasets_uri)
     datasets = json.loads(response.text)
     for ds in datasets:
