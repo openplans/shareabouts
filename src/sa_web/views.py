@@ -22,20 +22,21 @@ class ShareaboutsApi (object):
 
 @ensure_csrf_cookie
 def index(request):
-    # Bootstrapping initial data.
+    # Get initial data for bootstrapping into the page.
     api = ShareaboutsApi()
-
-    # Load app config settings
-    with open(settings.SHAREABOUTS_CONFIG) as config_yml:
-        config = yaml.load(config_yml)
-    place_types_json = json.dumps(config['place_types'])
-    place_type_icons_json = json.dumps(config['place_type_icons'])
-    survey_config_json = json.dumps(config['survey'])
-    support_config_json = json.dumps(config['support'])
 
     # TODO These requests should be done asynchronously (in parallel).
     places_json = api.get('places/', u'[]')
     activity_json = api.get('activity/?limit=20', u'[]')
+
+    # Load app config settings
+    with open(settings.SHAREABOUTS_CONFIG) as config_yml:
+        config = yaml.load(config_yml)
+
+    place_types_json = json.dumps(config['place_types'])
+    place_type_icons_json = json.dumps(config['place_type_icons'])
+    survey_config_json = json.dumps(config['survey'])
+    support_config_json = json.dumps(config['support'])
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
