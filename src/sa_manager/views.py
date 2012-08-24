@@ -18,8 +18,11 @@ class ShareaboutsApi (object):
         self.csrf_token = request.META.get('CSRF_COOKIE', '')
         self.cookies = request.META.get('HTTP_COOKIE', '')
 
-    def send(self, method, url, data):
-        response = requests.request(method, url, data=json.dumps(data),
+    def send(self, method, url, data=None):
+        if data is not None:
+            data = json.dumps(data)
+
+        response = requests.request(method, url, data=data,
                                     headers={'Content-type': 'application/json',
                                              'Cookie': self.cookies,
                                              'X-CSRFToken': self.csrf_token})
@@ -157,8 +160,10 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
         self.process_data_blob()
 
         # Send the save request
-        response = requests.post(self.places_uri, data=json.dumps(data),
-                                 headers={'Content-type': 'application/json'})
+        api = ShareaboutsApi()
+        api.authenticate(request)
+        response = api.send('POST', self.places_uri, data)
+
         if response.status_code == 201:
             data = json.loads(response.text)
             place_id = data.get('id')
@@ -189,8 +194,9 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
         self.process_data_blob()
 
         # Send the save request
-        response = requests.put(self.place_uri, data=json.dumps(data),
-                                headers={'Content-type': 'application/json'})
+        api = ShareaboutsApi()
+        api.authenticate(request)
+        response = api.send('PUT', self.place_uri, data)
 
         if response.status_code == 200:
             messages.success(request, 'Successfully saved!')
@@ -202,7 +208,9 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
 
     def delete(self, request, pk):
         # Send the delete request
-        response = requests.delete(self.place_uri)
+        api = ShareaboutsApi()
+        api.authenticate(request)
+        response = api.send('DELETE', self.place_uri)
 
         if response.status_code == 204:
             messages.success(request, 'Successfully deleted!')
@@ -312,8 +320,9 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         self.process_data_blob()
 
         # Send the save request
-        response = requests.put(self.dataset_uri, data=json.dumps(data),
-                                headers={'Content-type': 'application/json'})
+        api = ShareaboutsApi()
+        api.authenticate(request)
+        response = api.send('PUT', self.datasets_uri, data)
 
         if response.status_code == 200:
             messages.success(request, 'Successfully saved!')
@@ -324,7 +333,9 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
 
     def delete(self, request, pk):
         # Send the delete request
-        response = requests.delete(self.dataset_uri)
+        api = ShareaboutsApi()
+        api.authenticate(request)
+        response = api.send('DELETE', self.datasets_uri)
 
         if response.status_code == 204:
             messages.success(request, 'Successfully deleted!')
@@ -481,8 +492,9 @@ class SubmissionMixin (BaseDataBlobFormMixin):
         self.process_data_blob()
 
         # Send the save request
-        response = requests.put(self.submission_uri, data=json.dumps(data),
-                                headers={'Content-type': 'application/json'})
+        api = ShareaboutsApi()
+        api.authenticate(request)
+        response = api.send('PUT', self.submission_uri, data)
 
         if response.status_code == 200:
             messages.success(request, 'Successfully saved!')
@@ -494,7 +506,9 @@ class SubmissionMixin (BaseDataBlobFormMixin):
 
     def delete(self, request, place_id, submission_type, pk):
         # Send the delete request
-        response = requests.delete(self.submission_uri)
+        api = ShareaboutsApi()
+        api.authenticate(request)
+        response = api.send('DELETE', self.submission_uri)
 
         if response.status_code == 204:
             messages.success(request, 'Successfully deleted!')
