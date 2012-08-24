@@ -14,6 +14,17 @@ class ShareaboutsApi (object):
     def __init__(self, root=API_ROOT):
         self.root = root
 
+    def authenticate(self, request):
+        self.csrf_token = request.META.get('CSRF_COOKIE', '')
+        self.cookies = request.META.get('HTTP_COOKIE', '')
+
+    def send(self, method, url, data):
+        response = requests.request(method, url, data=json.dumps(data),
+                                    headers={'Content-type': 'application/json',
+                                             'Cookie': self.cookies,
+                                             'X-CSRFToken': self.csrf_token})
+        return response
+
     def get(self, path, default=None):
         res = requests.get(self.root + path,
                            headers={'Accept': 'application/json'})
@@ -281,8 +292,10 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         self.data_blob = data = request.POST.dict()
         self.process_data_blob()
 
-        response = requests.post(self.datasets_uri, data=json.dumps(data),
-                                 headers={'Content-type': 'application/json'})
+        api = ShareaboutsApi()
+        api.authenticate(request)
+        response = api.send('POST', self.datasets_uri, data)
+
         if response.status_code == 201:
             data = json.loads(response.text)
             messages.success(request, 'Successfully saved!')
