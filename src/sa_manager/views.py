@@ -284,8 +284,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        self.datasets_uri = request.build_absolute_uri(
-            reverse('dataset_collection'))
+        self.datasets_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/')
         self.special_fields = ('id', 'owner', 'display_name', 'short_name')
         return super(DataSetFormMixin, self).dispatch(request, *args, **kwargs)
 
@@ -336,7 +335,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         # Send the save request
         api = ShareaboutsApi()
         api.authenticate(request)
-        response = api.send('PUT', self.datasets_uri, data)
+        response = api.send('PUT', self.dataset_uri, data)
 
         if response.status_code == 200:
             messages.success(request, 'Successfully saved!')
@@ -349,7 +348,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         # Send the delete request
         api = ShareaboutsApi()
         api.authenticate(request)
-        response = api.send('DELETE', self.datasets_uri)
+        response = api.send('DELETE', self.dataset_uri)
 
         if response.status_code == 204:
             messages.success(request, 'Successfully deleted!')

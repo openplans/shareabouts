@@ -14,7 +14,7 @@
   {% block more_breadcrumbs %}
   <li>
     {% if dataset.id %}
-    Dataset {{ dataset.id }}
+    Dataset "{{ dataset.display_name }}" ({{ dataset.short_name }})
     {% else %}
     New Dataset
     {% endif %}
