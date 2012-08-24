@@ -61,6 +61,7 @@ var Shareabouts = Shareabouts || {};
         $form = this.$('form'),
         attrs = S.Util.getAttrs($form);
         this.collection.create(attrs, {
+          wait: true,
           error: function() {
             self.getSupportStatus(self.options.userToken).destroy();
             alert('Oh dear. It looks like that didn\'t save.');
@@ -69,6 +70,7 @@ var Shareabouts = Shareabouts || {};
       } else {
         userSupport = this.userSupport;
         this.userSupport.destroy({
+          wait: true,
           error: function() {
             self.collection.add(userSupport);
             alert('Oh dear. It looks like that didn\'t save.');
