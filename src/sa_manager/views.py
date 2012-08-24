@@ -36,7 +36,7 @@ class ShareaboutsApi (object):
 
 @login_required
 def index_view(request):
-    return render(request, "manager/index.html")
+    return redirect('manager_dataset_list')
 
 @login_required
 def places_view(request):
