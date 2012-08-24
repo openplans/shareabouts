@@ -1,0 +1,24 @@
+<div>
+  <a href="#" class="close-bttn">&times;<span>{{#_}}Close Button{{/_}}</span></a>
+
+  <p>
+    {{#_}}
+    App Name is not officially supported in {{browser.name}}
+    {{browser.version}}. Things may not work. Or they may, we're not sure. If
+    you want to be safe, we suggest using one of <a
+    href="http://upgradeyourbrowser.net/" target="_blank">these</a> instead.
+    {{/_}}
+  </p>
+
+
+  {{# is_ie }}
+    <p>
+    {{#_}}
+    For Internet Explorer, you could also install <a
+    href="http://www.google.com/chromeframe" target="_blank">Google Chrome
+    Frame</a>, a plug-in which gives you access to Google's Chrome browser
+    technology rom within IE.
+    {{/_}}
+    </p>
+  {{/ is_ie}}
+</div>

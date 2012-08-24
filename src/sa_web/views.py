@@ -3,6 +3,7 @@ import yaml
 import json
 import time
 import hashlib
+import httpagentparser
 
 from django.shortcuts import render
 from django.conf import settings
@@ -32,7 +33,6 @@ class ShareaboutsApi (object):
 
 @ensure_csrf_cookie
 def index(request):
-
     # Load app config settings
     with open(settings.SHAREABOUTS_CONFIG) as config_yml:
         config = yaml.load(config_yml)
@@ -40,7 +40,7 @@ def index(request):
     # TODO: Is it weird to get the API_ROOT and the dataset path from
     # separate config files?
 
-    # Bootstrapping initial data.
+    # Get initial data for bootstrapping into the page.
     api = ShareaboutsApi(dataset=config['dataset'])
 
     place_types_json = json.dumps(config['place_types'])
@@ -51,6 +51,29 @@ def index(request):
     # TODO These requests should be done asynchronously (in parallel).
     places_json = api.get('places', default=u'[]')
     activity_json = api.get('activity', limit=20, default=u'[]')
+
+    # Get the content of the static pages linked in the menu.
+    pages_config = config.get('pages', [])
+    for page_config in pages_config:
+        page_url = page_config.pop('url')
+        page_url = request.build_absolute_uri(page_url)
+
+        # TODO It would be best if this were also asynchronous.
+        response = requests.get(page_url)
+
+        # If we successfully got the content, stick it into the config instead
+        # of the URL.
+        if response.status_code == 200:
+            page_config['content'] = response.text
+
+        # If there was an error, let the client know what the URL, status code,
+        # and text of the error was.
+        else:
+            page_config['url'] = page_url
+            page_config['status'] = response.status_code
+            page_config['error'] = response.text
+
+    pages_config_json = json.dumps(pages_config)
 
     # The user token will be a pair, with the first element being the type
     # of identification, and the second being an identifier. It could be
@@ -65,7 +88,11 @@ def index(request):
         request.session.set_expiry(0)
 
     user_token_json = u'"{0}"'.format(request.session['user_token'])
-#    user_token_json = u'"{0}"'.format(12345)
+
+    # Get the browser that the user is using.
+    user_agent_string = request.META['HTTP_USER_AGENT']
+    user_agent = httpagentparser.detect(user_agent_string)
+    user_agent_json = json.dumps(user_agent)
 
     context = {'places_json': places_json,
                'activity_json': activity_json,
@@ -73,7 +100,9 @@ def index(request):
                'place_type_icons_json': place_type_icons_json,
                'survey_config_json': survey_config_json,
                'support_config_json': support_config_json,
-               'user_token_json': user_token_json}
+               'user_token_json': user_token_json,
+               'pages_config_json': pages_config_json,
+               'user_agent_json': user_agent_json }
     return render(request, 'index.html', context)
 
 

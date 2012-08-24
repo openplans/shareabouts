@@ -11,7 +11,6 @@ var Shareabouts = Shareabouts || {};
       this.collection.on('add', this.onChange, this);
       this.collection.on('remove', this.onChange, this);
 
-
       this.updateSupportStatus();
     },
 
@@ -34,12 +33,14 @@ var Shareabouts = Shareabouts || {};
       // Nothing yet
     },
 
-    updateSupportStatus: function() {
-      var userToken = this.options.userToken;
-
-      this.userSupport = this.collection.find(function(model) {
+    getSupportStatus: function(userToken) {
+      return this.collection.find(function(model) {
         return model.get('user_token') === userToken;
       });
+    },
+
+    updateSupportStatus: function() {
+      this.userSupport = this.getSupportStatus(this.options.userToken);
     },
 
     onChange: function() {
@@ -48,23 +49,33 @@ var Shareabouts = Shareabouts || {};
     },
 
     onSupportChange: function(evt) {
-      var checked = evt.target.checked,
+      var self = this,
+          checked = evt.target.checked,
           $form,
-          attrs;
+          attrs,
+          userSupport;
 
       evt.target.disabled = true;
 
       if (checked) {
         $form = this.$('form'),
         attrs = S.Util.getAttrs($form);
-        this.collection.create(attrs, {wait: true});
+        this.collection.create(attrs, {
+          error: function() {
+            self.getSupportStatus(self.options.userToken).destroy();
+            alert('Oh dear. It looks like that didn\'t save.');
+          }
+        });
       } else {
-        this.userSupport.destroy();
+        userSupport = this.userSupport;
+        this.userSupport.destroy({
+          error: function() {
+            self.collection.add(userSupport);
+            alert('Oh dear. It looks like that didn\'t save.');
+          }
+        });
       }
-
-      console.log('checked?', checked);
     }
-
   });
 
 })(Shareabouts, jQuery, Shareabouts.Util.console);
