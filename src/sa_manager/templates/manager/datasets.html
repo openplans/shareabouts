@@ -17,19 +17,20 @@
 <table class="table">
   <thead>
     <tr>
-      <th>DataSet Short Name</th>
-      <th>DataSet Display Name</th>
-      <th>Places</th>
+      <th>DataSet Name</th>
+      <th><span class="pull-right">Places</span></th>
     </tr>
   </thead>
 
   <tbody>
     {% for dataset in datasets %}
     <tr>
-      <td><a href="{{ dataset.manage_uri }}">{{ dataset.short_name }}</a></td>
-      <td><a href="{{ dataset.manage_uri }}">{{ dataset.display_name }}</a></td>
+      <td><a href="{{ dataset.manage_uri }}">{{ dataset.display_name }}</a> ({{ dataset.short_name }})</td>
       <td>
-        {{ dataset.places|length }}
+        <a href="{% url 'manager_place_list' dataset_slug=dataset.short_name %}" class="btn btn-small pull-right">
+          {{ dataset.places|length }}
+          <i class="icon-chevron-right"></i>
+        </a>
       </td>
     </tr>
     {% endfor %}

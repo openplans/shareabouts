@@ -8,11 +8,14 @@
     <a href="{% url 'manager_index' %}">Manager</a> <span class="divider">/</span>
   </li>
   <li>
-    Places
+    <a href="{% url 'manager_dataset_list' %}">Data sets</a> <span class="divider">/</span>
+  </li>
+  <li>
+    {{ dataset.display_name }} ({{ dataset.short_name }})
   </li>
 </ul>
 
-<h2>Places <a class="btn btn-primary" href="new">Add New Place</a></h2>
+<h2>Places in &quot;{{ dataset.display_name }}&quot; <a class="btn btn-primary" href="new">Add New Place</a></h2>
 
 <table class="table">
   <thead>

@@ -3,7 +3,7 @@
 
 {% block more_breadcrumbs %}
 <li>
-  <a href="{% url 'manager_place_submission_list' place.id 'submissions' %}">Place {{ place.id }}</a> <span class="divider">/</span>
+  <a href="{% url 'manager_place_submission_list' dataset.short_name place.id 'submissions' %}">Place {{ place.id }}</a> <span class="divider">/</span>
 </li>
 <li>
   {% if submission.id %}
