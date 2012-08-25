@@ -302,8 +302,9 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         })
 
     def process_specific_fields(self):
-        owner = self.request.user.id  # Needs to be a django.contrib.auth id
-        self.data_blob['owner'] = owner
+        pass
+#        owner = self.request.user.id  # Needs to be a django.contrib.auth id
+#        self.data_blob['owner'] = owner
 
     def initial(self, request):
         return render(request, "manager/dataset.html")
@@ -321,7 +322,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
             data = json.loads(response.text)
             messages.success(request, 'Successfully saved!')
             return redirect(reverse('manager_dataset_detail', kwargs=(
-                {'pk': data['id']})))
+                {'pk': data['short_name']})))
 
         else:
             messages.error(request, 'Error: ' + response.text)
