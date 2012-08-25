@@ -4,6 +4,7 @@ from . import views
 places_base_regex = r'^datasets/(?P<dataset__owner__username>[^/]+)/(?P<dataset__short_name>[^/]+)/places/'
 
 urlpatterns = patterns('sa_api',
+    # TODO: Should we have all of the datasets in one collection? Drop this?
     url(r'^datasets/$',
         views.DataSetCollectionView.as_view(),
         name='dataset_collection'),

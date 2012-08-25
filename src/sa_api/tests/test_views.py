@@ -23,9 +23,8 @@ class TestDataSetCollectionView(TestCase):
         user = User.objects.create(username='bob')
         # TODO: mock the models?
 
-        url = reverse('dataset_collection')
+        url = reverse('dataset_collection_by_user', kwargs={'owner__username': user.username})
         data = {
-            'owner': user.id,
             'display_name': 'Test DataSet',
             'short_name': 'test-dataset',
         }
@@ -37,10 +36,10 @@ class TestDataSetCollectionView(TestCase):
                                         content_type='application/json')
         request.user = user
         view = DataSetCollectionView().as_view()
-        response = view(request)
+        response = view(request, owner__username=user.username)
 
         assert_equal(response.status_code, 201)
-        assert_in(url + 'bob/test-dataset', response.get('Location'))
+        assert_in(url + 'test-dataset', response.get('Location'))
 
         response_data = json.loads(response.content)
         assert_equal(response_data['display_name'], 'Test DataSet')
