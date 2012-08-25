@@ -139,6 +139,7 @@ class PlaceResource (ModelResourceWithDataBlob):
 
 class DataSetResource (resources.ModelResource):
     model = models.DataSet
+    form = forms.DataSetForm
     fields = ['id', 'url', 'owner', 'places', 'short_name', 'display_name']
 
     def owner(self, dataset):

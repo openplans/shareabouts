@@ -22,6 +22,14 @@ class SubmissionForm (forms.ModelForm):
         exclude = ['parent']
 
 
+class DataSetForm (forms.ModelForm):
+    class Meta:
+        model = models.DataSet
+        # When using the dataset form, the owner set should be set by some
+        # external mechanism, usually according to the URL path.
+        exclude = ['owner']
+
+
 class ActivityForm (forms.Form):
     before = forms.IntegerField(required=False)
     after = forms.IntegerField(required=False)

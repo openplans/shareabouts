@@ -1,3 +1,4 @@
+from django.contrib import auth
 from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -115,7 +116,10 @@ class DataSetCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWith
     cache_prefix = 'dataset_collection'
 
     def post(self, request, *args, **kwargs):
-        response = super(DataSetCollectionView, self).post(request, *args, **kwargs)
+        username = kwargs.pop('owner__username')
+        user = auth.models.User.objects.get(username=username)
+
+        response = super(DataSetCollectionView, self).post(request, owner=user.id, *args, **kwargs)
         # Create an API key for the DataSet we just created.
         dataset = response.raw_content
         from .apikey.models import ApiKey, generate_unique_api_key
