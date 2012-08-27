@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-23 18:33-0500\n"
+"POT-Creation-Date: 2012-08-27 14:41-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,23 +120,30 @@ msgstr ""
 "instead.\n"
 "    "
 
-#: jstemplates/unsupported-overlay.html:7
+#: jstemplates/unsupported-overlay.html:7 templates/index.html:76
+msgid "Close Button"
+msgstr "Close"
+
+#: jstemplates/unsupported-overlay.html:8
 msgid ""
 "\n"
 "    For Internet Explorer, you could also install <a\n"
 "    href=\"http://www.google.com/chromeframe\" target=\"_blank\">Google "
 "Chrome\n"
 "    Frame</a>, a plug-in which gives you access to Google's Chrome browser\n"
-"    technology rom within IE.\n"
+"    technology from within IE.\n"
 "    "
 msgstr ""
 
-#: jstemplates/unsupported-overlay.html:13 templates/index.html:76
-msgid "Close Button"
-msgstr "Close"
+#: templates/index.html:15
+msgid "App Title"
+msgstr "Shareabouts"
 
-#: templates/index.html:15 templates/index.html.py:53 templates/index.html:62
-#: templates/index.html.py:63
+#: templates/index.html:16
+msgid "App Description"
+msgstr "Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process."
+
+#: templates/index.html:53 templates/index.html.py:62 templates/index.html:63
 msgid "App Name"
 msgstr "Shareabouts"
 

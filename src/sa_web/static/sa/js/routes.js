@@ -43,7 +43,9 @@ var Shareabouts = Shareabouts || {};
           return pageConfig.start_page === true;
         });
 
-        this.navigate('page/' + startPageConfig.slug);
+        if (startPageConfig && startPageConfig.slug) {
+          this.navigate('page/' + startPageConfig.slug);
+        }
       }
     },
 
