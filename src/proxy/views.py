@@ -24,7 +24,7 @@ def proxy_view(request, url, requests_args=None):
 
     # Explicitly set content-length request header, as some servers will
     # want it and complain without it.
-    headers['CONTENT-LENGTH'] = unicode(len(requests_args['data']))
+    headers['CONTENT-LENGTH'] = str(len(requests_args['data']))
 
     requests_args['headers'].update(headers)
     requests_args['params'].update(request.GET)
