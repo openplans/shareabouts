@@ -127,7 +127,7 @@ msgid ""
 "    href=\"http://www.google.com/chromeframe\" target=\"_blank\">Google "
 "Chrome\n"
 "    Frame</a>, a plug-in which gives you access to Google's Chrome browser\n"
-"    technology rom within IE.\n"
+"    technology from within IE.\n"
 "    "
 msgstr ""
 
