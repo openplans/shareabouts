@@ -123,6 +123,13 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
     if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     }
+
+    // If this is a DELETE request, explicitly set the data to be sent so that
+    // the browser will calculate a value for the Content-Length header.
+    if (settings.type === 'DELETE') {
+        xhr.setRequestHeader("Content-Type", "application/json");
+        settings.data = '{}';
+    }
 });
 
 // Disable caching for all ajax calls. This is required because IE
