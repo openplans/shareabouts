@@ -165,20 +165,26 @@ var Shareabouts = Shareabouts || {};
       this.collection.add({});
     },
     viewPlace: function(model) {
-      // Called by the router
       var map = this.mapView.map,
-          location = model.get('location'),
-          placeDetailView = this.placeDetailViews[model.cid];
+          location, placeDetailView;
 
-      this.showPanel(placeDetailView.render().$el);
-      this.hideNewPin();
-      this.destroyNewModels();
-      this.hideCenterPoint();
-      this.hideAddButton();
-      map.panTo(this.getOffsetCenter(new L.LatLng(location.lat, location.lng)));
+      if (model) {
+        // Called by the router
+        location = model.get('location');
+        placeDetailView = this.placeDetailViews[model.cid];
 
-      // Focus the one we're looking
-      model.trigger('focus');
+        this.showPanel(placeDetailView.render().$el);
+        this.hideNewPin();
+        this.destroyNewModels();
+        this.hideCenterPoint();
+        this.hideAddButton();
+        map.panTo(this.getOffsetCenter(new L.LatLng(location.lat, location.lng)));
+
+        // Focus the one we're looking
+        model.trigger('focus');
+      } else {
+        this.options.router.navigate('/');
+      }
     },
     viewPage: function(slug) {
       var pageConfig = _.find(this.options.pagesConfig, function(pageConfig) {
