@@ -1,6 +1,6 @@
 # The Shareabouts API dataset username & name used by this map.
 # You MUST change this after creating a dataset.
-dataset: your-dataset-user/your-dataset-name
+dataset: demo-user/demo-data
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
