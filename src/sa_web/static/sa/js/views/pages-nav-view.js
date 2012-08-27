@@ -8,9 +8,11 @@ var Shareabouts = Shareabouts || {};
     },
 
     render: function() {
-      var $template = ich['pages-nav']({
-        pages: this.options.pagesConfig
-      });
+      var data = {
+            pages: this.options.pagesConfig,
+            has_pages: (this.options.pagesConfig.length > 0)
+          },
+          $template = ich['pages-nav'](data);
       this.$el.html($template);
 
       return this;
