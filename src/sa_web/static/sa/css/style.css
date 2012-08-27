@@ -933,6 +933,9 @@ ul.recent-points {
   #access {
     margin-top: 1.75em;
   }
+  .noscript {
+    margin-right: 18em; /* width of ticker */
+  }
   #map-container {
     top: 5em; /* must match height of #site-header */
     right: 18em; /* width of ticker */
