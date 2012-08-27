@@ -22,10 +22,20 @@ class ShareaboutsApi (object):
         if data is not None:
             data = json.dumps(data)
 
-        response = requests.request(method, url, data=data,
-                                    headers={'Content-type': 'application/json',
-                                             'Cookie': self.cookies,
-                                             'X-CSRFToken': self.csrf_token})
+        headers = headers={'Content-type': 'application/json'}
+
+        # Set authentication headers
+        if hasattr(self, 'csrf_token') and hasattr(self, 'cookies'):
+            headers.update({
+                'Cookie': self.cookies,
+                'X-CSRFToken': self.csrf_token
+            })
+
+        # Explicitly set the content length for delete
+        if method == 'DELETE':
+            headers.update({'Content-Length': '0'})
+
+        response = requests.request(method, url, data=data, headers=headers)
         return response
 
     def get(self, path, default=None):
