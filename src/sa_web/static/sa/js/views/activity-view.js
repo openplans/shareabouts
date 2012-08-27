@@ -34,14 +34,17 @@ var Shareabouts = Shareabouts || {};
     },
 
     checkForNewActivity: function() {
-      // Only get new activity where id is greater than the newest id
+      var options = {
+        add: true,
+        at: 0
+      };
+
+      // Only get new activity where id is greater than the newest id, if it exists
       if (this.collection.size() > 0) {
-        this.collection.fetch({
-          data: {after: this.collection.first().get('id')},
-          add: true,
-          at: 0
-        });
+        options.data = {after: this.collection.first().get('id')};
       }
+
+      this.collection.fetch(options);
 
       _.delay(_.bind(this.checkForNewActivity, this), this.interval);
     },
