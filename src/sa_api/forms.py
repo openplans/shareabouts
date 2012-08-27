@@ -30,6 +30,14 @@ class DataSetForm (forms.ModelForm):
         exclude = ['owner']
 
 
+class PlaceForm (forms.ModelForm):
+    class Meta:
+        model = models.Place
+        # When using the place form, the dataset set should be set by some
+        # external mechanism, usually according to the URL path.
+        exclude = ['dataset']
+
+
 class ActivityForm (forms.Form):
     before = forms.IntegerField(required=False)
     after = forms.IntegerField(required=False)

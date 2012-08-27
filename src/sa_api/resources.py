@@ -65,6 +65,7 @@ class ModelResourceWithDataBlob (resources.ModelResource):
 
 class PlaceResource (ModelResourceWithDataBlob):
     model = models.Place
+    form = forms.PlaceForm
 
     # TODO: un-exclude dataset once i figure out how to avoid exposing user info
     # in related resources.
