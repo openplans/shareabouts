@@ -1,10 +1,11 @@
 from django.test import TestCase
 from django.test.client import Client
 from django.test.client import RequestFactory
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from mock import patch
 from nose.tools import istest, assert_equal, assert_in
-from ..models import Place, Submission, SubmissionSet
+from ..models import DataSet, Place, Submission, SubmissionSet
 from ..models import SubmittedThing, Activity
 from ..views import SubmissionCollectionView
 import json
@@ -63,14 +64,18 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
 
     @istest
     def should_return_a_list_of_submissions_of_the_type_for_the_place(self):
+        User.objects.all().delete()
+        DataSet.objects.all().delete()
         Place.objects.all().delete()
         Submission.objects.all().delete()
         SubmissionSet.objects.all().delete()
 
-        place = Place.objects.create(location='POINT(0 0)')
+        owner = User.objects.create()
+        dataset = DataSet.objects.create(short_name='data', owner_id=owner.id)
+        place = Place.objects.create(location='POINT(0 0)', dataset_id=dataset.id)
         comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
-        Submission.objects.create(parent_id=comments.id)
-        Submission.objects.create(parent_id=comments.id)
+        Submission.objects.create(parent_id=comments.id, dataset_id=dataset.id)
+        Submission.objects.create(parent_id=comments.id, dataset_id=dataset.id)
 
         request = RequestFactory().get('/places/%d/comments/' % place.id)
         view = SubmissionCollectionView.as_view()
@@ -83,13 +88,17 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
 
     @istest
     def should_return_an_empty_list_if_the_place_has_no_submissions_of_the_type(self):
+        User.objects.all().delete()
+        DataSet.objects.all().delete()
         Place.objects.all().delete()
         Submission.objects.all().delete()
 
-        place = Place.objects.create(location='POINT(0 0)')
+        owner = User.objects.create()
+        dataset = DataSet.objects.create(short_name='data', owner_id=owner.id)
+        place = Place.objects.create(location='POINT(0 0)', dataset_id=dataset.id)
         comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
-        Submission.objects.create(parent_id=comments.id)
-        Submission.objects.create(parent_id=comments.id)
+        Submission.objects.create(parent_id=comments.id, dataset_id=dataset.id)
+        Submission.objects.create(parent_id=comments.id, dataset_id=dataset.id)
 
         request = RequestFactory().get('/places/%d/votes/' % place.id)
         view = SubmissionCollectionView.as_view()
@@ -104,11 +113,17 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
 
     @istest
     def should_create_a_new_submission_of_the_given_type_on_the_place(self):
+        User.objects.all().delete()
+        DataSet.objects.all().delete()
         Place.objects.all().delete()
         Submission.objects.all().delete()
         SubmissionSet.objects.all().delete()
 
-        place = Place.objects.create(location='POINT(0 0)')
+        owner = User.objects.create()
+        dataset = DataSet.objects.create(short_name='data',
+                                              owner_id=owner.id)
+        place = Place.objects.create(location='POINT(0 0)',
+                                          dataset_id=dataset.id)
         comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
 
         data = {
@@ -131,14 +146,21 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
 class TestSubmissionInstanceAPI (TestCase):
 
     def setUp(self):
+        User.objects.all().delete()
+        DataSet.objects.all().delete()
         Place.objects.all().delete()
         Submission.objects.all().delete()
         SubmissionSet.objects.all().delete()
 
-        self.place = Place.objects.create(location='POINT(0 0)')
+        self.owner = User.objects.create()
+        self.dataset = DataSet.objects.create(short_name='data',
+                                              owner_id=self.owner.id)
+        self.place = Place.objects.create(location='POINT(0 0)',
+                                          dataset_id=self.dataset.id)
         self.comments = SubmissionSet.objects.create(place_id=self.place.id,
                                                 submission_type='comments')
-        self.submission = Submission.objects.create(parent_id=self.comments.id)
+        self.submission = Submission.objects.create(parent_id=self.comments.id,
+                                                    dataset_id=self.dataset.id)
         self.url = reverse('submission_instance',
                            kwargs=dict(place_id=self.place.id,
                                        pk=self.submission.id,
@@ -191,9 +213,15 @@ class TestSubmissionInstanceAPI (TestCase):
 class TestActivityView(TestCase):
 
     def setUp(self):
+        User.objects.all().delete()
+        DataSet.objects.all().delete()
         SubmittedThing.objects.all().delete()
         Activity.objects.all().delete()
-        self.submitted_thing = SubmittedThing.objects.create()
+
+        self.owner = User.objects.create()
+        self.dataset = DataSet.objects.create(short_name='data',
+                                              owner_id=self.owner.id)
+        self.submitted_thing = SubmittedThing.objects.create(dataset_id=self.dataset.id)
         # Note this implicitly creates an Activity.
         activity1 = Activity.objects.get(data_id=self.submitted_thing.id)
         self.activities = [
