@@ -8,7 +8,14 @@ psycopg2
 south
 
 # REST API
-git+git://github.com/tomchristie/django-rest-framework.git#egg=djangorestframework==0.4.0-dev
+#
+# NOTE: We are using commit abd3c7b46 of Django REST Framework because of an
+#       issue with the current head.  For details, see the discussion at
+#       https://github.com/tomchristie/django-rest-framework/pull/181
+#
+#       - mjumbewu, 28 Aug 2012
+#
+git+git://github.com/tomchristie/django-rest-framework.git@abd3c7b46dcc76a042789f5c6d87ebdc9e8c980c#egg=djangorestframework
 markdown
 python-dateutil
 
