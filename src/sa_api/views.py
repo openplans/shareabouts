@@ -115,24 +115,23 @@ class DataSetCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWith
     authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'dataset_collection'
 
-    def post(self, request, *args, **kwargs):
-        username = kwargs.pop('owner__username')
-        user = auth.models.User.objects.get(username=username)
+    def get_instance_data(self, model, content, **kwargs):
+        # Used by djangorestframework to make args to build an instance for POST
+        from django.contrib.auth.models import User
+        username = kwargs.pop('owner__username', None)
+        content['owner'] = get_object_or_404(User, username=username)
+        return super(DataSetCollectionView, self).get_instance_data(model, content, **kwargs)
 
-        response = super(DataSetCollectionView, self).post(request, owner=user.id, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        response = super(DataSetCollectionView, self).post(request, *args, **kwargs)
         # Create an API key for the DataSet we just created.
         dataset = response.raw_content
         from .apikey.models import ApiKey, generate_unique_api_key
         key = ApiKey()
-        key.user_id = request.user.id  # TODO: do not allow anonymous
+        key.user_id = dataset.owner.id  # TODO: do not allow anonymous
         key.key = generate_unique_api_key()
         key.save()
         dataset.api_keys.add(key)
-        # djangorestframework will magically add a Location header
-        # if the model includes a get_absolute_url() method,
-        # but it does not *call* that method.  That's a bit too bizarre,
-        # so let's just do it ourselves.
-        response.headers['Location'] = self._resource.url(dataset)
         return response
 
 

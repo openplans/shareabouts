@@ -20,10 +20,12 @@ class TestDataSetCollectionView(TestCase):
         DataSet.objects.all().delete()
         ApiKey.objects.all().delete()
         User.objects.all().delete()
-        user = User.objects.create(username='bob')
-        # TODO: mock the models?
 
-        url = reverse('dataset_collection_by_user', kwargs={'owner__username': user.username})
+        # TODO: mock the models?
+        user = User.objects.create(username='bob')
+
+        kwargs = {'owner__username': user.username}
+        url = reverse('dataset_collection_by_user', kwargs=kwargs)
         data = {
             'display_name': 'Test DataSet',
             'short_name': 'test-dataset',
@@ -31,12 +33,12 @@ class TestDataSetCollectionView(TestCase):
 
         from ..views import DataSetCollectionView
 
-        # Simulate a POST with logged-in user.
         request = RequestFactory().post(url, data=json.dumps(data),
                                         content_type='application/json')
-        request.user = user
         view = DataSetCollectionView().as_view()
-        response = view(request, owner__username=user.username)
+        # Have to pass kwargs explicitly if not using
+        # urlresolvers.resolve() etc.
+        response = view(request, **kwargs)
 
         assert_equal(response.status_code, 201)
         assert_in(url + 'test-dataset', response.get('Location'))
