@@ -22,7 +22,7 @@ class ShareaboutsApi (object):
         if data is not None:
             data = json.dumps(data)
 
-        headers = headers={'Content-type': 'application/json'}
+        headers = {'Content-type': 'application/json'}
 
         # Set authentication headers
         if hasattr(self, 'csrf_token') and hasattr(self, 'cookies'):
@@ -283,6 +283,7 @@ class ExistingPlaceView (PlaceFormMixin, View):
             # TODO ???
             pass
 
+
 @login_required
 def datasets_view(request):
     # TODO: use ShareaboutsApi; standardize URI building.
@@ -463,7 +464,6 @@ class SubmissionMixin (BaseDataBlobFormMixin):
 
             for submission in submission_set['submissions']:
                 # Arrange the submission data fields for display in the table
-                data_fields = []
                 submission['data_fields'] = self.make_data_fields_tuples(submission)
 
                 # Make the dates a little prettier
