@@ -11,7 +11,7 @@
     <a href="{% url 'manager_dataset_list' %}">Datasets</a> <span class="divider">/</span>
   </li>
   <li>
-    <a href="{% url 'manager_place_list' dataset.short_name %}">{{ dataset.display_name }}</a> <span class="divider">/</span>
+    <a href="{% url 'manager_place_list' dataset.slug %}">{{ dataset.display_name }}</a> <span class="divider">/</span>
   </li>
 
   {% block more_breadcrumbs %}
@@ -25,7 +25,7 @@
   {% endblock %}
 </ul>
 
-{% if place.id %}<h2>{{ place.name }} <a class="btn btn-primary" href="{% url 'manager_place_submission_create' dataset.short_name place.id submission_type|default:'submissions' %}">Add New Submission</a></h2>
+{% if place.id %}<h2>{{ place.name }} <a class="btn btn-primary" href="{% url 'manager_place_submission_create' dataset.slug place.id submission_type|default:'submissions' %}">Add New Submission</a></h2>
 {% endif %}
 
 {% block place_content %}

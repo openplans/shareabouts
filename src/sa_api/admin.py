@@ -19,8 +19,8 @@ class InlineApiKeyAdmin(admin.StackedInline):
 
 
 class DataSetAdmin(admin.ModelAdmin):
-    list_display = ('id', 'short_name', 'display_name', 'owner')
-    prepopulated_fields = {'short_name': ['display_name']}
+    list_display = ('id', 'slug', 'display_name', 'owner')
+    prepopulated_fields = {'slug': ['display_name']}
     inlines = [InlineApiKeyAdmin]
 
 

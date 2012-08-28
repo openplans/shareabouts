@@ -113,7 +113,7 @@ class PlaceResource (ModelResourceWithDataBlob):
             dataset = models.DataSet.objects.get(id=dataset_id)
             args = self._reverse_args_cache[dataset_id] = (
                 dataset.owner.username,
-                dataset.short_name,
+                dataset.slug,
             )
         return args
 
@@ -141,7 +141,7 @@ class PlaceResource (ModelResourceWithDataBlob):
 class DataSetResource (resources.ModelResource):
     model = models.DataSet
     form = forms.DataSetForm
-    fields = ['id', 'url', 'owner', 'places', 'short_name', 'display_name']
+    fields = ['id', 'url', 'owner', 'places', 'slug', 'display_name']
 
     def owner(self, dataset):
         return simple_user(dataset.owner)
@@ -163,7 +163,7 @@ class DataSetResource (resources.ModelResource):
     def url(self, instance):
         return reverse('dataset_instance_by_user',
                        kwargs={'owner__username': instance.owner.username,
-                               'short_name': instance.short_name})
+                               'slug': instance.slug})
 
 
 class SubmissionResource (ModelResourceWithDataBlob):

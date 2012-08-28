@@ -295,7 +295,7 @@ def datasets_view(request):
     datasets = json.loads(response.text)
     for ds in datasets:
         ds['manage_uri'] = reverse('manager_dataset_detail',
-                                   kwargs={'dataset_slug': ds['short_name']})
+                                   kwargs={'dataset_slug': ds['slug']})
     return render(request, "manager/datasets.html", {'datasets': datasets})
 
 
@@ -304,7 +304,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.datasets_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/')
-        self.special_fields = ('id', 'owner', 'display_name', 'short_name')
+        self.special_fields = ('id', 'owner', 'display_name', 'slug')
         return super(DataSetFormMixin, self).dispatch(request, *args, **kwargs)
 
     def read(self, request, dataset_slug):
@@ -340,7 +340,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
             data = json.loads(response.text)
             messages.success(request, 'Successfully saved!')
             return redirect(reverse('manager_dataset_detail', kwargs=(
-                {'dataset_slug': data['short_name']})))
+                {'dataset_slug': data['slug']})))
 
         else:
             messages.error(request, 'Error: ' + response.text)
@@ -360,7 +360,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
             # Note that we end up with 200 even if the dataset is
             # renamed and we get redirected... this is *after* the redirect
             # completes.
-            if response.json['short_name'] == dataset_slug:
+            if response.json['slug'] == dataset_slug:
                 messages.success(request, 'Successfully saved!')
             else:
                 messages.warning(
@@ -373,7 +373,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
                 )
                 new_url = reverse(
                     'manager_dataset_detail',
-                    kwargs={'dataset_slug': response.json['short_name']})
+                    kwargs={'dataset_slug': response.json['slug']})
                 return redirect(new_url)
         else:
             messages.error(request, 'Error: ' + response.text)

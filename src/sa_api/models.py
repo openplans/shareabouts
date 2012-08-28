@@ -44,13 +44,13 @@ class DataSet (models.Model):
     """
     owner = models.ForeignKey(auth_models.User)
     display_name = models.CharField(max_length=128)
-    short_name = models.SlugField(max_length=128)
+    slug = models.SlugField(max_length=128, default=u'')
 
     def __unicode__(self):
-        return self.short_name
+        return self.slug
 
     class Meta:
-        unique_together = (('owner', 'short_name'),
+        unique_together = (('owner', 'slug'),
                            )
 
 

@@ -27,7 +27,7 @@ class TestDataSetCollectionView(TestCase):
         url = reverse('dataset_collection_by_user', kwargs=kwargs)
         data = {
             'display_name': 'Test DataSet',
-            'short_name': 'test-dataset',
+            'slug': 'test-dataset',
         }
 
         from ..views import DataSetCollectionView
@@ -44,7 +44,7 @@ class TestDataSetCollectionView(TestCase):
 
         response_data = json.loads(response.content)
         assert_equal(response_data['display_name'], 'Test DataSet')
-        assert_equal(response_data['short_name'], 'test-dataset')
+        assert_equal(response_data['slug'], 'test-dataset')
 
 
 class TestDataSetInstanceView(TestCase):
@@ -53,15 +53,15 @@ class TestDataSetInstanceView(TestCase):
         DataSet.objects.all().delete()
         User.objects.all().delete()
         user = User.objects.create(username='bob')
-        self.dataset = DataSet.objects.create(short_name='dataset',
+        self.dataset = DataSet.objects.create(slug='dataset',
                                               display_name='dataset',
                                               owner=user)
 
     @istest
-    def put_with_short_name_gives_a_new_location(self):
-        kwargs = dict(owner__username='bob', short_name='dataset')
+    def put_with_slug_gives_a_new_location(self):
+        kwargs = dict(owner__username='bob', slug='dataset')
         url = reverse('dataset_instance_by_user', kwargs=kwargs)
-        data = {'short_name': 'new-name', 'display_name': 'dataset'}
+        data = {'slug': 'new-name', 'display_name': 'dataset'}
         request = RequestFactory().put(url, data=json.dumps(data),
                                        content_type='application/json'
                                        )
@@ -96,7 +96,7 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         SubmissionSet.objects.all().delete()
 
         owner = User.objects.create()
-        dataset = DataSet.objects.create(short_name='data', owner_id=owner.id)
+        dataset = DataSet.objects.create(slug='data', owner_id=owner.id)
         place = Place.objects.create(location='POINT(0 0)', dataset_id=dataset.id)
         comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
         Submission.objects.create(parent_id=comments.id, dataset_id=dataset.id)
@@ -119,7 +119,7 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         Submission.objects.all().delete()
 
         owner = User.objects.create()
-        dataset = DataSet.objects.create(short_name='data', owner_id=owner.id)
+        dataset = DataSet.objects.create(slug='data', owner_id=owner.id)
         place = Place.objects.create(location='POINT(0 0)', dataset_id=dataset.id)
         comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
         Submission.objects.create(parent_id=comments.id, dataset_id=dataset.id)
@@ -145,7 +145,7 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
         SubmissionSet.objects.all().delete()
 
         owner = User.objects.create()
-        dataset = DataSet.objects.create(short_name='data',
+        dataset = DataSet.objects.create(slug='data',
                                               owner_id=owner.id)
         place = Place.objects.create(location='POINT(0 0)',
                                           dataset_id=dataset.id)
@@ -178,7 +178,7 @@ class TestSubmissionInstanceAPI (TestCase):
         SubmissionSet.objects.all().delete()
 
         self.owner = User.objects.create()
-        self.dataset = DataSet.objects.create(short_name='data',
+        self.dataset = DataSet.objects.create(slug='data',
                                               owner_id=self.owner.id)
         self.place = Place.objects.create(location='POINT(0 0)',
                                           dataset_id=self.dataset.id)
@@ -244,7 +244,7 @@ class TestActivityView(TestCase):
         Activity.objects.all().delete()
 
         self.owner = User.objects.create()
-        self.dataset = DataSet.objects.create(short_name='data',
+        self.dataset = DataSet.objects.create(slug='data',
                                               owner_id=self.owner.id)
         self.submitted_thing = SubmittedThing.objects.create(dataset_id=self.dataset.id)
         # Note this implicitly creates an Activity.
@@ -350,11 +350,11 @@ class TestPlaceCollectionView(TestCase):
         from django.contrib.auth.models import User
         user = User.objects.create(username='test-user')
         ds = models.DataSet.objects.create(owner=user, id=789,
-                                           short_name='stuff')
+                                           slug='stuff')
         #place = models.Place.objects.create(dataset=ds, id=123)
         uri_args = {
             'dataset__owner__username': user.username,
-            'dataset__short_name': ds.short_name,
+            'dataset__slug': ds.slug,
         }
         uri = reverse('place_collection_by_dataset', kwargs=uri_args)
         data = {'location': {'lat': 39.94494, 'lng': -75.06144},

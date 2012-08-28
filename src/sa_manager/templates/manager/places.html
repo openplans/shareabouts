@@ -11,7 +11,7 @@
     <a href="{% url 'manager_dataset_list' %}">Datasets</a> <span class="divider">/</span>
   </li>
   <li>
-    {{ dataset.display_name }} ({{ dataset.short_name }})
+    {{ dataset.display_name }} ({{ dataset.slug }})
   </li>
 </ul>
 
@@ -32,14 +32,14 @@
     <tr>
       <td><a href="{{ place.id }}">"{{ place.name }}"</a></td>
       <td>
-        <a href="{% url 'manager_place_submission_list' dataset.short_name place.id 'submissions' %}" class="btn btn-small">
+        <a href="{% url 'manager_place_submission_list' dataset.slug place.id 'submissions' %}" class="btn btn-small">
           {{ place.submission_count }} Submission{{ place.submission_count|pluralize }}
           <i class="icon-chevron-right"></i>
         </a>
 
         <ul>
           {% for submission in place.submissions %}
-          <li><a href="{% url 'manager_place_submission_list' dataset.short_name place.id submission.type %}">{{ submission.count }} {{ submission.type }}</a></li>
+          <li><a href="{% url 'manager_place_submission_list' dataset.slug place.id submission.type %}">{{ submission.count }} {{ submission.type }}</a></li>
           {% endfor %}
         </ul>
       </td>

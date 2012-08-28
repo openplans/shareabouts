@@ -3,10 +3,10 @@
 {% if dataset %}
 <ul class="nav nav-tabs">
   <li{% if properties_active %} class="active"{% endif %}>
-    <a href="{% url 'manager_dataset_detail' dataset.short_name %}">Properties</a>
+    <a href="{% url 'manager_dataset_detail' dataset.slug %}">Properties</a>
   </li>
   <li{% if places_active %} class="active"{% endif %}>
-    <a href="{% url 'manager_place_list' dataset.short_name %}">All Places</a>
+    <a href="{% url 'manager_place_list' dataset.slug %}">All Places</a>
   </li>
 </ul>
 {% endif %}

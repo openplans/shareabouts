@@ -141,8 +141,8 @@ class DataSetInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDa
 
     def put(self, request, *args, **kwargs):
         instance = super(DataSetInstanceView, self).put(request, *args, **kwargs)
-        renamed = ('short_name' in kwargs and
-                   (kwargs['short_name'] != instance.short_name))
+        renamed = ('slug' in kwargs and
+                   (kwargs['slug'] != instance.slug))
         headers = {}
         if renamed:
             headers['Location'] = self.resource(self).url(instance)
@@ -165,7 +165,7 @@ class PlaceCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDa
         # Used by djangorestframework to make args to build an instance for POST
         dataset = get_object_or_404(
             models.DataSet,
-            short_name=kwargs.pop('dataset__short_name'),
+            slug=kwargs.pop('dataset__slug'),
             owner__username=kwargs.pop('dataset__owner__username'),
         )
         content['dataset'] = dataset

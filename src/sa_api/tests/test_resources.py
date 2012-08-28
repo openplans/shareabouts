@@ -169,7 +169,7 @@ class TestPlaceResource(TestCase):
         place = models.Place.objects.get(id=123)
         from django.contrib.auth.models import User
         user = User.objects.create(username='test-user')
-        dataset = models.DataSet.objects.create(id=456, short_name='test-set',
+        dataset = models.DataSet.objects.create(id=456, slug='test-set',
                                                 owner=user)
         place.dataset = dataset
         # TODO: call reverse() here to avoid breaking if using a different urls.py?
