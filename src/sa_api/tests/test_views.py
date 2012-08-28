@@ -1,10 +1,11 @@
 from django.test import TestCase
 from django.test.client import Client
 from django.test.client import RequestFactory
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from mock import patch
 from nose.tools import istest, assert_equal, assert_in
-from ..models import Place, Submission, SubmissionSet
+from ..models import Place, Submission, SubmissionSet, DataSet
 from ..models import SubmittedThing, Activity
 from ..views import SubmissionCollectionView
 import json
@@ -14,9 +15,7 @@ class TestDataSetCollectionView(TestCase):
 
     @istest
     def post_creates_an_api_key(self):
-        from ..models import DataSet
         from ..apikey.models import ApiKey
-        from django.contrib.auth.models import User
         DataSet.objects.all().delete()
         ApiKey.objects.all().delete()
         User.objects.all().delete()
@@ -46,6 +45,31 @@ class TestDataSetCollectionView(TestCase):
         response_data = json.loads(response.content)
         assert_equal(response_data['display_name'], 'Test DataSet')
         assert_equal(response_data['short_name'], 'test-dataset')
+
+
+class TestDataSetInstanceView(TestCase):
+
+    def setUp(self):
+        DataSet.objects.all().delete()
+        User.objects.all().delete()
+        user = User.objects.create(username='bob')
+        self.dataset = DataSet.objects.create(short_name='dataset',
+                                              display_name='dataset',
+                                              owner=user)
+
+    @istest
+    def put_with_short_name_gives_a_new_location(self):
+        kwargs = dict(owner__username='bob', short_name='dataset')
+        url = reverse('dataset_instance_by_user', kwargs=kwargs)
+        data = {'short_name': 'new-name', 'display_name': 'dataset'}
+        request = RequestFactory().put(url, data=json.dumps(data),
+                                       content_type='application/json'
+                                       )
+        from ..views import DataSetInstanceView
+        view = DataSetInstanceView().as_view()
+        response = view(request, **kwargs)
+        assert_equal(response.status_code, 303)
+        assert_in('/new-name', response['Location'])
 
 
 class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):

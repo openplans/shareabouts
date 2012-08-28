@@ -3,6 +3,7 @@ from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from djangorestframework.response import Response
 from djangorestframework import views, authentication
 from . import resources
 from . import models
@@ -117,9 +118,8 @@ class DataSetCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWith
 
     def get_instance_data(self, model, content, **kwargs):
         # Used by djangorestframework to make args to build an instance for POST
-        from django.contrib.auth.models import User
         username = kwargs.pop('owner__username', None)
-        content['owner'] = get_object_or_404(User, username=username)
+        content['owner'] = get_object_or_404(auth.models.User, username=username)
         return super(DataSetCollectionView, self).get_instance_data(model, content, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -138,6 +138,20 @@ class DataSetCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWith
 class DataSetInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.DataSetResource
     authentication = (authentication.BasicAuthentication,)
+
+    def put(self, request, *args, **kwargs):
+        instance = super(DataSetInstanceView, self).put(request, *args, **kwargs)
+        renamed = ('short_name' in kwargs and
+                   (kwargs['short_name'] != instance.short_name))
+        headers = {}
+        if renamed:
+            headers['Location'] = self.resource(self).url(instance)
+            # http://en.wikipedia.org/wiki/HTTP_303
+            response = Response(303, instance, headers)
+            return response
+        else:
+            # djangorestframework will wrap it in a 200 response.
+            return instance
 
 
 # TODO derive from CachedMixin to enable caching
