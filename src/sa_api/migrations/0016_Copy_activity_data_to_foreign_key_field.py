@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import datetime
-from django.contrib.contenttypes import generic
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
@@ -11,17 +10,22 @@ class Migration(DataMigration):
         "Write your forwards methods here."
 
         Activity = orm['sa_api.Activity']
-        gfk = generic.GenericForeignKey('data_content_type', 'data_object_id')
-        gfk.contribute_to_class(Activity, 'old_data')
+        Place = orm['sa_api.Place']
+        Submission = orm['sa_api.Submission']
 
         for activity in Activity.objects.all():
-            if activity.old_data is None:
+            if activity.data_object_id is None:
                 activity.delete()
                 continue
 
             try:
-                activity.data = activity.old_data.submittedthing_ptr
-            except ValueError:
+                if (activity.data_content_type.model.lower() == 'place'):
+                    old_data = Place.objects.get(id=activity.data_object_id)
+                elif (activity.data_content_type.model.lower() == 'submission'):
+                    old_data = Submission.objects.get(id=activity.data_object_id)
+
+                activity.data = old_data.submittedthing_ptr
+            except (ValueError, NameError):
                 activity.delete()
                 continue
 
