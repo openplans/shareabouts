@@ -39,8 +39,11 @@ class ShareaboutsApi (object):
         return response
 
     def get(self, path, default=None):
-        res = requests.get(self.root + path,
-                           headers={'Accept': 'application/json'})
+        """
+        Returns body text from a GET request, or default on non-200
+        responses.
+        """
+        res = requests.get(self.root + path, headers={'Accept': 'application/json'})
         return (res.text if res.status_code == 200 else default)
 
 
@@ -48,15 +51,14 @@ class ShareaboutsApi (object):
 def index_view(request):
     return redirect('manager_dataset_list')
 
+
 @login_required
 def places_view(request, dataset_slug):
+    # TODO use ShareaboutsApi
     dataset_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/')
-    places_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/places/')
-
-    # TODO Is this the best way to get the API data?
+    places_uri = dataset_uri + 'places/'
     response = requests.get(places_uri)
     places = json.loads(response.text)
-
     response = requests.get(dataset_uri)
     dataset = json.loads(response.text)
 
@@ -280,13 +282,16 @@ class ExistingPlaceView (PlaceFormMixin, View):
 
 @login_required
 def datasets_view(request):
-    # TODO: do this in-process, not with a subrequest
+    # TODO: use ShareaboutsApi; standardize URI building.
+    # (reverse() may not be correct if sa_api and sa_manager aren't
+    # deployed together; likewise for build_absolute_uri())
     datasets_uri = request.build_absolute_uri(
         reverse('dataset_collection_by_user', args=[request.user.username]))
     response = requests.get(datasets_uri)
     datasets = json.loads(response.text)
     for ds in datasets:
-        ds['manage_uri'] = reverse('manager_dataset_detail', kwargs={'pk': ds['id']})
+        ds['manage_uri'] = reverse('manager_dataset_detail',
+                                   kwargs={'dataset_slug': ds['short_name']})
     return render(request, "manager/datasets.html", {'datasets': datasets})
 
 
@@ -298,7 +303,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         self.special_fields = ('id', 'owner', 'display_name', 'short_name')
         return super(DataSetFormMixin, self).dispatch(request, *args, **kwargs)
 
-    def read(self, request, pk):
+    def read(self, request, dataset_slug):
         # Retrieve the dataset data.
         response = requests.get(self.dataset_uri)
         dataset = json.loads(response.text)
@@ -320,7 +325,6 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         return render(request, "manager/dataset.html")
 
     def create(self, request):
-        # Send the save request
         self.data_blob = data = request.POST.dict()
         self.process_data_blob()
 
@@ -332,13 +336,13 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
             data = json.loads(response.text)
             messages.success(request, 'Successfully saved!')
             return redirect(reverse('manager_dataset_detail', kwargs=(
-                {'pk': data['short_name']})))
+                {'dataset_slug': data['short_name']})))
 
         else:
             messages.error(request, 'Error: ' + response.text)
             return redirect(request.get_full_path())
 
-    def update(self, request, pk):
+    def update(self, request, dataset_slug):
         # Make a copy of the POST data, since we can't edit the original.
         self.data_blob = data = request.POST.dict()
         self.process_data_blob()
@@ -355,7 +359,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
 
         return redirect(request.get_full_path())
 
-    def delete(self, request, pk):
+    def delete(self, request, dataset_slug):
         # Send the delete request
         api = ShareaboutsApi()
         api.authenticate(request)
@@ -385,18 +389,18 @@ class NewDataSetView (DataSetFormMixin, View):
 class ExistingDataSetView (DataSetFormMixin, View):
 
     @method_decorator(login_required)
-    def dispatch(self, request, pk):
-        self.dataset_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + pk + '/')
-        return super(ExistingDataSetView, self).dispatch(request, pk)
+    def dispatch(self, request, dataset_slug):
+        self.dataset_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/')
+        return super(ExistingDataSetView, self).dispatch(request, dataset_slug)
 
-    def get(self, request, pk):
-        return self.read(request, pk)
+    def get(self, request, dataset_slug):
+        return self.read(request, dataset_slug)
 
-    def post(self, request, pk):
+    def post(self, request, dataset_slug):
         if request.POST.get('action') == 'save':
-            return self.update(request, pk)
+            return self.update(request, dataset_slug)
         elif request.POST.get('action') == 'delete':
-            return self.delete(request, pk)
+            return self.delete(request, dataset_slug)
         else:
             # TODO ???
             pass
