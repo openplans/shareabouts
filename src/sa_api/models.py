@@ -21,7 +21,7 @@ class SubmittedThing (TimeStampedModel):
     submitter_name = models.CharField(max_length=256, null=True, blank=True)
     data = models.TextField(default='{}')
     dataset = models.ForeignKey('DataSet', related_name='submitted_thing_set',
-                                blank=True, null=True)
+                                blank=True)
 
     def save(self, *args, **kwargs):
         is_new = (self.id == None)

@@ -19,7 +19,7 @@ class SubmissionForm (forms.ModelForm):
         model = models.Submission
         # When using the submission form, the parent submission set should be
         # be set by some external mechanism, usually according to the URL path.
-        exclude = ['parent']
+        exclude = ['parent', 'dataset']
 
 
 class DataSetForm (forms.ModelForm):

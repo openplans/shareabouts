@@ -96,20 +96,24 @@ class TestPlaceResource(TestCase):
 
     def populate(self):
         from ..resources import models
+        from django.contrib.auth.models import User
         location = 'POINT (1.0 2.0)'
-        models.Place.objects.create(id=123, location=location)
-        models.Place.objects.create(id=456, location=location)
+        owner = User.objects.create()
+        ds = models.DataSet.objects.create(owner=owner)
+
+        models.Place.objects.create(id=123, location=location, dataset_id=ds.id)
+        models.Place.objects.create(id=456, location=location, dataset_id=ds.id)
         # A couple of SubmissionSets: one with 3 children, one with 2.
         ss1 = models.SubmissionSet.objects.create(place_id=123,
                                                   submission_type='foo')  # count=3
 
         for i in range(3):
-            models.Submission.objects.create(parent=ss1)
+            models.Submission.objects.create(parent=ss1, dataset_id=ds.id)
 
         ss2 = models.SubmissionSet.objects.create(place_id=456,
                                                   submission_type='bar')
         for i in range(2):
-            models.Submission.objects.create(parent=ss2)
+            models.Submission.objects.create(parent=ss2, dataset_id=ds.id)
 
     @istest
     def submission_sets_empty(self):
