@@ -15,16 +15,16 @@ class TestDataSetCollectionView(TestCase):
 
     @istest
     def post_creates_an_api_key(self):
-        from ..models import DataSet
         from ..apikey.models import ApiKey
-        from django.contrib.auth.models import User
         DataSet.objects.all().delete()
         ApiKey.objects.all().delete()
         User.objects.all().delete()
-        user = User.objects.create(username='bob')
-        # TODO: mock the models?
 
-        url = reverse('dataset_collection_by_user', kwargs={'owner__username': user.username})
+        # TODO: mock the models?
+        user = User.objects.create(username='bob')
+
+        kwargs = {'owner__username': user.username}
+        url = reverse('dataset_collection_by_user', kwargs=kwargs)
         data = {
             'display_name': 'Test DataSet',
             'short_name': 'test-dataset',
@@ -32,12 +32,12 @@ class TestDataSetCollectionView(TestCase):
 
         from ..views import DataSetCollectionView
 
-        # Simulate a POST with logged-in user.
         request = RequestFactory().post(url, data=json.dumps(data),
                                         content_type='application/json')
-        request.user = user
         view = DataSetCollectionView().as_view()
-        response = view(request, owner__username=user.username)
+        # Have to pass kwargs explicitly if not using
+        # urlresolvers.resolve() etc.
+        response = view(request, **kwargs)
 
         assert_equal(response.status_code, 201)
         assert_in(url + 'test-dataset', response.get('Location'))
@@ -45,6 +45,31 @@ class TestDataSetCollectionView(TestCase):
         response_data = json.loads(response.content)
         assert_equal(response_data['display_name'], 'Test DataSet')
         assert_equal(response_data['short_name'], 'test-dataset')
+
+
+class TestDataSetInstanceView(TestCase):
+
+    def setUp(self):
+        DataSet.objects.all().delete()
+        User.objects.all().delete()
+        user = User.objects.create(username='bob')
+        self.dataset = DataSet.objects.create(short_name='dataset',
+                                              display_name='dataset',
+                                              owner=user)
+
+    @istest
+    def put_with_short_name_gives_a_new_location(self):
+        kwargs = dict(owner__username='bob', short_name='dataset')
+        url = reverse('dataset_instance_by_user', kwargs=kwargs)
+        data = {'short_name': 'new-name', 'display_name': 'dataset'}
+        request = RequestFactory().put(url, data=json.dumps(data),
+                                       content_type='application/json'
+                                       )
+        from ..views import DataSetInstanceView
+        view = DataSetInstanceView().as_view()
+        response = view(request, **kwargs)
+        assert_equal(response.status_code, 303)
+        assert_in('/new-name', response['Location'])
 
 
 class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
