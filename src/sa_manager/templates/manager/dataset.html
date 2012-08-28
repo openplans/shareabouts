@@ -2,6 +2,8 @@
 
 {% block dataset_content %}
 
+{% include "manager/dataset_tabs.html" with properties_active=1 %}
+
 <form method="POST" class="form-horizontal">{% csrf_token %}
   <fieldset>
     <legend>{% if dataset.id %}Edit Dataset{% else %}New Dataset{% endif %}</legend>

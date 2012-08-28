@@ -14,13 +14,16 @@
   {% block more_breadcrumbs %}
   <li>
     {% if dataset.id %}
-    Dataset "{{ dataset.display_name }}" ({{ dataset.short_name }})
+    {{ dataset.display_name }} ({{ dataset.short_name }})
     {% else %}
     New Dataset
     {% endif %}
   </li>
   {% endblock %}
 </ul>
+
+{% if dataset %}<h2>{{ dataset.display_name }} <a class="btn btn-primary" href="{% url 'manager_place_create' dataset.short_name %}">Add New Place</a></h2>
+{% endif %}
 
 {% block dataset_content %}
 {% endblock dataset_content %}

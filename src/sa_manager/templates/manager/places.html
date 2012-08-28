@@ -15,7 +15,9 @@
   </li>
 </ul>
 
-<h2>Places in &quot;{{ dataset.display_name }}&quot; <a class="btn btn-primary" href="new">Add New Place</a></h2>
+<h2>{{ dataset.display_name }} <a class="btn btn-primary" href="new">Add New Place</a></h2>
+
+{% include "manager/dataset_tabs.html" with places_active=1 %}
 
 <table class="table">
   <thead>
@@ -28,11 +30,16 @@
   <tbody>
     {% for place in places %}
     <tr>
-      <td><a href="{{ place.id }}">Place named "{{ place.name }}"</a></td>
+      <td><a href="{{ place.id }}">"{{ place.name }}"</a></td>
       <td>
+        <a href="{% url 'manager_place_submission_list' dataset.short_name place.id 'submissions' %}" class="btn btn-small">
+          {{ place.submission_count }} Submission{{ place.submission_count|pluralize }}
+          <i class="icon-chevron-right"></i>
+        </a>
+
         <ul>
           {% for submission in place.submissions %}
-          <li>{{ submission.count }} {{ submission.type }}</li>
+          <li><a href="{% url 'manager_place_submission_list' dataset.short_name place.id submission.type %}">{{ submission.count }} {{ submission.type }}</a></li>
           {% endfor %}
         </ul>
       </td>
