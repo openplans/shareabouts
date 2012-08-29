@@ -26,8 +26,7 @@ var Shareabouts = Shareabouts || {};
       // TODO: remove hard coded values here, add to config
       this.mapView = new S.MapView({
         el: '#map',
-        center: {lat: 39.9523524, lng: -75.1636075},
-        zoom: 14,
+        mapConfig: this.options.mapConfig,
         collection: this.collection,
         router: this.options.router,
         placeTypes: this.options.placeTypes

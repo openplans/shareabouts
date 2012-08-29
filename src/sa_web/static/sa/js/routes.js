@@ -25,6 +25,7 @@ var Shareabouts = Shareabouts || {};
         surveyConfig: options.surveyConfig,
         supportConfig: options.supportConfig,
         pagesConfig: options.pagesConfig,
+        mapConfig: options.mapConfig,
         userToken: options.userToken,
         router: this
       });

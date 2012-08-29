@@ -160,7 +160,8 @@
 
         surveyConfig = {{ survey_config_json|safe }},
         supportConfig = {{ support_config_json|safe }},
-        pagesConfig = {{ pages_config_json|safe }};
+        pagesConfig = {{ pages_config_json|safe }},
+        mapConfig = {{ map_config_json|safe }};
 
     // Define each Leaflet Icon type
     _.each(placeTypeIconsConfig, function(config, name) {
@@ -194,7 +195,8 @@
         placeTypes: placeTypes,
         surveyConfig: surveyConfig,
         supportConfig: supportConfig,
-        pagesConfig: pagesConfig
+        pagesConfig: pagesConfig,
+        mapConfig: mapConfig
       });
     });
   })(Shareabouts, jQuery);

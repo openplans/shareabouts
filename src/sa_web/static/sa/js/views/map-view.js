@@ -6,17 +6,25 @@ var Shareabouts = Shareabouts || {};
     initialize: function() {
       var self = this,
           i, layerModel,
-          baseTileUrl = 'http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png',
-          baseTileAttribution = 'Map data &copy; OpenStreetMap contributors, CC-BY-SA <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>',
-          baseTile = new L.TileLayer(baseTileUrl, {maxZoom: 18, attribution: baseTileAttribution});
+          // Base layer config is optional, default to Mapbox Streets
+          baseLayerConfig = _.extend({
+            url: 'http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png',
+            attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
+          }, self.options.mapConfig.base_layer),
+          baseLayer = new L.TileLayer(baseLayerConfig.url, baseLayerConfig);
 
       // Init the map
-      self.map = new L.Map(self.el);
+      self.map = new L.Map(self.el, self.options.mapConfig.options);
       self.placeLayers = new L.LayerGroup();
 
-      self.map.addLayer(baseTile);
-      self.map.addLayer(self.placeLayers);
-      self.map.setView(new L.LatLng(self.options.center.lat, self.options.center.lng), self.options.zoom);
+      self.map.addLayer(baseLayer);
+      // Remove default prefix
+      self.map.attributionControl.setPrefix('');
+
+      _.each(self.options.mapConfig.layers, function(layerConfig){
+        var layer = new L.TileLayer(layerConfig.url, layerConfig);
+        self.map.addLayer(layer);
+      });
 
       // Init the layer view cache
       this.layerViews = {};
