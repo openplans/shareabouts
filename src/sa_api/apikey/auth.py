@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.core.exceptions import PermissionDenied
+from djangorestframework import authentication
 from .models import ApiKey
 
 KEY_HEADER = 'HTTP_X_SHAREABOUTS_KEY'
@@ -71,3 +72,21 @@ def check_api_authorization(request):
             return True
         else:
             raise PermissionDenied("Your account is disabled.")
+
+
+class ApiKeyAuthentication(authentication.BaseAuthentication):
+
+    def authenticate(self, request):
+        """
+        Return a User, or something usable as such, or None;
+        as per http://django-rest-framework.org/library/authentication.html
+
+        This wraps check_api_authorization() in something usable
+        by djangorestframework.
+        """
+        try:
+            check_api_authorization(request)
+        except PermissionDenied:
+            # Does djrf allow you to provide a message with auth failures?
+            return None
+        return request.user
