@@ -171,6 +171,16 @@ class PlaceCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDa
         content['dataset'] = dataset
         return super(PlaceCollectionView, self).get_instance_data(model, content, **kwargs)
 
+    def get_queryset(self):
+        # Expects 'all' or not defined
+        visibility = self.request.GET.get('visible', 'true')
+        queryset = super(PlaceCollectionView, self).get_queryset()
+
+        if (visibility == 'all'):
+            return queryset
+        elif visibility == 'true':
+            return queryset.filter(visible=True)
+
     def post(self, request, *args, **kwargs):
         response = super(PlaceCollectionView, self).post(request, *args, **kwargs)
         # djangorestframework automagically sets Location, but ...
@@ -268,6 +278,12 @@ class ActivityView (Ignore_CacheBusterMixin, AbsUrlMixin, views.ListModelView):
     form = forms.ActivityForm
     cache_prefix = 'activity'
 
+    def get_places(self):
+        return models.Place.objects.all().filter(visible=True)
+
+    def get_submissions(self):
+        return models.Submission.objects.all().select_related('parent').filter(parent__place__visible=True)
+
     def get_queryset(self):
         """
         Get a list containing objects of all the activity matching the given
@@ -277,7 +293,7 @@ class ActivityView (Ignore_CacheBusterMixin, AbsUrlMixin, views.ListModelView):
         additional filtering; do it in get() instead. (Also easier to test.)
         """
         # Validate the query and get the parameters
-        activity = super(ActivityView, self).get_queryset()
+        activity = self._resource.queryset
         query_params = self.PARAMS
         latest_id = query_params.get('before')
         earliest_id = query_params.get('after')

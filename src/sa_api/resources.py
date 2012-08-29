@@ -187,6 +187,10 @@ class ActivityResource (resources.ModelResource):
     model = models.Activity
     fields = ['action', 'type', 'id', 'place_id', ('data', GeneralSubmittedThingResource)]
 
+    @property
+    def queryset(self):
+        return models.Activity.objects.filter(data_id__in=self.things)
+
     @utils.cached_property
     def things(self):
         """
@@ -196,13 +200,13 @@ class ActivityResource (resources.ModelResource):
         """
         things = {}
 
-        for place in models.Place.objects.all():
+        for place in self.view.get_places():
             things[place.submittedthing_ptr_id] = {
                 'type': 'places',
                 'place_id': place.id,
                 'data': place
             }
-        for submission in models.Submission.objects.all().select_related('parent'):
+        for submission in self.view.get_submissions():
             things[submission.submittedthing_ptr_id] = {
                 'type': submission.parent.submission_type,
                 'place_id': submission.parent.place_id,
