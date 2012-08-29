@@ -10,6 +10,7 @@ from . import models
 from . import forms
 from . import parsers
 from . import utils
+import apikey.auth
 
 
 class CachedMixin (object):
@@ -25,7 +26,9 @@ class CachedMixin (object):
         # Check whether the response data is in the cache.
         key = ''.join([self.cache_prefix,
                        request.META['QUERY_STRING'],
-                       request.META['HTTP_ACCEPT']])
+                       request.META['HTTP_ACCEPT'],
+                       request.META.get(apikey.auth.KEY_HEADER, ''),
+                       ])
         response_data = cache.get(key)
 
         if response_data:
