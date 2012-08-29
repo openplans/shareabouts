@@ -14,19 +14,41 @@ import apikey.auth
 import functools
 
 
+def raise_error_if_not_authenticated(view, request, *args, **kwargs):
+    if getattr(request, 'user', None) is None:
+        # Probably happens only in tests that have forgotten to set the user.
+        raise permissions._403_FORBIDDEN_RESPONSE
+    permissions.IsAuthenticated(view).check_permission(request.user)
+
+
 def auth_required(f):
     """View method decorator that checks permissions.IsAuthenticated.
     Using this because djangorestframework allows settings permissions
     per class, not per method.
+
+    On classes that have AuthMixin as a base, this will use our own
+    auth backend to look up the user, eg. via api key if provided.
+
+    Not sure if we need a decorator, since often POST etc. come from
+    base classes, so there's nothing to decorate.
     """
     @functools.wraps(f)
-    def raise_error_if_not_authenticated(self, request, *args, **kwargs):
-        if getattr(request, 'user', None) is None:
-            # Probably happens only in tests that have forgotten to set the user.
-            raise permissions._403_FORBIDDEN_RESPONSE
-        permissions.IsAuthenticated(self).check_permission(request.user)
+    def wrapper(self, request, *args, **kwargs):
+        raise_error_if_not_authenticated(self, request, *args, **kwargs)
         return f(self, request, *args, **kwargs)
-    return raise_error_if_not_authenticated
+    return wrapper
+
+
+class AuthMixin(object):
+    """
+    Inherit from this to protect all unsafe requests.
+    """
+    authentication = [apikey.auth.ApiKeyAuthentication]
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.method not in ('GET', 'HEAD', 'OPTIONS'):
+            raise_error_if_not_authenticated(self, request, *args, **kwargs)
+        return super(AuthMixin, self).dispatch(request, *args, **kwargs)
 
 
 class CachedMixin (object):
@@ -129,10 +151,6 @@ class ModelViewWithDataBlobMixin (object):
             utils.unpack_data_blob(self._data)
 
 
-class AuthMixin(object):
-    authentication = [apikey.auth.ApiKeyAuthentication]
-
-
 # TODO derive from CachedMixin to enable caching
 class DataSetCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.DataSetResource
@@ -145,7 +163,6 @@ class DataSetCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, Mo
         content['owner'] = get_object_or_404(auth.models.User, username=username)
         return super(DataSetCollectionView, self).get_instance_data(model, content, **kwargs)
 
-    @auth_required
     def post(self, request, *args, **kwargs):
         response = super(DataSetCollectionView, self).post(request, *args, **kwargs)
         # Create an API key for the DataSet we just created.

@@ -98,6 +98,7 @@ class TestDataSetInstanceView(TestCase):
         request = RequestFactory().put(url, data=json.dumps(data),
                                        content_type='application/json'
                                        )
+        request.user = mock.Mock(**{'is_authenticated.return_value': True})
         from ..views import DataSetInstanceView
         view = DataSetInstanceView().as_view()
         response = view(request, **kwargs)
@@ -191,6 +192,7 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
         }
         request = RequestFactory().post('/places/%d/comments/' % place.id,
                                         data=json.dumps(data), content_type='application/json')
+        request.user = mock.Mock(**{'is_authenticated.return_value': True})
         view = SubmissionCollectionView.as_view()
 
         response = view(request, place_id=place.id,
@@ -236,7 +238,7 @@ class TestSubmissionInstanceAPI (TestCase):
 
         request = RequestFactory().put(self.url, data=json.dumps(data),
                                        content_type='application/json')
-
+        request.user = mock.Mock(**{'is_authenticated.return_value': True})
         response = self.view(request, place_id=self.place.id,
                              pk=self.submission.id,
                              submission_type='comments')
@@ -247,6 +249,7 @@ class TestSubmissionInstanceAPI (TestCase):
     @istest
     def delete_request_should_delete_submission(self):
         request = RequestFactory().delete(self.url)
+        request.user = mock.Mock(**{'is_authenticated.return_value': True})
         response = self.view(request, place_id=self.place.id,
                              pk=self.submission.id,
                              submission_type='comments')
@@ -397,6 +400,7 @@ class TestPlaceCollectionView(TestCase):
                 }
         request = RequestFactory().post(uri, data=json.dumps(data),
                                         content_type='application/json')
+        request.user = user
         # Ready to post. Verify there are no Places yet...
         assert_equal(models.Place.objects.count(), 0)
 
