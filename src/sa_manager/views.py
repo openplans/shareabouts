@@ -60,7 +60,7 @@ class ShareaboutsApi (object):
 
     def get(self, url, default=None):
         """
-        Returns body text from a GET request, or default on non-200
+        Returns decoded data from a GET request, or default on non-200
         responses.
         """
         res = self.send('GET', url)
