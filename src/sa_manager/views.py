@@ -309,10 +309,12 @@ def datasets_view(request):
     # TODO: use ShareaboutsApi; standardize URI building.
     # (reverse() may not be correct if sa_api and sa_manager aren't
     # deployed together; likewise for build_absolute_uri())
-    datasets_uri = request.build_absolute_uri(
-        reverse('dataset_collection_by_user', args=[request.user.username]))
-    response = requests.get(datasets_uri)
-    datasets = json.loads(response.text)
+    api = ShareaboutsApi(request)
+    api.authenticate(request)
+
+    datasets_uri = api.build_uri('dataset_collection', username=request.user.username)
+
+    datasets = api.get(datasets_uri)
     for ds in datasets:
         ds['manage_uri'] = reverse('manager_dataset_detail',
                                    kwargs={'dataset_slug': ds['slug']})
