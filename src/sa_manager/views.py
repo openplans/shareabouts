@@ -7,12 +7,31 @@ from django.views.generic import View
 import json
 import requests
 
+
 API_ROOT = '/api/v1/'
-
-
 class ShareaboutsApi (object):
-    def __init__(self, root=API_ROOT):
-        self.root = root
+    uri_templates = {
+        'dataset_collection': r'datasets/{username}/',
+        'dataset_instance': r'datasets/{username}/{slug}/',
+        'place_collection': r'datasets/{username}/{dataset_slug}/places/',
+        'place_instance': r'datasets/{username}/{dataset_slug}/places/{pk}/',
+        'submission_collection': r'datasets/{username}/{dataset_slug}/places/{place_pk}/{type}/',
+        'submission_instance': r'datasets/{username}/{dataset_slug}/places/{place_pk}/{type}/{pk}',
+    }
+
+    def __init__(self, request=None, root='/api/v1/'):
+        if request:
+            self.uri_root = request.build_absolute_uri(root)
+        else:
+            self.uri_root = root
+
+    def __unicode__(self):
+        return '<Shareabouts API object with root "{0}">'.format(self.uri_root)
+
+    def build_uri(self, name, *args, **kwargs):
+        uri_template = self.uri_templates[name]
+        uri_path = uri_template.format(*args, **kwargs)
+        return (self.uri_root + uri_path)
 
     def authenticate(self, request):
         self.csrf_token = request.META.get('CSRF_COOKIE', '')
@@ -22,7 +41,8 @@ class ShareaboutsApi (object):
         if data is not None:
             data = json.dumps(data)
 
-        headers = {'Content-type': 'application/json'}
+        headers = {'Content-type': 'application/json',
+                   'Accept': 'application/json'}
 
         # Set authentication headers
         if hasattr(self, 'csrf_token') and hasattr(self, 'cookies'):
@@ -38,13 +58,14 @@ class ShareaboutsApi (object):
         response = requests.request(method, url, data=data, headers=headers)
         return response
 
-    def get(self, path, default=None):
+    def get(self, url, default=None):
         """
         Returns body text from a GET request, or default on non-200
         responses.
         """
-        res = requests.get(self.root + path, headers={'Accept': 'application/json'})
-        return (res.text if res.status_code == 200 else default)
+        res = self.send('GET', url)
+        res_json = res.text
+        return (json.loads(res_json) if res.status_code == 200 else default)
 
 
 @login_required
@@ -55,12 +76,12 @@ def index_view(request):
 @login_required
 def places_view(request, dataset_slug):
     # TODO use ShareaboutsApi
-    dataset_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/')
-    places_uri = dataset_uri + 'places/'
-    response = requests.get(places_uri)
-    places = json.loads(response.text)
-    response = requests.get(dataset_uri)
-    dataset = json.loads(response.text)
+    api = ShareaboutsApi(request)
+    dataset_uri = api.build_uri('dataset_instance', username=request.user.username, slug=dataset_slug)
+    places_uri = api.build_uri('place_collection', username=request.user.username, dataset_slug=dataset_slug)
+
+    places = api.get(places_uri)
+    dataset = api.get(dataset_uri)
 
     for place in places:
         place['submission_count'] = sum([s['count'] for s in place['submissions']])
@@ -183,9 +204,7 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
         self.process_data_blob()
 
         # Send the save request
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('POST', self.places_uri, data)
+        response = self.api.send('POST', self.places_uri, data)
 
         if response.status_code == 201:
             data = json.loads(response.text)
@@ -200,11 +219,8 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
 
     def read(self, request, dataset_slug, pk):
         # Retrieve the place data.
-        response = requests.get(self.place_uri)
-        place = json.loads(response.text)
-
-        response = requests.get(self.dataset_uri)
-        dataset = json.loads(response.text)
+        place = self.api.get(self.place_uri)
+        dataset = self.api.get(self.dataset_uri)
 
         # Arrange the place data fields for display on the form
         data_fields = self.make_data_fields_tuples(place)
@@ -221,9 +237,7 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
         self.process_data_blob()
 
         # Send the save request
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('PUT', self.place_uri, data)
+        response = self.api.send('PUT', self.place_uri, data)
 
         if response.status_code == 200:
             messages.success(request, 'Successfully saved!')
@@ -235,9 +249,7 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
 
     def delete(self, request, dataset_slug, pk):
         # Send the delete request
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('DELETE', self.place_uri)
+        response = self.api.send('DELETE', self.place_uri)
 
         if response.status_code == 204:
             messages.success(request, 'Successfully deleted!')
@@ -252,8 +264,12 @@ class NewPlaceView (PlaceFormMixin, View):
 
     @method_decorator(login_required)
     def dispatch(self, request, dataset_slug):
-        self.dataset_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/')
-        self.places_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/places/')
+        self.api = ShareaboutsApi(request)
+        self.api.authenticate(request)
+
+        self.dataset_uri = self.api.build_uri('dataset_instance', username=request.user.username, slug=dataset_slug)
+        self.places_uri = self.api.build_uri('place_collection', username=request.user.username, dataset_slug=dataset_slug)
+
         return super(NewPlaceView, self).dispatch(request, dataset_slug)
 
     def get(self, request, dataset_slug):
@@ -267,8 +283,12 @@ class ExistingPlaceView (PlaceFormMixin, View):
 
     @method_decorator(login_required)
     def dispatch(self, request, dataset_slug, pk):
-        self.dataset_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/')
-        self.place_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/places/{0}/'.format(pk))
+        self.api = ShareaboutsApi(request)
+        self.api.authenticate(request)
+
+        self.dataset_uri = self.api.build_uri('dataset_instance', username=request.user.username, slug=dataset_slug)
+        self.place_uri = self.api.build_uri('place_instance', username=request.user.username, dataset_slug=dataset_slug, pk=pk)
+
         return super(ExistingPlaceView, self).dispatch(request, dataset_slug, pk)
 
     def get(self, request, dataset_slug, pk):
