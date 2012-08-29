@@ -21,6 +21,8 @@ urlpatterns = patterns('',
 
     # For now, use basic auth.
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout_then_login',
+        name='manager_logout'),
 
     # For now, the API and the management console are hosted together.
     url(r'^api/v1/', include('sa_api.urls')),

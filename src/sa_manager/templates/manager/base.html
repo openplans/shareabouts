@@ -33,6 +33,7 @@
 
   <body>
 
+    {% block navbar %}
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -42,12 +43,15 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="{% url 'manager_index' %}">Shareabouts Manager</a>
+          {% if request.user.is_authenticated %}<a href="{% url 'manager_logout' %}?next={{ request.get_full_path }}">Log out</a>{% endif %}
         </div>
       </div>
     </div>
+    {% endblock navbar %}
 
     <div class="container">
 
+      {% block messages %}
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
@@ -55,9 +59,10 @@
         </div>
         {% endfor %}
         {% endif %}
+      {% endblock messages %}
 
-        {% block content %}
-        {% endblock content %}
+      {% block content %}
+      {% endblock content %}
 
     </div> <!-- /container -->
 
