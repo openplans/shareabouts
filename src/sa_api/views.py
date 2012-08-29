@@ -11,32 +11,13 @@ from . import forms
 from . import parsers
 from . import utils
 import apikey.auth
-import functools
 
 
-def raise_error_if_not_authenticated(view, request, *args, **kwargs):
+def raise_error_if_not_authenticated(view, request):
     if getattr(request, 'user', None) is None:
         # Probably happens only in tests that have forgotten to set the user.
         raise permissions._403_FORBIDDEN_RESPONSE
     permissions.IsAuthenticated(view).check_permission(request.user)
-
-
-def auth_required(f):
-    """View method decorator that checks permissions.IsAuthenticated.
-    Using this because djangorestframework allows settings permissions
-    per class, not per method.
-
-    On classes that have AuthMixin as a base, this will use our own
-    auth backend to look up the user, eg. via api key if provided.
-
-    Not sure if we need a decorator, since often POST etc. come from
-    base classes, so there's nothing to decorate.
-    """
-    @functools.wraps(f)
-    def wrapper(self, request, *args, **kwargs):
-        raise_error_if_not_authenticated(self, request, *args, **kwargs)
-        return f(self, request, *args, **kwargs)
-    return wrapper
 
 
 class AuthMixin(object):
@@ -47,7 +28,7 @@ class AuthMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
         if request.method not in ('GET', 'HEAD', 'OPTIONS'):
-            raise_error_if_not_authenticated(self, request, *args, **kwargs)
+            raise_error_if_not_authenticated(self, request)
         return super(AuthMixin, self).dispatch(request, *args, **kwargs)
 
 

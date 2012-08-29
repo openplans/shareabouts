@@ -8,17 +8,17 @@ from nose.tools import istest, assert_equal, assert_in, assert_raises
 from ..models import DataSet, Place, Submission, SubmissionSet
 from ..models import SubmittedThing, Activity
 from ..views import SubmissionCollectionView
+from ..views import raise_error_if_not_authenticated
 import json
 import mock
 
 
-class TestAuthRequiredDecorator(object):
+class TestAuthFunctions(object):
 
     class DummyView(object):
-        from ..views import auth_required
 
-        @auth_required
         def post(self, request):
+            raise_error_if_not_authenticated(self, request)
             return 'ok'
 
     @istest
