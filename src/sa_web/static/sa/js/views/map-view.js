@@ -16,8 +16,8 @@ var Shareabouts = Shareabouts || {};
       // Init the map
       self.map = new L.Map(self.el, self.options.mapConfig.options);
       self.placeLayers = new L.LayerGroup();
-
       self.map.addLayer(baseLayer);
+
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
 
@@ -25,6 +25,8 @@ var Shareabouts = Shareabouts || {};
         var layer = new L.TileLayer(layerConfig.url, layerConfig);
         self.map.addLayer(layer);
       });
+
+      self.map.addLayer(self.placeLayers);
 
       // Init the layer view cache
       this.layerViews = {};
