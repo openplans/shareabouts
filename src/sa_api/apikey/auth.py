@@ -53,7 +53,8 @@ def check_api_authorization(request):
 
     This should become more configurable.
     """ % KEY_HEADER
-    if request.user.is_authenticated():
+    user = getattr(request, 'user', None)
+    if user is not None and user.is_authenticated():
         user = request.user
         if user.is_active:
             return True

@@ -4,11 +4,43 @@ from django.test.client import RequestFactory
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from mock import patch
-from nose.tools import istest, assert_equal, assert_in
+from nose.tools import istest, assert_equal, assert_in, assert_raises
 from ..models import DataSet, Place, Submission, SubmissionSet
 from ..models import SubmittedThing, Activity
 from ..views import SubmissionCollectionView
 import json
+import mock
+
+
+class TestAuthRequiredDecorator(object):
+
+    class DummyView(object):
+        from ..views import auth_required
+
+        @auth_required
+        def post(self, request):
+            return 'ok'
+
+    @istest
+    def test_auth_required_without_a_user(self):
+        request = RequestFactory().post('/foo')
+        from djangorestframework.response import ErrorResponse
+        assert_raises(ErrorResponse, self.DummyView().post, request)
+
+    @istest
+    def test_auth_required_with_logged_out_user(self):
+        request = RequestFactory().post('/foo')
+        request.user = mock.Mock(**{'is_authenticated.return_value': False})
+        from djangorestframework.response import ErrorResponse
+        assert_raises(ErrorResponse, self.DummyView().post, request)
+
+    @istest
+    def test_auth_required_with_logged_in_user(self):
+        request = RequestFactory().post('/foo')
+        request.user = mock.Mock(**{'is_authenticated.return_value': True,
+                                    'username': 'bob'})
+        # No exceptions, don't care about return value.
+        self.DummyView().post(request)
 
 
 class TestDataSetCollectionView(TestCase):
@@ -34,6 +66,7 @@ class TestDataSetCollectionView(TestCase):
 
         request = RequestFactory().post(url, data=json.dumps(data),
                                         content_type='application/json')
+        request.user = user
         view = DataSetCollectionView().as_view()
         # Have to pass kwargs explicitly if not using
         # urlresolvers.resolve() etc.
