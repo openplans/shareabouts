@@ -43,7 +43,14 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="{% url 'manager_index' %}">Shareabouts Manager</a>
-          {% if request.user.is_authenticated %}<a href="{% url 'manager_logout' %}?next={{ request.get_full_path }}">Log out</a>{% endif %}
+
+          <div class="nav pull-right">
+            {% if request.user.is_authenticated %}
+              Logged in as {{ request.user.username }}.
+              <a href="{% url 'manager_logout' %}?next={{ request.get_full_path }}">Log out</a>
+           {% endif %}
+         </div>
+
         </div>
       </div>
     </div>
