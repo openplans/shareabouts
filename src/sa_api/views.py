@@ -3,7 +3,7 @@ from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
-from djangorestframework.response import Response
+from djangorestframework.response import Response, ErrorResponse
 from djangorestframework import views, authentication, permissions
 from . import resources
 from . import models
@@ -11,6 +11,7 @@ from . import forms
 from . import parsers
 from . import utils
 import apikey.auth
+import json
 
 
 def raise_error_if_not_authenticated(view, request):
@@ -28,7 +29,13 @@ class AuthMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
         if request.method not in ('GET', 'HEAD', 'OPTIONS'):
-            raise_error_if_not_authenticated(self, request)
+            try:
+                raise_error_if_not_authenticated(self, request)
+            except ErrorResponse as e:
+                content = json.dumps(e.response.raw_content)
+                response = HttpResponse(content, status=e.response.status)
+                response['Content-Type'] = 'application/json'
+                return response
         return super(AuthMixin, self).dispatch(request, *args, **kwargs)
 
 
