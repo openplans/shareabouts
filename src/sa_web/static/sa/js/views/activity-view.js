@@ -100,7 +100,7 @@ var Shareabouts = Shareabouts || {};
         if (actionType == surveyConfig.submission_type) {
           actionText = this.options.surveyConfig.action_text;
         } else if (actionType == supportConfig.submission_type) {
-          actionText = this.options.supportConfig.action_text
+          actionText = this.options.supportConfig.action_text;
         }
       }
 
@@ -114,7 +114,7 @@ var Shareabouts = Shareabouts || {};
         submitter_is_anonymous: (!model.get('data').submitter_name),
         place: placeData,
         action: actionText,
-        is_place: isPlaceAction,
+        is_place: isPlaceAction
       }, model.toJSON());
 
       modelData.action = actionText;
