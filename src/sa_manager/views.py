@@ -474,7 +474,7 @@ class SubmissionMixin (BaseDataBlobFormMixin):
             self.submission_uri = self.api.build_uri('submission_instance', username=request.user.username, dataset_slug=dataset_slug, place_pk=place_id, type=submission_type, pk=pk)
 
         self.special_fields = ('id', 'submitter_name', 'url', 'visible',
-                               'created_datetime', 'updated_datetime')
+                               'created_datetime', 'updated_datetime', 'type')
         return super(SubmissionMixin, self).dispatch(request, dataset_slug, place_id, submission_type, *args, **kwargs)
 
     def index(self, request, dataset_slug, place_id, submission_type):
@@ -520,8 +520,8 @@ class SubmissionMixin (BaseDataBlobFormMixin):
         place = self.api.get(self.place_uri)
 
         return render(request, "manager/place_submission.html", {
-            'submission_type': None if submission_type == 'submissions'
-                               else submission_type,
+            'type': None if submission_type == 'submissions'
+                         else submission_type,
             'place': place,
             'dataset': dataset
         })
@@ -532,8 +532,8 @@ class SubmissionMixin (BaseDataBlobFormMixin):
         # Grab the submission type off of the form.  This will be in a hidden
         # field if the submission type was known before-hand, or in a text
         # field if the user had to enter it.
-        self.actual_submission_type = data['submission_type']
-        del data['submission_type']
+        self.actual_submission_type = data['type']
+        del data['type']
 
         # Fix the visibility to be either true or false (boolean)
         data['visible'] = ('visible' in data)
@@ -576,7 +576,7 @@ class SubmissionMixin (BaseDataBlobFormMixin):
             'place': place,
             'dataset': dataset,
             'submission': submission,
-            'submission_type': submission_type,
+            'type': submission_type,
             'data_fields': data_fields
         })
 
