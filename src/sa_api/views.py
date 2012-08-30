@@ -5,12 +5,32 @@ from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from djangorestframework.response import Response
-from djangorestframework import views, authentication
+from djangorestframework import views, authentication, permissions
 from . import resources
 from . import models
 from . import forms
 from . import parsers
 from . import utils
+import apikey.auth
+
+
+def raise_error_if_not_authenticated(view, request):
+    if getattr(request, 'user', None) is None:
+        # Probably happens only in tests that have forgotten to set the user.
+        raise permissions._403_FORBIDDEN_RESPONSE
+    permissions.IsAuthenticated(view).check_permission(request.user)
+
+
+class AuthMixin(object):
+    """
+    Inherit from this to protect all unsafe requests.
+    """
+    authentication = [apikey.auth.ApiKeyAuthentication]
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.method not in ('GET', 'HEAD', 'OPTIONS'):
+            raise_error_if_not_authenticated(self, request)
+        return super(AuthMixin, self).dispatch(request, *args, **kwargs)
 
 
 class CachedMixin (object):
@@ -27,7 +47,9 @@ class CachedMixin (object):
         # Check whether the response data is in the cache.
         key = ''.join([self.cache_prefix,
                        request.META['QUERY_STRING'],
-                       request.META['HTTP_ACCEPT']])
+                       request.META['HTTP_ACCEPT'],
+                       request.META.get(apikey.auth.KEY_HEADER, ''),
+                       ])
         response_data = cache.get(key)
 
         if response_data:
@@ -114,7 +136,7 @@ class ModelViewWithDataBlobMixin (object):
 
 
 # TODO derive from CachedMixin to enable caching
-class DataSetCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
+class DataSetCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.DataSetResource
     authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'dataset_collection'
@@ -138,9 +160,8 @@ class DataSetCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWith
         return response
 
 
-class DataSetInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
+class DataSetInstanceView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.DataSetResource
-    authentication = (authentication.BasicAuthentication,)
 
     def put(self, request, *args, **kwargs):
         instance = super(DataSetInstanceView, self).put(request, *args, **kwargs)
@@ -158,10 +179,9 @@ class DataSetInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDa
 
 
 # TODO derive from CachedMixin to enable caching
-class PlaceCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
+class PlaceCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     # TODO: Decide whether pagination is appropriate/necessary.
     resource = resources.PlaceResource
-    authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'place_collection'
 
     def get_instance_data(self, model, content, **kwargs):
@@ -182,12 +202,12 @@ class PlaceCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDa
         return response
 
 
-class PlaceInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
+class PlaceInstanceView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.PlaceResource
     authentication = (authentication.BasicAuthentication,)
 
 
-class SubmissionCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
+class SubmissionCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.SubmissionResource
 
     def get(self, request, place_id, submission_type, **kwargs):
@@ -229,7 +249,7 @@ class SubmissionCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewW
         return super(SubmissionCollectionView, self).get_instance_data(model, content,)
 
 
-class SubmissionInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
+class SubmissionInstanceView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.SubmissionResource
 
     def get_instance(self, **kwargs):
@@ -242,7 +262,7 @@ class SubmissionInstanceView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWit
 
 
 # TODO derive from CachedMixin to enable caching
-class ActivityView (Ignore_CacheBusterMixin, AbsUrlMixin, views.ListModelView):
+class ActivityView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, views.ListModelView):
     """
     Get a list of activities ordered by the `created_datetime` in reverse.
 

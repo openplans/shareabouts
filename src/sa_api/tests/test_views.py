@@ -4,11 +4,43 @@ from django.test.client import RequestFactory
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from mock import patch
-from nose.tools import istest, assert_equal, assert_in
+from nose.tools import istest, assert_equal, assert_in, assert_raises
 from ..models import DataSet, Place, Submission, SubmissionSet
 from ..models import SubmittedThing, Activity
 from ..views import SubmissionCollectionView
+from ..views import raise_error_if_not_authenticated
 import json
+import mock
+
+
+class TestAuthFunctions(object):
+
+    class DummyView(object):
+
+        def post(self, request):
+            raise_error_if_not_authenticated(self, request)
+            return 'ok'
+
+    @istest
+    def test_auth_required_without_a_user(self):
+        request = RequestFactory().post('/foo')
+        from djangorestframework.response import ErrorResponse
+        assert_raises(ErrorResponse, self.DummyView().post, request)
+
+    @istest
+    def test_auth_required_with_logged_out_user(self):
+        request = RequestFactory().post('/foo')
+        request.user = mock.Mock(**{'is_authenticated.return_value': False})
+        from djangorestframework.response import ErrorResponse
+        assert_raises(ErrorResponse, self.DummyView().post, request)
+
+    @istest
+    def test_auth_required_with_logged_in_user(self):
+        request = RequestFactory().post('/foo')
+        request.user = mock.Mock(**{'is_authenticated.return_value': True,
+                                    'username': 'bob'})
+        # No exceptions, don't care about return value.
+        self.DummyView().post(request)
 
 
 class TestDataSetCollectionView(TestCase):
@@ -34,6 +66,7 @@ class TestDataSetCollectionView(TestCase):
 
         request = RequestFactory().post(url, data=json.dumps(data),
                                         content_type='application/json')
+        request.user = user
         view = DataSetCollectionView().as_view()
         # Have to pass kwargs explicitly if not using
         # urlresolvers.resolve() etc.
@@ -65,6 +98,7 @@ class TestDataSetInstanceView(TestCase):
         request = RequestFactory().put(url, data=json.dumps(data),
                                        content_type='application/json'
                                        )
+        request.user = mock.Mock(**{'is_authenticated.return_value': True})
         from ..views import DataSetInstanceView
         view = DataSetInstanceView().as_view()
         response = view(request, **kwargs)
@@ -158,6 +192,7 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
         }
         request = RequestFactory().post('/places/%d/comments/' % place.id,
                                         data=json.dumps(data), content_type='application/json')
+        request.user = mock.Mock(**{'is_authenticated.return_value': True})
         view = SubmissionCollectionView.as_view()
 
         response = view(request, place_id=place.id,
@@ -203,7 +238,7 @@ class TestSubmissionInstanceAPI (TestCase):
 
         request = RequestFactory().put(self.url, data=json.dumps(data),
                                        content_type='application/json')
-
+        request.user = mock.Mock(**{'is_authenticated.return_value': True})
         response = self.view(request, place_id=self.place.id,
                              pk=self.submission.id,
                              submission_type='comments')
@@ -214,6 +249,7 @@ class TestSubmissionInstanceAPI (TestCase):
     @istest
     def delete_request_should_delete_submission(self):
         request = RequestFactory().delete(self.url)
+        request.user = mock.Mock(**{'is_authenticated.return_value': True})
         response = self.view(request, place_id=self.place.id,
                              pk=self.submission.id,
                              submission_type='comments')
@@ -364,6 +400,7 @@ class TestPlaceCollectionView(TestCase):
                 }
         request = RequestFactory().post(uri, data=json.dumps(data),
                                         content_type='application/json')
+        request.user = user
         # Ready to post. Verify there are no Places yet...
         assert_equal(models.Place.objects.count(), 0)
 
