@@ -3,6 +3,7 @@ from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from django.views.decorators.csrf import csrf_exempt
 from djangorestframework.response import Response
 from djangorestframework import views, authentication
 from . import resources
@@ -17,6 +18,7 @@ class CachedMixin (object):
     def cache_prefix(self):
         return self.__class__.__name__.lower()
 
+    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         # Only do the cache for GET method.
         if request.method.lower() != 'get':
@@ -86,6 +88,7 @@ class AbsUrlMixin (object):
 
 
 class Ignore_CacheBusterMixin (object):
+    @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
         # In order to ensure the return of a non-cached version of the view,
         # jQuery adds an _ query parameter with random data.  Ignore that
