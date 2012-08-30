@@ -325,14 +325,17 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        self.datasets_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/')
+        self.api = ShareaboutsApi(request)
+        self.api.authenticate(request)
+
+        self.datasets_uri = self.api.build_uri('dataset_collection', username=request.user.username)
         self.special_fields = ('id', 'owner', 'display_name', 'slug')
+
         return super(DataSetFormMixin, self).dispatch(request, *args, **kwargs)
 
     def read(self, request, dataset_slug):
         # Retrieve the dataset data.
-        response = requests.get(self.dataset_uri)
-        dataset = json.loads(response.text)
+        dataset = self.api.get(self.dataset_uri)
 
         # Arrange the data fields for display on the form
         data_fields = self.make_data_fields_tuples(dataset)
@@ -354,9 +357,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         self.data_blob = data = request.POST.dict()
         self.process_data_blob()
 
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('POST', self.datasets_uri, data)
+        response = self.api.send('POST', self.datasets_uri, data)
 
         if response.status_code == 201:
             data = json.loads(response.text)
@@ -374,9 +375,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         self.process_data_blob()
 
         # Send the save request
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('PUT', self.dataset_uri, data)
+        response = self.api.send('PUT', self.dataset_uri, data)
 
         if response.status_code == 200:
             # Note that we end up with 200 even if the dataset is
@@ -404,9 +403,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
 
     def delete(self, request, dataset_slug):
         # Send the delete request
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('DELETE', self.dataset_uri)
+        response = self.api.send('DELETE', self.dataset_uri)
 
         if response.status_code == 204:
             messages.success(request, 'Successfully deleted!')
@@ -433,7 +430,7 @@ class ExistingDataSetView (DataSetFormMixin, View):
 
     @method_decorator(login_required)
     def dispatch(self, request, dataset_slug):
-        self.dataset_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/')
+        self.dataset_uri = self.api.build_uri('dataset_instance', username=request.user.username, slug=dataset_slug)
         return super(ExistingDataSetView, self).dispatch(request, dataset_slug)
 
     def get(self, request, dataset_slug):
