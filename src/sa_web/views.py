@@ -109,8 +109,14 @@ def index(request):
 
 
 def api(request, path):
+    """
+    A small proxy for a Shareabouts API server, exposing only
+    one configured dataset.
+    """
     with open(settings.SHAREABOUTS_CONFIG) as config_yml:
         config = yaml.load(config_yml)
     dataset = config['dataset']
+    api_key = config['dataset_api_key']
     url = make_resource_uri(dataset, path)
-    return proxy_view(request, url)
+    headers = {'X_SHAREABOUTS_KEY': api_key}
+    return proxy_view(request, url, requests_args={'headers': headers})

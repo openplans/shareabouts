@@ -1,6 +1,8 @@
 # The Shareabouts API dataset username & name used by this map.
-# You MUST change this after creating a dataset.
+# And the associated API key.
+# You MUST change these after creating a dataset.
 dataset: demo-user/demo-data
+dataset_api_key: AbcXyzPdq
 
 # Settings for map and layer configs
 map:
