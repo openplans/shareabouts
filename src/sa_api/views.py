@@ -8,7 +8,7 @@ from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from djangorestframework import views, permissions, mixins
+from djangorestframework import views, permissions, mixins, authentication
 from djangorestframework.response import Response, ErrorResponse
 import apikey.auth
 import json
@@ -30,7 +30,9 @@ class AuthMixin(object):
     """
     Inherit from this to protect all unsafe requests.
     """
-    authentication = [apikey.auth.ApiKeyAuthentication]
+    authentication = [authentication.BasicAuthentication,
+                      authentication.UserLoggedInAuthentication,
+                      apikey.auth.ApiKeyAuthentication]
 
     def dispatch(self, request, *args, **kwargs):
         # We do this in dispatch() so we can apply permission checks
