@@ -11,6 +11,9 @@ sudo apt-get install binutils gdal-bin libproj-dev postgresql-9.1-postgis \
 # Install the python requirements
 sudo pip install -r requirements.txt
 
+# ... and this, optional testing stuff
+sudo pip install coverage
+
 # Create a PostGIS template database
 psql -c "CREATE DATABASE template_postgis;" -U postgres
 psql -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';" -U postgres
