@@ -276,29 +276,56 @@ class TestActivityView(TestCase):
     def setUp(self):
         User.objects.all().delete()
         DataSet.objects.all().delete()
+        Place.objects.all().delete()
+        Submission.objects.all().delete()
         SubmittedThing.objects.all().delete()
         Activity.objects.all().delete()
 
-        self.owner = User.objects.create()
+        self.owner = User.objects.create(username='myuser')
         self.dataset = DataSet.objects.create(slug='data',
                                               owner_id=self.owner.id)
-        self.submitted_thing = SubmittedThing.objects.create(dataset_id=self.dataset.id)
+        self.visible_place = Place.objects.create(dataset_id=self.dataset.id, location='POINT (0 0)', visible=True)
+        self.invisible_place = Place.objects.create(dataset_id=self.dataset.id, location='POINT (0 0)', visible=False)
+
+        self.visible_set = SubmissionSet.objects.create(place_id=self.visible_place.id)
+        self.invisible_set = SubmissionSet.objects.create(place_id=self.invisible_place.id)
+
+        self.visible_submission = Submission.objects.create(dataset_id=self.dataset.id, parent_id=self.visible_set.id)
+        self.invisible_submission = Submission.objects.create(dataset_id=self.dataset.id, parent_id=self.invisible_set.id)
+
         # Note this implicitly creates an Activity.
-        activity1 = Activity.objects.get(data_id=self.submitted_thing.id)
+        visible_place_activity = Activity.objects.get(data_id=self.visible_place.id)
+        visible_submission_activity = Activity.objects.get(data_id=self.visible_submission.id)
+
         self.activities = [
-            activity1,
-            Activity.objects.create(data=self.submitted_thing, action='update'),
-            Activity.objects.create(data=self.submitted_thing, action='delete'),
+            visible_place_activity,
+            visible_submission_activity,
+            Activity.objects.create(data=self.visible_place, action='update'),
+            Activity.objects.create(data=self.visible_place, action='delete'),
         ]
-        self.url = reverse('activity_collection')
+
+        kwargs = dict(data__dataset__owner__username=self.owner.username, data__dataset__slug='data')
+        self.url = reverse('activity_collection_by_dataset', kwargs=kwargs)
+
+        # This was here first and marked as deprecated, but above doesn't
+        # work either.
+        # self.url = reverse('activity_collection')
 
     @istest
-    def get_queryset_no_params_returns_all(self):
+    def get_queryset_no_params_returns_visible(self):
         from ..views import ActivityView
         view = ActivityView()
         view.request = RequestFactory().get(self.url)
         qs = view.get_queryset()
         self.assertEqual(qs.count(), len(self.activities))
+
+    @istest
+    def get_queryset_with_visible_all_returns_all(self):
+        from ..views import ActivityView
+        view = ActivityView()
+        view.request = RequestFactory().get(self.url + '?visible=all')
+        qs = view.get_queryset()
+        self.assertEqual(qs.count(), 6)
 
     @istest
     def get_queryset_before(self):
@@ -316,9 +343,9 @@ class TestActivityView(TestCase):
         view = ActivityView()
         ids = sorted([a.id for a in self.activities])
         view.request = RequestFactory().get(self.url + '?after=%d' % (ids[0] - 1))
-        self.assertEqual(view.get_queryset().count(), 3)
+        self.assertEqual(view.get_queryset().count(), 4)
         view.request = RequestFactory().get(self.url + '?after=%d' % ids[0])
-        self.assertEqual(view.get_queryset().count(), 2)
+        self.assertEqual(view.get_queryset().count(), 3)
         view.request = RequestFactory().get(self.url + '?after=%d' % ids[-1])
         self.assertEqual(view.get_queryset().count(), 0)
 

@@ -1,24 +1,35 @@
+{% extends "manager/base.html" %}
 {% load url from future %}
-<html>
-<body>
 
-<h1> placeholder login form </h1>
+{% block content %}
+
+<h1>Login</h1>
 
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+  <div class="alert alert-error">Your username and password didn't match. Please try again.</div>
 {% endif %}
 
-<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+<form method="post" class="form-horizontal" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
 
-<table>
-{{ form }}
-</table>
-
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
+  <div class="control-group">
+    <label class="control-label" for="id_username">Username</label>
+    <div class="controls">
+      {{ form.username }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_password">Password</label>
+    <div class="controls">
+      {{ form.password }}
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Log in</button>
+    </div>
+  </div>
+  <input type="hidden" name="next" value="{{ next }}" />
 </form>
 
-</body>
-</html>
-
+{% endblock content %}

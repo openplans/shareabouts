@@ -13,7 +13,7 @@ class ShareaboutsApi (object):
     uri_templates = {
         'dataset_collection': r'datasets/{username}/',
         'dataset_instance': r'datasets/{username}/{slug}/',
-        'place_collection': r'datasets/{username}/{dataset_slug}/places/',
+        'place_collection': r'datasets/{username}/{dataset_slug}/places/?visible=all',
         'place_instance': r'datasets/{username}/{dataset_slug}/places/{pk}/',
         'submission_collection': r'datasets/{username}/{dataset_slug}/places/{place_pk}/{type}/',
         'submission_instance': r'datasets/{username}/{dataset_slug}/places/{place_pk}/{type}/{pk}',

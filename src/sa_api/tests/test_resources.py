@@ -226,8 +226,7 @@ class TestActivityResource(object):
 
     @istest
     def test_things(self):
-        from ..resources import ActivityResource, models
-        from mock_django.managers import ManagerMock
+        from ..resources import ActivityResource
         p1 = mock.Mock(submittedthing_ptr_id=1, id=10)
         p2 = mock.Mock(submittedthing_ptr_id=2, id=20)
         mock_places = [p1, p2]
@@ -240,19 +239,18 @@ class TestActivityResource(object):
         s2.parent.place_id = 400
         mock_submissions = [s1, s2]
 
-        place_mgr = ManagerMock(models.Place.objects, *mock_places)
-        submission_mgr = ManagerMock(models.Submission.objects, *mock_submissions)
+        mock_view = mock.Mock()
+        mock_view.get_places = mock.Mock(return_value=mock_places)
+        mock_view.get_submissions = mock.Mock(return_value=mock_submissions)
 
-        with mock.patch.object(models.Place, 'objects', place_mgr):
-            with mock.patch.object(models.Submission, 'objects', submission_mgr):
-                resource = ActivityResource()
+        resource = ActivityResource(view=mock_view)
 
-                assert_equal(
-                    resource.things,
-                    {
-                        1: {'data': p1, 'place_id': 10, 'type': 'places'},
-                        2: {'data': p2, 'place_id': 20, 'type': 'places'},
-                        30: {'data': s1, 'place_id': 300, 'type': 'stype1'},
-                        40: {'data': s2, 'place_id': 400, 'type': 'stype2'},
-                    }
-                )
+        assert_equal(
+            resource.things,
+            {
+                1: {'data': p1, 'place_id': 10, 'type': 'places'},
+                2: {'data': p2, 'place_id': 20, 'type': 'places'},
+                30: {'data': s1, 'place_id': 300, 'type': 'stype1'},
+                40: {'data': s2, 'place_id': 400, 'type': 'stype2'},
+            }
+        )

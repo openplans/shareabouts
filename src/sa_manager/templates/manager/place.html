@@ -9,7 +9,11 @@
     <legend>Edit existing properties</legend>
     {% include "manager/_field.html" with label="Place Name" name="name" value=place.name %}
     {% include "manager/_field.html" with label="Submitter Name" name="submitter_name" value=place.submitter_name|default:'' %}
-    {% include "manager/_field.html" with label="Visible?" name="visible" value=place.visible type="checkbox" %}
+    {% if place.id %}
+      {% include "manager/_field.html" with label="Visible?" name="visible" value=place.visible type="checkbox" %}
+    {% else %}
+      {% include "manager/_field.html" with label="Visible?" name="visible" value='on' type="checkbox" %}
+    {% endif %}
     {% include "manager/_field.html" with label="Latitude" name="lat" value=place.location.lat %}
     {% include "manager/_field.html" with label="Longitude" name="lng" value=place.location.lng %}
 

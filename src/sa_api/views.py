@@ -209,6 +209,16 @@ class PlaceCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, Mode
         content['dataset'] = dataset
         return super(PlaceCollectionView, self).get_instance_data(model, content, **kwargs)
 
+    def get_queryset(self):
+        # Expects 'all' or not defined
+        visibility = self.request.GET.get('visible', 'true')
+        queryset = super(PlaceCollectionView, self).get_queryset()
+
+        if (visibility == 'all'):
+            return queryset
+        elif visibility == 'true':
+            return queryset.filter(visible=True)
+
     def post(self, request, *args, **kwargs):
         response = super(PlaceCollectionView, self).post(request, *args, **kwargs)
         # djangorestframework automagically sets Location, but ...
@@ -289,6 +299,8 @@ class ActivityView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, views.ListM
                  most recent results with ids higher than *but not including*
                  the given time will be returned.
     - `limit` -- The maximum number of results to be returned.
+    - `visible` -- Set to `all` to return activity for both visible and
+                   invisible places.
 
     Examples
     --------
@@ -305,6 +317,24 @@ class ActivityView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, views.ListM
     form = forms.ActivityForm
     cache_prefix = 'activity'
 
+    def get_places(self):
+        visibility = self.PARAMS.get('visible', 'true')
+        if (visibility == 'all'):
+            return models.Place.objects.all()
+        elif visibility == 'true' or visibility == '':
+            return models.Place.objects.all().filter(visible=True)
+        else:
+            raise Exception('Invalid visibility: ' + repr(visibility))
+
+    def get_submissions(self):
+        visibility = self.PARAMS.get('visible', 'true')
+        if (visibility == 'all'):
+            return models.Submission.objects.all().select_related('parent')
+        elif visibility == 'true' or visibility == '':
+            return models.Submission.objects.all().select_related('parent').filter(parent__place__visible=True)
+        else:
+            raise Exception('Invalid visibility: ' + repr(visibility))
+
     def get_queryset(self):
         """
         Get a list containing objects of all the activity matching the given
@@ -314,7 +344,7 @@ class ActivityView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, views.ListM
         additional filtering; do it in get() instead. (Also easier to test.)
         """
         # Validate the query and get the parameters
-        activity = super(ActivityView, self).get_queryset()
+        activity = self._resource.queryset
         query_params = self.PARAMS
         latest_id = query_params.get('before')
         earliest_id = query_params.get('after')
