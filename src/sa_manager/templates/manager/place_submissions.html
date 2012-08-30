@@ -40,7 +40,7 @@
 
     <tr>
       {% if forloop.first %}
-      <td><a href="{% url 'manager_place_submission_detail' place.id submission.type submission.id %}">Edit</a></td>
+      <td><a href="{% url 'manager_place_submission_detail' dataset.slug place.id submission.type submission.id %}">Edit</a></td>
       <td>{{ submission.submitter_name }}</td>
       <td>{{ submission.created_datetime }}</td>
       {% endif %}

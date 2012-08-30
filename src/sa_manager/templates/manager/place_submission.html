@@ -27,10 +27,10 @@
   <fieldset>
     <legend>Edit existing properties</legend>
     {% include "manager/_field.html" with label="Submitter Name" name="submitter_name" value=submission.submitter_name|default:'' %}
-    {% if submission_type %}
-    <input type="hidden" name="submission_type" value="{{ submission_type }}">
+    {% if type %}
+    <input type="hidden" name="type" value="{{ type }}">
     {% else %}
-    {% include "manager/_field.html" with label="Submission Type" name="submission_type" value="" %}
+    {% include "manager/_field.html" with label="Submission Type" name="type" value="" %}
     {% endif %}
     {% include "manager/_field.html" with label="Visible?" name="visible" value=submission.visible type="checkbox" %}
 

@@ -60,7 +60,7 @@ class ShareaboutsApi (object):
 
     def get(self, url, default=None):
         """
-        Returns body text from a GET request, or default on non-200
+        Returns decoded data from a GET request, or default on non-200
         responses.
         """
         res = self.send('GET', url)
@@ -309,10 +309,12 @@ def datasets_view(request):
     # TODO: use ShareaboutsApi; standardize URI building.
     # (reverse() may not be correct if sa_api and sa_manager aren't
     # deployed together; likewise for build_absolute_uri())
-    datasets_uri = request.build_absolute_uri(
-        reverse('dataset_collection_by_user', args=[request.user.username]))
-    response = requests.get(datasets_uri)
-    datasets = json.loads(response.text)
+    api = ShareaboutsApi(request)
+    api.authenticate(request)
+
+    datasets_uri = api.build_uri('dataset_collection', username=request.user.username)
+
+    datasets = api.get(datasets_uri)
     for ds in datasets:
         ds['manage_uri'] = reverse('manager_dataset_detail',
                                    kwargs={'dataset_slug': ds['slug']})
@@ -323,14 +325,26 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        self.datasets_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/')
+        self.api = ShareaboutsApi(request)
+        self.api.authenticate(request)
+
+        self.datasets_uri = self.api.build_uri('dataset_collection', username=request.user.username)
         self.special_fields = ('id', 'owner', 'display_name', 'slug')
+
+        dataset_slug = None
+        if args:
+            dataset_slug = args[0]
+        if 'dataset_slug' in kwargs:
+            dataset_slug = kwargs['dataset_slug']
+
+        if dataset_slug is not None:
+            self.dataset_uri = self.api.build_uri('dataset_instance', username=request.user.username, slug=dataset_slug)
+
         return super(DataSetFormMixin, self).dispatch(request, *args, **kwargs)
 
     def read(self, request, dataset_slug):
         # Retrieve the dataset data.
-        response = requests.get(self.dataset_uri)
-        dataset = json.loads(response.text)
+        dataset = self.api.get(self.dataset_uri)
 
         # Arrange the data fields for display on the form
         data_fields = self.make_data_fields_tuples(dataset)
@@ -352,9 +366,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         self.data_blob = data = request.POST.dict()
         self.process_data_blob()
 
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('POST', self.datasets_uri, data)
+        response = self.api.send('POST', self.datasets_uri, data)
 
         if response.status_code == 201:
             data = json.loads(response.text)
@@ -372,9 +384,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
         self.process_data_blob()
 
         # Send the save request
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('PUT', self.dataset_uri, data)
+        response = self.api.send('PUT', self.dataset_uri, data)
 
         if response.status_code == 200:
             # Note that we end up with 200 even if the dataset is
@@ -402,9 +412,7 @@ class DataSetFormMixin (BaseDataBlobFormMixin):
 
     def delete(self, request, dataset_slug):
         # Send the delete request
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('DELETE', self.dataset_uri)
+        response = self.api.send('DELETE', self.dataset_uri)
 
         if response.status_code == 204:
             messages.success(request, 'Successfully deleted!')
@@ -431,7 +439,6 @@ class ExistingDataSetView (DataSetFormMixin, View):
 
     @method_decorator(login_required)
     def dispatch(self, request, dataset_slug):
-        self.dataset_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/')
         return super(ExistingDataSetView, self).dispatch(request, dataset_slug)
 
     def get(self, request, dataset_slug):
@@ -451,20 +458,31 @@ class SubmissionMixin (BaseDataBlobFormMixin):
 
     @method_decorator(login_required)
     def dispatch(self, request, dataset_slug, place_id, submission_type, *args, **kwargs):
-        self.dataset_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/')
-        self.place_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/places/{0}/'.format(place_id))
+        self.api = ShareaboutsApi(request)
+        self.api.authenticate(request)
+
+        self.dataset_uri = self.api.build_uri('dataset_instance', username=request.user.username, slug=dataset_slug)
+        self.place_uri = self.api.build_uri('place_instance', username=request.user.username, dataset_slug=dataset_slug, pk=place_id)
+
+        pk = None
+        if args:
+            pk = args[0]
+        if 'pk' in kwargs:
+            pk = kwargs['pk']
+
+        if pk is not None:
+            self.submission_uri = self.api.build_uri('submission_instance', username=request.user.username, dataset_slug=dataset_slug, place_pk=place_id, type=submission_type, pk=pk)
+
         self.special_fields = ('id', 'submitter_name', 'url', 'visible',
-                               'created_datetime', 'updated_datetime')
+                               'created_datetime', 'updated_datetime', 'type')
         return super(SubmissionMixin, self).dispatch(request, dataset_slug, place_id, submission_type, *args, **kwargs)
 
     def index(self, request, dataset_slug, place_id, submission_type):
         # Retrieve the dataset data.
-        response = requests.get(self.dataset_uri)
-        dataset = json.loads(response.text)
+        dataset = self.api.get(self.dataset_uri)
 
         # Retrieve the place data.
-        response = requests.get(self.place_uri)
-        place = json.loads(response.text)
+        place = self.api.get(self.place_uri)
 
         submission_sets = place['submissions']
         for submission_set in submission_sets:
@@ -475,8 +493,7 @@ class SubmissionMixin (BaseDataBlobFormMixin):
                 continue
 
             # Retrieve each submission set.
-            response = requests.get(submission_set['url'])
-            submission_set['submissions'] = json.loads(response.text)
+            submission_set['submissions'] = self.api.get(submission_set['url'])
 
             # Process some data for display
             submission_set['is_shown'] = True
@@ -497,16 +514,14 @@ class SubmissionMixin (BaseDataBlobFormMixin):
 
     def initial(self, request, dataset_slug, place_id, submission_type):
         # Retrieve the dataset data.
-        response = requests.get(self.dataset_uri)
-        dataset = json.loads(response.text)
+        dataset = self.api.get(self.dataset_uri)
 
         # Retrieve the place and submission data.
-        response = requests.get(self.place_uri)
-        place = json.loads(response.text)
+        place = self.api.get(self.place_uri)
 
         return render(request, "manager/place_submission.html", {
-            'submission_type': None if submission_type == 'submissions'
-                               else submission_type,
+            'type': None if submission_type == 'submissions'
+                         else submission_type,
             'place': place,
             'dataset': dataset
         })
@@ -517,8 +532,8 @@ class SubmissionMixin (BaseDataBlobFormMixin):
         # Grab the submission type off of the form.  This will be in a hidden
         # field if the submission type was known before-hand, or in a text
         # field if the user had to enter it.
-        self.actual_submission_type = data['submission_type']
-        del data['submission_type']
+        self.actual_submission_type = data['type']
+        del data['type']
 
         # Fix the visibility to be either true or false (boolean)
         data['visible'] = ('visible' in data)
@@ -533,9 +548,7 @@ class SubmissionMixin (BaseDataBlobFormMixin):
         self.submissions_uri = request.build_absolute_uri(API_ROOT + 'datasets/' + request.user.username + '/' + dataset_slug + '/places/{0}/{1}/'.format(place_id, self.actual_submission_type))
 
         # Send the save request
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('POST', self.submissions_uri, data)
+        response = self.api.send('POST', self.submissions_uri, data)
 
         if response.status_code == 201:
             data = json.loads(response.text)
@@ -550,15 +563,11 @@ class SubmissionMixin (BaseDataBlobFormMixin):
 
     def read(self, request, dataset_slug, place_id, submission_type, pk):
         # Retrieve the dataset data.
-        response = requests.get(self.dataset_uri)
-        dataset = json.loads(response.text)
+        dataset = self.api.get(self.dataset_uri)
 
         # Retrieve the place and submission data.
-        response = requests.get(self.place_uri)
-        place = json.loads(response.text)
-
-        response = requests.get(self.submission_uri)
-        submission = json.loads(response.text)
+        place = self.api.get(self.place_uri)
+        submission = self.api.get(self.submission_uri)
 
         # Arrange the submission data fields for display in the form
         data_fields = self.make_data_fields_tuples(submission)
@@ -567,7 +576,7 @@ class SubmissionMixin (BaseDataBlobFormMixin):
             'place': place,
             'dataset': dataset,
             'submission': submission,
-            'submission_type': submission_type,
+            'type': submission_type,
             'data_fields': data_fields
         })
 
@@ -577,9 +586,7 @@ class SubmissionMixin (BaseDataBlobFormMixin):
         self.process_data_blob()
 
         # Send the save request
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('PUT', self.submission_uri, data)
+        response = self.api.send('PUT', self.submission_uri, data)
 
         if response.status_code == 200:
             messages.success(request, 'Successfully saved!')
@@ -591,9 +598,7 @@ class SubmissionMixin (BaseDataBlobFormMixin):
 
     def delete(self, request, dataset_slug, place_id, submission_type, pk):
         # Send the delete request
-        api = ShareaboutsApi()
-        api.authenticate(request)
-        response = api.send('DELETE', self.submission_uri)
+        response = self.api.send('DELETE', self.submission_uri)
 
         if response.status_code == 204:
             messages.success(request, 'Successfully deleted!')
@@ -626,7 +631,6 @@ class ExistingSubmissionView (SubmissionMixin, View):
 
     @method_decorator(login_required)
     def dispatch(self, request, dataset_slug, place_id, submission_type, pk):
-        self.submission_uri = request.build_absolute_uri(API_ROOT + 'places/{0}/{1}/{2}/'.format(place_id, submission_type, pk))
         return super(ExistingSubmissionView, self).dispatch(request, dataset_slug, place_id, submission_type, pk)
 
     def get(self, request, dataset_slug, place_id, submission_type, pk):
