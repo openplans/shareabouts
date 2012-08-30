@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from djangorestframework.response import Response, ErrorResponse
-from djangorestframework import views, authentication, permissions
+from djangorestframework import views, authentication, permissions, mixins
 from . import resources
 from . import models
 from . import forms
@@ -18,7 +18,12 @@ def raise_error_if_not_authenticated(view, request):
     if getattr(request, 'user', None) is None:
         # Probably happens only in tests that have forgotten to set the user.
         raise permissions._403_FORBIDDEN_RESPONSE
-    permissions.IsAuthenticated(view).check_permission(request.user)
+    if isinstance(view, mixins.AuthMixin):
+        # This triggers authentication (view.user is a property).
+        user = view.user
+    else:
+        user = request.user
+    permissions.IsAuthenticated(view).check_permission(user)
 
 
 class AuthMixin(object):
@@ -28,6 +33,9 @@ class AuthMixin(object):
     authentication = [apikey.auth.ApiKeyAuthentication]
 
     def dispatch(self, request, *args, **kwargs):
+        # We do this in dispatch() so we can apply permission checks
+        # to only some request methods.
+        self.request = request  # Not sure what needs this.
         if request.method not in ('GET', 'HEAD', 'OPTIONS'):
             try:
                 raise_error_if_not_authenticated(self, request)
@@ -142,7 +150,6 @@ class ModelViewWithDataBlobMixin (object):
 # TODO derive from CachedMixin to enable caching
 class DataSetCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.DataSetResource
-    authentication = (authentication.BasicAuthentication,)
     cache_prefix = 'dataset_collection'
 
     def get_instance_data(self, model, content, **kwargs):
@@ -208,7 +215,6 @@ class PlaceCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, Mode
 
 class PlaceInstanceView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.PlaceResource
-    authentication = (authentication.BasicAuthentication,)
 
 
 class SubmissionCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
