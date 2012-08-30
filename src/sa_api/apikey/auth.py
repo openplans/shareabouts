@@ -17,7 +17,8 @@ class APIKeyBackend(object):
     supports_anonymous_user = False
     supports_inactive_user = False
 
-    backend_name = 'shareabouts.APIKeyBackend'
+    # This needs to be importable.
+    backend_name = 'sa_api.apikey.auth.APIKeyBackend'
     model = ApiKey
 
     def authenticate(self, key=None, ip_address=None):
