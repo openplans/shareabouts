@@ -2,9 +2,8 @@ from django.contrib import auth
 from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import reverse
 from djangorestframework.response import Response, ErrorResponse
-from djangorestframework import views, authentication, permissions, mixins
+from djangorestframework import views, permissions, mixins
 from . import resources
 from . import models
 from . import forms
