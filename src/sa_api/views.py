@@ -297,6 +297,8 @@ class ActivityView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, views.ListM
                  most recent results with ids higher than *but not including*
                  the given time will be returned.
     - `limit` -- The maximum number of results to be returned.
+    - `visible` -- Set to `all` to return activity for both visible and
+                   invisible places.
 
     Examples
     --------
@@ -314,10 +316,22 @@ class ActivityView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, views.ListM
     cache_prefix = 'activity'
 
     def get_places(self):
-        return models.Place.objects.all().filter(visible=True)
+        visibility = self.PARAMS.get('visible', 'true')
+        if (visibility == 'all'):
+            return models.Place.objects.all()
+        elif visibility == 'true' or visibility == '':
+            return models.Place.objects.all().filter(visible=True)
+        else:
+            raise Exception('Invalid visibility: ' + repr(visibility))
 
     def get_submissions(self):
-        return models.Submission.objects.all().select_related('parent').filter(parent__place__visible=True)
+        visibility = self.PARAMS.get('visible', 'true')
+        if (visibility == 'all'):
+            return models.Submission.objects.all().select_related('parent')
+        elif visibility == 'true' or visibility == '':
+            return models.Submission.objects.all().select_related('parent').filter(parent__place__visible=True)
+        else:
+            raise Exception('Invalid visibility: ' + repr(visibility))
 
     def get_queryset(self):
         """
