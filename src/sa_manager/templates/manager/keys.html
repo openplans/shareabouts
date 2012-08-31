@@ -1,0 +1,26 @@
+{% extends "manager/dataset_base.html" %}
+{% load url from future %}
+
+{% block dataset_content %}
+
+{% include "manager/dataset_tabs.html" with keys_active=1 %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Last Used</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for key in keys %}
+    <tr>
+      <td>{{ key.key }}</td>
+      <td><time datetime="{{ key.last_used }}">{{ key.last_used }}</time></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock dataset_content %}
