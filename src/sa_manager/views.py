@@ -9,6 +9,8 @@ import requests
 
 
 API_ROOT = '/api/v1/'
+
+
 class ShareaboutsApi (object):
     uri_templates = {
         'dataset_collection': r'datasets/{username}/',
@@ -520,8 +522,7 @@ class SubmissionMixin (BaseDataBlobFormMixin):
         place = self.api.get(self.place_uri)
 
         return render(request, "manager/place_submission.html", {
-            'type': None if submission_type == 'submissions'
-                         else submission_type,
+            'type': None if submission_type == 'submissions' else submission_type,
             'place': place,
             'dataset': dataset
         })
