@@ -11,7 +11,25 @@
 #   - dist/**/*.js
 #
 src_files:
-  - static/**/*.js
+  - static/libs/jquery-1.7.2.js
+  - static/libs/leaflet.js
+  - static/libs/underscore-min.js
+  - static/libs/backbone-min.js
+  - static/libs/mustache.js
+  - static/libs/ICanHaz-no-mustache.min.js
+  - static/libs/moment.min.js
+  - static/sa/js/utils.js
+  - static/sa/js/models.js
+  - static/sa/js/views/pages-nav-view.js
+  - static/sa/js/views/activity-view.js
+  - static/sa/js/views/app-view.js
+  - static/sa/js/views/layer-view.js
+  - static/sa/js/views/map-view.js
+  - static/sa/js/views/support-view.js
+  - static/sa/js/views/survey-view.js
+  - static/sa/js/views/place-detail-view.js
+  - static/sa/js/views/place-form-view.js
+  - static/sa/js/routes.js
 
 # stylesheets
 #
