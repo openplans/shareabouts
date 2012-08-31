@@ -26,7 +26,7 @@ with open('/home/dotcloud/environment.json') as f:
   env = json.load(f)
 
 print
-print 'dataset_api_key:' + env.get('SHAREABOUTS_API_KEY')
+print 'dataset_api_key: ' + env.get('SHAREABOUTS_API_KEY')
 " | cat >> src/project/config.yml
 
 
