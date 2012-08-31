@@ -12,11 +12,6 @@ urlpatterns = patterns('sa_api',
         views.DataSetInstanceView.as_view(),
         name='dataset_instance_by_user'),
 
-   # TODO: Do we have any actual use for exposing dataset pk in the API? Drop this?
-    url(r'^datasets/(?P<pk>\d+)/$',
-        views.DataSetInstanceView.as_view(),
-        name='dataset_instance'),
-
     url(r'^datasets/(?P<datasets__owner__username>[^/]+)/(?P<datasets__slug>[^/]+)/keys/$',
         views.ApiKeyCollectionView.as_view(),
         name='api_key_collection_by_dataset'),
@@ -45,9 +40,6 @@ urlpatterns = patterns('sa_api',
     ###############################################
     # Views with no specified dataset. Deprecate?
 
-    url(r'^places/$',
-        views.PlaceCollectionView.as_view(),
-        name='place_collection'),
     url(r'^places/(?P<pk>\d+)/$',
         views.PlaceInstanceView.as_view(),
         name='place_instance'),

@@ -152,6 +152,8 @@ class DataSetResource (resources.ModelResource):
         # override place_set below, the automatic serialization includes all
         # of the DataSet.owner info, which is a security hole.
         # There must be an easier way?
+
+        # TODO: This should be place_instance_by_dataset
         return {'id': place.id,
                 'url': reverse('place_instance', args=[place.id])}
 
