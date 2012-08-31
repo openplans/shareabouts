@@ -153,6 +153,7 @@ class ModelViewWithDataBlobMixin (object):
 
 # TODO derive from CachedMixin to enable caching
 class DataSetCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
+
     resource = resources.DataSetResource
     cache_prefix = 'dataset_collection'
 
@@ -229,6 +230,53 @@ class PlaceCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, Mode
 
 class PlaceInstanceView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.PlaceResource
+
+
+class IsOwnerOrSuperuser(permissions.BasePermission):
+    def check_permission(self, user):
+        from .apikey.auth import KEY_HEADER
+        if KEY_HEADER in self.view.request.META:
+            raise permissions._403_FORBIDDEN_RESPONSE
+        if user.is_superuser:
+            return
+        username = getattr(user, 'username', None)
+        if username and (self.view.username == username):
+            return
+        raise permissions._403_FORBIDDEN_RESPONSE
+
+
+class ApiKeyCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListModelView):
+    """
+    Get a list of API keys valid for this DataSet.
+
+    This resource cannot itself be accessed using an API key, as that
+    could allow a client to use one key to obtain all the other keys.
+
+    Accordingly, we require HTTP basic auth for all requests to this
+    resource, and you have to be the DataSet owner or a superuser.
+
+    The resource should only be exposed via https.
+    """
+
+    resource = resources.ApiKeyResource
+    permissions = (permissions.IsAuthenticated, IsOwnerOrSuperuser)
+    # We do NOT allow key-based auth here, as that would allow
+    # using one key to obtain other keys.
+    # Only the owner of a dataset can use this child resource.
+    authentication = (authentication.BasicAuthentication,
+                      authentication.UserLoggedInAuthentication)
+
+    def dispatch(self, request, *args, **kwargs):
+        # Set up context needed by permissions checks.
+        self.dataset = get_object_or_404(
+            models.DataSet,
+            owner__username=kwargs['datasets__owner__username'],
+            slug=kwargs['datasets__slug'])
+        self.request = request  # Not sure what needs this.
+        self.username = kwargs['datasets__owner__username']
+        return super(ApiKeyCollectionView, self).dispatch(request, *args, **kwargs)
+
+    # TODO: handle POST, DELETE
 
 
 class SubmissionCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):

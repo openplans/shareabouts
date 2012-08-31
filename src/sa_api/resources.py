@@ -2,6 +2,7 @@
 DjangoRestFramework resources for the Shareabouts REST API.
 """
 import json
+import apikey.models
 from collections import defaultdict
 from django.core.urlresolvers import reverse
 from djangorestframework import resources
@@ -141,7 +142,7 @@ class PlaceResource (ModelResourceWithDataBlob):
 class DataSetResource (resources.ModelResource):
     model = models.DataSet
     form = forms.DataSetForm
-    fields = ['id', 'url', 'owner', 'places', 'slug', 'display_name']
+    fields = ['id', 'url', 'owner', 'places', 'slug', 'display_name', 'keys']
 
     def owner(self, dataset):
         return simple_user(dataset.owner)
@@ -164,6 +165,13 @@ class DataSetResource (resources.ModelResource):
         return reverse('dataset_instance_by_user',
                        kwargs={'owner__username': instance.owner.username,
                                'slug': instance.slug})
+
+    def keys(self, instance):
+        url = reverse('api_key_collection_by_dataset',
+                      kwargs={'datasets__owner__username': instance.owner.username,
+                              'datasets__slug': instance.slug,
+                              })
+        return {'url': url}
 
 
 class SubmissionResource (ModelResourceWithDataBlob):
@@ -223,3 +231,10 @@ class ActivityResource (resources.ModelResource):
 
     def data(self, obj):
         return self.things[obj.data_id]['data']
+
+
+class ApiKeyResource(resources.ModelResource):
+
+    model = apikey.models.ApiKey
+
+    fields = ('key', 'logged_ip', 'last_used')

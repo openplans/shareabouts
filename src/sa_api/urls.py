@@ -17,6 +17,10 @@ urlpatterns = patterns('sa_api',
         views.DataSetInstanceView.as_view(),
         name='dataset_instance'),
 
+    url(r'^datasets/(?P<datasets__owner__username>[^/]+)/(?P<datasets__slug>[^/]+)/keys/$',
+        views.ApiKeyCollectionView.as_view(),
+        name='api_key_collection_by_dataset'),
+
     url(places_base_regex + '$',
         views.PlaceCollectionView.as_view(),
         name='place_collection_by_dataset'),

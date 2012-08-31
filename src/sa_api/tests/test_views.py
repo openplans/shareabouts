@@ -3,12 +3,14 @@ from django.test.client import Client
 from django.test.client import RequestFactory
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from djangorestframework.response import ErrorResponse
 from mock import patch
 from nose.tools import istest, assert_equal, assert_in, assert_raises
 from ..models import DataSet, Place, Submission, SubmissionSet
 from ..models import SubmittedThing, Activity
 from ..views import SubmissionCollectionView
 from ..views import raise_error_if_not_authenticated
+from ..views import ApiKeyCollectionView
 import json
 import mock
 
@@ -24,14 +26,12 @@ class TestAuthFunctions(object):
     @istest
     def test_auth_required_without_a_user(self):
         request = RequestFactory().post('/foo')
-        from djangorestframework.response import ErrorResponse
         assert_raises(ErrorResponse, self.DummyView().post, request)
 
     @istest
     def test_auth_required_with_logged_out_user(self):
         request = RequestFactory().post('/foo')
         request.user = mock.Mock(**{'is_authenticated.return_value': False})
-        from djangorestframework.response import ErrorResponse
         assert_raises(ErrorResponse, self.DummyView().post, request)
 
     @istest
@@ -41,6 +41,42 @@ class TestAuthFunctions(object):
                                     'username': 'bob'})
         # No exceptions, don't care about return value.
         self.DummyView().post(request)
+
+    @istest
+    def test_isownerorsuperuser__anonymous_not_allowed(self):
+        user = mock.Mock(**{'is_authenticated.return_value': False,
+                            'is_superuser': False})
+        view = mock.Mock(request=RequestFactory().get(''))
+        from ..views import IsOwnerOrSuperuser
+        assert_raises(ErrorResponse,
+                      IsOwnerOrSuperuser(view).check_permission, user)
+
+    @istest
+    def test_isownerorsuperuser__wrong_user_not_allowed(self):
+        view = mock.Mock(username='bob',
+                         request=RequestFactory().get(''))
+        user = mock.Mock(is_superuser=False, username='not bob')
+        from ..views import IsOwnerOrSuperuser
+        assert_raises(ErrorResponse,
+                      IsOwnerOrSuperuser(view).check_permission, user)
+
+    @istest
+    def test_isownerorsuperuser__superuser_is_allowed(self):
+        user = mock.Mock(is_superuser=True)
+        view = mock.Mock(request=RequestFactory().get(''))
+
+        from ..views import IsOwnerOrSuperuser
+        # No exceptions == good.
+        IsOwnerOrSuperuser(view).check_permission(user)
+
+    @istest
+    def test_isownerorsuperuser__owner_is_allowed(self):
+        view = mock.Mock(username='bob',
+                         request=RequestFactory().get(''))
+        user = mock.Mock(is_superuser=False, username='bob')
+        from ..views import IsOwnerOrSuperuser
+        # If not exceptions, we're OK.
+        IsOwnerOrSuperuser(view).check_permission(user)
 
 
 class TestDataSetCollectionView(TestCase):
@@ -439,3 +475,62 @@ class TestPlaceCollectionView(TestCase):
 
         # And we have a place:
         assert_equal(models.Place.objects.count(), 1)
+
+
+class TestApiKeyCollectionView(TestCase):
+
+    def _cleanup(self):
+        from sa_api import models
+        from django.contrib.auth.models import User
+        from sa_api.apikey.models import ApiKey
+        models.DataSet.objects.all().delete()
+        User.objects.all().delete()
+        ApiKey.objects.all().delete()
+
+    def setUp(self):
+        self._cleanup()
+        # Need an existing DataSet.
+        user = User.objects.create(username='test-user')
+        self.dataset = DataSet.objects.create(owner=user, id=789,
+                                              slug='stuff')
+        self.uri_args = {
+            'datasets__owner__username': user.username,
+            'datasets__slug': self.dataset.slug,
+        }
+        uri = reverse('api_key_collection_by_dataset',
+                      kwargs=self.uri_args)
+        self.request = RequestFactory().get(uri)
+        self.view = ApiKeyCollectionView().as_view()
+
+    def tearDown(self):
+        self._cleanup()
+
+    @istest
+    def get__not_allowed_anonymous(self):
+        self.request.user = mock.Mock(**{'is_authenticated.return_value': False,
+                                         'is_superuser': False})
+        response = self.view(self.request, **self.uri_args)
+        assert_equal(response.status_code, 403)
+
+    @istest
+    def get_is_allowed_if_admin(self):
+        self.request.user = mock.Mock(**{'is_authenticated.return_value': True,
+                                         'is_superuser': True})
+        response = self.view(self.request, **self.uri_args)
+        assert_equal(response.status_code, 200)
+
+    @istest
+    def get_is_allowed_if_owner(self):
+        self.request.user = self.dataset.owner
+        response = self.view(self.request, **self.uri_args)
+        assert_equal(response.status_code, 200)
+
+    @istest
+    def get_not_allowed_with_api_key(self):
+        from ..apikey.auth import KEY_HEADER
+        self.request.META[KEY_HEADER] = 'test'
+        # ... Even if the user is good, the API key makes us
+        # distrust this request.
+        self.request.user = self.dataset.owner
+        response = self.view(self.request, **self.uri_args)
+        assert_equal(response.status_code, 403)
