@@ -428,7 +428,6 @@ class TestPlaceCollectionView(TestCase):
 
     def _cleanup(self):
         from sa_api import models
-        from django.contrib.auth.models import User
         models.Submission.objects.all().delete()
         models.SubmissionSet.objects.all().delete()
         models.Place.objects.all().delete()
@@ -446,7 +445,6 @@ class TestPlaceCollectionView(TestCase):
         from ..views import PlaceCollectionView, models
         view = PlaceCollectionView().as_view()
         # Need an existing DataSet.
-        from django.contrib.auth.models import User
         user = User.objects.create(username='test-user')
         ds = models.DataSet.objects.create(owner=user, id=789,
                                            slug='stuff')
@@ -476,12 +474,42 @@ class TestPlaceCollectionView(TestCase):
         # And we have a place:
         assert_equal(models.Place.objects.count(), 1)
 
+    @istest
+    def get_queryset_checks_visibility(self):
+        from ..views import PlaceCollectionView, models
+        user = User.objects.create(username='test-user')
+        ds = models.DataSet.objects.create(owner=user, id=789,
+                                           slug='stuff')
+        location = 'POINT (0.0 0.0)'
+        models.Place.objects.create(dataset=ds, id=123, location=location,
+                                    visible=True)
+        models.Place.objects.create(dataset=ds, id=124, location=location,
+                                    visible=True)
+        models.Place.objects.create(dataset=ds, id=456, location=location,
+                                    visible=False)
+        models.Place.objects.create(dataset=ds, id=457, location=location,
+                                    visible=False)
+        view = PlaceCollectionView()
+
+        # Only visible Places by default...
+        view.request = mock.Mock(GET={})
+        qs = view.get_queryset()
+        assert_equal(qs.count(), 2)
+        ids = set([place.id for place in qs])
+        assert_equal(ids, set([123, 124]))
+
+        # Or, all of them.
+        view.request = mock.Mock(GET={'visible': 'all'})
+        qs = view.get_queryset()
+        assert_equal(qs.count(), 4)
+        ids = set([place.id for place in qs])
+        assert_equal(ids, set([123, 124, 456, 457]))
+
 
 class TestApiKeyCollectionView(TestCase):
 
     def _cleanup(self):
         from sa_api import models
-        from django.contrib.auth.models import User
         from sa_api.apikey.models import ApiKey
         models.DataSet.objects.all().delete()
         User.objects.all().delete()
