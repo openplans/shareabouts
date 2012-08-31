@@ -1,21 +1,7 @@
-{% extends "manager/base.html" %}
+{% extends "manager/dataset_base.html" %}
 {% load url from future %}
 
-{% block content %}
-
-<ul class="breadcrumb">
-  <li>
-    <a href="{% url 'manager_index' %}">Manager</a> <span class="divider">/</span>
-  </li>
-  <li>
-    <a href="{% url 'manager_dataset_list' %}">Datasets</a> <span class="divider">/</span>
-  </li>
-  <li>
-    {{ dataset.display_name }} ({{ dataset.slug }})
-  </li>
-</ul>
-
-<h2>{{ dataset.display_name }} <a class="btn btn-primary" href="new">Add New Place</a></h2>
+{% block dataset_content %}
 
 {% include "manager/dataset_tabs.html" with places_active=1 %}
 
@@ -48,4 +34,4 @@
   </tbody>
 </table>
 
-{% endblock content %}
+{% endblock dataset_content %}
