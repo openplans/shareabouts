@@ -1,6 +1,5 @@
 # The Shareabouts API dataset username & name used by this map.
-# And the associated API key.
-# You MUST change these after creating a dataset.
+# You MUST change this after creating a dataset.
 dataset: demo-user/demo-data
 dataset_api_key: AbcXyzPdq
 
@@ -52,6 +51,52 @@ place_type_icons: {
     iconAnchor: { x: 12, y: 41 },
     popupAnchor: { x: 12, y: 6 }
   }
+}
+
+place: {
+  can_add_places: true, # TODO: not yet supported
+
+  title: Tell us more...,
+  items: [
+    {
+      prompt: Location Name,
+      type: text,
+      name: name,
+      attrs: [
+        {key: placeholder, value: Location Name},
+        {key: size, value: 30}
+      ]
+    },
+    {
+      prompt: Location Type,
+      type: select,
+      options: [
+        Landmark,
+        Park,
+        School
+      ],
+      name: location_type
+    },
+    {
+      prompt: Your Name,
+      type: text,
+      name: submitter_name,
+      optional: true,
+      attrs: [
+        {key: placeholder, value: Name},
+        {key: size, value: 30}
+      ]
+    },
+    {
+      prompt: Description,
+      type: textarea,
+      name: description,
+      optional: true,
+      attrs: [
+        {key: placeholder, value: Description...}
+      ]
+    }
+  ]
 }
 
 survey: {

@@ -7,6 +7,8 @@ var Shareabouts = Shareabouts || {};
       'click .reply-link': 'onReplyClick'
     },
     initialize: function() {
+      S.TemplateHelpers.insertInputTypeFlags(this.options.surveyConfig.items);
+
       this.collection.on('reset', this.onChange, this);
       this.collection.on('add', this.onChange, this);
     },

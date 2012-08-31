@@ -99,6 +99,7 @@
   <script src="{{STATIC_URL}}libs/moment.min.js"></script>
 
   <script src="{{STATIC_URL}}sa/js/utils.js"></script>
+  <script src="{{STATIC_URL}}sa/js/template-helpers.js"></script>
 
   <script>
     $(function() {
@@ -153,7 +154,8 @@
 
   (function(S, $){
     // Boostrapping the place types and their icons
-    var placeTypesConfig = {{ place_types_json|safe }},
+    var placeConfig = {{ place_config_json|safe }},
+        placeTypesConfig = {{ place_types_json|safe }},
         placeTypeIconsConfig = {{ place_type_icons_json|safe }},
         placeTypeIcons = {},
         placeTypes = {},
@@ -182,10 +184,6 @@
       };
     });
 
-    _.each(surveyConfig.items, function(item, index) {
-      item['is_textarea'] = (item['type'] === 'textarea');
-    });
-
     $(function() {
       // Ready set go!
       window.app = new Shareabouts.App({
@@ -196,7 +194,8 @@
         surveyConfig: surveyConfig,
         supportConfig: supportConfig,
         pagesConfig: pagesConfig,
-        mapConfig: mapConfig
+        mapConfig: mapConfig,
+        placeConfig: placeConfig
       });
     });
   })(Shareabouts, jQuery);
