@@ -18,6 +18,18 @@ EOF
 echo "Setting up the config file(s)"
 cp src/project/config.yml.template src/project/config.yml
 
+echo "Injecting the Shareabouts API key"
+python "
+import json
+
+with open('/home/dotcloud/environment.json') as f:
+  env = json.load(f)
+
+print
+print 'dataset_api_key:' + env.get('SHAREABOUTS_API_KEY')
+" | cat >> src/project/config.yml
+
+
 echo "Syncing the database..."
 src/manage.py syncdb --migrate --noinput
 
