@@ -15,6 +15,7 @@ class ShareaboutsApi (object):
     uri_templates = {
         'dataset_collection': r'datasets/{username}/',
         'dataset_instance': r'datasets/{username}/{slug}/',
+        'keys_collection': r'datasets/{username}/{dataset_slug}/keys/',
         'place_collection': r'datasets/{username}/{dataset_slug}/places/?visible=all',
         'place_instance': r'datasets/{username}/{dataset_slug}/places/{pk}/',
         'submission_collection': r'datasets/{username}/{dataset_slug}/places/{place_pk}/{type}/',
@@ -77,8 +78,8 @@ def index_view(request):
 
 @login_required
 def places_view(request, dataset_slug):
-    # TODO use ShareaboutsApi
     api = ShareaboutsApi(request)
+    api.authenticate(request)
     dataset_uri = api.build_uri('dataset_instance', username=request.user.username, slug=dataset_slug)
     places_uri = api.build_uri('place_collection', username=request.user.username, dataset_slug=dataset_slug)
 
@@ -90,6 +91,21 @@ def places_view(request, dataset_slug):
 
     return render(request, "manager/places.html", {'places': places,
                                                    'dataset': dataset})
+
+@login_required
+def keys_view(request, dataset_slug):
+    api = ShareaboutsApi(request)
+    api.authenticate(request)
+    dataset_uri = api.build_uri('dataset_instance',
+                                username=request.user.username,
+                                slug=dataset_slug)
+    keys_uri = api.build_uri('keys_collection',
+                             username=request.user.username,
+                             dataset_slug=dataset_slug)
+    keys = api.get(keys_uri)
+    dataset = api.get(dataset_uri)
+    return render(request, "manager/keys.html", {'keys': keys,
+                                                 'dataset': dataset})
 
 
 class BaseDataBlobMixin (object):
@@ -308,9 +324,6 @@ class ExistingPlaceView (PlaceFormMixin, View):
 
 @login_required
 def datasets_view(request):
-    # TODO: use ShareaboutsApi; standardize URI building.
-    # (reverse() may not be correct if sa_api and sa_manager aren't
-    # deployed together; likewise for build_absolute_uri())
     api = ShareaboutsApi(request)
     api.authenticate(request)
 
@@ -318,6 +331,7 @@ def datasets_view(request):
 
     datasets = api.get(datasets_uri)
     for ds in datasets:
+        # TODO: use API to build these
         ds['manage_uri'] = reverse('manager_dataset_detail',
                                    kwargs={'dataset_slug': ds['slug']})
     return render(request, "manager/datasets.html", {'datasets': datasets})

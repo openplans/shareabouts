@@ -8,5 +8,8 @@
   <li{% if places_active %} class="active"{% endif %}>
     <a href="{% url 'manager_place_list' dataset.slug %}">All Places</a>
   </li>
+  <li{% if keys_active %} class="active"{% endif %}>
+    <a href="{% url 'manager_keys_list' dataset.slug %}">API Keys</a>
+  </li>
 </ul>
 {% endif %}
