@@ -118,5 +118,5 @@ def api(request, path):
     dataset = config['dataset']
     api_key = config['dataset_api_key']
     url = make_resource_uri(dataset, path)
-    headers = {'X_SHAREABOUTS_KEY': api_key}
+    headers = {'X-Shareabouts-Key': api_key}
     return proxy_view(request, url, requests_args={'headers': headers})
