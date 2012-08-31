@@ -1,5 +1,5 @@
 var Shareabouts = Shareabouts || {};
-Shareabouts.SpecData = Shareabouts.SpecData || {}
+Shareabouts.SpecData = Shareabouts.SpecData || {};
 
 Shareabouts.SpecData.placeCollectionData = [
   {
