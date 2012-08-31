@@ -1,7 +1,6 @@
 from django.contrib.auth import models as auth_models
 from django.contrib.gis.db import models
 from django.core.cache import cache
-from django.core.urlresolvers import reverse
 
 
 class TimeStampedModel (models.Model):
