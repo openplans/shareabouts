@@ -2,7 +2,6 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.MapView = Backbone.View.extend({
-    // TODO: hardcoded max zoom and tiles, add to config
     initialize: function() {
       var self = this,
           i, layerModel,
