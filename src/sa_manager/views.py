@@ -92,6 +92,7 @@ def places_view(request, dataset_slug):
     return render(request, "manager/places.html", {'places': places,
                                                    'dataset': dataset})
 
+
 @login_required
 def keys_view(request, dataset_slug):
     api = ShareaboutsApi(request)
@@ -211,9 +212,9 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
         data['visible'] = ('visible' in data)
 
     def initial(self, request, dataset_slug):
-        response = requests.get(self.dataset_uri)
-        dataset = json.loads(response.text)
-
+        api = ShareaboutsApi(request)
+        api.authenticate(request)
+        dataset = api.get(self.dataset_uri)
         return render(request, "manager/place.html", {'dataset': dataset})
 
     def create(self, request, dataset_slug):
@@ -331,7 +332,6 @@ def datasets_view(request):
 
     datasets = api.get(datasets_uri)
     for ds in datasets:
-        # TODO: use API to build these
         ds['manage_uri'] = reverse('manager_dataset_detail',
                                    kwargs={'dataset_slug': ds['slug']})
     return render(request, "manager/datasets.html", {'datasets': datasets})
