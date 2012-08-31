@@ -1,7 +1,7 @@
 var Shareabouts = Shareabouts || {};
 
 Shareabouts.SpecConfig = {
-  placeTypes: {
+  placeTypesConfig: {
     "Landmark": {"default": "blue", "focused": "red"},
     "School": {"default": "blue", "focused": "red"},
     "Park": {"default": "blue", "focused": "red"}
@@ -35,5 +35,29 @@ Shareabouts.SpecConfig = {
     ],
     "base_layer": {"url": "http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png", "attribution": "&copy; OpenStreetMap contributors, CC-BY-SA. <a href=\"http://mapbox.com/about/maps\" target=\"_blank\">Terms &amp; Feedback</a>"},
     "options": {"maxZoom": 17, "minZoom": 10, "center": {"lat": 39.9523524, "lng": -75.1636075}, "zoom": 14}
-  }
+  },
+  placeTypeIcons: {},
+  placeTypes: {}
 };
+
+// Postprocessing
+(function(C){
+  // Define each Leaflet Icon type
+  _.each(C.placeTypeIconsConfig, function(config, name) {
+    C.placeTypeIcons[name] = L.Icon.extend({
+      iconUrl: config.iconUrl,
+      shadowUrl: config.shadowUrl,
+      iconSize: new L.Point(config.iconSize.width, config.iconSize.height),
+      iconAnchor: new L.Point(config.iconAnchor.x, config.iconAnchor.y),
+      popupAnchor: new L.Point(config.popupAnchor.x, config.popupAnchor.y)
+    });
+  });
+
+  // Init each icon and attach it to its type
+  _.each(C.placeTypesConfig, function(config, name) {
+    C.placeTypes[name] = {
+      'default': new C.placeTypeIcons[config['default']](),
+      'focused': new C.placeTypeIcons[config.focused]()
+    };
+  });
+})(Shareabouts.SpecConfig);
