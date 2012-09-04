@@ -4,7 +4,9 @@ Upgrading from Shareabouts 1.0
 Database Migration
 ----------------------
 
-To be written.
+This would happen on the Shareabouts API, not Shareabouts Web.
+... And needs to be written.
+
 
 String customizations / translations
 -------------------------------------
