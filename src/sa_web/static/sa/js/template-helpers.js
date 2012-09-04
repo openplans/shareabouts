@@ -4,7 +4,7 @@ var Shareabouts = Shareabouts || {};
   S.TemplateHelpers = {
     insertInputTypeFlags: function(configItems) {
       _.each(configItems, function(item, index) {
-        item.is_text = (item.type === 'text' || item.type === 'number' || !item.type);
+        item.is_input = (!item.type || (item.type !== 'textarea' &&  item.type !== 'select'));
         item.is_textarea = (item.type === 'textarea');
         item.is_select = (item.type === 'select');
       });
