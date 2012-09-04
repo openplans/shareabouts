@@ -19,14 +19,14 @@ echo "Setting up the config file(s)"
 cp src/project/config.yml.template src/project/config.yml
 
 echo "Injecting the Shareabouts API key"
-python "
+python -c "
 import json
 
 with open('/home/dotcloud/environment.json') as f:
   env = json.load(f)
 
 print
-print 'dataset_api_key:' + env.get('SHAREABOUTS_API_KEY')
+print 'dataset_api_key: ' + env.get('SHAREABOUTS_API_KEY')
 " | cat >> src/project/config.yml
 
 
