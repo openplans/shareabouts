@@ -10,6 +10,7 @@
     <tr>
       <th>Key</th>
       <th>Last Used</th>
+      <th>Logged IP</th>
     </tr>
   </thead>
 
@@ -18,6 +19,7 @@
     <tr>
       <td>{{ key.key }}</td>
       <td><time datetime="{{ key.last_used }}">{{ key.last_used }}</time></td>
+      <td>{{ key.logged_ip }}</td>
     </tr>
     {% endfor %}
   </tbody>
