@@ -48,6 +48,7 @@ def index(request):
     survey_config_json = json.dumps(config['survey'])
     support_config_json = json.dumps(config['support'])
     map_config_json = json.dumps(config['map'])
+    place_config_json = json.dumps(config['place'])
 
     # TODO These requests should be done asynchronously (in parallel).
     places_json = api.get('places', default=u'[]')
@@ -104,6 +105,7 @@ def index(request):
                'user_token_json': user_token_json,
                'pages_config_json': pages_config_json,
                'map_config_json': map_config_json,
+               'place_config_json': place_config_json,
                'user_agent_json': user_agent_json}
     return render(request, 'index.html', context)
 

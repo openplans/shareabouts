@@ -7,6 +7,8 @@ var Shareabouts = Shareabouts || {};
       'click .reply-link': 'onReplyClick'
     },
     initialize: function() {
+      S.TemplateHelpers.insertInputTypeFlags(this.options.surveyConfig.items);
+
       this.collection.on('reset', this.onChange, this);
       this.collection.on('add', this.onChange, this);
     },
@@ -22,16 +24,8 @@ var Shareabouts = Shareabouts || {};
       // Responses should be an array of objects with submitter_name,
       // pretty_created_datetime, and items (name, label, and prompt)
       this.collection.each(function(model, i) {
-        var items = [];
-        _.each(self.options.surveyConfig.items, function(item, j){
-          if (item.name !== 'submitter_name') {
-            items.push({
-              name: item.name,
-              label: item.label,
-              value: model.get(item.name)
-            });
-          }
-        });
+        var items = S.TemplateHelpers.getItemsFromModel(self.options.surveyConfig.items, model, ['submitter_name']);
+
         responses.push({
           submitter_name: model.get('submitter_name'),
           submitter_is_anonymous: (!model.get('submitter_name')),

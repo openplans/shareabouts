@@ -20,11 +20,15 @@ var Shareabouts = Shareabouts || {};
     render: function() {
       // TODO: figure out the best way to augment template data
       var self = this,
+          items = S.TemplateHelpers.getItemsFromModel(self.options.placeConfig.items,
+            this.model, ['submitter_name', 'name', 'location_type']),
+
           data = _.extend({
             pretty_created_datetime: function() {
               return S.Util.getPrettyDateTime(this.created_datetime);
             },
             submitter_is_anonymous: (!this.model.get('submitter_name')),
+            items: items,
             survey_config: this.options.surveyConfig
           }, this.model.toJSON());
 

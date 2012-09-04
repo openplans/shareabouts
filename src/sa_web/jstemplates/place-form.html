@@ -1,4 +1,4 @@
-        <h4 class="">{{#_}}Place Form Header{{/_}}</h4>
+        <h4 class="">{{ place_config.title }}</h4>
 
         <form id="place-form" class="place-form">
 
@@ -9,38 +9,25 @@
                       is already logged in.
               -->
 
+            {{# place_config.items }}
             <p>
-              <label for="submitter-name">{{#_}}Submitter Name{{/_}}</label>
-              <input id="submitter-name" name="submitter_name" placeholder="{{#_}}Submitter Name Placeholder{{/_}}" size="30" type="text">
-            </p>
-
-            <p>
-              <label for="place-name">{{#_}}Location Name{{/_}}</label>
-              <input id="place-name" name="name"
-                     placeholder="{{#_}}Location Name{{/_}}" size="30" type="text"
-                     value="{{ name }}">
-            </p>
-
-            {{# oneType }}
-            <input type="hidden" name="location_type" value="{{ placeTypes.0 }}">
-            {{/ oneType }}
-
-            {{# manyTypes }}
-            <p>
-              <label for="point-type">{{#_}}Location Type{{/_}}</label>
-              <select id="point-type" name="location_type">
-                <option value=""></option>
-                {{#placeTypes}}
-                <option value="{{.}}">{{.}}</option>
-                {{/placeTypes}}
+              <label for="place-{{ name }}">{{ prompt }} {{# optional }}(optional){{/ optional }}</label>
+              {{#is_text}}
+              <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+              {{/is_text}}
+              {{#is_textarea}}
+              <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
+              {{/is_textarea}}
+              {{#is_select}}
+              <select id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                {{# options }}
+                  <option value="{{.}}">{{.}}</option>
+                {{/ options }}
               </select>
-            </p>
-            {{/ manyTypes }}
+              {{/is_select}}
 
-            <p>
-              <label for="point-description">{{#_}}Point Description{{/_}}</label>
-              <textarea id="point-description" name="description" placeholder="{{#_}}Description Placeholder{{/_}}">{{ description }}</textarea>
             </p>
+            {{/ place_config.items }}
           </fieldset>
 
           <input name="save-place-btn" id="save-place-btn" type="submit" value="{{#_}}Submit Location Button{{/_}}" class="bttn">

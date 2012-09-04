@@ -125,12 +125,14 @@ var Shareabouts = Shareabouts || {};
             model: model,
             appView: this,
             router: this.options.router,
-            placeTypes: this.options.placeTypes
+            placeTypes: this.options.placeTypes,
+            placeConfig: this.options.placeConfig
           }),
           placeDetailView = new S.PlaceDetailView({
             model: model,
             surveyConfig: this.options.surveyConfig,
             supportConfig: this.options.supportConfig,
+            placeConfig: this.options.placeConfig,
             userToken: this.options.userToken
           });
 

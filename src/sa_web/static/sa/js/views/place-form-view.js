@@ -7,6 +7,8 @@ var Shareabouts = Shareabouts || {};
       'submit form': 'onSubmit'
     },
     initialize: function(){
+      S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
+
       // Bind model events
       this.model.on('error', this.onError, this);
       this.model.on('change', this.onChange, this);
@@ -17,10 +19,8 @@ var Shareabouts = Shareabouts || {};
     render: function(){
       // Augment the model data with place types for the drop down
       var data = _.extend({
-        placeTypes: this.placeTypes,
-        zeroTypes: this.placeTypes.length == 0,
-        oneType: this.placeTypes.length == 1,
-        manyTypes: this.placeTypes.length > 1
+        place_types: this.placeTypes,
+        place_config: this.options.placeConfig
       }, this.model.toJSON());
 
       this.$el.html(ich['place-form'](data));
