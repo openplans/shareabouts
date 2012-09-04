@@ -511,14 +511,23 @@ label {
   font-weight: bold;
 }
 input[type=text],
+input[type=number],
 textarea {
   background-color: rgba(255,255,255,0);
   border: 1px solid #999;
   padding: 1em;
 }
-input[type=text] {
+input[type=text],
+input[type=number] {
   width: 80%;
 }
+input[type=number]::-webkit-outer-spin-button { display: none; }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 textarea {
   width: 80%;
   height: 4.5em;
