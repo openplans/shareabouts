@@ -86,6 +86,8 @@ of the files necessary are already in the repository. What you'll need to do is:
 
     dotcloud push <instance name>
 
-* Set your API key
+* Set your API key and root URL:
 
-    dotcloud var set SHAREABOUTS_API_KEY=<api key>
+    dotcloud var set <instance name> SHAREABOUTS_API_KEY=<api key> \
+	                                 SHAREABOUTS_API_ROOT=<api root url>
+
