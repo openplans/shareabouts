@@ -80,3 +80,6 @@ TODO
 
 TODO
 
+### Styling
+
+See [Customizing the Theme](CUSTOM_THEME.md)
