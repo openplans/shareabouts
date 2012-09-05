@@ -9,8 +9,8 @@ we have switched platforms. See UPGRADE.md.
 What's here
 ------------
 
-This package contains the Shareabouts Web map application,
-which consists of javascript, some configuration files that you use to
+This package contains the Shareabouts web map application,
+which consists of JavaScript, some configuration files that you use to
 tailor the app to your needs, and a small glue layer that talks to the
 underlying Shareabouts API server.
 

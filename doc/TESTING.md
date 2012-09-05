@@ -4,7 +4,7 @@ To run the python tests
   src/manage.py test sa_web
 
 
-To test the javascript via jasmine
+To test the JavaScript via Jasmine
 ====================================
 
 First you need Ruby installed, ideally with RVM.

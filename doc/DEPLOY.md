@@ -13,12 +13,11 @@ of the files necessary are already in the repository.
 
 * First, create a new dotcloud application from the contents of the `sa-web` branch:
 
-    dotcloud create shareabouts
-    dotcloud push -b sa-web
+    dotcloud create <instance name>
 
 * Push the code to DotCloud
 
-    dotcloud push <instance name>
+    dotcloud push <instance name> -b sa-web
 
   Note you should either push all your changes to your master
   repository (eg. github or whatever you're using for version
