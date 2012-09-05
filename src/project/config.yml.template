@@ -62,7 +62,7 @@ place_type_icons:
       y: 6
 
 place:
-  can_add_places: true # Not yet supported
+  adding_supported: true
   title: Tell us more...
   items:
     - prompt: Location Name
