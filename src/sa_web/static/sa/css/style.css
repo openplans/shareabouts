@@ -318,9 +318,9 @@ a.add-place:hover {
           border-radius: 0px;
 }
 
-/* keep iPhone from getting smart with the font sizes */
-.leaflet-control-attribution {
-  -webkit-text-size-adjust: none;
+#map .leaflet-control-attribution {
+  font-size: 9px;
+  -webkit-text-size-adjust: none; /* keep iPhone from getting smart with the font sizes */
 }
 
 /* Center Point: crosshairs and new point icon */
@@ -961,6 +961,10 @@ ul.recent-points {
   }
   #access a:hover {
     background: #00aaff;
+  }
+
+  #map .leaflet-control-attribution {
+    font-size: 11px;
   }
 }
 @media only screen and (min-width: 1024px) { /* ticker is visible */
