@@ -16,8 +16,8 @@ Step 1: Configuration
 ---------------------
 
 Copy the *project/config.yml.template* file to *project/config.yml*. (If you
-would like to use a different path for your configuration file, edit the path in
-the file *project/settings.py*.)
+would like to use a different path for your configuration file, edit
+the SHAREABOUTS_CONFIG path in the file *project/settings_local.py*.)
 
 
 ### Dataset

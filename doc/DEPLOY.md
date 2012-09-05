@@ -32,24 +32,7 @@ of the files necessary are already in the repository.
 	                                 SHAREABOUTS_API_ROOT=<api root url>
 
 
-TODO: do we still need to do this? There is some commented out stuff
-in postinstall:
-ssh to the shareabouts.www server and
-Enter the following into the nginx configuration:
-
-    location /static/ { root /home/dotcloud ; }
-
-Save it and close the file. For good measure, back up your local_settings module
-and your nginx config:
-
-    cd
-    cp current/src/project/local_settings.py .
-    cp current/nginx.conf .
-    exit
-
-
-
-Now restart the application:
+* Now restart the application:
 
     dotcloud restart shareabouts.www
 
