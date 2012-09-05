@@ -55,7 +55,7 @@ options are defined
 Option         |Type      |Default   |Description
 ---------------|----------|----------|-----------
 `url`          |String    |None      |The URL template to the tile server. eg. `http://{s}.somedomain.com/blabla/{z}/{x}/{y}.png`. See [this](http://leaflet.cloudmade.com/reference.html#url-template) description for details.
-`attribution`  |String    |None      |The string used to describes the layer data.
+`attribution`  |String    |None      |The string used to describe the layer data.
 
 ### Extra Layer Options
 
@@ -69,7 +69,7 @@ Common options are listed below, and all options are defined [here](http://leafl
 Option         |Type      |Default   |Description
 ---------------|----------|----------|-----------
 `url`          |String    |None      |The URL template to the tile server. eg. `http://{s}.somedomain.com/blabla/{z}/{x}/{y}.png`. See [this](http://leaflet.cloudmade.com/reference.html#url-template) description for details.
-`attribution`  |String    |None      |The string used to describes the layer data.
+`attribution`  |String    |None      |The string used to describe the layer data.
 
 
 ### Input forms
