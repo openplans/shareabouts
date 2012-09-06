@@ -51,7 +51,7 @@ To run the development server:
 
     src/manage.py runserver
 
-The server will, by default, be started at http://localhost:8000/.
+The server will, by default, be started at http://localhost:8000/ .
 But note that it won't be very useful till you complete configuration
 below.
 
@@ -77,7 +77,7 @@ For example, in another terminal session, do this:
   git checkout sa-service
 
 Then read its own install documentation, in doc/README.md.
-
+You'll want to run it on a separate port; we usually use 8001.
 
 Configuration
 --------------
@@ -92,7 +92,7 @@ Static assets
 Static assets for the web map interface should be placed in the
 `src/sa_web/static/sa/` folder.  Included libraries and dependencies can be
 placed in `src/sa_web/static/libs/`.  These files will be available on the
-server at:
+local development server at:
 
     http://localhost:8000/static/sa/...
     http://localhost:8000/static/libs/...
