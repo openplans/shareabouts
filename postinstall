@@ -25,6 +25,8 @@ STATIC_ROOT = '/home/dotcloud/current/static/'
 
 EOF
 
+echo "Creating database if needed..."
+python2 src/scripts/dotcloud_createdbs.py
 echo "Syncing the database..."
 src/manage.py syncdb --migrate --noinput
 
