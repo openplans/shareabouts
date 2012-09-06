@@ -1,5 +1,9 @@
 #!/bin/sh
 
+shout() { echo "$0: $*" >&2; }  # Just echo an error and the program name
+barf() { shout "$*"; exit 111; }
+safe() { "$@" || barf "cannot $*"; }
+
 # =============================================================================
 # Post-install hook file for configuring dotcloud server
 
@@ -26,12 +30,12 @@ STATIC_ROOT = '/home/dotcloud/current/static/'
 EOF
 
 echo "Creating database if needed..."
-python2 src/scripts/dotcloud_createdbs.py
+safe python2 src/scripts/dotcloud_createdbs.py
 echo "Syncing the database..."
-src/manage.py syncdb --migrate --noinput
+safe src/manage.py syncdb --migrate --noinput
 
 echo "Setting up static file service..."
-src/manage.py collectstatic --noinput
+safe src/manage.py collectstatic --noinput
 #cat >> nginx.conf <<EOF
 #location /static/ { root /home/dotcloud/current ; }
 #EOF
