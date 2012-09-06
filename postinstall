@@ -35,9 +35,11 @@ src/manage.py syncdb --migrate --noinput
 
 echo "Setting up static file service..."
 src/manage.py collectstatic --noinput
-#cat >> nginx.conf <<EOF
-#location /static/ { root /home/dotcloud/current ; }
-#EOF
+
+echo "Configuring nginx to serve static files..."
+cat >> nginx.conf <<EOF
+location /static/ { root /home/dotcloud/current ; }
+EOF
 
 echo "Compiling translations..."
 cd src/sa_web
