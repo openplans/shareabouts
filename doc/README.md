@@ -18,12 +18,15 @@ The Shareabouts API is *not* part of this package. You'll need to
 install that separately, or its authors (OpenPlans) would be happy to
 host your API for you - details to come.
 
+For more about the parts of Shareabouts,
+see [the architecture documentation](ARCHITECTURE.md).
 
-Local set up
+Local Setup
 ------------
 
 Install `pip` and `virtualenv`, if not already installed.  These will keep your
-requirements isolated from the rest of your machine.
+python code isolated from the rest of your machine and ensure you have
+the correct versions.
 
     easy_install pip
     pip install virtualenv
@@ -40,7 +43,7 @@ the project requirements:
     source env/bin/activate
     pip install -r requirements.txt
 
-NOTE: If you run in to trouble with gevent, you can safely comment it out of
+NOTE: If you run into trouble with gevent, you can safely comment it out of
 the requirements.txt file.  It is not needed for local development.  To comment
 it out, just add a hash "#" to the beginning of the line for `gevent`.
 
@@ -50,15 +53,15 @@ To run the development server:
 
 The server will, by default, be started at http://localhost:8000/.
 
-NOTE: If you're new to programming with virtual environments, be sure to remember
-to activate your virtual environment every time you start a new terminal session.
+NOTE: If you're new to programming with virtualenv, be sure to remember
+to activate your virtual environment every time you start a new terminal session:
 
     source env/bin/activate
 
 Configuration
 --------------
 
-See CONFIG.md.
+See [the config docs](CONFIG.md).
 
 
 Static assets
@@ -76,4 +79,4 @@ server at:
 Deployment
 -------------
 
-See DEPLOY.md
+See [the deployment docs](DEPLOY.md).
