@@ -16,8 +16,8 @@ Step 1: Configuration
 ---------------------
 
 Copy the *project/config.yml.template* file to *project/config.yml*. (If you
-would like to use a different path for your configuration file, edit the path in
-the file *project/settings.py*.)
+would like to use a different path for your configuration file, edit
+the SHAREABOUTS_CONFIG path in the file *project/settings_local.py*.)
 
 
 ### Dataset
@@ -26,7 +26,7 @@ Enter your username and dataset, along with your API key, into the
 config.yml file.
 
 **NOTE: You don't want to check this information in to your
-repository, as anyone will be able to write to your data using your
+repository, as anyone would be able to write to your data using your
 API key.**
 
 ### The Map
@@ -55,7 +55,7 @@ options are defined
 Option         |Type      |Default   |Description
 ---------------|----------|----------|-----------
 `url`          |String    |None      |The URL template to the tile server. eg. `http://{s}.somedomain.com/blabla/{z}/{x}/{y}.png`. See [this](http://leaflet.cloudmade.com/reference.html#url-template) description for details.
-`attribution`  |String    |None      |The string used to describes the layer data.
+`attribution`  |String    |None      |The string used to describe the layer data.
 
 ### Extra Layer Options
 
@@ -69,7 +69,7 @@ Common options are listed below, and all options are defined [here](http://leafl
 Option         |Type      |Default   |Description
 ---------------|----------|----------|-----------
 `url`          |String    |None      |The URL template to the tile server. eg. `http://{s}.somedomain.com/blabla/{z}/{x}/{y}.png`. See [this](http://leaflet.cloudmade.com/reference.html#url-template) description for details.
-`attribution`  |String    |None      |The string used to describes the layer data.
+`attribution`  |String    |None      |The string used to describe the layer data.
 
 
 ### Input forms
@@ -80,3 +80,6 @@ TODO
 
 TODO
 
+### Styling
+
+See [Customizing the Theme](CUSTOM_THEME.md)

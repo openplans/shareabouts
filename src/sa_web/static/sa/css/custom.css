@@ -1,134 +1,219 @@
-/*body {
-  background: #EEF8FD;
-}
+/* 
+ * This CSS file follows the default Shareabouts style.css. 
+ * All rules herein will override the default Shareabouts styles. 
+ * NOTE: "With great power comes great responsibility." 
+ */
+
+/* =Base Typography
+-------------------------------------------------------------- */
+
 body, select, input, textarea {
-  color: #000;
-  font-family: Arial, sans-serif;
+/*  color: #000;*/
+/*  font-family: "Comic Sans MS", cursive, sans-serif;*/
 }
+
+
+/* =Links
+-------------------------------------------------------------- */
+
 a, a:active, a:visited {
-  color: #1e5395;
+/*  color: #ff40ff;*/
 }
+
 a:hover {
-  color: #1e5395;
+/*  color: #e500e5;*/
 }
+
+
+/* =The Site Header
+-------------------------------------------------------------- */
 
 #site-header {
-  color: #d8d8d8;
-  background-color: #000;
-}
-#site-header a, #site-header a:active, #site-header a:visited {
-  color: #fff;
-}
-#site-header a:hover {
-  /* color: red; * /
-}
-#site-title {
-  font-family: Arial, sans-serif;
-  color: #fff;
-  text-shadow: none;
-}
-#site-title a:link,
-#site-title a:visited {
-  /* setting #site-title font size here works with media queries * /
-  font-size: 0.75em;
-  color: #fff;
-}
-#site-title a:hover {
-  color: #fff;
-}
-a#nav-bttn {
-  background: #b2c045;
-}
-a#nav-bttn:hover {
-  background: #fff;
-  color: #b2c045;
-}
-#access {
-  border: 1em solid #b2c045;
-  border-top: 0.5em solid #b2c045;
-  background: #e2d795;
-}
-#access li {
-  border-bottom: 2px solid #b2c045;
-}
-#access a:hover {
-  background: #b2c045;
-  color: #1e5395;
+/*  color: #fff;*/
+/*  background-color: #994c99;*/
 }
 
+#site-header a, #site-header a:active, #site-header a:visited {
+/*  color: #ff80ff;*/
+}
+
+#site-header a:hover {
+  /* color: #ffbfff; */
+}
+
+
+/* =Logo
+-------------------------------------------------------------- */
+
+/* NOTE: Adjust the #site-title font size in the link 
+ * (not in the #site-title itself) using the em unit,
+ * as to not break it scaling via media queries. */
+
+#site-title {
+/*  font-family: Impact, sans-serif;*/
+/*  color: #fff;*/
+/*  text-shadow: none;*/
+}
+
+#site-title a:link,
+#site-title a:visited { 
+/*  font-size: 0.75em;*/
+/*  color: #fff;*/
+}
+
+#site-title a:hover {
+/*  color: #fff;*/
+}
+
+
+/* =Mobile Navigation Button
+-------------------------------------------------------------- */
+
+a#nav-bttn {
+/*  color: #bf00bf;*/
+/*  background: #ffbfff;*/
+}
+
+a#nav-bttn:hover {
+/*  color: #ffbfff;*/
+/*  background: #fff;*/
+}
+
+
+/* =Navigation Menu
+-------------------------------------------------------------- */
+
+#access {
+/*  border: 1em solid #994c99;*/
+/*  border-top: 0.5em solid #994c99;*/
+/*  background: #994c99;*/
+}
+
+#access li {
+/*  border-bottom: 2px solid #994c99;*/
+}
+
+#access a:hover {
+/*  color: #ffbfff;*/
+/*  background: #fff;*/
+}
+
+
+/* =The Big Button to Add A New Point
+-------------------------------------------------------------- */
+
 a.add-place {
-  background-color: #b2c045;
-  color: #000;
-  text-shadow: none;
+/*  background-color: #ff40ff;*/
+/*  color: #eee;*/
+/*  text-shadow: none;*/
 }
+
 a.add-place:hover {
-  color: #fff;
+/*  background-color: #e500e5;*/
+/*  color: #fff;*/
 }
+
+
+/* =Close Content Button
+-------------------------------------------------------------- */
+
+/* NOTE: The font should be overridden with caution. 
+ * This Helvetica stack produces a good X close icon. */
+
 a.close-bttn {
-  color: #e2d795;
-  border-color: #e2d795;
-  /* This should always be a Helvetica stack * /
-  font-family: "Helvetica Neue", Arial, Helvetica, serif;
+/*  color: #ff40ff;*/
+/*  background-color: #fff;*/
+/*  border-color: #ffbfff;*/
+/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
 }
+
 a.close-bttn:hover {
-  background-color: #e2d795;
-  color: #1e5395;
+/*  color: #e500e5;*/
+/*  background-color: #fff;*/
+/*  border-color: #e500e5;*/
 }
+
+
+/* =Forms
+-------------------------------------------------------------- */
+
 label {
-  color: #000;
+/*  color: #806080;*/
 }
+
 input[type=text],
 textarea {
-/*  border: 1px solid purple;* /
+/*  border: 1px solid #000; */
 }
+
 .required {
-  color: red;
+/*  color: red;*/
 }
+
 .bttn {
-  background-color: #e2d795;
-  color: #000;
-  text-shadow: none;
+/*  color: #eee;*/
+/*  background-color: #ff40ff;*/
+/*  text-shadow: none;*/
 }
+
 .bttn:hover {
-  background-color: #b2c045;
-  color: #fff;
+/*  color: #fff;*/
+/*  background-color: #e500e5;*/
 }
+
 a.reply-link {
-  background: #eef8fd;
-  color: #1e5395;
+/*  color: #1e5395;*/
+/*  background: #eef8fd;*/
 }
+
 a.reply-link:hover {
-  background-color: #e2d795;
-  color: #fff;
+/*  color: #fff;*/
+/*  background-color: #e500e5;*/
 }
+
+
+/* =Voting & Social Promotion 
+-------------------------------------------------------------- */
 .promotion {
-  background-color: #b2c045;
-  border-bottom: 0.5em solid #e2d795;
+/*  background-color: #bf8fbf;*/
+/*  border-bottom: 0.5em solid #806080;*/
 }
+
 #user_support label {
-  background-color: #eef8fd;
-  color: #1e5395;
+/*  color: #ff80ff;*/
+/*  background-color: #fff;*/
 }
+
 #user_support:hover label,
 #user_support label:hover {
-  color: #000;
+/*  color: #e500e5;*/
 }
+
+
+/* =The Ticker
+-------------------------------------------------------------- */
+
 #ticker {
-  background-color: #54718f;
+/*  background-color: #806080;*/
 }
+
 ul.recent-points {
-  color: #eef8fd;
+/*  color: #eee;*/
 }
+
 .recent-points li {
-  border-bottom: 3px solid #456280;
+/*  border-bottom: 3px solid #664c66;*/
 }
+
 .recent-points li:hover {
-  background: #203e5a;
+/*  background: #bf60bf;*/
 }
+
 .recent-points a {
-  color: #eef8fd;
+/*  color: #eee;*/
 }
+
 .recent-points li:hover a,
 .recent-points a:hover {
-  color: #fff;
-}*/
+/*  color: #fff;*/
+}
