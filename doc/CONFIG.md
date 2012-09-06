@@ -26,7 +26,7 @@ Enter your username and dataset, along with your API key, into the
 config.yml file.
 
 **NOTE: You don't want to check this information in to your
-repository, as anyone will be able to write to your data using your
+repository, as anyone would be able to write to your data using your
 API key.**
 
 ### The Map
