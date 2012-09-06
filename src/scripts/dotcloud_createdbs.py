@@ -53,6 +53,19 @@ def create_dbs():
             except psycopg2.ProgrammingError as detail:
                 print(detail)
                 print('moving right along...')
+        # see if it is postgresql
+        elif db_type.endswith('postgis'):
+            import psycopg2
+            print('creating database %s on %s' % (db_name, host))
+            con = psycopg2.connect(host=host, user=user, password=password, port=port, database='postgres')
+            con.set_isolation_level(0)
+            cur = con.cursor()
+            try:
+                cur.execute('CREATE DATABASE %s WITH TEMPLATE=template1' % db_name)
+            except psycopg2.ProgrammingError as detail:
+                print(detail)
+                print('moving right along...')
+
         else:
             print("ERROR: {0} is not supported by this script, you will need to create your database by hand.".format(db_type))
 
