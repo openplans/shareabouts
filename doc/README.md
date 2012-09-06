@@ -80,3 +80,9 @@ Deployment
 -------------
 
 See [the deployment docs](DEPLOY.md).
+
+
+Testing
+--------
+
+To run the tests, see [the testing docs](TESTING.md).
