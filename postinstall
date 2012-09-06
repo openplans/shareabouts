@@ -29,8 +29,13 @@ STATIC_ROOT = '/home/dotcloud/current/static/'
 
 EOF
 
+# Need to be able to import settings to run the createdbs script...
+echo VIRTUAL_ENV is $VIRTUAL_ENV
+export PYTHONPATH=$PYTHONPATH:$PWD/src/
+export DJANGO_SETTINGS_MODULE=project.settings
 echo "Creating database if needed..."
 safe python2 src/scripts/dotcloud_createdbs.py
+
 echo "Syncing the database..."
 safe src/manage.py syncdb --migrate --noinput
 
