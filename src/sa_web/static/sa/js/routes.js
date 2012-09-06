@@ -37,7 +37,12 @@ var Shareabouts = Shareabouts || {};
       this.activities.reset(options.activity);
 
       // Start tracking the history
-      Backbone.history.start({pushState: true});
+      var historyOptions = {pushState: true};
+      if (options.defaultPlaceTypeName) {
+        historyOptions.root = '/' + options.defaultPlaceTypeName + '/';
+      }
+
+      Backbone.history.start(historyOptions);
 
       // Load the default page only if there is no page already in the url
       if (Backbone.history.getFragment() === '') {

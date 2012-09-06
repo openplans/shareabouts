@@ -162,7 +162,9 @@
         surveyConfig = {{ survey_config_json|safe }},
         supportConfig = {{ support_config_json|safe }},
         pagesConfig = {{ pages_config_json|safe }},
-        mapConfig = {{ map_config_json|safe }};
+        mapConfig = {{ map_config_json|safe }},
+
+        defaultPlaceTypeName = '{{ default_place_type }}';
 
     // Define each Leaflet Icon type
     _.each(placeTypeIconsConfig, function(config, name) {
@@ -177,15 +179,19 @@
 
     // Init each icon and attach it to its type
     _.each(placeTypesConfig, function(config, name) {
-      placeTypes[name] = {
-        'default': new placeTypeIcons[config['default']](),
-        'focused': new placeTypeIcons[config.focused]()
-      };
+
+      if (!defaultPlaceTypeName || name.toLowerCase() === defaultPlaceTypeName.toLowerCase()) {
+        placeTypes[name] = {
+          'default': new placeTypeIcons[config['default']](),
+          'focused': new placeTypeIcons[config.focused]()
+        };
+      }
     });
 
     $(function() {
       // Ready set go!
       window.app = new Shareabouts.App({
+        defaultPlaceTypeName: defaultPlaceTypeName,
         places: {{ places_json|safe }},
         activity: {{ activity_json|safe }},
         userToken: {{ user_token_json|safe }},
