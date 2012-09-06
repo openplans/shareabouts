@@ -52,15 +52,37 @@ To run the development server:
     src/manage.py runserver
 
 The server will, by default, be started at http://localhost:8000/.
+But note that it won't be very useful till you complete configuration
+below.
 
 NOTE: If you're new to programming with virtualenv, be sure to remember
 to activate your virtual environment every time you start a new terminal session:
 
     source env/bin/activate
 
+
+Running the Shareabouts API Service
+------------------------------------
+
+For local development, you will also want to install and run the
+back-end API service.  To do so, you will want a separate clone
+of the shareabouts repository, with the sa-service branch checked out.
+(This is as of 2012-09-05; will likely move to a separate repository
+in the future.)
+
+For example, in another terminal session, do this:
+
+  git clone https://github.com/openplans/shareabouts/ sa-service
+  cd sa-service
+  git checkout sa-service
+
+Then read its own install documentation, in doc/README.md.
+
+
 Configuration
 --------------
 
+Next you need to configure the SA web app.
 See [the config docs](CONFIG.md).
 
 
