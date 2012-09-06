@@ -10,6 +10,9 @@ def create_dbs():
     django_settings = __import__(os.environ['DJANGO_SETTINGS_MODULE'], fromlist='DATABASES')
     print("create_dbs: got settings.")
     databases = django_settings.DATABASES
+    if not databases:
+        raise RuntimeError(
+            "No databases in %s" % os.environ['DJANGO_SETTINGS_MODULE'])
     for name, db in databases.iteritems():
         host = db['HOST']
         user = db['USER']
