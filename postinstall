@@ -13,7 +13,7 @@ with open('/home/dotcloud/environment.json') as f:
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'shareabouts_v1',
+        'NAME': 'shareabouts_v2',
         'USER': env['DOTCLOUD_DB_SQL_LOGIN'],
         'PASSWORD': env['DOTCLOUD_DB_SQL_PASSWORD'],
         'HOST': env['DOTCLOUD_DB_SQL_HOST'],
