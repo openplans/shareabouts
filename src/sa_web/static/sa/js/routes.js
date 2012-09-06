@@ -21,6 +21,7 @@ var Shareabouts = Shareabouts || {};
         el: 'body',
         collection: this.collection,
         activities: this.activities,
+        defaultPlaceTypeName: options.defaultPlaceTypeName,
         placeTypes: options.placeTypes,
         surveyConfig: options.surveyConfig,
         supportConfig: options.supportConfig,

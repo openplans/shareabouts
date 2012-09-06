@@ -185,6 +185,11 @@
           'default': new placeTypeIcons[config['default']](),
           'focused': new placeTypeIcons[config.focused]()
         };
+
+        // Update in case if there is a case issue
+        if(defaultPlaceTypeName) {
+          defaultPlaceTypeName = name;
+        }
       }
     });
 

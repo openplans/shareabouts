@@ -26,6 +26,25 @@ var Shareabouts = Shareabouts || {};
       });
 
       return items;
+    },
+
+    overridePlaceTypeConfig: function(configItems, defaultPlaceTypeName) {
+      var placeTypeConfig = _.find(configItems, function(config){
+        return config.name === 'location_type';
+      });
+
+      if (defaultPlaceTypeName || placeTypeConfig.options.length === 1){
+        placeTypeConfig.type = 'hidden';
+        placeTypeConfig.prompt = null;
+
+        if (defaultPlaceTypeName) {
+          placeTypeConfig.attrs = {key: 'value', value: defaultPlaceTypeName};
+        } else {
+          placeTypeConfig.attrs = {key: 'value', value: placeTypeConfig.options[0]};
+        }
+
+        delete placeTypeConfig.options;
+      }
     }
   };
 })(Shareabouts);
