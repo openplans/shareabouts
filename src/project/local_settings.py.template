@@ -1,7 +1,7 @@
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'shareabouts_v2',
+        'NAME': 'shareabouts',
         'USER': 'shareabouts',
         'PASSWORD': 'shareabouts',
         'HOST': '',

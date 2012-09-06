@@ -29,9 +29,9 @@ psql -d template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;"
 # Initialize the database
 psql -U postgres <<EOF
     CREATE USER shareabouts WITH PASSWORD 'shareabouts';
-    CREATE DATABASE shareabouts_v2 WITH TEMPLATE = template_postgis;
+    CREATE DATABASE shareabouts WITH TEMPLATE = template_postgis;
     GRANT ALL ON DATABASE template_postgis TO shareabouts;
-    GRANT ALL ON DATABASE shareabouts_v2 TO shareabouts;
+    GRANT ALL ON DATABASE shareabouts TO shareabouts;
     ALTER USER shareabouts WITH CREATEDB;
 EOF
 
