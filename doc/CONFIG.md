@@ -196,17 +196,75 @@ parts are configurable, see below.
 
 #### Survey Form Configuration
 
-TODO
+The survey form is configured in the *survey* section.
+First you can configure display of existing submissions.
+The options you can set are:
+
+Option               | Type    | Description
+---------------------|---------|----------------
+submission_type      | string  | What type of submissions these are, eg. "comments"
+show_responses       | boolean | Whether previous submissions should be shown with the form.
+response_name        | string  | Label to use when displaying previous submissions.
+response_plural_name | string | Plural label for displaying previous submissions.
+ action_text         | string  | For example, "commented on"
+
+
+
+Next is the survey form itself.  This is much like the Place creation
+form described above.  You can supply an arbitrary number of form items.
+Here's an example:
+
+    # Survey form config
+    title: Leave a Comment
+    form_link_text: Leave a Comment
+    submit_btn_text: Comment
+    items:
+      - prompt: Comment
+        label: Comment
+        type: textarea
+        name: comment
+      - prompt: Your Name
+        type: text
+        name: submitter_name
 
 
 #### Support Form Configuration
 
-TODO
+This is a simple form with a single button, in the *support* section.
+The options you can set are:
+
+Option               | Type    | Description
+---------------------|---------|----------------
+submission_type      | string  | Name for a type of submission a "support" is saved as, eg. "support"
+submit_btn_txt       | string  | Text on the submit button itself.
+action_text          | string  | Past-tense verb for display in the activity view, eg. "supported"
 
 
 ### Interface Text
 
-TODO
+Much of the text in Shareabouts can be customized via the Django
+localization (translation) machinery.  Even if you're only creating a
+site in english, this is useful to change various strings used on the
+site.
+
+The translations file is
+src/sa_web/locale/en_US/LC_MESSAGES/django.po
+You can edit this file with any text editor,
+or with any tool that supports .po files, such as
+[poedit](http://www.poedit.net/).
+
+Edit the translations as desired, save it, then run this command:
+
+    cd src/sa_web
+	../manage.py compilemessages
+
+A few notable messages you will definitely want to edit:
+
+* msgid "App Title"
+
+* msgid "App Description"
+
+* msgid "App Name"
 
 
 ### Pages
@@ -214,20 +272,21 @@ TODO
 Shareabouts allows you to create multiple static pages, linked from
 the top navigation bar. To create a page:
 
-* First add a title, slug, and url to the "pages" array in config.yml.
-  For example:
+* To add a page to the navigaton bar, first add a title, slug, and url
+  to the "pages" array in config.yml.  For example:
 
     - title: About
       slug: about
       url: /static/sa/pages/about.html
 	  start_page: true
 
-* The *start_page* option allows specifying that this page should be
+  The *start_page* option allows specifying that this page should be
   open when people first visit the site. If omitted, it defaults to false.
 
 * Create the page content (as HTML) in the file pointed to by the url.
   For the given example, you would edit the content in
   src/sa_web/static/sa/pages/features.html.
+
 
 ### Styling
 
