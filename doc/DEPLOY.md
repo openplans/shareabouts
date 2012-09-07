@@ -31,8 +31,6 @@ of the files necessary are already in the repository.
 	                                 SHAREABOUTS_API_ROOT=<api root url>
 
 
-* Now restart the application:
-
-    dotcloud restart <instance name>.www
+  (This will trigger another deploy, but it will go faster.)
 
 Should be all done!
