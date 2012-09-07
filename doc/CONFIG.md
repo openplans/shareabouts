@@ -99,9 +99,6 @@ like so:
       iconAnchor:
         x: 9
         y: 9
-      popupAnchor:
-        x: 9
-        y: 9
 
 The properties of icons are as per the Leaflet docs, see http://leaflet.cloudmade.com/reference.html#icon
 But briefly:
@@ -114,9 +111,6 @@ The iconSize you specify in config.yml should match that of the image.
 map point the center of the icon is placed; useful for eg. place
 markers that look best sticking up from the point rather than centered
 on it.
-
-*popupAnchor*, also in pixels, specifies where to place the tip of the
-popup that appears when you click a point.
 
 
 ### Input forms
@@ -133,9 +127,9 @@ All of this happens in the 'place' section of the config.yml file.
 
 The 'place' section of the config file starts like this:
 
- place:
-  adding_supported: true
-  title: The title of the form.
+    place:
+      adding_supported: true
+      title: The title of the form.
 
 If adding_supported is set to false, users cannot add places, and can
 only comment on or support the places you provide.
@@ -144,16 +138,16 @@ Next you can have any number of input widgets to appear on the place
 adding form. These go in the *items* subsection, under *place*.
 Each one looks like:
 
-  items:
-    - prompt: Your Name
-      type: text
-      name: submitter_name
-      optional: true
-      attrs:
-        - key: placeholder
-          value: Type Your Name Here
-        - key: size
-          value: 30
+    items:
+      - prompt: Your Name
+        type: text
+        name: submitter_name
+        optional: true
+        attrs:
+          - key: placeholder
+            value: Type Your Name Here
+          - key: size
+            value: 30
 
 The *prompt* is used to label the form. The *type*, *name*, and any
 *attrs* are used directly as HTML attributes.  This example would
@@ -164,7 +158,7 @@ generate the following HTML:
      name="submitter_name"
 	 size="30" placeholder="Type Your Name Here">
 
-The *optional* setting is interesting. It adds some text to the form
+The *optional* setting adds some text to the form
 label, but it also is used when validating your form, so if optional
 is omitted or set to false, the user will get an error if they don't
 provide a value.
@@ -200,14 +194,15 @@ add more information. There are two parts to this: a simple Support
 section, and a section with one or more inputs to add more info.  Both
 parts are configurable, see below.
 
+#### Survey Form Configuration
+
+TODO
+
 
 #### Support Form Configuration
 
 TODO
 
-#### Survey Form Configuration
-
-TODO
 
 ### Interface Text
 

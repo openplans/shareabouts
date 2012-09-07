@@ -42,9 +42,6 @@ place_type_icons:
     iconAnchor:
       x: 9
       y: 9
-    popupAnchor:
-      x: 9
-      y: 9
   red:
     iconUrl: /static/sa/css/images/marker-focused.png
     shadowUrl: /static/sa/css/images/marker-shadow.png
@@ -57,9 +54,6 @@ place_type_icons:
     iconAnchor:
       x: 12
       y: 41
-    popupAnchor:
-      x: 12
-      y: 6
 
 place:
   adding_supported: true
