@@ -222,13 +222,17 @@ the top navigation bar. To create a page:
 * First add a title, slug, and url to the "pages" array in config.yml.
   For example:
 
-    - title: Features
-      slug: features
-      url: /static/sa/pages/features.html
+    - title: About
+      slug: about
+      url: /static/sa/pages/about.html
+	  start_page: true
+
+* The *start_page* option allows specifying that this page should be
+  open when people first visit the site. If omitted, it defaults to false.
 
 * Create the page content (as HTML) in the file pointed to by the url.
   For the given example, you would edit the content in
-  static/sa/pages/features.html.
+  src/sa_web/static/sa/pages/features.html.
 
 ### Styling
 
