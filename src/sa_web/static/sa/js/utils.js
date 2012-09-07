@@ -6,8 +6,12 @@ var Shareabouts = Shareabouts || {};
       moment.lang(locale);
     },
 
-    getPrettyDateTime: function(datetime) {
-      return moment(datetime).fromNow();
+    getPrettyDateTime: function(datetime, format) {
+      if (format) {
+        return moment(datetime).format(format);
+      } else {
+        return moment(datetime).fromNow();
+      }
     },
 
     getAttrs: function($form) {
