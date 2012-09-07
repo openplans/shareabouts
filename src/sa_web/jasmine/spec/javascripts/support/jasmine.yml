@@ -19,6 +19,7 @@ src_files:
   - static/libs/ICanHaz-no-mustache.min.js
   - static/libs/moment.min.js
   - static/sa/js/utils.js
+  - static/sa/js/template-helpers.js
   - static/sa/js/models.js
   - static/sa/js/views/pages-nav-view.js
   - static/sa/js/views/activity-view.js

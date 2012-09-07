@@ -128,6 +128,7 @@ var Shareabouts = Shareabouts || {};
             model: model,
             appView: this,
             router: this.options.router,
+            defaultPlaceTypeName: this.options.defaultPlaceTypeName,
             placeTypes: this.options.placeTypes,
             placeConfig: this.options.placeConfig
           }),

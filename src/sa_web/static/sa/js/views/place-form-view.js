@@ -7,6 +7,8 @@ var Shareabouts = Shareabouts || {};
       'submit form': 'onSubmit'
     },
     initialize: function(){
+      S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
+        this.options.defaultPlaceTypeName);
       S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
 
       // Bind model events
