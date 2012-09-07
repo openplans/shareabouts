@@ -3,7 +3,7 @@ var Shareabouts = Shareabouts || {};
 (function(S, $, console){
   S.PagesNavView = Backbone.View.extend({
     events: {
-      'click a': 'onPageLinkClick',
+      'click .internal-menu-item a': 'onPageLinkClick',
       'click #nav-bttn': 'onMobileNavClick'
     },
 

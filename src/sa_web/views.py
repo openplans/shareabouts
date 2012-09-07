@@ -57,23 +57,29 @@ def index(request):
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
     for page_config in pages_config:
+        external = page_config.get('external', False)
+
         page_url = page_config.pop('url')
         page_url = request.build_absolute_uri(page_url)
+        page_config['url'] = page_url
 
-        # TODO It would be best if this were also asynchronous.
-        response = requests.get(page_url)
+        if external:
+            page_config['external'] = True
 
-        # If we successfully got the content, stick it into the config instead
-        # of the URL.
-        if response.status_code == 200:
-            page_config['content'] = response.text
-
-        # If there was an error, let the client know what the URL, status code,
-        # and text of the error was.
         else:
-            page_config['url'] = page_url
-            page_config['status'] = response.status_code
-            page_config['error'] = response.text
+            # TODO It would be best if this were also asynchronous.
+            response = requests.get(page_url)
+
+            # If we successfully got the content, stick it into the config instead
+            # of the URL.
+            if response.status_code == 200:
+                page_config['content'] = response.text
+
+            # If there was an error, let the client know what the URL, status code,
+            # and text of the error was.
+            else:
+                page_config['status'] = response.status_code
+                page_config['error'] = response.text
 
     pages_config_json = json.dumps(pages_config)
 

@@ -137,3 +137,7 @@ pages:
   - title: Features
     slug: features
     url: /static/sa/pages/features.html
+
+  - title: OpenPlans
+    external: true
+    url: http://www.openplans.org

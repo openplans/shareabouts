@@ -4,8 +4,9 @@
 <nav id="access" role="article">
   <ul class="menu">
     {{# pages }}
-    <li class="menu-item menu-item-{{ slug }}">
-      <a href="/page/{{ slug }}">{{ title }}</a>
+    <li class="menu-item {{^ external }}internal-menu-item menu-item-{{ slug }}{{/ external }}">
+      {{# external }}<a href="{{ url }}">{{ title }}</a>{{/ external }}
+      {{^ external }}<a href="/page/{{ slug }}">{{ title }}</a>{{/ external }}
     </li>
     {{/ pages }}
 
