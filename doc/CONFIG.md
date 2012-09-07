@@ -76,9 +76,46 @@ Option         |Type      |Default   |Description
 
 ### Place Types
 
-TODO
+Shareabouts can handle multiple types of Place. To set up the types
+you're interested in, edit config.yml and add an item to the
+place_types mapping, like so:
 
-Icons - TODO
+  place_types:
+    Landmark:
+      default: blue
+      focused: red
+
+The name of this type is "Landmark", and we've identified by name two
+icon configurations to use when this place type is selected or not.
+These icons are configured in the separate place_type_icons section,
+like so:
+
+  place_type_icons:
+    blue:
+      iconUrl: /static/sa/css/images/feature-point.png
+      iconSize:
+        width: 17
+        height: 18
+      iconAnchor:
+        x: 9
+        y: 9
+      popupAnchor:
+        x: 9
+        y: 9
+
+
+The *iconUrl* is relative to the root of the website. Put the corresponding
+image file in src/sa_web/static/sa/css/images/.
+The iconSize you specify in config.yml should match that of the image.
+
+*iconAnchor* is measured in pixels, and specifies where relative to the
+map point the center of the icon is placed; useful for eg. place
+markers that look best sticking up from the point rather than centered
+on it.
+
+*popupAnchor*, also in pixels, specifies where to place the tip of the
+popup that appears when you click a point.
+
 
 ### Input forms
 
