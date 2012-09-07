@@ -103,6 +103,8 @@ like so:
         x: 9
         y: 9
 
+The properties of icons are as per the Leaflet docs, see http://leaflet.cloudmade.com/reference.html#icon
+But briefly:
 
 The *iconUrl* is relative to the root of the website. Put the corresponding
 image file in src/sa_web/static/sa/css/images/.
@@ -119,10 +121,85 @@ popup that appears when you click a point.
 
 ### Input forms
 
+Users can do basically three things with places:
+
+* Create one
+* Add some information to an existing one
+* Support or Like one
+
+All of this happens in the 'place' section of the config.yml file.
+
+#### Creating places
+
+The 'place' section of the config file starts like this:
+
+ place:
+  adding_supported: true
+  title: The title of the form.
+
+If adding_supported is set to false, users cannot add places, and can
+only comment on or support the places you provide.
+
+Next you can have any number of input widgets to appear on the place
+adding form. These go in the *items* subsection, under *place*.
+Each one looks like:
+
+  items:
+    - prompt: Your Name
+      type: text
+      name: submitter_name
+      optional: true
+      attrs:
+        - key: placeholder
+          value: Type Your Name Here
+        - key: size
+          value: 30
+
+The *prompt* is used to label the form. The *type*, *name*, and any
+*attrs* are used directly as HTML attributes.  This example would
+generate the following HTML:
+
+    <label for="place-submitter_name">Your Name (optional)</label>
+    <input id="place-submitter_name type="text"
+     name="submitter_name"
+	 size="30" placeholder="Type Your Name Here">
+
+The *optional* setting is interesting. It adds some text to the form
+label, but it also is used when validating your form, so if optional
+is omitted or set to false, the user will get an error if they don't
+provide a value.
+
+##### Choosing a place type
+
+If you have only one *place type* (see above), you'll want to specify
+it as a hidden input named *location_type*, like so:
+
+    - type: hidden
+      name: location_type
+      attrs:
+        - key: value
+          value: <your place type name goes here>
+
+(Yes, it's odd that the names are inconsistent. Needs to be fixed;
+see https://www.pivotaltracker.com/story/show/35697987)
+
+If you have more than one place type, and want your users to be able to
+choose which type they're adding, then use a select input, like so:
+
+    - prompt: Location Type
+      type: select
+      options:
+        - Landmark
+        - Park
+        - School
+
+
+
 Once a Place has been created, users can click on it and see a form to
-add more information. There are two parts to this:: a simple Support
+add more information. There are two parts to this: a simple Support
 section, and a section with one or more inputs to add more info.  Both
-parts are configurable.
+parts are configurable, see below.
+
 
 #### Support Form Configuration
 
