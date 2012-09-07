@@ -37,7 +37,8 @@ options](http://leaflet.cloudmade.com/reference.html#map-options).
 
 Option       |Type      |Default   |Description
 -------------|----------|----------|-----------
-`center`     |Array     |None      |An array for the initial center. ie. `[lat, lng]` or `[39.952, -75.163]`
+`center`     |Object    |None      |Latitude and longitude for the
+initial center. eg. "lat: 39.9523524" and "lng: -75.1636075"
 `zoom`       |Integer   |None      |The initial zoom level.
 `minZoom`    |Integer   |None      |The minimum zoom level supported.
 `maxZoom`    |Integer   |None      |The maximum zoom level supported.
@@ -45,7 +46,7 @@ Option       |Type      |Default   |Description
 
 ### Base Layer Options
 
-This configures a single
+The base_layer value configures a single
 [TileLayer](http://leaflet.cloudmade.com/reference.html#tilelayer) as the base
 layer for the map. This section is completely optional and defaults to MapBox
 Streets tiles based on OpenStreetMap. Common options are listed below, and all
@@ -59,7 +60,8 @@ Option         |Type      |Default   |Description
 
 ### Extra Layer Options
 
-You can add additional overlays on top of your base layer. This logic
+You can add additional overlays on top of your base layer. To do so,
+add to the "layers" array.  This logic
 is very basic at this time so please note that only
 [TileLayers](http://leaflet.cloudmade.com/reference.html#tilelayer)
 are supported, and there is no way to toggle the visibility.
@@ -72,13 +74,47 @@ Option         |Type      |Default   |Description
 `attribution`  |String    |None      |The string used to describe the layer data.
 
 
+### Place Types
+
+TODO
+
+Icons - TODO
+
 ### Input forms
+
+Once a Place has been created, users can click on it and see a form to
+add more information. There are two parts to this:: a simple Support
+section, and a section with one or more inputs to add more info.  Both
+parts are configurable.
+
+#### Support Form Configuration
+
+TODO
+
+#### Survey Form Configuration
 
 TODO
 
 ### Interface Text
 
 TODO
+
+
+### Pages
+
+Shareabouts allows you to create multiple static pages, linked from
+the top navigation bar. To create a page:
+
+* First add a title, slug, and url to the "pages" array in config.yml.
+  For example:
+
+    - title: Features
+      slug: features
+      url: /static/sa/pages/features.html
+
+* Create the page content (as HTML) in the file pointed to by the url.
+  For the given example, you would edit the content in
+  static/sa/pages/features.html.
 
 ### Styling
 
