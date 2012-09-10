@@ -3,6 +3,7 @@ var Shareabouts = Shareabouts || {};
 (function(S, $, console){
   S.App = Backbone.Router.extend({
     routes: {
+      '': 'viewMap',
       'place/new': 'newPlace',
       'place/:id': 'viewPlace',
       'place/:id/edit': 'editPlace',
@@ -55,6 +56,10 @@ var Shareabouts = Shareabouts || {};
           this.navigate('page/' + startPageConfig.slug);
         }
       }
+    },
+
+    viewMap: function() {
+      this.appView.viewMap();
     },
 
     newPlace: function() {

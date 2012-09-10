@@ -115,11 +115,7 @@ var Shareabouts = Shareabouts || {};
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
-      this.hidePanel();
-      this.hideNewPin();
-      this.destroyNewModels();
-      this.showAddButton();
-      this.options.router.navigate('/');
+      this.options.router.navigate('/', {trigger: true});
     },
     // This gets called for every model that gets added to the place
     // collection, not just new ones.
@@ -164,6 +160,12 @@ var Shareabouts = Shareabouts || {};
       collection.each(function(model) {
         self.onAddPlace(model);
       });
+    },
+    viewMap: function() {
+      this.hidePanel();
+      this.hideNewPin();
+      this.destroyNewModels();
+      this.showAddButton();
     },
     newPlace: function() {
       // Called by the router
