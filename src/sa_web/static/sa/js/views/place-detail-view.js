@@ -25,7 +25,8 @@ var Shareabouts = Shareabouts || {};
 
           data = _.extend({
             pretty_created_datetime: function() {
-              return S.Util.getPrettyDateTime(this.created_datetime);
+              return S.Util.getPrettyDateTime(this.created_datetime,
+                self.options.placeConfig.pretty_datetime_format);
             },
             submitter_is_anonymous: (!this.model.get('submitter_name')),
             items: items,

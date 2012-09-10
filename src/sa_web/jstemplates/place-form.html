@@ -12,9 +12,9 @@
             {{# place_config.items }}
             <p>
               <label for="place-{{ name }}">{{ prompt }} {{# optional }}(optional){{/ optional }}</label>
-              {{#is_text}}
+              {{#is_input}}
               <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-              {{/is_text}}
+              {{/is_input}}
               {{#is_textarea}}
               <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
               {{/is_textarea}}

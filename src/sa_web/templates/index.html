@@ -68,8 +68,6 @@
 
     <div id="map-container">
       <div id="map"></div>
-      <a href="#" id="add-place" class="add-place"><span>{% trans "Add Place" %}</span></a>
-      <span id="centerpoint"><span class="shadow"></span><span class="x"></span><span class="marker"></span></span>
     </div>
 
     <div id="content">
@@ -81,6 +79,7 @@
 
   <div id="ticker">
     <ul class="recent-points"></ul>
+    <p id="powered-by">Powered by <a href="http://shareabouts.org/">Shareabouts</a>.</p>
   </div>
 
   <footer id="colophon">
@@ -148,6 +147,7 @@
   {% mustacheich "submitter-or-anonymous" %}
   {% mustacheich "pages-nav" %}
   {% mustacheich "unsupported-overlay" %}
+  {% mustacheich "add-places" %}
 
   <script type="text/javascript">
   // moment.lang({{locale}});
@@ -163,7 +163,9 @@
         surveyConfig = {{ survey_config_json|safe }},
         supportConfig = {{ support_config_json|safe }},
         pagesConfig = {{ pages_config_json|safe }},
-        mapConfig = {{ map_config_json|safe }};
+        mapConfig = {{ map_config_json|safe }},
+
+        defaultPlaceTypeName = '{{ default_place_type }}';
 
     // Define each Leaflet Icon type
     _.each(placeTypeIconsConfig, function(config, name) {
@@ -172,21 +174,30 @@
         shadowUrl: config.shadowUrl,
         iconSize: new L.Point(config.iconSize.width, config.iconSize.height),
         iconAnchor: new L.Point(config.iconAnchor.x, config.iconAnchor.y),
-        popupAnchor: new L.Point(config.popupAnchor.x, config.popupAnchor.y)
+        popupAnchor: new L.Point(config.iconAnchor.x, config.iconAnchor.y)
       });
     });
 
     // Init each icon and attach it to its type
     _.each(placeTypesConfig, function(config, name) {
-      placeTypes[name] = {
-        'default': new placeTypeIcons[config['default']](),
-        'focused': new placeTypeIcons[config.focused]()
-      };
+
+      if (!defaultPlaceTypeName || name.toLowerCase() === defaultPlaceTypeName.toLowerCase()) {
+        placeTypes[name] = {
+          'default': new placeTypeIcons[config['default']](),
+          'focused': new placeTypeIcons[config.focused]()
+        };
+
+        // Update in case if there is a case issue
+        if(defaultPlaceTypeName) {
+          defaultPlaceTypeName = name;
+        }
+      }
     });
 
     $(function() {
       // Ready set go!
       window.app = new Shareabouts.App({
+        defaultPlaceTypeName: defaultPlaceTypeName,
         places: {{ places_json|safe }},
         activity: {{ activity_json|safe }},
         userToken: {{ user_token_json|safe }},

@@ -16,6 +16,9 @@ var Shareabouts = Shareabouts || {};
       this.collection.on('remove', this.onRemovePlace, this);
       this.collection.on('reset', this.onResetPlaces, this);
 
+      // Only append the tools to add places (if supported)
+      $('#map-container').append(ich['add-places'](this.options.placeConfig));
+
       this.pagesNavView = (new S.PagesNavView({
               el: '#pages-nav-container',
               pagesConfig: this.options.pagesConfig,
@@ -125,6 +128,7 @@ var Shareabouts = Shareabouts || {};
             model: model,
             appView: this,
             router: this.options.router,
+            defaultPlaceTypeName: this.options.defaultPlaceTypeName,
             placeTypes: this.options.placeTypes,
             placeConfig: this.options.placeConfig
           }),

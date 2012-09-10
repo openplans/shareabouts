@@ -50,12 +50,20 @@
                   </label>
 
                   <div class="survey-widgets survey-widgets-{{ name }}">
+                    {{#is_input}}
+                    <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+
+                    {{/is_input}}
                     {{#is_textarea}}
                     <textarea id="survey-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
                     {{/is_textarea}}
-                    {{^is_textarea}}
-                    <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-                    {{/is_textarea}}
+                    {{#is_select}}
+                    <select id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                      {{# options }}
+                        <option value="{{.}}">{{.}}</option>
+                      {{/ options }}
+                    </select>
+                    {{/is_select}}
                   </div>
                 </div>
 

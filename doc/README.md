@@ -1,15 +1,32 @@
 From 0 to Shareabouts in about an hour
 ======================================
+
 Shareabouts requires python2.6 or greater.
 
 If you are converting from Shareabouts 1.0, note that
-we have switched platforms. See UPGRADE.md.
+we have switched platforms. See [the upgrade docs](UPGRADE.md).
 
-Local set up
+What's here
+------------
+
+This package contains the Shareabouts web map application,
+which consists of JavaScript, some configuration files that you use to
+tailor the app to your needs, and a small glue layer that talks to the
+underlying Shareabouts API server.
+
+The Shareabouts API is *not* part of this package. You'll need to
+install that separately, or its authors (OpenPlans) would be happy to
+host your API for you - details to come.
+
+For more about the parts of Shareabouts,
+see [the architecture documentation](ARCHITECTURE.md).
+
+Local Setup
 ------------
 
 Install `pip` and `virtualenv`, if not already installed.  These will keep your
-requirements isolated from the rest of your machine.
+python code isolated from the rest of your machine and ensure you have
+the correct versions.
 
     easy_install pip
     pip install virtualenv
@@ -26,31 +43,48 @@ the project requirements:
     source env/bin/activate
     pip install -r requirements.txt
 
-NOTE: If you run in to trouble with gevent, you can safely comment it out of
+NOTE: If you run into trouble with gevent, you can safely comment it out of
 the requirements.txt file.  It is not needed for local development.  To comment
-it out, just add a hash to the beginning of the line for `gevent`.
+it out, just add a hash "#" to the beginning of the line for `gevent`.
 
 To run the development server:
 
     src/manage.py runserver
 
-The server will, by default, be started at http://localhost:8000/.
+The server will, by default, be started at http://localhost:8000/ .
+But note that it won't be very useful till you complete configuration
+below.
 
-NOTE: If you're new to programming with virtual environments, be sure to remember
-to activate your virtual environment every time you start a new terminal session.
+NOTE: If you're new to programming with virtualenv, be sure to remember
+to activate your virtual environment every time you start a new terminal session:
 
     source env/bin/activate
 
-Database
---------
 
-The Shareabouts REST API requires GeoDjango.  To install GeoDjango on your
-platform, see https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/#platform-specific-instructions.
+Running the Shareabouts API Service
+------------------------------------
 
-Create a development database for the Shareabouts data store. Copy the file
-`src/project/local_settings.py.template` to `local_settings.py` and fill in the
-credentials for connecting to your development database.  This file will not be
-checked in to the repository.
+For local development, you will also want to install and run the
+back-end API service.  To do so, you will want a separate clone
+of the shareabouts repository, with the sa-service branch checked out.
+(This is as of 2012-09-05; will likely move to a separate repository
+in the future.)
+
+For example, in another terminal session, do this:
+
+  git clone https://github.com/openplans/shareabouts/ sa-service
+  cd sa-service
+  git checkout sa-service
+
+Then read its own install documentation, in doc/README.md.
+You'll want to run it on a separate port; we usually use 8001.
+
+Configuration
+--------------
+
+Next you need to configure the SA web app.
+See [the config docs](CONFIG.md).
+
 
 Static assets
 -------------
@@ -58,80 +92,19 @@ Static assets
 Static assets for the web map interface should be placed in the
 `src/sa_web/static/sa/` folder.  Included libraries and dependencies can be
 placed in `src/sa_web/static/libs/`.  These files will be available on the
-server at:
+local development server at:
 
     http://localhost:8000/static/sa/...
     http://localhost:8000/static/libs/...
 
-Getting Set Up on DotCloud
---------------------------
 
-First, create a new dotcloud application from the contents of the `v1` branch:
+Deployment
+-------------
 
-    dotcloud create shareabouts
-    dotcloud push -b v1
+See [the deployment docs](DEPLOY.md).
 
-Log on to the database server:
 
-    dotcloud ssh shareabouts.db
+Testing
+--------
 
-Start up `psql`:
-
-    psql
-
-Create a database for the Shareabouts data store:
-
-    create database shareabouts_v1 with template=template1;
-
-Great!  Now exit out of the database server and log in to the web server:
-
-    exit
-    dotcloud ssh shareabouts.www
-
-Find out the database connection information:
-
-    cat ~/environment.json
-
-Take note of the `DOTCLOUD_DB_SQL_HOST`, `DOTCLOUD_DB_SQL_PORT`,
-`DOTCLOUD_DB_SQL_LOGIN`, and `DOTCLOUD_DB_SQL_PASSWORD` values. Use these to
-configure the server:
-
-    cd current/src/project
-    cp local_settings.py.template local_settings.py
-    nano local_settings.py
-
-Enter the host, port, username, and password for the database. Also, set the
-following variables:
-
-    STATIC_ROOT = '/home/dotcloud/static/'
-    SHAREABOUTS_API_ROOT = 'http://<hostname>/api/v1/'
-
-Save the file and exit out of the editor. Next, set up the models in the DB, and
-move the static files in to the right place:
-
-    cd ../..
-    src/manage.py syncdb --migrate
-    src/manage.py collectstatic --noinput
-
-Create an nginx configuration file so that the server knows where to look for
-the static files:
-
-    nano nginx.conf
-
-Enter the following into the nginx configuration:
-
-    location /static/ { root /home/dotcloud ; }
-
-Save it and close the file. For good measure, back up your local_settings module
-and your nginx config:
-
-    cd
-    cp current/src/project/local_settings.py .
-    cp current/nginx.conf .
-
-Now get off the server and restart the application:
-
-    exit
-    dotcloud restart shareabouts.www
-
-Should be all done!
+To run the tests, see [the testing docs](TESTING.md).
