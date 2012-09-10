@@ -31,6 +31,46 @@ class ShareaboutsApi (object):
         return (res.text if res.status_code == 200 else default)
 
 
+def init_pages_config(pages_config, request):
+    """
+    Get the content of the static pages linked in the menu.
+    """
+
+    for page_config in pages_config:
+        external = page_config.get('external', False)
+
+        page_url = page_config.pop('url', None)
+        sub_pages = page_config.pop('pages', [])
+        page_config['sub_pages'] = []
+
+        if external:
+            page_config['external'] = True
+            page_config['url'] = page_url
+
+        if not external and page_url is not None:
+            page_url = request.build_absolute_uri(page_url)
+            # TODO It would be best if this were also asynchronous.
+            response = requests.get(page_url)
+
+            # If we successfully got the content, stick it into the config instead
+            # of the URL.
+            if response.status_code == 200:
+                page_config['content'] = response.text
+
+            # If there was an error, let the client know what the URL, status code,
+            # and text of the error was.
+            else:
+                page_config['url'] = page_url
+                page_config['status'] = response.status_code
+                page_config['error'] = response.text
+
+        if sub_pages:
+            # Do menus recursively.
+            page_config['sub_pages'] = init_pages_config(sub_pages, request)
+
+    return pages_config
+
+
 @ensure_csrf_cookie
 def index(request, default_place_type):
     # Load app config settings
@@ -62,32 +102,7 @@ def index(request, default_place_type):
     activity_json = api.get('activity', limit=20, default=u'[]')
 
     # Get the content of the static pages linked in the menu.
-    pages_config = config.get('pages', [])
-    for page_config in pages_config:
-        external = page_config.get('external', False)
-
-        page_url = page_config.pop('url')
-        page_url = request.build_absolute_uri(page_url)
-        page_config['url'] = page_url
-
-        if external:
-            page_config['external'] = True
-
-        else:
-            # TODO It would be best if this were also asynchronous.
-            response = requests.get(page_url)
-
-            # If we successfully got the content, stick it into the config instead
-            # of the URL.
-            if response.status_code == 200:
-                page_config['content'] = response.text
-
-            # If there was an error, let the client know what the URL, status code,
-            # and text of the error was.
-            else:
-                page_config['status'] = response.status_code
-                page_config['error'] = response.text
-
+    pages_config = init_pages_config(config.get('pages', []), request)
     pages_config_json = json.dumps(pages_config)
 
     # The user token will be a pair, with the first element being the type
