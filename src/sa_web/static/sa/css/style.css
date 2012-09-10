@@ -228,6 +228,11 @@ body {
   border-bottom: 2px solid #777;
   font-size: 1.25em;
 }
+#access li li {
+	border-top: 2px solid #777;
+	border-bottom: 0;
+  font-size: 1em;
+}
 #access a {
   display: block;
   line-height: 3em;
@@ -782,14 +787,14 @@ ul.recent-points {
           box-shadow: 0 -4px 0 rgba(85, 85, 85, 0.5);
 }
 #powered-by a {
-  color: #a3c7d9; 
+  color: #a3c7d9;
   font-family: 'Dancing Script', cursive;
   font-weight: bold;
   font-size: 1.4em;
   text-decoration: none;
   padding-right: 0.125em;
 }
-#powered-by a:hover { 
+#powered-by a:hover {
   color: #fff;
   border-bottom: 1px solid #ccc;
 }
@@ -958,9 +963,34 @@ ul.recent-points {
     font-size: 1em;
     float: left;
     border: 0;
+    border-bottom: 6px solid #777;
+  }
+  #access ul ul {
+    display: none;
+    float: left;
+    position: absolute;
+    top: 3em;
+    left: 0;
+    margin-top: 6px;
+    z-index: 9999;
+       -moz-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
+    -webkit-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
+            box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
+  }
+  #access ul ul a {
+    background: #666;
+    color: #fff;
+    font-size: 1em;
+    line-height: 2em;
+    padding: .5em .5em .5em 1em;
+    width: 12em;
+    height: auto;
   }
   #access a:hover {
     background: #00aaff;
+  }
+  #access ul li:hover > ul {
+    display: block;
   }
 
   #map .leaflet-control-attribution {
