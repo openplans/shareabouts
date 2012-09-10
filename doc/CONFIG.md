@@ -80,25 +80,25 @@ Shareabouts can handle multiple types of Place. To set up the types
 you're interested in, edit config.yml and add an item to the
 place_types mapping, like so:
 
-  place_types:
-    Landmark:
-      default: blue
-      focused: red
+    place_types:
+      Landmark:
+        default: blue
+        focused: red
 
 The name of this type is "Landmark", and we've identified by name two
 icon configurations to use when this place type is selected or not.
 These icons are configured in the separate place_type_icons section,
 like so:
 
-  place_type_icons:
-    blue:
-      iconUrl: /static/sa/css/images/feature-point.png
-      iconSize:
-        width: 17
-        height: 18
-      iconAnchor:
-        x: 9
-        y: 9
+    place_type_icons:
+      blue:
+        iconUrl: /static/sa/css/images/feature-point.png
+        iconSize:
+          width: 17
+          height: 18
+        iconAnchor:
+          x: 9
+          y: 9
 
 The properties of icons are as per the Leaflet docs, see http://leaflet.cloudmade.com/reference.html#icon
 But briefly:
@@ -287,6 +287,13 @@ the top navigation bar. To create a page:
   For the given example, you would edit the content in
   src/sa_web/static/sa/pages/features.html.
 
+You can also add links to external sites to the navigation bar.  To do
+this, simply add a title and url to the "pages" array in config.yml, and
+set the "external" property to "true".  For example:
+
+    - title: OpenPlans
+      url: http://www.openplans.org/
+      external: true
 
 ### Styling
 
