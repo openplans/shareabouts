@@ -225,7 +225,7 @@ body {
 }
 #access li {
   position: relative;
-  border-bottom: 2px solid #777;
+  border-bottom: 2px solid transparent;
   font-size: 1.25em;
 }
 #access li li {
@@ -963,7 +963,7 @@ ul.recent-points {
     font-size: 1em;
     float: left;
     border: 0;
-    border-bottom: 6px solid #777;
+    border-bottom: 6px solid transparent;
   }
   #access ul ul {
     display: none;
