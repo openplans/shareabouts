@@ -287,6 +287,13 @@ the top navigation bar. To create a page:
   For the given example, you would edit the content in
   src/sa_web/static/sa/pages/features.html.
 
+You can also add links to external sites to the navigation bar.  To do
+this, simply add a title and url to the "pages" array in config.yml, and
+set the "external" property to "true".  For example:
+
+    - title: OpenPlans
+      url: http://www.openplans.org/
+      external: true
 
 ### Styling
 
