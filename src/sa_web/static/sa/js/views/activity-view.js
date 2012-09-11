@@ -69,12 +69,6 @@ var Shareabouts = Shareabouts || {};
 
     onAddAction: function(model, collection, options) {
       this.renderAction(model, options.index);
-
-      // ===== IMPORTANT =====
-      // TODO: The following should only happen when this client instance gets
-      //       a new place created action that was initiated by a different
-      //       client instance.  I'm not sure what effect it's having now.
-      this.options.places.add(model.get('data'));
     },
 
     onResetActivity: function(collection) {
@@ -82,7 +76,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     renderAction: function(model, index) {
-      var actionType = model.get('type'),
+      var self = this,
+          actionType = model.get('type'),
           isPlaceAction = (actionType === 'places'),
           surveyConfig = this.options.surveyConfig,
           supportConfig = this.options.supportConfig,
@@ -90,8 +85,21 @@ var Shareabouts = Shareabouts || {};
           modelData,
           actionText,
           $template,
-          placeModel = this.options.places.get(model.get('place_id')),
-          placeType = this.options.placeTypes[placeModel.get('location_type')];
+          placeType,
+          placeModel = this.options.places.get(model.get('place_id'));
+
+      // Handle when placeModel is undefined (ie a new place added elsewhere)
+      if (!placeModel) {
+        // Update the place collection and then render this action
+        this.options.places.fetch({
+          success: function() {
+            self.renderAction(model, index);
+          }
+        });
+        return;
+      }
+
+      placeType = this.options.placeTypes[placeModel.get('location_type')];
 
       // Handle if an existing place type does not match the list of available
       // place types.
@@ -102,9 +110,11 @@ var Shareabouts = Shareabouts || {};
         } else {
           placeData = this.options.places.get(model.get('place_id')).toJSON();
 
-          if (actionType == surveyConfig.submission_type) {
+          if (actionType === surveyConfig.submission_type) {
+            // Survey
             actionText = this.options.surveyConfig.action_text;
-          } else if (actionType == supportConfig.submission_type) {
+          } else if (actionType === supportConfig.submission_type) {
+            // Support
             actionText = this.options.supportConfig.action_text;
           }
         }
