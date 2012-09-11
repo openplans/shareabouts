@@ -69,9 +69,14 @@ a:hover {
 /* =Mobile Navigation Button
 -------------------------------------------------------------- */
 
-a#nav-bttn {
+/* NOTE: Override the Mobile Navigation Button with caution. 
+ * The Helvetica stack produces a good icon. */
+
+a#nav-bttn:link,
+a#nav-bttn:visited {
 /*  color: #bf00bf;*/
 /*  background: #ffbfff;*/
+/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
 }
 
 a#nav-bttn:hover {
@@ -117,8 +122,8 @@ a.add-place:hover {
 /* =Close Content Button
 -------------------------------------------------------------- */
 
-/* NOTE: The font should be overridden with caution. 
- * This Helvetica stack produces a good X close icon. */
+/* NOTE: Override the Close Button font within the span. The link should 
+ * remain the Helvetica stack, as it produces a good X close icon. */
 
 a.close-bttn {
 /*  color: #ff40ff;*/
@@ -131,6 +136,9 @@ a.close-bttn:hover {
 /*  color: #e500e5;*/
 /*  background-color: #fff;*/
 /*  border-color: #e500e5;*/
+}
+a.close-bttn span {
+  /*  font-family: Impact, sans-serif;*/
 }
 
 
@@ -176,7 +184,6 @@ a.reply-link:hover {
 -------------------------------------------------------------- */
 .promotion {
 /*  background-color: #bf8fbf;*/
-/*  border-bottom: 0.5em solid #806080;*/
 }
 
 #user_support label {
@@ -216,4 +223,21 @@ ul.recent-points {
 .recent-points li:hover a,
 .recent-points a:hover {
 /*  color: #fff;*/
+}
+
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) { /* menu is visible */
+  #access {
+/*    border: 0;*/
+/*    background: transparent;*/
+  }
+}
+
+@media only screen and (min-width: 1024px) { /* ticker is visible */
+}
+
+@media only screen and (min-width: 1300px) {
 }
