@@ -267,7 +267,7 @@ A few notable messages you will definitely want to edit:
 * msgid "App Name"
 
 
-### Pages
+### Pages and Links
 
 Shareabouts allows you to create multiple static pages, linked from
 the top navigation bar. To create a page:
