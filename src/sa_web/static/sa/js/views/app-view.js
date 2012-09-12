@@ -35,16 +35,21 @@ var Shareabouts = Shareabouts || {};
         placeTypes: this.options.placeTypes
       });
 
-      // Init the view for displaying user activity
-      this.activityView = new S.ActivityView({
-        el: 'ul.recent-points',
-        collection: this.activities,
-        places: this.places,
-        router: this.options.router,
-        placeTypes: this.options.placeTypes,
-        surveyConfig: this.options.surveyConfig,
-        supportConfig: this.options.supportConfig
-      });
+      // Activity is enabled by default (undefined) or by enabling it
+      // explicitly. Set it to a falsey value to disable activity.
+      if (_.isUndefined(this.options.activityConfig.enabled) ||
+        this.options.activityConfig.enabled) {
+        // Init the view for displaying user activity
+        this.activityView = new S.ActivityView({
+          el: 'ul.recent-points',
+          collection: this.activities,
+          places: this.places,
+          router: this.options.router,
+          placeTypes: this.options.placeTypes,
+          surveyConfig: this.options.surveyConfig,
+          supportConfig: this.options.supportConfig
+        });
+      }
 
       // Cache panel elements that we use a lot
       this.$panel = $('#content');

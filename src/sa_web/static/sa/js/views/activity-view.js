@@ -5,6 +5,9 @@ var Shareabouts = Shareabouts || {};
     initialize: function() {
       var self = this;
 
+      // Add class to the body to show the activity view
+      $('body').addClass('activity-enabled');
+
       this.activityViews = [];
 
       // Infinite scroll elements and functions

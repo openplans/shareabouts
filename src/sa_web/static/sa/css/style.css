@@ -1019,14 +1019,14 @@ ul.recent-points {
   #access {
     margin-top: 1.75em;
   }
-  .noscript {
+  .activity-enabled .noscript {
     margin-right: 18em; /* width of ticker */
   }
-  #map-container {
+  .activity-enabled #map-container {
     top: 5em; /* must match height of #site-header */
     right: 18em; /* width of ticker */
   }
-  #content {
+  .activity-enabled #content {
     top: 6.75em; /* height of #site-header + extra 1.75em */
     right: 18.75em; /* width of ticker + extra 0.75em */
     left: 40%;
@@ -1034,7 +1034,7 @@ ul.recent-points {
   #content > article {
     padding: 2em;
   }
-  #ticker {
+  .activity-enabled #ticker {
     display: block;
   }
   #user-menu {

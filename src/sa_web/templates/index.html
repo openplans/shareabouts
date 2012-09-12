@@ -165,6 +165,7 @@
         supportConfig = {{ support_config_json|safe }},
         pagesConfig = {{ pages_config_json|safe }},
         mapConfig = {{ map_config_json|safe }},
+        activityConfig = {{ activity_config_json|safe }},
 
         defaultPlaceTypeName = '{{ default_place_type }}';
 
@@ -207,7 +208,8 @@
         supportConfig: supportConfig,
         pagesConfig: pagesConfig,
         mapConfig: mapConfig,
-        placeConfig: placeConfig
+        placeConfig: placeConfig,
+        activityConfig: activityConfig
       });
     });
   })(Shareabouts, jQuery);

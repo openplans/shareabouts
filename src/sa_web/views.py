@@ -89,6 +89,7 @@ def index(request, default_place_type):
     support_config_json = json.dumps(config['support'])
     map_config_json = json.dumps(config['map'])
     place_config_json = json.dumps(config['place'])
+    activity_config_json = json.dumps(config.get('activity', {}))
 
     # Handle place types in case insensitive way (park works just like Park)
     lower_place_types = [k.lower() for k in config['place_types'].keys()]
@@ -134,6 +135,7 @@ def index(request, default_place_type):
                'pages_config_json': pages_config_json,
                'map_config_json': map_config_json,
                'place_config_json': place_config_json,
+               'activity_config_json': activity_config_json,
                'user_agent_json': user_agent_json,
                'default_place_type': validated_default_place_type}
     return render(request, 'index.html', context)
