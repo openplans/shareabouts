@@ -1,6 +1,7 @@
 from . import forms
 from . import models
 from . import parsers
+from . import renderers
 from . import resources
 from . import utils
 from django.contrib import auth
