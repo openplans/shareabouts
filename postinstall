@@ -27,6 +27,10 @@ DATABASES = {
 
 STATIC_ROOT = '/home/dotcloud/current/static/'
 
+# Debug is False by default, true if set in the environment.
+DEBUG = (env.get('DEBUG', 'False') in ['true', 'True'])
+TEMPLATE_DEBUG = DEBUG
+
 EOF
 
 # Need to be able to import settings to run the createdbs script...
@@ -47,4 +51,3 @@ echo "Configuring nginx to serve static files..."
 cat >> nginx.conf <<EOF
 location /static/ { root /home/dotcloud/current ; }
 EOF
-
