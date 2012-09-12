@@ -10,18 +10,18 @@ var Shareabouts = Shareabouts || {};
             url: 'http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png',
             attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
           }, self.options.mapConfig.base_layer),
-          baseLayer = new L.TileLayer(baseLayerConfig.url, baseLayerConfig);
+          baseLayer = L.tileLayer(baseLayerConfig.url, baseLayerConfig);
 
       // Init the map
-      self.map = new L.Map(self.el, self.options.mapConfig.options);
-      self.placeLayers = new L.LayerGroup();
+      self.map = L.map(self.el, self.options.mapConfig.options);
+      self.placeLayers = L.layerGroup();
       self.map.addLayer(baseLayer);
 
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
 
       _.each(self.options.mapConfig.layers, function(layerConfig){
-        var layer = new L.TileLayer(layerConfig.url, layerConfig);
+        var layer = L.tileLayer(layerConfig.url, layerConfig);
         self.map.addLayer(layer);
       });
 

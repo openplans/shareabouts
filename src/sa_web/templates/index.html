@@ -170,7 +170,7 @@
 
     // Define each Leaflet Icon type
     _.each(placeTypeIconsConfig, function(config, name) {
-      placeTypeIcons[name] = L.Icon.extend({
+      placeTypeIcons[name] = L.icon({
         iconUrl: config.iconUrl,
         shadowUrl: config.shadowUrl,
         iconSize: new L.Point(config.iconSize.width, config.iconSize.height),
@@ -184,8 +184,8 @@
 
       if (!defaultPlaceTypeName || name.toLowerCase() === defaultPlaceTypeName.toLowerCase()) {
         placeTypes[name] = {
-          'default': new placeTypeIcons[config['default']](),
-          'focused': new placeTypeIcons[config.focused]()
+          'default': placeTypeIcons[config['default']],
+          'focused': placeTypeIcons[config.focused]
         };
 
         // Update in case if there is a case issue
