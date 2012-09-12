@@ -1022,12 +1022,18 @@ ul.recent-points {
   .activity-enabled .noscript {
     margin-right: 18em; /* width of ticker */
   }
-  .activity-enabled #map-container {
+  #map-container {
     top: 5em; /* must match height of #site-header */
+  }
+  #content {
+    top: 6.75em; /* height of #site-header + extra 1.75em */
+    right: 1.5em;
+    left: 55%;
+  }
+  .activity-enabled #map-container {
     right: 18em; /* width of ticker */
   }
   .activity-enabled #content {
-    top: 6.75em; /* height of #site-header + extra 1.75em */
     right: 18.75em; /* width of ticker + extra 0.75em */
     left: 40%;
   }
