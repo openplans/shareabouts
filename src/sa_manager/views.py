@@ -203,7 +203,7 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
         location = {
             'lat': data.get('lat'),
             'lng': data.get('lng')
-          }
+        }
         del data['lat']
         del data['lng']
         data['location'] = location

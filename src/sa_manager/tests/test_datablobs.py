@@ -6,7 +6,7 @@ The process_new_attr function...
 
 from django.test import TestCase
 from nose.tools import istest, assert_equal
-from .views import BaseDataBlobFormMixin
+from ..views import BaseDataBlobFormMixin
 
 
 class TestProcessNewAttrFunction(TestCase):
