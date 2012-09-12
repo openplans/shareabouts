@@ -453,7 +453,7 @@ a.add-place:hover {
 }
 a.close-bttn {
   color: #ff5e99;
-  font-size: 1.8em;
+  font-size: 1em;
   font-weight: bold;
   text-decoration: none;
   position: relative;
@@ -464,7 +464,6 @@ a.close-bttn:hover {
   color: #dd3c77;
 }
 a.close-bttn span {
-  font-size: 0.625em;
   font-weight: normal;
   text-transform: uppercase;
 }
@@ -915,28 +914,40 @@ ul.recent-points {
     background-attachment: local, local, scroll, scroll;
   }
   a.close-bttn {
+    font-size: 1.8em;
+    line-height: 0.9375em;
     float: right;
     text-align: center;
-    line-height: 0.75;
     background: #fff;
     height: 1em;
     width: 1em;
     position: relative;
     z-index: 5;
-    top: -0.6em;
+    top: -0.5em;
     right: 100%;
     left: auto;
-    margin-right: -0.6em;
-    border: 0.1em solid #eee;
-    -webkit-border-radius: 0.7em;
-       -moz-border-radius: 0.7em;
-            border-radius: 0.7em;
-       -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-    -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-            box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+    padding: 0;
+    margin-right: -0.5em;
+    -webkit-border-radius: 0.5em;
+       -moz-border-radius: 0.5em;
+            border-radius: 0.5em;
   }
   a.close-bttn span {
     display: none;
+  }
+  a.close-bttn:after {
+    content: "\0020";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-border-radius: 0.5em;
+       -moz-border-radius: 0.5em;
+            border-radius: 0.5em;
+       -moz-box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+    -webkit-box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+            box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
   }
 
   /* Voting & Sharing */
