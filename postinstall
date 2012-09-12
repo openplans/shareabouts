@@ -13,6 +13,10 @@ with open('/home/dotcloud/environment.json') as f:
 STATIC_ROOT = '/home/dotcloud/current/static/'
 SHAREABOUTS_API_ROOT = env.get('SHAREABOUTS_API_ROOT', 'SHAREABOUTS_API_ROOT-not-set-in-dotcloud-environment!!!')
 
+# Debug is False by default, true if set in the environment.
+DEBUG = (env.get('DEBUG', 'False') in ['true', 'True'])
+TEMPLATE_DEBUG = DEBUG
+
 EOF
 
 echo "Setting up the config file(s)"
