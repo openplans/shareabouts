@@ -44,20 +44,20 @@ Shareabouts.SpecConfig = {
 (function(C){
   // Define each Leaflet Icon type
   _.each(C.placeTypeIconsConfig, function(config, name) {
-    C.placeTypeIcons[name] = L.Icon.extend({
+    C.placeTypeIcons[name] = L.icon({
       iconUrl: config.iconUrl,
       shadowUrl: config.shadowUrl,
-      iconSize: new L.Point(config.iconSize.width, config.iconSize.height),
-      iconAnchor: new L.Point(config.iconAnchor.x, config.iconAnchor.y),
-      popupAnchor: new L.Point(config.popupAnchor.x, config.popupAnchor.y)
+      iconSize: L.point(config.iconSize.width, config.iconSize.height),
+      iconAnchor: L.point(config.iconAnchor.x, config.iconAnchor.y),
+      popupAnchor: L.point(config.popupAnchor.x, config.popupAnchor.y)
     });
   });
 
   // Init each icon and attach it to its type
   _.each(C.placeTypesConfig, function(config, name) {
     C.placeTypes[name] = {
-      'default': new C.placeTypeIcons[config['default']](),
-      'focused': new C.placeTypeIcons[config.focused]()
+      'default': C.placeTypeIcons[config['default']],
+      'focused': C.placeTypeIcons[config.focused]
     };
   });
 })(Shareabouts.SpecConfig);

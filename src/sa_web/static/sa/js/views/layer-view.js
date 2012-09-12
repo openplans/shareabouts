@@ -34,9 +34,9 @@ var Shareabouts = Shareabouts || {};
       // Don't draw new places. They are shown by the centerpoint in the app view
       if (!this.model.isNew()) {
         location = this.model.get('location');
-        this.latLng = new L.LatLng(location.lat, location.lng);
+        this.latLng = L.latLng(location.lat, location.lng);
 
-        this.layer = new L.Marker(this.latLng, {icon: this.placeType['default']});
+        this.layer = L.marker(this.latLng, {icon: this.placeType['default']});
 
         // Focus on the marker onclick
         this.layer.on('click', this.onMarkerClick, this);
