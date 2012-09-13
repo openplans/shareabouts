@@ -280,6 +280,20 @@ class ApiKeyCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithD
     # TODO: handle POST, DELETE
 
 
+class AllSubmissionCollectionsView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListModelView):
+    resource = resources.SubmissionWithPlaceRefResource
+
+    def get(self, request, submission_type, **kwargs):
+        # If the submission_type is specific, then filter by that type.
+        if submission_type != 'submissions':
+            kwargs['parent__submission_type'] = submission_type
+
+        return super(AllSubmissionCollectionsView, self).get(
+            request,
+            **kwargs
+        )
+
+
 class SubmissionCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.SubmissionResource
 

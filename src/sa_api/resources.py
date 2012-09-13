@@ -182,10 +182,26 @@ class SubmissionResource (ModelResourceWithDataBlob):
     # TODO: show dataset, but not detailed owner info
     exclude = ['parent', 'data', 'submittedthing_ptr', 'dataset']
     include = ['type']
-    queryset = model.objects.order_by('created_datetime')
+    queryset = model.objects.select_related('parent').order_by('created_datetime')
 
     def type(self, submission):
         return submission.parent.submission_type
+
+
+class SubmissionWithPlaceRefResource (SubmissionResource):
+    include = SubmissionResource.include + ['place']
+    queryset = SubmissionResource.queryset.select_related('dataset')
+
+    def place(self, submission):
+        return {
+            'url': reverse(
+                'place_instance_by_dataset',
+                kwargs=dict(
+                   dataset__owner__username=submission.dataset.owner.username,
+                   dataset__slug=submission.dataset.slug,
+                   pk=submission.parent.place_id
+                ))
+        }
 
 
 class GeneralSubmittedThingResource (ModelResourceWithDataBlob):
