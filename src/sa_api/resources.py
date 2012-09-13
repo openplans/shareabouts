@@ -86,6 +86,10 @@ class PlaceResource (ModelResourceWithDataBlob):
         from django.db.models import Count
         qs = models.SubmissionSet.objects.all().select_related('place__dataset').select_related('place__dataset__owner')
         for submission_set in qs.annotate(count=Count('children')):
+            # Ignore empty sets
+            if submission_set.count <= 0:
+                continue
+
             submission_sets[submission_set.place_id].append({
                 'type': submission_set.submission_type,
                 'count': submission_set.count,
@@ -164,6 +168,10 @@ class DataSetResource (resources.ModelResource):
         from django.db.models import Count
         qs = models.SubmissionSet.objects.all().select_related('place__dataset').select_related('place__dataset__owner')
         for submission_set in qs.annotate(count=Count('children')):
+            # Ignore empty sets
+            if submission_set.count <= 0:
+                continue
+
             submission_sets[submission_set.place.dataset_id].add((
                 ('type', submission_set.submission_type),
                 ('url', reverse('all_submissions_by_dataset', kwargs={
