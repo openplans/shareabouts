@@ -24,8 +24,8 @@
         </a>
 
         <ul>
-          {% for submission in place.submissions %}
-          <li><a href="{% url 'manager_place_submission_list' dataset.slug place.id submission.type %}">{{ submission.count }} {{ submission.type }}</a></li>
+          {% for submission_set in place.submissions %}
+          <li><a href="{% url 'manager_place_submission_list' dataset.slug place.id submission_set.type %}">{{ submission_set.length }} {{ submission_set.type }}</a></li>
           {% endfor %}
         </ul>
       </td>

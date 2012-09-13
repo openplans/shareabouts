@@ -87,7 +87,7 @@ def places_view(request, dataset_slug):
     dataset = api.get(dataset_uri)
 
     for place in places:
-        place['submission_count'] = sum([s['count'] for s in place['submissions']])
+        place['submission_count'] = sum([s['length'] for s in place['submissions']])
 
     return render(request, "manager/places.html", {'places': places,
                                                    'dataset': dataset})

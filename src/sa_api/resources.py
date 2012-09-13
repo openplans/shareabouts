@@ -85,14 +85,14 @@ class PlaceResource (ModelResourceWithDataBlob):
         submission_sets = defaultdict(list)
 
         qs = models.SubmissionSet.objects.all().select_related('place__dataset').select_related('place__dataset__owner')
-        for submission_set in qs.annotate(count=Count('children')):
+        for submission_set in qs.annotate(length=Count('children')):
             # Ignore empty sets
-            if submission_set.count <= 0:
+            if submission_set.length <= 0:
                 continue
 
             submission_sets[submission_set.place_id].append({
                 'type': submission_set.submission_type,
-                'count': submission_set.count,
+                'length': submission_set.length,
                 'url': reverse('submission_collection_by_dataset', kwargs={
                     'dataset__owner__username': submission_set.place.dataset.owner.username,
                     'dataset__slug': submission_set.place.dataset.slug,
@@ -159,16 +159,15 @@ class DataSetResource (resources.ModelResource):
     queryset = model.objects.all()
 
     @utils.cached_property
-    def place_counts(self):
-        place_counts = defaultdict(int)
-
+    def places_counts(self):
         # TODO: We should check the view attached to the resource to see whether
         #       it refers to a user or a dataset so that we can filter and not
         #       get ALL the places, which is wasteful.
-        qs = models.Place.objects.values('dataset_id').annotate(count=Count('dataset'))
-        for place_count in qs:
-            place_counts[place_count['dataset_id']] = place_count['count']
-        return place_counts
+        qs = models.Place.objects.values('dataset_id').annotate(length=Count('dataset'))
+
+        places_counts = dict([(places['dataset_id'], places['length'])
+                              for places in qs])
+        return places_counts
 
     @utils.cached_property
     def submission_sets(self):
@@ -179,9 +178,9 @@ class DataSetResource (resources.ModelResource):
         submission_sets = defaultdict(set)
 
         qs = models.SubmissionSet.objects.all().select_related('place__dataset').select_related('place__dataset__owner')
-        for submission_set in qs.annotate(count=Count('children')):
+        for submission_set in qs.annotate(length=Count('children')):
             # Ignore empty sets
-            if submission_set.count <= 0:
+            if submission_set.length <= 0:
                 continue
 
             submission_sets[submission_set.place.dataset_id].add((
@@ -206,7 +205,7 @@ class DataSetResource (resources.ModelResource):
                       kwargs={
                          'dataset__owner__username': dataset.owner.username,
                          'dataset__slug': dataset.slug})
-        return {'url': url, 'count': self.place_counts[dataset.id]}
+        return {'url': url, 'length': self.places_counts.get(dataset.id, 0)}
 
     def submissions(self, dataset):
         return self.submission_sets[dataset.id]
