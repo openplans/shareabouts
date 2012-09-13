@@ -24,10 +24,6 @@ urlpatterns = patterns('sa_api',
         views.PlaceInstanceView.as_view(),
         name='place_instance_by_dataset'),
 
-    url(r'^datasets/(?P<dataset__owner__username>[^/]+)/(?P<dataset__slug>[^/]+)/(?P<submission_type>[^/]+)/$',
-        views.AllSubmissionCollectionsView.as_view(),
-        name='all_submissions_by_dataset'),
-
     url(places_base_regex + r'(?P<place_id>\d+)/(?P<submission_type>[^/]+)/$',
         views.SubmissionCollectionView.as_view(),
         name='submission_collection_by_dataset'),
@@ -39,6 +35,10 @@ urlpatterns = patterns('sa_api',
     url(r'^datasets/(?P<data__dataset__owner__username>[^/]+)/(?P<data__dataset__slug>[^/]+)/activity/$',
         views.ActivityView.as_view(),
         name='activity_collection_by_dataset'),
+
+    url(r'^datasets/(?P<dataset__owner__username>[^/]+)/(?P<dataset__slug>[^/]+)/(?P<submission_type>[^/]+)/$',
+        views.AllSubmissionCollectionsView.as_view(),
+        name='all_submissions_by_dataset'),
 
 
     ###############################################
