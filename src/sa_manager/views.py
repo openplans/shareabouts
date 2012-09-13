@@ -19,7 +19,7 @@ class ShareaboutsApi (object):
         'place_collection': r'datasets/{username}/{dataset_slug}/places/?visible=all',
         'place_instance': r'datasets/{username}/{dataset_slug}/places/{pk}/',
         'submission_collection': r'datasets/{username}/{dataset_slug}/places/{place_pk}/{type}/',
-        'submission_instance': r'datasets/{username}/{dataset_slug}/places/{place_pk}/{type}/{pk}',
+        'submission_instance': r'datasets/{username}/{dataset_slug}/places/{place_pk}/{type}/{pk}/',
     }
 
     def __init__(self, request=None, root='/api/v1/'):
