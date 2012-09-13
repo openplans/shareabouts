@@ -42,7 +42,7 @@ var Shareabouts = Shareabouts || {};
           });
 
 
-      if (placeTypeConfig.type === 'select' && (defaultPlaceTypeName ||
+      if (placeTypeConfig && placeTypeConfig.type === 'select' && (defaultPlaceTypeName ||
         (_.isArray(placeTypeConfig.options) && placeTypeConfig.options.length === 1))) {
 
         // Change to a hidden element with no label
