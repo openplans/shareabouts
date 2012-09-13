@@ -103,6 +103,10 @@ a#nav-bttn:hover {
 /*  background: #fff;*/
 }
 
+#access a:visited, #access a:active, #access a:link {
+/*  color: #ffbfff;*/
+}
+
 
 /* =The Big Button to Add A New Point
 -------------------------------------------------------------- */
