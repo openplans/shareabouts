@@ -14,6 +14,7 @@ def proxy_view(request, url, requests_args=None):
     """
     requests_args = (requests_args or {}).copy()
     headers = get_headers(request.META)
+    params = request.GET.copy()
 
     if 'headers' not in requests_args:
         requests_args['headers'] = {}
@@ -26,8 +27,13 @@ def proxy_view(request, url, requests_args=None):
     # want it and complain without it.
     headers['CONTENT-LENGTH'] = str(len(requests_args['data']))
 
-    requests_args['headers'].update(headers)
-    requests_args['params'].update(request.GET)
+    # Overwrite any headers and params from the incoming request with explicitly
+    # specified values for the requests library.
+    headers.update(requests_args['headers'])
+    params.update(requests_args['params'])
+
+    requests_args['headers'] = headers
+    requests_args['params'] = params
 
     response = requests.request(request.method, url, **requests_args)
 
