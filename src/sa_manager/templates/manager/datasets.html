@@ -28,7 +28,7 @@
       <td><a href="{% url 'manager_dataset_detail' dataset.slug %}">{{ dataset.display_name }}</a> ({{ dataset.slug }})</td>
       <td>
         <a href="{% url 'manager_place_list' dataset_slug=dataset.slug %}" class="btn btn-small pull-right">
-          {{ dataset.places|length }}
+          {{ dataset.places.count }}
           <i class="icon-chevron-right"></i>
         </a>
       </td>

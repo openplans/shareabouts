@@ -5,6 +5,7 @@ import json
 import apikey.models
 from collections import defaultdict
 from django.core.urlresolvers import reverse
+from django.db.models import Count
 from djangorestframework import resources
 from . import models
 from . import utils
@@ -83,7 +84,6 @@ class PlaceResource (ModelResourceWithDataBlob):
         """
         submission_sets = defaultdict(list)
 
-        from django.db.models import Count
         qs = models.SubmissionSet.objects.all().select_related('place__dataset').select_related('place__dataset__owner')
         for submission_set in qs.annotate(count=Count('children')):
             # Ignore empty sets
@@ -156,6 +156,19 @@ class DataSetResource (resources.ModelResource):
     model = models.DataSet
     form = forms.DataSetForm
     fields = ['id', 'url', 'owner', 'places', 'slug', 'display_name', 'keys', 'submissions']
+    queryset = model.objects.all()
+
+    @utils.cached_property
+    def place_counts(self):
+        place_counts = defaultdict(int)
+
+        # TODO: We should check the view attached to the resource to see whether
+        #       it refers to a user or a dataset so that we can filter and not
+        #       get ALL the places, which is wasteful.
+        qs = models.Place.objects.values('dataset_id').annotate(count=Count('dataset'))
+        for place_count in qs:
+            place_counts[place_count['dataset_id']] = place_count['count']
+        return place_counts
 
     @utils.cached_property
     def submission_sets(self):
@@ -165,7 +178,6 @@ class DataSetResource (resources.ModelResource):
         """
         submission_sets = defaultdict(set)
 
-        from django.db.models import Count
         qs = models.SubmissionSet.objects.all().select_related('place__dataset').select_related('place__dataset__owner')
         for submission_set in qs.annotate(count=Count('children')):
             # Ignore empty sets
@@ -194,7 +206,7 @@ class DataSetResource (resources.ModelResource):
                       kwargs={
                          'dataset__owner__username': dataset.owner.username,
                          'dataset__slug': dataset.slug})
-        return {'url': url}
+        return {'url': url, 'count': self.place_counts[dataset.id]}
 
     def submissions(self, dataset):
         return self.submission_sets[dataset.id]
