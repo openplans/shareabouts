@@ -128,8 +128,8 @@ class TestPlaceResource(TestCase):
         from ..resources import models, PlaceResource
         self.populate()
         expected_result = {
-            123: [{'count': 3, 'url': '/api/v1/datasets/user/dataset/places/123/foo/', 'type': 'foo'}],
-            456: [{'count': 2, 'url': '/api/v1/datasets/user/dataset/places/456/bar/', 'type': 'bar'}],
+            123: [{'length': 3, 'url': '/api/v1/datasets/user/dataset/places/123/foo/', 'type': 'foo'}],
+            456: [{'length': 2, 'url': '/api/v1/datasets/user/dataset/places/456/bar/', 'type': 'bar'}],
         }
         assert_equal(dict(PlaceResource().submission_sets), expected_result)
         for place in models.Place.objects.all():
@@ -201,14 +201,18 @@ class TestDataSetResource(object):
         place2 = mock.Mock()
         place2.id = 456
         place_mgr = ManagerMock(Place.objects, place1, place2)
+        place_mgr.values.annotate = mock.Mock(return_value=[{'dataset_id': 1,
+                                                             'length': 2}])
 
         with mock.patch.object(Place, 'objects', place_mgr):
             resource = DataSetResource()
             dataset = mock.Mock()
             dataset.owner.username = 'mock-user'
             dataset.slug = 'mock-dataset'
+            dataset.id = 1
             assert_equal(resource.places(dataset),
-                         {'url': '/api/v1/datasets/mock-user/mock-dataset/places/'})
+                         {'url': '/api/v1/datasets/mock-user/mock-dataset/places/',
+                          'length': 2})
 
 
 class TestActivityResource(object):
