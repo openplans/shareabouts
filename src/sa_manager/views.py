@@ -193,7 +193,7 @@ class PlaceFormMixin (BaseDataBlobFormMixin):
     def dispatch(self, request, *args, **kwargs):
         self.special_fields = ('id', 'location', 'submitter_name', 'name',
                                'created_datetime', 'updated_datetime', 'url',
-                               'visible', 'submissions')
+                               'visible', 'submissions', 'dataset')
         return super(PlaceFormMixin, self).dispatch(request, *args, **kwargs)
 
     def process_specific_fields(self):
@@ -490,7 +490,8 @@ class SubmissionMixin (BaseDataBlobFormMixin):
             self.submission_uri = self.api.build_uri('submission_instance', username=request.user.username, dataset_slug=dataset_slug, place_pk=place_id, type=submission_type, pk=pk)
 
         self.special_fields = ('id', 'submitter_name', 'url', 'visible',
-                               'created_datetime', 'updated_datetime', 'type')
+                               'created_datetime', 'updated_datetime', 'type',
+                               'place', 'dataset')
         return super(SubmissionMixin, self).dispatch(request, dataset_slug, place_id, submission_type, *args, **kwargs)
 
     def index(self, request, dataset_slug, place_id, submission_type):

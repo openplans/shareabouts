@@ -70,7 +70,7 @@ class PlaceResource (ModelResourceWithDataBlob):
 
     # TODO: un-exclude dataset once i figure out how to avoid exposing user info
     # in related resources.
-    exclude = ['data', 'submittedthing_ptr', 'dataset']
+    exclude = ['data', 'submittedthing_ptr']
     include = ['url', 'submissions']
 
     @utils.cached_property
@@ -84,12 +84,14 @@ class PlaceResource (ModelResourceWithDataBlob):
         submission_sets = defaultdict(list)
 
         from django.db.models import Count
-        qs = models.SubmissionSet.objects.all()
+        qs = models.SubmissionSet.objects.all().select_related('place__dataset').select_related('place__dataset__owner')
         for submission_set in qs.annotate(count=Count('children')):
             submission_sets[submission_set.place_id].append({
                 'type': submission_set.submission_type,
                 'count': submission_set.count,
-                'url': reverse('submission_collection', kwargs={
+                'url': reverse('submission_collection_by_dataset', kwargs={
+                    'dataset__owner__username': submission_set.place.dataset.owner.username,
+                    'dataset__slug': submission_set.place.dataset.slug,
                     'place_id': submission_set.place_id,
                     'submission_type': submission_set.submission_type
                 })
@@ -103,6 +105,13 @@ class PlaceResource (ModelResourceWithDataBlob):
             'lat': place.location.y,
             'lng': place.location.x,
         }
+
+    def dataset(self, place):
+        url = reverse('dataset_instance_by_user',
+                      kwargs={
+                         'owner__username': place.dataset.owner.username,
+                         'slug': place.dataset.slug})
+        return {'url': url}
 
     def _get_dataset_url_args(self, dataset_id):
         # Looking up the same parent dataset for 1000 places would be
@@ -142,26 +151,45 @@ class PlaceResource (ModelResourceWithDataBlob):
 class DataSetResource (resources.ModelResource):
     model = models.DataSet
     form = forms.DataSetForm
-    fields = ['id', 'url', 'owner', 'places', 'slug', 'display_name', 'keys']
+    fields = ['id', 'url', 'owner', 'places', 'slug', 'display_name', 'keys', 'submissions']
+
+    @utils.cached_property
+    def submission_sets(self):
+        """
+        A mapping from DataSet ids to attributes.  Helps to cut down
+        significantly on the number of queries.
+        """
+        submission_sets = defaultdict(set)
+
+        from django.db.models import Count
+        qs = models.SubmissionSet.objects.all().select_related('place__dataset').select_related('place__dataset__owner')
+        for submission_set in qs.annotate(count=Count('children')):
+            submission_sets[submission_set.place.dataset_id].add((
+                ('type', submission_set.submission_type),
+                ('url', reverse('all_submissions_by_dataset', kwargs={
+                    'dataset__owner__username': submission_set.place.dataset.owner.username,
+                    'dataset__slug': submission_set.place.dataset.slug,
+                    'submission_type': submission_set.submission_type
+                }))
+            ))
+
+        for dataset_id, submission_sets_data in submission_sets.items():
+            submission_sets[dataset_id] = [dict(data) for data in submission_sets_data]
+
+        return submission_sets
 
     def owner(self, dataset):
         return simple_user(dataset.owner)
 
-    def _simple_place(self, place):
-        # TODO: it's a pain to explicitly serialize this, but if I don't
-        # override place_set below, the automatic serialization includes all
-        # of the DataSet.owner info, which is a security hole.
-        # There must be an easier way?
-
-        # TODO: This should be place_instance_by_dataset
-        return {'id': place.id,
-                'url': reverse('place_instance', args=[place.id])}
-
     def places(self, dataset):
-        # TODO: this should probably just be a (paginated) child resource
-        # as there may be thousands, millions, ...
-        places = models.Place.objects.filter(dataset=dataset)
-        return [self._simple_place(place) for place in places]
+        url = reverse('place_collection_by_dataset',
+                      kwargs={
+                         'dataset__owner__username': dataset.owner.username,
+                         'dataset__slug': dataset.slug})
+        return {'url': url}
+
+    def submissions(self, dataset):
+        return self.submission_sets[dataset.id]
 
     def url(self, instance):
         return reverse('dataset_instance_by_user',
@@ -180,28 +208,27 @@ class SubmissionResource (ModelResourceWithDataBlob):
     model = models.Submission
     form = forms.SubmissionForm
     # TODO: show dataset, but not detailed owner info
-    exclude = ['parent', 'data', 'submittedthing_ptr', 'dataset']
-    include = ['type']
-    queryset = model.objects.select_related('parent').order_by('created_datetime')
+    exclude = ['parent', 'data', 'submittedthing_ptr']
+    include = ['type', 'place']
+    queryset = model.objects.select_related('parent').select_related('dataset').order_by('created_datetime')
 
     def type(self, submission):
         return submission.parent.submission_type
 
-
-class SubmissionWithPlaceRefResource (SubmissionResource):
-    include = SubmissionResource.include + ['place']
-    queryset = SubmissionResource.queryset.select_related('dataset')
-
     def place(self, submission):
-        return {
-            'url': reverse(
-                'place_instance_by_dataset',
-                kwargs=dict(
-                   dataset__owner__username=submission.dataset.owner.username,
-                   dataset__slug=submission.dataset.slug,
-                   pk=submission.parent.place_id
-                ))
-        }
+        url = reverse('place_instance_by_dataset',
+                      kwargs={
+                         'dataset__owner__username': submission.dataset.owner.username,
+                         'dataset__slug': submission.dataset.slug,
+                         'pk': submission.parent.place_id})
+        return {'url': url}
+
+    def dataset(self, submission):
+        url = reverse('dataset_instance_by_user',
+                      kwargs={
+                         'owner__username': submission.dataset.owner.username,
+                         'slug': submission.dataset.slug})
+        return {'url': url}
 
 
 class GeneralSubmittedThingResource (ModelResourceWithDataBlob):
