@@ -165,7 +165,7 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         Submission.objects.all().delete()
         SubmissionSet.objects.all().delete()
 
-        owner = User.objects.create()
+        owner = User.objects.create(username='user')
         dataset = DataSet.objects.create(slug='data', owner_id=owner.id)
         place = Place.objects.create(location='POINT(0 0)', dataset_id=dataset.id)
         comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
@@ -188,7 +188,7 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         Place.objects.all().delete()
         Submission.objects.all().delete()
 
-        owner = User.objects.create()
+        owner = User.objects.create(username='user')
         dataset = DataSet.objects.create(slug='data', owner_id=owner.id)
         place = Place.objects.create(location='POINT(0 0)', dataset_id=dataset.id)
         comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
@@ -214,7 +214,7 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
         Submission.objects.all().delete()
         SubmissionSet.objects.all().delete()
 
-        owner = User.objects.create()
+        owner = User.objects.create(username='user')
         dataset = DataSet.objects.create(slug='data',
                                               owner_id=owner.id)
         place = Place.objects.create(location='POINT(0 0)',
@@ -248,7 +248,7 @@ class TestSubmissionInstanceAPI (TestCase):
         Submission.objects.all().delete()
         SubmissionSet.objects.all().delete()
 
-        self.owner = User.objects.create()
+        self.owner = User.objects.create(username='user')
         self.dataset = DataSet.objects.create(slug='data',
                                               owner_id=self.owner.id)
         self.place = Place.objects.create(location='POINT(0 0)',

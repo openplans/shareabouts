@@ -98,8 +98,8 @@ class TestPlaceResource(TestCase):
         from ..resources import models
         from django.contrib.auth.models import User
         location = 'POINT (1.0 2.0)'
-        owner = User.objects.create()
-        ds = models.DataSet.objects.create(owner=owner)
+        owner = User.objects.create(username='user')
+        ds = models.DataSet.objects.create(owner=owner, slug='dataset')
 
         models.Place.objects.create(id=123, location=location, dataset_id=ds.id)
         models.Place.objects.create(id=456, location=location, dataset_id=ds.id)
@@ -128,8 +128,8 @@ class TestPlaceResource(TestCase):
         from ..resources import models, PlaceResource
         self.populate()
         expected_result = {
-            123: [{'count': 3, 'url': '/api/v1/places/123/foo/', 'type': 'foo'}],
-            456: [{'count': 2, 'url': '/api/v1/places/456/bar/', 'type': 'bar'}],
+            123: [{'count': 3, 'url': '/api/v1/datasets/user/dataset/places/123/foo/', 'type': 'foo'}],
+            456: [{'count': 2, 'url': '/api/v1/datasets/user/dataset/places/456/bar/', 'type': 'bar'}],
         }
         assert_equal(dict(PlaceResource().submission_sets), expected_result)
         for place in models.Place.objects.all():
@@ -192,17 +192,6 @@ class TestDataSetResource(object):
         assert_equal(resource.owner(dataset), {'id': 123, 'username': 'freddy'})
 
     @istest
-    def test_places_empty(self):
-        from ..resources import DataSetResource
-        from mock_django.managers import ManagerMock
-        from ..models import Place
-        place_mgr = ManagerMock(Place.objects)
-        with mock.patch.object(Place, 'objects', place_mgr):
-            resource = DataSetResource()
-            dataset = mock.Mock()
-            assert_equal(resource.places(dataset), [])
-
-    @istest
     def test_places(self):
         from ..resources import DataSetResource
         from mock_django.managers import ManagerMock
@@ -216,10 +205,10 @@ class TestDataSetResource(object):
         with mock.patch.object(Place, 'objects', place_mgr):
             resource = DataSetResource()
             dataset = mock.Mock()
+            dataset.owner.username = 'mock-user'
+            dataset.slug = 'mock-dataset'
             assert_equal(resource.places(dataset),
-                         [{'id': 123, 'url': '/api/v1/places/123/'},
-                          {'id': 456, 'url': '/api/v1/places/456/'}
-                          ])
+                         {'url': '/api/v1/datasets/mock-user/mock-dataset/places/'})
 
 
 class TestActivityResource(object):
