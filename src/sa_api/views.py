@@ -347,18 +347,6 @@ class SubmissionInstanceView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, M
         # but as long as we have pk in the URL, that's a fast query...
         return super(SubmissionInstanceView, self).get_instance(pk=kwargs['pk'])
 
-#    def get(self, *args, **kwargs):
-#        import pdb; pdb.set_trace()
-#        return super(SubmissionInstanceView, self).get(*args, **kwargs)
-
-#    def put(self, *args, **kwargs):
-#        import pdb; pdb.set_trace()
-#        return super(SubmissionInstanceView, self).put(*args, **kwargs)
-
-#    def post(self, *args, **kwargs):
-#        import pdb; pdb.set_trace()
-#        return super(SubmissionInstanceView, self).post(*args, **kwargs)
-
 
 # TODO derive from CachedMixin to enable caching
 class ActivityView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, views.ListModelView):
