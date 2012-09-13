@@ -68,6 +68,7 @@ class ModelResourceWithDataBlob (resources.ModelResource):
 class PlaceResource (ModelResourceWithDataBlob):
     model = models.Place
     form = forms.PlaceForm
+    queryset = model.objects.all().select_related()
 
     # TODO: un-exclude dataset once i figure out how to avoid exposing user info
     # in related resources.
@@ -84,7 +85,7 @@ class PlaceResource (ModelResourceWithDataBlob):
         """
         submission_sets = defaultdict(list)
 
-        qs = models.SubmissionSet.objects.all().select_related('place__dataset').select_related('place__dataset__owner')
+        qs = models.SubmissionSet.objects.all().select_related()
         for submission_set in qs.annotate(length=Count('children')):
             # Ignore empty sets
             if submission_set.length <= 0:
@@ -156,7 +157,7 @@ class DataSetResource (resources.ModelResource):
     model = models.DataSet
     form = forms.DataSetForm
     fields = ['id', 'url', 'owner', 'places', 'slug', 'display_name', 'keys', 'submissions']
-    queryset = model.objects.all()
+    queryset = model.objects.all().select_related()
 
     @utils.cached_property
     def places_counts(self):
@@ -177,7 +178,7 @@ class DataSetResource (resources.ModelResource):
         """
         submission_sets = defaultdict(set)
 
-        qs = models.SubmissionSet.objects.all().select_related('place__dataset').select_related('place__dataset__owner')
+        qs = models.SubmissionSet.objects.all().select_related()
         for submission_set in qs.annotate(length=Count('children')):
             # Ignore empty sets
             if submission_set.length <= 0:
@@ -229,7 +230,7 @@ class SubmissionResource (ModelResourceWithDataBlob):
     # TODO: show dataset, but not detailed owner info
     exclude = ['parent', 'data', 'submittedthing_ptr']
     include = ['type', 'place']
-    queryset = model.objects.select_related('parent').select_related('dataset').order_by('created_datetime')
+    queryset = model.objects.select_related().order_by('created_datetime')
 
     def type(self, submission):
         return submission.parent.submission_type
