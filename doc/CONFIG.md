@@ -37,8 +37,7 @@ options](http://leaflet.cloudmade.com/reference.html#map-options).
 
 Option       |Type      |Default   |Description
 -------------|----------|----------|-----------
-`center`     |Object    |None      |Latitude and longitude for the
-initial center. eg. "lat: 39.9523524" and "lng: -75.1636075"
+`center`     |Object    |None      |Latitude and longitude for the initial center. eg. "lat: 39.9523524" and "lng: -75.1636075"
 `zoom`       |Integer   |None      |The initial zoom level.
 `minZoom`    |Integer   |None      |The minimum zoom level supported.
 `maxZoom`    |Integer   |None      |The maximum zoom level supported.
