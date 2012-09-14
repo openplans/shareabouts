@@ -2,6 +2,9 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
   S.MapView = Backbone.View.extend({
+    events: {
+      'click .locate-me': 'geolocate'
+    },
     initialize: function() {
       var self = this,
           i, layerModel,
@@ -19,6 +22,11 @@ var Shareabouts = Shareabouts || {};
 
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
+
+      // Init geolocation
+      if (self.options.mapConfig.geolocation_enabled) {
+        self.initGeolocation();
+      }
 
       _.each(self.options.mapConfig.layers, function(layerConfig){
         var layer = L.tileLayer(layerConfig.url, layerConfig);
@@ -46,6 +54,52 @@ var Shareabouts = Shareabouts || {};
       this.collection.each(function(model, i) {
         self.addLayerView(model);
       });
+    },
+    initGeolocation: function() {
+      var onLocationError = function(evt) {
+        var message;
+        switch (evt.code) {
+          // Unknown
+          case 0:
+            message = 'An unknown error occured while locating your position. Please try again.';
+            break;
+          // Permission Denied
+          case 1:
+            message = 'Geolocation is disabled for this page. Please adjust your browser settings.';
+            break;
+          // Position Unavailable
+          case 2:
+            message = 'Your location could not be determined. Please try again.';
+            break;
+          // Timeout
+          case 3:
+            message = 'It took too long to determine your location. Please try again.';
+            break;
+        }
+        alert(message);
+      };
+
+      // Add the geolocation control link
+      this.$('.leaflet-top.leaflet-right').append(
+        '<div class="leaflet-control">' +
+          '<a href="#" class="locate-me">Locate Me</a>' +
+        '</div>'
+      );
+
+      // Bind error handling event
+      this.map.on('locationerror', onLocationError);
+
+      // Go to the current location if specified
+      if (this.options.mapConfig.geolocation_onload) {
+        this.geolocate();
+      }
+    },
+    geolocate: function(evt) {
+      if (evt) {
+        evt.preventDefault();
+      }
+
+      this.map.locate({setView: true});
     },
     addLayerView: function(model) {
       this.layerViews[model.cid] = new S.LayerView({

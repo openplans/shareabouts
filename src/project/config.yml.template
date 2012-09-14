@@ -6,6 +6,8 @@ dataset_api_key: AbcXyzPdq
 
 # Settings for map and layer configs
 map:
+  geolocation_enabled: true
+  geolocation_onload: true
   options:
     center:
       lat: 39.9523524
