@@ -1,6 +1,7 @@
 {% load mustachejs %}
 {% load compress %}
 {% load i18n %}
+{% load shareabouts_utils %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
@@ -20,11 +21,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
   <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
-  <link rel="shortcut icon" href="{{ FLAVOR_STATIC_URL }}css/images/favicon.ico">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ FLAVOR_STATIC_URL }}css/images/apple-touch-icon-144x144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ FLAVOR_STATIC_URL }}css/images/apple-touch-icon-114x114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ FLAVOR_STATIC_URL }}css/images/apple-touch-icon-72x72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="{{ FLAVOR_STATIC_URL }}css/images/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="{{ config.static_url }}css/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ config.static_url }}css/images/apple-touch-icon-144x144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ config.static_url }}css/images/apple-touch-icon-114x114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ config.static_url }}css/images/apple-touch-icon-72x72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/apple-touch-icon-precomposed.png">
 
   <!-- Google WebFonts -->
   <!-- We shouldn't include this if the custom stylesheet overrides the #site-title font. -->
@@ -33,7 +34,7 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}sa/css/style.css">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="{{ FLAVOR_STATIC_URL }}css/custom.css">
+  <link rel="stylesheet" href="{{ config.static_url }}css/custom.css">
 
   <link rel="profile" href="http://gmpg.org/xfn/11" />
 
@@ -155,18 +156,18 @@
 
   (function(S, $){
     // Boostrapping the place types and their icons
-    var placeConfig = {{ place_config_json|safe }},
-        placeTypesConfig = {{ place_types_json|safe }},
-        placeTypeIconsConfig = {{ place_type_icons_json|safe }},
+    var placeConfig = {{ config.place|as_json }},
+        placeTypesConfig = {{ config.place_types|as_json }},
+        placeTypeIconsConfig = {{ config.place_type_icons|as_json }},
         placeTypeIcons = {},
         placeTypes = {},
 
-        surveyConfig = {{ survey_config_json|safe }},
-        supportConfig = {{ support_config_json|safe }},
-        pagesConfig = {{ pages_config_json|safe }},
-        mapConfig = {{ map_config_json|safe }},
-        activityConfig = {{ activity_config_json|safe }},
+        surveyConfig = {{ config.survey|as_json }},
+        supportConfig = {{ config.support|as_json }},
+        mapConfig = {{ config.map|as_json }},
+        activityConfig = {{ config.activity|as_json }},
 
+        pagesConfig = {{ pages_config_json|safe }},
         defaultPlaceTypeName = '{{ default_place_type }}';
 
     // Define each Leaflet Icon type

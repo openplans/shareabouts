@@ -5,7 +5,8 @@ import os
 import time
 import hashlib
 import httpagentparser
-
+import urllib2
+from contextlib import closing
 from django.shortcuts import render
 from django.conf import settings
 from django.utils.timezone import now
@@ -84,7 +85,7 @@ class ShareaboutsConfig (object):
     @property
     def data(self):
         if not hasattr(self, '_yml'):
-            with self.config_file() as config_yml:
+            with closing(self.config_file()) as config_yml:
                 self._yml = yaml.load(config_yml)
 
         return self._yml
@@ -96,6 +97,27 @@ class ShareaboutsConfig (object):
         return self.data.get(key, default)
 
 
+#
+# TODO: Remote configuration is an attractive thing to support, but it has
+#       several tricky implications:
+#
+#       1. Security
+#          --------
+#          The config.yml file contains the API key for the dataset.  If the
+#          file is available over HTTP for this application to download, it is
+#          available for anyone else as well.  It could be secured with some
+#          authentication scheme, but this has to be thought about further.
+#
+#       2. Internationalization
+#          --------------------
+#          We're using the gettext format for translations, but there are some
+#          things that are specific to the flavor should be translated from the
+#          flavor config.  How we would load the translations for the flavor is
+#          not yet known.
+#
+#       For these reasons, we are not yet officially supporting remote
+#       configuration.
+#
 class ShareaboutsRemoteConfig (ShareaboutsConfig):
     def __init__(self, url):
         self.url = url
@@ -103,9 +125,9 @@ class ShareaboutsRemoteConfig (ShareaboutsConfig):
     def static_url(self):
         return os.path.join(self.url, 'static/')
 
-    def yml(self):
+    def config_file(self):
         config_fileurl = os.path.join(self.url, 'config.yml')
-        return urlopen(config_fileurl)
+        return urllib2.urlopen(config_fileurl)
 
 
 class ShareaboutsLocalConfig (ShareaboutsConfig):
@@ -173,18 +195,13 @@ def index(request, default_place_type):
 
     context = {'places_json': places_json,
                'activity_json': activity_json,
-               'place_types_json': place_types_json,
-               'place_type_icons_json': place_type_icons_json,
-               'survey_config_json': survey_config_json,
-               'support_config_json': support_config_json,
+
+               'config': config,
+
                'user_token_json': user_token_json,
                'pages_config_json': pages_config_json,
-               'map_config_json': map_config_json,
-               'place_config_json': place_config_json,
-               'activity_config_json': activity_config_json,
                'user_agent_json': user_agent_json,
                'default_place_type': validated_default_place_type,
-               'FLAVOR_STATIC_URL': config.static_url(),
                }
     return render(request, 'index.html', context)
 
