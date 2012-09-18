@@ -15,9 +15,14 @@ import os.path
 with open('/home/dotcloud/environment.json') as f:
     env = json.load(f)
 
-SHAREABOUTS_FLAVOR = env.get('SHAREABOUTS_FLAVOR')
-SHAREABOUTS_CONFIG = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'flavors' , SHAREABOUTS_FLAVOR + '_config'))
-INSTALLED_APPS += ('flavors.' + SHAREABOUTS_FLAVOR + '_config',)
+# The SHAREABOUTS_FLAVOR environment variable is used as a prefix for the
+# Shareabouts configuration. configuration is expected to live in a package
+# named 'flavors.<SHAREABOUTS_FLAVOR>_config'. This package will correspond to a
+# folder in the root of the src tree that contains all the configuration
+# information for the flavor.
+SHAREABOUTS_FLAVOR = env.get('SHAREABOUTS_FLAVOR') + '_config'
+INSTALLED_APPS = ('flavors.' + SHAREABOUTS_FLAVOR,) + INSTALLED_APPS
+SHAREABOUTS_CONFIG = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'flavors', SHAREABOUTS_FLAVOR))
 
 STATIC_ROOT = '/home/dotcloud/current/static/'
 
