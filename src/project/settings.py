@@ -134,7 +134,7 @@ INSTALLED_APPS = (
     'proxy',
 
     # The current Shareabouts flavor
-#    'flavors.default_config',
+    'flavors.default_config',
 )
 
 # Shareabouts flavor config
