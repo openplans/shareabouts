@@ -4,14 +4,22 @@
 # Post-install hook file for configuring dotcloud server
 
 echo "Writing the local settings file..."
+echo "  - Setting the path to the Shareabouts config"
+echo "  - Adding the flavor to the installed applications"
+
 cat >> src/project/local_settings.py <<EOF
 
 import json
+import os.path
+
 with open('/home/dotcloud/environment.json') as f:
     env = json.load(f)
 
+SHAREABOUTS_FLAVOR = env.get('SHAREABOUTS_FLAVOR')
+SHAREABOUTS_CONFIG = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'flavors' , SHAREABOUTS_FLAVOR + '_config'))
+INSTALLED_APPS += ('flavors.' + SHAREABOUTS_FLAVOR + '_config',)
+
 STATIC_ROOT = '/home/dotcloud/current/static/'
-SHAREABOUTS_API_ROOT = env.get('SHAREABOUTS_API_ROOT', 'SHAREABOUTS_API_ROOT-not-set-in-dotcloud-environment!!!')
 
 # Debug is False by default, true if set in the environment.
 DEBUG = (env.get('DEBUG', 'False') in ['true', 'True'])
@@ -19,10 +27,7 @@ TEMPLATE_DEBUG = DEBUG
 
 EOF
 
-echo "Setting up the config file(s)"
-cp src/project/config.yml.template src/project/config.yml
-
-echo "Injecting the Shareabouts API key"
+echo "Injecting the Shareabouts API access info into the config file"
 python -c "
 import json
 
@@ -31,6 +36,8 @@ with open('/home/dotcloud/environment.json') as f:
 
 print
 print 'dataset_api_key: ' + env.get('SHAREABOUTS_API_KEY')
+print 'api_root: ' + env.get('SHAREABOUTS_API_ROOT', 'SHAREABOUTS_API_ROOT-not-set-in-dotcloud-environment!!!')
+
 " | cat >> src/project/config.yml
 
 
