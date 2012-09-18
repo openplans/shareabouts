@@ -17,6 +17,8 @@ app:
 
 # Settings for map and layer configs
 map:
+  geolocation_enabled: true
+  geolocation_onload: false
   options:
     center:
       lat:  40.7197294
@@ -74,7 +76,6 @@ activity:
 
 place:
   adding_supported: true
-  # Add button text
   add_button_label: Add an ATM
   title: Tell us about this ATM
   anonymous_name: Someone
