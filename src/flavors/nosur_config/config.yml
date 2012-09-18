@@ -6,6 +6,15 @@ dataset: openplans/atm_surcharge
 # And the associated API key.
 dataset_api_key: AbcXyzPdq
 
+# Settings for the app
+app:
+  # HTML Title
+  title: No Sur!
+  # Header name
+  name: No Sur!
+  # Meta description that will show up in Google search results
+  meta_description: Say "No Sur!" to ATM surcharges. Find the lowest ATM surcharges near you. It's powered by Shareabouts, a mapping tool to gather crowd sourced public input.
+
 # Settings for map and layer configs
 map:
   options:
@@ -65,6 +74,8 @@ activity:
 
 place:
   adding_supported: true
+  # Add button text
+  add_button_label: Add an ATM
   title: Tell us about this ATM
   items:
     - prompt: Short Description
