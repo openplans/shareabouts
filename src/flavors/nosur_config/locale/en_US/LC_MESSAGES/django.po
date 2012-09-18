@@ -17,22 +17,3 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: jstemplates/submitter-or-anonymous.html:1
-msgid "Anonymous Name"
-msgstr "Someone"
-
-#: templates/index.html:15
-msgid "App Title"
-msgstr "No Sur!"
-
-#: templates/index.html:16
-msgid "App Description"
-msgstr "Say \"No Sur!\" to ATM surcharges. Find the lowest ATM surcharges near you. It's powered by Shareabouts, a mapping tool to gather crowd sourced public input."
-
-#: templates/index.html:53 templates/index.html.py:62 templates/index.html:63
-msgid "App Name"
-msgstr "No Sur!"
-
-#: templates/index.html:71
-msgid "Add Place"
-msgstr "Add an ATM"
