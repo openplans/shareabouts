@@ -13,7 +13,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from proxy.views import proxy_view
 
 
-def make_resource_uri(dataset, resource, root=settings.SHAREABOUTS_API_ROOT):
+def make_resource_uri(dataset, resource, root):
     resource = resource.strip('/')
     dataset = dataset.strip('/')
     root = root.rstrip('/')
@@ -22,7 +22,7 @@ def make_resource_uri(dataset, resource, root=settings.SHAREABOUTS_API_ROOT):
 
 
 class ShareaboutsApi (object):
-    def __init__(self, dataset, root=settings.SHAREABOUTS_API_ROOT):
+    def __init__(self, dataset, root):
         self.root = root
         self.dataset = dataset
 
@@ -73,17 +73,61 @@ def init_pages_config(pages_config, request):
     return pages_config
 
 
+def get_shareabouts_config(path_or_url):
+    if path_or_url.startswith('http://') or path_or_url.startswith('https://'):
+        return ShareaboutsRemoteConfig(path_or_url)
+    else:
+        return ShareaboutsLocalConfig(path_or_url)
+
+
+class ShareaboutsConfig (object):
+    @property
+    def data(self):
+        if not hasattr(self, '_yml'):
+            with self.config_file() as config_yml:
+                self._yml = yaml.load(config_yml)
+
+        return self._yml
+
+    def __getitem__(self, key):
+        return self.data[key]
+
+    def get(self, key, default=None):
+        return self.data.get(key, default)
+
+
+class ShareaboutsRemoteConfig (ShareaboutsConfig):
+    def __init__(self, url):
+        self.url = url
+
+    def static_url(self):
+        return os.path.join(self.url, 'static/')
+
+    def yml(self):
+        config_fileurl = os.path.join(self.url, 'config.yml')
+        return urlopen(config_fileurl)
+
+
+class ShareaboutsLocalConfig (ShareaboutsConfig):
+    def __init__(self, path):
+        self.path = path
+
+    def static_url(self):
+        return settings.STATIC_URL
+
+    def config_file(self):
+        config_filename = os.path.join(self.path, 'config.yml')
+        return open(config_filename)
+
+
 @ensure_csrf_cookie
 def index(request, default_place_type):
     # Load app config settings
-    with open(settings.SHAREABOUTS_CONFIG) as config_yml:
-        config = yaml.load(config_yml)
-
-    # TODO: Is it weird to get the API_ROOT and the dataset path from
-    # separate config files?
+    config = get_shareabouts_config(settings.SHAREABOUTS_CONFIG)
 
     # Get initial data for bootstrapping into the page.
-    api = ShareaboutsApi(dataset=config['dataset'])
+    api = ShareaboutsApi(dataset=config['dataset'],
+                         root=config['api_root'])
 
     place_types_json = json.dumps(config['place_types'])
     place_type_icons_json = json.dumps(config['place_type_icons'])
@@ -139,7 +183,9 @@ def index(request, default_place_type):
                'place_config_json': place_config_json,
                'activity_config_json': activity_config_json,
                'user_agent_json': user_agent_json,
-               'default_place_type': validated_default_place_type}
+               'default_place_type': validated_default_place_type,
+               'FLAVOR_STATIC_URL': config.static_url(),
+               }
     return render(request, 'index.html', context)
 
 
@@ -148,12 +194,11 @@ def api(request, path):
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    with open(settings.SHAREABOUTS_CONFIG) as config_yml:
-        config = yaml.load(config_yml)
+    config = get_shareabouts_config(settings.SHAREABOUTS_CONFIG)
 
     dataset = config['dataset']
     api_key = config['dataset_api_key']
-    url = make_resource_uri(dataset, path)
+    url = make_resource_uri(dataset, path, config['api_root'])
 
     headers = {'X-Shareabouts-Key': api_key}
     return proxy_view(request, url, requests_args={'headers': headers})
@@ -164,12 +209,11 @@ def csv_download(request, path):
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    with open(settings.SHAREABOUTS_CONFIG) as config_yml:
-        config = yaml.load(config_yml)
+    config = get_shareabouts_config(settings.SHAREABOUTS_CONFIG)
 
     dataset = config['dataset']
     api_key = config['dataset_api_key']
-    url = make_resource_uri(dataset, path)
+    url = make_resource_uri(dataset, path, config['api_root'])
 
     headers = {
         'X-Shareabouts-Key': api_key,
