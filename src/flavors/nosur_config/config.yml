@@ -77,6 +77,7 @@ place:
   # Add button text
   add_button_label: Add an ATM
   title: Tell us about this ATM
+  anonymous_name: Someone
   items:
     - prompt: Short Description
       type: text
@@ -116,6 +117,7 @@ survey:
   response_name: tip
   response_plural_name: tips
   action_text: left a tip
+  anonymous_name: Someone
 
   # Survey form config
   title: Add a Tip
@@ -132,7 +134,8 @@ survey:
 support:
   submission_type: support
   submit_btn_text: Support This!
-  action_text: "supported"
+  action_text: supported
+  anonymous_name: Someone
 
 pages:
   - title: About

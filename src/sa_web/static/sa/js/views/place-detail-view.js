@@ -28,10 +28,13 @@ var Shareabouts = Shareabouts || {};
               return S.Util.getPrettyDateTime(this.created_datetime,
                 self.options.placeConfig.pretty_datetime_format);
             },
-            submitter_is_anonymous: (!this.model.get('submitter_name')),
             items: items,
             survey_config: this.options.surveyConfig
           }, this.model.toJSON());
+
+      data.submitter_name = this.model.get('submitter_name') ||
+        this.options.placeConfig.anonymous_name;
+
 
       this.$el.html(ich['place-detail'](data));
 

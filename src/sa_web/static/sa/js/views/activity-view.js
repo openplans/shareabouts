@@ -87,6 +87,7 @@ var Shareabouts = Shareabouts || {};
           placeData,
           modelData,
           actionText,
+          anonSubmitterName,
           $template,
           placeType,
           placeModel = this.options.places.get(model.get('place_id'));
@@ -110,15 +111,18 @@ var Shareabouts = Shareabouts || {};
         // Get the place that the action is about.
         if (isPlaceAction) {
           placeData = model.get('data');
+          anonSubmitterName = this.options.placeConfig.anonymous_name;
         } else {
           placeData = this.options.places.get(model.get('place_id')).toJSON();
 
           if (actionType === surveyConfig.submission_type) {
             // Survey
             actionText = this.options.surveyConfig.action_text;
+            anonSubmitterName = this.options.surveyConfig.anonymous_name;
           } else if (actionType === supportConfig.submission_type) {
             // Support
             actionText = this.options.supportConfig.action_text;
+            anonSubmitterName = this.options.supportConfig.anonymous_name;
           }
         }
 
@@ -129,13 +133,12 @@ var Shareabouts = Shareabouts || {};
         }
 
         modelData = _.extend({
-          submitter_is_anonymous: (!model.get('data').submitter_name),
           place: placeData,
-          action: actionText,
           is_place: isPlaceAction
         }, model.toJSON());
 
         modelData.action = actionText;
+        modelData.data.submitter_name = model.get('data').submitter_name || anonSubmitterName;
 
         $template = ich['activity-list-item'](modelData);
 
