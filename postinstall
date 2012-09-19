@@ -32,7 +32,7 @@ TEMPLATE_DEBUG = DEBUG
 
 EOF
 
-echo "Injecting the Shareabouts API access info into the config file"
+echo "Injecting the Shareabouts API access info into the config file at $SHAREABOUTS_FLAVOR"
 python -c "
 import json
 
@@ -43,7 +43,7 @@ print
 print 'dataset_api_key: ' + env.get('SHAREABOUTS_API_KEY')
 print 'api_root: ' + env.get('SHAREABOUTS_API_ROOT', 'SHAREABOUTS_API_ROOT-not-set-in-dotcloud-environment!!!')
 
-" | cat >> src/project/config.yml
+" | cat >> src/flavors/$SHAREABOUTS_FLAVOR/config.yml
 
 
 echo "Syncing the database..."
