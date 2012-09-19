@@ -47,7 +47,8 @@ var Shareabouts = Shareabouts || {};
           router: this.options.router,
           placeTypes: this.options.placeTypes,
           surveyConfig: this.options.surveyConfig,
-          supportConfig: this.options.supportConfig
+          supportConfig: this.options.supportConfig,
+          placeConfig: this.options.placeConfig
         });
       }
 

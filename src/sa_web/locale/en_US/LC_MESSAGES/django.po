@@ -64,42 +64,6 @@ msgid ""
 "            {{/region}}"
 msgstr ""
 
-#: jstemplates/place-form.html:1
-msgid "Location Type"
-msgstr ""
-
-#: jstemplates/place-form.html:2
-msgid "Submitter Name"
-msgstr "Your Name"
-
-#: jstemplates/place-form.html:3
-msgid "Submitter Name Placeholder"
-msgstr "Name"
-
-#: jstemplates/place-form.html:4
-msgid "Description Placeholder"
-msgstr "Description..."
-
-#: jstemplates/place-form.html:5
-msgid "Location Name"
-msgstr ""
-
-#: jstemplates/place-form.html:6
-msgid "Place Form Header"
-msgstr "Tell us more&hellip;"
-
-#: jstemplates/place-form.html:7
-msgid "Point Description"
-msgstr "Description"
-
-#: jstemplates/place-form.html:8
-msgid "Submit Location Button"
-msgstr "Submit Location"
-
-#: jstemplates/submitter-or-anonymous.html:1
-msgid "Anonymous Name"
-msgstr "Someone"
-
 #: jstemplates/unsupported-overlay.html:1
 msgid ""
 "\n"
@@ -134,19 +98,3 @@ msgid ""
 "    technology from within IE.\n"
 "    "
 msgstr ""
-
-#: templates/index.html:15
-msgid "App Title"
-msgstr "Shareabouts"
-
-#: templates/index.html:16
-msgid "App Description"
-msgstr "Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process."
-
-#: templates/index.html:53 templates/index.html.py:62 templates/index.html:63
-msgid "App Name"
-msgstr "Shareabouts"
-
-#: templates/index.html:71
-msgid "Add Place"
-msgstr "Add Location"

@@ -1,6 +1,7 @@
 {% load mustachejs %}
 {% load compress %}
 {% load i18n %}
+{% load shareabouts_utils %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
@@ -12,19 +13,19 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE7">
 
-  <title>{% trans "App Title" %}</title>
-  <meta name="description" content="{% trans "App Description" %}">
-  <meta name="author" content="">
+  <title>{{ config.app.title }}</title>
+  <meta name="description" content="{{ config.app.meta_description }}">
+  <meta name="author" content="OpenPlans.org">
 
   <!-- Mobile Viewport Fix -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
   <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
-  <link rel="shortcut icon" href="{{ STATIC_URL }}sa/css/images/favicon.ico">
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}sa/css/images/apple-touch-icon-144x144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}sa/css/images/apple-touch-icon-114x114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}sa/css/images/apple-touch-icon-72x72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}sa/css/images/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="{{ config.static_url }}css/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ config.static_url }}css/images/apple-touch-icon-144x144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ config.static_url }}css/images/apple-touch-icon-114x114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ config.static_url }}css/images/apple-touch-icon-72x72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/apple-touch-icon-precomposed.png">
 
   <!-- Google WebFonts -->
   <!-- We shouldn't include this if the custom stylesheet overrides the #site-title font. -->
@@ -33,7 +34,7 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}sa/css/style.css">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="{{ STATIC_URL }}sa/css/custom.css">
+  <link rel="stylesheet" href="{{ config.static_url }}css/custom.css">
 
   <link rel="profile" href="http://gmpg.org/xfn/11" />
 
@@ -50,7 +51,7 @@
 <body>
 
   <header id="site-header" class="clearfix">
-    <h1 id="site-title"><a href="/">{% trans "App Name"  %}</a></h1>
+    <h1 id="site-title"><a href="/">{{ config.app.name }}</a></h1>
     <div id="pages-nav-container"></div>
   </header>
 
@@ -59,8 +60,8 @@
   <div role="main" id="main">
     <noscript>
       <div class="noscript">
-      <h3>Oops, {% trans "App Name"  %} needs JavaScript to achieve full awesomeness.</h3>
-      <p>{% trans "App Name"  %} is great but it needs something called JavaScript to work
+      <h3>Oops, {{ config.app.name}} needs JavaScript to achieve full awesomeness.</h3>
+      <p>{{ config.app.name }} is great but it needs something called JavaScript to work
         properly. But fear not, it's really easy to turn on. Click
         <a href="http://enable-javascript.com/" target="_blank">here</a> for simple instructions!</p>
       </div>
@@ -71,7 +72,7 @@
     </div>
 
     <div id="content">
-      <a href="#" class="close-bttn">&#10005;<span> {% trans "Close Button" %}</span></a>
+      <a href="#" class="close-bttn">&#10005;<span>Close</span></a>
       <article class="point"><!-- .point or .page -->
       </article>
     </div><!-- end #content -->
@@ -144,7 +145,6 @@
   {% mustacheich "place-detail-survey" %}
   {% mustacheich "place-detail-support" %}
   {% mustacheich "activity-list-item" %}
-  {% mustacheich "submitter-or-anonymous" %}
   {% mustacheich "pages-nav-item" %}
   {% mustacheich "pages-nav" %}
   {% mustacheich "unsupported-overlay" %}
@@ -155,18 +155,18 @@
 
   (function(S, $){
     // Boostrapping the place types and their icons
-    var placeConfig = {{ place_config_json|safe }},
-        placeTypesConfig = {{ place_types_json|safe }},
-        placeTypeIconsConfig = {{ place_type_icons_json|safe }},
+    var placeConfig = {{ config.place|as_json }},
+        placeTypesConfig = {{ config.place_types|as_json }},
+        placeTypeIconsConfig = {{ config.place_type_icons|as_json }},
         placeTypeIcons = {},
         placeTypes = {},
 
-        surveyConfig = {{ survey_config_json|safe }},
-        supportConfig = {{ support_config_json|safe }},
-        pagesConfig = {{ pages_config_json|safe }},
-        mapConfig = {{ map_config_json|safe }},
-        activityConfig = {{ activity_config_json|safe }},
+        surveyConfig = {{ config.survey|as_json }},
+        supportConfig = {{ config.support|as_json }},
+        mapConfig = {{ config.map|as_json }},
+        activityConfig = {{ config.activity|as_json }},
 
+        pagesConfig = {{ pages_config_json|safe }},
         defaultPlaceTypeName = '{{ default_place_type }}';
 
     // Define each Leaflet Icon type

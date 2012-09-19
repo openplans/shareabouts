@@ -1,7 +1,7 @@
       <li class="activity-item clearfix">
         {{# data }}
           <a href="/place/{{ place_id }}">{{#_}}<strong>
-          {{> submitter-or-anonymous }}
+          {{ submitter_name }}
           </strong>
           {{# is_place }}
             created a <span class="place-type">{{ place.location_type }}</span>

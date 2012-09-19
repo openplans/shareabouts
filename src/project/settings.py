@@ -17,12 +17,6 @@ DATABASES = {
     }
 }
 
-# Application config
-SHAREABOUTS_CONFIG = os.path.join(os.path.dirname(__file__), 'config.yml')
-
-# The root to the Shareabouts API service.
-SHAREABOUTS_API_ROOT = 'http://localhost:8000/api/v1/'
-
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -138,7 +132,13 @@ INSTALLED_APPS = (
     # Project apps
     'sa_web',
     'proxy',
+
+    # The current Shareabouts flavor
+    'flavors.default_config',
 )
+
+# Shareabouts flavor config
+SHAREABOUTS_CONFIG = os.path.join(os.path.dirname(__file__), '..', 'flavors' , 'default_config')
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

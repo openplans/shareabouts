@@ -1,15 +1,15 @@
-/* 
- * This CSS file follows the default Shareabouts style.css. 
- * All rules herein will override the default Shareabouts styles. 
- * NOTE: "With great power comes great responsibility." 
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
  */
 
 /* =Base Typography
 -------------------------------------------------------------- */
 
 body, select, input, textarea {
-/*  color: #000;*/
-/*  font-family: "Comic Sans MS", cursive, sans-serif;*/
+  color: #444;
+  font-family: Futura, "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 }
 
 
@@ -17,11 +17,11 @@ body, select, input, textarea {
 -------------------------------------------------------------- */
 
 a, a:active, a:visited {
-/*  color: #ff40ff;*/
+  color: #00994d;
 }
 
 a:hover {
-/*  color: #e500e5;*/
+  color: #00cc66;
 }
 
 
@@ -29,59 +29,59 @@ a:hover {
 -------------------------------------------------------------- */
 
 #site-header {
-/*  color: #fff;*/
-/*  background-color: #994c99;*/
+  color: #444;
+  background-color: #eee;
 }
 
 #site-header a, #site-header a:active, #site-header a:visited {
-/*  color: #ff80ff;*/
+  color: #00994d;
 }
 
 #site-header a:hover {
-  /* color: #ffbfff; */
+   color: #00cc66;
 }
 
 
 /* =Logo
 -------------------------------------------------------------- */
 
-/* NOTE: Adjust the #site-title font size in the link 
+/* NOTE: Adjust the #site-title font size in the link
  * (not in the #site-title itself) using the em unit,
  * as to not break it scaling via media queries. */
 
 #site-title {
-/*  font-family: Impact, sans-serif;*/
+  font-family: Futura, "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 /*  color: #fff;*/
-/*  text-shadow: none;*/
+  text-shadow: none;
 }
 
 #site-title a:link,
-#site-title a:visited { 
-/*  font-size: 0.75em;*/
-/*  color: #fff;*/
+#site-title a:visited {
+  font-size: 0.75em;
+  color: #00cc66;
 }
 
 #site-title a:hover {
-/*  color: #fff;*/
+  color: #00994d;
 }
 
 
 /* =Mobile Navigation Button
 -------------------------------------------------------------- */
 
-/* NOTE: Override the Mobile Navigation Button with caution. 
+/* NOTE: Override the Mobile Navigation Button with caution.
  * The Helvetica stack produces a good icon. */
 
 a#nav-bttn:link,
 a#nav-bttn:visited {
-/*  color: #bf00bf;*/
-/*  background: #ffbfff;*/
-/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
+  color: #fff;
+  background: #bbb;
+  font-family: "Helvetica Neue", Arial, Helvetica, serif;
 }
 
 a#nav-bttn:hover {
-/*  color: #ffbfff;*/
-/*  background: #fff;*/
+  color: #fff;
+  background: #777;
 }
 
 
@@ -89,22 +89,22 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 #access {
-/*  border: 1em solid #994c99;*/
-/*  border-top: 0.5em solid #994c99;*/
-/*  background: #994c99;*/
+  border: 1em solid #eee;
+  border-top: 0.5em solid #eee;
+  background: #fff;
 }
 
 #access li {
-/*  border-bottom: 2px solid #994c99;*/
-}
-
-#access a:hover {
-/*  color: #ffbfff;*/
-/*  background: #fff;*/
+  border-bottom: 2px solid #eee;
 }
 
 #access a:visited, #access a:active, #access a:link {
-/*  color: #ffbfff;*/
+  color: #00994d;
+}
+
+#access a:hover {
+  color: #fff;
+  background: #00cc66;
 }
 
 
@@ -112,37 +112,37 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 a.add-place {
-/*  background-color: #ff40ff;*/
-/*  color: #eee;*/
-/*  text-shadow: none;*/
+  background-color: #00cc66;
+  color: #fff;
+  text-shadow: none;
 }
 
 a.add-place:hover {
-/*  background-color: #e500e5;*/
-/*  color: #fff;*/
+  background-color: #00994d;
+  color: #fff;
 }
 
 
 /* =Close Content Button
 -------------------------------------------------------------- */
 
-/* NOTE: Override the Close Button font within the span. The link should 
+/* NOTE: Override the Close Button font within the span. The link should
  * remain the Helvetica stack, as it produces a good X close icon. */
 
 a.close-bttn {
-/*  color: #ff40ff;*/
+  color: #bbb;
 /*  background-color: #fff;*/
 /*  border-color: #ffbfff;*/
-/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
+  font-family: "Helvetica Neue", Arial, Helvetica, serif;
 }
 
 a.close-bttn:hover {
-/*  color: #e500e5;*/
+  color: #00994d;
 /*  background-color: #fff;*/
 /*  border-color: #e500e5;*/
 }
 a.close-bttn span {
-  /*  font-family: Impact, sans-serif;*/
+  font-family: Futura, "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 }
 
 
@@ -163,41 +163,43 @@ textarea {
 }
 
 .bttn {
-/*  color: #eee;*/
-/*  background-color: #ff40ff;*/
-/*  text-shadow: none;*/
+  color: #fff;
+  background-color: #00994d;
+  text-shadow: none;
 }
 
 .bttn:hover {
-/*  color: #fff;*/
-/*  background-color: #e500e5;*/
+  color: #fff;
+  background-color: #00cc66;
 }
 
 a.reply-link {
-/*  color: #1e5395;*/
-/*  background: #eef8fd;*/
+  color: #00994d;
+  background: #bbb;
 }
 
 a.reply-link:hover {
-/*  color: #fff;*/
-/*  background-color: #e500e5;*/
+  color: #fff;
+  background-color: #00994d;
 }
 
 
-/* =Voting & Social Promotion 
+/* =Voting & Social Promotion
 -------------------------------------------------------------- */
 .promotion {
-/*  background-color: #bf8fbf;*/
+  background-color: #bbb;
+/*  border-bottom: 0.5em solid #806080;*/
 }
 
 #user_support label {
-/*  color: #ff80ff;*/
-/*  background-color: #fff;*/
+  color: #fff;
+  background-color: #00994d;
 }
 
 #user_support:hover label,
 #user_support label:hover {
-/*  color: #e500e5;*/
+  color: #00994d;
+  background-color: #fff;
 }
 
 
@@ -205,7 +207,7 @@ a.reply-link:hover {
 -------------------------------------------------------------- */
 
 #ticker {
-/*  background-color: #806080;*/
+  background-color: #ddd;
 }
 
 ul.recent-points {
@@ -213,20 +215,37 @@ ul.recent-points {
 }
 
 .recent-points li {
-/*  border-bottom: 3px solid #664c66;*/
+  border-bottom: 3px solid #ccc;
 }
 
 .recent-points li:hover {
-/*  background: #bf60bf;*/
+  background: #777;
 }
 
 .recent-points a {
-/*  color: #eee;*/
+  color: #444;
 }
 
 .recent-points li:hover a,
 .recent-points a:hover {
-/*  color: #fff;*/
+  color: #fff;
+}
+
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) { /* menu is visible */
+  #access {
+    border: 0;
+    background: transparent;
+  }
+  #access li {
+    border-bottom: 6px solid transparent;
+  }
+  #access ul ul a {
+    background-color: #eee;
+  }
 }
 
 

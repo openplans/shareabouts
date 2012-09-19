@@ -27,8 +27,7 @@ var Shareabouts = Shareabouts || {};
         var items = S.TemplateHelpers.getItemsFromModel(self.options.surveyConfig.items, model, ['submitter_name']);
 
         responses.push({
-          submitter_name: model.get('submitter_name'),
-          submitter_is_anonymous: (!model.get('submitter_name')),
+          submitter_name: model.get('submitter_name') || self.options.surveyConfig.anonymous_name,
           pretty_created_datetime: S.Util.getPrettyDateTime(model.get('created_datetime'),
             self.options.surveyConfig.pretty_datetime_format),
           items: items
