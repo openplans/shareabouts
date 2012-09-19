@@ -85,7 +85,9 @@ activity:
 
 place:
   adding_supported: false
+  add_button_label: Add an Place
   title: Add a part of the park to survey
+  anonymous_name: Someone
   items:
     - prompt: Name
       type: text
@@ -130,6 +132,7 @@ survey:
   response_name: survey
   response_plural_name: surveys
   action_text: surveyed
+  anonymous_name: Someone
 
   # Survey form config
   title: Record Usage
@@ -166,7 +169,8 @@ survey:
 support:
   submission_type: support
   submit_btn_text: Support This!
-  action_text: "supported"
+  action_text: supported
+  anonymous_name: Someone
 
 pages:
   - title: Instructions
