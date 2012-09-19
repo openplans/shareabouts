@@ -317,6 +317,102 @@ a.add-place {
 a.add-place:hover {
   color: #fff;
 }
+
+a.locate-me:link,
+a.locate-me:visited {
+  overflow: hidden;
+  position: relative;
+  display: block;
+  background-color: #eee;
+  color: #00aaff;
+  padding: 0;
+  margin: 0;
+  height: 2em;
+  width: 2em;
+  font-size: 1.325em;
+  line-height: 2;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: -1px 1px 0 #fff;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+a.locate-me:hover {
+  background-color: #00aaff;
+  color: #007fbf;
+  text-shadow: -1px 1px 0 rgba(255,255,255,0.25);
+}
+.locate-me span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0.25em;
+  left: 1.25em;
+  text-indent: -9999px;
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform-origin: left top;
+  -ms-transform-origin: left top;
+  -webkit-transform-origin: left top;
+  -moz-transform-origin: left top;
+  -o-transform-origin: left top;
+}
+.locate-me span:before {
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  border-width: 1em 0 0.4em 0.4em;
+  border-style: solid;
+  border-color: transparent transparent transparent #bbb;
+  position: absolute;
+  top: 0;
+  left: 0.4em;
+    transform: rotate(18deg);
+    -ms-transform: rotate(18deg);
+    -webkit-transform: rotate(18deg);
+    -moz-transform: rotate(18deg);
+    -o-transform: rotate(18deg);
+    transform-origin: left top;
+    -ms-transform-origin: left top;
+    -webkit-transform-origin: left top;
+    -moz-transform-origin: left top;
+    -o-transform-origin: left top;
+}
+.locate-me span:after {
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  border-width: 1em 0.4em 0.4em 0;
+  border-style: solid;
+  border-color: transparent #bbb transparent transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+    transform: rotate(-18deg);
+    -ms-transform: rotate(-18deg);
+    -webkit-transform: rotate(-18deg);
+    -moz-transform: rotate(-18deg);
+    -o-transform: rotate(-18deg);
+    transform-origin: right top;
+    -ms-transform-origin: right top;
+    -webkit-transform-origin: right top;
+    -moz-transform-origin: right top;
+    -o-transform-origin: right top;
+}
+.locate-me:hover span:before {
+  border-left-color: #007fbf;
+}
+.locate-me:hover span:after {
+  border-right-color: #007fbf;
+}
+
 #map .leaflet-popup-content-wrapper {
      -moz-border-radius: 0px;
   -webkit-border-radius: 0px;
@@ -857,12 +953,9 @@ ul.recent-points {
 }
 @media only screen and (max-width: 480px) and (orientation: landscape) {
   a.add-place {
-    float: right;
-    top: 8px;
-    right: 8px;
-    bottom: auto;
-    left: auto;
-    z-index: 15;
+    right: auto;
+    bottom: 10px;
+    left: 10px;
     padding: 0.1em 0.4em 0.2em 0.4em;
     font-size: 2em;
   }
