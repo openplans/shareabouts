@@ -44,7 +44,7 @@ place_types:
 place_type_icons:
   blue:
     iconUrl: /static/css/images/marker-dollar.png
-    shadowUrl: /static/sa/css/images/marker-shadow.png
+    shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
       height: 41
@@ -58,8 +58,8 @@ place_type_icons:
       x: 12
       y: 6
   red:
-    iconUrl: /static/sa/css/images/marker-focused.png
-    shadowUrl: /static/sa/css/images/marker-shadow.png
+    iconUrl: /static/css/images/marker-focused.png
+    shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
       height: 41

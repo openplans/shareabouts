@@ -91,7 +91,7 @@ like so:
 
     place_type_icons:
       blue:
-        iconUrl: /static/sa/css/images/feature-point.png
+        iconUrl: /static/css/images/feature-point.png
         iconSize:
           width: 17
           height: 18
@@ -103,7 +103,7 @@ The properties of icons are as per the Leaflet docs, see http://leaflet.cloudmad
 But briefly:
 
 The *iconUrl* is relative to the root of the website. Put the corresponding
-image file in src/sa_web/static/sa/css/images/.
+image file in src/sa_web/static/css/images/.
 The iconSize you specify in config.yml should match that of the image.
 
 *iconAnchor* is measured in pixels, and specifies where relative to the
@@ -276,7 +276,7 @@ the top navigation bar. To create a page:
 
     - title: About
       slug: about
-      url: /static/sa/pages/about.html
+      url: /static/pages/about.html
 	  start_page: true
 
   The *start_page* option allows specifying that this page should be
@@ -284,7 +284,7 @@ the top navigation bar. To create a page:
 
 * Create the page content (as HTML) in the file pointed to by the url.
   For the given example, you would edit the content in
-  src/sa_web/static/sa/pages/features.html.
+  src/sa_web/static/pages/features.html.
 
 You can also add links to external sites to the navigation bar.  To do
 this, simply add a title and url to the "pages" array in config.yml, and

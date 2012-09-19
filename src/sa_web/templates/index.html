@@ -31,7 +31,7 @@
   <!-- We shouldn't include this if the custom stylesheet overrides the #site-title font. -->
   <link href='http://fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="{{ STATIC_URL }}sa/css/style.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="{{ config.static_url }}css/custom.css">
@@ -98,8 +98,8 @@
   <script src="{{STATIC_URL}}libs/ICanHaz-no-mustache.min.js"></script>
   <script src="{{STATIC_URL}}libs/moment.min.js"></script>
 
-  <script src="{{STATIC_URL}}sa/js/utils.js"></script>
-  <script src="{{STATIC_URL}}sa/js/template-helpers.js"></script>
+  <script src="{{STATIC_URL}}js/utils.js"></script>
+  <script src="{{STATIC_URL}}js/template-helpers.js"></script>
 
   <script>
     $(function() {
@@ -127,17 +127,17 @@
     });
   </script>
 
-  <script src="{{STATIC_URL}}sa/js/models.js"></script>
-  <script src="{{STATIC_URL}}sa/js/views/pages-nav-view.js"></script>
-  <script src="{{STATIC_URL}}sa/js/views/activity-view.js"></script>
-  <script src="{{STATIC_URL}}sa/js/views/app-view.js"></script>
-  <script src="{{STATIC_URL}}sa/js/views/layer-view.js"></script>
-  <script src="{{STATIC_URL}}sa/js/views/map-view.js"></script>
-  <script src="{{STATIC_URL}}sa/js/views/support-view.js"></script>
-  <script src="{{STATIC_URL}}sa/js/views/survey-view.js"></script>
-  <script src="{{STATIC_URL}}sa/js/views/place-detail-view.js"></script>
-  <script src="{{STATIC_URL}}sa/js/views/place-form-view.js"></script>
-  <script src="{{STATIC_URL}}sa/js/routes.js"></script>
+  <script src="{{STATIC_URL}}js/models.js"></script>
+  <script src="{{STATIC_URL}}js/views/pages-nav-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/activity-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/app-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/layer-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/map-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/support-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
+  <script src="{{STATIC_URL}}js/routes.js"></script>
   {% endcompress %}
 
   {% mustacheich "place-form" %}

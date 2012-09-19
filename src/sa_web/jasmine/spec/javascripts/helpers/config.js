@@ -7,8 +7,8 @@ Shareabouts.SpecConfig = {
     "Park": {"default": "blue", "focused": "red"}
   },
   placeTypeIconsConfig: {
-    "blue": {"iconSize": {"width": 17, "height": 18}, "iconUrl": "/static/sa/css/images/feature-point.png", "iconAnchor": {"y": 9, "x": 9}, "popupAnchor": {"y": 9, "x": 9}},
-    "red": {"iconUrl": "/static/sa/css/images/marker-focused.png", "shadowSize": {"width": 41, "height": 41}, "shadowUrl": "/static/sa/css/images/marker-shadow.png", "iconSize": {"width": 25, "height": 41}, "iconAnchor": {"y": 41, "x": 12}, "popupAnchor": {"y": 6, "x": 12}}
+    "blue": {"iconSize": {"width": 17, "height": 18}, "iconUrl": "/static/css/images/feature-point.png", "iconAnchor": {"y": 9, "x": 9}, "popupAnchor": {"y": 9, "x": 9}},
+    "red": {"iconUrl": "/static/css/images/marker-focused.png", "shadowSize": {"width": 41, "height": 41}, "shadowUrl": "/static/css/images/marker-shadow.png", "iconSize": {"width": 25, "height": 41}, "iconAnchor": {"y": 41, "x": 12}, "popupAnchor": {"y": 6, "x": 12}}
   },
   surveyConfig: {
     "response_plural_name": "comments",

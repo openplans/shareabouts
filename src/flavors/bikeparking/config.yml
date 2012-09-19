@@ -42,14 +42,14 @@ place_types: {
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons: {
   blue: {
-    iconUrl: /static/sa/css/images/feature-point.png,
+    iconUrl: /static/css/images/feature-point.png,
     iconSize: { width: 17, height: 18 },
     iconAnchor: { x: 9, y: 9 },
     popupAnchor: { x: 9, y: 9 }
   },
   red: {
-    iconUrl: /static/sa/css/images/marker-focused.png,
-    shadowUrl: /static/sa/css/images/marker-shadow.png,
+    iconUrl: /static/css/images/marker-focused.png,
+    shadowUrl: /static/css/images/marker-shadow.png,
     iconSize: { width: 25, height: 41 },
     shadowSize: { width: 41, height: 41 },
     iconAnchor: { x: 12, y: 41 },

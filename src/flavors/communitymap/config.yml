@@ -71,7 +71,7 @@ place_type_icons:
       y: 9
   yellow_focused:
     iconUrl: /static/css/images/marker-focused-yellow.png
-    shadowUrl: /static/sa/css/images/marker-shadow.png
+    shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
       height: 41
@@ -83,7 +83,7 @@ place_type_icons:
       y: 41
   red_focused:
     iconUrl: /static/css/images/marker-focused-red.png
-    shadowUrl: /static/sa/css/images/marker-shadow.png
+    shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
       height: 41
@@ -95,7 +95,7 @@ place_type_icons:
       y: 41
   green_focused:
     iconUrl: /static/css/images/marker-focused-green.png
-    shadowUrl: /static/sa/css/images/marker-shadow.png
+    shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
       height: 41

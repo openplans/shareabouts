@@ -48,7 +48,7 @@ place_types:
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
   blue:
-    iconUrl: /static/sa/css/images/feature-point.png
+    iconUrl: /static/css/images/feature-point.png
     iconSize:
       width: 17
       height: 18
@@ -56,8 +56,8 @@ place_type_icons:
       x: 9
       y: 9
   red:
-    iconUrl: /static/sa/css/images/marker-focused.png
-    shadowUrl: /static/sa/css/images/marker-shadow.png
+    iconUrl: /static/css/images/marker-focused.png
+    shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
       height: 41
