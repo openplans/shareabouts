@@ -13,9 +13,13 @@ from djangorestframework import views, permissions, mixins, authentication
 from djangorestframework.response import Response, ErrorResponse
 import apikey.auth
 import json
+import logging
+
+logger = logging.getLogger('sa_api.views')
 
 
 def raise_error_if_not_authenticated(view, request):
+    # TODO: delete this
     if getattr(request, 'user', None) is None:
         # Probably happens only in tests that have forgotten to set the user.
         raise permissions._403_FORBIDDEN_RESPONSE
@@ -27,21 +31,79 @@ def raise_error_if_not_authenticated(view, request):
     permissions.IsAuthenticated(view).check_permission(user)
 
 
+class IsOwnerOrSuperuser(permissions.BasePermission):
+    def check_permission(self, user):
+        """
+        Allows only superusers or the user named by
+        ``self.view.allowed_username``.
+
+        (If the view has no such attribute, raises a 403 Forbidden
+        exception.  Subclasses of AuthMixin should have it.)
+        """
+        if user.is_superuser:
+            # XXX Watch out when mocking users in tests: bool(mock.Mock()) is True
+            return
+        username = getattr(user, 'username', None)
+        if username and (self.view.allowed_username == username):
+            return
+        raise permissions._403_FORBIDDEN_RESPONSE
+
+
+class IsOwnerOrSuperuserWithoutApiKey(IsOwnerOrSuperuser):
+    def check_permission(self, user):
+        """Like IsOwnerOrSuperuser, but will not respond to any
+        request with the API key http header.
+
+        For protecting views related to API keys that should require
+        'real' authentication, to avoid users abusing one API key to
+        obtain others.
+        """
+        from .apikey.auth import KEY_HEADER
+        if KEY_HEADER in self.view.request.META:
+            raise permissions._403_FORBIDDEN_RESPONSE
+        return super(IsOwnerOrSuperuserWithoutApiKey, self).check_permission(user)
+
+
 class AuthMixin(object):
     """
-    Inherit from this to protect all unsafe requests.
+    Inherit from this to protect all unsafe requests
+    with permissions listed in ``self.unsafe_permissions``.
+
+    You should set the ``allowed_user_kwarg`` attribute to tell dispatch()
+    how to get the name of the resource's owner from the request kwargs;
     """
     authentication = [authentication.BasicAuthentication,
                       authentication.UserLoggedInAuthentication,
                       apikey.auth.ApiKeyAuthentication]
 
+    unsafe_permissions = [IsOwnerOrSuperuser]
+
+    allowed_username = None
+    allowed_user_kwarg = None
+
     def dispatch(self, request, *args, **kwargs):
         # We do this in dispatch() so we can apply permission checks
         # to only some request methods.
         self.request = request  # Not sure what needs this.
+        if getattr(request, 'user', None) is None:
+            # Probably happens only in tests that have forgotten to
+            # set the user?
+            raise permissions._403_FORBIDDEN_RESPONSE
+        # This triggers authentication (view.user is a property).
+        user = self.user
+
+        if self.allowed_user_kwarg:
+            self.allowed_username = kwargs[self.allowed_user_kwarg]
+        elif self.allowed_username:
+            pass
+        else:
+            logger.error("Subclass %s of AuthMixin is supposed to provide .allowed_user_kwarg or .allowed_username" % self)
+            raise permissions._403_FORBIDDEN_RESPONSE
+
         if request.method not in ('GET', 'HEAD', 'OPTIONS'):
             try:
-                raise_error_if_not_authenticated(self, request)
+                for perm in getattr(self, 'unsafe_permissions', []):
+                    perm(self).check_permission(user)
             except ErrorResponse as e:
                 content = json.dumps(e.response.raw_content)
                 response = HttpResponse(content, status=e.response.status)
@@ -158,10 +220,12 @@ class DataSetCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, Mo
     resource = resources.DataSetResource
     cache_prefix = 'dataset_collection'
 
+    allowed_user_kwarg = 'owner__username'
+
     def get_instance_data(self, model, content, **kwargs):
         # Used by djangorestframework to make args to build an instance for POST
-        username = kwargs.pop('owner__username', None)
-        content['owner'] = get_object_or_404(auth.models.User, username=username)
+        kwargs.pop('owner__username', None)
+        content['owner'] = get_object_or_404(auth.models.User, username=self.allowed_username)
         return super(DataSetCollectionView, self).get_instance_data(model, content, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -179,6 +243,8 @@ class DataSetCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, Mo
 
 class DataSetInstanceView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.DataSetResource
+
+    allowed_user_kwarg = 'owner__username'
 
     def put(self, request, *args, **kwargs):
         instance = super(DataSetInstanceView, self).put(request, *args, **kwargs)
@@ -200,6 +266,8 @@ class PlaceCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, Mode
     # TODO: Decide whether pagination is appropriate/necessary.
     resource = resources.PlaceResource
     cache_prefix = 'place_collection'
+
+    allowed_user_kwarg = 'dataset__owner__username'
 
     def get_instance_data(self, model, content, **kwargs):
         # Used by djangorestframework to make args to build an instance for POST
@@ -230,20 +298,10 @@ class PlaceCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, Mode
 
 
 class PlaceInstanceView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
+
+    allowed_user_kwarg = 'dataset__owner__username'
+
     resource = resources.PlaceResource
-
-
-class IsOwnerOrSuperuser(permissions.BasePermission):
-    def check_permission(self, user):
-        from .apikey.auth import KEY_HEADER
-        if KEY_HEADER in self.view.request.META:
-            raise permissions._403_FORBIDDEN_RESPONSE
-        if user.is_superuser:
-            return
-        username = getattr(user, 'username', None)
-        if username and (self.view.username == username):
-            return
-        raise permissions._403_FORBIDDEN_RESPONSE
 
 
 class ApiKeyCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListModelView):
@@ -260,21 +318,23 @@ class ApiKeyCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithD
     """
 
     resource = resources.ApiKeyResource
-    permissions = (permissions.IsAuthenticated, IsOwnerOrSuperuser)
+    permissions = (permissions.IsAuthenticated, IsOwnerOrSuperuserWithoutApiKey)
     # We do NOT allow key-based auth here, as that would allow
     # using one key to obtain other keys.
     # Only the owner of a dataset can use this child resource.
     authentication = (authentication.BasicAuthentication,
                       authentication.UserLoggedInAuthentication)
 
+    allowed_user_kwarg = 'datasets__owner__username'
+
     def dispatch(self, request, *args, **kwargs):
         # Set up context needed by permissions checks.
+        self.allowed_username = kwargs[self.allowed_user_kwarg]
         self.dataset = get_object_or_404(
             models.DataSet,
-            owner__username=kwargs['datasets__owner__username'],
+            owner__username=self.allowed_username,
             slug=kwargs['datasets__slug'])
         self.request = request  # Not sure what needs this.
-        self.username = kwargs['datasets__owner__username']
         return super(ApiKeyCollectionView, self).dispatch(request, *args, **kwargs)
 
     # TODO: handle POST, DELETE
@@ -282,6 +342,8 @@ class ApiKeyCollectionView (Ignore_CacheBusterMixin, AbsUrlMixin, ModelViewWithD
 
 class AllSubmissionCollectionsView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListModelView):
     resource = resources.SubmissionResource
+
+    allowed_user_kwarg = 'dataset__owner__username'
 
     def get(self, request, submission_type, **kwargs):
         # If the submission_type is specific, then filter by that type.
@@ -296,6 +358,8 @@ class AllSubmissionCollectionsView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMi
 
 class SubmissionCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.ListOrCreateModelView):
     resource = resources.SubmissionResource
+
+    allowed_user_kwarg = 'dataset__owner__username'
 
     def get(self, request, place_id, submission_type, **kwargs):
         # rename the URL parameters as necessary, and pass to the
@@ -338,6 +402,8 @@ class SubmissionCollectionView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin,
 
 class SubmissionInstanceView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, ModelViewWithDataBlobMixin, views.InstanceModelView):
     resource = resources.SubmissionResource
+
+    allowed_user_kwarg = 'dataset__owner__username'
 
     def get_instance(self, **kwargs):
         """

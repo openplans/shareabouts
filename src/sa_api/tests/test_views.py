@@ -71,12 +71,27 @@ class TestAuthFunctions(object):
 
     @istest
     def test_isownerorsuperuser__owner_is_allowed(self):
-        view = mock.Mock(username='bob',
+        view = mock.Mock(allowed_username='bob',
                          request=RequestFactory().get(''))
         user = mock.Mock(is_superuser=False, username='bob')
         from ..views import IsOwnerOrSuperuser
         # If not exceptions, we're OK.
         IsOwnerOrSuperuser(view).check_permission(user)
+
+    @istest
+    def test_isownerorsuperuser__no_api_key(self):
+        view = mock.Mock(allowed_username='bob',
+                         request=RequestFactory().get(''))
+        user = mock.Mock(is_superuser=False, username='bob')
+        from ..views import IsOwnerOrSuperuserWithoutApiKey
+        # If not exceptions, we're OK.
+        IsOwnerOrSuperuserWithoutApiKey(view).check_permission(user)
+        # If API key, not allowed.
+        from ..apikey.auth import KEY_HEADER
+        view.request = RequestFactory().get('', **{KEY_HEADER: 'oh no'})
+        assert_raises(ErrorResponse,
+                      IsOwnerOrSuperuserWithoutApiKey(view).check_permission,
+                      user)
 
 
 class TestDataSetCollectionView(TestCase):
@@ -142,6 +157,24 @@ class TestDataSetInstanceView(TestCase):
         assert_in('/new-name', response['Location'])
 
 
+    @istest
+    def put_with_wrong_user_is_not_allowed(self):
+        # Regression test for https://www.pivotaltracker.com/story/show/34080763
+        kwargs = dict(owner__username='bob', slug='dataset')
+        url = reverse('dataset_instance_by_user', kwargs=kwargs)
+        data = {'slug': 'dataset', 'display_name': 'New Title'}
+        request = RequestFactory().put(url, data=json.dumps(data),
+                                       content_type='application/json'
+                                       )
+        request.user = mock.Mock(**{'is_authenticated.return_value': True,
+                                    'is_superuser': False,
+                                    'username': 'NOT BOB!'})
+        from ..views import DataSetInstanceView
+        view = DataSetInstanceView().as_view()
+        response = view(request, **kwargs)
+        assert_equal(response.status_code, 403)
+
+
 class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
 
     @istest
@@ -149,12 +182,15 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         client = Client()
 
         with patch('sa_api.views.SubmissionCollectionView.get') as getter:
-            client.get('/api/v1/places/1/comments/')
+            client.get('/api/v1/datasets/somebody/something/places/1/comments/')
             args, kwargs = getter.call_args
             assert_equal(
                 kwargs,
                 {'place_id': u'1',
-                 'submission_type': u'comments'}
+                 'submission_type': u'comments',
+                 'dataset__owner__username': 'somebody',
+                 'dataset__slug': 'something',
+                 }
             )
 
     @istest
@@ -173,13 +209,17 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         Submission.objects.create(parent_id=comments.id, dataset_id=dataset.id)
 
         request = RequestFactory().get('/places/%d/comments/' % place.id)
+        request.user = mock.Mock(**{'is_authenticated.return_value': False,
+                                    'is_superuser': False})
         view = SubmissionCollectionView.as_view()
 
         response = view(request, place_id=place.id,
-                        submission_type='comments')
+                        submission_type='comments',
+                        dataset__owner__username=owner.username,
+                        dataset__slug=dataset.slug,
+                        )
         data = json.loads(response.content)
         assert_equal(len(data), 2)
-
 
     @istest
     def should_return_an_empty_list_if_the_place_has_no_submissions_of_the_type(self):
@@ -196,10 +236,14 @@ class TestMakingAGetRequestToASubmissionTypeCollectionUrl (TestCase):
         Submission.objects.create(parent_id=comments.id, dataset_id=dataset.id)
 
         request = RequestFactory().get('/places/%d/votes/' % place.id)
+        request.user = mock.Mock(**{'is_authenticated.return_value': False,
+                                    'is_superuser': False})
         view = SubmissionCollectionView.as_view()
 
         response = view(request, place_id=place.id,
-                        submission_type='votes')
+                        submission_type='votes',
+                        dataset__owner__username=owner.username,
+                        )
         data = json.loads(response.content)
         assert_equal(len(data), 0)
 
@@ -218,7 +262,7 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
         dataset = DataSet.objects.create(slug='data',
                                               owner_id=owner.id)
         place = Place.objects.create(location='POINT(0 0)',
-                                          dataset_id=dataset.id)
+                                     dataset_id=dataset.id)
         comments = SubmissionSet.objects.create(place_id=place.id, submission_type='comments')
 
         data = {
@@ -232,7 +276,9 @@ class TestMakingAPostRequestToASubmissionTypeCollectionUrl (TestCase):
         view = SubmissionCollectionView.as_view()
 
         response = view(request, place_id=place.id,
-                        submission_type='comments')
+                        submission_type='comments',
+                        dataset__owner__username=owner.username,
+                        )
         data = json.loads(response.content)
         #print response
         assert_equal(response.status_code, 201)
@@ -254,13 +300,16 @@ class TestSubmissionInstanceAPI (TestCase):
         self.place = Place.objects.create(location='POINT(0 0)',
                                           dataset_id=self.dataset.id)
         self.comments = SubmissionSet.objects.create(place_id=self.place.id,
-                                                submission_type='comments')
+                                                     submission_type='comments')
         self.submission = Submission.objects.create(parent_id=self.comments.id,
                                                     dataset_id=self.dataset.id)
-        self.url = reverse('submission_instance',
+        self.url = reverse('submission_instance_by_dataset',
                            kwargs=dict(place_id=self.place.id,
                                        pk=self.submission.id,
-                                       submission_type='comments'))
+                                       submission_type='comments',
+                                       dataset__owner__username=self.owner.username,
+                                       dataset__slug=self.dataset.slug,
+                                       ))
         from ..views import SubmissionInstanceView
         self.view = SubmissionInstanceView.as_view()
 
@@ -274,10 +323,14 @@ class TestSubmissionInstanceAPI (TestCase):
 
         request = RequestFactory().put(self.url, data=json.dumps(data),
                                        content_type='application/json')
-        request.user = mock.Mock(**{'is_authenticated.return_value': True})
+        request.user = self.owner
         response = self.view(request, place_id=self.place.id,
                              pk=self.submission.id,
-                             submission_type='comments')
+                             submission_type='comments',
+                             dataset__owner__username=self.owner.username,
+                             dataset__slug=self.dataset.slug,
+                             )
+
         response_data = json.loads(response.content)
         assert_equal(response.status_code, 200)
         self.assertDictContainsSubset(data, response_data)
@@ -285,10 +338,13 @@ class TestSubmissionInstanceAPI (TestCase):
     @istest
     def delete_request_should_delete_submission(self):
         request = RequestFactory().delete(self.url)
-        request.user = mock.Mock(**{'is_authenticated.return_value': True})
+        request.user = self.owner
         response = self.view(request, place_id=self.place.id,
                              pk=self.submission.id,
-                             submission_type='comments')
+                             submission_type='comments',
+                             dataset__owner__username=self.owner.username,
+                             dataset__slug=self.dataset.slug,
+                             )
 
         assert_equal(response.status_code, 204)
         assert_equal(Submission.objects.all().count(), 0)
@@ -298,10 +354,16 @@ class TestSubmissionInstanceAPI (TestCase):
         self.submission.data = json.dumps({'animal': 'tree frog'})
         self.submission.save()
         request = RequestFactory().get(self.url)
+        # Anonymous is OK.
+        request.user = mock.Mock(**{'is_authenticated.return_value': False,
+                                    'is_superuser': False,
+                                    })
         response = self.view(request, place_id=self.place.id,
                              pk=self.submission.id,
-                             submission_type='comments')
-
+                             submission_type='comments',
+                             dataset__owner__username=self.owner.username,
+                             dataset__slug=self.dataset.slug,
+                             )
         assert_equal(response.status_code, 200)
         data = json.loads(response.content)
         assert_equal(data['animal'], 'tree frog')
