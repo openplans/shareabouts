@@ -4,7 +4,7 @@ api_root: http://api.shareabouts.org/api/v1/
 dataset: openplans/atm_surcharge
 
 # And the associated API key.
-dataset_api_key: AbcXyzPdq
+dataset_api_key: YOUR_KEY_HERE
 
 # Settings for the app
 app:

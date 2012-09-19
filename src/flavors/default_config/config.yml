@@ -4,7 +4,7 @@ api_root: http://shareaboutsapi-civicworks.dotcloud.com/api/v1/
 dataset: demo-user/demo-data
 
 # And the associated API key.
-dataset_api_key: AbcXyzPdq
+dataset_api_key: YOUR_KEY_HERE
 
 # Settings for the app
 app:
