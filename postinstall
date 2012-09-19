@@ -42,6 +42,8 @@ with open('/home/dotcloud/environment.json') as f:
 print
 print 'dataset_api_key: ' + env.get('SHAREABOUTS_API_KEY')
 print 'api_root: ' + env.get('SHAREABOUTS_API_ROOT', 'SHAREABOUTS_API_ROOT-not-set-in-dotcloud-environment!!!')
+print 'analytics_key: ' + env.get('SHAREABOUTS_ANALYTICS_KEY', 'SHAREABOUTS_ANALYTICS_KEY-not-set-in-dotcloud-environment!!!')
+print 'feedback_key: ' + env.get('SHAREABOUTS_FEEDBACK_KEY', 'SHAREABOUTS_FEEDBACK_KEY-not-set-in-dotcloud-environment!!!')
 
 " | cat >> src/flavors/$SHAREABOUTS_FLAVOR/config.yml
 
