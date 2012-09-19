@@ -111,6 +111,7 @@ place:
   title: Tell us more...
   add_button_label: Add a Place
   anonymous_name: Someone
+  submit_button_label: Submit
   items:
     - prompt: Place Name
       type: text

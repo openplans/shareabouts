@@ -61,6 +61,7 @@ place:
   adding_supported: false
   add_button_label: Add an Place
   anonymous_name: Someone
+  submit_button_label: Submit
 
 survey: {
   submission_type: surveys,

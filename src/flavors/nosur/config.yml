@@ -80,6 +80,7 @@ place:
   add_button_label: Add an ATM
   title: Tell us about this ATM
   anonymous_name: Someone
+  submit_button_label: Submit
   items:
     - prompt: Short Description
       type: text
