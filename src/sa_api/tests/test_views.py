@@ -156,7 +156,6 @@ class TestDataSetInstanceView(TestCase):
         assert_equal(response.status_code, 303)
         assert_in('/new-name', response['Location'])
 
-
     @istest
     def put_with_wrong_user_is_not_allowed(self):
         # Regression test for https://www.pivotaltracker.com/story/show/34080763
@@ -622,5 +621,14 @@ class TestApiKeyCollectionView(TestCase):
         # ... Even if the user is good, the API key makes us
         # distrust this request.
         self.request.user = self.dataset.owner
+        response = self.view(self.request, **self.uri_args)
+        assert_equal(response.status_code, 403)
+
+    @istest
+    def get_not_allowed_with_wrong_user(self):
+        self.request.user = mock.Mock(**{'is_authenticated.return_value': True,
+                                         'username': 'A really shady person',
+                                         'is_superuser': False,
+                                         })
         response = self.view(self.request, **self.uri_args)
         assert_equal(response.status_code, 403)
