@@ -11,5 +11,20 @@
   <li{% if keys_active %} class="active"{% endif %}>
     <a href="{% url 'manager_keys_list' dataset.slug %}">API Keys</a>
   </li>
+
+  <li class="dropdown pull-right">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#""><i class="icon-download"></i> Export Data <b class="caret"></b></a>
+
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li><a href="{% url 'manager_download_place_data' dataset.slug %}"><i class="icon-map-marker"></i> Places</a></li>
+
+      <li class="divider"></li>
+
+      <li><a href="{% url 'manager_download_submission_data' dataset.slug 'submissions' %}"><i class="icon-tags"></i> All Submissions</a>
+      {% for submission_set in dataset.submissions %}
+      <li style="padding-left: 1em;"><a href="{% url 'manager_download_submission_data' dataset.slug submission_set.type %}"><i class="icon-tag"></i> {{ submission_set.type|title }}</a></li>
+      {% endfor %}
+    </ul>
+  </li>
 </ul>
 {% endif %}

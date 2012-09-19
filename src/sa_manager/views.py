@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -20,6 +21,7 @@ class ShareaboutsApi (object):
         'place_instance': r'datasets/{username}/{dataset_slug}/places/{pk}/',
         'submission_collection': r'datasets/{username}/{dataset_slug}/places/{place_pk}/{type}/',
         'submission_instance': r'datasets/{username}/{dataset_slug}/places/{place_pk}/{type}/{pk}/',
+        'all_submissions': r'datasets/{username}/{dataset_slug}/{type}/',
     }
 
     def __init__(self, request=None, root='/api/v1/'):
@@ -40,12 +42,12 @@ class ShareaboutsApi (object):
         self.csrf_token = request.META.get('CSRF_COOKIE', '')
         self.cookies = request.META.get('HTTP_COOKIE', '')
 
-    def send(self, method, url, data=None):
+    def send(self, method, url, data=None, content_type='application/json'):
         if data is not None:
             data = json.dumps(data)
 
-        headers = {'Content-type': 'application/json',
-                   'Accept': 'application/json'}
+        headers = {'Content-type': content_type,
+                   'Accept': content_type}
 
         # Set authentication headers
         if hasattr(self, 'csrf_token') and hasattr(self, 'cookies'):
@@ -660,3 +662,30 @@ class ExistingSubmissionView (SubmissionMixin, View):
         else:
             # TODO ???
             pass
+
+
+def download_places_view(request, dataset_slug):
+    api = ShareaboutsApi(request)
+    api.authenticate(request)
+    places_uri = api.build_uri('place_collection', username=request.user.username, dataset_slug=dataset_slug)
+
+    api_response = api.send('GET', places_uri, content_type='text/csv')
+    places_csv = api_response.text
+
+    response = HttpResponse(places_csv, content_type='text/csv')
+    response['Content-disposition'] = 'attachment; filename=places.csv'
+
+    return response
+
+def download_submissions_view(request, dataset_slug, submission_type):
+    api = ShareaboutsApi(request)
+    api.authenticate(request)
+    submissions_uri = api.build_uri('all_submissions', username=request.user.username, dataset_slug=dataset_slug, type=submission_type)
+
+    api_response = api.send('GET', submissions_uri, content_type='text/csv')
+    submissions_csv = api_response.text
+
+    response = HttpResponse(submissions_csv, content_type='text/csv')
+    response['Content-disposition'] = 'attachment; filename=' + submission_type + '.csv'
+
+    return response

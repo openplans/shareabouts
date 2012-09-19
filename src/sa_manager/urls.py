@@ -35,4 +35,11 @@ urlpatterns = patterns('sa_api',
     url(r'^datasets/(?P<dataset_slug>[^/]+)/places/(?P<place_id>\d+)/(?P<submission_type>[^/]+)/(?P<pk>\d+)/$',
         views.ExistingSubmissionView.as_view(),
         name='manager_place_submission_detail'),
+
+    url(r'^datasets/(?P<dataset_slug>[^/]+)/download/places.csv$',
+        views.download_places_view,
+        name='manager_download_place_data'),
+    url(r'^datasets/(?P<dataset_slug>[^/]+)/download/(?P<submission_type>[^/]+).csv$',
+        views.download_submissions_view,
+        name='manager_download_submission_data'),
 )
