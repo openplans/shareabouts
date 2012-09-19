@@ -26,6 +26,7 @@ map:
     zoom: 16
     minZoom: 11
     maxZoom: 18
+    maxBounds: [ [40.5, -74.36], [40.9, -73.47] ]
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/doittgis.NYC_DoITT_base/{z}/{x}/{y}.png
     attribution: '&copy; <a href="www.nyc.gov/doitt/">New York City DoITT</a>. Based on the latest planimetric data.'
