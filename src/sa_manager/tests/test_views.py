@@ -184,3 +184,20 @@ class TestSaManager(TestCase):
                               'dataset_slug': 'dataset1'})
         response = client.get(url)
         self.assertEqual(response.status_code, 200)
+
+    def test_manager_place_data_export(self):
+        client = Client()
+        client.login(username='riley', password='pass')
+        url = reverse('manager_download_place_data',
+                      kwargs={'dataset_slug': 'dataset1'})
+        response = client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_manager_submission_data_export(self):
+        client = Client()
+        client.login(username='riley', password='pass')
+        url = reverse('manager_download_submission_data',
+                      kwargs={'submission_type': 'comments',
+                              'dataset_slug': 'dataset1'})
+        response = client.get(url)
+        self.assertEqual(response.status_code, 200)
