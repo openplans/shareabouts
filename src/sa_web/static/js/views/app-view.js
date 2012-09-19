@@ -25,16 +25,6 @@ var Shareabouts = Shareabouts || {};
               router: this.options.router
             })).render();
 
-      // Init the map view to display the places
-      // TODO: remove hard coded values here, add to config
-      this.mapView = new S.MapView({
-        el: '#map',
-        mapConfig: this.options.mapConfig,
-        collection: this.collection,
-        router: this.options.router,
-        placeTypes: this.options.placeTypes
-      });
-
       // Activity is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
       if (_.isUndefined(this.options.activityConfig.enabled) ||
@@ -51,6 +41,16 @@ var Shareabouts = Shareabouts || {};
           placeConfig: this.options.placeConfig
         });
       }
+
+      // Init the map view to display the places
+      // TODO: remove hard coded values here, add to config
+      this.mapView = new S.MapView({
+        el: '#map',
+        mapConfig: this.options.mapConfig,
+        collection: this.collection,
+        router: this.options.router,
+        placeTypes: this.options.placeTypes
+      });
 
       // Cache panel elements that we use a lot
       this.$panel = $('#content');
