@@ -446,6 +446,8 @@ class ActivityView (Ignore_CacheBusterMixin, AuthMixin, AbsUrlMixin, views.ListM
     form = forms.ActivityForm
     cache_prefix = 'activity'
 
+    allowed_user_kwarg = 'data__dataset__owner__username'
+
     def get_places(self):
         visibility = self.PARAMS.get('visible', 'true')
         if (visibility == 'all'):
