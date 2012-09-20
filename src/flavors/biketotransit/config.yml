@@ -59,7 +59,7 @@ place_type_icons:
       x: 9
       y: 9
   red:
-    iconUrl: /static/css/images/marker-focused-red.png
+    iconUrl: /static/css/images/marker-focused.png
     shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
