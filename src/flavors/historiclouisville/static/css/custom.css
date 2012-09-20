@@ -212,25 +212,21 @@ a.reply-link:hover {
   background: #f5f5f5 url(http://citycollaborative.org/wp-content/plugins/woodojo-downloads/woodojo-launch-pad/templates/placeholder/images/bg-grid.png) 0 0 repeat scroll;
 }
 
-ul.recent-points {
-/*  color: #eee;*/
-}
-
 .recent-points li {
-/*  border-bottom: 3px solid #664c66;*/
+  border-bottom: 3px solid #bbb;
 }
 
 .recent-points li:hover {
-/*  background: #bf60bf;*/
+  background: #fff;
 }
 
 .recent-points a {
-/*  color: #eee;*/
+  color: #777;
 }
 
 .recent-points li:hover a,
 .recent-points a:hover {
-/*  color: #fff;*/
+  color: #555;
 }
 
 
