@@ -52,7 +52,7 @@ place_types:
   Rapid Transit:
     default: blue
     focused: red
-  Subway-Elavated:
+  Subway-Elevated:
     default: blue
     focused: red
   Subway:
