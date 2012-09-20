@@ -1,7 +1,7 @@
 # The Shareabouts API dataset username & name used by this map.
 # You MUST change this after creating a dataset.
-api_root: http://shareaboutsapi-civicworks.dotcloud.com/api/v1/
-dataset: demo-user/demo-data
+api_root: http://localhost:8001/api/v1/
+dataset: makebrooklynsafer/makebrooklynsafer
 
 # And the associated API key.
 dataset_api_key: YOUR_KEY_HERE
@@ -9,11 +9,11 @@ dataset_api_key: YOUR_KEY_HERE
 # Settings for the app
 app:
   # HTML Title
-  title: Shareabouts
+  title: Kids Riding on Safe Streets
   # Header name
-  name: Shareabouts
+  name: Kids Riding on Safe Streets
   # Meta description that will show up in Google search results
-  meta_description: Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.
+  meta_description:  "KROSSwalk Project (Kids Riding on Safe Streets) is about bicycle safety in downtown Brooklyn, NY."
 
 # Settings for map and layer configs
 map:
@@ -21,10 +21,10 @@ map:
   geolocation_onload: true
   options:
     center:
-      lat: 39.9523524
-      lng: -75.1636075
-    zoom: 14
-    minZoom: 10
+      lat: 40.698763153732166
+      lng: -73.98431539535522
+    zoom: 15
+    minZoom: 11
     maxZoom: 17
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
