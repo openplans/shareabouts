@@ -673,6 +673,7 @@ textarea {
 }
 .share-link { 
   float: left;
+  padding: 0 !important;
 }
 .share-link a { 
   display: block;
