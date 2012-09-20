@@ -131,6 +131,10 @@ pages:
     url: /static/pages/overview.html
     start_page: true
 
-  - title: OpenPlans
+  - title: City Collaborative
     external: true
-    url: http://www.openplans.org
+    url: http://citycollaborative.org
+
+  - title: Download the Data!
+    external: true
+    url: /download/places.csv
