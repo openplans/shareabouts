@@ -93,4 +93,12 @@ a.add-place:hover {
 -------------------------------------------------------------- */
 
 .support {
+  max-width: 75%;
+}
+
+#user_support label {
+  background-image: url(images/bike-gray-16.png);
+}
+#user_support input[type=checkbox]:checked ~ label {
+  background-image: url(images/bike-blue-16.png);
 }
