@@ -664,6 +664,11 @@ textarea {
   padding: 0.6em;
 }
 
+/* Hide this until it is styled */
+.social {
+  display: none;
+}
+
 #user_support {
   position: relative;
   float: left;

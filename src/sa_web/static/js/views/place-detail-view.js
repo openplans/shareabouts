@@ -24,6 +24,7 @@ var Shareabouts = Shareabouts || {};
             this.model, ['submitter_name', 'name', 'location_type']),
 
           data = _.extend({
+            permalink: window.location.toString(),
             pretty_created_datetime: function() {
               return S.Util.getPrettyDateTime(this.created_datetime,
                 self.options.placeConfig.pretty_datetime_format);
