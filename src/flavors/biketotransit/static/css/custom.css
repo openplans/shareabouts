@@ -16,7 +16,7 @@
 }
 
 #site-header a:hover {
-   color: #0095cd; 
+   color: #0095cd;
 }
 
 
@@ -93,5 +93,4 @@ a.add-place:hover {
 -------------------------------------------------------------- */
 
 .support {
-  display: none;
 }

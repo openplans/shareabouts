@@ -233,13 +233,6 @@ survey:
         - Daily
         - A few times a week
         - A few times a month
-    - prompt: I would bike to this station if improvements were made
-      label: I would bike to this station if improvements were made
-      attrs:
-        key: value
-        value: I would bike to this station if improvements were made
-      name: i_would_bike_here
-      type: checkbox
     - prompt: I think this station
       label: I think this station
       name: my_thoughts_about_station
@@ -258,9 +251,9 @@ survey:
       optional: true
 
 support:
-  submission_type: support
-  submit_btn_text: Support This!
-  action_text: supported
+  submission_type: bicyclists
+  submit_btn_text: I would bike to this station if improvements were made
+  action_text: would bike to
   anonymous_name: Someone
 
 pages:
