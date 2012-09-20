@@ -1,6 +1,6 @@
 # The Shareabouts API dataset username & name used by this map.
 # You MUST change this after creating a dataset.
-api_root: http://localhost:8001/api/v1/
+api_root: http://api.shareabouts.org/api/v1/
 dataset: historiclouisville/historiclouisville
 
 # And the associated API key.
@@ -17,8 +17,8 @@ app:
 
 # Settings for map and layer configs
 map:
-  geolocation_enabled: true
-  geolocation_onload: true
+  geolocation_enabled: false
+  geolocation_onload: false
   options:
     center:
       lat: 38.230629
@@ -27,7 +27,7 @@ map:
     minZoom: 11
     maxZoom: 17
   base_layer:
-    url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
+    url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
   layers: []
 
