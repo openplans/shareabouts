@@ -246,9 +246,3 @@ a.reply-link:hover {
 
 @media only screen and (min-width: 1300px) {
 }
-
-
-/* Hide the survey */
-.survey div, .survey form {
-  display: none;
-}
