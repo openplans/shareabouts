@@ -36,37 +36,47 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   Idea:
-    default: blue
-    focused: red
+    default: tick
+    focused: tickselected
   Problem:
-    default: blue
-    focused: red
+    default: cross
+    focused: crossselected
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  blue:
-  blue:
-    iconUrl: /static/css/images/feature-point.png
+  tick:
+    iconUrl: /static/css/images/tick.png
     iconSize:
-      width: 17
-      height: 18
+      width: 32
+      height: 32
     iconAnchor:
-      x: 9
-      y: 9
-  red:
-    iconUrl: /static/css/images/marker-focused.png
-    shadowUrl: /static/css/images/marker-shadow.png
+      x: 16
+      y: 30
+  cross:
+    iconUrl: /static/css/images/cross.png
+    iconSize:
+      width: 24
+      height: 24
+    iconAnchor:
+      x: 12
+      y: 22
+  tickselected:
+    iconUrl: /static/css/images/marker-tick.png
     iconSize:
       width: 25
-      height: 41
-    shadowSize:
-      width: 41
       height: 41
     iconAnchor:
       x: 12
       y: 41
-
+  crossselected:
+    iconUrl: /static/css/images/marker-cross.png
+    iconSize:
+      width: 25
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
