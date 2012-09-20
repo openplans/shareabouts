@@ -82,11 +82,12 @@ place:
           value: Name and/or Address of the building or place
         - key: size
           value: 30
-    - prompt:
-      type: hidden
-      options:
-        - historic_location
+    - prompt: ''
       name: location_type
+      type: hidden
+      attrs:
+        - key: value
+          value: Historic Location
     - prompt: Comment
       type: textarea
       name: comment
