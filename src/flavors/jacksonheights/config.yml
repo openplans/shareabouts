@@ -17,7 +17,7 @@ app:
 
 # Settings for map and layer configs
 map:
-  geolocation_enabled: false
+  geolocation_enabled: true
   geolocation_onload: false
   options:
     center:
