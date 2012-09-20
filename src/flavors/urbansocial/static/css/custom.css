@@ -193,6 +193,10 @@ a.reply-link:hover {
 /* =Voting & Social Promotion
 -------------------------------------------------------------- */
 .promotion {
+/*  display: none;*/
+}
+
+#user_support {
   display: none;
 }
 
@@ -237,6 +241,27 @@ ul.recent-points {
 
 .survey {
   display: none;
+}
+
+
+/* =Custom Content Styles
+-------------------------------------------------------------- */
+.place-label {
+  display: none;
+}
+.place-value {}
+.place-value-scheduled,
+.place-value-nature,
+.place-value-meaningful {
+  float: left;
+  background: #ddd;
+  padding: 0.25em 0.5em;
+  margin: 0 0.125em 0 0;
+  font-size: 1.25em;
+}
+.place-value-place_desc {
+  font-size: 1.25em;
+  clear: both;
 }
 
 /* =Media Queries

@@ -94,12 +94,12 @@ place:
         - Professional
         - Personal
       name: nature
-    - prompt: Do you feel it led to meaningful ideas?
-      label: Meaningful?
+    - prompt: Did this meeting lead to meaningful ideas?
+      label: Outcome?
       type: select
       options:
-        - 'Yes'
-        - 'No'
+        - 'Meaningful'
+        - 'Insignificant'
       name: meaningful
     - prompt: Your Name
       label: 'Name:'
