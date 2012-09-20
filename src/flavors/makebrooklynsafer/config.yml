@@ -147,14 +147,6 @@ pages:
     url: /static/pages/overview.html
     start_page: true
 
-  - title: "Why Shareabouts?"
-    slug: why
-    url: /static/pages/why.html
-
-  - title: Features
-    slug: features
-    url: /static/pages/features.html
-
-  - title: OpenPlans
+  - title: Make Brooklyn Safer
     external: true
-    url: http://www.openplans.org
+    url: http://MakeBrooklynSafer.org
