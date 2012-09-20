@@ -1,0 +1,315 @@
+ZONE_,STATION,LINE,TYPE,STATE,KEY_,LABEL,LAT,LONG
+na,Leamy Avenue,Route 101 Trolley,Surface Trolley,PA,S01LMY,Leamy Avenue,39.92627837300,-75.33732051070
+na,Woodland Avenue,Route 101 Trolley,Surface Trolley,PA,S01WLD,Woodland Avenue,39.92475375210,-75.33963494500
+na,Thomson Avenue,Route 101 Trolley,Surface Trolley,PA,S01THM,Thomson Avenue,39.92111056320,-75.34544881080
+na,Springfield Mall,Route 101 Trolley,Surface Trolley,PA,S01SFM,Springfield Mall,39.91811906210,-75.34898202920
+na,Paper Mill Road,Route 101 Trolley,Surface Trolley,PA,S01PPR,Paper Mill Road,39.91535548940,-75.35790396880
+na,Pine Ridge,Route 101 Trolley,Surface Trolley,PA,S01PRG,Pine Ridge,39.91497188470,-75.36996984180
+na,Beatty Road,Route 101 Trolley,Surface Trolley,PA,S01BTY,Beatty Road,39.91618491490,-75.37690839580
+3,Elwyn,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3EWN,Elwyn,39.90787568840,-75.41119720630
+3,Media,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3MDA,Media,39.91425948850,-75.39480281130
+3,Moylan-Rose Valley,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3MRV,Moylan-Rose Valley,39.90593665100,-75.38803169860
+3,Wallingford,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3WFD,Wallingford,39.90361659780,-75.37172093220
+3,Swarthmore,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3SWT,Swarthmore,39.90221293610,-75.35106038970
+na,Sharon Hill,Route 102 Trolley,Surface Trolley,PA,S02SHL,Sharon Hill,39.90661154670,-75.27811055220
+4,Marcus Hook,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2MHK,Marcus Hook,39.82154837830,-75.41956843000
+4,Highland Avenue,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2HDA,Highland Avenue,39.83377121870,-75.39301847560
+3,Chester TC,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2CTC,Chester TC,39.84947228760,-75.36006729870
+3,Eddystone,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2EDY,Eddystone,39.85730112930,-75.34165242910
+3,Crum Lynne,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2CLN,Crum Lynne,39.87182054040,-75.33084192360
+3,Ridley Park,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2RPK,Ridley Park,39.88054710000,-75.32187029590
+2,Prospect Park,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2PPK,Prospect Park,39.88803549010,-75.30937267700
+2,Norwood,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2NWD,Norwood,39.89127803250,-75.30221246810
+2,Glenolden,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2GLN,Glenolden,39.89629293090,-75.29019749910
+2,Gladstone,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3GSN,Gladstone,39.93268838910,-75.28210048380
+2,Lansdowne,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3LDN,Lansdowne,39.93724687940,-75.27140490080
+2,Fernwood - Yeadon,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3FYN,Fernwood - Yeadon,39.93961074390,-75.25573824610
+na,Garretford,Route 102 Trolley,Surface Trolley,PA,S02GAR,Garretford,39.94405801300,-75.29582265570
+4,North Wales,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5NWL,North Wales,40.21433462760,-75.27732797220
+4,Gwynedd Valley,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5GVY,Gwynedd Valley,40.18485158000,-75.25688919330
+4,Penllyn,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5PNL,Penllyn,40.16967236790,-75.24401047150
+3,Ambler,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5AMB,Ambler,40.15369728970,-75.22485212780
+3,Fort Washington,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5FWN,Fort Washington,40.13580327520,-75.21252708450
+3,Oreland,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5ORE,Oreland,40.11855788490,-75.18462877240
+3,North Hills,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5NHL,North Hills,40.11207362470,-75.16960839710
+3,Glenside,SEPTA Main Line,SEPTA Regional Rail,PA,SR1GSD,Glenside,40.10129841500,-75.15376395220
+3,Jenkintown - Wyncote,SEPTA Main Line,SEPTA Regional Rail,PA,SR1JWT,Jenkintown - Wyncote,40.09344768240,-75.13791804530
+2,Elkins Park,SEPTA Main Line,SEPTA Regional Rail,PA,SR1ELK,Elkins Park,40.07121467320,-75.12775301820
+2,Melrose Park,SEPTA Main Line,SEPTA Regional Rail,PA,SR1MPK,Melrose Park,40.05947387390,-75.12913470410
+4,Hatboro,Warminster Line,SEPTA Regional Rail,PA,SR2HAT,Hatboro,40.17630720920,-75.10269951440
+3,Willow Grove,Warminster Line,SEPTA Regional Rail,PA,SR2WGV,Willow Grove,40.14374635870,-75.11440734990
+3,Crestmont,Warminster Line,SEPTA Regional Rail,PA,SR2CTT,Crestmont,40.13333360050,-75.11872827740
+3,Roslyn,Warminster Line,SEPTA Regional Rail,PA,SR2RLN,Roslyn,40.12095109720,-75.13416968690
+3,Ardsley,Warminster Line,SEPTA Regional Rail,PA,SR2ARY,Ardsley,40.11453969460,-75.15298222230
+3,Noble,West Trenton Line,SEPTA Regional Rail,PA,SR3NBL,Noble,40.10435615070,-75.12450372510
+3,Rydal,West Trenton Line,SEPTA Regional Rail,PA,SR3RDL,Rydal,40.10742081150,-75.11066645830
+3,Meadowbrook,West Trenton Line,SEPTA Regional Rail,PA,SR3MBK,Meadowbrook,40.11137063500,-75.09251482020
+3,Bethayres,West Trenton Line,SEPTA Regional Rail,PA,SR3BTH,Bethayres,40.11652677890,-75.06872078610
+3,Philmont,West Trenton Line,SEPTA Regional Rail,PA,SR3PLM,Philmont,40.12190028050,-75.04379407400
+2,Miquon,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6MQN,Miquon,40.05858374320,-75.26631604000
+3,Spring Mill,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6SML,Spring Mill,40.07417323780,-75.28606117070
+3,Conshohocken,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6CON,Conshohocken,40.07203147370,-75.30856220160
+3,Norristown TC,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6NTC,Norristown Trans. Ctr.,40.11268696930,-75.34409402980
+3,Main Street,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6MSN,Main Street,40.11727219960,-75.34853794030
+na,Beechwood-Brookline,Norristown High Speed Line,Rapid Transit,PA,S00BCH,Beechwood-Brookline,39.98661908590,-75.29166846190
+na,Penfield,Norristown High Speed Line,Rapid Transit,PA,S00PNF,Penfield,39.98094104160,-75.28395959510
+na,Township Line Road,Norristown High Speed Line,Rapid Transit,PA,S00WOV,Township Line Road,39.97477677330,-75.28157678420
+na,Parkview,Norristown High Speed Line,Rapid Transit,PA,S00PKV,Parkview,39.96870590340,-75.27423842130
+na,69th Street Transportation Center,Market/Frankford Line,Subway-Elavated,PA,SMF69S,69th Street Trans. Ctr.,39.96255924500,-75.25908615520
+na,Millbourne,Market/Frankford Line,Subway-Elavated,PA,SMFMIL,Millbourne,39.96443929240,-75.25243046720
+na,Fairfield Avenue,Route 101 & 102 Trolley Lines,Surface Trolley,PA,S12FFD,Fairfield,39.96072064800,-75.26370255150
+na,Walnut Street,Route 101 & 102 Trolley Lines,Surface Trolley,PA,S12WNT,Walnut Street,39.95879426070,-75.26671686990
+na,Bywood,Route 101 & 102 Trolley Lines,Surface Trolley,PA,S12BYW,Bywood,39.95754512040,-75.26926708070
+na,Hilltop Road,Route 101 & 102 Trolley Lines,Surface Trolley,PA,S12HLT,Hilltop Road,39.95600680890,-75.27280945540
+na,Beverly Hills,Route 101 & 102 Trolley Lines,Surface Trolley,PA,S12BHL,Beverly Hills,39.95506459240,-75.27480049020
+na,Congress Avenue,Route 101 & 102 Trolley Lines,Surface Trolley,PA,S12CNG,Congress Avenue,39.95291682260,-75.27916043450
+na,Lansdowne Avenue,Route 101 & 102 Trolley Lines,Surface Trolley,PA,S12LDN,Lansdowne Avenue,39.95157486340,-75.28248589340
+na,Drexel Park,Route 101 & 102 Trolley Lines,Surface Trolley,PA,S12DXP,Drexel Park,39.94970088930,-75.28696919560
+na,Irvington Road,Route 101 & 102 Trolley Lines,Surface Trolley,PA,S12IVN,Irvington Road,39.94868190920,-75.28913187940
+na,Drexel Hill Junction,Route 101 & 102 Trolley Lines,Surface Trolley,PA,S12DHJ,Drexel Hill Junction,39.94701911250,-75.29265252320
+na,Huey Avenue,Route 101 Trolley,Surface Trolley,PA,S01HUE,Huey Avenue,39.94759048220,-75.29773673800
+na,School Avenue,Route 101 Trolley,Surface Trolley,PA,S01SCH,School Avenue,39.94872334500,-75.29988359770
+na,Aronimink,Route 101 Trolley,Surface Trolley,PA,S01ARN,Aronimink,39.94928476150,-75.30608735130
+na,Anderson Avenue,Route 101 Trolley,Surface Trolley,PA,S01AND,Anderson Avenue,39.94785016910,-75.31280254380
+na,Drexelbrook,Route 101 Trolley,Surface Trolley,PA,S01DXB,Drexelbrook,39.94717534390,-75.31599314970
+na,Drexeline,Route 101 Trolley,Surface Trolley,PA,S01DXL,Drexeline,39.94483292990,-75.32146019640
+na,Scenic Road,Route 101 Trolley,Surface Trolley,PA,S01SCE,Scenic Road,39.94081492660,-75.32594937680
+na,Springfield Road (101),Route 101 Trolley,Surface Trolley,PA,S01SFR,Springfield Road,39.93448031980,-75.32955057330
+na,Drexel Manor,Route 102 Trolley,Surface Trolley,PA,S02DXM,Drexel Manor,39.94228438130,-75.29642868880
+na,Marshall Road,Route 102 Trolley,Surface Trolley,PA,S02MSH,Marshall Road,39.94008715640,-75.29640391990
+na,Oakview,Route 102 Trolley,Surface Trolley,PA,S02OVW,Oakview,39.93513249720,-75.29508349800
+na,Baltimore Pike,Route 102 Trolley,Surface Trolley,PA,S02BPK,Baltimore Pike,39.93127611840,-75.29284349500
+na,Penn Street,Route 102 Trolley,Surface Trolley,PA,S02PNS,Penn Street,39.92882576640,-75.29204026930
+na,Hughes Park,Norristown High Speed Line,Rapid Transit,PA,S00HPK,Hughes Park,40.08122926180,-75.34892334680
+na,Gulph Mills,Norristown High Speed Line,Rapid Transit,PA,S00GML,Gulph Mills,40.07115459130,-75.34252317750
+na,Matsonford,Norristown High Speed Line,Rapid Transit,PA,S00MFD,Matsonford,40.05818146390,-75.33946459110
+na,County Line,Norristown High Speed Line,Rapid Transit,PA,S00CTY,County Line,40.05034071040,-75.34716689730
+3,Rosemont,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5RMT,Rosemont,40.02814534780,-75.32733432270
+3,Bryn Mawr,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5BMR,Bryn Mawr,40.02190253310,-75.31587633570
+2,Haverford,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5HVD,Haverford,40.01401159150,-75.30025930080
+2,Ardmore,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5ARD,Ardmore,40.00828854020,-75.29029326170
+2,Wynnewood,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5WYN,Wynnewood,40.00273604170,-75.27310116450
+2,Narberth,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5NBH,Narberth,40.00494410820,-75.26157744630
+2,Merion,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5MRN,Merion,39.99753426580,-75.25159384880
+2,Bala,Cynwyd Line,SEPTA Regional Rail,PA,SR6BAL,Bala,40.00099316530,-75.22774786790
+2,Cynwyd,Cynwyd Line,SEPTA Regional Rail,PA,SR6CYN,Cynwyd,40.00673305260,-75.23189897540
+3,Somerton,West Trenton Line,SEPTA Regional Rail,PA,SR3STN,Somerton,40.13065780560,-75.01206363830
+3,Forest Hills,West Trenton Line,SEPTA Regional Rail,PA,SR3FHL,Forest Hills,40.12776866610,-75.02090615010
+3,Torresdale,Trenton Line,SEPTA Regional Rail,PA,SR7TOR,Torresdale,40.05443906230,-74.98439918340
+2,Holmesburg Junction,Trenton Line,SEPTA Regional Rail,PA,SR7HJN,Holmesburg Junction,40.03251064110,-75.02397845840
+2,Tacony,Trenton Line,SEPTA Regional Rail,PA,SR7TCY,Tacony,40.02319293840,-75.03909148440
+2,Wissinoming,Trenton Line,SEPTA Regional Rail,PA,SR7WSG,Wissinoming,40.01459276030,-75.05596594630
+2,Bridesburg,Trenton Line,SEPTA Regional Rail,PA,SR7BBG,Bridesburg,40.01075633780,-75.06990795650
+na,Frankford Trans. Ctr.,Market/Frankford Line,Subway-Elavated,PA,SMFFFD,Frankford Trans. Ctr.,40.02290793140,-75.07806280260
+na,Margaret-Orthodox,Market/Frankford Line,Subway-Elavated,PA,SMFMAR,Margaret-Orthodox,40.01597542090,-75.08445290990
+2,Morton,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3MRT,Morton,39.90794417780,-75.32826039400
+2,Secane,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3SCN,Secane,39.91568230470,-75.30982043630
+2,Clifton - Aldan,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3CLF,Clifton - Aldan,39.92664513790,-75.29029494060
+na,Clifton - Aldan,Route 102 Trolley,Surface Trolley,PA,S02CLF,Clifton - Aldan,39.92548575060,-75.28995140830
+na,Shisler Avenue,Route 102 Trolley,Surface Trolley,PA,S02SLR,Shisler Avenue,39.92326302030,-75.28970864610
+na,Providence Road,Route 102 Trolley,Surface Trolley,PA,S02PVD,Providence Road,39.92174670550,-75.28851558870
+na,Magnolia Avenue,Route 102 Trolley,Surface Trolley,PA,S02MAG,Magnolia Avenue,39.91939508660,-75.28679947680
+na,North Street,Route 102 Trolley,Surface Trolley,PA,S02NOR,North Street,39.91772744640,-75.28557452620
+na,Bartram Avenue,Route 102 Trolley,Surface Trolley,PA,S02BAR,Bartram Avenue,39.91458314690,-75.28417717510
+na,Andrews Avenue,Route 102 Trolley,Surface Trolley,PA,S02ANW,Andrews Avenue,39.91170843230,-75.28196188100
+na,Collingdale,Route 102 Trolley,Surface Trolley,PA,S02CGD,Collingdale,39.91035450550,-75.28090660200
+na,Springfield Road (102),Route 102 Trolley,Surface Trolley,PA,S02SFR,Springfield Road,39.92735955900,-75.29271140260
+2,Sharon Hill,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2SHL,Sharon Hill,39.90414971960,-75.27140550510
+2,Curtis Park,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2CPK,Curtis Park,39.90798650720,-75.26489990600
+2,Darby,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2DBY,Darby,39.91297742550,-75.25486242210
+5,West Trenton,West Trenton Line,SEPTA Regional Rail,NJ,SR3WTN,West Trenton,40.25725484440,-74.81536881080
+6,Trenton,Trenton Line,SEPTA Regional Rail,NJ,SR7TTN,Trenton,40.21851344980,-74.75389240880
+na,Trenton,NJ Transit,NJ Transit,NJ,SR7TTN,Trenton,40.21851344980,-74.75389240880
+na,Princeton Junction,Northeast Corridor,NJ Transit,NJ,NNCPJN,Princeton Junction,40.31605622910,-74.62421089780
+na,Princeton,Northeast Corridor,NJ Transit,NJ,NNCPTN,Princeton,40.34300921530,-74.65926287000
+5,Link Belt,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5LNK,Link Belt,40.27389439530,-75.24679761730
+5,Colmar,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5COL,Colmar,40.26823703700,-75.25450359540
+5,Fortuna,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5FTA,Fortuna,40.25951979610,-75.26625886990
+5,Lansdale,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5LDL,Lansdale,40.24291743830,-75.28488749720
+5,Pennbrook,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5PNB,Pennbrook,40.23009389740,-75.28174637450
+na,11th Street,Market/Frankford Line,Subway-Elavated,PA,SMF11S,11th,39.95168646190,-75.15832355080
+na,13th Street,Market/Frankford Line,Subway-Elavated,PA,SMF13S,13th,39.95205882920,-75.16145129930
+na,15th Street,Market/Frankford Line,Subway-Elavated,PA,SMF15S,15th,39.95253842510,-75.16532271160
+C,Suburban Station,SEPTA Main Line,SEPTA Regional Rail,PA,SCCSUB,Suburban Station,39.95419947170,-75.16739399790
+C,Market East,SEPTA Main Line,SEPTA Regional Rail,PA,SCCMKE,Market East,39.95244490850,-75.15702759660
+na,City Hall,Broad Street Line,Subway,PA,SBSCHA,City Hall,39.95205408840,-75.16363984660
+na,15th-16th Street,PATCO,PATCO,PA,PHS15L,15th-16th Street,39.94837156860,-75.16700986150
+na,Walnut-Locust,Broad Street Line,Subway,PA,SBSWAL,Walnut-Locust,39.94865360490,-75.16436449830
+na,12th-13th Street,PATCO,PATCO,PA,PHS12L,12th-13th Street,39.94770209100,-75.16147513600
+na,9th-10th Street,PATCO,PATCO,PA,PHS09L,9th-10th Street,39.94720603530,-75.15680000600
+C,30th Street Station,SEPTA Main Line,SEPTA Regional Rail,PA,SCC30S,30th Street Station,39.95659110640,-75.18178675010
+na,30th Street Station,NJ Transit,NJ Transit,PA,SCC30S,30th Street Station,39.95659110460,-75.18178675010
+na,30th Street,Market/Frankford Line,Subway-Elavated,PA,SMF30S,30th,39.95485606050,-75.18354102350
+na,34th Street,Market/Frankford Line,Subway-Elavated,PA,SMF34S,34th,39.95584377970,-75.19145854770
+na,40th Street,Market/Frankford Line,Subway-Elavated,PA,SMF40S,40th,39.95714963300,-75.20195263440
+na,46th Street,Market/Frankford Line,Subway-Elavated,PA,SMF46S,46th,39.95863133210,-75.21401841740
+na,52nd Street,Market/Frankford Line,Subway-Elavated,PA,SMF52S,52nd,39.95998939150,-75.22487812790
+5,Doylestown,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5DYT,Doylestown,40.30605252350,-75.13075466920
+5,Delaware Valley College,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5DVC,Del Val College,40.29727119110,-75.16174609210
+5,New Britain,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5NBR,New Britain,40.29744405570,-75.17969809880
+5,Chalfont,Lansdale/Doylestown Line,SEPTA Regional Rail,PA,SR5CHF,Chalfont,40.28774619140,-75.21018622130
+4,Warminster,Warminster Line,SEPTA Regional Rail,PA,SR2WRM,Warminster,40.19645555640,-75.08783473000
+4,Trevose,West Trenton Line,SEPTA Regional Rail,PA,SR3TRV,Trevose,40.14017820960,-74.98279000330
+4,Neshaminy Falls,West Trenton Line,SEPTA Regional Rail,PA,SR3NSH,Neshaminy Falls,40.14688032750,-74.96217092090
+4,Langhorne,West Trenton Line,SEPTA Regional Rail,PA,SR3LHN,Langhorne,40.16063065940,-74.91311114480
+5,Woodbourne,West Trenton Line,SEPTA Regional Rail,PA,SR3WBN,Woodbourne,40.19088551480,-74.89095216910
+5,Yardley,West Trenton Line,SEPTA Regional Rail,PA,SR3YDY,Yardley,40.23510917410,-74.83097682220
+5,Levittown,Trenton Line,SEPTA Regional Rail,PA,SR7LVN,Levittown,40.13954501470,-74.81766996390
+4,Bristol,Trenton Line,SEPTA Regional Rail,PA,SR7BST,Bristol,40.10482829730,-74.85488003440
+4,Croydon,Trenton Line,SEPTA Regional Rail,PA,SR7CDN,Croydon,40.09365342330,-74.90680467760
+4,Eddington,Trenton Line,SEPTA Regional Rail,PA,SR7EDN,Eddington,40.08308498590,-74.93349092350
+3,Cornwells Heights,Trenton Line,SEPTA Regional Rail,PA,SR7CWH,Cornwells Heights,40.07183544330,-74.95180346870
+na,City Hall,PATCO,PATCO,NJ,PHSCTY,City Hall,39.94594892160,-75.12240389420
+na,Broadway,PATCO,PATCO,NJ,PHSBWY,Broadway,39.94348108050,-75.11888429500
+na,Ferry Avenue,PATCO,PATCO,NJ,PHSFRY,Ferry Avenue,39.92248709200,-75.09120808760
+na,Cherry Hill,NJ Transit,NJ Transit,NJ,NACCHH,Cherry Hill,39.92512139770,-75.04128364250
+na,Collingswood,PATCO,PATCO,NJ,PHSCWD,Collingswood,39.91354042400,-75.06449394500
+na,Westmont,PATCO,PATCO,NJ,PHSWMT,Westmont,39.90712616580,-75.04671517220
+na,Haddonfield,PATCO,PATCO,NJ,PHSHFD,Haddonfield,39.89739650460,-75.03685284120
+na,Woodcrest,PATCO,PATCO,NJ,PHSWCT,Woodcrest,39.87017921030,-75.01121649020
+na,Ashland,PATCO,PATCO,NJ,PHSASH,Ashland,39.85870213190,-75.00918546230
+na,Lindenwold,PATCO,PATCO,NJ,PHSLWD,Lindenwold,39.83386529020,-75.00055266800
+na,Atco,NJ Transit,NJ Transit,NJ,NACATC,Atco,39.78360062520,-74.90777506310
+5,Thorndale,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5THD,Thorndale,39.99294420710,-75.76294620660
+5,Downingtown,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5DTN,Downingtown,40.00213025370,-75.71072322830
+5,Whitford,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5WTF,Whitford,40.01461351510,-75.63843766170
+5,Exton,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5EXN,Exton,40.01934025400,-75.62171721040
+5,Malvern,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5MVN,Malvern,40.03638032850,-75.51554332700
+4,Paoli,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5PAO,Paoli,40.04287237250,-75.48381249720
+4,Daylesford,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5DYL,Daylesford,40.04284952820,-75.46060585640
+4,Berwyn,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5BWN,Berwyn,40.04800618620,-75.44241045630
+4,Devon,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5DVN,Devon,40.04728894240,-75.42285930580
+3,Strafford,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5STF,Strafford,40.04959817510,-75.40375079330
+3,Wayne,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5WAY,Wayne,40.04574255500,-75.38728331850
+3,St. Davids,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5STD,St. Davids,40.04401070740,-75.37344820710
+3,Radnor,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5RNR,Radnor,40.04476036590,-75.35957405700
+3,Villanova,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5VIL,Villanova,40.03872633880,-75.34224805170
+na,Radnor,Norristown High Speed Line,Rapid Transit,PA,S00RNR,Radnor,40.04206916190,-75.35359211810
+na,Villanova,Norristown High Speed Line,Rapid Transit,PA,S00VIL,Villanova,40.03404382600,-75.34394065360
+na,Stadium (Ithan Avenue),Norristown High Speed Line,Rapid Transit,PA,S00SDM,Stadium,40.03268430410,-75.34077531390
+na,Garrett Hill,Norristown High Speed Line,Rapid Transit,PA,S00GHL,Garrett Hill,40.02778669570,-75.33622445310
+na,Roberts Road,Norristown High Speed Line,Rapid Transit,PA,S00RMT,Roberts Road,40.02142297050,-75.33030547470
+na,Bryn Mawr,Norristown High Speed Line,Rapid Transit,PA,S00BMR,Bryn Mawr,40.01802910310,-75.32337005750
+na,Haverford,Norristown High Speed Line,Rapid Transit,PA,S00HVD,Haverford,40.01005835750,-75.31531451460
+na,Ardmore Avenue,Norristown High Speed Line,Rapid Transit,PA,S00ARD,Ardmore Avenue,39.99996077520,-75.30948131250
+na,Ardmore Junction,Norristown High Speed Line,Rapid Transit,PA,S00AJN,Ardmore Junction,39.99616320060,-75.30352997250
+na,Wynnewood Road,Norristown High Speed Line,Rapid Transit,PA,S00WYN,Wynnewood Road,39.99344134490,-75.29833903630
+2,Folcroft,Wilmington/Newark Line,SEPTA Regional Rail,PA,SR2FCT,Folcroft,39.90043874260,-75.27983605260
+2,Primos,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3PRM,Primos,39.92175519710,-75.29820559940
+na,56th Street,Market/Frankford Line,Subway-Elavated,PA,SMF56S,56th,39.96096675460,-75.23278442070
+na,60th Street,Market/Frankford Line,Subway-Elavated,PA,SMF60S,60th,39.96194348860,-75.24069137840
+na,63rd Street,Market/Frankford Line,Subway-Elavated,PA,SMF63S,63rd,39.96270363300,-75.24668986780
+1,Angora,Media/Elwyn Line,SEPTA Regional Rail,PA,SR3ANG,Angora,39.94485781590,-75.23832979810
+1,49th Street,Media/Elwyn Line,SEPTA Regional Rail,PA,SR349S,49th Street,39.94361687380,-75.21649208330
+5,Airport Terminal A,Airport Line,SEPTA Regional Rail,PA,SR1AIR,Airport Terminal A,39.87599390130,-75.24673064840
+5,Airport Terminal B,Airport Line,SEPTA Regional Rail,PA,SR1AIR,Airport Terminal B,39.87640911500,-75.24463678840
+5,Airport Terminal C & D,Airport Line,SEPTA Regional Rail,PA,SR1AIR,Airport Terminal C & D,39.87728094740,-75.24170988340
+5,Airport Terminal E,Airport Line,SEPTA Regional Rail,PA,SR1AIR,Airport Terminal E,39.87901017500,-75.24008566990
+na,AT&T Station,Broad Street Line,Subway,PA,SBSPAT,AT&T,39.90564263140,-75.17349041600
+na,Oregon,Broad Street Line,Subway,PA,SBSORE,Oregon,39.91681816210,-75.17134960420
+na,Snyder,Broad Street Line,Subway,PA,SBSSNY,Snyder,39.92436606130,-75.16972623980
+na,Tasker-Morris,Broad Street Line,Subway,PA,SBSTAS,Tasker-Morris,39.92976541830,-75.16854316320
+na,Ellsworth-Federal,Broad Street Line,Subway,PA,SBSELS,Ellsworth-Federal,39.93616715760,-75.16714323540
+na,Lombard-South,Broad Street Line,Subway,PA,SBSLOM,Lombard-South,39.94374968880,-75.16547786770
+na,Race-Vine,Broad Street Line,Subway,PA,SBSRCV,Race-Vine,39.95722601320,-75.16248645660
+na,Spring Garden,Broad Street Line,Subway,PA,SBSSPG,Spring Garden,39.96242202470,-75.16141360760
+na,Fairmount,Broad Street Line,Subway,PA,SBSFMT,Fairmount,39.96653728680,-75.16045858950
+na,Girard,Broad Street Line,Subway,PA,SBSGIR,Girard,39.97143592800,-75.15946903520
+na,Cecil B. Moore,Broad Street Line,Subway,PA,SBSCBM,Cecil B. Moore,39.97694393680,-75.15827433360
+na,Susquehanna-Dauphin,Broad Street Line,Subway,PA,SBSSQD,Susquehanna-Dauphin,39.98840891720,-75.15575967950
+na,North Philadelphia,Broad Street Line,Subway,PA,SBSNPH,North Philadelphia,39.99641531630,-75.15399531040
+C,North Philadelphia,SEPTA Main Line,SEPTA Regional Rail,PA,SR7NPH,North Philadelphia,39.99722799960,-75.15526776830
+C,North Broad,SEPTA Main Line,SEPTA Regional Rail,PA,SR5NBD,North Broad,39.99395668660,-75.15455660470
+na,Allegheny,Broad Street Line,Subway,PA,SBSAGY,Allegheny,40.00318991570,-75.15252579770
+na,Erie,Broad Street Line,Subway,PA,SBSERI,Erie,40.00931597310,-75.15116452490
+na,Hunting Park,Broad Street Line,Subway,PA,SBSHUN,Hunting Park,40.01777166410,-75.14934347420
+na,Wyoming,Broad Street Line,Subway,PA,SBSWYO,Wyoming,40.02454766840,-75.14786006770
+na,Olney Transportation Ctr.,Broad Street Line,Subway,PA,SBSOLN,Olney Trans. Ctr.,40.03881935950,-75.14470639880
+na,Fern Rock Transportation Ctr.,Broad Street Line,Subway,PA,SBSFER,Fern Rock Trans. Ctr.,40.04183621420,-75.13681913050
+1,Fern Rock Transportation Ctr.,SEPTA Main Line,SEPTA Regional Rail,PA,SR1FRT,Fern Rock Trans. Ctr.,40.04101591800,-75.13480019250
+2,Cheltenham,Fox Chase Line,SEPTA Regional Rail,PA,SR8CHM,Cheltenham,40.05749165450,-75.09303106130
+2,Ryers,Fox Chase Line,SEPTA Regional Rail,PA,SR8RYR,Ryers,40.06367318970,-75.08675374030
+2,Fox Chase,Fox Chase Line,SEPTA Regional Rail,PA,SR8FCS,Fox Chase,40.07635744320,-75.08330545200
+1,Olney,Fox Chase Line,SEPTA Regional Rail,PA,SR8ONY,Olney,40.03276406180,-75.12365104670
+1,Wister,Chestnut Hill East Line,SEPTA Regional Rail,PA,SR7WTR,Wister,40.03613833110,-75.16157865540
+1,Germantown,Chestnut Hill East Line,SEPTA Regional Rail,PA,SR7GTN,Germantown,40.03787888940,-75.17186193690
+2,Washington Lane,Chestnut Hill East Line,SEPTA Regional Rail,PA,SR7WSH,Washington Lane,40.05109695710,-75.17165484290
+2,Stenton,Chestnut Hill East Line,SEPTA Regional Rail,PA,SR7STN,Stenton,40.06049717000,-75.17883729270
+2,Sedgwick,Chestnut Hill East Line,SEPTA Regional Rail,PA,SR7SWK,Sedgwick,40.06279341010,-75.18521115200
+2,Mount Airy,Chestnut Hill East Line,SEPTA Regional Rail,PA,SR7MAY,Mount Airy,40.06522593920,-75.19111757980
+2,Wyndmoor,Chestnut Hill East Line,SEPTA Regional Rail,PA,SR7WMR,Wyndmoor,40.07348169290,-75.19690059420
+2,Gravers Lane,Chestnut Hill East Line,SEPTA Regional Rail,PA,SR7GRV,Gravers Lane,40.07742055550,-75.20189900150
+2,Chestnut Hill East,Chestnut Hill East Line,SEPTA Regional Rail,PA,SR7CHE,Chestnut Hill East,40.08096872430,-75.20730904380
+2,Chestnut Hill West,Chestnut Hill West Line,SEPTA Regional Rail,PA,SR8CHW,Chestnut Hill West,40.07679751910,-75.20793954930
+2,Highland,Chestnut Hill West Line,SEPTA Regional Rail,PA,SR8HLD,Highland,40.07029290300,-75.21115873670
+2,St. Martins,Chestnut Hill West Line,SEPTA Regional Rail,PA,SR8STM,St. Martins,40.06577294190,-75.20457894150
+2,Allen Lane,Chestnut Hill West Line,SEPTA Regional Rail,PA,SR8ALN,Allen Lane,40.05746205210,-75.19482261460
+2,Carpenter Lane,Chestnut Hill West Line,SEPTA Regional Rail,PA,SR8CAR,Carpenter Lane,40.05091928270,-75.19168393490
+2,Upsal,Chestnut Hill West Line,SEPTA Regional Rail,PA,SR8UPS,Upsal,40.04240673720,-75.19011135190
+2,Tulpehocken,Chestnut Hill West Line,SEPTA Regional Rail,PA,SR8TKN,Tulpehocken,40.03514155860,-75.18689319700
+1,Chelten Avenue,Chestnut Hill West Line,SEPTA Regional Rail,PA,SR8CHE,Chelten Avenue,40.02997365610,-75.18125011810
+1,Queen Lane,Chestnut Hill West Line,SEPTA Regional Rail,PA,SR8QLN,Queen Lane,40.02326208750,-75.17799356280
+1,Allegheny,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6ALG,Allegheny,40.00379025720,-75.16538557330
+1,East Falls,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6EFL,East Falls,40.01135292210,-75.19207942910
+2,Wissahickon,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6WTC,Wissahickon,40.01658834800,-75.21017438730
+2,Manayunk,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6MYK,Manayunk,40.02676803050,-75.22475824660
+2,Ivy Ridge,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6IRG,Ivy Ridge,40.03412761370,-75.23542184350
+na,36th Street,RiverLine,Light Rail Transit,NJ,NRL036,36th Street,39.96127747420,-75.07914817170
+na,Walter Rand Transportation Center,RiverLine,Light Rail Transit,NJ,NRLWRT,Walter Rand Trans. Ctr.,39.94313294430,-75.12034490710
+na,Cooper Street/Rutgers University,RiverLine,Light Rail Transit,NJ,NRLRUT,Cooper Street/Rutgers University,39.94759303480,-75.12408229840
+na,Aquarium,RiverLine,Light Rail Transit,NJ,NRLAQU,Aquarium,39.94561756580,-75.12864138210
+na,Entertainment Center,RiverLine,Light Rail Transit,NJ,NRLENT,Entertainment Center,39.94090009280,-75.12842969350
+na,Saxer Avenue,Route 101 Trolley,Surface Trolley,PA,S01SAX,Saxer Avenue,39.92873895080,-75.33354829840
+,8th & Market Streets,PATCO,PATCO,PA,PHS8MK,8th & Market Streets,39.95093718000,-75.15356084270
+3,Elm Street,Manayunk/Norristown Line,SEPTA Regional Rail,PA,SR6ESN,Elm Street,40.12160650580,-75.34452691310
+na,Norristown TC,Norristown High Speed Line,Rapid Transit,PA,SR6NTC,Norristown Trans. Ctr.,40.11329526030,-75.34528145350
+na,Bridgeport,Norristown High Speed Line,Rapid Transit,PA,S00BPT,Bridgeport,40.10487935670,-75.34820925990
+na,DeKalb Street,Norristown High Speed Line,Rapid Transit,PA,S00KMR,DeKalb Street,40.09884857500,-75.35204949780
+1,Wayne Junction,SEPTA Main Line,SEPTA Regional Rail,PA,SCCWJN,Wayne Junction,40.02250000700,-75.16003995660
+1,Wynnefield Avenue,Cynwyd Line,SEPTA Regional Rail,PA,SR6WFD,Wynnefield Avenue,39.99029072900,-75.22568613810
+2,Overbrook,Paoli/Thorndale Line,SEPTA Regional Rail,PA,SR5OVR,Overbrook,39.98985205020,-75.24996443530
+2,Lawndale,Fox Chase Line,SEPTA Regional Rail,PA,SR8LWN,Lawndale,40.05139465330,-75.10342401900
+C,Temple University,SEPTA Main Line,SEPTA Regional Rail,PA,SCCTEM,Temple University,39.98165072170,-75.14943171510
+2,Eastwick,Airport Line,SEPTA Regional Rail,PA,SR1EWK,Eastwick,39.89167828170,-75.24504467550
+C,University City,SEPTA Main Line,SEPTA Regional Rail,PA,SR1UNI,University City,39.94782901400,-75.19032549390
+na,Logan,Broad Street Line,Subway,PA,SBSLOG,Logan,40.02978140170,-75.14670413000
+na,Lindenwold,NJ Transit,NJ Transit,NJ,PHSLWD,Lindenwold,39.83349462930,-75.00006414880
+na,Orange Street,Route 101 Trolley,Surface Trolley,PA,S01ORG,Orange Street,39.91841248200,-75.39300843340
+na,Veterans Square,Route 101 Trolley,Surface Trolley,PA,S01VET,Veterans Square,39.91827659130,-75.39204941020
+na,Bowling Green,Route 101 Trolley,Surface Trolley,PA,S01BGN,Bowling Green,39.91671215920,-75.38071680920
+na,Manchester Avenue,Route 101 Trolley,Surface Trolley,PA,S01MCR,Manchester Avenue,39.91700871500,-75.38284845950
+na,Edgmont Street,Route 101 Trolley,Surface Trolley,PA,S01EDG,Edgmont,39.91738735290,-75.38564314130
+na,Monroe Street,Route 101 Trolley,Surface Trolley,PA,S01MRO,Monroe Street,39.91765910550,-75.38759966260
+na,Jackson Street,Route 101 Trolley,Surface Trolley,PA,S01JCK,Jackson Street,39.91791854360,-75.38944623400
+na,Olive Street,Route 101 Trolley,Surface Trolley,PA,S01OLV,Olive Street,39.91814494350,-75.39107946020
+na,Hamilton,NJ Transit,NJ Transit,NJ,NNCHMN,Hamilton,40.25526857020,-74.70393704550
+na,Trenton,RiverLine,Light Rail Transit,NJ,NRLTTN,Trenton,40.21838878920,-74.75510321000
+na,Hamilton Avenue,RiverLine,Light Rail Transit,NJ,NRLHMT,Hamilton Avenue,40.21194173330,-74.75572743020
+na,Cass Street,RiverLine,Light Rail Transit,NJ,NRLCST,Cass Street,40.20543377250,-74.75423928940
+na,Bordentown,RiverLine,Light Rail Transit,NJ,NRLBOR,Bordentown,40.14820020550,-74.71622201770
+na,Roebling,RiverLine,Light Rail Transit,NJ,NRLROE,Roebling,40.11694271130,-74.77022791060
+na,Florence,RiverLine,Light Rail Transit,NJ,NRLFLO,Florence,40.09997932480,-74.80503778760
+na,Burlington Town Centre,RiverLine,Light Rail Transit,NJ,NRLBUR,Burlington Town Centre,40.07732965730,-74.85942415860
+na,Burlington South,RiverLine,Light Rail Transit,NJ,NRLBSO,Burlington South,40.07451689780,-74.86896316150
+na,Beverly/Edgewater Park,RiverLine,Light Rail Transit,NJ,NRLBEP,Beverly/Edgewater Park,40.06114693620,-74.91516732650
+na,Delanco,RiverLine,Light Rail Transit,NJ,NRLDCO,Delanco,40.04812181870,-74.95040125390
+na,Riverside,RiverLine,Light Rail Transit,NJ,NRLRSD,Riverside,40.03919847710,-74.95882253780
+na,Cinnaminson,RiverLine,Light Rail Transit,NJ,NRLCIN,Cinnaminson,40.01659778900,-74.99996485200
+na,Riverton,RiverLine,Light Rail Transit,NJ,NRLRTN,Riverton,40.00892269030,-75.01307532930
+na,Palmyra,RiverLine,Light Rail Transit,NJ,NRLPAL,Palmyra,40.00421021040,-75.02110238370
+na,Pennsauken/ Route 73,RiverLine,Light Rail Transit,NJ,NRLP73,Pennsauken/ Route 73,39.99338137010,-75.03904243850
+na,Church,Market/Frankford Line,Subway-Elavated,PA,SMFCCH,Church,40.01046459120,-75.08904314460
+na,Erie-Torresdale,Market/Frankford Line,Subway-Elavated,PA,SMFERT,Erie-Torresdale,40.00594988380,-75.09612760390
+na,Tioga,Market/Frankford Line,Subway-Elavated,PA,SMFTIO,Tioga,40.00035403540,-75.10636508370
+na,Allegheny,Market/Frankford Line,Subway-Elavated,PA,SMFAGY,Allegheny,39.99648047130,-75.11342485850
+na,Somerset,Market/Frankford Line,Subway-Elavated,PA,SMFSOM,Somerset,39.99161560140,-75.12227201080
+na,Huntingdon,Market/Frankford Line,Subway-Elavated,PA,SMFHUN,Huntingdon,39.98878426790,-75.12745141520
+na,York-Dauphin,Market/Frankford Line,Subway-Elavated,PA,SMFYOR,York-Dauphin,39.98529599330,-75.13205408310
+na,Berks,Market/Frankford Line,Subway-Elavated,PA,SMFBER,Berks,39.97853540880,-75.13350314260
+na,Girard,Market/Frankford Line,Subway-Elavated,PA,SMFGIR,Girard,39.96891472510,-75.13623019480
+na,Spring Garden,Market/Frankford Line,Subway-Elavated,PA,SMFSPG,Spring Garden,39.96053015670,-75.14040508990
+na,2nd Street,Market/Frankford Line,Subway-Elavated,PA,SMF2ND,2nd,39.94991133170,-75.14366002570
+na,5th Street,Market/Frankford Line,Subway-Elavated,PA,SMF5TH,5th,39.95052980340,-75.14892829170
+na,8th Street,Market/Frankford Line,Subway-Elavated,PA,SMF8TH,8th,39.95111428380,-75.15360230910
+na,Chinatown Station,Broad-Ridge Spur,Subway,PA,,Chinatown,39.95547664890,-75.15299536000
+na,69th Street Transportation Center,Norristown High Speed Line,Rapid Transit,PA,SMF69S,69th Street Trans. Ctr.,39.96275938430,-75.25940987340
