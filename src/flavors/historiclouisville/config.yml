@@ -121,7 +121,6 @@ survey:
   submit_btn_text: Comment
   items:
     - prompt: Comment
-      label: Comment
       type: textarea
       name: comment
     - prompt: Your Name
