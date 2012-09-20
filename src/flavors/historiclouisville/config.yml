@@ -110,17 +110,14 @@ survey:
   anonymous_name: Someone
 
   # Survey form config
-  title: Leave a Comment
+  title: 
   form_link_text: Leave a Comment
-  submit_btn_text: Comment
+  submit_btn_text: 
   items:
-    - prompt: Comment
-      label: Comment
-      type: textarea
+    - prompt: 
+      label: 
+      type: hidden
       name: comment
-    - prompt: Your Name
-      type: text
-      name: submitter_name
 
 support:
   submission_type: support
