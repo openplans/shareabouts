@@ -1,0 +1,144 @@
+# The Shareabouts API dataset username & name used by this map.
+# You MUST change this after creating a dataset.
+api_root: http://api.shareabouts.org/api/v1/
+dataset: biketotransit/biketotransit
+# And the associated API key.
+dataset_api_key: YOUR_KEY_HERE
+
+# Settings for the app
+app:
+  # HTML Title
+  title: Bike to Transit Stations Survey
+  # Header name
+  name: Bike to Transit Stations Survey
+  # Meta description that will show up in Google search results
+  meta_description: The Bicycle Coalition of Greater Philadelphia, SEPTA, NJ Transit, PATCO, DVRPC, and Open Plans are collaborating to determine how transit stations can better accommodate bicyclists. This map will help identify where the demand for better bicycle facilities is greatest.
+
+
+# Settings for map and layer configs
+map:
+  geolocation_enabled: true
+  geolocation_onload: false
+  options:
+    center:
+      lat: 39.9368556899583
+      lng: -75.20330429077147
+    zoom: 13
+    minZoom: 10
+    maxZoom: 17
+  base_layer:
+    url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
+    attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
+  layers: []
+
+# The keys show up in the dropdown list when you are adding a new place
+# The values map the place type to map icons (defined below).
+place_types:
+  Surface Trolley:
+    default: blue
+    focused: red
+  SEPTA Regional Rail:
+    default: blue
+    focused: red
+  Rapid Transit:
+    default: blue
+    focused: red
+  Subway-Elavated:
+    default: blue
+    focused: red
+
+# Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
+# for documention of each property. Any omitted property will be undefined.
+place_type_icons:
+  blue:
+    iconUrl: /static/css/images/feature-point.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  red:
+    iconUrl: /static/css/images/marker-focused.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+
+place:
+  adding_supported: false
+  add_button_label: Add an Place
+  anonymous_name: Someone
+  submit_button_label: Submit
+
+survey:
+  submission_type: surveys
+
+  # Response display config
+  show_responses: true
+  response_name: survey
+  response_plural_name: surveys
+  action_text: added input on
+  anonymous_name: Someone
+
+  # Survey form config
+  title: Add your input
+  form_link_text: Add your input
+  submit_btn_text: Send
+  items:
+    - prompt: I bike to this station
+      label: I bike to this station
+      name: i_bike_here
+      type: select
+      options:
+        - Never
+        - Daily
+        - A few times a week
+        - A few times a month
+    - prompt: I would bike to this station if improvements were made
+      label: I would bike to this station if improvements were made
+      attrs:
+        key: value
+        value: I would bike to this station if improvements were made
+      name: i_would_bike_here
+      type: checkbox
+    - prompt: I think this station
+      label: I think this station
+      name: my_thoughts_about_station
+      type: select
+      options:
+        - Has sufficient and good quality bike parking
+        - Needs more bike parking
+        - Needs better and more secure bike parking (such as covered or sheltered parking)
+    - prompt: Are there gaps in the road and trail network around this station that you think need to be addressed with things like new bike lanes, shoulders, or trails? Are there other specific problems that prevent you or others from biking to this station? Please share your ideas.
+      label: Other thoughts
+      name: other_thoughts
+      type: textarea
+    - prompt: Your Name
+      type: text
+      name: submitter_name
+      optional: true
+
+support:
+  submission_type: support
+  submit_btn_text: Support This!
+  action_text: supported
+  anonymous_name: Someone
+
+pages:
+  - title: About
+    slug: about
+    url: /static/pages/about.html
+    start_page: true
+  - title: Disclaimer
+    slug: disclaimer
+    url: /static/pages/disclaimer.html
+  - title: Bicycle Coalition
+    external: true
+    url: http://www.bicyclecoalition.org/content/bike-transit
