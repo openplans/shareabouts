@@ -214,14 +214,14 @@ survey:
 
   # Response display config
   show_responses: true
-  response_name: survey
-  response_plural_name: surveys
+  response_name: person has responded
+  response_plural_name: people have responded
   action_text: added input on
   anonymous_name: Someone
 
   # Survey form config
   title: Add your input
-  form_link_text: Add your input
+  form_link_text: Respond to the survey
   submit_btn_text: Send
   items:
     - prompt: I bike to this station
@@ -271,6 +271,3 @@ pages:
   - title: Disclaimer
     slug: disclaimer
     url: /static/pages/disclaimer.html
-  - title: Bicycle Coalition
-    external: true
-    url: http://www.bicyclecoalition.org/content/bike-transit
