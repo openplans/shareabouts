@@ -24,8 +24,9 @@ map:
       lat:  42.36242
       lng: -71.085534
     zoom: 16
-    minZoom: 13
+    minZoom: 15
     maxZoom: 17
+    maxBounds: [[42.34, -71.11], [42.38, -71.06]]
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
