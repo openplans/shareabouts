@@ -74,12 +74,12 @@ place:
   anonymous_name: Someone
   submit_button_label: Submit
   items:
-    - prompt: Name / Address of the building or place
+    - prompt: Name or address of the building or place
       type: text
-      name: name_or_address
+      name: name
       attrs:
         - key: placeholder
-          value: Name and/or Address of the building or place
+          value: Name or Address
         - key: size
           value: 30
     - prompt: ''
@@ -95,6 +95,15 @@ place:
       attrs:
         - key: placeholder
           value: Any brief comment or personal memory about why this particular site is important to you
+    - prompt: Your Name
+      type: text
+      name: submitter_name
+      optional: true
+      attrs:
+        - key: placeholder
+          value: Name
+        - key: size
+          value: 30
 
 survey:
   # We are not actually using this; there's an open ticket about
@@ -111,12 +120,12 @@ survey:
   anonymous_name: Someone
 
   # Survey form config
-  title: 
+  title:
   form_link_text: Leave a Comment
-  submit_btn_text: 
+  submit_btn_text:
   items:
-    - prompt: 
-      label: 
+    - prompt:
+      label:
       type: hidden
       name: comment
 
