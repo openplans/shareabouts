@@ -99,7 +99,6 @@ place:
           value: You must leave name to have your comment be visible to others.
         - key: size
           value: 30
-
     - prompt: Traffic Does Not Yield
       type: checkbox
       optional: true
@@ -185,13 +184,90 @@ survey:
   form_link_text: Leave a Comment
   submit_btn_text: Comment
   items:
-    - prompt: Comment
-      label: Comment
+    - prompt: Description
       type: textarea
-      name: comment
+      name: description
+      optional: false
+      attrs:
+        - key: placeholder
+          value: Give us a brief description of the problem or place, and the approximate time and day when you pass by here.
     - prompt: Your Name
       type: text
       name: submitter_name
+      optional: false
+      attrs:
+        - key: placeholder
+          value: You must leave name to have your comment be visible to others.
+        - key: size
+          value: 30
+    - prompt: Traffic Does Not Yield
+      type: checkbox
+      optional: true
+      name:  traffic_does_not_yield
+      attrs:
+        - key: value
+          value: Traffic Does Not Yield
+    - prompt: Bike Lane Blocked
+      type: checkbox
+      optional: true
+      name: bike_lane_blocked
+      attrs:
+        - key: value
+          value: Bike Lane Blocked
+    - prompt: No Bike Lane
+      type: checkbox
+      optional: true
+      name: no_bike_lane
+      attrs:
+        - key: value
+          value: No Bike Lane
+    - prompt: Speeding Traffic
+      type: checkbox
+      optional: true
+      name: speeding_traffic
+      attrs:
+        - key: value
+          value: Speeding Traffic
+    - prompt: Not enough time to cross
+      type: checkbox
+      optional: true
+      name: not_enough_time_to_cross
+      attrs:
+        - key: value
+          value: Not enough time to cross
+    - prompt: Dangerous Crossing
+      type: checkbox
+      optional: true
+      name: dangerous_crossing
+      attrs:
+        - key: value
+          value: Dangerous Crossing
+    - prompt: Sidewalk too small
+      type: checkbox
+      optional: true
+      name: sidewalk_too_small
+      attrs:
+        - key: value
+          value: Sidewalk too small
+    - prompt: Crosswalk Blocked
+      type: checkbox
+      optional: true
+      name: crosswalk_blocked
+      attrs:
+        - key: value
+          value: Crosswalk Blocked
+    - prompt: Double Parked Cars/Trucks
+      type: checkbox
+      optional: true
+      name: double_parked
+      attrs:
+        - key: value
+          value: Double Parked Cars/Trucks
+    - prompt: "Bike/Foot or Other"
+      type: textarea
+      attrs:
+        - key: placeholder
+          value: Let us know if you were on the sidewalk/street and if you were on a bike or on foot, stroller, etc.
 
 support:
   submission_type: support
