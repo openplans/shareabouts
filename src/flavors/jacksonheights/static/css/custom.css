@@ -8,8 +8,8 @@
 -------------------------------------------------------------- */
 
 body, select, input, textarea {
-/*  color: #000;*/
-/*  font-family: "Comic Sans MS", cursive, sans-serif;*/
+  color: #27292a;
+  font-family: Georgia, "Times New Roman", Times;
 }
 
 
@@ -29,8 +29,8 @@ a:hover {
 -------------------------------------------------------------- */
 
 #site-header {
-/*  color: #fff;*/
-/*  background-color: #994c99;*/
+  color: #fff;
+  background-color: #27292a;
 }
 
 #site-header a, #site-header a:active, #site-header a:visited {
@@ -50,14 +50,15 @@ a:hover {
  * as to not break it scaling via media queries. */
 
 #site-title {
-/*  font-family: Impact, sans-serif;*/
+  font-family: Georgia, "Times New Roman", Times;
+  font-weight: normal;
 /*  color: #fff;*/
 /*  text-shadow: none;*/
 }
 
 #site-title a:link,
 #site-title a:visited {
-/*  font-size: 0.75em;*/
+  font-size: 0.6em;
 /*  color: #fff;*/
 }
 
@@ -74,14 +75,14 @@ a:hover {
 
 a#nav-bttn:link,
 a#nav-bttn:visited {
-/*  color: #bf00bf;*/
-/*  background: #ffbfff;*/
-/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
+  color: #27292a;
+  background: #888;
+  font-family: "Helvetica Neue", Arial, Helvetica, serif;
 }
 
 a#nav-bttn:hover {
-/*  color: #ffbfff;*/
-/*  background: #fff;*/
+  color: #27292a;
+  background: #aaa;
 }
 
 
@@ -89,22 +90,22 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 #access {
-/*  border: 1em solid #994c99;*/
-/*  border-top: 0.5em solid #994c99;*/
-/*  background: #994c99;*/
+  border: 1em solid #27292a;
+  border-top: 0.5em solid #27292a;
+  background: #666;
+  font-weight: normal;
 }
 
 #access li {
-/*  border-bottom: 2px solid #994c99;*/
-}
-
-#access a:hover {
-/*  color: #ffbfff;*/
-/*  background: #fff;*/
+  border-bottom: 2px solid #27292a;
 }
 
 #access a:visited, #access a:active, #access a:link {
-/*  color: #ffbfff;*/
+  color: #fff;
+}
+#access a:hover {
+  color: #27292a;
+  background: #ffea97;
 }
 
 
@@ -112,14 +113,15 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 a.add-place {
-/*  background-color: #ff40ff;*/
-/*  color: #eee;*/
-/*  text-shadow: none;*/
+  background-color: #ffea97;
+  color: #555;
+  text-shadow: none;
+  font-weight: normal;
 }
 
 a.add-place:hover {
-/*  background-color: #e500e5;*/
-/*  color: #fff;*/
+  background-color: #27292a;
+  color: #ffea97;
 }
 
 
@@ -163,14 +165,14 @@ textarea {
 }
 
 .bttn {
-/*  color: #eee;*/
-/*  background-color: #ff40ff;*/
-/*  text-shadow: none;*/
+  background-color: #ffea97;
+  color: #555;
+  text-shadow: none;
+  font-weight: normal;
 }
-
 .bttn:hover {
-/*  color: #fff;*/
-/*  background-color: #e500e5;*/
+    background-color: #27292a;
+    color: #ffea97;
 }
 
 a.reply-link {
@@ -205,7 +207,7 @@ a.reply-link:hover {
 -------------------------------------------------------------- */
 
 #ticker {
-/*  background-color: #806080;*/
+  background-color: #fff;
 }
 
 ul.recent-points {
@@ -213,20 +215,20 @@ ul.recent-points {
 }
 
 .recent-points li {
-/*  border-bottom: 3px solid #664c66;*/
+  border-bottom: 3px solid #eee;
 }
 
 .recent-points li:hover {
-/*  background: #bf60bf;*/
+  background-color: #ffea97;
 }
 
 .recent-points a {
-/*  color: #eee;*/
+  color: #555;
 }
 
 .recent-points li:hover a,
 .recent-points a:hover {
-/*  color: #fff;*/
+  color: #27292a;
 }
 
 
@@ -235,8 +237,8 @@ ul.recent-points {
 
 @media only screen and (min-width: 768px) { /* menu is visible */
   #access {
-/*    border: 0;*/
-/*    background: transparent;*/
+    border: 0;
+    background: transparent;
   }
 }
 
