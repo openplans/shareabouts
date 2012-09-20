@@ -1,7 +1,7 @@
 # The Shareabouts API dataset username & name used by this map.
 # You MUST change this after creating a dataset.
 api_root: http://api.shareabouts.org/api/v1/
-dataset: urbansocial/urbansocial
+dataset: historiclouisville/historiclouisville
 
 # And the associated API key.
 dataset_api_key: YOUR_KEY_HERE
@@ -9,11 +9,11 @@ dataset_api_key: YOUR_KEY_HERE
 # Settings for the app
 app:
   # HTML Title
-  title: Urban Social Spaces, Kendall Square
+  title: "Mapping Louisville's Historic Assets"
   # Header name
-  name: Urban Social Spaces, Kendall Square
+  name: "Mapping Louisville's Historic Assets"
   # Meta description that will show up in Google search results
-  meta_description: Urban Social Spaces is a study of where people connect in cities and how those interactions foster innovation.
+  meta_description: Map of buildings, places, and heritage resources in Louisville, KY that the community values as historic and worth saving.
 
 # Settings for map and layer configs
 map:
@@ -21,21 +21,20 @@ map:
   geolocation_onload: false
   options:
     center:
-      lat:  42.365599
-      lng: -71.088387
-    zoom: 16
-    minZoom: 15
+      lat: 38.230629
+      lng: -85.758963
+    zoom: 13
+    minZoom: 11
     maxZoom: 17
-    maxBounds: [[42.34, -71.14], [42.38, -71.04]]
   base_layer:
-    url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
+    url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
   layers: []
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  Meeting:
+  Historic Location:
     default: blue
     focused: red
 
@@ -70,39 +69,33 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: Add a Meeting!
-  title: Tell us about it...
+  add_button_label: Add a historic location!
+  title: Tell us more...
   anonymous_name: Someone
   submit_button_label: Submit
   items:
-    - type: hidden
+    - prompt: Name or address of the building or place
+      type: text
+      name: name
+      attrs:
+        - key: placeholder
+          value: Name or Address
+        - key: size
+          value: 30
+    - prompt: ''
       name: location_type
+      type: hidden
       attrs:
         - key: value
-          value: Meeting
-    - prompt: Was this meeting scheduled or unscheduled?
-      label: Scheduled?
-      type: select
-      options:
-        - Scheduled
-        - Unscheduled
-      name: scheduled
-    - prompt: Was this meeting professional or personal?
-      label: Nature?
-      type: select
-      options:
-        - Professional
-        - Personal
-      name: nature
-    - prompt: Did this meeting lead to meaningful ideas?
-      label: Outcome?
-      type: select
-      options:
-        - 'Meaningful'
-        - 'Insignificant'
-      name: meaningful
+          value: Historic Location
+    - prompt: Comment
+      type: textarea
+      name: comment
+      optional: true
+      attrs:
+        - key: placeholder
+          value: Any brief comment or personal memory about why this particular site is important to you
     - prompt: Your Name
-      label: 'Name:'
       type: text
       name: submitter_name
       optional: true
@@ -111,30 +104,47 @@ place:
           value: Name
         - key: size
           value: 30
-    - prompt: Short description of where you met
-      lable: 'Location:'
-      type: textarea
-      name: place_desc
-      optional: true
-      attrs:
-        - key: placeholder
-          value: e.g. ground floor cafe, 5th floor conference room, the coffee shop on 3rd St
 
 survey:
-#   # Response display config
+  # We are not actually using this; there's an open ticket about
+  # disabling the survey form.
+  # Meanwhile, we'll hide it using CSS.
+  # SO all the below is irrelevant.
+  submission_type: comments
+
+  # Response display config
   show_responses: false
+  response_name: comment
+  response_plural_name: comments
+  action_text: commented on
+  anonymous_name: Someone
+
+  # Survey form config
+  title:
+  form_link_text: Leave a Comment
+  submit_btn_text:
+  items:
+    - prompt:
+      label:
+      type: hidden
+      name: comment
 
 support:
   submission_type: support
   submit_btn_text: Support This!
-  action_text: supported
+  action_text: "supported"
   anonymous_name: Someone
 
 pages:
   - title: About
     slug: about
-    url: /static/pages/about.html
+    url: /static/pages/overview.html
     start_page: true
-  - title: Kendall Innovation
+
+  - title: City Collaborative
     external: true
-    url: http://kendallinnovation.blogspot.com
+    url: http://citycollaborative.org
+
+  - title: Download the Data!
+    external: true
+    url: /download/places.csv

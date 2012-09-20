@@ -1,0 +1,210 @@
+# The Shareabouts API dataset username & name used by this map.
+# You MUST change this after creating a dataset.
+api_root: http://localhost:8001/api/v1/
+dataset: makebrooklynsafer/makebrooklynsafer
+
+# And the associated API key.
+dataset_api_key: YOUR_KEY_HERE
+
+# Settings for the app
+app:
+  # HTML Title
+  title: Kids Riding on Safe Streets
+  # Header name
+  name: Kids Riding on Safe Streets
+  # Meta description that will show up in Google search results
+  meta_description:  "KROSSwalk Project (Kids Riding on Safe Streets) is about bicycle safety in downtown Brooklyn, NY."
+
+# Settings for map and layer configs
+map:
+  geolocation_enabled: true
+  geolocation_onload: true
+  options:
+    center:
+      lat: 40.698763153732166
+      lng: -73.98431539535522
+    zoom: 15
+    minZoom: 11
+    maxZoom: 17
+  base_layer:
+    url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
+    attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
+  layers: []
+
+# The keys show up in the dropdown list when you are adding a new place
+# The values map the place type to map icons (defined below).
+place_types:
+  Safe Intersection:
+    default: blue
+    focused: red
+  Unsafe Intersection:
+    default: blue
+    focused: red
+
+# Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
+# for documention of each property. Any omitted property will be undefined.
+place_type_icons:
+  blue:
+    iconUrl: /static/css/images/feature-point.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  red:
+    iconUrl: /static/css/images/marker-focused.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+
+
+activity:
+  # Optional. Activity is supported by default. Set to false to disable.
+  enabled: true
+
+place:
+  adding_supported: true
+  add_button_label: Add a Location!
+  title: Tell us more...
+  anonymous_name: Someone
+  submit_button_label: Submit
+  items:
+    - prompt: Description
+      type: textarea
+      name: description
+      optional: false
+      attrs:
+        - key: placeholder
+          value: Give us a brief description of the problem or place, and the approximate time and day when you pass by here.
+    - prompt: Location Type
+      type: select
+      options:
+        - Unsafe Intersection
+        - Safe Intersection
+      name: location_type
+    - prompt: Your Name
+      type: text
+      name: submitter_name
+      optional: false
+      attrs:
+        - key: placeholder
+          value: You must leave name to have your comment be visible to others.
+        - key: size
+          value: 30
+
+    - prompt: Traffic Does Not Yield
+      type: checkbox
+      optional: true
+      name:  traffic_does_not_yield
+      attrs:
+        - key: value
+          value: Traffic Does Not Yield
+    - prompt: Bike Lane Blocked
+      type: checkbox
+      optional: true
+      name: bike_lane_blocked
+      attrs:
+        - key: value
+          value: Bike Lane Blocked
+    - prompt: No Bike Lane
+      type: checkbox
+      optional: true
+      name: no_bike_lane
+      attrs:
+        - key: value
+          value: No Bike Lane
+    - prompt: Speeding Traffic
+      type: checkbox
+      optional: true
+      name: speeding_traffic
+      attrs:
+        - key: value
+          value: Speeding Traffic
+    - prompt: Not enough time to cross
+      type: checkbox
+      optional: true
+      name: not_enough_time_to_cross
+      attrs:
+        - key: value
+          value: Not enough time to cross
+    - prompt: Dangerous Crossing
+      type: checkbox
+      optional: true
+      name: dangerous_crossing
+      attrs:
+        - key: value
+          value: Dangerous Crossing
+    - prompt: Sidewalk too small
+      type: checkbox
+      optional: true
+      name: sidewalk_too_small
+      attrs:
+        - key: value
+          value: Sidewalk too small
+    - prompt: Crosswalk Blocked
+      type: checkbox
+      optional: true
+      name: crosswalk_blocked
+      attrs:
+        - key: value
+          value: Crosswalk Blocked
+    - prompt: Double Parked Cars/Trucks
+      type: checkbox
+      optional: true
+      name: double_parked
+      attrs:
+        - key: value
+          value: Double Parked Cars/Trucks
+    - prompt: "Bike/Foot or Other"
+      type: textarea
+      attrs:
+        - key: placeholder
+          value: Let us know if you were on the sidewalk/street and if you were on a bike or on foot, stroller, etc.
+
+
+survey:
+  submission_type: comments
+
+  # Response display config
+  show_responses: true
+  response_name: comment
+  response_plural_name: comments
+  action_text: commented on
+  anonymous_name: Someone
+
+  # Survey form config
+  title: Leave a Comment
+  form_link_text: Leave a Comment
+  submit_btn_text: Comment
+  items:
+    - prompt: Comment
+      label: Comment
+      type: textarea
+      name: comment
+    - prompt: Your Name
+      type: text
+      name: submitter_name
+
+support:
+  submission_type: support
+  submit_btn_text: Support This!
+  action_text: "supported"
+  anonymous_name: Someone
+
+pages:
+  - title: About
+    slug: about
+    url: /static/pages/overview.html
+    start_page: true
+
+  - title: Make Brooklyn Safer
+    external: true
+    url: http://MakeBrooklynSafer.org
