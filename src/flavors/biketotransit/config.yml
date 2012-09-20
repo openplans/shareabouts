@@ -35,43 +35,163 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   Light Rail Transit:
-    default: blue
-    focused: red
+    default: nj-dot
+    focused: nj-pin
   NJ Transit:
-    default: blue
-    focused: red
+    default: nj-dot
+    focused: nj-pin
   PATCO:
-    default: blue
-    focused: red
+    default: red-dot
+    focused: red-pin
   Surface Trolley:
-    default: blue
-    focused: red
+    default: green-dot
+    focused: green-pin
   SEPTA Regional Rail:
-    default: blue
-    focused: red
+    default: gray-dot
+    focused: gray-pin
   Rapid Transit:
-    default: blue
-    focused: red
+    default: purple-dot
+    focused: purple-pin
   Subway-Elevated:
-    default: blue
-    focused: red
+    default: blue-dot
+    focused: blue-pin
   Subway:
-    default: blue
-    focused: red
+    default: orange-dot
+    focused: orange-pin
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  blue:
-    iconUrl: /static/css/images/feature-point.png
+  blue-dot:
+    iconUrl: /static/css/images/markers/dot-0d85e9.png
     iconSize:
       width: 17
       height: 18
     iconAnchor:
       x: 9
       y: 9
-  red:
-    iconUrl: /static/css/images/marker-focused.png
+  blue-pin:
+    iconUrl: /static/css/images/markers/marker-0d85e9.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  green-dot:
+    iconUrl: /static/css/images/markers/dot-4bbd45.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  green-pin:
+    iconUrl: /static/css/images/markers/marker-4bbd45.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  red-dot:
+    iconUrl: /static/css/images/markers/dot-e1264d.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  red-pin:
+    iconUrl: /static/css/images/markers/marker-e1264d.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  orange-dot:
+    iconUrl: /static/css/images/markers/dot-f95016.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  orange-pin:
+    iconUrl: /static/css/images/markers/marker-f95016.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  purple-dot:
+    iconUrl: /static/css/images/markers/dot-a542e5.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  purple-pin:
+    iconUrl: /static/css/images/markers/marker-a542e5.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  gray-dot:
+    iconUrl: /static/css/images/markers/dot-4bad92.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  gray-pin:
+    iconUrl: /static/css/images/markers/marker-4bad92.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  nj-dot:
+    iconUrl: /static/css/images/markers/dot-fa307d.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  nj-pin:
+    iconUrl: /static/css/images/markers/marker-fa307d.png
     shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
