@@ -1,7 +1,7 @@
 # The Shareabouts API dataset username & name used by this map.
 # You MUST change this after creating a dataset.
-api_root: http://shareaboutsapi-civicworks.dotcloud.com/api/v1/
-dataset: demo-user/demo-data
+api_root: http://localhost:8001/api/v1/
+dataset: historiclouisville/historiclouisville
 
 # And the associated API key.
 dataset_api_key: YOUR_KEY_HERE
@@ -9,9 +9,9 @@ dataset_api_key: YOUR_KEY_HERE
 # Settings for the app
 app:
   # HTML Title
-  title: Shareabouts
+  title: "Mapping Louisville's Historic Assets"
   # Header name
-  name: Shareabouts
+  name: "Mapping Louisville's Historic Assets"
   # Meta description that will show up in Google search results
   meta_description: Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.
 
@@ -21,10 +21,10 @@ map:
   geolocation_onload: true
   options:
     center:
-      lat: 39.9523524
-      lng: -75.1636075
-    zoom: 14
-    minZoom: 10
+      lat: 38.230629
+      lng: -85.758963
+    zoom: 13
+    minZoom: 11
     maxZoom: 17
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
@@ -34,13 +34,7 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  Landmark:
-    default: blue
-    focused: red
-  Park:
-    default: blue
-    focused: red
-  School:
+  Historic Location:
     default: blue
     focused: red
 
@@ -75,48 +69,41 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: Add a Place
+  add_button_label: Add a historic location!
   title: Tell us more...
   anonymous_name: Someone
   submit_button_label: Submit
   items:
-    - prompt: Location Name
+    - prompt: Name / Address of the building or place
       type: text
-      name: name
+      name: name_or_address
       attrs:
         - key: placeholder
-          value: Location Name
+          value: Name and/or Address of the building or place
         - key: size
           value: 30
-    - prompt: Location Type
-      type: select
+    - prompt:
+      type: hidden
       options:
-        - Landmark
-        - Park
-        - School
+        - historic_location
       name: location_type
-    - prompt: Your Name
-      type: text
-      name: submitter_name
-      optional: true
-      attrs:
-        - key: placeholder
-          value: Name
-        - key: size
-          value: 30
-    - prompt: Description
+    - prompt: Comment
       type: textarea
-      name: description
+      name: comment
       optional: true
       attrs:
         - key: placeholder
-          value: Description...
+          value: Any brief comment or personal memory about why this particular site is important to you
 
 survey:
+  # We are not actually using this; there's an open ticket about
+  # disabling the survey form.
+  # Meanwhile, we'll hide it using CSS.
+  # SO all the below is irrelevant.
   submission_type: comments
 
   # Response display config
-  show_responses: true
+  show_responses: false
   response_name: comment
   response_plural_name: comments
   action_text: commented on
@@ -146,14 +133,6 @@ pages:
     slug: about
     url: /static/pages/overview.html
     start_page: true
-
-  - title: "Why Shareabouts?"
-    slug: why
-    url: /static/pages/why.html
-
-  - title: Features
-    slug: features
-    url: /static/pages/features.html
 
   - title: OpenPlans
     external: true
