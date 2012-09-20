@@ -106,28 +106,27 @@ place:
           value: 30
 
 survey:
-  # We are not actually using this; there's an open ticket about
-  # disabling the survey form.
-  # Meanwhile, we'll hide it using CSS.
-  # SO all the below is irrelevant.
   submission_type: comments
 
   # Response display config
-  show_responses: false
+  show_responses: true
   response_name: comment
   response_plural_name: comments
   action_text: commented on
   anonymous_name: Someone
 
   # Survey form config
-  title:
+  title: Leave a Comment
   form_link_text: Leave a Comment
-  submit_btn_text:
+  submit_btn_text: Comment
   items:
-    - prompt:
-      label:
-      type: hidden
+    - prompt: Comment
+      label: Comment
+      type: textarea
       name: comment
+    - prompt: Your Name
+      type: text
+      name: submitter_name
 
 support:
   submission_type: support
