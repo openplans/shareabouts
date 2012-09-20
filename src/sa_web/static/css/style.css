@@ -664,9 +664,29 @@ textarea {
   padding: 0.6em;
 }
 
-/* Hide this until it is styled */
+/* Social Links */
 .social {
-  display: none;
+  float: right;
+}
+.sharing {
+  list-style: none;
+}
+.share-link { 
+  float: left;
+  padding: 0 !important;
+}
+.share-link a { 
+  display: block;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  text-indent: -9999px;
+}
+.share-twitter a {
+  background: url(images/twitter-32.png) 0 0 no-repeat scroll;
+}
+.share-facebook a {
+  background: url(images/facebook-32.png) 0 0 no-repeat scroll;
 }
 
 #user_support {
@@ -1190,6 +1210,19 @@ ul.recent-points {
     top: 7.75em; /* height of #site-header + extra 1.75em */
   }
 }
+
+/* double image resolution for retina displays */
+@media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+  .share-twitter a {
+    background-image: url(images/twitter-32.png);
+    background-size: contain;
+  }
+  .share-facebook a {
+    background-image: url(images/facebook-32.png);
+    background-size: contain;
+  }
+}
+
 
 /* Base Print Styles, inline to save the HTTP request */
 @media print {

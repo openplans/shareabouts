@@ -3,7 +3,7 @@
 api_root: http://api.shareabouts.org/api/v1/
 dataset: biketotransit/biketotransit
 # And the associated API key.
-dataset_api_key: MDcyZDQ4ZWQyY2Q2NGRjYzAxZTQzNDAz # YOUR_KEY_HERE
+dataset_api_key: YOUR_KEY_HERE
 
 # Settings for the app
 app:

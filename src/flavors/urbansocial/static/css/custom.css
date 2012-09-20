@@ -57,7 +57,13 @@ a:hover {
 
 #site-title a:link,
 #site-title a:visited {
-/*  font-size: 0.75em;*/
+  margin-top: 0.5em;
+  font-size: 0.4em;
+  display: block;
+  width: 11em;
+  white-space: normal !important;
+  font-family: "Helvetica Neue", Arial, Helvetica, serif;
+  line-height: 1.3;
 /*  color: #fff;*/
 }
 
@@ -187,7 +193,11 @@ a.reply-link:hover {
 /* =Voting & Social Promotion
 -------------------------------------------------------------- */
 .promotion {
-/*  background-color: #bf8fbf;*/
+/*  display: none;*/
+}
+
+#user_support {
+  display: none;
 }
 
 #user_support label {
@@ -229,6 +239,30 @@ ul.recent-points {
 /*  color: #fff;*/
 }
 
+.survey {
+  display: none;
+}
+
+
+/* =Custom Content Styles
+-------------------------------------------------------------- */
+.place-label {
+  display: none;
+}
+.place-value {}
+.place-value-scheduled,
+.place-value-nature,
+.place-value-meaningful {
+  float: left;
+  background: #ddd;
+  padding: 0.25em 0.5em;
+  margin: 0 0.125em 0 0;
+  font-size: 1.25em;
+}
+.place-value-place_desc {
+  font-size: 1.25em;
+  clear: both;
+}
 
 /* =Media Queries
 -------------------------------------------------------------- */
