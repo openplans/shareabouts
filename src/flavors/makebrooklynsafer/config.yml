@@ -1,7 +1,7 @@
 # The Shareabouts API dataset username & name used by this map.
 # You MUST change this after creating a dataset.
 api_root: http://api.shareabouts.org/api/v1/
-dataset: historiclouisville/historiclouisville
+dataset: makebrooklynsafer/makebrooklynsafer
 
 # And the associated API key.
 dataset_api_key: YOUR_KEY_HERE
@@ -9,32 +9,38 @@ dataset_api_key: YOUR_KEY_HERE
 # Settings for the app
 app:
   # HTML Title
-  title: "Mapping Louisville's Historic Assets"
+  title: Kids Riding on Safe Streets
   # Header name
-  name: "Mapping Louisville's Historic Assets"
+  name: Kids Riding on Safe Streets
   # Meta description that will show up in Google search results
-  meta_description: Map of buildings, places, and heritage resources in Louisville, KY that the community values as historic and worth saving.
+  meta_description:  "KROSSwalk Project (Kids Riding on Safe Streets) is about bicycle safety in downtown Brooklyn, NY."
 
 # Settings for map and layer configs
 map:
-  geolocation_enabled: false
-  geolocation_onload: false
+  geolocation_enabled: true
+  geolocation_onload: true
   options:
     center:
-      lat: 38.230629
-      lng: -85.758963
-    zoom: 13
+      lat: 40.698763153732166
+      lng: -73.98431539535522
+    zoom: 15
     minZoom: 11
     maxZoom: 17
   base_layer:
-    url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-light/{z}/{x}/{y}.png
+    url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
   layers: []
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  Historic Location:
+  Landmark:
+    default: blue
+    focused: red
+  Park:
+    default: blue
+    focused: red
+  School:
     default: blue
     focused: red
 
@@ -69,56 +75,65 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: Add a historic location!
+  add_button_label: Add a Place
   title: Tell us more...
   anonymous_name: Someone
   submit_button_label: Submit
   items:
-    - prompt: Name / Address of the building or place
+    - prompt: Location Name
       type: text
-      name: name_or_address
+      name: name
       attrs:
         - key: placeholder
-          value: Name and/or Address of the building or place
+          value: Location Name
         - key: size
           value: 30
-    - prompt: ''
+    - prompt: Location Type
+      type: select
+      options:
+        - Landmark
+        - Park
+        - School
       name: location_type
-      type: hidden
-      attrs:
-        - key: value
-          value: Historic Location
-    - prompt: Comment
-      type: textarea
-      name: comment
+    - prompt: Your Name
+      type: text
+      name: submitter_name
       optional: true
       attrs:
         - key: placeholder
-          value: Any brief comment or personal memory about why this particular site is important to you
+          value: Name
+        - key: size
+          value: 30
+    - prompt: Description
+      type: textarea
+      name: description
+      optional: true
+      attrs:
+        - key: placeholder
+          value: Description...
 
 survey:
-  # We are not actually using this; there's an open ticket about
-  # disabling the survey form.
-  # Meanwhile, we'll hide it using CSS.
-  # SO all the below is irrelevant.
   submission_type: comments
 
   # Response display config
-  show_responses: false
+  show_responses: true
   response_name: comment
   response_plural_name: comments
   action_text: commented on
   anonymous_name: Someone
 
   # Survey form config
-  title: 
+  title: Leave a Comment
   form_link_text: Leave a Comment
-  submit_btn_text: 
+  submit_btn_text: Comment
   items:
-    - prompt: 
-      label: 
-      type: hidden
+    - prompt: Comment
+      label: Comment
+      type: textarea
       name: comment
+    - prompt: Your Name
+      type: text
+      name: submitter_name
 
 support:
   submission_type: support
@@ -132,10 +147,6 @@ pages:
     url: /static/pages/overview.html
     start_page: true
 
-  - title: City Collaborative
+  - title: Make Brooklyn Safer
     external: true
-    url: http://citycollaborative.org
-
-  - title: Download the Data!
-    external: true
-    url: /download/places.csv
+    url: http://MakeBrooklynSafer.org
