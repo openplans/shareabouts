@@ -1,6 +1,6 @@
 # The Shareabouts API dataset username & name used by this map.
 # You MUST change this after creating a dataset.
-api_root: http://localhost:8001/api/v1/
+api_root: http://api.shareabouts.org/api/v1/
 dataset: makebrooklynsafer/makebrooklynsafer
 
 # And the associated API key.
