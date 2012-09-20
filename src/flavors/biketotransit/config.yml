@@ -240,7 +240,7 @@ survey:
       options:
         - Has sufficient and good quality bike parking
         - Needs more bike parking
-        - Needs better/more secure parking (covered, sheltered, ...)
+        - Needs better parking (covered, sheltered, secure, ...)
     - prompt: Are there gaps in the road and trail network around this station that you think need to be addressed with things like new bike lanes, shoulders, or trails? Are there other specific problems that prevent you or others from biking to this station? Please share your ideas.
       label: Other thoughts
       name: other_thoughts
