@@ -163,7 +163,7 @@ place_type_icons:
       x: 12
       y: 41
   gray-dot:
-    iconUrl: /static/css/images/markers/dot-4bad92.png
+    iconUrl: /static/css/images/markers/dot-rr-color.png
     iconSize:
       width: 17
       height: 18
@@ -171,7 +171,7 @@ place_type_icons:
       x: 9
       y: 9
   gray-pin:
-    iconUrl: /static/css/images/markers/marker-4bad92.png
+    iconUrl: /static/css/images/markers/marker-rr-color.png
     shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
@@ -240,7 +240,7 @@ survey:
       options:
         - Has sufficient and good quality bike parking
         - Needs more bike parking
-        - Needs better and more secure bike parking (such as covered or sheltered parking)
+        - Needs better/more secure parking (covered, sheltered, ...)
     - prompt: Are there gaps in the road and trail network around this station that you think need to be addressed with things like new bike lanes, shoulders, or trails? Are there other specific problems that prevent you or others from biking to this station? Please share your ideas.
       label: Other thoughts
       name: other_thoughts
