@@ -106,24 +106,27 @@ place:
           value: 30
 
 survey:
-  submission_type: comments
+  submission_type: memories
 
   # Response display config
   show_responses: true
-  response_name: comment
-  response_plural_name: comments
-  action_text: commented on
+  response_name: memory
+  response_plural_name: memories
+  action_text: added a memory about
   anonymous_name: Someone
 
   # Survey form config
-  title: Leave a Comment
-  form_link_text: Leave a Comment
-  submit_btn_text: Comment
+  title: Share a Memory
+  form_link_text: Share a Memory
+  submit_btn_text: Share
   items:
-    - prompt: Comment
+    - prompt: Comment or Memory
       label: Comment
       type: textarea
       name: comment
+      attrs:
+        - key: placeholder
+          value: Any brief comment or personal memory about why this particular site is important to you
     - prompt: Your Name
       type: text
       name: submitter_name
