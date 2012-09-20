@@ -214,8 +214,8 @@ survey:
 
   # Response display config
   show_responses: true
-  response_name: person has responded
-  response_plural_name: people have responded
+  response_name: response
+  response_plural_name: responses
   action_text: added input on
   anonymous_name: Someone
 
