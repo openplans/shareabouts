@@ -1,10 +1,15 @@
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'shareabouts_v1',
-        'USER': 'shareabouts',
-        'PASSWORD': 'shareabouts',
-        'HOST': '',
-        'PORT': '',
-    }
-}
+# The SHAREABOUTS_FLAVOR environment variable is used as a prefix for the
+# Shareabouts configuration. configuration is expected to live in a package
+# named 'flavors.<SHAREABOUTS_FLAVOR>'. This package will correspond to a
+# folder in the root of the src tree that contains all the configuration
+# information for the flavor.
+
+SHAREABOUTS_FLAVOR = 'default_config'
+SHAREABOUTS_CONFIG = os.path.abspath(os.path.join(HERE, '..', 'flavors', SHAREABOUTS_FLAVOR))
+
+INSTALLED_APPS = ('flavors.' + SHAREABOUTS_FLAVOR,) + INSTALLED_APPS
+
+TIME_ZONE = 'America/New_York'
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+

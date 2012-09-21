@@ -12,12 +12,21 @@ key for this dataset, which you can get from the "API Keys" tab of the
 manage UI.
 
 
-Step 1: Configuration
----------------------
+Step 1: Create a Flavor
+-----------------------
 
-Copy the *project/config.yml.template* file to *project/config.yml*. (If you
-would like to use a different path for your configuration file, edit
-the SHAREABOUTS_CONFIG path in the file *project/settings_local.py*.)
+A "flavor" is a particular configuration of Shareabouts.
+
+Copy the *flavors/default_config* folder to a new subdirectory
+of *flavors/*.  Name it whatever you want.
+
+Copy the *project/local_settings.py.template* file to
+*project/local_settings.py*  and edit the new file, changing
+SHAREABOUTS_FLAVOR to the name of the flavor directory you just
+created.
+
+Your flavor directory contains a *config.yml* file that you will be
+editing throughout the rest of these instructions.
 
 
 ### Dataset
@@ -76,7 +85,7 @@ Option         |Type      |Default   |Description
 ### Place Types
 
 Shareabouts can handle multiple types of Place. To set up the types
-you're interested in, edit config.yml and add an item to the
+syou're interested in, edit config.yml and add an item to the
 place_types mapping, like so:
 
     place_types:
@@ -245,6 +254,9 @@ Much of the text in Shareabouts can be customized via the Django
 localization (translation) machinery.  Even if you're only creating a
 site in english, this is useful to change various strings used on the
 site.
+
+*TODO* update this to reference the new flavor-specific django.po
+files, and make sure those work.
 
 The translations file is
 src/sa_web/locale/en_US/LC_MESSAGES/django.po
