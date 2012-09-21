@@ -98,7 +98,16 @@ a.add-place:hover {
 
 #user_support label {
   background-image: url(images/bike-gray-16.png);
+  background-color: #0AF;
+  color: white;
 }
+
+#user_support:hover label,
+#user_support label:hover {
+  background-color: #A3C7D9;
+  color: #444;
+}
+
 #user_support input[type=checkbox]:checked ~ label {
   background-image: url(images/bike-blue-16.png);
 }

@@ -8,20 +8,20 @@
 -------------------------------------------------------------- */
 
 body, select, input, textarea {
-/*  color: #000;*/
-/*  font-family: "Comic Sans MS", cursive, sans-serif;*/
+  color: #444;
+  font-family: "Helvetica Neue", Arial, Helvetica, serif;
 }
+
 
 
 /* =Links
 -------------------------------------------------------------- */
 
 a, a:active, a:visited {
-/*  color: #ff40ff;*/
+  color: #a64b3c;
 }
-
 a:hover {
-/*  color: #e500e5;*/
+  color: #d67053;
 }
 
 
@@ -29,16 +29,16 @@ a:hover {
 -------------------------------------------------------------- */
 
 #site-header {
-/*  color: #fff;*/
-/*  background-color: #994c99;*/
+  color: #555;
+  background-color: #fff;
 }
 
 #site-header a, #site-header a:active, #site-header a:visited {
-/*  color: #ff80ff;*/
+  color: #a64b3c;
 }
 
 #site-header a:hover {
-  /* color: #ffbfff; */
+   color: #d67053; 
 }
 
 
@@ -50,19 +50,24 @@ a:hover {
  * as to not break it scaling via media queries. */
 
 #site-title {
-/*  font-family: Impact, sans-serif;*/
-/*  color: #fff;*/
-/*  text-shadow: none;*/
+  font-family: "Helvetica Neue", Arial, Helvetica, serif;
+  text-shadow: none;
 }
 
 #site-title a:link,
 #site-title a:visited {
-/*  font-size: 0.75em;*/
-/*  color: #fff;*/
+  margin-top: 0.5em;
+  font-size: 0.4em;
+  display: block;
+  width: 9em;
+  text-transform: uppercase;
+  white-space: normal !important;
+  line-height: 1.3;
+  color: #444;
 }
 
 #site-title a:hover {
-/*  color: #fff;*/
+  color: #d67053;
 }
 
 
@@ -74,14 +79,14 @@ a:hover {
 
 a#nav-bttn:link,
 a#nav-bttn:visited {
-/*  color: #bf00bf;*/
-/*  background: #ffbfff;*/
-/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
+  color: #555;
+  background: #ccc;
+  font-family: "Helvetica Neue", Arial, Helvetica, serif;
 }
 
 a#nav-bttn:hover {
-/*  color: #ffbfff;*/
-/*  background: #fff;*/
+  color: #fff;
+  background: #555;
 }
 
 
@@ -89,22 +94,22 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 #access {
-/*  border: 1em solid #994c99;*/
-/*  border-top: 0.5em solid #994c99;*/
-/*  background: #994c99;*/
+  border: 1em solid #fff;
+  border-top: 0.5em solid #fff;
+  background: #fff;
 }
 
 #access li {
-/*  border-bottom: 2px solid #994c99;*/
+  border-bottom: 2px solid #eee;
 }
 
 #access a:hover {
-/*  color: #ffbfff;*/
-/*  background: #fff;*/
+  color: #d67053;
+  background: #eee;
 }
 
 #access a:visited, #access a:active, #access a:link {
-/*  color: #ffbfff;*/
+  color: #a64b3c;
 }
 
 
@@ -112,14 +117,15 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 a.add-place {
-/*  background-color: #ff40ff;*/
-/*  color: #eee;*/
-/*  text-shadow: none;*/
+  background-color: #a64b3c;
+  color: #fff;
+  text-shadow: none;
 }
 
 a.add-place:hover {
-/*  background-color: #e500e5;*/
-/*  color: #fff;*/
+  background-color: #d67053;
+  color: #fff;
+  text-shadow: 1px -1px 0 #a64b3c;
 }
 
 
@@ -130,19 +136,13 @@ a.add-place:hover {
  * remain the Helvetica stack, as it produces a good X close icon. */
 
 a.close-bttn {
-/*  color: #ff40ff;*/
-/*  background-color: #fff;*/
-/*  border-color: #ffbfff;*/
-/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
+  color: #d67053;
 }
 
 a.close-bttn:hover {
-/*  color: #e500e5;*/
-/*  background-color: #fff;*/
-/*  border-color: #e500e5;*/
+  color: #a64b3c;
 }
 a.close-bttn span {
-  /*  font-family: Impact, sans-serif;*/
 }
 
 
@@ -163,41 +163,152 @@ textarea {
 }
 
 .bttn {
-/*  color: #eee;*/
-/*  background-color: #ff40ff;*/
-/*  text-shadow: none;*/
+  background-color: #a64b3c;
+  color: #fff;
+  text-shadow: none;
 }
 
 .bttn:hover {
-/*  color: #fff;*/
-/*  background-color: #e500e5;*/
+  background-color: #d67053;
+  color: #fff;
+  text-shadow: 1px -1px 0 #a64b3c;
 }
 
 a.reply-link {
-/*  color: #1e5395;*/
-/*  background: #eef8fd;*/
+  color: #a64b3c;
+  background: #fff;
 }
 
 a.reply-link:hover {
-/*  color: #fff;*/
-/*  background-color: #e500e5;*/
+  color: #fff;
+  background-color: #d67053;
+}
+
+.survey-field-traffic_does_not_yield,
+.survey-field-bike_lane_blocked,
+.survey-field-no_bike_lane,
+.survey-field-speeding_traffic,
+.survey-field-not_enough_time_to_cross,
+.survey-field-dangerous_crossing,
+.survey-field-sidewalk_too_small,
+.survey-field-crosswalk_blocked,
+.survey-field-double_parked {
+  position: relative;
+  padding-left: 1.5em;
+}
+.survey-field-traffic_does_not_yield input,
+.survey-field-bike_lane_blocked input,
+.survey-field-no_bike_lane input,
+.survey-field-speeding_traffic input,
+.survey-field-not_enough_time_to_cross input,
+.survey-field-dangerous_crossing input,
+.survey-field-sidewalk_too_small input,
+.survey-field-crosswalk_blocked input,
+.survey-field-double_parked  input {
+  position: absolute;
+  top: 0.325em;
+  left: 0;
+}
+.survey-field-traffic_does_not_yield {
+  margin-top: 0.75em;
+}
+.survey-field-double_parked {
+  margin-bottom: 0.75em;
+}
+
+.place-items {
+  margin-bottom: 1.5em;
+}
+
+.place-items:before, .place-items:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
+.place-items:after { clear: both; }
+.place-items { zoom: 1; }
+
+.response-body:before, .response-body:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
+.response-body:after { clear: both; }
+.response-body { zoom: 1; }
+
+.place-item-traffic_does_not_yield,
+.place-item-bike_lane_blocked,
+.place-item-no_bike_lane,
+.place-item-speeding_traffic,
+.place-item-not_enough_time_to_cross,
+.place-item-dangerous_crossing,
+.place-item-sidewalk_too_small,
+.place-item-crosswalk_blocked,
+.place-item-double_parked,
+.response-item-traffic_does_not_yield,
+.response-item-bike_lane_blocked,
+.response-item-no_bike_lane,
+.response-item-speeding_traffic,
+.response-item-not_enough_time_to_cross,
+.response-item-dangerous_crossing,
+.response-item-sidewalk_too_small,
+.response-item-crosswalk_blocked,
+.response-item-double_parked {
+  display: inline;
+}
+#content .place-item-traffic_does_not_yield p,
+#content .place-item-bike_lane_blocked p,
+#content .place-item-no_bike_lane p,
+#content .place-item-speeding_traffic p,
+#content .place-item-not_enough_time_to_cross p,
+#content .place-item-dangerous_crossing p,
+#content .place-item-sidewalk_too_small p,
+#content .place-item-crosswalk_blocked p,
+#content .place-item-double_parked p,
+#content .response-item-traffic_does_not_yield p,
+#content .response-item-bike_lane_blocked p,
+#content .response-item-no_bike_lane p,
+#content .response-item-speeding_traffic p,
+#content .response-item-not_enough_time_to_cross p,
+#content .response-item-dangerous_crossing p,
+#content .response-item-sidewalk_too_small p,
+#content .response-item-crosswalk_blocked p,
+#content .response-item-double_parked p {
+  display: inline;
+  background: #999;
+  color: #fff;
+  padding: 0;
+}
+#content .place-item-traffic_does_not_yield p:not(:empty),
+#content .place-item-bike_lane_blocked p:not(:empty),
+#content .place-item-no_bike_lane p:not(:empty),
+#content .place-item-speeding_traffic p:not(:empty),
+#content .place-item-not_enough_time_to_cross p:not(:empty),
+#content .place-item-dangerous_crossing p:not(:empty),
+#content .place-item-sidewalk_too_small p:not(:empty),
+#content .place-item-crosswalk_blocked p:not(:empty),
+#content .place-item-double_parked p:not(:empty),
+#content .response-item-traffic_does_not_yield p:not(:empty),
+#content .response-item-bike_lane_blocked p:not(:empty),
+#content .response-item-no_bike_lane p:not(:empty),
+#content .response-item-speeding_traffic p:not(:empty),
+#content .response-item-not_enough_time_to_cross p:not(:empty),
+#content .response-item-dangerous_crossing p:not(:empty),
+#content .response-item-sidewalk_too_small p:not(:empty),
+#content .response-item-crosswalk_blocked p:not(:empty),
+#content .response-item-double_parked p:not(:empty) {
+  padding: 0.25em 0.5em;
+  margin: 0 0.25em 0.25em 0;
+  float: left;
+  display: block;
 }
 
 
 /* =Voting & Social Promotion
 -------------------------------------------------------------- */
 .promotion {
-/*  background-color: #bf8fbf;*/
 }
 
 #user_support label {
-/*  color: #ff80ff;*/
-/*  background-color: #fff;*/
+  color: #a64b3c;
+  background-color: #fff;
 }
 
 #user_support:hover label,
 #user_support label:hover {
-/*  color: #e500e5;*/
+  color: #d67053;
 }
 
 
@@ -205,28 +316,28 @@ a.reply-link:hover {
 -------------------------------------------------------------- */
 
 #ticker {
-/*  background-color: #806080;*/
+  background-color: #515151;
 }
 
 ul.recent-points {
-/*  color: #eee;*/
+  color: #eee;
 }
 
 .recent-points li {
-/*  border-bottom: 3px solid #664c66;*/
+  border-bottom: 3px solid #666;
 }
 
 .recent-points li:hover {
-/*  background: #bf60bf;*/
+  background: #777;
 }
 
 .recent-points a {
-/*  color: #eee;*/
+  color: #eee;
 }
 
 .recent-points li:hover a,
 .recent-points a:hover {
-/*  color: #fff;*/
+  color: #fff;
 }
 
 
@@ -235,8 +346,11 @@ ul.recent-points {
 
 @media only screen and (min-width: 768px) { /* menu is visible */
   #access {
-/*    border: 0;*/
-/*    background: transparent;*/
+    border: 0;
+    background: transparent;
+  }
+  #access li {
+    border-bottom: 0;
   }
 }
 
