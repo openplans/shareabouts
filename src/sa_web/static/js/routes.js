@@ -17,7 +17,7 @@ var Shareabouts = Shareabouts || {};
         responseType: options.surveyConfig['submission_type'],
         supportType: options.supportConfig['submission_type']
       });
-      this.activities = new S.ActivityCollection();
+      this.activities = new S.ActivityCollection(options.activity);
       this.appView = new S.AppView({
         el: 'body',
         collection: this.collection,
