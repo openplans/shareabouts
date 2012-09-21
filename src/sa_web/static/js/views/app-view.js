@@ -38,7 +38,9 @@ var Shareabouts = Shareabouts || {};
           placeTypes: this.options.placeTypes,
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
-          placeConfig: this.options.placeConfig
+          placeConfig: this.options.placeConfig,
+          // How often to check for new content
+          interval: this.options.activityConfig.interval || 5000
         });
       }
 

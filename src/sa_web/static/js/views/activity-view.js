@@ -14,7 +14,7 @@ var Shareabouts = Shareabouts || {};
       // Window where the activity lives
       this.$container = this.$el.parent();
       // How often to check for new content
-      this.interval = this.options.interval || 5000;
+      this.interval = this.options.interval;
       // How many pixel from the bottom until we look for more/older actions
       this.infiniteScrollBuffer = this.options.infiniteScrollBuffer || 25;
       // Debounce the scroll handler for efficiency
