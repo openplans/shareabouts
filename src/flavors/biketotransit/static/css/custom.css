@@ -111,3 +111,30 @@ a.add-place:hover {
 #user_support input[type=checkbox]:checked ~ label {
   background-image: url(images/bike-blue-16.png);
 }
+
+/* =Place Header
+-------------------------------------------------------------- */
+
+.place-submission-details {
+  display: none;
+}
+
+/* =Survey Responses
+-------------------------------------------------------------- */
+
+.response-body {
+  padding-left: 1em;
+}
+
+.response-label {
+  color: #888;
+  font-weight: bold;
+}
+
+.response-label::after {
+  content: ": ";
+}
+
+.response-value {
+  display: inline;
+}
