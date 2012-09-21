@@ -36,25 +36,45 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   Safe Intersection:
-    default: blue
-    focused: red
+    default: bubblethumb
+    focused: markerthumb
   Unsafe Intersection:
-    default: blue
-    focused: red
+    default: bubbleexclamation
+    focused: markerexclaimation
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  blue:
-    iconUrl: /static/css/images/feature-point.png
+  bubblethumb:
+    iconUrl: /static/css/images/bubble-thumbsup.png
     iconSize:
-      width: 17
-      height: 18
+      width: 30
+      height: 28
     iconAnchor:
-      x: 9
-      y: 9
-  red:
-    iconUrl: /static/css/images/marker-focused.png
+      x: 25
+      y: 26
+  markerthumb:
+    iconUrl: /static/css/images/marker-thumbsup.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  bubbleexclamation:
+    iconUrl: /static/css/images/bubble-exclamation.png
+    iconSize:
+      width: 30
+      height: 28
+    iconAnchor:
+      x: 25
+      y: 26
+  markerexclaimation:
+    iconUrl: /static/css/images/marker-exclamation.png
     shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
