@@ -13,7 +13,7 @@ app:
   # Header name
   name: Jackson Heights Survey
   # Meta description that will show up in Google search results
-  meta_description:
+  meta_description: The neighbors of Jackson Heights are collecting valuable information give us a better understanding about our local problems and opportunities so we can advocate for a better neighborhood!
 
 # Settings for map and layer configs
 map:
