@@ -1,6 +1,8 @@
 # Django settings for project project.
 import os.path
 
+HERE = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -138,7 +140,10 @@ INSTALLED_APPS = (
 )
 
 # Shareabouts flavor config
-SHAREABOUTS_CONFIG = os.path.join(os.path.dirname(__file__), '..', 'flavors' , 'default_config')
+
+SHAREABOUTS_FLAVOR = 'default_config'
+
+SHAREABOUTS_CONFIG = os.path.abspath(os.path.join(HERE, '..', 'flavors', SHAREABOUTS_FLAVOR))
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
