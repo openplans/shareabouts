@@ -151,14 +151,6 @@ def index(request, default_place_type):
     api = ShareaboutsApi(dataset=config['dataset'],
                          root=config['api_root'])
 
-    place_types_json = json.dumps(config['place_types'])
-    place_type_icons_json = json.dumps(config['place_type_icons'])
-    survey_config_json = json.dumps(config['survey'])
-    support_config_json = json.dumps(config['support'])
-    map_config_json = json.dumps(config['map'])
-    place_config_json = json.dumps(config['place'])
-    activity_config_json = json.dumps(config.get('activity', {}))
-
     # Handle place types in case insensitive way (park works just like Park)
     lower_place_types = [k.lower() for k in config['place_types'].keys()]
     if default_place_type.lower() in lower_place_types:
