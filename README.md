@@ -1,10 +1,27 @@
-Shareabouts is a simple web app for crowdsourced mapping. We're in very early stages right now, so expect many rough edges. 
+Shareabouts is an online mapping tool to gather crowd sourced public input in a
+social and engaging process. Using Shareabouts, people can drop a pin on a map
+to provide ideas, suggestions, and comments for planning and design issues. It
+complements and extends the reach of your existing or future project by
+collecting input from the people who know the city best. And as a
+mobile-friendly application, Shareabouts makes it easy to add input on the go.
 
-Shareabouts is intended for simple mapping applications. For example, you could use it to collect public input on suitable locations for stations in a city-wide bike share.
+Documentation
+-------------
+All of our documentation is is our `doc` directory. Use it to learn more about:
+* [the architecture](https://github.com/openplans/shareabouts/blob/master/doc/ARCHITECTURE.md)
+* [local setup](https://github.com/openplans/shareabouts/blob/master/doc/README.md)
+* [testing the source](https://github.com/openplans/shareabouts/blob/master/doc/TESTING.md)
+* [interface configuration](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md)
+* [custom themes](https://github.com/openplans/shareabouts/blob/master/doc/CUSTOM_THEME.md)
+* [how to deploy to DotCloud](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md)
+* [upgrading from an older version](https://github.com/openplans/shareabouts/blob/master/doc/UPGRADE.md)
 
-The project is open source, and we welcome your involvement.
-
-Requirements and a setup guide are located at doc/README_FOR_APP.
+Demos
+------------
+* [gathering usage data for a city park](http://sistercities.shareabouts.org/)
+* [mapping ATM surcharges](http://nosur.shareabouts.org/)
+* [surveying bike commuters about parking at stations](http://bikeparking.shareabouts.org/)
+* [tracking and describing community assets](http://communitymap.shareabouts.org/)
 
 Contributing
 ------------
