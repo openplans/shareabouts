@@ -6,7 +6,7 @@
     t.type  = 'text/javascript';
     t.async = true;
     t.id    = 'gauges-tracker';
-    t.setAttribute('data-site-id', '{{ config.feedback_key }}');
+    t.setAttribute('data-site-id', '{{ config.analytics_key }}');
     t.src = '//secure.gaug.es/track.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(t, s);
@@ -21,7 +21,7 @@
 <script type="text/javascript">
   if (typeof(Zenbox) !== 'undefined') {
     Zenbox.init({
-      dropboxID:   '{{ config.analytics_key }}',
+      dropboxID:   '{{ config.feedback_key }}',
       url:         'https://openplans.zendesk.com',
       tabID:       'Support',
       tabColor:    'black',
