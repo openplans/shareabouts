@@ -93,23 +93,14 @@ a.add-place:hover {
 -------------------------------------------------------------- */
 
 .support {
-  max-width: 75%;
+  display: none;
 }
 
-#user_support label {
-  background-image: url(images/bike-gray-16.png);
-  background-color: #0AF;
-  color: white;
-}
-
-#user_support:hover label,
-#user_support label:hover {
-  background-color: #A3C7D9;
-  color: #444;
-}
-
-#user_support input[type=checkbox]:checked ~ label {
-  background-image: url(images/bike-blue-16.png);
+.promotion {
+  height: 0;
+  padding: 0;
+  border: none;
+  margin: 0;
 }
 
 /* =Place Header
@@ -117,6 +108,26 @@ a.add-place:hover {
 
 .place-submission-details {
   display: none;
+}
+
+/* =Survey Form
+-------------------------------------------------------------- */
+
+.survey-label {
+  padding-top: 1em;
+}
+
+.survey-field-i_would_bike_here {
+  position: relative;
+}
+
+.survey-label-i_would_bike_here {
+  padding-left: 1.5em;
+}
+
+.survey-widgets-i_would_bike_here {
+  position: absolute;
+  top: 0.7em;
 }
 
 /* =Survey Responses
@@ -137,4 +148,13 @@ a.add-place:hover {
 
 .response-value {
   display: inline;
+}
+
+.response-value-i_would_bike_here {
+  color: #888;
+  font-weight: bold;
+}
+
+.response-label-i_would_bike_here {
+  display: none;
 }

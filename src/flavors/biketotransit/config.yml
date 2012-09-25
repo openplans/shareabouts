@@ -284,6 +284,13 @@ survey:
         - Has sufficient and good quality bike parking
         - Needs more bike parking
         - Needs better parking (covered, sheltered, secure, ...)
+    - prompt: I would bike to this station if improvements were made
+      label: I would bike to this station if improvements were made
+      name: i_would_bike_here
+      type: checkbox
+      attrs:
+        - key: value
+          value: I would bike to this station if improvements were made.
     - prompt: Please share your other ideas
       label: Other thoughts
       name: other_thoughts
