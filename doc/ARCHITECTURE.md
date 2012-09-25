@@ -2,12 +2,9 @@ SHAREABOUTS ARCHITECTURE
 ========================
 
 Shareabouts (SA) is composed primarily of two parts:
-the Shareabouts API service, and the Shareabouts Web front-end
-application.
-
-These are currently (2012-09-05) developed on two branches on github:
-sa-services and sa-web respectively.  That is likely to change, at
-some point they will probably become separate repositories.
+the [Shareabouts API](https://github.com/openplans/shareabouts-api)
+service, and the [Shareabouts](https://github.com/openplans/shareabouts)
+front-end application.
 
 
 The Shareabouts Web Application
@@ -42,7 +39,7 @@ creating and retrieving geographic points and metadata about them.
 It also includes a management UI for creating datasets and
 inspecting the raw data stored by the back end.
 
-For more about this, see **TODO: link to sa-service docs**
+For more about this, see **TODO: link to API docs**
 
 Shareabouts Data Model
 -----------------------
