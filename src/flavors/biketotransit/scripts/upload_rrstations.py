@@ -9,7 +9,7 @@ import sys
 logging.basicConfig(level='DEBUG')
 
 def main(api_key):
-    api = shareabouts.ShareaboutsApi('http://shareaboutsapi-civicworks.dotcloud.com/api/v1/')
+    api = shareabouts.ShareaboutsApi('http://api.shareabouts.org/api/v1/')
     api.authenticate_with_key(api_key)
     dataset = 'biketotransit'
     owner = 'biketotransit'
@@ -17,7 +17,7 @@ def main(api_key):
     railstations_url = api.build_uri('place_collection', username=owner,
                                      dataset_slug=dataset)
 
-    with open('rail-stations.csv') as railstationsfile:
+    with open('transpo-centers.csv') as railstationsfile:
         headers = None
         reader = csv.reader(railstationsfile)
         for row in reader:
@@ -30,7 +30,7 @@ def main(api_key):
                 'lat': float(station.pop('lat')),
                 'lng': float(station.pop('long'))
             }
-            station['name'] = station.pop('label')
+            station['name'] = station.get('label')
             station['location_type'] = station.pop('type')
             station['visible'] = True
 
