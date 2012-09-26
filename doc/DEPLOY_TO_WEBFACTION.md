@@ -7,28 +7,28 @@ You can of course deploy to any server that supports Django.
 Deploying to WebFaction
 -----------------------
 
-0) Create a Django application using Django 1.4 and Python 2.7.
+0. Create a Django application using Django 1.4 and Python 2.7.
 
-1) SSH into your server and vheck out the project alongside wherever WebFaction created your `myproject` app:
+1. SSH into your server and vheck out the project alongside wherever WebFaction created your `myproject` app:
 
        cd webapps/...
        git clone git://github.com/openplans/shareabouts.git
 
-2) Install pip and (optionally) virtualenv:
+2. Install pip and (optionally) virtualenv:
 
        easy_install-2.7 pip
        easy_install-2.7 virtualenv
 
-3) Create a virtual environment.  This is not technically necessary, but is recommended if you have any other non-Shareabouts Python applications running on your server, or if you plan to in the future:
+3. Create a virtual environment.  This is not technically necessary, but is recommended if you have any other non-Shareabouts Python applications running on your server, or if you plan to in the future:
 
        virtualenv venv --no-site-packages
        source venv/bin/activate
 
-4) Install the project dependencies:
+4. Install the project dependencies:
 
        pip install -r shareabouts/requirements.txt
 
-5) Edit the apache2/conf/http.conf file. This is so that Apache knows where to find the project's dependencies, and how to run the WSGI app:
+5. Edit the apache2/conf/http.conf file. This is so that Apache knows where to find the project's dependencies, and how to run the WSGI app:
 
        ServerRoot "/home/<HOME_DIR>/webapps/shareabouts_front/apache2"
 
@@ -64,7 +64,7 @@ Deploying to WebFaction
        WSGIScriptAlias / /home/<HOME_DIR>/webapps/.../shareabouts/src/project/wsgi.py
 
 
-6) Edit the WSGI module (shareabouts/src/project/wsgi.py).  This is so that the project runs in the same environment where all of its dependencies have been installed  *If you did not set up a virtual environment, you can skip this step*:
+6. Edit the WSGI module (shareabouts/src/project/wsgi.py).  This is so that the project runs in the same environment where all of its dependencies have been installed  *If you did not set up a virtual environment, you can skip this step*:
 
    After...
 
@@ -76,7 +76,7 @@ Deploying to WebFaction
        execfile(activate_this, dict(__file__=activate_this))
 
 
-7) Update the shareabouts/src/project/urls.py file to be able to find the site's static assets.  **NOTE: it would be better if this pointed to an actual static file server**:
+7. Update the shareabouts/src/project/urls.py file to be able to find the site's static assets.  **NOTE: it would be better if this pointed to an actual static file server**:
 
    At the top, add...
 
