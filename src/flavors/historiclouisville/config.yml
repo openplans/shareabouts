@@ -142,6 +142,10 @@ pages:
     url: /static/pages/overview.html
     start_page: true
 
+  - title: Tutorial
+    slug: tutorial
+    url: /static/pages/tutorial.html
+
   - title: City Collaborative
     external: true
     url: http://citycollaborative.org
