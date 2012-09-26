@@ -47,9 +47,13 @@ var Shareabouts = Shareabouts || {};
         options.data = {after: this.collection.first().get('id')};
       }
 
-      this.collection.fetch(options);
+      options.complete = _.bind(function() {
+        // After a check for activity has completed, no matter the result,
+        // schedule another.
+        _.delay(_.bind(this.checkForNewActivity, this), this.interval);
+      }, this);
 
-      _.delay(_.bind(this.checkForNewActivity, this), this.interval);
+      this.collection.fetch(options);
     },
 
     onScroll: function(evt) {
