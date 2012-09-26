@@ -30,24 +30,7 @@ Deploying to WebFaction
 
 5. Edit the apache2/conf/http.conf file. This is so that Apache knows where to find the project's dependencies, and how to run the WSGI app:
 
-        ServerRoot "/home/<HOME_DIR>/webapps/shareabouts_front/apache2"
-
-        LoadModule dir_module        modules/mod_dir.so
-        LoadModule env_module        modules/mod_env.so
-        LoadModule log_config_module modules/mod_log_config.so
-        LoadModule mime_module       modules/mod_mime.so
-        LoadModule rewrite_module    modules/mod_rewrite.so
-        LoadModule setenvif_module   modules/mod_setenvif.so
-        LoadModule wsgi_module       modules/mod_wsgi.so
-
-        LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
-        CustomLog /home/<HOME_DIR>/logs/user/access_shareabouts_front.log combined
-        ErrorLog /home/<HOME_DIR>/logs/user/error_shareabouts_front.log
-        KeepAlive Off
-        Listen 15610
-        MaxSpareThreads 3
-        MinSpareThreads 1
-        ServerLimit 1
+        ...
         SetEnvIf X-Forwarded-SSL on HTTPS=1
         ThreadsPerChild 5
 
