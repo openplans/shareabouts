@@ -11,81 +11,81 @@ Deploying to WebFaction
 
 1. SSH into your server and vheck out the project alongside wherever WebFaction created your `myproject` app:
 
-       cd webapps/...
-       git clone git://github.com/openplans/shareabouts.git
+        cd webapps/...
+        git clone git://github.com/openplans/shareabouts.git
 
 2. Install pip and (optionally) virtualenv:
 
-       easy_install-2.7 pip
-       easy_install-2.7 virtualenv
+        easy_install-2.7 pip
+        easy_install-2.7 virtualenv
 
 3. Create a virtual environment.  This is not technically necessary, but is recommended if you have any other non-Shareabouts Python applications running on your server, or if you plan to in the future:
 
-       virtualenv venv --no-site-packages
-       source venv/bin/activate
+        virtualenv venv --no-site-packages
+        source venv/bin/activate
 
 4. Install the project dependencies:
 
-       pip install -r shareabouts/requirements.txt
+        pip install -r shareabouts/requirements.txt
 
 5. Edit the apache2/conf/http.conf file. This is so that Apache knows where to find the project's dependencies, and how to run the WSGI app:
 
-       ServerRoot "/home/<HOME_DIR>/webapps/shareabouts_front/apache2"
+        ServerRoot "/home/<HOME_DIR>/webapps/shareabouts_front/apache2"
 
-       LoadModule dir_module        modules/mod_dir.so
-       LoadModule env_module        modules/mod_env.so
-       LoadModule log_config_module modules/mod_log_config.so
-       LoadModule mime_module       modules/mod_mime.so
-       LoadModule rewrite_module    modules/mod_rewrite.so
-       LoadModule setenvif_module   modules/mod_setenvif.so
-       LoadModule wsgi_module       modules/mod_wsgi.so
+        LoadModule dir_module        modules/mod_dir.so
+        LoadModule env_module        modules/mod_env.so
+        LoadModule log_config_module modules/mod_log_config.so
+        LoadModule mime_module       modules/mod_mime.so
+        LoadModule rewrite_module    modules/mod_rewrite.so
+        LoadModule setenvif_module   modules/mod_setenvif.so
+        LoadModule wsgi_module       modules/mod_wsgi.so
 
-       LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
-       CustomLog /home/<HOME_DIR>/logs/user/access_shareabouts_front.log combined
-       ErrorLog /home/<HOME_DIR>/logs/user/error_shareabouts_front.log
-       KeepAlive Off
-       Listen 15610
-       MaxSpareThreads 3
-       MinSpareThreads 1
-       ServerLimit 1
-       SetEnvIf X-Forwarded-SSL on HTTPS=1
-       ThreadsPerChild 5
+        LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+        CustomLog /home/<HOME_DIR>/logs/user/access_shareabouts_front.log combined
+        ErrorLog /home/<HOME_DIR>/logs/user/error_shareabouts_front.log
+        KeepAlive Off
+        Listen 15610
+        MaxSpareThreads 3
+        MinSpareThreads 1
+        ServerLimit 1
+        SetEnvIf X-Forwarded-SSL on HTTPS=1
+        ThreadsPerChild 5
 
-       #####
-       # THIS LINE WAS CHANGED to refer to your Shareabouts project path
-       WSGIDaemonProcess shareabouts_front processes=2 threads=12 python-path=/home/<HOME_DIR>/webapps/...:/home/<HOME_DIR>/webapps/.../shareabouts/src:/home/<HOME_DIR>/webapps/.../lib/python2.7
+        #####
+        # THIS LINE WAS CHANGED to refer to your Shareabouts project path
+        WSGIDaemonProcess shareabouts_front processes=2 threads=12 python-path=/home/<HOME_DIR>/webapps/...:/home/<HOME_DIR>/webapps/.../shareabouts/src:/home/<HOME_DIR>/webapps/.../lib/python2.7
 
-       WSGIProcessGroup shareabouts_front
-       WSGIRestrictEmbedded On
-       WSGILazyInitialization On
+        WSGIProcessGroup shareabouts_front
+        WSGIRestrictEmbedded On
+        WSGILazyInitialization On
 
-       #####
-       # AND THIS LINE WAS CHANGED to refer to your Shareabouts WSGI module
-       WSGIScriptAlias / /home/<HOME_DIR>/webapps/.../shareabouts/src/project/wsgi.py
+        #####
+        # AND THIS LINE WAS CHANGED to refer to your Shareabouts WSGI module
+        WSGIScriptAlias / /home/<HOME_DIR>/webapps/.../shareabouts/src/project/wsgi.py
 
 
 6. Edit the WSGI module (shareabouts/src/project/wsgi.py).  This is so that the project runs in the same environment where all of its dependencies have been installed  *If you did not set up a virtual environment, you can skip this step*:
 
    After...
 
-       os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 
    Add...
 
-       activate_this = os.path.expanduser("~/webapps/shareabouts_front/venv/bin/activate_this.py")
-       execfile(activate_this, dict(__file__=activate_this))
+        activate_this = os.path.expanduser("~/webapps/shareabouts_front/venv/bin/activate_this.py")
+        execfile(activate_this, dict(__file__=activate_this))
 
 
 7. Update the shareabouts/src/project/urls.py file to be able to find the site's static assets.  **NOTE: it would be better if this pointed to an actual static file server**:
 
    At the top, add...
 
-       from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+        from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
    And change
 
-       urlpatterns += patterns('',
+        urlpatterns += patterns('',
 
    to
 
-       urlpatterns += staticfiles_urlpatterns() + patterns('',
+        urlpatterns += staticfiles_urlpatterns() + patterns('',
