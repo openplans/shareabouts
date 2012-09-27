@@ -1,6 +1,7 @@
 import requests
 import yaml
 import json
+import logging
 import os
 import time
 import hashlib
@@ -52,7 +53,13 @@ def init_pages_config(pages_config, request):
 
         if not external and page_url is not None:
             page_url = request.build_absolute_uri(page_url)
-            # TODO It would be best if this were also asynchronous.
+            # TODO It would be good if this were also asynchronous. It would be
+            #      even better if we just popped some code into the template to
+            #      tell the client to load this URL.  Should we use an iframe?
+            #      Maybe an object tag? Something like:
+            #
+            #      response = ('<object type="text/html" data="{0}">'
+            #                  '</object>').format(page_url)
             response = requests.get(page_url)
 
             # If we successfully got the content, stick it into the config instead
@@ -81,7 +88,10 @@ def get_shareabouts_config(path_or_url):
         return ShareaboutsLocalConfig(path_or_url)
 
 
-class ShareaboutsConfig (object):
+class _ShareaboutsConfig (object):
+    """
+    Base class representing Shareabouts configuration options
+    """
     @property
     def data(self):
         if not hasattr(self, '_yml'):
@@ -106,7 +116,9 @@ class ShareaboutsConfig (object):
 #          The config.yml file contains the API key for the dataset.  If the
 #          file is available over HTTP for this application to download, it is
 #          available for anyone else as well.  It could be secured with some
-#          authentication scheme, but this has to be thought about further.
+#          authentication scheme, but this has to be thought about further. It
+#          might be best to remove the dataset meta-information from the config
+#          file and have people put it in the settings with the flavor.
 #
 #       2. Internationalization
 #          --------------------
@@ -118,7 +130,7 @@ class ShareaboutsConfig (object):
 #       For these reasons, we are not yet officially supporting remote
 #       configuration.
 #
-class ShareaboutsRemoteConfig (ShareaboutsConfig):
+class ShareaboutsRemoteConfig (_ShareaboutsConfig):
     def __init__(self, url):
         self.url = url
 
@@ -130,7 +142,7 @@ class ShareaboutsRemoteConfig (ShareaboutsConfig):
         return urllib2.urlopen(config_fileurl)
 
 
-class ShareaboutsLocalConfig (ShareaboutsConfig):
+class ShareaboutsLocalConfig (_ShareaboutsConfig):
     def __init__(self, path):
         self.path = path
 
@@ -144,6 +156,7 @@ class ShareaboutsLocalConfig (ShareaboutsConfig):
 
 @ensure_csrf_cookie
 def index(request, default_place_type):
+
     # Load app config settings
     config = get_shareabouts_config(settings.SHAREABOUTS_CONFIG)
 
