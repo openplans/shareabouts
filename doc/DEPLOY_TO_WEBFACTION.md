@@ -59,7 +59,7 @@ Deploying to WebFaction
         execfile(activate_this, dict(__file__=activate_this))
 
 
-7. Update the shareabouts/src/project/urls.py file to be able to find the site's static assets.  **NOTE: it would be better if this pointed to an actual static file server**:
+7. Update the shareabouts/src/project/urls.py file to be able to find the site's static assets.  **NOTE: it would be better if this pointed to an actual static file server.  See http://docs.webfaction.com/software/django/config.html#serving-django-static-media for more information**:
 
    At the top, add...
 
