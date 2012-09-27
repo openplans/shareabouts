@@ -67,8 +67,8 @@ Deploying to WebFaction
 
    And change
 
-        urlpatterns += patterns('',
+        urlpatterns = patterns('',
 
    to
 
-        urlpatterns += staticfiles_urlpatterns() + patterns('',
+        urlpatterns = staticfiles_urlpatterns() + patterns('',
