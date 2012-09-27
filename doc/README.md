@@ -6,6 +6,8 @@ Shareabouts requires python2.6 or greater.
 If you are converting from Shareabouts 1.0, note that
 we have switched platforms. See [the upgrade docs](UPGRADE.md).
 
+If you are looking for documentation for Shareabouts v1, see [the original docs](https://github.com/openplans/shareabouts/blob/v1/doc/README_FOR_APP).
+
 What's here
 ------------
 
