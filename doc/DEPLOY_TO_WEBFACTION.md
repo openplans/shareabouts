@@ -19,7 +19,7 @@ Deploying to WebFaction
         easy_install-2.7 pip
         easy_install-2.7 virtualenv
 
-3. Create a virtual environment.  This is not technically necessary, but is recommended if you have any other non-Shareabouts Python applications running on your server, or if you plan to in the future:
+3. Create a virtual environment.  This is not technically necessary, but is recommended if you have any other non-Shareabouts Python applications running on your server, or if you plan to in the future.  For a brief introduction to virtual environments in Python see http://iamzed.com/2009/05/07/a-primer-on-virtualenv/ or the virtualenv docs at http://www.virtualenv.org/:
 
         virtualenv venv --no-site-packages
         source venv/bin/activate
