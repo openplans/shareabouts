@@ -11,7 +11,7 @@ Deploying to WebFaction
 
 1. SSH into your server and check out the project alongside wherever WebFaction created your `myproject` app:
 
-        cd webapps/...
+        cd webapps/shareabouts_front
         git clone git://github.com/openplans/shareabouts.git
 
 2. Install pip and (optionally) virtualenv:
@@ -36,7 +36,7 @@ Deploying to WebFaction
 
         #####
         # THIS LINE WAS CHANGED to refer to your Shareabouts project path
-        WSGIDaemonProcess shareabouts_front processes=2 threads=12 python-path=/home/<HOME_DIR>/webapps/...:/home/<HOME_DIR>/webapps/.../shareabouts/src:/home/<HOME_DIR>/webapps/.../lib/python2.7
+        WSGIDaemonProcess shareabouts_front processes=2 threads=12 python-path=/home/<HOME_DIR>/webapps/shareabouts_front:/home/<HOME_DIR>/webapps/shareabouts_front/shareabouts/src:/home/<HOME_DIR>/webapps/shareabouts_front/lib/python2.7
 
         WSGIProcessGroup shareabouts_front
         WSGIRestrictEmbedded On
@@ -44,7 +44,7 @@ Deploying to WebFaction
 
         #####
         # AND THIS LINE WAS CHANGED to refer to your Shareabouts WSGI module
-        WSGIScriptAlias / /home/<HOME_DIR>/webapps/.../shareabouts/src/project/wsgi.py
+        WSGIScriptAlias / /home/<HOME_DIR>/webapps/shareabouts_front/shareabouts/src/project/wsgi.py
 
 
 6. Edit the WSGI module (shareabouts/src/project/wsgi.py).  This is so that the project runs in the same environment where all of its dependencies have been installed  *If you did not set up a virtual environment, you can skip this step*:
