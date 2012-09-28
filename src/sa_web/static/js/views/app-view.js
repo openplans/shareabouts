@@ -207,6 +207,11 @@ var Shareabouts = Shareabouts || {};
       });
 
       this.showPanel(pageConfig.content);
+
+      this.hideNewPin();
+      this.destroyNewModels();
+      this.hideCenterPoint();
+      this.hideAddButton();
     },
     showPanel: function(markup) {
       this.unfocusAllPlaces();
