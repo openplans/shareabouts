@@ -4,20 +4,29 @@ it has its own documentation.
 
 You can of course deploy to any server that supports Django.
 
-Deploying to DotCloud
----------------------
-
+Deploying to a PaaS provider
+----------------------------
 
 At OpenPlans, we have been deploying Shareabouts to DotCloud internally, so many
-of the files necessary are already in the repository.
+of the files necessary are already in the repository.  We also have the files
+necessary for deploying to Heroku.  Other PaaS providers should be simple
+variations on these.
 
-* First, create a new dotcloud application from the contents of the `master` branch:
+* Create a new application:
 
-    dotcloud create <instance name>
+  *DotCloud*
 
-* Push the code to DotCloud
+      dotcloud create <instance name>
 
-    dotcloud push <instance name> -b master
+  *Heroku*
+
+      heroku apps:create <instance name>
+
+* Push to the application
+
+  *DotCloud*
+
+      dotcloud push <instance name> -b master
 
   Note you should either push all your changes to your master
   repository (eg. github or whatever you're using for version
@@ -25,12 +34,16 @@ of the files necessary are already in the repository.
 
   For more options, see `dotcloud push --help`
 
-* Set your API key and root URL:
+  *Heroku*
 
-    dotcloud var set <instance name> SHAREABOUTS_API_KEY=<api key> \
-	                                 SHAREABOUTS_API_ROOT=<api root url>
+      git push heroku master:master
 
+* Set your flavor, and dataset API key and root URL:
 
-  (This will trigger another deploy, but it will go faster.)
+  *DotCloud*
+
+      dotcloud var set <instance name> SHAREABOUTS_FLAVOR=<flavor name> \
+	                                     SHAREABOUTS_DATASET_ROOT=<dataset root url> \
+	                                     SHAREABOUTS_DATASET_KEY=<dataset api key>
 
 Should be all done!
