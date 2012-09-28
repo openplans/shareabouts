@@ -14,8 +14,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'stub.db',  # In this case, the database is not important, but Django needs it to be here.
+        'ENGINE': 'django.db.backends.dummy',
     }
 }
 
