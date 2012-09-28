@@ -15,21 +15,19 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from proxy.views import proxy_view
 
 
-def make_resource_uri(dataset, resource, root):
+def make_resource_uri(resource, root):
     resource = resource.strip('/')
-    dataset = dataset.strip('/')
     root = root.rstrip('/')
-    uri = '%s/datasets/%s/%s/' % (root, dataset, resource)
+    uri = '%s/%s/' % (root, resource)
     return uri
 
 
 class ShareaboutsApi (object):
-    def __init__(self, dataset, root):
+    def __init__(self, root):
         self.root = root
-        self.dataset = dataset
 
     def get(self, resource, default=None, **kwargs):
-        uri = make_resource_uri(self.dataset, resource, root=self.root)
+        uri = make_resource_uri(resource, root=self.root)
         res = requests.get(uri, params=kwargs,
                            headers={'Accept': 'application/json'})
         return (res.text if res.status_code == 200 else default)
@@ -158,11 +156,10 @@ class ShareaboutsLocalConfig (_ShareaboutsConfig):
 def index(request, default_place_type):
 
     # Load app config settings
-    config = get_shareabouts_config(settings.SHAREABOUTS_CONFIG)
+    config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
 
     # Get initial data for bootstrapping into the page.
-    api = ShareaboutsApi(dataset=config['dataset'],
-                         root=config['api_root'])
+    api = ShareaboutsApi(root=settings.SHAREABOUTS.get('DATASET_ROOT'))
 
     # Handle place types in case insensitive way (park works just like Park)
     lower_place_types = [k.lower() for k in config['place_types'].keys()]
@@ -216,12 +213,10 @@ def api(request, path):
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    config = get_shareabouts_config(settings.SHAREABOUTS_CONFIG)
+    root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    api_key = settings.SHAREABOUTS.get('DATASET_KEY')
 
-    dataset = config['dataset']
-    api_key = config['dataset_api_key']
-    url = make_resource_uri(dataset, path, config['api_root'])
-
+    url = make_resource_uri(path, root)
     headers = {'X-Shareabouts-Key': api_key}
     return proxy_view(request, url, requests_args={'headers': headers})
 
@@ -231,12 +226,10 @@ def csv_download(request, path):
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    config = get_shareabouts_config(settings.SHAREABOUTS_CONFIG)
+    root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    api_key = settings.SHAREABOUTS.get('DATASET_KEY')
 
-    dataset = config['dataset']
-    api_key = config['dataset_api_key']
-    url = make_resource_uri(dataset, path, config['api_root'])
-
+    url = make_resource_uri(path, root)
     headers = {
         'X-Shareabouts-Key': api_key,
         'ACCEPT': 'text/csv'

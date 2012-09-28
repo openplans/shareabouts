@@ -1,15 +1,69 @@
-# The SHAREABOUTS_FLAVOR environment variable is used as a prefix for the
+TIME_ZONE = 'America/New_York'
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+# The SHAREABOUTS['FLAVOR'] environment variable is used as a prefix for the
 # Shareabouts configuration. configuration is expected to live in a package
 # named 'flavors.<SHAREABOUTS_FLAVOR>'. This package will correspond to a
 # folder in the root of the src tree that contains all the configuration
 # information for the flavor.
 
-SHAREABOUTS_FLAVOR = 'default_config'
-SHAREABOUTS_CONFIG = os.path.abspath(os.path.join(HERE, '..', 'flavors', SHAREABOUTS_FLAVOR))
+SHAREABOUTS = {
+  'FLAVOR': 'default_config',
+  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/demo-user/demo-data/',
+  'DATASET_KEY': 'abc123',
+}
 
-INSTALLED_APPS = ('flavors.' + SHAREABOUTS_FLAVOR,) + INSTALLED_APPS
+#SHAREABOUTS = {
+#  'FLAVOR': 'bikeparking',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/rr-stations/',
+#  'DATASET_KEY': 'abc123',
+#}
 
-TIME_ZONE = 'America/New_York'
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+#SHAREABOUTS = {
+#  'FLAVOR': 'biketotransit',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/biketotransit/biketotransit/',
+#  'DATASET_KEY': 'abc123',
+#}
 
+#SHAREABOUTS = {
+#  'FLAVOR': 'communitymap',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/community-map/',
+#  'DATASET_KEY': 'abc123',
+#}
+
+#SHAREABOUTS = {
+#  'FLAVOR': 'historiclouisville',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/historiclouisville/historiclouisville/',
+#  'DATASET_KEY': 'abc123',
+#}
+
+#SHAREABOUTS = {
+#  'FLAVOR': 'jacksonheights',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/jacksonheights/jacksonheights/',
+#  'DATASET_KEY': 'abc123',
+#}
+
+#SHAREABOUTS = {
+#  'FLAVOR': 'makebrooklynsafer',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/makebrooklynsafer/makebrooklynsafer/',
+#  'DATASET_KEY': 'abc123',
+#}
+
+#SHAREABOUTS = {
+#  'FLAVOR': 'nosur',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/atm_surcharge/',
+#  'DATASET_KEY': 'abc123',
+#}
+
+#SHAREABOUTS = {
+#  'FLAVOR': 'sistercities',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/sc-usage/',
+#  'DATASET_KEY': 'abc123',
+#}
+
+#SHAREABOUTS = {
+#  'FLAVOR': 'urbansocial',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/urbansocial/urbansocial/',
+#  'DATASET_KEY': 'abc123',
+#}

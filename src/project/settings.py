@@ -134,16 +134,28 @@ INSTALLED_APPS = (
     # Project apps
     'sa_web',
     'proxy',
-
-    # The current Shareabouts flavor
-    'flavors.default_config',
 )
 
 # Shareabouts flavor config
+SHAREABOUTS = {
+    'FLAVOR': 'default_config',
+    # The name of the flavor. Optional, but useful for using the default settings.
 
-SHAREABOUTS_FLAVOR = 'default_config'
+    'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/demo-user/demo-data/',
+    # The root URL of the dataset API
 
-SHAREABOUTS_CONFIG = os.path.abspath(os.path.join(HERE, '..', 'flavors', SHAREABOUTS_FLAVOR))
+    'DATASET_KEY': 'abc123',
+    # The API key for writing to the dataset.  You must set this in order to be
+    # able to write to the dataset
+
+  # 'CONFIG': '...',
+    # The path to the config file for the flavor. By default, this is a file
+    # called 'config.yml' in a project folder called 'flavors/<name>/'
+
+  # 'PACKAGE': '...',
+    # The django app package for the flavor.  By default, this is
+    # 'flavors.<name>'
+}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -175,6 +187,20 @@ LOGGING = {
 }
 
 ##############################################################################
+# Environment overrides
+# ---------------------
+# Pull in certain values from the environment.
+
+env = os.environ
+
+if 'SHAREABOUTS_FLAVOR' in env:
+    SHAREABOUTS['FLAVOR'] = env.get('SHAREABOUTS_FLAVOR')
+if 'SHAREABOUTS_DATASET_ROOT' in env:
+    SHAREABOUTS['DATASET_ROOT'] = env.get('SHAREABOUTS_DATASET_ROOT')
+if 'SHAREABOUTS_DATASET_KEY' in env:
+    SHAREABOUTS['DATASET_KEY'] = env.get('SHAREABOUTS_DATASET_KEY')
+
+##############################################################################
 # Local settings overrides
 # ------------------------
 # Override settings values by importing the local_settings.py module.
@@ -184,3 +210,17 @@ if os.path.exists(LOCAL_SETTINGS_FILE):
     # By doing this instead of import, local_settings.py can refer to
     # local variables from settings.py without circular imports.
     execfile(LOCAL_SETTINGS_FILE)
+
+
+##############################################################################
+# Flavor defaults
+# ---------------
+# By default, the flavor is assumed to be a local python package.  If no
+# CONFIG_FILE or PACKAGE is specified, they are constructed as below.
+
+flavor = SHAREABOUTS.get('FLAVOR')
+if 'CONFIG' not in SHAREABOUTS:
+    SHAREABOUTS['CONFIG'] = os.path.abspath(os.path.join(HERE, '..', 'flavors', flavor))
+if 'PACKAGE' not in SHAREABOUTS:
+    SHAREABOUTS['PACKAGE'] = '.'.join(['flavors', flavor])
+    INSTALLED_APPS = (SHAREABOUTS['PACKAGE'],) + INSTALLED_APPS
