@@ -20,6 +20,9 @@ var Shareabouts = Shareabouts || {};
 
     onPageLinkClick: function(evt) {
       evt.preventDefault();
+      // Hide mobile list when one is selected
+      $('#access').removeClass('expose');
+      // Load the content
       this.options.router.navigate(evt.target.getAttribute('href'), {trigger: true});
     },
 
