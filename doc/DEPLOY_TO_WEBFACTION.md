@@ -7,9 +7,9 @@ You can of course deploy to any server that supports Django.
 Deploying to WebFaction
 -----------------------
 
-0. Create a Django application using Django 1.4 and Python 2.7.
+0. Create a Django application using Django 1.4 and Python 2.7 in the control panel (Applications -> Add New Application). In this case an application called 'shareabouts_front' was created.
 
-1. SSH into your server and vheck out the project alongside wherever WebFaction created your `myproject` app:
+1. SSH into your server and check out the project alongside wherever WebFaction created your `myproject` app:
 
         cd webapps/...
         git clone git://github.com/openplans/shareabouts.git
@@ -19,7 +19,7 @@ Deploying to WebFaction
         easy_install-2.7 pip
         easy_install-2.7 virtualenv
 
-3. Create a virtual environment.  This is not technically necessary, but is recommended if you have any other non-Shareabouts Python applications running on your server, or if you plan to in the future:
+3. Create a virtual environment.  This is not technically necessary, but is recommended if you have any other non-Shareabouts Python applications running on your server, or if you plan to in the future.  For a brief introduction to virtual environments in Python see http://iamzed.com/2009/05/07/a-primer-on-virtualenv/ or the virtualenv docs at http://www.virtualenv.org/:
 
         virtualenv venv --no-site-packages
         source venv/bin/activate
@@ -59,7 +59,7 @@ Deploying to WebFaction
         execfile(activate_this, dict(__file__=activate_this))
 
 
-7. Update the shareabouts/src/project/urls.py file to be able to find the site's static assets.  **NOTE: it would be better if this pointed to an actual static file server**:
+7. Update the shareabouts/src/project/urls.py file to be able to find the site's static assets.  **NOTE: it would be better if this pointed to an actual static file server.  See http://docs.webfaction.com/software/django/config.html#serving-django-static-media for more information**:
 
    At the top, add...
 
@@ -67,8 +67,8 @@ Deploying to WebFaction
 
    And change
 
-        urlpatterns += patterns('',
+        urlpatterns = patterns('',
 
    to
 
-        urlpatterns += staticfiles_urlpatterns() + patterns('',
+        urlpatterns = staticfiles_urlpatterns() + patterns('',

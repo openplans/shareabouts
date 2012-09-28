@@ -32,9 +32,12 @@ editing throughout the rest of these instructions.
 ### Dataset
 
 Enter your username and dataset, along with your API key, into the
-config.yml file.
+config.yml file.  The `dataset` attribute is composed of both your
+username and the short-name of the dataset:
 
-**NOTE: You don't want to check this information in to your
+    dataset: username/dataset-slug
+
+**NOTE: You don't want to check the API key information in to your
 repository, as anyone would be able to write to your data using your
 API key.**
 
