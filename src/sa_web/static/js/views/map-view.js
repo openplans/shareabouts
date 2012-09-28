@@ -56,6 +56,8 @@ var Shareabouts = Shareabouts || {};
       });
     },
     initGeolocation: function() {
+      var self = this;
+
       var onLocationError = function(evt) {
         var message;
         switch (evt.code) {
@@ -79,6 +81,17 @@ var Shareabouts = Shareabouts || {};
         alert(message);
       };
 
+      var onLocationFound = function(evt) {
+        var msg;
+        if(!self.map.options.maxBounds ||self.map.options.maxBounds.contains(evt.latlng)) {
+          self.map.fitBounds(evt.bounds);
+        } else {
+          msg = 'It looks like you\'re not in a place where we\'re collecting ' +
+            'data. I\'m going to leave the map where it is, okay?';
+          alert(msg);
+        }
+      };
+
       // Add the geolocation control link
       this.$('.leaflet-top.leaflet-right').append(
         '<div class="leaflet-control">' +
@@ -86,8 +99,9 @@ var Shareabouts = Shareabouts || {};
         '</div>'
       );
 
-      // Bind error handling event
+      // Bind event handling
       this.map.on('locationerror', onLocationError);
+      this.map.on('locationfound', onLocationFound);
 
       // Go to the current location if specified
       if (this.options.mapConfig.geolocation_onload) {
@@ -99,7 +113,7 @@ var Shareabouts = Shareabouts || {};
         evt.preventDefault();
       }
 
-      this.map.locate({setView: true});
+      this.map.locate();
     },
     addLayerView: function(model) {
       this.layerViews[model.cid] = new S.LayerView({
