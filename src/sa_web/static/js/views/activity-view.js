@@ -133,7 +133,7 @@ var Shareabouts = Shareabouts || {};
 
         // Check whether the location type starts with a vowel; useful for
         // choosing between 'a' and 'an'.  Not language-independent.
-        if ('aeiou'.indexOf(placeData['location_type'][0]) > -1) {
+        if ('AEIOUaeiou'.indexOf(placeData['location_type'][0]) > -1) {
           placeData['type_starts_with_vowel'] = true;
         }
 
