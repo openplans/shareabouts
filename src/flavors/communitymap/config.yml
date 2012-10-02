@@ -103,6 +103,7 @@ place:
   adding_supported: true
   title: Tell us more...
   add_button_label: Add a Place
+  action_text: identified
   anonymous_name: Someone
   submit_button_label: Submit
   items:

@@ -64,6 +64,7 @@ place:
   adding_supported: true
   add_button_label: Add a Meeting!
   title: Tell us about it...
+  action_text: had
   anonymous_name: Someone
   submit_button_label: Submit
   items:

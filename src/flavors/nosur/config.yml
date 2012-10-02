@@ -71,6 +71,7 @@ place:
   adding_supported: true
   add_button_label: Add an ATM
   title: Tell us about this ATM
+  action_text: added
   anonymous_name: Someone
   submit_button_label: Submit
   items:

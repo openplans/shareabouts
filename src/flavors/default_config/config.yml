@@ -80,6 +80,7 @@ place:
   add_button_label: Add a Place
   action_text: added
   title: Tell us more...
+  action_text: created
   anonymous_name: Someone
   submit_button_label: Submit
   items:

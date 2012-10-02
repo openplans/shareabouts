@@ -53,6 +53,7 @@ place_type_icons: {
 place:
   adding_supported: false
   add_button_label: Add an Place
+  action_text: created
   anonymous_name: Someone
   submit_button_label: Submit
 
