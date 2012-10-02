@@ -62,7 +62,7 @@ activity:
 place:
   adding_supported: true
   add_button_label: Add a historic location!
-  title: Tell us more...
+  title: Zoom in on the map to add a historic location.
   anonymous_name: Someone
   submit_button_label: Submit
   items:
