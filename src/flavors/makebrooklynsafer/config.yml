@@ -90,6 +90,15 @@ place:
   anonymous_name: Someone
   submit_button_label: Submit
   items:
+    - prompt: Intersection
+      type: text
+      name: intersection_name
+      optional: false
+      attrs:
+        - key: placeholder
+          value: For example, NE corner of Adams St and Tillary St
+        - key: size
+          value: 30
     - prompt: Description
       type: textarea
       name: description
@@ -103,15 +112,7 @@ place:
         - Unsafe Intersection
         - Safe Intersection
       name: location_type
-    - prompt: Your Name
-      type: text
-      name: submitter_name
-      optional: false
-      attrs:
-        - key: placeholder
-          value: You must leave name to have your comment be visible to others.
-        - key: size
-          value: 30
+
     - prompt: Traffic Does Not Yield
       type: checkbox
       optional: true
@@ -180,6 +181,15 @@ place:
       attrs:
         - key: placeholder
           value: Let us know if you were on the sidewalk/street and if you were on a bike or on foot, stroller, etc.
+    - prompt: Your Name
+      type: text
+      name: submitter_name
+      optional: false
+      attrs:
+        - key: placeholder
+          value: You must leave name to have your comment be visible to others.
+        - key: size
+          value: 30
 
 
 survey:
