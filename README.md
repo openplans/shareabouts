@@ -19,6 +19,8 @@ All of our documentation is is our `doc` directory. Use it to learn more about:
 * [how to deploy to DotCloud](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md)
 * [upgrading from an older version](https://github.com/openplans/shareabouts/blob/master/doc/UPGRADE.md)
 
+Where is Sharabouts going? Check [our roadmap](https://github.com/openplans/shareabouts/wiki/Roadmap) for details of possble future features we've identified.
+
 Demos
 ------------
 * [gathering usage data for a city park](http://sistercities.shareabouts.org/)
@@ -28,7 +30,7 @@ Demos
 
 Contributing
 ------------
-In the spirit of [free software](http://www.fsf.org/licensing/essays/free-sw.html), **everyone** is encouraged to help improve this project.
+In the spirit of [free software](http://www.fsf.org/licensing/essays/free-sw.html), **everyone** is encouraged to help improve this project. 
 
 Here are some ways *you* can contribute:
 
