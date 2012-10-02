@@ -126,7 +126,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     # 3rd-party reusaple apps
-    'south',
     'mustachejs',
     'compressor',
 
@@ -154,6 +153,9 @@ SHAREABOUTS = {
   # 'PACKAGE': '...',
     # The django app package for the flavor.  By default, this is
     # 'flavors.<name>'
+
+  # 'CONTEXT': {},
+    # Additional values to make available in the template context
 }
 
 # A sample logging configuration. The only tangible logging
@@ -217,9 +219,10 @@ if os.path.exists(LOCAL_SETTINGS_FILE):
 # By default, the flavor is assumed to be a local python package.  If no
 # CONFIG_FILE or PACKAGE is specified, they are constructed as below.
 
+here = os.path.abspath(os.path.dirname(__file__))
 flavor = SHAREABOUTS.get('FLAVOR')
 if 'CONFIG' not in SHAREABOUTS:
-    SHAREABOUTS['CONFIG'] = os.path.abspath(os.path.join(HERE, '..', 'flavors', flavor))
+    SHAREABOUTS['CONFIG'] = os.path.abspath(os.path.join(here, '..', 'flavors', flavor))
 if 'PACKAGE' not in SHAREABOUTS:
     SHAREABOUTS['PACKAGE'] = '.'.join(['flavors', flavor])
     INSTALLED_APPS = (SHAREABOUTS['PACKAGE'],) + INSTALLED_APPS

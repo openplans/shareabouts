@@ -104,6 +104,9 @@ class _ShareaboutsConfig (object):
     def get(self, key, default=None):
         return self.data.get(key, default)
 
+    def update(self, other):
+        self.data.update(other)
+
 
 #
 # TODO: Remote configuration is an attractive thing to support, but it has
@@ -157,6 +160,7 @@ def index(request, default_place_type):
 
     # Load app config settings
     config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
+    config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
 
     # Get initial data for bootstrapping into the page.
     api = ShareaboutsApi(root=settings.SHAREABOUTS.get('DATASET_ROOT'))

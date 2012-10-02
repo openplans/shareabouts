@@ -6,6 +6,7 @@
 echo "Writing the local settings file..."
 echo "  - Setting the path to the Shareabouts config"
 echo "  - Adding the flavor to the installed applications"
+echo "  - Setting the dataset access location and key"
 
 cat >> src/project/local_settings.py <<EOF
 
@@ -20,9 +21,17 @@ with open('/home/dotcloud/environment.json') as f:
 # named 'flavors.<SHAREABOUTS_FLAVOR>'. This package will correspond to a
 # folder in the root of the src tree that contains all the configuration
 # information for the flavor.
-SHAREABOUTS_FLAVOR = env.get('SHAREABOUTS_FLAVOR')
-INSTALLED_APPS = ('flavors.' + SHAREABOUTS_FLAVOR,) + INSTALLED_APPS
-SHAREABOUTS_CONFIG = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'flavors', SHAREABOUTS_FLAVOR))
+
+SHAREABOUTS = {
+    'FLAVOR': env.get('SHAREABOUTS_FLAVOR', 'SHAREABOUTS_FLAVOR-not-set-in-dotcloud-environment!!!'),
+    'DATASET_KEY': env.get('SHAREABOUTS_DATASET_KEY', 'SHAREABOUTS_DATASET_KEY-not-set-in-dotcloud-environment!!!'),
+    'DATASET_ROOT': env.get('SHAREABOUTS_DATASET_ROOT', 'SHAREABOUTS_DATASET_ROOT-not-set-in-dotcloud-environment!!!'),
+
+    'CONTEXT': {
+        'analytics_key': env.get('SHAREABOUTS_ANALYTICS_KEY', 'SHAREABOUTS_ANALYTICS_KEY-not-set-in-dotcloud-environment!!!'),
+        'feedback_key': env.get('SHAREABOUTS_FEEDBACK_KEY', 'SHAREABOUTS_FEEDBACK_KEY-not-set-in-dotcloud-environment!!!'),
+    }
+}
 
 STATIC_ROOT = '/home/dotcloud/current/static/'
 
@@ -31,25 +40,6 @@ DEBUG = (env.get('DEBUG', 'False') in ['true', 'True'])
 TEMPLATE_DEBUG = DEBUG
 
 EOF
-
-echo "Injecting the Shareabouts API access info into the config file at $SHAREABOUTS_FLAVOR"
-python -c "
-import json
-
-with open('/home/dotcloud/environment.json') as f:
-  env = json.load(f)
-
-print
-print 'dataset_api_key: ' + env.get('SHAREABOUTS_API_KEY')
-print 'api_root: ' + env.get('SHAREABOUTS_API_ROOT', 'SHAREABOUTS_API_ROOT-not-set-in-dotcloud-environment!!!')
-print 'analytics_key: ' + env.get('SHAREABOUTS_ANALYTICS_KEY', 'SHAREABOUTS_ANALYTICS_KEY-not-set-in-dotcloud-environment!!!')
-print 'feedback_key: ' + env.get('SHAREABOUTS_FEEDBACK_KEY', 'SHAREABOUTS_FEEDBACK_KEY-not-set-in-dotcloud-environment!!!')
-
-" | cat >> src/flavors/$SHAREABOUTS_FLAVOR/config.yml
-
-
-echo "Syncing the database..."
-src/manage.py syncdb --migrate --noinput
 
 echo "Setting up static file service..."
 src/manage.py collectstatic --noinput
@@ -62,4 +52,6 @@ EOF
 echo "Compiling translations..."
 cd src/sa_web
 ../manage.py compilemessages
-cd ../..
+cd ../flavors/$SHAREABOUTS_FLAVOR
+../../manage.py compilemessages
+cd ../../..
