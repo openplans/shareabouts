@@ -78,6 +78,7 @@ activity:
 place:
   adding_supported: true
   add_button_label: Add a Place
+  action_text: added
   title: Tell us more...
   anonymous_name: Someone
   submit_button_label: Submit

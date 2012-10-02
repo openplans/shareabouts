@@ -4,7 +4,7 @@
           {{ submitter_name }}
           </strong>
           {{# is_place }}
-            created a <span class="place-type">{{ place.location_type }}</span>
+            {{ action }} a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }} <span class="place-type">{{ place.location_type }}</span>
             {{# place.name }} named <span class="place-name">{{ place.name }}</span>{{/ place.name }}
           {{/ is_place }}
 

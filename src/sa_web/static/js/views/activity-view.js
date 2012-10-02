@@ -115,6 +115,7 @@ var Shareabouts = Shareabouts || {};
         // Get the place that the action is about.
         if (isPlaceAction) {
           placeData = model.get('data');
+          actionText = this.options.placeConfig.action_text;
           anonSubmitterName = this.options.placeConfig.anonymous_name;
         } else {
           placeData = this.options.places.get(model.get('place_id')).toJSON();
