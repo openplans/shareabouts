@@ -181,8 +181,22 @@ ul.recent-points {
   padding-left: 0;
 }
 
+/* =Zendesk
+-------------------------------------------------------------- */
+#zenbox_tab {
+  visibility: hidden;
+  top: 40% !important;
+  opacity: 0.7;
+}
+
+/* =Media Queries
+-------------------------------------------------------------- */
 
 @media only screen and (min-width: 768px) { /* menu is visible */
+  #zenbox_tab {
+    visibility: visible;
+  }
+
   #access {
     top: 0;
   }
