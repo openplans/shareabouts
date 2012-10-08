@@ -134,6 +134,9 @@ INSTALLED_APPS = (
     'proxy',
 )
 
+# Use a test runner that does not use a database.
+TEST_RUNNER = 'sa_web.test_runner.DatabaselessTestSuiteRunner'
+
 # Shareabouts flavor config
 SHAREABOUTS = {
     'FLAVOR': 'default_config',
