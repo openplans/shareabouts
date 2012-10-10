@@ -100,7 +100,7 @@ local development server at:
 Deployment
 -------------
 
-See [the deployment docs](DEPLOY.md).
+See [the deployment docs](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md).
 
 
 Testing
