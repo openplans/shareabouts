@@ -39,6 +39,8 @@ variations on these.
       git push heroku master:master
 
 * Set your flavor, and dataset API key and root URL:
+  
+  You will need your dataset root API URL for this step.  Suppose you are using an API server hames *api.shareabouts.org* with a username *mjumbewu* and a dataset called *niceplaces*. In this case, your dataset root will he `http://api.shareabouts.org/api/v1/datasets/mjumbewu/niceplaces/`.  In general, it will always be `http://<api server>/api/v1/datasets/<username>/<dataset slug>/`.
 
   *DotCloud*
 
