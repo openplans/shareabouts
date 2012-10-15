@@ -10,7 +10,6 @@ app:
 # Settings for map and layer configs
 map:
   geolocation_enabled: true
-  geolocation_onload: true
   options:
     center:
       lat: 40.698763153732166
