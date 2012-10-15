@@ -18,7 +18,6 @@ map:
     zoom: 15
     minZoom: 11
     maxZoom: 17
-    maxBounds: [[40.50, -74.21], [40.93, -73.51]]
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
