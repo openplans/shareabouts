@@ -44,15 +44,15 @@ variations on these.
 
   *DotCloud*
 
-      dotcloud var set <instance name> SHAREABOUTS_FLAVOR=<flavor name> \
-	                                   SHAREABOUTS_DATASET_ROOT=<dataset root url> \
-	                                   SHAREABOUTS_DATASET_KEY=<dataset api key>
+         dotcloud var set <instance name> SHAREABOUTS_FLAVOR=<flavor name> \
+                                          SHAREABOUTS_DATASET_ROOT=<dataset root url> \
+                                          SHAREABOUTS_DATASET_KEY=<dataset api key>
 	                                     
   *Heroku*
   
-      heroku config:set SHAREABOUTS_FLAVOR=<flavor name> \
-	                    SHAREABOUTS_DATASET_ROOT=<dataset root url> \
-	                    SHAREABOUTS_DATASET_KEY=<dataset api key>
+         heroku config:set SHAREABOUTS_FLAVOR=<flavor name> \
+                           SHAREABOUTS_DATASET_ROOT=<dataset root url> \
+                           SHAREABOUTS_DATASET_KEY=<dataset api key>
 
 Should be all done!
 
