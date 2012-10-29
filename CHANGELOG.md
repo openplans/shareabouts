@@ -16,6 +16,7 @@ Development (master)
 -----------------------------
   * New Features:
     - Now deployable to Heroku!
+    - Add data layers to your map using [Argo configurations](https://github.com/openplans/argo/wiki/Configuration-Guide)
 
   * Upgrade Steps:
     - The configuration values for setting the dataset root and api key have

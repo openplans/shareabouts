@@ -72,17 +72,9 @@ Option         |Type      |Default   |Description
 ### Extra Layer Options
 
 You can add additional overlays on top of your base layer. To do so,
-add to the "layers" array.  This logic
-is very basic at this time so please note that only
-[TileLayers](http://leaflet.cloudmade.com/reference.html#tilelayer)
-are supported, and there is no way to toggle the visibility.
-
-Common options are listed below, and all options are defined [here](http://leaflet.cloudmade.com/reference.html#tilelayer).
-
-Option         |Type      |Default   |Description
----------------|----------|----------|-----------
-`url`          |String    |None      |The URL template to the tile server. eg. `http://{s}.somedomain.com/blabla/{z}/{x}/{y}.png`. See [this](http://leaflet.cloudmade.com/reference.html#url-template) description for details.
-`attribution`  |String    |None      |The string used to describe the layer data.
+add to the "layers" array.  This array should match the configuration format 
+for [Argo](https://github.com/openplans/argo/wiki/Configuration-Guide) layer
+options.
 
 
 ### Place Types
