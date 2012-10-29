@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $, console){
+(function(S, A, $, console){
   S.MapView = Backbone.View.extend({
     events: {
       'click .locate-me': 'geolocate'
@@ -19,6 +19,18 @@ var Shareabouts = Shareabouts || {};
       self.map = L.map(self.el, self.options.mapConfig.options);
       self.placeLayers = L.layerGroup();
       self.map.addLayer(baseLayer);
+
+      // Cache additional vector layer views
+      self.argoLayerViews = {};
+
+      // Init all of the vector layer views
+      argoConfigs = new Backbone.Collection(self.options.mapConfig.layers);
+      argoConfigs.each(function(model, i) {
+        self.argoLayerViews[model.get('id')] = new A.LayerView({
+          map: self.map,
+          model: model
+        });
+      });
 
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
@@ -130,4 +142,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+})(Shareabouts, Argo, jQuery, Shareabouts.Util.console);
