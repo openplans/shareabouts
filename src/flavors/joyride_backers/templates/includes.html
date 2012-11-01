@@ -1,0 +1,86 @@
+<script src="{{ STATIC_URL }}libs/md5.js"></script>
+
+<script>
+  $(function() {
+  
+    var S = Shareabouts;
+    
+    function getPossibleCityData(enteredName, callback) {
+      // 1. Get a standardized name
+      $.get('/geocode', {
+        data: {location: city},
+        success: function(data, status, $xhr) {
+          var results = data.bossresponse.placefinder.results;
+          
+          citiesData = _.map(results, function(result) {
+              return {
+                name: result.city + ', ' + result.state + ', ' + result.country,
+                quality: result.quality,
+                location: {lat: result.latitude, lng: result.longitude}
+              };
+            });
+          
+          callback(citiesData);
+        }
+      });
+    }  
+              
+    function getPlaceForCityName(cityName, code, foundPlaceCallback) {
+      var cities = S.app.collection,
+          city;
+      
+      // 2. Ask the user whether that's the city they meant
+
+      // 3. If so, look for a city with that name
+      city = cities.find(function(p) { return p.name == cityName; });
+      
+      if (city) {
+        foundPlaceCallback(city);
+      }
+
+      // 4. If you don't find a city, add one
+      if (!city) {
+        city = cities.create({
+          'name': cityName,
+          'location': {lat: latitude, lng: longitude},
+          'location_type': 'city',
+          'visible': true,
+          'write_code': code
+        }, {
+          success: function(newCity, resp) {
+            foundPlaceCallback(newCity);
+          }
+        });
+      }
+    }
+    
+    function addBackerToCity(city, backerData, options) {
+      city.responseCollection.create(backerData, options);
+    }
+    
+    $('#content').delegate('#backer-add-form', 'submit', function(evt) {
+      evt.preventDefault();
+      
+      alert('submitting')
+      
+      var $form = $('#backer-add-form'),
+          submitterName = $form.find('#backer-submitter_name').val(),
+          cityName = $form.find('#backer-submitter_name').val(),
+          url = $form.find('#backer-submitter_name').val(),
+          code = $form.find('#backer-submitter_name').val(),
+          
+          backerData = {
+            'submitter_name': submitterName,
+            'backer_url': url,
+            'visible': true,
+            'write_code': code
+          };
+      
+      getPlaceForCityName(cityName, code, function(city) {
+        // 5. Add backer to the city
+        city.responseCollection.create(backerData);
+      });
+    });
+  
+  });
+</script>
