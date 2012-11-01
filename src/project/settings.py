@@ -161,6 +161,8 @@ SHAREABOUTS = {
     # Additional values to make available in the template context
 }
 
+GEOCODER = {}
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -203,6 +205,16 @@ if 'SHAREABOUTS_DATASET_ROOT' in env:
     SHAREABOUTS['DATASET_ROOT'] = env.get('SHAREABOUTS_DATASET_ROOT')
 if 'SHAREABOUTS_DATASET_KEY' in env:
     SHAREABOUTS['DATASET_KEY'] = env.get('SHAREABOUTS_DATASET_KEY')
+if 'GEOCODER_CONSUMER_KEY' in env and 'GEOCODER_CONSUMER_SECRET' in env:
+    GEOCODER = {
+      'TYPE': 'Yahoo! BOSS',
+      'URL': 'http://yboss.yahooapis.com/geo/placefinder',
+      'OAUTH': {
+          'CONSUMER_KEY': env.get('GEOCODER_CONSUMER_KEY')
+          'CONSUMER_SECRET': env.get('GEOCODER_CONSUMER_SECRET')
+        },
+    }
+
 
 ##############################################################################
 # Local settings overrides

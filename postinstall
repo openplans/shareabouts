@@ -33,6 +33,15 @@ SHAREABOUTS = {
     }
 }
 
+GEOCODER = {
+    'TYPE': 'Yahoo! BOSS',
+    'URL': u'http://yboss.yahooapis.com/geo/placefinder',
+    'OAUTH': {
+        'CONSUMER_KEY': env.get('GEOCODER_CONSUMER_KEY'),
+        'CONSUMER_SECRET': env.get('GEOCODER_CONSUMER_SECRET'),
+    },
+}
+
 STATIC_ROOT = '/home/dotcloud/current/static/'
 
 # Debug is False by default, true if set in the environment.
