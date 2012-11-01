@@ -41,6 +41,23 @@ a:hover {
   /* color: #ffbfff; */
 }
 
+span.place-submission-details {
+  display: none;
+}
+
+span.response-date {
+  display: none;
+}
+
+div.response-body {
+  display: none;
+}
+
+.response-submitter {
+  font-size: 1.5em;
+  color: grey;
+}
+
 
 /* =Logo
 -------------------------------------------------------------- */
@@ -174,13 +191,11 @@ textarea {
 }
 
 a.reply-link {
-/*  color: #1e5395;*/
-/*  background: #eef8fd;*/
+  display: none;
 }
 
-a.reply-link:hover {
-/*  color: #fff;*/
-/*  background-color: #e500e5;*/
+#reply {
+  display:none;
 }
 
 
