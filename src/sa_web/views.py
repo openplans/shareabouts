@@ -247,3 +247,76 @@ def csv_download(request, path):
     response['Content-disposition'] = 'attachment; filename=' + filename
 
     return response
+
+
+def geocode(request):
+    """
+    A proxy over a geocoder service. A GEOCODER setting must be present in the
+    project settings.
+    """
+    content = """{  
+                   "bossresponse": {  
+                    "responsecode": "200",  
+                    "placefinder": {  
+                     "start": "0",  
+                     "count": "1",  
+                     "request": "flags=J&location=San%20Francisco%2C%20CA",  
+                     "results": [{  
+                      "quality": "40",  
+                      "latitude": "37.777119",  
+                      "longitude": "-122.41964",  
+                      "offsetlat": "37.777119",  
+                      "offsetlon": "-122.41964",  
+                      "radius": "8800",  
+                      "name": "",  
+                      "line1": "",  
+                      "line2": "San Francisco, CA",  
+                      "line3": "",  
+                      "line4": "United States",  
+                      "house": "",  
+                      "street": "",  
+                      "xstreet": "",  
+                      "unittype": "",  
+                      "unit": "",  
+                      "postal": "",  
+                      "neighborhood": "",  
+                      "city": "San Francisco",  
+                      "county": "San Francisco County",  
+                      "state": "California",  
+                      "country": "United States",  
+                      "countrycode": "US",  
+                      "statecode": "CA",  
+                      "countycode": "",  
+                      "uzip": "94102",  
+                      "hash": "",  
+                      "woeid": "2487956",  
+                      "woetype": "7"  
+                     }]  
+                    }  
+                   }  
+                  }  """
+    
+    from django.http import HttpResponse
+    return HttpResponse(content, content_type='application/json')
+    
+    
+    url = settings.GEOCODER.get('URL')
+    auth = {}
+    
+    if 'OAUTH' in settings.GEOCODER:
+        consumer_key = settings.GEOCODER['OAUTH'].get('CONSUMER_KEY')
+        consumer_secret = settings.GEOCODER['OAUTH'].get('CONSUMER_SECRET')
+
+        from requests.auth import OAuth1
+        queryoauth = OAuth1(consumer_key, consumer_secret)
+    
+        response = requests.get(url, params=request.GET, auth=queryoauth)
+    
+    else:
+        response = requests.get(url, params=request.GET)
+    
+    from django.http import HttpResponse
+    return HttpResponse(response.content, 
+        content_type=response.headers['content-type'], 
+        status=response.status_code)
+

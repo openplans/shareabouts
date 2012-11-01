@@ -2,6 +2,15 @@ TIME_ZONE = 'America/New_York'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+GEOCODER = {
+  'TYPE': 'Yahoo! BOSS',
+  'URL': 'http://yboss.yahooapis.com/geo/placefinder',
+  'OAUTH': {
+      'CONSUMER_KEY': 'abcdefg',
+      'CONSUMER_SECRET': 'abc',
+    },
+}
+
 # The SHAREABOUTS['FLAVOR'] environment variable is used as a prefix for the
 # Shareabouts configuration. configuration is expected to live in a package
 # named 'flavors.<SHAREABOUTS_FLAVOR>'. This package will correspond to a
