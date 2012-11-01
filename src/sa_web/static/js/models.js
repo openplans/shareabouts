@@ -32,6 +32,9 @@ var Shareabouts = Shareabouts || {};
 
   S.PlaceModel = Backbone.Model.extend({
     initialize: function(attributes, options) {
+      options.responseType = options.responseType || this.collection.options.responseType;
+      options.supportType = options.supportType || this.collection.options.supportType;
+      
       this.responseCollection = new S.SubmissionCollection([], {
         placeModel: this,
         submissionType: options.responseType
@@ -50,15 +53,6 @@ var Shareabouts = Shareabouts || {};
 
     initialize: function(models, options) {
       this.options = options;
-    },
-
-    add: function(models, options) {
-      // Pass the submissionType into each PlaceModel so that it makes its way
-      // to the SubmissionCollections
-      options = options || {};
-      options.responseType = this.options.responseType;
-      options.supportType = this.options.supportType;
-      return S.PlaceCollection.__super__.add.call(this, models, options);
     }
   });
 
