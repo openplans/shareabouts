@@ -5,7 +5,8 @@
 <script>
   $(function() {
   
-    var S = Shareabouts;
+    var S = Shareabouts,
+        backerCode = "{{ config.BACKER_CODE|safe }}";
     
     function getPossibleCityData(enteredName, callback) {
       // 1. Get a standardized name
@@ -29,23 +30,26 @@
       });
     }
     
+    function displayMessage(msg) {
+      $('#backer-display-content').html('<p>' + msg + '</p>');
+    }
+    
     function getPlaceForCityName(cityName, cityData, code, foundPlaceCallback) {
       var cities = window.app.collection,
-          latitude = cityData.latitude,
-          longitude = cityData.longitude,
           city;
       
-      // 2. Ask the user whether that's the city they meant
-
-      // 3. If so, look for a city with that name
-      city = cities.find(function(p) { return p.name == cityName; });
+      // Look for a city with that name
+      city = cities.find(function(p) { return p.get('name') == cityName; });
       
       if (city) {
         foundPlaceCallback(city);
       }
 
-      // 4. If you don't find a city, add one
+      // If you don't find a city, add one
       if (!city) {
+
+        displayMessage("We're adding " + cityName + " to the map.  You're that first backer to claim this city &mdash; thanks!");
+        
         city = cities.create({
           'name': cityName,
           'location': cityData.location,
@@ -80,13 +84,28 @@
           backerData = {
             'submitter_name': submitterName,
             'backer_url': url,
-            'visible': true,
-            'write_code': code
+            'visible': true
           };
       
+      // Do form validation...
+      if (MD5(code) != backerCode) {
+        alert('Please enter a valid backer code');
+        return;
+      }
+      
+      if (!cityData) {
+        alert('You must select a city');
+        return;
+      }
+      
+      // If everything checks out, save the backer.
       getPlaceForCityName(cityName, cityData, code, function(city) {
-        // 5. Add backer to the city
-        city.responseCollection.create(backerData);
+        displayMessage("Great! Now we're adding you to the list of backers from " + cityName + ". Thanks for supporting JoyRide!");
+        city.responseCollection.create(backerData, {
+          success: function() {
+            window.app.navigate('/place/' + city.id, {trigger: true});
+          }
+        });
       });
     });
   
