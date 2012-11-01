@@ -210,7 +210,7 @@ if 'GEOCODER_CONSUMER_KEY' in env and 'GEOCODER_CONSUMER_SECRET' in env:
       'TYPE': 'Yahoo! BOSS',
       'URL': 'http://yboss.yahooapis.com/geo/placefinder',
       'OAUTH': {
-          'CONSUMER_KEY': env.get('GEOCODER_CONSUMER_KEY')
+          'CONSUMER_KEY': env.get('GEOCODER_CONSUMER_KEY'),
           'CONSUMER_SECRET': env.get('GEOCODER_CONSUMER_SECRET')
         },
     }
