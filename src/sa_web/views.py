@@ -254,54 +254,11 @@ def geocode(request):
     A proxy over a geocoder service. A GEOCODER setting must be present in the
     project settings.
     """
-    content = """{  
-                   "bossresponse": {  
-                    "responsecode": "200",  
-                    "placefinder": {  
-                     "start": "0",  
-                     "count": "1",  
-                     "request": "flags=J&location=San%20Francisco%2C%20CA",  
-                     "results": [{  
-                      "quality": "40",  
-                      "latitude": "37.777119",  
-                      "longitude": "-122.41964",  
-                      "offsetlat": "37.777119",  
-                      "offsetlon": "-122.41964",  
-                      "radius": "8800",  
-                      "name": "",  
-                      "line1": "",  
-                      "line2": "San Francisco, CA",  
-                      "line3": "",  
-                      "line4": "United States",  
-                      "house": "",  
-                      "street": "",  
-                      "xstreet": "",  
-                      "unittype": "",  
-                      "unit": "",  
-                      "postal": "",  
-                      "neighborhood": "",  
-                      "city": "San Francisco",  
-                      "county": "San Francisco County",  
-                      "state": "California",  
-                      "country": "United States",  
-                      "countrycode": "US",  
-                      "statecode": "CA",  
-                      "countycode": "",  
-                      "uzip": "94102",  
-                      "hash": "",  
-                      "woeid": "2487956",  
-                      "woetype": "7"  
-                     }]  
-                    }  
-                   }  
-                  }  """
-    
-    from django.http import HttpResponse
-    return HttpResponse(content, content_type='application/json')
-    
-    
     url = settings.GEOCODER.get('URL')
     auth = {}
+    geocoder_params = request.GET.copy()
+    if '_' in geocoder_params:
+        geocoder_params.pop('_')
     
     if 'OAUTH' in settings.GEOCODER:
         consumer_key = settings.GEOCODER['OAUTH'].get('CONSUMER_KEY')
@@ -310,10 +267,10 @@ def geocode(request):
         from requests.auth import OAuth1
         queryoauth = OAuth1(consumer_key, consumer_secret)
     
-        response = requests.get(url, params=request.GET, auth=queryoauth)
+        response = requests.get(url, params=geocoder_params, auth=queryoauth)
     
     else:
-        response = requests.get(url, params=request.GET)
+        response = requests.get(url, params=geocoder_params)
     
     from django.http import HttpResponse
     return HttpResponse(response.content, 
