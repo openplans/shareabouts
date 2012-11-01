@@ -157,7 +157,7 @@ SHAREABOUTS = {
     # The django app package for the flavor.  By default, this is
     # 'flavors.<name>'
 
-  # 'CONTEXT': {},
+    'CONTEXT': {},
     # Additional values to make available in the template context
 }
 
@@ -214,6 +214,8 @@ if 'GEOCODER_CONSUMER_KEY' in env and 'GEOCODER_CONSUMER_SECRET' in env:
           'CONSUMER_SECRET': env.get('GEOCODER_CONSUMER_SECRET')
         },
     }
+if 'SHAREABOUTS_BACKER_CODE' in env:
+    SHAREABOUTS['CONTEXT']['BACKER_CODE'] = env.get('SHAREABOUTS_BACKER_CODE')
 
 
 ##############################################################################
