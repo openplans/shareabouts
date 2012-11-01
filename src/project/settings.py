@@ -215,7 +215,8 @@ if 'GEOCODER_CONSUMER_KEY' in env and 'GEOCODER_CONSUMER_SECRET' in env:
         },
     }
 if 'SHAREABOUTS_BACKER_CODE' in env:
-    SHAREABOUTS['CONTEXT']['BACKER_CODE'] = env.get('SHAREABOUTS_BACKER_CODE')
+    import hashlib
+    SHAREABOUTS['CONTEXT']['BACKER_CODE'] = hashlib.md5(env.get('SHAREABOUTS_BACKER_CODE', 'None!!!')).hexdigest()
 
 
 ##############################################################################
