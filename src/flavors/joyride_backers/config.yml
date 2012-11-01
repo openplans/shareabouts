@@ -1,23 +1,23 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Shareabouts
+  title: Joyride Backers
   # Header name
-  name: Shareabouts
+  name: Joyride Backers
   # Meta description that will show up in Google search results
-  meta_description: Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.
+  meta_description: Joyride Backers
 
 # Settings for map and layer configs
 map:
-  geolocation_enabled: true
-  geolocation_onload: true
+  geolocation_enabled: false
+  geolocation_onload: false
   options:
     center:
-      lat: 39.9523524
-      lng: -75.1636075
-    zoom: 17
-    minZoom: 10
-    maxZoom: 17
+      lat: 40.34654412118006
+      lng: -93.251953125
+    zoom: 4
+    minZoom: 3
+    maxZoom: 10
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
@@ -26,13 +26,7 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  Landmark:
-    default: blue
-    focused: red
-  Park:
-    default: blue
-    focused: red
-  School:
+  city:
     default: blue
     focused: red
 
@@ -68,15 +62,14 @@ activity:
   interval: 5000
 
 place:
-  adding_supported: true
+  adding_supported: false
   add_button_label: Add a Place
-  action_text: added
   title: Tell us more...
-  action_text: created
+  action_text: was the first JoyRide backer from
   anonymous_name: Someone
   submit_button_label: Submit
   items:
-    - prompt: Location Name
+    - prompt: City Name
       type: text
       name: name
       attrs:
@@ -87,35 +80,17 @@ place:
     - prompt: Location Type
       type: select
       options:
-        - Landmark
-        - Park
-        - School
+        - city
       name: location_type
-    - prompt: Your Name
-      type: text
-      name: submitter_name
-      optional: true
-      attrs:
-        - key: placeholder
-          value: Name
-        - key: size
-          value: 30
-    - prompt: Description
-      type: textarea
-      name: description
-      optional: true
-      attrs:
-        - key: placeholder
-          value: Description...
 
 survey:
-  submission_type: comments
+  submission_type: backers
 
   # Response display config
   show_responses: true
   response_name: comment
   response_plural_name: comments
-  action_text: commented on
+  action_text: backed JoyRide from
   anonymous_name: Someone
 
   # Survey form config
@@ -123,13 +98,13 @@ survey:
   form_link_text: Leave a Comment
   submit_btn_text: Comment
   items:
-    - prompt: Comment
-      label: Comment
-      type: textarea
-      name: comment
     - prompt: Your Name
       type: text
       name: submitter_name
+    - prompt: URL
+      label: URL
+      type: text
+      name: backer_url
 
 support:
   submission_type: support
@@ -141,7 +116,6 @@ pages:
   - title: About
     slug: about
     url: /static/pages/overview.html
-    start_page: true
 
   - title: "Why Shareabouts?"
     slug: why
@@ -150,4 +124,5 @@ pages:
   - title: I'm a Backer!
     slug: backer
     url: /static/pages/backer-add.html
+    start_page: true
 

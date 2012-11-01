@@ -1,4 +1,6 @@
 <script src="{{ STATIC_URL }}libs/md5.js"></script>
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
 
 <script>
   $(function() {
@@ -7,8 +9,10 @@
     
     function getPossibleCityData(enteredName, callback) {
       // 1. Get a standardized name
-      $.get('/geocode', {
-        data: {location: city},
+      $.ajax({
+        url: '/geocode',
+        type: 'GET',
+        data: {location: enteredName, flags: 'J'},
         success: function(data, status, $xhr) {
           var results = data.bossresponse.placefinder.results;
           
@@ -23,10 +27,12 @@
           callback(citiesData);
         }
       });
-    }  
-              
-    function getPlaceForCityName(cityName, code, foundPlaceCallback) {
-      var cities = S.app.collection,
+    }
+    
+    function getPlaceForCityName(cityName, cityData, code, foundPlaceCallback) {
+      var cities = window.app.collection,
+          latitude = cityData.latitude,
+          longitude = cityData.longitude,
           city;
       
       // 2. Ask the user whether that's the city they meant
@@ -42,14 +48,16 @@
       if (!city) {
         city = cities.create({
           'name': cityName,
-          'location': {lat: latitude, lng: longitude},
+          'location': cityData.location,
           'location_type': 'city',
           'visible': true,
           'write_code': code
         }, {
-          success: function(newCity, resp) {
+          success: function(newCityData, resp) {
+            var newCity = cities.get(newCityData.id);
             foundPlaceCallback(newCity);
-          }
+          },
+          wait: true // we don't want to trigger the normal add
         });
       }
     }
@@ -61,13 +69,13 @@
     $('#content').delegate('#backer-add-form', 'submit', function(evt) {
       evt.preventDefault();
       
-      alert('submitting')
-      
       var $form = $('#backer-add-form'),
+          $cityName = $form.find('#city'),
           submitterName = $form.find('#backer-submitter_name').val(),
-          cityName = $form.find('#backer-submitter_name').val(),
-          url = $form.find('#backer-submitter_name').val(),
-          code = $form.find('#backer-submitter_name').val(),
+          cityName = $form.find('#backer-city').val(),
+          cityData = $form.find('#backer-city').autocomplete('option', cityName),
+          url = $form.find('#backer-url').val(),
+          code = $form.find('#backer-code').val(),
           
           backerData = {
             'submitter_name': submitterName,
@@ -76,11 +84,39 @@
             'write_code': code
           };
       
-      getPlaceForCityName(cityName, code, function(city) {
+      getPlaceForCityName(cityName, cityData, code, function(city) {
         // 5. Add backer to the city
         city.responseCollection.create(backerData);
       });
     });
   
+    // Set up autocomplete for the city name.  Since the box may be destroyed 
+    // and recreated, initialize it as an auto-complete box each time it 
+    // receives focus.
+    function getCityAutocompleteChoices(request, response) {
+      var $cityName = this;
+      
+      getPossibleCityData(request.term, function(citiesData) {
+        var choices = _.pluck(citiesData, 'name'),
+            options = {};
+        
+        _.map(citiesData, function(cityData) {
+          options[cityData['name']] = cityData;
+        });
+        
+        $cityName.autocomplete('option', options);
+        response(choices);
+      });
+    }
+              
+    $('#content').delegate('#backer-city', 'focus', function(evt) {
+      var $cityName = $('#backer-city');
+      
+      $cityName.autocomplete({
+        source: _.bind(getCityAutocompleteChoices, $cityName),
+        autoFocus: true
+      });
+    });
+    
   });
 </script>
