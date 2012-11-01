@@ -13,7 +13,7 @@
       $.ajax({
         url: '/geocode',
         type: 'GET',
-        data: {location: enteredName, flags: 'J'},
+        data: {location: enteredName, flags: 'J', gflags: 'Q'},
         success: function(data, status, $xhr) {
           var results = data.bossresponse.placefinder.results;
           
