@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Joyride Backers
+  title: JoyRide Backers
   # Header name
-  name: Joyride Backers
+  name: JoyRide Backers
   # Meta description that will show up in Google search results
-  meta_description: Joyride Backers
+  meta_description: JoyRide Backers
 
 # Settings for map and layer configs
 map:
@@ -113,14 +113,10 @@ support:
   anonymous_name: Someone
 
 pages:
-  - title: About
-    slug: about
-    url: /static/pages/overview.html
-
-  - title: "Why Shareabouts?"
-    slug: why
-    url: /static/pages/why.html
-
+  - title: About JoyRide
+    external: true
+    url: http://joyrideit.com/
+    
   - title: I'm a Backer!
     slug: backer
     url: /static/pages/backer-add.html
