@@ -88,8 +88,8 @@ survey:
 
   # Response display config
   show_responses: true
-  response_name: comment
-  response_plural_name: comments
+  response_name: backer
+  response_plural_name: backers
   action_text: backed JoyRide from
   anonymous_name: Someone
 
@@ -107,9 +107,9 @@ survey:
       name: backer_url
 
 support:
-  submission_type: support
-  submit_btn_text: Support This!
-  action_text: "supported"
+  submission_type: applause
+  submit_btn_text: Applaud This City!
+  action_text: "applauded for"
   anonymous_name: Someone
 
 pages:
