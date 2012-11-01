@@ -265,7 +265,7 @@ def geocode(request):
         consumer_secret = settings.GEOCODER['OAUTH'].get('CONSUMER_SECRET')
 
         from requests.auth import OAuth1
-        queryoauth = OAuth1(consumer_key, consumer_secret)
+        queryoauth = OAuth1(unicode(consumer_key), unicode(consumer_secret))
     
         response = requests.get(url, params=geocoder_params, auth=queryoauth)
     
