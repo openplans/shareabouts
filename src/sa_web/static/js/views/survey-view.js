@@ -24,10 +24,11 @@ var Shareabouts = Shareabouts || {};
       // Responses should be an array of objects with submitter_name,
       // pretty_created_datetime, and items (name, label, and prompt)
       this.collection.each(function(model, i) {
-        var items = S.TemplateHelpers.getItemsFromModel(self.options.surveyConfig.items, model, ['submitter_name']);
+        var items = S.TemplateHelpers.getItemsFromModel(self.options.surveyConfig.items, model, ['submitter_name', 'submitter_url']);
 
         responses.push({
           submitter_name: model.get('submitter_name') || self.options.surveyConfig.anonymous_name,
+          submitter_url: model.get('submitter_url'),
           pretty_created_datetime: S.Util.getPrettyDateTime(model.get('created_datetime'),
             self.options.surveyConfig.pretty_datetime_format),
           items: items

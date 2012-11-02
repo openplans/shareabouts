@@ -13,7 +13,9 @@
               <article class="response">
                 <header class="response-header clearfix">
                   {{#_}}<strong class="response-submitter">
+                    {{#submitter_url}}<a href="{{submitter_url}}">{{/submitter_url}}
                     {{ submitter_name }}
+                    {{#submitter_url}}</a>{{/submitter_url}}
                   </strong>
                   <span class="response-date">
                     around {{ pretty_created_datetime }}
