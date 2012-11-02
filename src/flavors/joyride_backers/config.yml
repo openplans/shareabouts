@@ -104,7 +104,7 @@ survey:
     - prompt: URL
       label: URL
       type: text
-      name: backer_url
+      name: submitter_url
 
 support:
   submission_type: applause

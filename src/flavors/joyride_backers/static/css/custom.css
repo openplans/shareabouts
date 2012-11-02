@@ -211,14 +211,24 @@ a.reply-link {
   margin-right: 1em;
 }
 
+input[type=password],
 select[size] {
   background-color: rgba(255,255,255,0);
   border: 1px solid #999;
-  border-top: none;
+  width: 80%;
+}
+
+input[type=password] {
+  padding: 1em;
+}
+
+select[size] {
   padding: 0em;
   margin: 0 1em;
-  width: 80%;
-  
+}
+
+#backer-city-selector {  
+  border-top: none;
   display: none;
 }
 
