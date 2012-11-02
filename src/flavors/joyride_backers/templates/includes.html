@@ -6,15 +6,20 @@
   $(function() {
   
     var S = Shareabouts,
-        backerCode = "{{ config.BACKER_CODE|safe }}";
-    
+        backerCode = "{{ config.BACKER_CODE|safe }}",
+        cityOptions = {},
+        prevCityName = '';
+
+    // Make a call to the geocoder getting likely matches for the entered city
+    // name.  On geocoder success, give the callback the a list of objects with
+    // city name and location.
     function getPossibleCityData(enteredName, callback) {
       // 1. Get a standardized name
       $.ajax({
         url: '/geocode',
         type: 'GET',
         // For some reason, the geocoder doesn't like spaces, so get rid of them
-        data: {city: enteredName.replace(/ /g, ''), flags: 'J'},
+        data: {location: enteredName.replace(/ /g, ''), flags: 'J'},
         success: function(data, status, $xhr) {
           var results = data.bossresponse.placefinder.results;
           
@@ -31,10 +36,40 @@
       });
     }
     
+    // In place of the form, display a message to the user.  This is used to 
+    // let the user know what's going on with their submission.
     function displayMessage(msg) {
-      $('#backer-display-content').html('<p>' + msg + '</p>');
+      $('#backer-display-content').html('<p>' + msg + '</p><p align="center"><img src="http://www.markit.com/assets/images/spinner.gif"></p>');
     }
     
+    // If there are validation issues, let the user know.
+    function displayFormStatus(msgs) {
+      var completeMsg = '',
+          joinedMsg = '',
+          lastMsg;
+      
+      if (msgs.length === 0) {
+        completeMsg = '';
+      } else {
+        if (msgs.length === 1) {
+          joinedMsg = msgs[0];
+        } else {
+          lastMsg = msgs.pop();
+          joinedMsg = msgs.shift();
+          _.each(msgs, function(msg) { joinedMsg += ', ' + msg; });
+          joinedMsg += ' and ' + lastMsg;
+        }
+        
+        completeMsg = 'Be sure to ' + joinedMsg + ' before you submitting the form';
+      }
+      
+      $('#backer-form-messages').html('<p>' + completeMsg + '</p>');
+    }
+    
+    // Return a Shareabouts place that represents the given city data.  If one
+    // already exists with the given city name in the collection of places, 
+    // then just call the callback with that place.  Otherwise, create a place
+    // and call the callback afterward.
     function getPlaceForCityName(cityName, cityData, code, foundPlaceCallback) {
       var cities = window.app.collection,
           city;
@@ -49,7 +84,8 @@
       // If you don't find a city, add one
       if (!city) {
 
-        displayMessage("We're adding " + cityName + " to the map.  You're that first backer to claim this city &mdash; thanks!");
+        displayMessage("We're adding " + cityName + " to the map.  You're " +
+                       "that first backer to claim this city &mdash; thanks!");
         
         city = cities.create({
           'name': cityName,
@@ -66,20 +102,21 @@
       }
     }
     
+    // Create a backer from the given data and add it to the city.  The city
+    // argument is expected to be a model, e.g. from getPlaceForCityName.
     function addBackerToCity(city, backerData, options) {
       city.responseCollection.create(backerData, options);
     }
     
+    
     $('#content').delegate('#backer-add-form', 'submit', function(evt) {
       evt.preventDefault();
       
-      var $form = $('#backer-add-form'),
-          $cityName = $form.find('#city'),
-          submitterName = $form.find('#backer-submitter_name').val(),
-          cityName = $form.find('#backer-city').val(),
-          cityData = cityName ? $form.find('#backer-city').autocomplete('option', cityName) : {},
-          url = $form.find('#backer-url').val(),
-          code = $form.find('#backer-code').val(),
+      var submitterName = $('#backer-submitter_name').val(),
+          cityName = $('#backer-city-selector option:selected').text(),
+          cityData = cityOptions[cityName],
+          url = $('#backer-url').val(),
+          code = $('#backer-code').val(),
           
           backerData = {
             'submitter_name': submitterName,
@@ -88,13 +125,7 @@
           };
       
       // Do form validation...
-      if (MD5(code) != backerCode) {
-        alert('Please enter a valid backer code');
-        return;
-      }
-      
-      if (!cityData) {
-        alert('You must select a city');
+      if (!backerFormIsValid(submitterName, cityName, cityData, url, code)) {
         return;
       }
       
@@ -109,62 +140,85 @@
       });
     });
     
-    function backerFormIsValid() {
-      var $form = $('#backer-add-form'),
-          code = $form.find('#backer-code').val(),
-          cityName = $form.find('#backer-city').val(),
-          cityData = cityName ? $form.find('#backer-city').autocomplete('option', cityName) : {};
-          
+    function backerFormIsValid(submitterName, cityName, cityData, url, code) {
+      var formMessages = [],
+          valid = true;
+      
+      if (!submitterName) {
+        formMessages.push('enter your name');
+        valid = false;
+      }
+      
       if (MD5(code) != backerCode) {
-        return false;
+        formMessages.push('enter a valid backer code');
+        valid = false;
       }
       
       if (!cityData) {
-        return false;
+        formMessages.push('select a city')
+        valid = false;
       }
       
-      return true;
+      displayFormStatus(formMessages);
+      return valid;
     }
-    
-    function syncButtonWithFormValidity() {
-      var $addBackerButton = $('button.add-backer');
-      
-      if (backerFormIsValid()) {
-        $addBackerButton.removeAttr('disabled');
-      } else {
-        $addBackerButton.attr('disabled', 'disabled');
-      }
-    }
-
-    $('#content').delegate('#backer-code', 'keyup', syncButtonWithFormValidity);
-    $('#content').delegate('#backer-city', 'blur', syncButtonWithFormValidity);
     
     // Set up autocomplete for the city name.  Since the box may be destroyed 
     // and recreated, initialize it as an auto-complete box each time it 
     // receives focus.
-    function getCityAutocompleteChoices(request, response) {
-      var $cityName = this;
-      
-      getPossibleCityData(request.term, function(citiesData) {
-        var choices = _.pluck(citiesData, 'name'),
-            options = {};
+    var fillCityChoiceList = _.debounce(function() {
+      var $cityName = $('#backer-city'),
+          $citySelector = $('#backer-city-selector');
+          
+      getPossibleCityData($cityName.val(), function(citiesData) {
+        var labels = _.pluck(citiesData, 'name');
+
+        // Clear the global city data mapping
+        cityOptions = {};
         
-        _.map(citiesData, function(cityData) {
-          options[cityData['name']] = cityData;
+        // Build the mapping from label to data
+        _.each(citiesData, function(cityData) {
+          var label = cityData.name;
+          if (!cityOptions[label]) {
+            cityOptions[label] = cityData;
+          }
         });
         
-        $cityName.autocomplete('option', options);
-        response(choices);
+        // Populate the select box, and select the first option if there are any
+        $citySelector.empty();
+        $citySelector.css('background-image', 'none');
+        
+        if (labels.length) {
+          _.each(_.uniq(labels), function(label) {
+            $citySelector.append('<option>' + label + '</option>');
+          });
+          $citySelector.children().first().attr('selected', 'selected');
+        } else {
+          $citySelector.append('<option disabled="disabled">No cities found; please try again</option>');
+        }
       });
-    }
+    }, 1000);
+    
+    
+    $('#content').delegate('#backer-city', 'keyup', function() {
+      var $cityName = $('#backer-city'),
+          $citySelector = $('#backer-city-selector'),
+          bg = $citySelector.css('background-image');
 
-    $('#content').delegate('#backer-city', 'focus', function(evt) {
-      var $cityName = $('#backer-city');
-      
-      $cityName.autocomplete({
-        source: _.bind(getCityAutocompleteChoices, $cityName),
-        autoFocus: true
-      });
+      if ($cityName.val() != prevCityName) {
+        $citySelector.empty();
+        $citySelector.css('display', 'inline');
+        if (bg === "none") {
+          $citySelector.css({
+            'background-image': 'url(http://www.markit.com/assets/images/spinner.gif)',
+            'background-position': '50% 50%',
+            'background-repeat': 'no-repeat'
+          });
+        }
+        
+        prevCityName = $cityName.val();
+        fillCityChoiceList();
+      }
     });
     
   });

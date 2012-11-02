@@ -206,6 +206,21 @@ a.reply-link {
   display:none;
 }
 
+.add-backer.bttn {
+  float: left;
+  margin-right: 1em;
+}
+
+select[size] {
+  background-color: rgba(255,255,255,0);
+  border: 1px solid #999;
+  border-top: none;
+  padding: 0em;
+  margin: 0 1em;
+  width: 80%;
+  
+  display: none;
+}
 
 /* =Voting & Social Promotion
 -------------------------------------------------------------- */

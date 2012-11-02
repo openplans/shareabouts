@@ -5,23 +5,26 @@
     <legend>Are you a JoyRide backer?  If so, add youself to the map using the form below.</legend>
     
     <div class="backer-field">
-      <label>How do you want to show up in the credits?</label> <input id="backer-submitter_name" name="submitter_name" type="text" placeholder="Your name">
+      <label for="backer-submitter_name">How do you want to show up in the credits?</label> <input id="backer-submitter_name" name="submitter_name" type="text" placeholder="Your name">
     </div>
     
     <div class="backer-field">
-      <label>Where are you from?</label> <input id="backer-city" name="city" type="text" placeholder="Your city">
+      <label for="backer-city">Where are you from?</label>
+      <input id="backer-city" name="city" type="text" placeholder="Your city">
+      <select id="backer-city-selector" size="3"></select>
     </div>
     
     <div class="backer-field">
-      <label>URL:</label> <input id="backer-url" name="url" type="text">
+      <label for="backer-url">URL (optional):</label> <input id="backer-url" name="url" type="text">
     </div>
     
     <div class="backer-field">
-      <label>Backer Code:</label> <input id="backer-code" name="backer_code" type="text">
+      <label for="backer-code">Backer Code:</label> <input id="backer-code" name="backer_code" type="text">
     </div>
     
     <div class="backer-field">
-      <button class="add-backer bttn" disabled="disabled">Add Me!</button>
+      <button class="add-backer bttn">Add Me!</button>
+      <div id="backer-form-messages"></div>
     </div>
   </form>
 </div>
