@@ -13,7 +13,8 @@
       $.ajax({
         url: '/geocode',
         type: 'GET',
-        data: {location: enteredName, flags: 'J', gflags: 'Q'},
+        // For some reason, the geocoder doesn't like spaces, so get rid of them
+        data: {city: enteredName.replace(/ /g, ''), flags: 'J'},
         success: function(data, status, $xhr) {
           var results = data.bossresponse.placefinder.results;
           
