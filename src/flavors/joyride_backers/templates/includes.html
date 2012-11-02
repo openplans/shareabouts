@@ -77,7 +77,7 @@
           $cityName = $form.find('#city'),
           submitterName = $form.find('#backer-submitter_name').val(),
           cityName = $form.find('#backer-city').val(),
-          cityData = $form.find('#backer-city').autocomplete('option', cityName),
+          cityData = cityName ? $form.find('#backer-city').autocomplete('option', cityName) : {},
           url = $form.find('#backer-url').val(),
           code = $form.find('#backer-code').val(),
           
@@ -108,7 +108,37 @@
         });
       });
     });
-  
+    
+    function backerFormIsValid() {
+      var $form = $('#backer-add-form'),
+          code = $form.find('#backer-code').val(),
+          cityName = $form.find('#backer-city').val(),
+          cityData = cityName ? $form.find('#backer-city').autocomplete('option', cityName) : {};
+          
+      if (MD5(code) != backerCode) {
+        return false;
+      }
+      
+      if (!cityData) {
+        return false;
+      }
+      
+      return true;
+    }
+    
+    function syncButtonWithFormValidity() {
+      var $addBackerButton = $('button.add-backer');
+      
+      if (backerFormIsValid()) {
+        $addBackerButton.removeAttr('disabled');
+      } else {
+        $addBackerButton.attr('disabled', 'disabled');
+      }
+    }
+
+    $('#content').delegate('#backer-code', 'keyup', syncButtonWithFormValidity);
+    $('#content').delegate('#backer-city', 'blur', syncButtonWithFormValidity);
+    
     // Set up autocomplete for the city name.  Since the box may be destroyed 
     // and recreated, initialize it as an auto-complete box each time it 
     // receives focus.
@@ -127,7 +157,7 @@
         response(choices);
       });
     }
-              
+
     $('#content').delegate('#backer-city', 'focus', function(evt) {
       var $cityName = $('#backer-city');
       

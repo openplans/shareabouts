@@ -194,6 +194,10 @@ textarea {
 /*  background-color: #e500e5;*/
 }
 
+.bttn[disabled] {
+  background-color: #bdd;
+}
+
 a.reply-link {
   display: none;
 }
