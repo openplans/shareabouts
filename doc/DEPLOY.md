@@ -44,7 +44,7 @@ variations on these.
 
   *DotCloud*
 
-         dotcloud var set <instance name> SHAREABOUTS_FLAVOR=<flavor name> \
+         dotcloud env set SHAREABOUTS_FLAVOR=<flavor name> \
                                           SHAREABOUTS_DATASET_ROOT=<dataset root url> \
                                           SHAREABOUTS_DATASET_KEY=<dataset api key>
 	                                     
