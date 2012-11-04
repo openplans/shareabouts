@@ -54,6 +54,10 @@ install the Python development libraries (for Python.h). The Windows installatio
 but some UNIX-based systems with a pre-installed Python may not. On such systems, you may
 need to run `sudo apt-get install python-dev` or download a fresh installer from python.org.
 
+NOTE: Mac OS X users need a command line C/C++ compiler in place for the above steps to work. 
+This can be done by downloading Xcode from the App Store and then installing the Command Line Tools
+via Xcode's Preferences > Downloads area.
+
 To run the development server:
 
     src/manage.py runserver
