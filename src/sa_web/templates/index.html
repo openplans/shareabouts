@@ -38,10 +38,11 @@
 
   <link rel="profile" href="http://gmpg.org/xfn/11" />
 
-  <link rel="stylesheet" href="{{STATIC_URL}}libs/leaflet.css" />
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css" />
   <!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://code.leafletjs.com/leaflet-0.3.1/leaflet.ie.css" />
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.ie.css" />
   <![endif]-->
+
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -87,11 +88,11 @@
   </footer>
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.7.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
+  <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
 
   {% compress js %}
-  <script src="{{STATIC_URL}}libs/leaflet.js"></script>
   <script src="{{STATIC_URL}}libs/underscore-min.js"></script>
   <script src="{{STATIC_URL}}libs/backbone-min.js"></script>
   <script src="{{STATIC_URL}}libs/mustache.js"></script>
