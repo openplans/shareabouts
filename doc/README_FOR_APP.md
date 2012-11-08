@@ -665,3 +665,17 @@ Feedback
 --------
 If you run into any problems setting up the app or find that this document 
 lacks something, please get in touch with us on our [mailing list] (http://groups.google.com/group/shareabouts-dev). Also feel free to contribute to this wiki yourself :)
+
+# Known Issues 
+* Can't edit page slug
+* google gets stuck on the browser selection page
+* admin can't upload images 
+* Comments scroll over popup text
+* iPhone message - shareabouts doesn't work in this version of Safari
+* closing "filter by popularity" tray doesn't reset filter
+* Admins should be able to delete location type markers
+* "drag-me" tip should only disappear when marker is clicked/dragged, not when map is dragged (as marker's lat/lon doesn't change). 
+* User should get error message if Error in POST to locations gives 500 error
+* After sign in, user avatar is weirdly sized
+* (Shareabouts Staging Exception) sessions#new (ActionView::MissingTemplate) "Missing template users/sessions/new with {:h...
+* (Shareabouts Production Exception) votes#destroy (NoMethodError) "undefined method `supportable' for nil:NilClass"
