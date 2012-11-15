@@ -378,7 +378,7 @@ a.add-place:before {
   margin: -32px 0 0 -32px;
   pointer-events: none;
   z-index: 11;
-  opacity: 0.25;
+  opacity: 0.6;
   -webkit-transition: opacity 0.25s;
   -moz-transition: opacity 0.25s;
   -o-transition: opacity 0.25s;
@@ -942,6 +942,9 @@ ul.recent-points {
   a.add-place:before {
     content: "";
   }
+  #centerpoint {
+    opacity: 0.25;
+  }
   #content {
     position: absolute;
     top: 5.75em; /* height of #site-header + 1.75em*/
@@ -1125,6 +1128,23 @@ ul.recent-points {
   #map .leaflet-control-attribution {
     font-size: 11px;
   }
+
+  #site-header a,
+  .close-bttn {
+    -webkit-transition: color,background-color 0.1s;
+    -moz-transition: color,background-color 0.1s;
+    -o-transition: color,background-color 0.1s;
+    -ms-transition: color,background-color 0.1s;
+    transition: color,background-color 0.1s;
+  }
+  #ticker li {
+    -webkit-transition: color,background-color 0.25s;
+    -moz-transition: color,background-color 0.25s;
+    -o-transition: color,background-color 0.25s;
+    -ms-transition: color,background-color 0.25s;
+    transition: color,background-color 0.25s;
+  }
+
 }
 @media only screen and (min-width: 1024px) { /* ticker is visible */
   #site-header {
