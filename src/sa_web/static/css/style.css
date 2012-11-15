@@ -1032,43 +1032,7 @@ ul.recent-points {
     background-attachment: local, local, scroll, scroll;
   }
 
-  /*  a.close-bttn {
-      font-size: 1.8em;
-      line-height: 0.9375em;
-      float: right;
-      text-align: center;
-      background: #fff;
-      height: 1em;
-      width: 1em;
-      position: relative;
-      z-index: 5;
-      top: -0.5em;
-      right: 100%;
-      left: auto;
-      padding: 0;
-      margin-right: -0.5em;
-      -webkit-border-radius: 0.5em;
-         -moz-border-radius: 0.5em;
-              border-radius: 0.5em;
-    }
-    a.close-bttn span {
-      display: none;
-    }
-    a.close-bttn:after {
-      content: "\0020";
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      -webkit-border-radius: 0.5em;
-         -moz-border-radius: 0.5em;
-              border-radius: 0.5em;
-         -moz-box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
-      -webkit-box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
-              box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
-    }*/
-
+  /* Modal Close Button */
   a.close-bttn {
       color: hotpink;
       background: hotpink;
@@ -1110,7 +1074,6 @@ ul.recent-points {
       bottom: 0;
       left: 0;
   }
-
   a.close-bttn:before, a.close-bttn:after, 
   a.close-bttn span:before, a.close-bttn span:after {
     content: "\0020";
