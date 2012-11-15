@@ -294,6 +294,31 @@ ul.recent-points {
 /*    border: 0;*/
 /*    background: transparent;*/
   }
+
+  /* NOTE: The background-color is the X's color. The pseudo elements' border-color and
+   * inset shadow color should match to mask the X shape */
+  a.close-bttn {
+/*    background: white;*/
+/*    -webkit-box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
+/*       -moz-box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
+/*            box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
+  }
+  a.close-bttn:hover { 
+/*    background: purple; */
+  }
+  a.close-bttn:before { 
+/*    border-right-color: pink; */
+  }
+  a.close-bttn:after { 
+/*    border-left-color: pink; */
+  }
+  a.close-bttn span:before { 
+/*    border-top-color: pink; */
+  }
+  a.close-bttn span:after { 
+/*    border-bottom-color: pink; */
+  }
+
 }
 
 @media only screen and (min-width: 1024px) { /* ticker is visible */

@@ -560,8 +560,10 @@ a.close-bttn:hover {
   color: #dd3c77;
 }
 a.close-bttn span {
+  font-size: 85%;
   font-weight: normal;
   text-transform: uppercase;
+  margin-left: 0.375em;
 }
 
 #content p {
@@ -1034,45 +1036,47 @@ ul.recent-points {
 
   /* Modal Close Button */
   a.close-bttn {
-      color: hotpink;
-      background: hotpink;
-      font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 1.25em;
-      line-height: 1.7;
-      float: right;
-      text-align: center;
-      height: 1.5em;
-      width: 1.5em;
-      position: relative;
-      z-index: 5;
-      top: -0.75em;
-      right: 100%;
-      left: auto;
-      padding: 0;
-      margin-right: -0.75em;
-      border: 0;
-      -webkit-border-radius: 0.75em;
-         -moz-border-radius: 0.75em;
-              border-radius: 0.75em;
-      overflow: hidden;
-      -webkit-box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
-         -moz-box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
-              box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+    color: #000;
+    background: hotpink;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.25em;
+    line-height: 1.7;
+    float: right;
+    text-align: left;
+    text-indent: -9999px;
+    height: 1.5em;
+    width: 1.5em;
+    position: relative;
+    z-index: 5;
+    top: -0.75em;
+    right: 100%;
+    left: auto;
+    padding: 0;
+    margin-right: -0.75em;
+    border: 0;
+    -webkit-border-radius: 0.75em;
+       -moz-border-radius: 0.75em;
+            border-radius: 0.75em;
+    overflow: hidden;
+    -webkit-box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+       -moz-box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+            box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
   }
   a.close-bttn:hover {
-    color: #dd3c77;
     background: #dd3c77;
   } 
   a.close-bttn span {
-      display: block;
-      text-indent: -9999px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+    display: block;
+    margin: 0;
+    font-size: 1em;
+    text-indent: -9999px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
   a.close-bttn:before, a.close-bttn:after, 
   a.close-bttn span:before, a.close-bttn span:after {
