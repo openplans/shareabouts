@@ -378,13 +378,14 @@ a.add-place:before {
   margin: -32px 0 0 -32px;
   pointer-events: none;
   z-index: 11;
-  opacity: 0.5;
+  opacity: 0.25;
   -webkit-transition: opacity 0.25s;
   -moz-transition: opacity 0.25s;
   -o-transition: opacity 0.25s;
   -ms-transition: opacity 0.25s;
   transition: opacity 0.25s;
 }
+a.add-place:hover + #centerpoint, 
 #centerpoint.dragging {
   opacity: 1;
 }
