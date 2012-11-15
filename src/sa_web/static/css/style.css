@@ -1031,41 +1031,129 @@ ul.recent-points {
     background-size: 100% 6em, 100% 6em, 110% 1.75em, 110% 1.75em;
     background-attachment: local, local, scroll, scroll;
   }
+
+  /*  a.close-bttn {
+      font-size: 1.8em;
+      line-height: 0.9375em;
+      float: right;
+      text-align: center;
+      background: #fff;
+      height: 1em;
+      width: 1em;
+      position: relative;
+      z-index: 5;
+      top: -0.5em;
+      right: 100%;
+      left: auto;
+      padding: 0;
+      margin-right: -0.5em;
+      -webkit-border-radius: 0.5em;
+         -moz-border-radius: 0.5em;
+              border-radius: 0.5em;
+    }
+    a.close-bttn span {
+      display: none;
+    }
+    a.close-bttn:after {
+      content: "\0020";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      -webkit-border-radius: 0.5em;
+         -moz-border-radius: 0.5em;
+              border-radius: 0.5em;
+         -moz-box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+      -webkit-box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+              box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+    }*/
+
   a.close-bttn {
-    font-size: 1.8em;
-    line-height: 0.9375em;
-    float: right;
-    text-align: center;
-    background: #fff;
-    height: 1em;
-    width: 1em;
-    position: relative;
-    z-index: 5;
-    top: -0.5em;
-    right: 100%;
-    left: auto;
-    padding: 0;
-    margin-right: -0.5em;
-    -webkit-border-radius: 0.5em;
-       -moz-border-radius: 0.5em;
-            border-radius: 0.5em;
+      color: hotpink;
+      background: hotpink;
+      font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1.25em;
+      line-height: 1.7;
+      float: right;
+      text-align: center;
+      height: 1.5em;
+      width: 1.5em;
+      position: relative;
+      z-index: 5;
+      top: -0.75em;
+      right: 100%;
+      left: auto;
+      padding: 0;
+      margin-right: -0.75em;
+      border: 0;
+      -webkit-border-radius: 0.75em;
+         -moz-border-radius: 0.75em;
+              border-radius: 0.75em;
+      overflow: hidden;
+      -webkit-box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+         -moz-box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+              box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
   }
+  a.close-bttn:hover {
+    color: #dd3c77;
+    background: #dd3c77;
+  } 
   a.close-bttn span {
-    display: none;
+      display: block;
+      text-indent: -9999px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
   }
-  a.close-bttn:after {
+
+  a.close-bttn:before, a.close-bttn:after, 
+  a.close-bttn span:before, a.close-bttn span:after {
     content: "\0020";
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    -webkit-border-radius: 0.5em;
-       -moz-border-radius: 0.5em;
-            border-radius: 0.5em;
-       -moz-box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
-    -webkit-box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
-            box-shadow: 0 0 0 0.1em #eee, -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+    display: block;
+    width: 0;
+    height: 0;
+  }
+  /* right of X */
+  a.close-bttn:before {
+      right: -0.4em;
+      bottom: 50%;
+      margin-bottom: -1em;
+      border-top: 1em solid transparent;
+      border-bottom: 1em solid transparent;
+      border-right: 1em solid #fff;
+  }
+  /* left of X */
+  a.close-bttn:after {
+      left: -0.4em;
+      top: 50%;
+      margin-top: -1em;
+      border-top: 1em solid transparent;
+      border-bottom: 1em solid transparent;
+      border-left: 1em solid #fff;
+  }
+  /* top of X */
+  a.close-bttn span:before {
+      top: -0.4em;
+      margin-right: -1em;
+      right: 50%;
+      border-left: 1em solid transparent;
+      border-right: 1em solid transparent;
+      border-top: 1em solid #fff;
+  }
+  /* bottom of X */
+  a.close-bttn span:after {
+      bottom: -0.4em;
+      margin-left: -1em;
+      left: 50%;
+      border-left: 1em solid transparent;
+      border-right: 1em solid transparent;
+      border-bottom: 1em solid #fff;
   }
 
   /* Voting & Sharing */
