@@ -294,18 +294,19 @@ body {
 #map {
   height: 100%;
 }
+
 a.add-place {
   display: none;
   float: left;
   position: absolute;
-  right: 1em;
-  bottom: 2em;
-  left: 1em;
+  right: auto;
+  bottom: 10px;
+  left: 10px;
   z-index: 15;
   background-color: #00aaff;
   color: #f0f0f0;
-  padding: 0.3em;
-  font-size: 2em;
+  padding: 0.05em 0.4em 0.2em 0.4em;
+  font-size: 2.5em;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
@@ -316,6 +317,12 @@ a.add-place {
 }
 a.add-place:hover {
   color: #fff;
+}
+a.add-place span {
+  display: none;
+}
+a.add-place:before {
+  content: "+";
 }
 
 a.locate-me:link,
@@ -968,34 +975,37 @@ ul.recent-points {
 -------------------------------------------------------------- */
 
 @media only screen and (min-width: 320px) {
-  a.add-place {
-    padding: 0.75em 1em;
-  }
 }
 @media only screen and (min-width: 480px) {
+}
+@media only screen and (min-width: 480px) and (orientation: portrait) {
   a.add-place {
     padding: 0.6em 1em;
-    right: auto;
-  }
-}
-@media only screen and (max-width: 480px) and (orientation: landscape) {
-  a.add-place {
-    right: auto;
-    bottom: 10px;
-    left: 10px;
-    padding: 0.1em 0.4em 0.2em 0.4em;
-    font-size: 2em;
+    font-size: 2.5em;
+    bottom: 0.75em;
+    left: 0.75em;
   }
   a.add-place span {
-    display: none;
+    font-size: 1em;
+    display: inline;
   }
   a.add-place:before {
-    content: "+";
+    content: "";
   }
 }
 @media only screen and (min-width: 768px) { /* menu is visible */
   a.add-place {
+    padding: 0.6em 1em;
     font-size: 2.5em;
+    bottom: 1.5em;
+    left: 1em;
+  }
+  a.add-place span {
+    font-size: 1em;
+    display: inline;
+  }
+  a.add-place:before {
+    content: "";
   }
   #content {
     position: absolute;
