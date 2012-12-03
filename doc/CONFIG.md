@@ -76,6 +76,9 @@ add to the "layers" array.  This array should match the configuration format
 for [Argo](https://github.com/openplans/argo/wiki/Configuration-Guide) layer
 options.
 
+A sample configuration for Argo layers can be found in the `overlays`
+flavor [config file](https://github.com/openplans/shareabouts/blob/master/src/flavors/overlays/config.yml#L24).
+
 
 ### Place Types
 
