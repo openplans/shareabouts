@@ -78,6 +78,9 @@ options.
 
 A sample configuration for Argo layers can be found in the `overlays`
 flavor [config file](https://github.com/openplans/shareabouts/blob/master/src/flavors/overlays/config.yml#L24).
+The data used in that example can also be found in the flavor under the
+[*/static/layers/*](https://github.com/openplans/shareabouts/tree/master/src/flavors/overlays/static/layers) 
+folder.
 
 
 ### Place Types
