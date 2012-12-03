@@ -13,10 +13,10 @@ map:
   geolocation_onload: false
   options:
     center:
-      lat: 40.74857
-      lng: -73.88802
-    zoom: 15
-    minZoom: 13
+      lat: 40.74785
+      lng: -73.89026
+    zoom: 16
+    minZoom: 15
     maxZoom: 17
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png
