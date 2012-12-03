@@ -57,6 +57,12 @@ SHAREABOUTS = {
 #}
 
 #SHAREABOUTS = {
+#  'FLAVOR': 'overlays',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/demo-user/demo-data/',
+#  'DATASET_KEY': 'abc123',
+#}
+
+#SHAREABOUTS = {
 #  'FLAVOR': 'sistercities',
 #  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/sc-usage/',
 #  'DATASET_KEY': 'abc123',
