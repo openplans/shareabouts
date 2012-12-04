@@ -984,91 +984,56 @@ ul.recent-points {
 
   /* Modal Close Button */
   a.close-bttn {
-    color: #000;
-    background: hotpink;
-    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1.25em;
-    line-height: 1.7;
-    float: right;
+    background: #fff;
     text-align: left;
     text-indent: -9999px;
-    height: 1.5em;
-    width: 1.5em;
+    float: right;
+    height: 24px;
+    width: 24px;
     position: relative;
     z-index: 5;
-    top: -0.75em;
+    top: -12px;
     right: 100%;
     left: auto;
     padding: 0;
-    margin-right: -0.75em;
+    margin-right: -12px;
     border: 0;
-    -webkit-border-radius: 0.75em;
-       -moz-border-radius: 0.75em;
-            border-radius: 0.75em;
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
     overflow: hidden;
-    -webkit-box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
-       -moz-box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
-            box-shadow: 0 0 0 2px #eee, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em #fff;
+    -webkit-box-shadow: 0 0 0 2px #eee, -3px 3px 0 2px rgba(85, 85, 85, 0.5);
+       -moz-box-shadow: 0 0 0 2px #eee, -3px 3px 0 2px rgba(85, 85, 85, 0.5);
+            box-shadow: 0 0 0 2px #eee, -3px 3px 0 2px rgba(85, 85, 85, 0.5);
   }
-  a.close-bttn:hover {
-    background: #dd3c77;
-  } 
-  a.close-bttn span {
-    display: block;
-    margin: 0;
-    font-size: 1em;
-    text-indent: -9999px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
-  a.close-bttn:before, a.close-bttn:after, 
-  a.close-bttn span:before, a.close-bttn span:after {
+  a.close-bttn:before,
+  a.close-bttn:after {
     content: "\0020";
     position: absolute;
     display: block;
-    width: 0;
-    height: 0;
+    top: 50%;
+    right: 20%;
+    bottom: 50%;
+    left: 20%;
+    margin: -2px;
+    background: hotpink;
   }
-  /* right of X */
-  a.close-bttn:before {
-      right: -0.4em;
-      bottom: 50%;
-      margin-bottom: -1em;
-      border-top: 1em solid transparent;
-      border-bottom: 1em solid transparent;
-      border-right: 1em solid #fff;
+  a.close-bttn:hover:before, a.close-bttn:hover:after {
+    background: #dd3c77;
   }
-  /* left of X */
+  a.close-bttn {
+    -webkit-transform:rotate(45deg); /* Safari and Chrome */
+       -moz-transform:rotate(45deg); /* Firefox */
+        -ms-transform:rotate(45deg); /* IE 9 */
+         -o-transform:rotate(45deg); /* Opera */
+           transform: rotate(45deg);
+  }
   a.close-bttn:after {
-      left: -0.4em;
-      top: 50%;
-      margin-top: -1em;
-      border-top: 1em solid transparent;
-      border-bottom: 1em solid transparent;
-      border-left: 1em solid #fff;
-  }
-  /* top of X */
-  a.close-bttn span:before {
-      top: -0.4em;
-      margin-right: -1em;
-      right: 50%;
-      border-left: 1em solid transparent;
-      border-right: 1em solid transparent;
-      border-top: 1em solid #fff;
-  }
-  /* bottom of X */
-  a.close-bttn span:after {
-      bottom: -0.4em;
-      margin-left: -1em;
-      left: 50%;
-      border-left: 1em solid transparent;
-      border-right: 1em solid transparent;
-      border-bottom: 1em solid #fff;
+    -webkit-transform:rotate(90deg); /* Safari and Chrome */
+       -moz-transform:rotate(90deg); /* Firefox */
+        -ms-transform:rotate(90deg); /* IE 9 */
+         -o-transform:rotate(90deg); /* Opera */
+           transform: rotate(90deg);
   }
 
   /* Voting & Sharing */
