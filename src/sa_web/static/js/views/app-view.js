@@ -40,7 +40,7 @@ var Shareabouts = Shareabouts || {};
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
           // How often to check for new content
-          interval: this.options.activityConfig.interval || 5000
+          interval: this.options.activityConfig.interval || 30000
         });
       }
 
