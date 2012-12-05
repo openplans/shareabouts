@@ -26,15 +26,18 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  Landmark:
+  landmark:
     default: blue
     focused: red
-  Park:
+    label: Landmark
+  park:
     default: blue
     focused: red
-  School:
+    label: Park
+  school:
     default: blue
     focused: red
+    label: School
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
@@ -87,9 +90,12 @@ place:
     - prompt: Location Type
       type: select
       options:
-        - Landmark
-        - Park
-        - School
+        - label: Landmark
+          value: landmark
+        - label: Park
+          value: park
+        - label: School
+          value: school
       name: location_type
     - prompt: Your Name
       type: text
@@ -111,7 +117,7 @@ place:
 survey:
   submission_type: comments
 
-  # Response display config
+  # Response config
   show_responses: true
   response_name: comment
   response_plural_name: comments
@@ -134,7 +140,7 @@ survey:
 support:
   submission_type: support
   submit_btn_text: Support This!
-  action_text: "supported"
+  action_text: supported
   anonymous_name: Someone
 
 pages:
@@ -143,7 +149,7 @@ pages:
     url: /static/pages/overview.html
     start_page: true
 
-  - title: "Why Shareabouts?"
+  - title: Why Shareabouts?
     slug: why
     url: /static/pages/why.html
 

@@ -197,10 +197,10 @@
     _.each(placeTypesConfig, function(config, name) {
 
       if (!defaultPlaceTypeName || name.toLowerCase() === defaultPlaceTypeName.toLowerCase()) {
-        placeTypes[name] = {
+        placeTypes[name] = _.extend(config, {
           'default': placeTypeIcons[config['default']],
           'focused': placeTypeIcons[config.focused]
-        };
+        });
 
         // Update in case if there is a case issue
         if(defaultPlaceTypeName) {

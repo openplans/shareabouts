@@ -137,6 +137,8 @@ var Shareabouts = Shareabouts || {};
           placeData['type_starts_with_vowel'] = true;
         }
 
+        placeData.place_type_label = placeType.label;
+
         modelData = _.extend({
           place: placeData,
           is_place: isPlaceAction
