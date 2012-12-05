@@ -11,6 +11,14 @@ var Shareabouts = Shareabouts || {};
       this.activities = this.options.activities;
       this.places = this.collection;
 
+      $('body').ajaxError(function(evt, request, settings){
+        $('#ajax-error-msg').show();
+      });
+
+      $('body').ajaxSuccess(function(evt, request, settings){
+        $('#ajax-error-msg').hide();
+      });
+
       // Handle collection events
       this.collection.on('add', this.onAddPlace, this);
       this.collection.on('remove', this.onRemovePlace, this);
