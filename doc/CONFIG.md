@@ -249,35 +249,37 @@ submit_btn_txt       | string  | Text on the submit button itself.
 action_text          | string  | Past-tense verb for display in the activity view, eg. "supported"
 
 
-### Interface Text
+### Translating Interface Text
 
-Much of the text in Shareabouts can be customized via the Django
-localization (translation) machinery.  Even if you're only creating a
-site in english, this is useful to change various strings used on the
-site.
+The text in Shareabouts can be translated via the Django
+localization (translation) machinery.
 
-*TODO* update this to reference the new flavor-specific django.po
-files, and make sure those work.
+To mark text in your configuration (flavor) as available to be
+translated, wrap the text in `_(` and `)`.  For example, in the following
+snippet, `Button Label` will be available for translation, but `survey_type`
+will not:
 
-The translations file is
-src/sa_web/locale/en_US/LC_MESSAGES/django.po
-You can edit this file with any text editor,
-or with any tool that supports .po files, such as
-[poedit](http://www.poedit.net/).
+    label: _(Button Label)
+    type_name: survey_type
 
-Edit the translations as desired, save it, then run this command:
+To generate a translation template, run the following from your flavor
+directory:
 
-    cd src/sa_web
-	../manage.py compilemessages
+    <project_src_root>/manage.py flavormessages --locale en_US
 
-A few notable messages you will definitely want to edit:
+Do this for each language you want your map to be available in. For the
+locale, use a locale name as specified in Django's documentation:
+https://docs.djangoproject.com/en/dev/topics/i18n/#term-locale-name
 
-* msgid "App Title"
+Once your messages files are generated, fill in any translations that should
+be made.  If you leave a translation blank, the original string will be used.
 
-* msgid "App Description"
+To apply your translations, run the following from your flavor directory:
 
-* msgid "App Name"
+    <project_src_root>/manage.py compilemessages
 
+That's it! The compilemessages task is run automatically for the DotCloud and
+Heroku deployments.
 
 ### Pages and Links
 
