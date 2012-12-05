@@ -38,8 +38,6 @@ map:
       url: '/static/layers/transit.json'
       type: 'json'
       visible: true
-      title: 'Local bus routes'
-      description: '<p>Local bus routes considered in this project: Q29, Q32, Q33, Q45, Q47, Q49, Q53.</p>'
       popupContent: 'This is the {{name}} bus.'
       rules:
         - condition: '"{{name}}" === "Q29"'
@@ -82,8 +80,6 @@ map:
       url: '/static/layers/vendors.json'
       type: 'json'
       visible: true
-      title: 'Street vendors'
-      description: '<p>Locations of street vendors were surveyed on several weekdays and weekends in Fall 2009.</p>'
       rules:
         - condition: 'true'
           style:
