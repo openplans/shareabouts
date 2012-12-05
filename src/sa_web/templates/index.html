@@ -61,20 +61,29 @@
   <div role="main" id="main">
     <noscript>
       <div class="noscript">
-      <h3>Oops, {{ config.app.name}} needs JavaScript to achieve full awesomeness.</h3>
-      <p>{{ config.app.name }} is great but it needs something called JavaScript to work
+      <h3>
+        {% blocktrans %}
+        Oops, {{ config.app.name}} needs JavaScript to achieve full awesomeness.
+        {% endblocktrans %}
+      </h3>
+      <p>
+        {% blocktrans %}
+        {{ config.app.name }} is great but it needs something called JavaScript to work
         properly. But fear not, it's really easy to turn on. Click
-        <a href="http://enable-javascript.com/" target="_blank">here</a> for simple instructions!</p>
+        <a href="http://enable-javascript.com/" target="_blank">here</a> for simple instructions!
+        {% endblocktrans %}
+      </p>
       </div>
     </noscript>
 
     <div id="map-container">
-      <div id="ajax-error-msg">Blast! We can't connect to the server. Hang tight while we re-establish communication with the mothership.</div>
+      <div id="ajax-error-msg">
+        {% blocktrans %}Blast! We can't connect to the server. Hang tight while we re-establish communication with the mothership.{% endblocktrans %}</div>
       <div id="map"></div>
     </div>
 
     <div id="content">
-      <a href="#" class="close-bttn">&#10005;<span>Close</span></a>
+      <a href="#" class="close-bttn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
       <article class="point"><!-- .point or .page -->
       </article>
     </div><!-- end #content -->
@@ -82,7 +91,7 @@
 
   <div id="ticker">
     <ul class="recent-points"></ul>
-    <p id="powered-by">Powered by <a href="http://shareabouts.org/">Shareabouts</a>.</p>
+    <p id="powered-by">{% blocktrans %}Powered by{% endblocktrans %} <a href="http://shareabouts.org/">Shareabouts</a>.</p>
   </div>
 
   <footer id="colophon">
