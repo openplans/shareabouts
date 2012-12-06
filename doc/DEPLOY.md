@@ -12,44 +12,46 @@ of the files necessary are already in the repository.  We also have the files
 necessary for deploying to Heroku.  Other PaaS providers should be simple
 variations on these.
 
+From the root Shareabouts directory...
+
 * Create a new application:
 
   *DotCloud*
 
-      dotcloud create <instance name>
+         dotcloud create <instance name>
+
+  This will create the application on DotCloud and prompt you connect it to your current directory: `Connect the current directory to "<instance name>"?` If you choose yes, this application will become your default and you can ignore the `-A <instance name>` flags below.
 
   *Heroku*
 
-      heroku apps:create <instance name>
+         heroku apps:create <instance name>
 
 * Push to the application
 
   *DotCloud*
 
-      dotcloud push <instance name> -b master
+         dotcloud push -A <instance name> -b master --git
 
-  Note you should either push all your changes to your master
-  repository (eg. github or whatever you're using for version
-  control);  otherwise you must use the dotcloud push --all option.
+  Note you should either push all your changes to your master repository (eg. github or whatever you're using for version control); otherwise you must omit the `--git` option and _everything_ in your current directory will be pushed up.
 
   For more options, see `dotcloud push --help`
 
   *Heroku*
 
-      git push heroku master:master
+         git push heroku master:master
 
 * Set your flavor, and dataset API key and root URL:
-  
+
   You will need your dataset root API URL for this step.  Suppose you are using an API server hames *api.shareabouts.org* with a username *mjumbewu* and a dataset called *niceplaces*. In this case, your dataset root will he `http://api.shareabouts.org/api/v1/datasets/mjumbewu/niceplaces/`.  In general, it will always be `http://<api server>/api/v1/datasets/<username>/<dataset slug>/`.
 
   *DotCloud*
 
-         dotcloud env set SHAREABOUTS_FLAVOR=<flavor name> \
-                                          SHAREABOUTS_DATASET_ROOT=<dataset root url> \
-                                          SHAREABOUTS_DATASET_KEY=<dataset api key>
-	                                     
+         dotcloud env -A <instance name> set SHAREABOUTS_FLAVOR=<flavor name> \
+                                             SHAREABOUTS_DATASET_ROOT=<dataset root url> \
+                                             SHAREABOUTS_DATASET_KEY=<dataset api key>
+
   *Heroku*
-  
+
          heroku config:set SHAREABOUTS_FLAVOR=<flavor name> \
                            SHAREABOUTS_DATASET_ROOT=<dataset root url> \
                            SHAREABOUTS_DATASET_KEY=<dataset api key>
