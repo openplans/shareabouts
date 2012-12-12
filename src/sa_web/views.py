@@ -70,7 +70,7 @@ def init_pages_config(pages_config, request):
                 # of the URL.
                 if response.status_code == 200:
                     content = page_config['content'] = response.text
-                    cache.set(cache_key, content)
+                    cache.set(cache_key, content, 604800) # Cache for a week
 
                 # If there was an error, let the client know what the URL, status code,
                 # and text of the error was.
