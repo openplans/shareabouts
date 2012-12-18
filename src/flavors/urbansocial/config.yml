@@ -77,22 +77,28 @@ place:
       label: Scheduled?
       type: select
       options:
-        - Scheduled
-        - Unscheduled
+        - label: Scheduled
+          value: Scheduled
+        - label: Unscheduled
+          value: Unscheduled
       name: scheduled
     - prompt: Was this meeting professional or personal?
       label: Nature?
       type: select
       options:
-        - Professional
-        - Personal
+        - label: Professional
+          value: Professional
+        - label: Personal
+          value: Personal
       name: nature
     - prompt: Did this meeting lead to meaningful ideas?
       label: Outcome?
       type: select
       options:
-        - 'Meaningful'
-        - 'Insignificant'
+        - label: 'Meaningful'
+          value: 'Meaningful'
+        - label: 'Insignificant'
+          value: 'Insignificant'
       name: meaningful
     - prompt: Your Name
       label: 'Name:'
