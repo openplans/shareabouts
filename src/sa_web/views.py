@@ -7,9 +7,10 @@ import time
 import hashlib
 import httpagentparser
 import urllib2
-from contextlib import closing
+from .config import get_shareabouts_config
 from django.shortcuts import render
 from django.conf import settings
+from django.core.cache import cache
 from django.utils.timezone import now
 from django.views.decorators.csrf import ensure_csrf_cookie
 from proxy.views import proxy_view
@@ -58,101 +59,31 @@ def init_pages_config(pages_config, request):
             #
             #      response = ('<object type="text/html" data="{0}">'
             #                  '</object>').format(page_url)
-            response = requests.get(page_url)
 
-            # If we successfully got the content, stick it into the config instead
-            # of the URL.
-            if response.status_code == 200:
-                page_config['content'] = response.text
+            cache_key = 'page:' + page_config['slug']
+            content = page_config['content'] = cache.get(cache_key)
 
-            # If there was an error, let the client know what the URL, status code,
-            # and text of the error was.
-            else:
-                page_config['url'] = page_url
-                page_config['status'] = response.status_code
-                page_config['error'] = response.text
+            if content is None:
+                response = requests.get(page_url)
+
+                # If we successfully got the content, stick it into the config instead
+                # of the URL.
+                if response.status_code == 200:
+                    content = page_config['content'] = response.text
+                    cache.set(cache_key, content, 604800) # Cache for a week
+
+                # If there was an error, let the client know what the URL, status code,
+                # and text of the error was.
+                else:
+                    page_config['url'] = page_url
+                    page_config['status'] = response.status_code
+                    page_config['error'] = response.text
 
         if sub_pages:
             # Do menus recursively.
             page_config['sub_pages'] = init_pages_config(sub_pages, request)
 
     return pages_config
-
-
-def get_shareabouts_config(path_or_url):
-    if path_or_url.startswith('http://') or path_or_url.startswith('https://'):
-        return ShareaboutsRemoteConfig(path_or_url)
-    else:
-        return ShareaboutsLocalConfig(path_or_url)
-
-
-class _ShareaboutsConfig (object):
-    """
-    Base class representing Shareabouts configuration options
-    """
-    @property
-    def data(self):
-        if not hasattr(self, '_yml'):
-            with closing(self.config_file()) as config_yml:
-                self._yml = yaml.load(config_yml)
-
-        return self._yml
-
-    def __getitem__(self, key):
-        return self.data[key]
-
-    def get(self, key, default=None):
-        return self.data.get(key, default)
-
-    def update(self, other):
-        self.data.update(other)
-
-
-#
-# TODO: Remote configuration is an attractive thing to support, but it has
-#       several tricky implications:
-#
-#       1. Security
-#          --------
-#          The config.yml file contains the API key for the dataset.  If the
-#          file is available over HTTP for this application to download, it is
-#          available for anyone else as well.  It could be secured with some
-#          authentication scheme, but this has to be thought about further. It
-#          might be best to remove the dataset meta-information from the config
-#          file and have people put it in the settings with the flavor.
-#
-#       2. Internationalization
-#          --------------------
-#          We're using the gettext format for translations, but there are some
-#          things that are specific to the flavor should be translated from the
-#          flavor config.  How we would load the translations for the flavor is
-#          not yet known.
-#
-#       For these reasons, we are not yet officially supporting remote
-#       configuration.
-#
-class ShareaboutsRemoteConfig (_ShareaboutsConfig):
-    def __init__(self, url):
-        self.url = url
-
-    def static_url(self):
-        return os.path.join(self.url, 'static/')
-
-    def config_file(self):
-        config_fileurl = os.path.join(self.url, 'config.yml')
-        return urllib2.urlopen(config_fileurl)
-
-
-class ShareaboutsLocalConfig (_ShareaboutsConfig):
-    def __init__(self, path):
-        self.path = path
-
-    def static_url(self):
-        return settings.STATIC_URL
-
-    def config_file(self):
-        config_filename = os.path.join(self.path, 'config.yml')
-        return open(config_filename)
 
 
 @ensure_csrf_cookie

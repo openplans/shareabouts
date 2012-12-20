@@ -14,14 +14,10 @@ var Shareabouts = Shareabouts || {};
       // Bind model events
       this.model.on('error', this.onError, this);
       this.model.on('change', this.onChange, this);
-
-      // Cache the place types
-      this.placeTypes = _.keys(this.options.placeTypes);
     },
     render: function(){
       // Augment the model data with place types for the drop down
       var data = _.extend({
-        place_types: this.placeTypes,
         place_config: this.options.placeConfig
       }, this.model.toJSON());
 

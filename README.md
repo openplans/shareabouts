@@ -50,6 +50,18 @@ All of our documentation is is our `doc` directory. Use it to learn more about:
 
 Where is Sharabouts going? Check [our roadmap](https://github.com/openplans/shareabouts/wiki/Roadmap) for details of possble future features we've identified.
 
+Problems? Ideas? Let us know!
+--------------------
+
+We strongly welcome your feature suggestions. Add them to [our list on FreshDesk](https://openplans.freshdesk.com/categories/21477), and help us with prioritizing by voting up the features you'd like to see.
+
+If you have questions for the development team,
+* [the developer discussion list](http://groups.google.com/group/shareabouts-dev) is a good starting point for troubleshooting or questions
+* you'll find the Shareabouts team in #shareabouts on [irc.freenode.net](http://irc.freenode.net).
+* hit us up on Twitter [@Shareabouts](http://twitter.com/shareabouts)
+
+You can always contact OpenPlans directly [via our website](http://openplans.org).
+
 Demos
 ------------
 * [gathering usage data for a city park](http://sistercities.shareabouts.org/)

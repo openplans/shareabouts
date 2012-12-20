@@ -281,6 +281,25 @@ body {
   z-index: 9999;
 }
 
+#ajax-error-msg {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  max-width: 300px;
+  z-index: 9999;
+
+  padding: 0.6em;
+  color: #8D5251;
+
+  border: 1px solid #CFABAB;
+  background-color: rgba(242, 206, 206, 0.8);
+
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
 /* Map */
 #map-container {
   background: #eee;
@@ -385,7 +404,7 @@ a.add-place:before {
   -ms-transition: opacity 0.25s;
   transition: opacity 0.25s;
 }
-a.add-place:hover + #centerpoint, 
+a.add-place:hover + #centerpoint,
 #centerpoint.dragging {
   opacity: 1;
 }
@@ -615,11 +634,11 @@ textarea {
 .sharing {
   list-style: none;
 }
-.share-link { 
+.share-link {
   float: left;
   padding: 0 !important;
 }
-.share-link a { 
+.share-link a {
   display: block;
   width: 32px;
   height: 32px;

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-21 10:29-0400\n"
+"POT-Creation-Date: 2012-12-05 15:36-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,8 +23,9 @@ msgid ""
 "          {{ submitter_name }}\n"
 "          </strong>\n"
 "          {{# is_place }}\n"
-"            created a <span class=\"place-type\">{{ place.location_type }}</"
-"span>\n"
+"            {{ action }} a{{# place.type_starts_with_vowel }}n{{/ place."
+"type_starts_with_vowel }} <span class=\"place-type\">{{ place."
+"place_type_label }}</span>\n"
 "            {{# place.name }} named <span class=\"place-name\">{{ place."
 "name }}</span>{{/ place.name }}\n"
 "          {{/ is_place }}\n"
@@ -34,7 +35,7 @@ msgid ""
 "            {{# place.name }}<span class=\"place-name\">{{ place.name }}</"
 "span>{{/ place.name }}\n"
 "            {{^ place.name }}a{{# place.type_starts_with_vowel }}n{{/ place."
-"type_starts_with_vowel }} {{ place.location_type }}{{/ place.name }}\n"
+"type_starts_with_vowel }} {{ place.place_type_label }}{{/ place.name }}\n"
 "          {{/ is_place }}\n"
 "          "
 msgstr ""
@@ -62,6 +63,14 @@ msgid ""
 "            {{#region}}\n"
 "              in {{ region }}\n"
 "            {{/region}}"
+msgstr ""
+
+#: jstemplates/place-detail.html:7
+msgid "Recommend on Facebook"
+msgstr ""
+
+#: jstemplates/place-detail.html:8
+msgid "Tweet This"
 msgstr ""
 
 #: jstemplates/unsupported-overlay.html:1
@@ -97,4 +106,39 @@ msgid ""
 "    Frame</a>, a plug-in which gives you access to Google's Chrome browser\n"
 "    technology from within IE.\n"
 "    "
+msgstr ""
+
+#: templates/index.html:65
+#, python-format
+msgid ""
+"\n"
+"        Oops, %(config.app.name)s needs JavaScript to achieve full "
+"awesomeness.\n"
+"        "
+msgstr ""
+
+#: templates/index.html:70
+#, python-format
+msgid ""
+"\n"
+"        %(config.app.name)s is great but it needs something called "
+"JavaScript to work\n"
+"        properly. But fear not, it's really easy to turn on. Click\n"
+"        <a href=\"http://enable-javascript.com/\" target=\"_blank\">here</a> "
+"for simple instructions!\n"
+"        "
+msgstr ""
+
+#: templates/index.html:81
+msgid ""
+"Blast! We can't connect to the server. Hang tight while we re-establish "
+"communication with the mothership."
+msgstr ""
+
+#: templates/index.html:86
+msgid "Close"
+msgstr ""
+
+#: templates/index.html:94
+msgid "Powered by"
 msgstr ""
