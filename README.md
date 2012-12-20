@@ -3,39 +3,42 @@ Shareabouts [![Build Status](https://secure.travis-ci.org/openplans/shareabouts.
 
 Shareabouts is an online mapping tool to gather crowdsourced public input in a social and engaging process. Using Shareabouts, people can drop a pin on a map to provide ideas, suggestions, and comments for planning and design issues. And as a mobile-friendly application, Shareabouts makes it easy to add input on the go. 
 
-Add New Places
-  : Adding places is easy. The simple interface lets users quickly drop pins on the map with descriptions and other useful information.
+<dl>
 
-Comment on Places
-  : Engage your audience in meaningful conversation. Users can leave [rich media] comments on places.
+  <dt>Add New Places</dt>
+  <dd>Adding places is easy. The simple interface lets users quickly drop pins on the map with descriptions and other useful information.</dd>
 
-Explore Places & Comments
-  : The map allows users to find places and comments in their areas of interest.
+  <dt>Comment on Places</dt>
+  <dd>Engage your audience in meaningful conversation. Users can leave [rich media] comments on places.</dd>
 
-Show Support
-  : Need to know which places are most popular? Users can vote for their favorite places to show their support.
+  <dt>Explore Places and Comments</dt>
+  <dd>The map allows users to find places and comments in their areas of interest.</dd>
 
-Social Sharing
-  : Harness the power of viral marketing. Users engage their social network when they share places on Twitter and Facebook.
+  <dt>Show Support</dt>
+  <dd>Need to know which places are most popular? Users can vote for their favorite places to show their support.</dd>
 
-Activity Feed
-  : See a list of recently submitted places, comments, and support.
+  <dt>Social Sharing</dt>
+  <dd>Harness the power of viral marketing. Users engage their social network when they share places on Twitter and Facebook.</dd>
 
-Place Types
-  : Collect information about different types of places.  Data filtering by place type.
+  <dt>Activity Feed</dt>
+  <dd>See a list of recently submitted places, comments, and support.</dd>
 
-Responsive Design
-  : We've designed Shareabouts to work great and look beautiful on all screen sizes—desktop, mobile, and touch screens!
+  <dt>Place Types</dt>
+  <dd>Collect information about different types of places.  Data filtering by place type.</dd>
 
-Configurable Surveys
-  : Want to collect specific information? Our flexible data storage allows you to create your own surveys. Crowdsource more than just comments.
+  <dt>Responsive Design</dt>
+  <dd>We've designed Shareabouts to work great and look beautiful on all screen sizes—desktop, mobile, and touch screens!</dd>
 
-Custom Map Layers
-  : Overlay pertinent geographic data. Applying your custom style rules, the Shareabouts map can pull in your GeoJson URLs as additional map layers.
+  <dt>Configurable Surveys</dt>
+  <dd>Want to collect specific information? Our flexible data storage allows you to create your own surveys. Crowdsource more than just comments.</dd>
 
-Internationalization
-  : Do your users speak various languages? Shareabouts is internationalizable. It's easy to customize the user interface with locale-specific translations.
+  <dt>Custom Map Layers</dt>
+  <dd>Overlay pertinent geographic data. Applying your custom style rules, the Shareabouts map can pull in your GeoJson URLs as additional map layers.</dd>
 
+  <dt>Internationalization</dt>
+  <dd>Do your users speak various languages? Shareabouts is internationalizable. It's easy to customize the user interface with locale-specific translations.</dd>
+
+</dl>
 
 Documentation
 -------------
