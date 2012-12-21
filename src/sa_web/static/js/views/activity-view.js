@@ -137,7 +137,7 @@ var Shareabouts = Shareabouts || {};
           placeData['type_starts_with_vowel'] = true;
         }
 
-        placeData.place_type_label = placeType.label;
+        placeData.place_type_label = placeType.label || placeData.location_type;
 
         modelData = _.extend({
           place: placeData,

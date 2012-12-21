@@ -10,6 +10,7 @@ import urllib2
 from .config import get_shareabouts_config
 from django.shortcuts import render
 from django.conf import settings
+from django.core.cache import cache
 from django.utils.timezone import now
 from django.views.decorators.csrf import ensure_csrf_cookie
 from proxy.views import proxy_view
@@ -58,19 +59,25 @@ def init_pages_config(pages_config, request):
             #
             #      response = ('<object type="text/html" data="{0}">'
             #                  '</object>').format(page_url)
-            response = requests.get(page_url)
 
-            # If we successfully got the content, stick it into the config instead
-            # of the URL.
-            if response.status_code == 200:
-                page_config['content'] = response.text
+            cache_key = 'page:' + page_config['slug']
+            content = page_config['content'] = cache.get(cache_key)
 
-            # If there was an error, let the client know what the URL, status code,
-            # and text of the error was.
-            else:
-                page_config['url'] = page_url
-                page_config['status'] = response.status_code
-                page_config['error'] = response.text
+            if content is None:
+                response = requests.get(page_url)
+
+                # If we successfully got the content, stick it into the config instead
+                # of the URL.
+                if response.status_code == 200:
+                    content = page_config['content'] = response.text
+                    cache.set(cache_key, content, 604800) # Cache for a week
+
+                # If there was an error, let the client know what the URL, status code,
+                # and text of the error was.
+                else:
+                    page_config['url'] = page_url
+                    page_config['status'] = response.status_code
+                    page_config['error'] = response.text
 
         if sub_pages:
             # Do menus recursively.
