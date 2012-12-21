@@ -97,6 +97,13 @@ place:
         - label: _(School)
           value: school
       name: location_type
+    - prompt: _(Image)
+      type: file
+      name: my_image
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
     - prompt: _(Your Name)
       type: text
       name: submitter_name

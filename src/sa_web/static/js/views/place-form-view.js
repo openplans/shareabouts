@@ -54,11 +54,32 @@ var Shareabouts = Shareabouts || {};
     },
     onSubmit: function(evt) {
       var router = this.options.router,
-          model = this.model;
+          model = this.model,
+          // Should not include any files
+          attrs = this.getAttrs(),
+          $fileInputs;
 
       evt.preventDefault();
+
+      attrs.attachments = {};
+      // Gets all of the file inputs
+      $fileInputs = this.$('form').find('input[type="file"]');
+
+      // Get all of the files for each file input
+      $fileInputs.each(function(i, fileInput) {
+        var files = fileInput.files;
+
+        // Are there files?
+        if (files.length > 0) {
+          // Add each file to the attachment
+          _.each(files, function(file, n) {
+            attrs.attachments[$(fileInput).attr('name') + n] = file;
+          });
+        }
+      });
+
       // Save and redirect
-      this.model.save(this.getAttrs(), {
+      this.model.save(attrs, {
         success: function() {
           router.navigate('/place/' + model.id, {trigger: true});
         },
