@@ -158,3 +158,11 @@ a.add-place:hover {
 .response-label-i_would_bike_here {
   display: none;
 }
+
+/* =Read-only map
+-------------------------------------------------------------- */
+
+.survey .reply-link,
+.survey #reply {
+  display: none;
+}
