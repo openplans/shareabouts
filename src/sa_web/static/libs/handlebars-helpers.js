@@ -10,6 +10,8 @@
   Handlebars.registerHelper('nlToBr', function(str) {
     if (str) {
       str = Handlebars.Utils.escapeExpression(str);
+      // also autolink the string
+      str = str.replace(new RegExp('&#x2F;', 'g'), '/').autoLink();
       return new Handlebars.SafeString(str.replace(/\r?\n|\r/g, '<br>'));
     } else {
       return str;
