@@ -10,7 +10,7 @@ var Shareabouts = Shareabouts || {};
           i, layerModel,
           // Base layer config is optional, default to Mapbox Streets
           baseLayerConfig = _.extend({
-            url: 'http://{s}.tiles.mapbox.com/v3/mapbox.mapbox-streets/{z}/{x}/{y}.png',
+            url: 'http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png',
             attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
           }, self.options.mapConfig.base_layer),
           baseLayer = L.tileLayer(baseLayerConfig.url, baseLayerConfig);
