@@ -41,7 +41,7 @@ var Shareabouts = Shareabouts || {};
           center = this.options.appView.getCenter();
 
       // Get values from the form
-      _.each(self.$('form').serializeArray(), function(item, i) {
+      _.each(this.$('form').serializeArray(), function(item, i) {
         attrs[item.name] = item.value;
       });
 
