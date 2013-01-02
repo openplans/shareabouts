@@ -151,10 +151,13 @@ button {width: auto; overflow: visible;}
 /* =Structure & Layout
 -------------------------------------------------------------- */
 
-html, body {
+html {
+  height: 100%;
 }
 body {
   background: #666;
+  position: relative;
+  height: 100%;
 }
 #site-header {
   color: #eee;
@@ -317,7 +320,7 @@ body {
 a.add-place {
   display: none;
   float: left;
-  position: absolute;
+  position: fixed;
   right: auto;
   bottom: 10px;
   left: 10px;

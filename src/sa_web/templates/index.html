@@ -19,6 +19,7 @@
 
   <!-- Mobile Viewport Fix -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
 
   <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
   <link rel="shortcut icon" href="{{ config.static_url }}css/images/favicon.ico">
@@ -151,6 +152,7 @@
   <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
   <script src="{{STATIC_URL}}js/routes.js"></script>
+  <script src="{{STATIC_URL}}js/hide-address-bar.js"></script>
   {% endcompress %}
 
   {% mustacheich "place-form" %}
