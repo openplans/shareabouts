@@ -1245,15 +1245,3 @@ ul.recent-points {
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3{ page-break-after: avoid; }
 }
-
-
-/* =Media Query Size Indicator
--------------------------------------------------------------- */
-
-/* Uncomment the following to display the media query results in your browser. */
-/*body:after { content: "less than 320px"; font-size: 300%; font-weight: bold; position: fixed; bottom: 0; width: 100%; text-align: center; background-color: hsla(1,60%,40%,0.7); color: #fff; z-index: 99999; }
-@media only screen and (min-width: 320px) { body:after { content: "320 to 479px"; background-color: hsla(90,60%,40%,0.7); } }
-@media only screen and (min-width: 480px) { body:after { content: "480 to 767px"; background-color: hsla(180,60%,40%,0.7); } }
-@media only screen and (min-width: 768px) { body:after { content: "768 to 1023px"; background-color: hsla(270,60%,40%,0.7); } }
-@media only screen and (min-width: 1024px) { body:after { content: "1024 to 1299px"; background-color: hsla(360,60%,40%,0.7); } }
-@media only screen and (min-width: 1300px) { body:after { content: "1300 and up"; background-color: hsla(60,60%,40%,0.7); } }*/
