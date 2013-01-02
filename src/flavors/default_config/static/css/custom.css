@@ -173,6 +173,23 @@ textarea {
 /*  background-color: #e500e5;*/
 }
 
+.fileinput-container {
+  background-color: #00aaff;
+  color: #f0f0f0;
+  padding: 0.75em 1em;
+  border: 0;
+  margin: 0 0 0.667em;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  text-shadow: 1px -1px 0 #06A;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+
 a.reply-link {
 /*  color: #1e5395;*/
 /*  background: #eef8fd;*/
@@ -258,19 +275,19 @@ ul.recent-points {
 /*       -moz-box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
 /*            box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
   }
-  a.close-bttn:hover { 
+  a.close-bttn:hover {
 /*    background: purple; */
   }
-  a.close-bttn:before { 
+  a.close-bttn:before {
 /*    border-right-color: pink; */
   }
-  a.close-bttn:after { 
+  a.close-bttn:after {
 /*    border-left-color: pink; */
   }
-  a.close-bttn span:before { 
+  a.close-bttn span:before {
 /*    border-top-color: pink; */
   }
-  a.close-bttn span:after { 
+  a.close-bttn span:after {
 /*    border-bottom-color: pink; */
   }
 

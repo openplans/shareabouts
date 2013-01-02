@@ -4,7 +4,8 @@ var Shareabouts = Shareabouts || {};
   S.PlaceFormView = Backbone.View.extend({
     // View responsible for the form for adding and editing places.
     events: {
-      'submit form': 'onSubmit'
+      'submit form': 'onSubmit',
+      'change input[type="file"]': 'onInputFileChange'
     },
     initialize: function(){
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
@@ -51,6 +52,11 @@ var Shareabouts = Shareabouts || {};
       };
 
       return attrs;
+    },
+    onInputFileChange: function(evt) {
+      if(evt.target.files && evt.target.files.length) {
+        this.$('.fileinput-name').text(evt.target.files[0].name);
+      }
     },
     onSubmit: function(evt) {
       var router = this.options.router,

@@ -98,6 +98,7 @@ place:
           value: school
       name: location_type
     - prompt: _(Image)
+      label: _(Add an Image)
       type: file
       name: my_image
       optional: true
