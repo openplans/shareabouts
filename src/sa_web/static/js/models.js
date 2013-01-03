@@ -71,27 +71,52 @@ var Shareabouts = Shareabouts || {};
       if (attrs.attachments) {
         attachments = attrs.attachments;
         delete attrs.attachments;
-      }
 
-      // If this is a new model, then we need to save it first before we can
-      // attach anything to it.
-      if (this.isNew()) {
-        realSuccessHandler = options.success || $.noop;
-        options.success = function() {
+        // If this is a new model, then we need to save it first before we can
+        // attach anything to it.
+        if (this.isNew()) {
+          realSuccessHandler = options.success || $.noop;
+
+          // Attach files after the model is succesfully saved
+          options.success = function() {
+            self.attachFiles(attachments, {
+              success: function() {
+                // Call the success handler for the place now
+                realSuccessHandler.apply(this, arguments);
+              }
+            });
+          };
+        } else {
+          // Model is already saved, attach away!
           self.attachFiles(attachments);
-
-          realSuccessHandler.apply(this, arguments);
-        };
-      } else {
-        // Model is already saved, attach away!
-        self.attachFiles(attachments);
+        }
       }
 
       S.PlaceModel.__super__.save.call(this, attrs, options);
     },
     attachFiles: function(attachments, options) {
-      // attachments = {file_name: file_obj_from_form, ...}
+      options = options || {};
+
+      var self = this,
+          // Cache the success handler for all attachments
+          realSuccessHandler = options.success || $.noop,
+          attachmentResponses = [],
+          // Set the attachments on the model AFTER we get all of the responses
+          setAttachments = _.after(_.size(attachments), function(a) {
+            self.set('attachments', a);
+            realSuccessHandler.apply(self, attachments);
+          });
+
+      // attachments => {file_name: file_obj_from_form, ...}
       if (attachments) {
+        options.success = function(data) {
+          // Add the response to our list
+          attachmentResponses.push(data);
+          // Try to set attachments; will only be called after we get all
+          // responses back.
+          setAttachments(attachmentResponses);
+        };
+
         _.each(attachments, function(file, name) {
           this.attachFile(file, name, options);
         }, this);
