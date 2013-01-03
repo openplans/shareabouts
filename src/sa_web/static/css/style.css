@@ -618,9 +618,9 @@ textarea {
   text-decoration: none;
   white-space: nowrap;
   text-shadow: 1px -1px 0 #06A;
-     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  border-radius: 0;
+  -webkit-appearance: none;
 }
 .bttn:hover {
   color: #fff;
