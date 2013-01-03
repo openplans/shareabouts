@@ -1,6 +1,22 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console) {
+  var normalizeModelArguments = function(key, val, options) {
+    var attrs;
+    if (key == null || _.isObject(key)) {
+      attrs = key;
+      options = val;
+    } else if (key != null) {
+      (attrs = {})[key] = val;
+    }
+    options = options ? _.clone(options) : {};
+
+    return {
+      options: options,
+      attrs: attrs
+    };
+  };
+
   S.SubmissionModel = Backbone.Model.extend({
     url: function() {
       // This is to make Django happy. I'm sad to have to add it.
@@ -40,6 +56,73 @@ var Shareabouts = Shareabouts || {};
       this.supportCollection = new S.SubmissionCollection([], {
         placeModel: this,
         submissionType: options.supportType
+      });
+    },
+    save: function(key, val, options) {
+      // Overriding save so that we can handle adding attachments
+      var self = this,
+          attachments,
+          realSuccessHandler,
+          args = normalizeModelArguments(key, val, options),
+          attrs = args.attrs;
+      options = args.options;
+
+      // Can I assume these are always new?
+      if (attrs.attachments) {
+        attachments = attrs.attachments;
+        delete attrs.attachments;
+      }
+
+      // If this is a new model, then we need to save it first before we can
+      // attach anything to it.
+      if (this.isNew()) {
+        realSuccessHandler = options.success || $.noop;
+        options.success = function() {
+          self.attachFiles(attachments);
+
+          realSuccessHandler.apply(this, arguments);
+        };
+      } else {
+        // Model is already saved, attach away!
+        self.attachFiles(attachments);
+      }
+
+      S.PlaceModel.__super__.save.call(this, attrs, options);
+    },
+    attachFiles: function(attachments, options) {
+      // attachments = {file_name: file_obj_from_form, ...}
+      if (attachments) {
+        _.each(attachments, function(file, name) {
+          this.attachFile(file, name, options);
+        }, this);
+      }
+    },
+    attachFile: function(file, name, options) {
+      var formData = new FormData();
+      formData.append('file', file);
+      formData.append('name', name);
+
+      options = options || {};
+
+      $.ajax({
+        url: this.url() + '/attachments/',
+        type: 'POST',
+        xhr: function() {  // custom xhr
+          myXhr = $.ajaxSettings.xhr();
+          if(myXhr.upload){ // check if upload property exists
+            myXhr.upload.addEventListener('progress', options.progress, false); // for handling the progress of the upload
+          }
+          return myXhr;
+        },
+        //Ajax events
+        success: options.success,
+        error: options.error,
+        // Form data
+        data: formData,
+        //Options to tell JQuery not to process data or worry about content-type
+        cache: false,
+        contentType: false,
+        processData: false
       });
     }
   });

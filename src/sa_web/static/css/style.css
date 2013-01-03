@@ -625,6 +625,25 @@ textarea {
 .bttn:hover {
   color: #fff;
 }
+.fileinput-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.fileinput-container input {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+
+  opacity: 0;
+  cursor: pointer;
+}
+.fileinput-name {
+  display: inline-block;
+}
 
 /* Voting & Sharing */
 .promotion {

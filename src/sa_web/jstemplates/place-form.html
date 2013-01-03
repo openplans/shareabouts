@@ -12,12 +12,15 @@
             {{# place_config.items }}
             <p>
               <label for="place-{{ name }}">{{ prompt }} {{# optional }}(optional){{/ optional }}</label>
+
               {{#is_input}}
               <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
               {{/is_input}}
+
               {{#is_textarea}}
               <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
               {{/is_textarea}}
+
               {{#is_select}}
               <select id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
                 {{# options }}
@@ -31,6 +34,16 @@
               </select>
               {{/is_select}}
 
+              {{#is_file}}
+              <span class="fileinput-container {{^is_fileinput_supported}}disabled{{/is_fileinput_supported}}">
+                <span>{{ inputfile_label }}</span>
+                <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+              </span>
+
+              <span class="fileinput-name">
+                {{^is_fileinput_supported}}Sorry, your browser doesn't support file uploads.{{/is_fileinput_supported}}
+              </span>
+              {{/is_file}}
             </p>
             {{/ place_config.items }}
           </fieldset>
