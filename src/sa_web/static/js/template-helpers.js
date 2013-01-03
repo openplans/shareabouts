@@ -9,6 +9,7 @@ var Shareabouts = Shareabouts || {};
         item.is_textarea = (item.type === 'textarea');
         item.is_select = (item.type === 'select');
         item.is_file = (item.type === 'file');
+        item.is_fileinput_supported = S.Util.fileInputSupported();
       });
     },
 

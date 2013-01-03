@@ -189,6 +189,14 @@ textarea {
   -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
 }
+.fileinput-container.disabled {
+  background-color: #e0e0e0;
+  color: #f0f0f0;
+  text-shadow: 1px -1px 0 #999;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
 
 a.reply-link {
 /*  color: #1e5395;*/
