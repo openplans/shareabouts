@@ -23,6 +23,11 @@
         </header>
 
         <section class="place-items">
+          {{# attachments }}
+          <div class="place-item place-item-{{ name }}">
+            <img src="{{ url }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
+          </div>
+          {{/ attachments }}
           {{# items }}
           <div class="place-item place-item-{{ name }}">
             <span class="place-label place-label-{{ name }}">{{ label }}</span>
