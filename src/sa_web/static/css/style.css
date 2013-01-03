@@ -322,9 +322,9 @@ a.add-place {
   float: left;
   position: fixed;
   right: auto;
-  bottom: 10px;
+  bottom: 20px;
   left: 10px;
-  z-index: 15;
+  z-index: 1001;
   background-color: #00aaff;
   color: #f0f0f0;
   padding: 0.05em 0.4em 0.2em 0.4em;
