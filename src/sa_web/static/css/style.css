@@ -375,6 +375,10 @@ a.add-place:before {
 .locate-me span:hover {
   background-color: #fff;
 }
+.leaflet-touch .locate-me span {
+	width: 27px;
+	height: 27px;
+}
 
 #map .leaflet-popup-content-wrapper {
      -moz-border-radius: 0px;
