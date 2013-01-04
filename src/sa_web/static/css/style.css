@@ -163,7 +163,7 @@ body {
   color: #eee;
   background-color: #777;
   height: 4em;
-  padding: 0 4.25em 0 1em;
+  padding: 0 1em;
   position: relative;
   z-index: 50;
      -moz-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
@@ -184,8 +184,6 @@ body {
   color: #eee;
   float: left;
   margin: 0 0.5em 0 0;
-  width: 100%;
-  overflow: hidden;
 }
 #site-title a:link,
 #site-title a:visited {
@@ -982,12 +980,6 @@ ul.recent-points {
   }
 }
 @media only screen and (min-width: 768px) { /* menu is visible */
-  #site-header {
-    padding: 0 1em;
-  }
-  #site-title {
-    width: auto;
-  }
   a.add-place {
     padding: 0.6em 1em;
     font-size: 2.5em;
