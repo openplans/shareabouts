@@ -1257,6 +1257,22 @@ ul.recent-points {
     background-image: url(images/facebook-32.png);
     background-size: contain;
   }
+  #centerpoint {
+    background-image: url(images/crosshair@2x.png);
+    background-size: contain;
+  }
+  .locate-me span {
+    background-image: url(images/locate-me@2x.png);
+    background-size: contain;
+  }
+  .leaflet-touch .leaflet-control-zoom-in {
+    background-image: url(images/zoom-in@2x.png);
+    background-size: contain;
+  }
+  .leaflet-touch .leaflet-control-zoom-out {
+    background-image: url(images/zoom-out@2x.png);
+    background-size: contain;
+  }
 }
 
 
