@@ -1,6 +1,6 @@
 var Shareabouts = Shareabouts || {};
 
-(function(S, $, console) {
+(function(S, $, console, loadImage) {
   var normalizeModelArguments = function(key, val, options) {
     var attrs;
     if (key == null || _.isObject(key)) {
@@ -123,8 +123,23 @@ var Shareabouts = Shareabouts || {};
       }
     },
     attachFile: function(file, name, options) {
+      var self = this;
+
+      loadImage(file, function(canvas) {
+        canvas.toBlob(function(blob) {
+          self._attachBlob(blob, name, options);
+        }, 'image/png');
+      }, {
+        // TODO: make configurable
+        maxWidth: 800,
+        maxHeight: 800,
+        canvas: true
+      });
+    },
+
+    _attachBlob: function(blob, name, options) {
       var formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', blob);
       formData.append('name', name);
 
       options = options || {};
@@ -174,7 +189,8 @@ var Shareabouts = Shareabouts || {};
     url: '/api/activity/'
   });
 
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+})(Shareabouts, jQuery, Shareabouts.Util.console, window.loadImage);
+// NOTE: loadImage comes from the Load Image plugin in load-image.js
 
 
 /*****************************************************************************
