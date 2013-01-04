@@ -123,18 +123,29 @@ var Shareabouts = Shareabouts || {};
       }
     },
     attachFile: function(file, name, options) {
-      var self = this;
+      var self = this,
+          fr = new FileReader();
 
-      loadImage(file, function(canvas) {
-        canvas.toBlob(function(blob) {
-          self._attachBlob(blob, name, options);
-        }, 'image/png');
-      }, {
-        // TODO: make configurable
-        maxWidth: 800,
-        maxHeight: 800,
-        canvas: true
-      });
+      fr.onloadend = function() {
+          // get EXIF data
+          var exif = EXIF.readFromBinaryFile(new BinaryFile(this.result)),
+              orientation = exif.Orientation;
+
+          loadImage(file, function(canvas) {
+            // Rotate?
+            var rotated = S.Util.fixImageOrientation(canvas, orientation);
+
+            rotated.toBlob(function(blob) {
+              self._attachBlob(blob, name, options);
+            }, 'image/png');
+          }, {
+            // TODO: make configurable
+            maxWidth: 800,
+            maxHeight: 800,
+            canvas: true
+          });
+      };
+      fr.readAsBinaryString(file); // read the file
     },
 
     _attachBlob: function(blob, name, options) {
