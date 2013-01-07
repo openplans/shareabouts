@@ -63,7 +63,7 @@ var Shareabouts = Shareabouts || {};
         file = evt.target.files[0];
 
         this.$('.fileinput-name').text(file.name);
-        fileToCanvas(file, function(canvas) {
+        S.Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
             data = {
               name: file.name,

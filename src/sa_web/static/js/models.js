@@ -67,7 +67,7 @@ var Shareabouts = Shareabouts || {};
     set: function(key, val, options) {
       var args = normalizeModelArguments(key, val, options);
 
-      if (_.isArray(args.attrs.attachments) && this.attachmentCollection) {
+      if (_.isArray(args.attrs.attachments) && this.attachmentCollection && !args.options.ignoreAttachnments) {
         this.attachmentCollection.reset(args.attrs.attachments);
       }
 
@@ -97,6 +97,7 @@ var Shareabouts = Shareabouts || {};
         self.saveAttachments();
       }
 
+      options.ignoreAttachnments = true;
       S.PlaceModel.__super__.save.call(this, attrs, options);
     },
 
@@ -185,7 +186,7 @@ var Shareabouts = Shareabouts || {};
       var thingModel = this.options.thingModel,
           thingUrl = thingModel.url();
 
-      return thingUrl + 'attachments/';
+      return thingUrl + '/attachments/';
     }
   });
 
