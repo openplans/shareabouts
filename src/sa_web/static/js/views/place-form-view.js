@@ -71,7 +71,7 @@ var Shareabouts = Shareabouts || {};
             };
 
             attachment = self.model.attachmentCollection.find(function(model) {
-              model.get('name') == file.name;
+              return model.get('name') === file.name;
             });
 
             if (_.isUndefined(attachment)) {
@@ -79,7 +79,7 @@ var Shareabouts = Shareabouts || {};
             } else {
               attachment.set(data);
             }
-          }, 'image/png');
+          }, 'image/jpeg');
         }, {
           // TODO: make configurable
           maxWidth: 800,
