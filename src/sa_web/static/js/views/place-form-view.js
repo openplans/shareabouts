@@ -54,8 +54,38 @@ var Shareabouts = Shareabouts || {};
       return attrs;
     },
     onInputFileChange: function(evt) {
+      var self = this,
+          file,
+          data,
+          attachment;
+
       if(evt.target.files && evt.target.files.length) {
-        this.$('.fileinput-name').text(evt.target.files[0].name);
+        file = evt.target.files[0];
+
+        this.$('.fileinput-name').text(file.name);
+        fileToCanvas(file, function(canvas) {
+          canvas.toBlob(function(blob) {
+            data = {
+              name: file.name,
+              blob: blob
+            };
+
+            attachment = self.model.attachmentCollection.find(function(model) {
+              model.get('name') == file.name;
+            });
+
+            if (_.isUndefined(attachment)) {
+              self.model.attachmentCollection.add(data);
+            } else {
+              attachment.set(data);
+            }
+          }, 'image/png');
+        }, {
+          // TODO: make configurable
+          maxWidth: 800,
+          maxHeight: 800,
+          canvas: true
+        });
       }
     },
     onSubmit: function(evt) {
@@ -66,23 +96,6 @@ var Shareabouts = Shareabouts || {};
           $fileInputs;
 
       evt.preventDefault();
-
-      attrs.attachments = {};
-      // Gets all of the file inputs
-      $fileInputs = this.$('form').find('input[type="file"]');
-
-      // Get all of the files for each file input
-      $fileInputs.each(function(i, fileInput) {
-        var files = fileInput.files;
-
-        // Are there files?
-        if (files.length > 0) {
-          // Add each file to the attachment
-          _.each(files, function(file, n) {
-            attrs.attachments[$(fileInput).attr('name') + n] = file;
-          });
-        }
-      });
 
       // Save and redirect
       this.model.save(attrs, {

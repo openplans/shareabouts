@@ -126,6 +126,31 @@ var Shareabouts = Shareabouts || {};
       ctx.drawImage(canvas, 0, 0);
 
       return rotated;
+    },
+
+    fileToCanvas: function(file, callback, options) {
+      var fr = new FileReader();
+
+      fr.onloadend = function() {
+          // get EXIF data
+          var exif = EXIF.readFromBinaryFile(new BinaryFile(this.result)),
+              orientation = exif.Orientation;
+
+          loadImage(file, function(canvas) {
+            // rotate the image, if needed
+            var rotated = S.Util.fixImageOrientation(canvas, orientation);
+            callback(rotated);
+          }, options);
+      };
+
+      fr.readAsBinaryString(file); // read the file
+    },
+
+    wrapHandler: function(evtName, model, origHandler) {
+      var newHandler = function() {
+        model.trigger(evtName);
+        origHandler.apply(this, arguments);
+      };
     }
   };
 })(Shareabouts, moment);
