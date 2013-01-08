@@ -147,10 +147,14 @@ var Shareabouts = Shareabouts || {};
     },
 
     wrapHandler: function(evtName, model, origHandler) {
-      var newHandler = function() {
-        model.trigger(evtName);
-        origHandler.apply(this, arguments);
+      var newHandler = function(evt) {
+        console.log('wrapped handler');
+        model.trigger(evtName, evt);
+        if (origHandler) {
+          origHandler.apply(this, arguments);
+        }
       };
+      return newHandler;
     }
   };
 })(Shareabouts, moment);

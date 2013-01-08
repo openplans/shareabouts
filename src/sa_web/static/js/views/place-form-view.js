@@ -56,7 +56,6 @@ var Shareabouts = Shareabouts || {};
     onInputFileChange: function(evt) {
       var self = this,
           file,
-          data,
           attachment;
 
       if(evt.target.files && evt.target.files.length) {
@@ -65,13 +64,15 @@ var Shareabouts = Shareabouts || {};
         this.$('.fileinput-name').text(file.name);
         S.Util.fileToCanvas(file, function(canvas) {
           canvas.toBlob(function(blob) {
-            data = {
-              name: file.name,
-              blob: blob
-            };
+            var fieldName = $(evt.target).attr('name'),
+                data = {
+                  name: fieldName,
+                  blob: blob,
+                  url: canvas.toDataURL('image/jpeg')
+                };
 
             attachment = self.model.attachmentCollection.find(function(model) {
-              return model.get('name') === file.name;
+              return model.get('name') === fieldName;
             });
 
             if (_.isUndefined(attachment)) {

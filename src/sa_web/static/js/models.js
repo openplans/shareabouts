@@ -71,7 +71,7 @@ var Shareabouts = Shareabouts || {};
         this.attachmentCollection.reset(args.attrs.attachments);
       }
 
-      return S.PlaceModel.__super__.set.call(this, key, val, options);
+      return S.PlaceModel.__super__.set.call(this, args.attrs, args.options);
     },
 
     save: function(key, val, options) {
@@ -135,6 +135,8 @@ var Shareabouts = Shareabouts || {};
       this.options = options;
     },
 
+    // TODO: We should be overriding sync instead of save here. The only
+    // override for save should be to always use wait=True.
     save: function(key, val, options) {
       // Overriding save so that we can handle adding attachments
       var args = normalizeModelArguments(key, val, options),
