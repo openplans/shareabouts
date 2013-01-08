@@ -15,29 +15,6 @@ var Shareabouts = Shareabouts || {};
         supportConfig: this.options.supportConfig,
         userToken: this.options.userToken
       });
-
-      this.attachmentViews = {};
-    },
-
-    addAttachmentView: function(attachment) {
-      var name = attachment.get('name');
-      this.attachmentViews[name] = new S.PlaceAttachmentView({
-        model: attachment,
-        el: this.$('.place-item-' + name)
-      });
-    },
-
-    resetAttachmentViews: function() {
-      var self = this;
-
-      _.values(self.attachmentViews, function(view) {
-        view.remove();
-      });
-      self.attachmentViews = {};
-
-      self.model.attachmentCollection.each(function(attachment) {
-        self.addAttachmentView(attachment);
-      });
     },
 
     render: function() {
@@ -58,8 +35,9 @@ var Shareabouts = Shareabouts || {};
 
       data.submitter_name = this.model.get('submitter_name') ||
         this.options.placeConfig.anonymous_name;
-      data.attachments = this.model.attachmentCollection.toJSON();
 
+      // Augment the template data with the attachments list
+      data.attachments = this.model.attachmentCollection.toJSON();
 
       this.$el.html(ich['place-detail'](data));
 
@@ -68,12 +46,9 @@ var Shareabouts = Shareabouts || {};
       // Fetch for submissions and automatically update the element
       this.model.responseCollection.fetch();
 
-
       this.$('.support').html(this.supportView.render().$el);
       // Fetch for submissions and automatically update the element
       this.model.supportCollection.fetch();
-
-      this.resetAttachmentViews();
 
       return this;
     },
@@ -86,32 +61,4 @@ var Shareabouts = Shareabouts || {};
       this.render();
     }
   });
-
-  S.PlaceAttachmentView = Backbone.View.extend({
-    initialize: function() {
-      this.model.on('progress', this.onProgress, this);
-      this.model.on('change', this.renderLoaded, this)
-      console.log('initializing ', this.$el);
-    },
-
-    remove: function() {
-      this.model.off('progress', this.onProgress, this);
-      this.model.off('change', this.renderLoaded, this);
-    },
-
-    onProgress: function(evt) {
-      console.log('progress handler');
-      console.log('for element ', this.$el);
-      this.renderLoading(evt.loaded, evt.total);
-    },
-
-    renderLoading: function(loaded, total) {
-      this.$('img').attr('src', 'http://www.gonewport.com/images/common/big-spinner.gif');
-    },
-
-    renderLoaded: function() {
-      this.$('img').attr('src', this.model.get('url'));
-    }
-  });
-
 })(Shareabouts, jQuery, Shareabouts.Util.console);

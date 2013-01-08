@@ -148,7 +148,6 @@ var Shareabouts = Shareabouts || {};
 
     wrapHandler: function(evtName, model, origHandler) {
       var newHandler = function(evt) {
-        console.log('wrapped handler');
         model.trigger(evtName, evt);
         if (origHandler) {
           origHandler.apply(this, arguments);

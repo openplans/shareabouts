@@ -60,7 +60,7 @@ var Shareabouts = Shareabouts || {};
 
       var attachmentData = this.get('attachments') || [];
       this.attachmentCollection = new S.AttachmentCollection(attachmentData, {
-        thingModel: this,
+        thingModel: this
       });
     },
 
