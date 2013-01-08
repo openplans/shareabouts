@@ -62,6 +62,12 @@ SHAREABOUTS = {
 #  'DATASET_KEY': 'abc123',
 #}
 
+SHAREABOUTS = {
+  'FLAVOR': 'ped_obstacles',
+  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/ped_obstacles/',
+  'DATASET_KEY': 'abc123',
+}
+
 #SHAREABOUTS = {
 #  'FLAVOR': 'sistercities',
 #  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/sc-usage/',
