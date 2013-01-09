@@ -142,28 +142,44 @@ textarea {
 }
 
 .fileinput-container {
-  background-color: #00aaff;
-  color: #f0f0f0;
-  padding: 0.75em 1em;
-  border: 0;
-  margin: 0 0 0.667em;
-  font-size: 1.1em;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  white-space: nowrap;
-  text-shadow: 1px -1px 0 #06A;
-     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+    border-radius: 4px;
+    padding-left: 3.25em;
 }
-.fileinput-container.disabled {
-  background-color: #e0e0e0;
-  color: #f0f0f0;
-  text-shadow: 1px -1px 0 #999;
-     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+.fileinput-container span:before {
+  content: "\0020";
+  position: absolute;
+  display: block;
+  background: #bbb;
+  top: 50%;
+  left: 1.2em;
+  height: 0.25em;
+  width: 0.5em;
+  margin-top: -0.5em;
+}
+.fileinput-container:before {
+  content: "\0020";
+  position: absolute;
+  display: block;
+  background: #bbb;
+  top: 50%;
+  left: 1.875em;
+  height: 1em;
+  width: 1.75em;
+  margin-left: -0.875em;
+  margin-top: -0.375em;
+}
+.fileinput-container:after {
+  content: "\0020";
+  position: absolute;
+  display: block;
+  background: #eee;
+  top: 50%;
+  left: 1.875em;
+  height: 0.75em;
+  width: 0.75em;
+  margin-top: -0.2em;
+  margin-left: -0.375em;
+  border-radius: 0.375em;
 }
 
 a.reply-link {
