@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Oleo+Script:400,700);
+
 /*
  * This CSS file follows the default Shareabouts style.css.
  * All rules herein will override the default Shareabouts styles.
@@ -8,8 +10,6 @@
 -------------------------------------------------------------- */
 
 body, select, input, textarea {
-/*  color: #000;*/
-/*  font-family: "Comic Sans MS", cursive, sans-serif;*/
 }
 
 
@@ -29,16 +29,13 @@ a:hover {
 -------------------------------------------------------------- */
 
 #site-header {
-/*  color: #fff;*/
-/*  background-color: #994c99;*/
+  background-color: #666699;
 }
 
 #site-header a, #site-header a:active, #site-header a:visited {
-/*  color: #ff80ff;*/
 }
 
 #site-header a:hover {
-  /* color: #ffbfff; */
 }
 
 
@@ -50,8 +47,7 @@ a:hover {
  * as to not break it scaling via media queries. */
 
 #site-title {
-/*  font-family: Impact, sans-serif;*/
-/*  color: #fff;*/
+  font-family: 'Oleo Script', Helvetica, sans-serif;
 /*  text-shadow: none;*/
 }
 
@@ -74,14 +70,14 @@ a:hover {
 
 a#nav-bttn:link,
 a#nav-bttn:visited {
-/*  color: #bf00bf;*/
-/*  background: #ffbfff;*/
+  color: #fff;
+  background: #007fbf;
 /*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
 }
 
 a#nav-bttn:hover {
 /*  color: #ffbfff;*/
-/*  background: #fff;*/
+background: #00aaff;
 }
 
 
@@ -89,22 +85,22 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 #access {
-/*  border: 1em solid #994c99;*/
-/*  border-top: 0.5em solid #994c99;*/
-/*  background: #994c99;*/
+  border: 1em solid #666699;
+  border-top: 0.5em solid #666699;
+  background: #007fbf;
 }
 
 #access li {
-/*  border-bottom: 2px solid #994c99;*/
+  border-bottom: 2px solid #666699;
 }
 
 #access a:hover {
-/*  color: #ffbfff;*/
-/*  background: #fff;*/
+  color: #fff;
+  background: #00aaff;
 }
 
 #access a:visited, #access a:active, #access a:link {
-/*  color: #ffbfff;*/
+  color: #fff;
 }
 
 
@@ -112,37 +108,11 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 a.add-place {
-/*  background-color: #ff40ff;*/
-/*  color: #eee;*/
-/*  text-shadow: none;*/
+  font-family: 'Oleo Script', Helvetica, sans-serif;
+  border-radius: 10px;
 }
 
 a.add-place:hover {
-/*  background-color: #e500e5;*/
-/*  color: #fff;*/
-}
-
-
-/* =Close Content Button
--------------------------------------------------------------- */
-
-/* NOTE: Override the Close Button font within the span. The link should
- * remain the Helvetica stack, as it produces a good X close icon. */
-
-a.close-bttn {
-/*  color: #ff40ff;*/
-/*  background-color: #fff;*/
-/*  border-color: #ffbfff;*/
-/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
-}
-
-a.close-bttn:hover {
-/*  color: #e500e5;*/
-/*  background-color: #fff;*/
-/*  border-color: #e500e5;*/
-}
-a.close-bttn span {
-  /*  font-family: Impact, sans-serif;*/
 }
 
 
@@ -163,9 +133,7 @@ textarea {
 }
 
 .bttn {
-/*  color: #eee;*/
-/*  background-color: #ff40ff;*/
-/*  text-shadow: none;*/
+  border-radius: 10px;
 }
 
 .bttn:hover {
@@ -230,7 +198,7 @@ a.reply-link:hover {
 -------------------------------------------------------------- */
 
 #ticker {
-/*  background-color: #806080;*/
+  background-color: #555577;
 }
 
 ul.recent-points {
@@ -238,11 +206,11 @@ ul.recent-points {
 }
 
 .recent-points li {
-/*  border-bottom: 3px solid #664c66;*/
+  border-bottom: 3px solid #505070;
 }
 
 .recent-points li:hover {
-/*  background: #bf60bf;*/
+  background: #444455;
 }
 
 .recent-points a {
@@ -271,8 +239,8 @@ ul.recent-points {
   }
 
   #access {
-/*    border: 0;*/
-/*    background: transparent;*/
+    border: 0;
+    background: transparent;
   }
 
   /* NOTE: The background-color is the X's color. The pseudo elements' border-color and
