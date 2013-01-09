@@ -57,112 +57,55 @@ var Shareabouts = Shareabouts || {};
         placeModel: this,
         submissionType: options.supportType
       });
+
+      var attachmentData = this.get('attachments') || [];
+      this.attachmentCollection = new S.AttachmentCollection(attachmentData, {
+        thingModel: this
+      });
     },
+
+    set: function(key, val, options) {
+      var args = normalizeModelArguments(key, val, options);
+
+      if (_.isArray(args.attrs.attachments) && this.attachmentCollection && !args.options.ignoreAttachnments) {
+        this.attachmentCollection.reset(args.attrs.attachments);
+      }
+
+      return S.PlaceModel.__super__.set.call(this, args.attrs, args.options);
+    },
+
     save: function(key, val, options) {
       // Overriding save so that we can handle adding attachments
       var self = this,
-          attachments,
           realSuccessHandler,
           args = normalizeModelArguments(key, val, options),
           attrs = args.attrs;
       options = args.options;
 
-      // Can I assume these are always new?
-      if (attrs.attachments) {
-        attachments = attrs.attachments;
-        delete attrs.attachments;
+      // If this is a new model, then we need to save it first before we can
+      // attach anything to it.
+      if (this.isNew()) {
+        realSuccessHandler = options.success || $.noop;
 
-        // If this is a new model, then we need to save it first before we can
-        // attach anything to it.
-        if (this.isNew()) {
-          realSuccessHandler = options.success || $.noop;
-
-          // Attach files after the model is succesfully saved
-          options.success = function() {
-            self.attachFiles(attachments, {
-              success: function() {
-                // Call the success handler for the place now
-                realSuccessHandler.apply(this, arguments);
-              }
-            });
-          };
-        } else {
-          // Model is already saved, attach away!
-          self.attachFiles(attachments);
-        }
+        // Attach files after the model is succesfully saved
+        options.success = function() {
+          self.saveAttachments();
+          realSuccessHandler.apply(this, arguments);
+        };
+      } else {
+        // Model is already saved, attach away!
+        self.saveAttachments();
       }
 
+      options.ignoreAttachnments = true;
       S.PlaceModel.__super__.save.call(this, attrs, options);
     },
-    attachFiles: function(attachments, options) {
-      options = options || {};
 
-      var self = this,
-          // Cache the success handler for all attachments
-          realSuccessHandler = options.success || $.noop,
-          attachmentResponses = [],
-          // Set the attachments on the model AFTER we get all of the responses
-          setAttachments = _.after(_.size(attachments), function(a) {
-            self.set('attachments', a);
-            realSuccessHandler.apply(self, attachments);
-          });
-
-      // attachments => {file_name: file_obj_from_form, ...}
-      if (attachments) {
-        options.success = function(data) {
-          // Add the response to our list
-          attachmentResponses.push(data);
-          // Try to set attachments; will only be called after we get all
-          // responses back.
-          setAttachments(attachmentResponses);
-        };
-
-        _.each(attachments, function(file, name) {
-          this.attachFile(file, name, options);
-        }, this);
-      }
-    },
-    attachFile: function(file, name, options) {
-      var self = this;
-
-      loadImage(file, function(canvas) {
-        canvas.toBlob(function(blob) {
-          self._attachBlob(blob, name, options);
-        }, 'image/png');
-      }, {
-        // TODO: make configurable
-        maxWidth: 800,
-        maxHeight: 800,
-        canvas: true
-      });
-    },
-
-    _attachBlob: function(blob, name, options) {
-      var formData = new FormData();
-      formData.append('file', blob);
-      formData.append('name', name);
-
-      options = options || {};
-
-      $.ajax({
-        url: this.url() + '/attachments/',
-        type: 'POST',
-        xhr: function() {  // custom xhr
-          myXhr = $.ajaxSettings.xhr();
-          if(myXhr.upload){ // check if upload property exists
-            myXhr.upload.addEventListener('progress', options.progress, false); // for handling the progress of the upload
-          }
-          return myXhr;
-        },
-        //Ajax events
-        success: options.success,
-        error: options.error,
-        // Form data
-        data: formData,
-        //Options to tell JQuery not to process data or worry about content-type
-        cache: false,
-        contentType: false,
-        processData: false
+    saveAttachments: function() {
+      this.attachmentCollection.each(function(attachment) {
+        if (attachment.isNew()) {
+          attachment.save();
+        }
       });
     }
   });
@@ -182,6 +125,70 @@ var Shareabouts = Shareabouts || {};
       options.responseType = this.options.responseType;
       options.supportType = this.options.supportType;
       return S.PlaceCollection.__super__.add.call(this, models, options);
+    }
+  });
+
+  S.AttachmentModel = Backbone.Model.extend({
+    idAttr: 'name',
+
+    initialize: function(attributes, options) {
+      this.options = options;
+    },
+
+    // TODO: We should be overriding sync instead of save here. The only
+    // override for save should be to always use wait=True.
+    save: function(key, val, options) {
+      // Overriding save so that we can handle adding attachments
+      var args = normalizeModelArguments(key, val, options),
+          attrs = _.extend(this.attributes, args.attrs);
+
+      return this._attachBlob(attrs.blob, attrs.name, args.options);
+    },
+
+    _attachBlob: function(blob, name, options) {
+      var formData = new FormData(),
+          progressHandler = S.Util.wrapHandler('progress', this, options.progress),
+          myXhr = $.ajaxSettings.xhr();
+
+      formData.append('file', blob);
+      formData.append('name', name);
+
+      options = options || {};
+
+      $.ajax({
+        url: this.collection.url(),
+        type: 'POST',
+        xhr: function() {  // custom xhr
+          if(myXhr.upload){ // check if upload property exists
+            myXhr.upload.addEventListener('progress', progressHandler, false); // for handling the progress of the upload
+          }
+          return myXhr;
+        },
+        //Ajax events
+        success: options.success,
+        error: options.error,
+        // Form data
+        data: formData,
+        //Options to tell JQuery not to process data or worry about content-type
+        cache: false,
+        contentType: false,
+        processData: false
+      });
+    }
+  });
+
+  S.AttachmentCollection = Backbone.Collection.extend({
+    model: S.AttachmentModel,
+
+    initialize: function(models, options) {
+      this.options = options;
+    },
+
+    url: function() {
+      var thingModel = this.options.thingModel,
+          thingUrl = thingModel.url();
+
+      return thingUrl + '/attachments/';
     }
   });
 

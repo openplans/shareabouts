@@ -36,6 +36,8 @@ var Shareabouts = Shareabouts || {};
       data.submitter_name = this.model.get('submitter_name') ||
         this.options.placeConfig.anonymous_name;
 
+      // Augment the template data with the attachments list
+      data.attachments = this.model.attachmentCollection.toJSON();
 
       this.$el.html(ich['place-detail'](data));
 
@@ -43,7 +45,6 @@ var Shareabouts = Shareabouts || {};
       this.$('.survey').html(this.surveyView.render().$el);
       // Fetch for submissions and automatically update the element
       this.model.responseCollection.fetch();
-
 
       this.$('.support').html(this.supportView.render().$el);
       // Fetch for submissions and automatically update the element
@@ -60,5 +61,4 @@ var Shareabouts = Shareabouts || {};
       this.render();
     }
   });
-
 })(Shareabouts, jQuery, Shareabouts.Util.console);
