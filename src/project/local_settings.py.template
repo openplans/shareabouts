@@ -10,72 +10,72 @@ TEMPLATE_DEBUG = DEBUG
 
 SHAREABOUTS = {
   'FLAVOR': 'default_config',
-  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/demo-user/demo-data/',
+  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/demo-user/datasets/demo-data/',
   'DATASET_KEY': 'abc123',
 }
 
 #SHAREABOUTS = {
 #  'FLAVOR': 'bikeparking',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/rr-stations/',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/openplans/datasets/rr-stations/',
 #  'DATASET_KEY': 'abc123',
 #}
 
 #SHAREABOUTS = {
 #  'FLAVOR': 'biketotransit',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/biketotransit/biketotransit/',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/biketotransit/datasets/biketotransit/',
 #  'DATASET_KEY': 'abc123',
 #}
 
 #SHAREABOUTS = {
 #  'FLAVOR': 'communitymap',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/community-map/',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/openplans/datasets/community-map/',
 #  'DATASET_KEY': 'abc123',
 #}
 
 #SHAREABOUTS = {
 #  'FLAVOR': 'historiclouisville',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/historiclouisville/historiclouisville/',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/historiclouisville/datasets/historiclouisville/',
 #  'DATASET_KEY': 'abc123',
 #}
 
 #SHAREABOUTS = {
 #  'FLAVOR': 'jacksonheights',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/jacksonheights/jacksonheights/',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/jacksonheights/datasets/jacksonheights/',
 #  'DATASET_KEY': 'abc123',
 #}
 
 #SHAREABOUTS = {
 #  'FLAVOR': 'makebrooklynsafer',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/makebrooklynsafer/makebrooklynsafer/',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/makebrooklynsafer/datasets/makebrooklynsafer/',
 #  'DATASET_KEY': 'abc123',
 #}
 
 #SHAREABOUTS = {
 #  'FLAVOR': 'nosur',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/atm_surcharge/',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/openplans/datasets/atm_surcharge/',
 #  'DATASET_KEY': 'abc123',
 #}
 
 #SHAREABOUTS = {
 #  'FLAVOR': 'overlays',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/demo-user/demo-data/',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/demo-user/datasets/demo-data/',
 #  'DATASET_KEY': 'abc123',
 #}
 
 SHAREABOUTS = {
   'FLAVOR': 'ped_obstacles',
-  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/ped_obstacles/',
+  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/openplans/datasets/ped_obstacles/',
   'DATASET_KEY': 'abc123',
 }
 
 #SHAREABOUTS = {
 #  'FLAVOR': 'sistercities',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/openplans/sc-usage/',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/openplans/datasets/sc-usage/',
 #  'DATASET_KEY': 'abc123',
 #}
 
 #SHAREABOUTS = {
 #  'FLAVOR': 'urbansocial',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/urbansocial/urbansocial/',
+#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/urbansocial/datasets/urbansocial/',
 #  'DATASET_KEY': 'abc123',
 #}
