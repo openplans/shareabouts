@@ -14,7 +14,6 @@ var Shareabouts = Shareabouts || {};
 
       // Bind model events
       this.model.on('error', this.onError, this);
-      this.model.on('change', this.onChange, this);
     },
     render: function(){
       // Augment the model data with place types for the drop down
@@ -27,9 +26,6 @@ var Shareabouts = Shareabouts || {};
     },
     remove: function() {
       this.unbind();
-    },
-    onChange: function() {
-      this.render();
     },
     onError: function(model, res) {
       // TODO handle model errors!

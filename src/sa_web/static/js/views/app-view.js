@@ -22,7 +22,6 @@ var Shareabouts = Shareabouts || {};
       // Handle collection events
       this.collection.on('add', this.onAddPlace, this);
       this.collection.on('remove', this.onRemovePlace, this);
-      this.collection.on('reset', this.onResetPlaces, this);
 
       // Only append the tools to add places (if supported)
       $('#map-container').append(ich['add-places'](this.options.placeConfig));
@@ -53,7 +52,6 @@ var Shareabouts = Shareabouts || {};
       }
 
       // Init the map view to display the places
-      // TODO: remove hard coded values here, add to config
       this.mapView = new S.MapView({
         el: '#map',
         mapConfig: this.options.mapConfig,
@@ -78,7 +76,7 @@ var Shareabouts = Shareabouts || {};
       this.offsetRatio = {x: 0.2, y: 0.0};
 
       // Caches of the views (one per place)
-      this.placeFormViews = {};
+      this.placeFormView = null;
       this.placeDetailViews = {};
 
       // Show tools for adding data
@@ -136,46 +134,47 @@ var Shareabouts = Shareabouts || {};
     // This gets called for every model that gets added to the place
     // collection, not just new ones.
     onAddPlace: function(model) {
-      var placeFormView = new S.PlaceFormView({
-            model: model,
-            appView: this,
-            router: this.options.router,
-            defaultPlaceTypeName: this.options.defaultPlaceTypeName,
-            placeTypes: this.options.placeTypes,
-            placeConfig: this.options.placeConfig
-          }),
-          placeDetailView = new S.PlaceDetailView({
-            model: model,
-            surveyConfig: this.options.surveyConfig,
-            supportConfig: this.options.supportConfig,
-            placeConfig: this.options.placeConfig,
-            userToken: this.options.userToken
-          });
-
-      this.placeFormViews[model.cid] = placeFormView;
-      this.placeDetailViews[model.cid] = placeDetailView;
-
       // If it's new, then show the form in order to edit and save it.
       if (model.isNew()) {
-        this.showPanel(placeFormView.render().$el);
+
+        this.placeFormView = new S.PlaceFormView({
+          model: model,
+          appView: this,
+          router: this.options.router,
+          defaultPlaceTypeName: this.options.defaultPlaceTypeName,
+          placeTypes: this.options.placeTypes,
+          placeConfig: this.options.placeConfig
+        });
+
+        this.showPanel(this.placeFormView.render().$el);
         // Autofocus on the first input element
-        placeFormView.$('textarea, input').not('[type="hidden"]').first().focus();
+        this.placeFormView.$('textarea, input').not('[type="hidden"]').first().focus();
         this.showNewPin();
         this.hideAddButton();
       }
     },
     onRemovePlace: function(model) {
-      this.placeFormViews[model.cid].remove();
-      this.placeDetailViews[model.cid].remove();
-
-      delete this.placeFormViews[model.cid];
-      delete this.placeDetailViews[model.cid];
+      if (this.placeDetailViews[model.cid]) {
+        this.placeDetailViews[model.cid].remove();
+        delete this.placeDetailViews[model.cid];
+      }
     },
-    onResetPlaces: function(collection) {
-      var self = this;
-      collection.each(function(model) {
-        self.onAddPlace(model);
-      });
+    getPlaceDetailView: function(model) {
+      var placeDetailView;
+      if (this.placeDetailViews[model.cid]) {
+        placeDetailView = this.placeDetailViews[model.cid];
+      } else {
+        placeDetailView = new S.PlaceDetailView({
+          model: model,
+          surveyConfig: this.options.surveyConfig,
+          supportConfig: this.options.supportConfig,
+          placeConfig: this.options.placeConfig,
+          userToken: this.options.userToken
+        });
+        this.placeDetailViews[model.cid] = placeDetailView;
+      }
+
+      return placeDetailView;
     },
     viewMap: function() {
       this.hidePanel();
@@ -194,7 +193,7 @@ var Shareabouts = Shareabouts || {};
       if (model) {
         // Called by the router
         location = model.get('location');
-        placeDetailView = this.placeDetailViews[model.cid];
+        placeDetailView = this.getPlaceDetailView(model);
 
         this.showPanel(placeDetailView.render().$el);
         this.hideNewPin();
