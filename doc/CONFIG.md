@@ -72,14 +72,14 @@ Option         |Type      |Default   |Description
 ### Extra Layer Options
 
 You can add additional overlays on top of your base layer. To do so,
-add to the "layers" array.  This array should match the configuration format 
+add to the "layers" array.  This array should match the configuration format
 for [Argo](https://github.com/openplans/argo/wiki/Configuration-Guide) layer
 options.
 
 A sample configuration for Argo layers can be found in the `overlays`
 flavor [config file](https://github.com/openplans/shareabouts/blob/master/src/flavors/overlays/config.yml#L24).
 The data used in that example can also be found in the flavor under the
-[*/static/layers/*](https://github.com/openplans/shareabouts/tree/master/src/flavors/overlays/static/layers) 
+[*/static/layers/*](https://github.com/openplans/shareabouts/tree/master/src/flavors/overlays/static/layers)
 folder.
 
 
@@ -172,6 +172,44 @@ label, but it also is used when validating your form, so if optional
 is omitted or set to false, the user will get an error if they don't
 provide a value.
 
+The *label* setting can also be used for a place item. It is used as the label
+for that input value when it is displayed in the place detail view after it
+has been saved.
+
+*NOTE* There are three special place input properties: `submitter_name`, `name`,
+and `location_type`. These are specially displayed on the place detail view and
+therefore ignore the `label` setting.
+
+##### Attaching images to places
+
+You can attach images to places by configuring an input of type `file`. The
+configuration should look like this:
+
+    items:
+      - inputfile_label: Add an Image
+        type: file
+        name: my_image
+        attrs:
+          - key: accept
+            value: image/*
+
+This will generate markup that looks similar to this:
+
+    <label for="place-my_image"></label>
+    <span class="fileinput-container ">
+      <span>Add an Image</span>
+      <input id="place-my_image" name="my_image" type="file" accept="image/*">
+    </span>
+
+You can restyle the image input by overriding the `.fileinput-container` class
+in `custom.css` in your flavor.
+
+*NOTE* This does not currently support multiple file inputs or inputs types
+other than images.
+
+*NOTE* All images are proportionally resized with a max size of 800 pixels and
+converted to JPEGs.
+
 ##### Choosing a place type
 
 If you have only one *place type* (see above), you'll want to specify
@@ -195,8 +233,6 @@ choose which type they're adding, then use a select input, like so:
         - Landmark
         - Park
         - School
-
-
 
 Once a Place has been created, users can click on it and see a form to
 add more information. There are two parts to this: a simple Support
