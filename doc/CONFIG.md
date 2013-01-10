@@ -176,9 +176,9 @@ The *label* setting can also be used for a place item. It is used as the label
 for that input value when it is displayed in the place detail view after it
 has been saved.
 
-*NOTE* There are three special place input properties: `submitter_name`, `name`,
+**NOTE** There are three special place input properties: `submitter_name`, `name`,
 and `location_type`. These are specially displayed on the place detail view and
-therefore ignore the `label` setting.
+therefore ignore the *label* setting.
 
 ##### Attaching images to places
 
@@ -204,10 +204,10 @@ This will generate markup that looks similar to this:
 You can restyle the image input by overriding the `.fileinput-container` class
 in `custom.css` in your flavor.
 
-*NOTE* This does not currently support multiple file inputs or inputs types
+**NOTE** This does not currently support multiple file inputs or inputs types
 other than images.
 
-*NOTE* All images are proportionally resized with a max size of 800 pixels and
+**NOTE** All images are proportionally resized with a max size of 800 pixels and
 converted to JPEGs.
 
 ##### Choosing a place type
