@@ -64,7 +64,7 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add an Obstacle)
+  add_button_label: _(Report an Obstacle)
   action_text: _(added)
   title: _(Snap a photo of the pedestrian obstacle...)
   action_text: _(reported)
