@@ -82,43 +82,30 @@ var Shareabouts = Shareabouts || {};
       this.render();
     },
 
-    renderAction: function(model, index) {
-      var self = this,
-          actionType = model.get('type'),
+    preparePlaceData: function(placeModel) {
+    },
+
+    processActionData: function(actionModel, placeModel) {
+      var actionType = actionModel.get('type'),
           isPlaceAction = (actionType === 'places'),
           surveyConfig = this.options.surveyConfig,
           supportConfig = this.options.supportConfig,
           placeData,
-          modelData,
+          actionData,
           actionText,
           anonSubmitterName,
-          $template,
-          placeType,
-          placeModel = this.options.places.get(model.get('place_id'));
-
-      // Handle when placeModel is undefined (ie a new place added elsewhere)
-      if (!placeModel) {
-        // Update the place collection and then render this action
-        this.options.places.fetch({
-          success: function() {
-            self.renderAction(model, index);
-          }
-        });
-        return;
-      }
-
-      placeType = this.options.placeTypes[placeModel.get('location_type')];
+          placeType = this.options.placeTypes[placeModel.get('location_type')];
 
       // Handle if an existing place type does not match the list of available
       // place types.
       if (placeType) {
         // Get the place that the action is about.
         if (isPlaceAction) {
-          placeData = model.get('data');
+          placeData = actionModel.get('data');
           actionText = this.options.placeConfig.action_text;
           anonSubmitterName = this.options.placeConfig.anonymous_name;
         } else {
-          placeData = this.options.places.get(model.get('place_id')).toJSON();
+          placeData = this.options.places.get(actionModel.get('place_id')).toJSON();
 
           if (actionType === surveyConfig.submission_type) {
             // Survey
@@ -139,14 +126,50 @@ var Shareabouts = Shareabouts || {};
 
         placeData.place_type_label = placeType.label || placeData.location_type;
 
-        modelData = _.extend({
+        actionData = _.extend({
           place: placeData,
           is_place: isPlaceAction
-        }, model.toJSON());
+        }, actionModel.toJSON());
 
-        modelData.action = actionText;
-        modelData.data.submitter_name = model.get('data').submitter_name || anonSubmitterName;
+        // Set action attribute here, because the action model may have it set
+        // to something else.
+        actionData.action = actionText;
 
+        // Set the submitter_name here in case it is null in the model.
+        actionData.data.submitter_name = actionModel.get('data').submitter_name || anonSubmitterName;
+
+        return actionData;
+      }  // if (placeType)
+
+      // If the client is not configured for the given placeType, then return
+      // no data.
+      return null;
+    },
+
+    getPlaceForAction: function(actionModel) {
+      return this.options.places.get(actionModel.get('place_id'));
+    },
+
+    renderAction: function(model, index) {
+      var self = this,
+          $template,
+          modelData,
+          placeModel = this.getPlaceForAction(model);
+
+      // Handle when placeModel is undefined (ie a new place added elsewhere)
+      if (!placeModel) {
+        // Update the place collection and then render this action
+        this.options.places.fetch({
+          success: function() {
+            self.renderAction(model, index);
+          }
+        });
+        return;
+      }
+
+      modelData = this.processActionData(model, placeModel);
+
+      if (modelData) {
         $template = ich['activity-list-item'](modelData);
 
         if (index >= this.$el.children().length) {
@@ -167,12 +190,29 @@ var Shareabouts = Shareabouts || {};
     },
 
     render: function(){
-      var self = this;
+      var self = this,
+          $template,
+          modelData,
+          collectionData = [],
+          placeModel;
 
-      self.$el.empty();
       self.collection.each(function(model) {
-        self.renderAction(model, self.collection.length);
+        placeModel = self.getPlaceForAction(model);
+        if (!placeModel) {
+          // TODO: What do we do when the place isn't loaded yet? Just assume
+          // that it will be?
+        }
+
+        modelData = self.processActionData(model, placeModel);
+
+        if (modelData) {
+          collectionData.push(modelData);
+        }
       });
+
+      $template = ich['activity-list']({activities: collectionData});
+      self.$el.html($template);
+
       return self;
     }
   });
