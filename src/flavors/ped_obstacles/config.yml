@@ -35,7 +35,7 @@ place_types:
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
   dot:
-    iconUrl: /static/css/images/markers/dot-f95016.png
+    iconUrl: /static/css/images/markers/dot-744edc.png
     iconSize:
       width: 17
       height: 18
@@ -43,7 +43,7 @@ place_type_icons:
       x: 9
       y: 9
   marker:
-    iconUrl: /static/css/images/markers/marker-f95016.png
+    iconUrl: /static/css/images/markers/marker-744edc.png
     shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
