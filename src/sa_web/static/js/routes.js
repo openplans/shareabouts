@@ -11,7 +11,10 @@ var Shareabouts = Shareabouts || {};
     },
 
     initialize: function(options) {
-      var startPageConfig;
+      var startPageConfig,
+          resetActivityCollection = _.bind(function() {
+            this.activities.reset(options.activity);
+          }, this);
 
       this.collection = new S.PlaceCollection([], {
         responseType: options.surveyConfig['submission_type'],
@@ -37,7 +40,8 @@ var Shareabouts = Shareabouts || {};
       // Call reset after the views are created, since they're all going to
       // be listening to reset.
       this.collection.reset(options.places);
-      this.activities.reset(options.activity);
+
+      _.delay(resetActivityCollection, 10);
 
       // Start tracking the history
       var historyOptions = {pushState: true};
