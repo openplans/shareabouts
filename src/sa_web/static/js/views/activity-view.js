@@ -32,8 +32,6 @@ var Shareabouts = Shareabouts || {};
       // Bind collection events
       this.collection.on('add', this.onAddAction, this);
       this.collection.on('reset', this.onResetActivity, this);
-
-      this.checkForNewActivity();
     },
 
     checkForNewActivity: function() {
@@ -50,7 +48,10 @@ var Shareabouts = Shareabouts || {};
       options.complete = _.bind(function() {
         // After a check for activity has completed, no matter the result,
         // schedule another.
-        _.delay(_.bind(this.checkForNewActivity, this), this.interval);
+        if (this.newContentTimeout) {
+          clearTimeout(this.newContentTimeout);
+        }
+        this.newContentTimeout = setTimeout(_.bind(this.checkForNewActivity, this), this.interval);
       }, this);
 
       this.collection.fetch(options);
@@ -212,6 +213,8 @@ var Shareabouts = Shareabouts || {};
 
       $template = ich['activity-list']({activities: collectionData});
       self.$el.html($template);
+
+      self.checkForNewActivity();
 
       return self;
     }

@@ -105,7 +105,6 @@ def index(request, default_place_type):
 
     # TODO These requests should be done asynchronously (in parallel).
     places_json = api.get('places', default=u'[]')
-    activity_json = api.get('activity', limit=20, default=u'[]')
 
     # Get the content of the static pages linked in the menu.
     pages_config = init_pages_config(config.get('pages', []), request)
@@ -131,7 +130,6 @@ def index(request, default_place_type):
     user_agent_json = json.dumps(user_agent)
 
     context = {'places_json': places_json,
-               'activity_json': activity_json,
 
                'config': config,
 
