@@ -10,9 +10,11 @@ class VotesController < ApplicationController
 
     respond_to do |format|
       format.json {
-        render :json => {
-          :view => render_to_string(:partial => "#{supportable_class.tableize}/show.html", :locals => { supportable_class.underscore.to_sym => @supportable })
-        }
+        with_format :html, do
+          render :json => {
+            :view => render_to_string(:partial => "#{supportable_class.tableize}/show.html", :locals => { supportable_class.underscore.to_sym => @supportable })
+          }
+        end
       }
     end
   end
@@ -30,9 +32,11 @@ class VotesController < ApplicationController
 
     respond_to do |format|
       format.json {
-        render :json => {
-          :view => render_to_string(:partial => "#{supportable_class.tableize}/show.html", :locals => { supportable_class.underscore.to_sym => @supportable })
-        }
+        with_format :html, do
+          render :json => {
+            :view => render_to_string(:partial => "#{supportable_class.tableize}/show.html", :locals => { supportable_class.underscore.to_sym => @supportable })
+          }
+        end
       }
     end
   end

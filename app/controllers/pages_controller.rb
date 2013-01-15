@@ -4,7 +4,11 @@ class PagesController < ApplicationController
     @page = Page.published.find_by_slug params[:id]
     respond_to do |format|
       format.html
-      format.json { render :json => { :view => render_to_string(:partial => "show.html.erb") }}
+      format.json do
+        self.with_format :html, do
+          render :json => { :view => render_to_string(:partial => "show.html.erb") }
+        end
+      end
     end
   end
 end

@@ -6,10 +6,12 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       format.json {
-        render :json => {
-          :comment => @comment.as_json,
-          :view => render_to_string(:partial => "#{commentable_class.tableize}/show.html", :locals => { commentable_class.underscore.to_sym => @commentable })
-        }
+        with_format :html, do
+          render :json => {
+            :comment => @comment.as_json,
+            :view => render_to_string(:partial => "#{commentable_class.tableize}/show.html", :locals => { commentable_class.underscore.to_sym => @commentable })
+          }
+        end
       }
     end
   end

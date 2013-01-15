@@ -17,7 +17,11 @@ class FeaturePointsController < ApplicationController
     @feature_point = FeaturePoint.new
 
     respond_to do |format|
-      format.json { render :json => { :view => render_to_string(:partial => "form.html") } }
+      format.json do
+        self.with_format :html, do
+          render(:json => { :view => render_to_string(:partial => "form.html") })
+        end
+      end
     end
   end
 
@@ -66,7 +70,9 @@ class FeaturePointsController < ApplicationController
         render :action => 'index'
       end
       format.json do
-        render :json => { :view => render_to_string(:partial => "show.html", :locals => { :feature_point => @feature_point }) }
+        self.with_format :html, do
+          render :json => { :view => render_to_string(:partial => "show.html", :locals => { :feature_point => @feature_point }) }
+        end
       end
     end
   end
