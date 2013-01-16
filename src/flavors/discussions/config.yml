@@ -156,9 +156,9 @@ support:
   anonymous_name: _(Someone)
 
 pages:
-  - title: _(About)
-    slug: about
-    url: /static/pages/overview.html
+  - title: _(Discussion)
+    slug: discussions
+    url: /static/pages/home.html
     start_page: true
     fullscreen: true
 
