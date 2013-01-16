@@ -1016,13 +1016,16 @@ ul.recent-points {
     position: absolute;
     top: 5.75em; /* height of #site-header + 1.75em*/
     right: 0.75em;
-    bottom: 2.75em;
+    bottom: 1.75em;
     left: 50%;
     overflow: visible;
     border: 1px solid #A8A8A8;
        -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
     -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
             box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  }
+  #content.fullscreen {
+    left: 1.5em;
   }
   #content > article {
     position: absolute;
@@ -1200,12 +1203,19 @@ ul.recent-points {
     right: 1.5em;
     left: 55%;
   }
+  #content.fullscreen {
+    left: 1.5em;
+  }
   .activity-enabled #map-container {
     right: 18em; /* width of ticker */
   }
   .activity-enabled #content {
     right: 18.75em; /* width of ticker + extra 0.75em */
     left: 40%;
+  }
+  .activity-enabled #content.fullscreen {
+    right: 18.75em; /* width of ticker + extra 0.75em */
+    left: 1.5em;
   }
   #content > article {
     padding: 2em;
