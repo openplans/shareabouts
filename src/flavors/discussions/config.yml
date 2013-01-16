@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Shareabouts
+  title: Community Discussions
   # Header name
-  name: Shareabouts
+  name: Community Discussions
   # Meta description that will show up in Google search results
   meta_description: _(Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.)
 
@@ -13,9 +13,9 @@ map:
   geolocation_onload: true
   options:
     center:
-      lat: 39.9523524
-      lng: -75.1636075
-    zoom: 14
+      lat: 40.7871
+      lng: -73.9754
+    zoom: 15
     minZoom: 10
     maxZoom: 17
   base_layer:
@@ -29,15 +29,11 @@ place_types:
   landmark:
     default: blue
     focused: red
-    label: _(Landmark)
+    label: _(Safety)
   park:
     default: blue
     focused: red
-    label: _(Park)
-  school:
-    default: blue
-    focused: red
-    label: _(School)
+    label: _(Aesthetics)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
@@ -71,60 +67,58 @@ activity:
   interval: 30000
 
 place:
+  # Add Place button
   adding_supported: true
-  add_button_label: _(Add a Place)
-  action_text: _(added)
-  title: _(Tell us more...)
-  action_text: _(created)
-  anonymous_name: _(Someone)
+  add_button_label: _(Start a Discussion)
+
+  # Place activity
+  action_text: _(started a discussion about)
+
+  # Place form
+  title: _(Start a Discussion...)
+  form_fullscreen: false
   submit_button_label: _(Submit)
 
-  form_fullscreen: false
+  # Submitter names
+  anonymous_name: _(Someone)
+
+  # Place detail
   detail_fullscreen: true
 
   items:
-    - prompt: _(Location Name)
+    - prompt: _(Discussion topic)
       type: text
-      name: name
+      name: title
       attrs:
         - key: placeholder
-          value: _(Location Name)
-        - key: size
-          value: 30
-    - prompt: _(Location Type)
-      type: select
-      options:
-        - label: _(Landmark)
-          value: landmark
-        - label: _(Park)
-          value: park
-        - label: _(School)
-          value: school
-      name: location_type
-    - prompt: _(Image)
+          value: _(Discussion topic...)
+    - prompt: _(Topic description)
+      type: textarea
+      name: description
+    - prompt: ''
       inputfile_label: _(Add an Image)
       type: file
-      name: my_image
+      name: image
       optional: true
       attrs:
         - key: accept
           value: image/*
-    - prompt: _(Your Name)
+    - prompt: _(Author)
       type: text
       name: submitter_name
-      optional: true
       attrs:
         - key: placeholder
-          value: _(Name)
+          value: _(Your name...)
         - key: size
           value: 30
-    - prompt: _(Description)
-      type: textarea
-      name: description
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Description...)
+    - prompt: _(Topic Category)
+      type: select
+      options:
+        - label: _(Safety)
+          value: safety
+        - label: _(Aesthetics)
+          value: aesthetics
+      name: location_type
 
 survey:
   submission_type: comments
@@ -156,20 +150,12 @@ support:
   anonymous_name: _(Someone)
 
 pages:
-  - title: _(About)
-    slug: about
-    url: /static/pages/overview.html
+  - title: _(Home)
+    slug: home
+    url: /static/pages/home.html
     start_page: true
     fullscreen: true
 
-  - title: _(Why Shareabouts?)
-    slug: why
-    url: /static/pages/why.html
-
-  - title: _(Features)
-    slug: features
-    url: /static/pages/features.html
-
-  - title: OpenPlans
+  - title: _(Feedback)
     external: true
-    url: http://www.openplans.org
+    url: https://openplans.zendesk.com/anonymous_requests/new
