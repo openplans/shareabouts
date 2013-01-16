@@ -146,7 +146,7 @@ var Shareabouts = Shareabouts || {};
           placeConfig: this.options.placeConfig
         });
 
-        this.showPanel(this.placeFormView.render().$el);
+        this.showPanel(this.placeFormView.render().$el, this.options.placeConfig.form_fullscreen);
         // Autofocus on the first input element
         this.placeFormView.$('textarea, input').not('[type="hidden"]').first().focus();
         this.showNewPin();
@@ -195,7 +195,7 @@ var Shareabouts = Shareabouts || {};
         location = model.get('location');
         placeDetailView = this.getPlaceDetailView(model);
 
-        this.showPanel(placeDetailView.render().$el);
+        this.showPanel(placeDetailView.render().$el, this.options.placeConfig.detail_fullscreen);
         this.hideNewPin();
         this.destroyNewModels();
         this.hideCenterPoint();
@@ -213,15 +213,17 @@ var Shareabouts = Shareabouts || {};
         return pageConfig.slug ===  slug;
       });
 
-      this.showPanel(pageConfig.content);
+      this.showPanel(pageConfig.content, pageConfig.fullscreen);
 
       this.hideNewPin();
       this.destroyNewModels();
       this.hideCenterPoint();
       this.hideAddButton();
     },
-    showPanel: function(markup) {
+    showPanel: function(markup, fullscreen) {
       this.unfocusAllPlaces();
+
+      this.$panel.toggleClass('fullscreen', !!fullscreen);
       this.$panelContent.html(markup);
       this.$panel.show();
     },
