@@ -165,6 +165,6 @@ pages:
     slug: features
     url: /static/pages/features.html
 
-  - title: OpenPlans
+  - title: _(Feedback)
     external: true
-    url: http://www.openplans.org
+    url: https://openplans.zendesk.com/anonymous_requests/new
