@@ -126,6 +126,51 @@
 }
 
 
+/* =File Input 
+-------------------------------------------------------------- */
+
+.fileinput-container {
+  border-radius: 4px;
+  padding-left: 3.25em;
+}
+.fileinput-container span:before {
+  content: "\0020";
+  position: absolute;
+  display: block;
+  background: #bbb;
+  top: 50%;
+  left: 1.2em;
+  height: 0.25em;
+  width: 0.5em;
+  margin-top: -0.5em;
+}
+.fileinput-container:before {
+  content: "\0020";
+  position: absolute;
+  display: block;
+  background: #bbb;
+  top: 50%;
+  left: 1.875em;
+  height: 1em;
+  width: 1.75em;
+  margin-left: -0.875em;
+  margin-top: -0.375em;
+}
+.fileinput-container:after {
+  content: "\0020";
+  position: absolute;
+  display: block;
+  background: #eee;
+  top: 50%;
+  left: 1.875em;
+  height: 0.75em;
+  width: 0.75em;
+  margin-top: -0.2em;
+  margin-left: -0.375em;
+  border-radius: 0.375em;
+}
+
+
 /* =Media Queries
 -------------------------------------------------------------- */
 
