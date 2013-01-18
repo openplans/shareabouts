@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Shareabouts
+  title: Safe Streets
   # Header name
-  name: Shareabouts
+  name: Safe Streets
   # Meta description that will show up in Google search results
   meta_description: _(Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.)
 
