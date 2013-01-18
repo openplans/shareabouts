@@ -612,6 +612,7 @@ textarea {
   color: #cc0033;
 }
 .bttn, a.bttn:active, a.bttn:visited {
+  display: inline-block;
   background-color: #00aaff;
   color: #f0f0f0;
   padding: 0.75em 1em;
