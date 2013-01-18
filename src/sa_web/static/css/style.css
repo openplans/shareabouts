@@ -540,6 +540,7 @@ a.close-bttn span {
 
 #content p {
   margin-bottom: 1.2em;
+  max-width: 50em;
 }
 #content ul,
 #content ol {
