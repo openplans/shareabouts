@@ -1024,9 +1024,6 @@ ul.recent-points {
     -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
             box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
   }
-  #content.fullscreen {
-    left: 1.5em;
-  }
   #content > article {
     position: absolute;
     top: 0;
@@ -1203,19 +1200,12 @@ ul.recent-points {
     right: 1.5em;
     left: 55%;
   }
-  #content.fullscreen {
-    left: 1.5em;
-  }
   .activity-enabled #map-container {
     right: 18em; /* width of ticker */
   }
   .activity-enabled #content {
     right: 18.75em; /* width of ticker + extra 0.75em */
     left: 40%;
-  }
-  .activity-enabled #content.fullscreen {
-    right: 18.75em; /* width of ticker + extra 0.75em */
-    left: 1.5em;
   }
   #content > article {
     padding: 2em;
