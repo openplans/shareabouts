@@ -540,6 +540,7 @@ a.close-bttn span {
 
 #content p {
   margin-bottom: 1.2em;
+  max-width: 50em;
 }
 #content ul,
 #content ol {
@@ -610,7 +611,7 @@ textarea {
 .required {
   color: #cc0033;
 }
-.bttn {
+.bttn, a.bttn:active, a.bttn:visited {
   background-color: #00aaff;
   color: #f0f0f0;
   padding: 0.75em 1em;
@@ -626,7 +627,7 @@ textarea {
   border-radius: 0;
   -webkit-appearance: none;
 }
-.bttn:hover {
+.bttn:hover, a.bttn:hover {
   color: #fff;
 }
 .fileinput-container {
