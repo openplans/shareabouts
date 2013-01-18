@@ -1,8 +1,47 @@
-<p>Testing</p>
+        <section class="promotion clearfix">
+          <div class="support"></div>
+          <div class="social">
+            <ul class="sharing">
+              <li class="share-link share-twitter"><a href="https://twitter.com/intent/tweet?source=webclient&text={{ permalink }}" target="_blank">{{#_}}Tweet This{{/_}}</a></li>
+              <li class="share-link share-facebook"><a href="https://www.facebook.com/sharer/sharer.php?u={{ permalink }}" target="_blank">{{#_}}Recommend on Facebook{{/_}}</a></li>
+            </ul>
+          </div>
+        </section>
 
-<div class="map-thumb">
-  <img src="http://a.tiles.mapbox.com/v3/openplans.map-dmar86ym/{{location.lng}},{{location.lat}},15/300x300.png">
-  <img src="{{icon.url}}" class="map-thumb-marker"
-    style="margin-top:-{{icon.anchorY}}px; margin-left:-{{icon.anchorX}}px;">
-</div>
+        <header class="place-header clearfix">
+          <h1>{{ name }}</h1>
+          <span class="place-submission-details">
+            {{#_}}<strong class="point-submitter">
+              {{ submitter_name }}
+            </strong> added this point
+            {{#region}}
+              in {{ region }}
+            {{/region}}{{/_}}
 
+            <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.
+          </span>
+        </header>
+
+       <div class="map-thumb">
+          <img src="http://a.tiles.mapbox.com/v3/openplans.map-dmar86ym/{{location.lng}},{{location.lat}},15/300x300.png">
+          <img src="{{icon.url}}" class="map-thumb-marker"
+            style="margin-top:-{{icon.anchorY}}px; margin-left:-{{icon.anchorX}}px;">
+        </div>
+
+        <section class="place-items">
+          {{# attachments }}
+          <div class="place-item place-attachment-{{ name }}">
+            <img src="{{ url }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
+          </div>
+          {{/ attachments }}
+          {{# items }}
+          <div class="place-item place-item-{{ name }}">
+            <span class="place-label place-label-{{ name }}">{{ label }}</span>
+            <p class="place-value place-value-{{ name }}">{{ value }}</p>
+          </div>
+          {{/ items }}
+        </section>
+
+        {{#survey_config}}
+        <section class="survey"></section>
+        {{/survey_config}}
