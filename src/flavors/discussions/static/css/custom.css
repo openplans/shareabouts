@@ -5,6 +5,60 @@
  */
 
 
+/* =Place Summary List
+-------------------------------------------------------------- */
+
+.place-summary-list {
+  list-style: none;
+  margin: 0;
+  max-width: 50em;
+}
+#content .place-summary-list li {
+  padding-bottom: 4px;
+}
+.place-summary-list a {
+  display: block;
+  background: #eee;
+  background: rgba(0,0,0,0.07);
+  padding: 1em;
+  text-decoration: none;
+  border-radius: 2px;
+     -moz-box-shadow: -2px 2px 0 rgba(85, 85, 85, 0.25);
+  -webkit-box-shadow: -2px 2px 0 rgba(85, 85, 85, 0.25);
+          box-shadow: -2px 2px 0 rgba(85, 85, 85, 0.25);
+}
+.place-summary-list .place-info {
+  float: left;
+  clear: left;
+  max-width: 65%;
+}
+.place-summary-list .activity-info {
+  float: right;
+  clear: right;
+  max-width: 30%;
+  text-align: right;
+}
+.place-summary-list .place-submission-title {
+  display: block;
+  font-size: 1.5em;
+}
+.place-summary-list .point-submitter {
+  display: block;
+}
+.place-summary-list .place-upated {
+  display: block;
+}
+.place-summary-list .comment-count {
+  display: block;
+  font-weight: bold;
+}
+.place-summary-list a:hover .point-submitter,
+.place-summary-list a:hover .place-upated,
+.place-summary-list a:hover .comment-count {
+  color: #007fbf;
+}
+
+
 /* =Place Detail
 -------------------------------------------------------------- */
 
@@ -79,6 +133,13 @@
   }
   #content.page {
     left: 1.5em;
+  }
+
+  .place-summary-list .place-info {
+    max-width: 75%;
+  }
+  .place-summary-list .activity-info {
+    max-width: 20%;
   }
 
 }
