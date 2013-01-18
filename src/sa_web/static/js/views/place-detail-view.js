@@ -31,10 +31,20 @@ var Shareabouts = Shareabouts || {};
             },
             items: items,
             survey_config: this.options.surveyConfig
-          }, this.model.toJSON());
+          }, this.model.toJSON()),
+          icon;
 
       data.submitter_name = this.model.get('submitter_name') ||
         this.options.placeConfig.anonymous_name;
+
+      icon = this.options.placeTypes[data.location_type].focused;
+      data.icon = {
+        url: icon.options.iconUrl,
+        width: icon.options.iconSize.x,
+        height: icon.options.iconSize.x,
+        anchorX: icon.options.iconAnchor.x,
+        anchorY: icon.options.iconAnchor.y
+      };
 
       // Augment the template data with the attachments list
       data.attachments = this.model.attachmentCollection.toJSON();
