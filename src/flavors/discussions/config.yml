@@ -26,11 +26,11 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  landmark:
+  safety:
     default: blue
     focused: red
     label: _(Safety)
-  park:
+  aesthetics:
     default: blue
     focused: red
     label: _(Aesthetics)
