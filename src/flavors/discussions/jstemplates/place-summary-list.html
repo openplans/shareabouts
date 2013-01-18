@@ -1,14 +1,19 @@
 <ul class="place-summary-list">
   {{#discussions}}
-    {{! Testing }}
-    <li><a href="#" class="clearfix">
+
+    {{! NOTE: There will be one of these list items for each discussion topic }}
+
+    <li><a href="{{ link_path }}" class="clearfix">
       <span class="place-info">
         <strong class="place-submission-title">{{ title }}</strong>
-        <span class="point-submitter">by {{ submitter_or_anonymous }}</span>
+        <span class="point-submitter">by {{ submitter_name }}</span>
       </span>
       <span class="activity-info">
-        <time datetime="2013-01-17T15:41:07.003Z" class="place-upated">1 day ago</time>
-        <span class="comment-count">42 Comments</span>
+        <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.
+        <span class="comment-count">{{ responses.length }}
+          {{# has_single_response }}{{ survey_config.response_name }}{{/ has_single_response }}
+          {{^ has_single_response }}{{ survey_config.response_plural_name }}{{/ has_single_response }}
+        </span>
       </span>
     </a></li>
   {{/discussions}}

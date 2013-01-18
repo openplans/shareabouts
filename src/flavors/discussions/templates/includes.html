@@ -12,6 +12,8 @@
       var places = app.appView.places,
           listView = new Shareabouts.PlaceSumamryListView({
             collection: places,
+            placeConfig: app.appView.options.placeConfig,
+            surveyConfig: app.appView.options.surveyConfig,
             el: $('.place-summary-list-container')
           });
 

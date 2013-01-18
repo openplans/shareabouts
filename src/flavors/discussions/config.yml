@@ -76,6 +76,7 @@ place:
 
   # Place form
   title: _(Start a Discussion...)
+  help_text: _(Drag the map until the marker is positioned at the place you would like to discuss.)
   form_fullscreen: false
   submit_button_label: _(Submit)
 
