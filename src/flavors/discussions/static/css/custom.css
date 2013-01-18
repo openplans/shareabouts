@@ -63,17 +63,33 @@
 -------------------------------------------------------------- */
 
 .map-thumb {
-  position: relative;
+  display: none;
   width: 300px;
   height: 300px;
   border: 1px solid #A8A8A8;
-  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .map-thumb-marker {
   position: absolute;
   left: 50%;
   top: 50%;
+  display: block;
+}
+.map-thumb span {
+  background: #eee;
+  display: block;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  padding: 0.25em 1em;
+  text-transform: uppercase;
+  font-size: 85%;
+  font-weight: bold;
+  border-top: 1px solid #A8A8A8;
+  border-left: 1px solid #A8A8A8;
 }
 
 
@@ -107,9 +123,6 @@
   
   .map-thumb {
     display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
   }
   .promotion {
     float: right;
@@ -117,7 +130,7 @@
     margin: 340px 0 0 0;
     margin-bottom: 1em;
     padding: 1em 0;
-    border: 1px solid #A8A8A8;
+    border: 1px solid #ccc;
     border-bottom: 1px solid #ddd;
     border-left: 1px solid #ddd;
   }
