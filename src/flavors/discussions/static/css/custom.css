@@ -5,27 +5,6 @@
  */
 
 
-/* =Close Content Button
--------------------------------------------------------------- */
-
-a.close-bttn {
-}
-
-
-/* =Voting & Social Promotion
--------------------------------------------------------------- */
-
-.promotion {
-}
-
-#user_support label {
-}
-
-#user_support:hover label,
-#user_support label:hover {
-}
-
-
 /* =Place Detail
 -------------------------------------------------------------- */
 
@@ -49,9 +28,6 @@ a.close-bttn {
 
 @media only screen and (min-width: 768px) { /* menu is visible */
 
-  #content.place-form {
-  }
-
   #content.place-detail {
     right: 0px;
     left: 0px;
@@ -61,11 +37,13 @@ a.close-bttn {
   #content.place-detail article > div {
     max-width: 70em;
     margin: 0 auto;
+    padding-top: 2em;
     position: relative;
   }
   #content.place-detail a.close-bttn {
     display: none;
   }
+
   #content.place-detail .place-header,
   #content.place-detail .place-items,
   #content.place-detail .survey {
@@ -107,9 +85,6 @@ a.close-bttn {
 
 @media only screen and (min-width: 1024px) { /* ticker is visible */
 
-  #content.place-form {
-  }
-
   #content.place-detail {
     top: 5em;
   }
@@ -126,16 +101,8 @@ a.close-bttn {
 
 @media only screen and (min-width: 1300px) {
 
-  #content.place-form {
-  }
-
   #content.place-detail {
     top: 6em;
-  }
-
-  #content.page {
-  }
-  .activity-enabled #content.page {
   }
 
 }
