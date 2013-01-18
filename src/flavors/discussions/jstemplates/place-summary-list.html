@@ -1,6 +1,15 @@
-<ul>
+<ul class="place-summary-list">
   {{#discussions}}
     {{! Testing }}
-    <li><a href="#"><strong>{{title}}</strong> by {{submitter_or_anonymous}}</a></li>
+    <li><a href="#" class="clearfix">
+      <span class="place-info">
+        <strong class="place-submission-title">{{ title }}</strong>
+        <span class="point-submitter">by {{ submitter_or_anonymous }}</span>
+      </span>
+      <span class="activity-info">
+        <time datetime="2013-01-17T15:41:07.003Z" class="place-upated">1 day ago</time>
+        <span class="comment-count">42 Comments</span>
+      </span>
+    </a></li>
   {{/discussions}}
 </ul>

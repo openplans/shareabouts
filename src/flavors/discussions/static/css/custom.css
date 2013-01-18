@@ -5,24 +5,57 @@
  */
 
 
-/* =Close Content Button
+/* =Place Summary List
 -------------------------------------------------------------- */
 
-a.close-bttn {
+.place-summary-list {
+  list-style: none;
+  margin: 0;
+  max-width: 50em;
 }
-
-
-/* =Voting & Social Promotion
--------------------------------------------------------------- */
-
-.promotion {
+#content .place-summary-list li {
+  padding-bottom: 4px;
 }
-
-#user_support label {
+.place-summary-list a {
+  display: block;
+  background: #eee;
+  background: rgba(0,0,0,0.07);
+  padding: 1em;
+  text-decoration: none;
+  border-radius: 2px;
+     -moz-box-shadow: -2px 2px 0 rgba(85, 85, 85, 0.25);
+  -webkit-box-shadow: -2px 2px 0 rgba(85, 85, 85, 0.25);
+          box-shadow: -2px 2px 0 rgba(85, 85, 85, 0.25);
 }
-
-#user_support:hover label,
-#user_support label:hover {
+.place-summary-list .place-info {
+  float: left;
+  clear: left;
+  max-width: 65%;
+}
+.place-summary-list .activity-info {
+  float: right;
+  clear: right;
+  max-width: 30%;
+  text-align: right;
+}
+.place-summary-list .place-submission-title {
+  display: block;
+  font-size: 1.5em;
+}
+.place-summary-list .point-submitter {
+  display: block;
+}
+.place-summary-list .place-upated {
+  display: block;
+}
+.place-summary-list .comment-count {
+  display: block;
+  font-weight: bold;
+}
+.place-summary-list a:hover .point-submitter,
+.place-summary-list a:hover .place-upated,
+.place-summary-list a:hover .comment-count {
+  color: #007fbf;
 }
 
 
@@ -49,9 +82,6 @@ a.close-bttn {
 
 @media only screen and (min-width: 768px) { /* menu is visible */
 
-  #content.place-form {
-  }
-
   #content.place-detail {
     right: 0px;
     left: 0px;
@@ -61,11 +91,13 @@ a.close-bttn {
   #content.place-detail article > div {
     max-width: 70em;
     margin: 0 auto;
+    padding-top: 2em;
     position: relative;
   }
   #content.place-detail a.close-bttn {
     display: none;
   }
+
   #content.place-detail .place-header,
   #content.place-detail .place-items,
   #content.place-detail .survey {
@@ -103,12 +135,16 @@ a.close-bttn {
     left: 1.5em;
   }
 
+  .place-summary-list .place-info {
+    max-width: 75%;
+  }
+  .place-summary-list .activity-info {
+    max-width: 20%;
+  }
+
 }
 
 @media only screen and (min-width: 1024px) { /* ticker is visible */
-
-  #content.place-form {
-  }
 
   #content.place-detail {
     top: 5em;
@@ -126,16 +162,8 @@ a.close-bttn {
 
 @media only screen and (min-width: 1300px) {
 
-  #content.place-form {
-  }
-
   #content.place-detail {
     top: 6em;
-  }
-
-  #content.page {
-  }
-  .activity-enabled #content.page {
   }
 
 }
