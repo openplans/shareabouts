@@ -229,6 +229,8 @@ var Shareabouts = Shareabouts || {};
 
       this.$panelContent.html(markup);
       this.$panel.show();
+
+      $(S).trigger('panelshow', [Backbone.history.getFragment()]);
     },
     showNewPin: function() {
       var map = this.mapView.map;

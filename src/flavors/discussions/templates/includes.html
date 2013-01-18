@@ -1,3 +1,29 @@
+{% load mustachejs %}
+
+{% mustacheich "place-summary-list" %}
+
+<script src="{{ STATIC_URL }}js/place-summary-list-view.js"></script>
+
+
+<script>
+  $(Shareabouts).on('panelshow', function(evt, path) {
+    console.log(path);
+    if (path === 'page/home') {
+      var app = window.app,
+          places = app.appView.places,
+          listView = new Shareabouts.PlaceSumamryListView({
+            collection: places,
+            el: $('.place-summary-list-container')
+          });
+
+      listView.render();
+    }
+  });
+
+
+</script>
+
+
 <!-- Analytics by GitHub Gauges -->
 <script type="text/javascript">
   var _gauges = _gauges || [];
