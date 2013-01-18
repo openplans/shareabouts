@@ -254,12 +254,17 @@ ul.recent-points {
 /*  color: #fff;*/
 }
 
-/* =Zendesk
--------------------------------------------------------------- */
-#zenbox_tab {
-  visibility: hidden;
-  top: 40% !important;
-  opacity: 0.7;
+.map-thumb {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border: 1px solid #444;
+}
+
+.map-thumb-marker {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 
 /* =Media Queries

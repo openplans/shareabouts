@@ -12,20 +12,3 @@
     s.parentNode.insertBefore(t, s);
   })();
 </script>
-
-<!-- Zendesk Feedback -->
-<script type="text/javascript" src="//assets.zendesk.com/external/zenbox/v2.5/zenbox.js"></script>
-<style type="text/css" media="screen, projection">
-  @import url(//assets.zendesk.com/external/zenbox/v2.5/zenbox.css);
-</style>
-<script type="text/javascript">
-  if (typeof(Zenbox) !== 'undefined') {
-    Zenbox.init({
-      dropboxID:   '{{ config.feedback_key }}',
-      url:         'https://openplans.zendesk.com',
-      tabID:       'Feedback',
-      tabColor:    'black',
-      tabPosition: 'Left'
-    });
-  }
-</script>

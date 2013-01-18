@@ -169,6 +169,7 @@ var Shareabouts = Shareabouts || {};
           surveyConfig: this.options.surveyConfig,
           supportConfig: this.options.supportConfig,
           placeConfig: this.options.placeConfig,
+          placeTypes: this.options.placeTypes,
           userToken: this.options.userToken
         });
         this.placeDetailViews[model.cid] = placeDetailView;
