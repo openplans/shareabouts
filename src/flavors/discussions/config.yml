@@ -78,10 +78,6 @@ place:
   action_text: _(created)
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
-
-  form_fullscreen: false
-  detail_fullscreen: true
-
   items:
     - prompt: _(Location Name)
       type: text
@@ -160,7 +156,6 @@ pages:
     slug: discussions
     url: /static/pages/home.html
     start_page: true
-    fullscreen: true
 
   - title: _(Why Shareabouts?)
     slug: why
