@@ -72,13 +72,46 @@
   right: 0;
 }
 
+#content.place-detail .map-thumb a.close-bttn {
+  display: block;
+  background: #fff;
+  text-indent: 0px;
+  float: none;
+  height: auto;
+  width: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+  overflow: visible;
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+          box-shadow: none;
+  -webkit-transform:rotate(0); /* Safari and Chrome */
+     -moz-transform:rotate(0); /* Firefox */
+      -ms-transform:rotate(0); /* IE 9 */
+       -o-transform:rotate(0); /* Opera */
+         transform: rotate(0);
+}
+.map-thumb a.close-bttn:before,
+.map-thumb a.close-bttn:after {
+  display: none;
+}
+
 .map-thumb-marker {
   position: absolute;
   left: 50%;
   top: 50%;
   display: block;
 }
-.map-thumb span {
+.map-thumb a.close-bttn span {
   background: #eee;
   display: block;
   position: absolute;
