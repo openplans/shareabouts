@@ -69,7 +69,6 @@ activity:
 place:
   # Add Place button
   adding_supported: true
-<<<<<<< HEAD
   add_button_label: _(Start a Discussion)
 
   # Place activity
