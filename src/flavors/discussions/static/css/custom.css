@@ -47,19 +47,42 @@ a.close-bttn {
 -------------------------------------------------------------- */
 
 @media only screen and (min-width: 768px) { /* menu is visible */
-  #content.fullscreen {
+
+  #content.place-form {
+  }
+
+  #content.place-detail {
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    top: 5em;
+  }
+
+  #content.page {
     left: 1.5em;
   }
+  #content.page {
+    left: 1.5em;
+  }
+
 }
 
 @media only screen and (min-width: 1024px) { /* ticker is visible */
-  #content.fullscreen {
+
+  #content.place-form {
+  }
+
+  #content.place-detail {
+  }
+
+  #content.page {
     left: 1.5em;
   }
-  .activity-enabled #content.fullscreen {
+  .activity-enabled #content.page {
     right: 18.75em; /* width of ticker + extra 0.75em */
     left: 1.5em;
   }
+
 }
 
 @media only screen and (min-width: 1300px) {
