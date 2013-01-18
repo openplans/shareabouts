@@ -6,20 +6,20 @@
 
 
 <script>
-  $(Shareabouts).on('panelshow', function(evt, path) {
+  $(Shareabouts).on('panelshow', function(evt, app, path) {
     console.log(path);
-    if (path === 'page/home') {
-      var app = window.app,
-          places = app.appView.places,
+    if (path === 'page/discussions') {
+      var places = app.appView.places,
           listView = new Shareabouts.PlaceSumamryListView({
             collection: places,
             el: $('.place-summary-list-container')
           });
 
+      console.log('showing discussion page')
+
       listView.render();
     }
   });
-
 
 </script>
 
