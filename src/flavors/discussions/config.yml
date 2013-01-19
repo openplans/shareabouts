@@ -152,7 +152,3 @@ pages:
     slug: discussions
     url: /static/pages/home.html
     start_page: true
-
-  - title: _(Feedback)
-    external: true
-    url: https://openplans.zendesk.com/anonymous_requests/new
