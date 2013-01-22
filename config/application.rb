@@ -10,6 +10,9 @@ require "sprockets/railtie"
 
 require 'spatial_adapter/postgresql'
 
+# Re: Security Alert CVE-2013-0156
+ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML)
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -33,10 +36,10 @@ module Shareabouts
 
     # Activate observers that should always be running.
     config.active_record.observers = :activity_observer
-    
+
     # Dump the schema as sql, not ruby
     config.active_record.schema_format = :sql
-    
+
     config.active_record.default_timezone = :utc
     config.time_zone = "UTC"
 
