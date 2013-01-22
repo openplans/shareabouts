@@ -17,7 +17,7 @@ class ActivityController < ApplicationController
 
         self.with_format :html, do
           if @activity_items.present?
-            render "index.html"
+            render "index.html", :layout => false
           else
             render :nothing => true
           end
