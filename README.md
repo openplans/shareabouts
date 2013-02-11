@@ -48,7 +48,7 @@ All of our documentation is is our `doc` directory. Use it to learn more about:
 * [testing the source](https://github.com/openplans/shareabouts/blob/master/doc/TESTING.md)
 * [interface configuration](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md)
 * [custom themes](https://github.com/openplans/shareabouts/blob/master/doc/CUSTOM_THEME.md)
-* [how to deploy to DotCloud](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md)
+* [how to deploy](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md)
 * [upgrading from an older version](https://github.com/openplans/shareabouts/blob/master/doc/UPGRADE.md)
 
 Where is Sharabouts going? Check [our roadmap](https://github.com/openplans/shareabouts/wiki/Roadmap) for details of possble future features we've identified.
