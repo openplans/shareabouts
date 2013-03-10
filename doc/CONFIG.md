@@ -4,15 +4,18 @@ Setting up a Shareabouts Web instance
 Step 0: Create a Dataset
 ------------------------
 
-You'll need an account on a Shareabouts API server.
+You'll need an account on a Shareabouts API server. 
 
 Log in to the API manager and create a new dataset. Remember the slug
 for your dataset, as you'll use it later. You will also need the API
 key for this dataset, which you can get from the "API Keys" tab of the
 manage UI.
 
+If you're using the OpenPlans API server, it's 
+[api.shareabouts.org](http://api.shareabouts.org) and the API manager is 
+[api.shareabouts.org/manage](http://api.shareabouts.org/manage).
 
-Step 1: Create a Flavor
+Step 1: Create a flavor
 -----------------------
 
 A "flavor" is a particular configuration of Shareabouts.
@@ -20,26 +23,29 @@ A "flavor" is a particular configuration of Shareabouts.
 Copy the *flavors/default_config* folder to a new subdirectory
 of *flavors/*.  Name it whatever you want.
 
+
+Step 2: Set up your local settings
+-----------------------
+
 Copy the *project/local_settings.py.template* file to
-*project/local_settings.py*  and edit the new file, changing
-SHAREABOUTS_FLAVOR to the name of the flavor directory you just
+*project/local_settings.py*.
+
+Edit the new file, changing SHAREABOUTS_FLAVOR to the name of the flavor directory you just
 created.
 
-Your flavor directory contains a *config.yml* file that you will be
-editing throughout the rest of these instructions.
-
-
-### Dataset
-
-Enter your username and dataset, along with your API key, into the
-config.yml file.  The `dataset` attribute is composed of both your
-username and the short-name of the dataset:
-
-    dataset: username/dataset-slug
+Also update DATASET_ROOT, and DATASET_KEY. Get this info from your API server.
 
 **NOTE: You don't want to check the API key information in to your
 repository, as anyone would be able to write to your data using your
 API key.**
+
+
+Step 3: Edit your flavor
+-----------------------
+
+Your flavor directory contains a *config.yml* file that you will be
+editing throughout the rest of these instructions. Once you're done with config and local testing, 
+[deploy](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md). 
 
 ### The Map
 
