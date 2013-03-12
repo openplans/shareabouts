@@ -6,6 +6,24 @@
   display: none;
 }
 
+
+/* =The Map
+-------------------------------------------------------------- */
+
 #map-container {
   top: 0;
+}
+
+
+/* =The Content
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+  #content { top: 1.75em; }
+}
+@media only screen and (min-width: 1024px) {
+  #content { top: 1.75em; }
+}
+@media only screen and (min-width: 1300px) {
+  #content { top: 1.75em; }
 }
