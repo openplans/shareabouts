@@ -11,6 +11,7 @@ django-mustachejs>=0.8.3
 django_compressor
 
 # Web interface helpers
+django-proxy>=1.0.1
 requests
 hashlib
 httpagentparser
