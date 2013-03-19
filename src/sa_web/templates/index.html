@@ -100,7 +100,7 @@
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.7.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
-  <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+  <!-- // <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script> -->
 
   {% compress js %}
   <script src="{{STATIC_URL}}libs/underscore-min.js"></script>
@@ -219,7 +219,7 @@
       // Ready set go!
       window.app = new Shareabouts.App({
         defaultPlaceTypeName: defaultPlaceTypeName,
-        places: {{ places_json|safe }},
+        //places: {{ places_json|safe }},
         activity: [],
         userToken: {{ user_token_json|safe }},
         placeTypes: placeTypes,
