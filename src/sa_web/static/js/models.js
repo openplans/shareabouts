@@ -41,7 +41,7 @@ var Shareabouts = Shareabouts || {};
       if (!placeId) { throw new Error('Place model id is not defined. You ' +
                                       'must save the Place before saving ' +
                                       'its ' + submissionType + '.'); }
-
+      
       return '/api/places/' + placeId + '/' + submissionType + '/';
     }
   });

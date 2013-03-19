@@ -97,11 +97,15 @@
   <footer id="colophon">
   </footer>
 
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <!-- TODO: Remove cartodb.js and git rid of top level sql method in favor of straight AJAX -->
   <script src="http://libs.cartocdn.com/cartodb.js/v2/cartodb.js"></script>
-  <!-- // <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.7.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
-  <!-- // <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script> -->
+  <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
 
   {% compress js %}
   <script src="{{STATIC_URL}}libs/underscore-min.js"></script>
@@ -217,6 +221,8 @@
     });
 
     $(function() {
+
+
       var sql = new cartodb.SQL({ user: 'mjumbewu', format: 'json'});
       //TODO change table name
       sql.execute("SELECT * FROM demo_user_demo_data_places").done(function(data){
