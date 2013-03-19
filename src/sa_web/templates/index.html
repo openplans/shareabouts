@@ -217,19 +217,24 @@
     });
 
     $(function() {
-      // Ready set go!
-      window.app = new Shareabouts.App({
-        defaultPlaceTypeName: defaultPlaceTypeName,
-        //places: {{ places_json|safe }},
-        activity: [],
-        userToken: {{ user_token_json|safe }},
-        placeTypes: placeTypes,
-        surveyConfig: surveyConfig,
-        supportConfig: supportConfig,
-        pagesConfig: pagesConfig,
-        mapConfig: mapConfig,
-        placeConfig: placeConfig,
-        activityConfig: activityConfig
+      var sql = new cartodb.SQL({ user: 'mjumbewu', format: 'json'});
+      //TODO change table name
+      sql.execute("SELECT * FROM demo_user_demo_data_places").done(function(data){
+        // Ready set go!
+        window.app = new Shareabouts.App({
+          defaultPlaceTypeName: defaultPlaceTypeName,
+          places: data.rows,
+          // places: {{ places_json|safe }},
+          activity: [],
+          userToken: {{ user_token_json|safe }},
+          placeTypes: placeTypes,
+          surveyConfig: surveyConfig,
+          supportConfig: supportConfig,
+          pagesConfig: pagesConfig,
+          mapConfig: mapConfig,
+          placeConfig: placeConfig,
+          activityConfig: activityConfig
+        });
       });
     });
   })(Shareabouts, jQuery);
