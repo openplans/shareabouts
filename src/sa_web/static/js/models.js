@@ -28,10 +28,17 @@ var Shareabouts = Shareabouts || {};
       // This is to make Django happy. I'm sad to have to add it.
       // var url = S.SubmissionModel.__super__.sql.call(this);
 
-      console.log(this.get('user_token'))
-      var url = 'http://mjumbewu.cartodb.com/api/v1/sql?q=select%20test_private_function('+this.collection.options.placeModel.id+',\''+this.collection.options.submissionType+'\',\''+this.get('user_token')+'\');%20&callback=?'
-      //url += url.charAt(url.length-1) === '/' ? '' : '/';
+      //RELIES ON WRITABLE FUNCTION
+      // -- Create a function withn the security set to Definer so that it can insert
+      // CREATE OR REPLACE FUNCTION test_private_function(numeric, text, text) RETURNS integer
+      // AS 'INSERT INTO demo_user_demo_data_submissions(place_id, type, other_values) VALUES($1,$2,$3) RETURNING cartodb_id;'
+      // LANGUAGE SQL 
+      // SECURITY DEFINER
+      // RETURNS NULL ON NULL INPUT;
+      // --Grant access to the public user
+      // GRANT EXECUTE ON FUNCTION test_private_function(numeric, text, text) TO publicuser;
 
+      var url = 'http://mjumbewu.cartodb.com/api/v1/sql?q=select%20test_private_function('+this.collection.options.placeModel.id+',\''+this.collection.options.submissionType+'\',\''+this.get('user_token')+'\');%20&callback=?'
       return url;
     }
   });
