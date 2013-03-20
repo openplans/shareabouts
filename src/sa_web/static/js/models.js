@@ -1,6 +1,12 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console, loadImage) {
+
+
+  var CartoDB = Backbone.CartoDB({
+          user: 'mjumbewu'
+      });
+
   var normalizeModelArguments = function(key, val, options) {
     var attrs;
     if (key == null || _.isObject(key)) {
@@ -20,30 +26,36 @@ var Shareabouts = Shareabouts || {};
   S.SubmissionModel = Backbone.Model.extend({
     url: function() {
       // This is to make Django happy. I'm sad to have to add it.
-      var url = S.SubmissionModel.__super__.url.call(this);
-      url += url.charAt(url.length-1) === '/' ? '' : '/';
+      // var url = S.SubmissionModel.__super__.sql.call(this);
 
+      //RELIES ON WRITABLE FUNCTION
+      // -- Create a function withn the security set to Definer so that it can insert
+      // CREATE OR REPLACE FUNCTION test_private_function(numeric, text, text) RETURNS integer
+      // AS 'INSERT INTO demo_user_demo_data_submissions(place_id, type, other_values) VALUES($1,$2,$3) RETURNING cartodb_id;'
+      // LANGUAGE SQL 
+      // SECURITY DEFINER
+      // RETURNS NULL ON NULL INPUT;
+      // --Grant access to the public user
+      // GRANT EXECUTE ON FUNCTION test_private_function(numeric, text, text) TO publicuser;
+
+      //TODO right now I don't think "unsupport" works?
+      var url = 'http://mjumbewu.cartodb.com/api/v1/sql?q=select%20test_private_function('+this.collection.options.placeModel.id+',\''+this.collection.options.submissionType+'\',\''+this.get('user_token')+'\');%20&callback=?'
       return url;
     }
   });
 
-  S.SubmissionCollection = Backbone.Collection.extend({
+  S.SubmissionCollection = CartoDB.CartoDBCollection.extend({
+    sql: function() {
+      var submissionType = this.options.submissionType,
+          placeId = this.options.placeModel.id;
+        return "select * from demo_user_demo_data_submissions where place_id = "+placeId+" AND type = '"+submissionType+"'";
+    },
     initialize: function(models, options) {
       this.options = options;
     },
 
-    model: S.SubmissionModel,
+    model: S.SubmissionModel
 
-    url: function() {
-      var submissionType = this.options.submissionType,
-          placeId = this.options.placeModel.id;
-
-      if (!placeId) { throw new Error('Place model id is not defined. You ' +
-                                      'must save the Place before saving ' +
-                                      'its ' + submissionType + '.'); }
-
-      return '/api/places/' + placeId + '/' + submissionType + '/';
-    }
   });
 
   S.PlaceModel = Backbone.Model.extend({
@@ -110,14 +122,14 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-  S.PlaceCollection = Backbone.Collection.extend({
-    url: '/api/places/',
+  S.PlaceCollection = CartoDB.CartoDBCollection.extend({
+    sql: function() {
+        return "select * from demo_user_demo_data_places";
+    },
     model: S.PlaceModel,
-
     initialize: function(models, options) {
       this.options = options;
     },
-
     add: function(models, options) {
       // Pass the submissionType into each PlaceModel so that it makes its way
       // to the SubmissionCollections
