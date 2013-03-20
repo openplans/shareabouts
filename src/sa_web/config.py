@@ -15,17 +15,17 @@ def get_shareabouts_config(path_or_url):
 
 def translate(data):
     i18n_data = {}
-    
+
     # If it's an object, recurse
     if isinstance(data, dict):
         return dict([(k, translate(v))
                      for k, v in data.items()])
-    
+
     # If it's a list, recurse on each item
     elif isinstance(data, list):
         return [translate(item)
                 for item in data]
-    
+
     # If it's a string, output it, unless it should be excluded
     elif isinstance(data, basestring):
         msg = parse_msg(data)
@@ -33,7 +33,7 @@ def translate(data):
             return _(msg)
         else:
             return data
-    
+
     else:
         return data
 
@@ -48,7 +48,7 @@ class _ShareaboutsConfig (object):
     Base class representing Shareabouts configuration options
     """
     raw = False
-    
+
     @property
     def data(self):
         if not hasattr(self, '_yml'):
@@ -64,7 +64,7 @@ class _ShareaboutsConfig (object):
 
     def get(self, key, default=None):
         return self.data.get(key, default)
-    
+
     def items(self):
         return self.data.items()
 
@@ -94,6 +94,3 @@ class ShareaboutsLocalConfig (_ShareaboutsConfig):
     def config_file(self):
         config_filename = os.path.join(self.path, 'config.yml')
         return open(config_filename)
-
-
-
