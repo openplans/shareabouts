@@ -1,6 +1,12 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console, loadImage) {
+
+
+  var CartoDB = Backbone.CartoDB({
+          user: 'mjumbewu'
+      });
+
   var normalizeModelArguments = function(key, val, options) {
     var attrs;
     if (key == null || _.isObject(key)) {
@@ -18,32 +24,27 @@ var Shareabouts = Shareabouts || {};
   };
 
   S.SubmissionModel = Backbone.Model.extend({
-    url: function() {
-      // This is to make Django happy. I'm sad to have to add it.
-      var url = S.SubmissionModel.__super__.url.call(this);
-      url += url.charAt(url.length-1) === '/' ? '' : '/';
+    // url: function() {
+    //   // This is to make Django happy. I'm sad to have to add it.
+    //   var url = S.SubmissionModel.__super__.sql.call(this);
+    //   url += url.charAt(url.length-1) === '/' ? '' : '/';
 
-      return url;
-    }
+    //   return url;
+    // }
   });
 
-  S.SubmissionCollection = Backbone.Collection.extend({
+  S.SubmissionCollection = CartoDB.CartoDBCollection.extend({
+    sql: function() {
+      var submissionType = this.options.submissionType,
+          placeId = this.options.placeModel.id;
+        return "select * from demo_user_demo_data_submissions where place_id = "+placeId+" AND type = '"+submissionType+"'";
+    },
     initialize: function(models, options) {
       this.options = options;
     },
 
-    model: S.SubmissionModel,
+    model: S.SubmissionModel
 
-    url: function() {
-      var submissionType = this.options.submissionType,
-          placeId = this.options.placeModel.id;
-
-      if (!placeId) { throw new Error('Place model id is not defined. You ' +
-                                      'must save the Place before saving ' +
-                                      'its ' + submissionType + '.'); }
-      
-      return '/api/places/' + placeId + '/' + submissionType + '/';
-    }
   });
 
   S.PlaceModel = Backbone.Model.extend({
@@ -110,14 +111,14 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-  S.PlaceCollection = Backbone.Collection.extend({
-    url: '/api/places/',
+  S.PlaceCollection = CartoDB.CartoDBCollection.extend({
+    sql: function() {
+        return "select * from demo_user_demo_data_places";
+    },
     model: S.PlaceModel,
-
     initialize: function(models, options) {
       this.options = options;
     },
-
     add: function(models, options) {
       // Pass the submissionType into each PlaceModel so that it makes its way
       // to the SubmissionCollections
