@@ -38,6 +38,7 @@ var Shareabouts = Shareabouts || {};
       // --Grant access to the public user
       // GRANT EXECUTE ON FUNCTION test_private_function(numeric, text, text) TO publicuser;
 
+      //TODO right now I don't think "unsupport" works?
       var url = 'http://mjumbewu.cartodb.com/api/v1/sql?q=select%20test_private_function('+this.collection.options.placeModel.id+',\''+this.collection.options.submissionType+'\',\''+this.get('user_token')+'\');%20&callback=?'
       return url;
     }
