@@ -24,13 +24,16 @@ var Shareabouts = Shareabouts || {};
   };
 
   S.SubmissionModel = Backbone.Model.extend({
-    // url: function() {
-    //   // This is to make Django happy. I'm sad to have to add it.
-    //   var url = S.SubmissionModel.__super__.sql.call(this);
-    //   url += url.charAt(url.length-1) === '/' ? '' : '/';
+    url: function() {
+      // This is to make Django happy. I'm sad to have to add it.
+      // var url = S.SubmissionModel.__super__.sql.call(this);
 
-    //   return url;
-    // }
+      console.log(this.get('user_token'))
+      var url = 'http://mjumbewu.cartodb.com/api/v1/sql?q=select%20test_private_function('+this.collection.options.placeModel.id+',\''+this.collection.options.submissionType+'\',\''+this.get('user_token')+'\');%20&callback=?'
+      //url += url.charAt(url.length-1) === '/' ? '' : '/';
+
+      return url;
+    }
   });
 
   S.SubmissionCollection = CartoDB.CartoDBCollection.extend({
