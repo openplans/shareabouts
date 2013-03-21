@@ -8,6 +8,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 # By default, static assets will be served from Django.  It is recommended that
 # you use a better suited server instead.  Consult the documentation on serving
 # static files with Django for your deploy platform.
+
 urlpatterns = staticfiles_urlpatterns() + patterns('',
     # Examples:
     # url(r'^$', 'project.views.home', name='home'),
@@ -19,5 +20,6 @@ urlpatterns = staticfiles_urlpatterns() + patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^choose-language$', 'django.views.i18n.set_language', name='set_language'),
     url(r'^', include('sa_web.urls')),
 )

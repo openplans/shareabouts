@@ -68,12 +68,12 @@ a#nav-bttn:hover {
 /* =Navigation Menu
 -------------------------------------------------------------- */
 
-#access a:hover {
+.access a:hover {
   color: #fff;
   background: #0096cc;
 }
 
-#access a:visited, #access a:active, #access a:link {
+.access a:visited, .access a:active, .access a:link {
 /*  color: #ffbfff;*/
 }
 

@@ -171,9 +171,10 @@ body {
   -webkit-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
 }
-#site-header a { white-space: nowrap; }
-#site-header a, #site-header a:active, #site-header a:visited { color: #a3c7d9; }
-#site-header a:hover { color: #fff; }
+#site-header a, #site-header button { white-space: nowrap; }
+#site-header a, #site-header a:active, #site-header a:visited,
+#site-header button, #site-header button:active, #site-header button:visited { color: #a3c7d9; }
+#site-header a:hover, #site-header button:hover { color: #fff; }
 
 /* Logo */
 #site-title {
@@ -211,7 +212,7 @@ body {
 #nav-bttn:hover {
   background: #a3c7d9;
 }
-#access {
+.access {
   display: none;
   width: 100%;
   margin: -0.25em -1em 0;
@@ -224,26 +225,26 @@ body {
   position: relative;
   z-index: 50;
 }
-#access.expose {
+.access.expose {
   display: block;
 }
-#access li {
+.access li {
   position: relative;
   border-bottom: 2px solid transparent;
   font-size: 1.25em;
 }
-#access li li {
+.access li li {
 	border-top: 2px solid #777;
 	border-bottom: 0;
   font-size: 1em;
 }
-#access a {
+.access a {
   display: block;
   line-height: 3em;
   padding: 0 1.2em;
   text-decoration: none;
 }
-#access a:hover {
+.access a:hover {
   background: #00aaff;
   color: #fff;
 }
@@ -1126,7 +1127,7 @@ ul.recent-points {
   #nav-bttn {
     display: none;
   }
-  #access {
+  .access {
     display: block;
     background: transparent;
     text-align: left;
@@ -1134,13 +1135,13 @@ ul.recent-points {
     margin: 1em 0 0;
     border: 0;
   }
-  #access li {
+  .access li {
     font-size: 1em;
     float: left;
     border: 0;
     border-bottom: 6px solid transparent;
   }
-  #access ul ul {
+  .access ul ul {
     display: none;
     float: left;
     position: absolute;
@@ -1152,19 +1153,25 @@ ul.recent-points {
     -webkit-box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
             box-shadow: -4px 4px 0px rgba(85, 85, 85, 0.5);
   }
-  #access ul ul a {
+  .access ul ul a,
+  .access ul ul button {
     background: #666;
+    border: none;
     color: #fff;
     font-size: 1em;
+    font-weight: bold;
     line-height: 2em;
+    text-align: left;
     padding: .5em .5em .5em 1em;
     width: 12em;
     height: auto;
   }
-  #access a:hover {
+  .access a:hover,
+  .access button:hover {
     background: #00aaff;
   }
-  #access ul li:hover > ul {
+  .access ul li:hover > ul,
+  .access ul li:hover > form > ul {
     display: block;
   }
 
@@ -1193,6 +1200,7 @@ ul.recent-points {
   }
 
   #site-header a,
+  #site-header button,
   .close-bttn {
     -webkit-transition: color,background-color 0.1s;
     -moz-transition: color,background-color 0.1s;
@@ -1217,7 +1225,7 @@ ul.recent-points {
     font-size: 3.4em;
     line-height: 1.5;
   }
-  #access {
+  .access {
     margin-top: 1.75em;
   }
   .activity-enabled .noscript {
@@ -1283,7 +1291,7 @@ ul.recent-points {
   #site-title {
     font-size: 4.25em;
   }
-  #access li {
+  .access li {
     font-size: 1.25em;
   }
   #user-menu {

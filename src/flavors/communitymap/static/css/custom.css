@@ -88,21 +88,21 @@ a#nav-bttn:hover {
 /* =Navigation Menu
 -------------------------------------------------------------- */
 
-#access {
+.access {
   border: 1em solid #eee;
   border-top: 0.5em solid #eee;
   background: #fff;
 }
 
-#access li {
+.access li {
   border-bottom: 2px solid #eee;
 }
 
-#access a:visited, #access a:active, #access a:link {
+.access a:visited, .access a:active, .access a:link {
   color: #00994d;
 }
 
-#access a:hover {
+.access a:hover {
   color: #fff;
   background: #00cc66;
 }
@@ -248,14 +248,14 @@ ul.recent-points {
     visibility: visible;
   }
 
-  #access {
+  .access {
     border: 0;
     background: transparent;
   }
-  #access li {
+  .access li {
     border-bottom: 6px solid transparent;
   }
-  #access ul ul a {
+  .access ul ul a {
     background-color: #eee;
   }
 
@@ -290,7 +290,7 @@ ul.recent-points {
 -------------------------------------------------------------- */
 
 @media only screen and (min-width: 768px) { /* menu is visible */
-  #access {
+  .access {
 /*    border: 0;*/
 /*    background: transparent;*/
   }

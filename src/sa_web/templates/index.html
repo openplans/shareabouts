@@ -2,6 +2,7 @@
 {% load compress %}
 {% load i18n %}
 {% load shareabouts_utils %}
+{% load url from future %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
@@ -55,6 +56,30 @@
   <header id="site-header" class="clearfix">
     <h1 id="site-title"><a href="/">{{ config.app.name }}</a></h1>
     <div id="pages-nav-container"></div>
+
+    {% if config.languages %}
+    <div id="language-picker">
+      <nav class="access" role="article">
+        <ul class="menu">
+          <li class="menu-item">
+            {% get_language_info for LANGUAGE_CODE as language %}
+            <a class="current-language {{ LANGUAGE_CODE }}">{{ language.name_local }} ⌄</a>
+
+            <form action="{% url 'set_language' %}" method="post">
+              {% csrf_token %}
+              <ul class="menu">
+                {% for language in config.languages %}
+                <li class="menu-item">
+                  <button type="submit" name="language" value="{{ language.code }}" class="{{ language.code }}">{{ language.label }}</button>
+                </li>
+                {% endfor %}
+              </ul>
+            </form>
+          </li>
+        </ul>
+      </nav>
+    </div> <!-- .language-picker -->
+    {% endif %}
   </header>
 
   <div class="unsupported-overlay"></div>

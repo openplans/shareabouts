@@ -53,18 +53,18 @@ a#nav-bttn:hover {
   background: #fff;
   color: #148fcc;
 }
-#access {
+.access {
   border-color: #8fafbf;
   top: 0.25em;
 }
-#access li {
+.access li {
 }
-#access a {
+.access a {
   font-family: 'LeagueGothicRegular';
   font-weight: normal;
   font-size: 1.5em;
 }
-#access a:hover {
+.access a:hover {
   background-color: #ff99bb;
 }
 
@@ -197,10 +197,10 @@ ul.recent-points {
     visibility: visible;
   }
 
-  #access {
+  .access {
     top: 0;
   }
-  #access a {
+  .access a {
     font-family: 'LeagueGothicRegular';
     font-weight: normal;
     font-size: 1.5em;

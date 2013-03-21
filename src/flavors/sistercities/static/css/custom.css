@@ -91,18 +91,18 @@ a#nav-bttn:hover {
 /* =Navigation Menu
 -------------------------------------------------------------- */
 
-#access {
+.access {
   border-color: #fff2e5;
   border-top: 0.5em solid #fff2e5;
   background: #fff2e5;
 }
 
-#access li {
+.access li {
   border-bottom: 2px solid #fff2e5;
   background: #e5dacf;
 }
 
-#access a:hover {
+.access a:hover {
   color: #fff2e5;
   background: #a66c6c;
 }
@@ -263,10 +263,10 @@ ul.recent-points {
     visibility: visible;
   }
 
-  #access {
+  .access {
     border-top: 0;
   }
-  #access li {
+  .access li {
     border-bottom: 0;
     background: transparent;
   }

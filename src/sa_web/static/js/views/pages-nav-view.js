@@ -21,14 +21,14 @@ var Shareabouts = Shareabouts || {};
     onPageLinkClick: function(evt) {
       evt.preventDefault();
       // Hide mobile list when one is selected
-      $('#access').removeClass('expose');
+      $('.access').removeClass('expose');
       // Load the content
       this.options.router.navigate(evt.target.getAttribute('href'), {trigger: true});
     },
 
     onMobileNavClick: function(evt) {
       evt.preventDefault();
-      $('#access').toggleClass('expose');
+      $('.access').toggleClass('expose');
     }
   });
 
