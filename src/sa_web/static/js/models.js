@@ -1,12 +1,16 @@
+/*global _ Backbone jQuery */
+
 var Shareabouts = Shareabouts || {};
 
-(function(S, $, console, loadImage) {
+(function(S, $) {
+  'use strict';
+
   var normalizeModelArguments = function(key, val, options) {
     var attrs;
-    if (key == null || _.isObject(key)) {
+    if (key === null || _.isObject(key)) {
       attrs = key;
       options = val;
-    } else if (key != null) {
+    } else if (key !== null) {
       (attrs = {})[key] = val;
     }
     options = options ? _.clone(options) : {};
@@ -17,7 +21,24 @@ var Shareabouts = Shareabouts || {};
     };
   };
 
-  S.SubmissionModel = Backbone.Model.extend({
+  S.ShareaboutsApiModel = Backbone.Model.extend({
+    sync: function(method, model, options) {
+      var data = model.toJSON();
+
+      delete data.created_datetime;
+      delete data.dataset;
+      delete data.id;
+      delete data.updated_datetime;
+
+      options = options || {};
+      options.contentType = 'application/json';
+      options.data = JSON.stringify(data);
+
+      Backbone.sync(method, model, options);
+    }
+  });
+
+  S.SubmissionModel = S.ShareaboutsApiModel.extend({
     url: function() {
       // This is to make Django happy. I'm sad to have to add it.
       var url = S.SubmissionModel.__super__.url.call(this);
@@ -46,7 +67,7 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-  S.PlaceModel = Backbone.Model.extend({
+  S.PlaceModel = S.ShareaboutsApiModel.extend({
     initialize: function(attributes, options) {
       this.responseCollection = new S.SubmissionCollection([], {
         placeModel: this,
@@ -122,12 +143,14 @@ var Shareabouts = Shareabouts || {};
       // Pass the submissionType into each PlaceModel so that it makes its way
       // to the SubmissionCollections
       options = options || {};
-      options.responseType = this.options.responseType;
-      options.supportType = this.options.supportType;
+      options.responseType = this.options && this.options.responseType;
+      options.supportType = this.options && this.options.supportType;
       return S.PlaceCollection.__super__.add.call(this, models, options);
     }
   });
 
+  // This does not support editing at this time, which is why it is not a
+  // ShareaboutsModel
   S.AttachmentModel = Backbone.Model.extend({
     idAttr: 'name',
 
@@ -196,9 +219,9 @@ var Shareabouts = Shareabouts || {};
     url: '/api/activity/'
   });
 
-})(Shareabouts, jQuery, Shareabouts.Util.console, window.loadImage);
-// NOTE: loadImage comes from the Load Image plugin in load-image.js
+}(Shareabouts, jQuery, Shareabouts.Util.console));
 
+/*global jQuery */
 
 /*****************************************************************************
 
@@ -222,12 +245,12 @@ https://docs.djangoproject.com/en/1.4/ref/contrib/csrf/
 jQuery(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
         var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
+        if (document.cookie && document.cookie !== '') {
             var cookies = document.cookie.split(';');
             for (var i = 0; i < cookies.length; i++) {
                 var cookie = jQuery.trim(cookies[i]);
                 // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                     break;
                 }
