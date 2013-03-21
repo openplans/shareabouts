@@ -4,15 +4,15 @@ Setting up a Shareabouts Web instance
 Step 0: Create a Dataset
 ------------------------
 
-You'll need an account on a Shareabouts API server. 
+You'll need an account on a Shareabouts API server.
 
 Log in to the API manager and create a new dataset. Remember the slug
 for your dataset, as you'll use it later. You will also need the API
 key for this dataset, which you can get from the "API Keys" tab of the
 manage UI.
 
-If you're using the OpenPlans API server, it's 
-[api.shareabouts.org](http://api.shareabouts.org) and the API manager is 
+If you're using the OpenPlans API server, it's
+[api.shareabouts.org](http://api.shareabouts.org) and the API manager is
 [api.shareabouts.org/manage](http://api.shareabouts.org/manage).
 
 Step 1: Create a flavor
@@ -44,8 +44,8 @@ Step 3: Edit your flavor
 -----------------------
 
 Your flavor directory contains a *config.yml* file that you will be
-editing throughout the rest of these instructions. Once you're done with config and local testing, 
-[deploy](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md). 
+editing throughout the rest of these instructions. Once you're done with config and local testing,
+[deploy](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md).
 
 ### The Map
 
@@ -322,6 +322,35 @@ To apply your translations, run the following from your flavor directory:
 
 That's it! The compilemessages task is run automatically for the DotCloud and
 Heroku deployments.
+
+### Choosing a Language
+
+By default, Shareabouts will try to infer the target user's language from their
+browser settings. If you would like them to be able to explicitly select the
+interface language, you can configure a language selector in the application's
+title bar.
+
+Specify the available languages by adding this section to your configuration:
+
+    languages:
+      - code: en
+        label: I Speak English
+
+      - code: es
+        label: Hablo Español
+
+      - code: hi
+        label: मैं हिंदी बोलते हैं
+
+The `code` should be one of the [ISO-639-1 language codes](http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes),
+and the `label` should be the string that you want to appear in the language
+selector drop-down menu. Note that the language labels should not be marked for
+translation, and should be written in the target language.
+
+Don't forget to [translate your interface text](#translating-interface-text)
+into each of your desired target languages.
+
+For more information on language codes, see the [Django documentation](https://docs.djangoproject.com/en/1.3/topics/i18n/#term-language-code).
 
 ### Pages and Links
 
