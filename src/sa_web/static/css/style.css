@@ -503,6 +503,45 @@ a.add-place:hover + #centerpoint,
   top: -20px;
 }
 
+#instructions {
+  display: none;
+  width: 150px;
+  height: 120px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -58px 0 0 -200px;
+  pointer-events: none;
+  z-index: 11;
+}
+
+@media only screen and (min-width: 768px) {
+  #instructions.show {
+    display: block;
+  }
+  #add-place.instructionsShowing {
+    display: none !important;
+  }
+}
+
+#instructions p {
+  background: white;
+  padding: 10px;
+  border-radius: 3px;
+   -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+-webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+        box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+
+#instructions .arrow {
+  position: absolute;
+  left: 75px;
+  bottom: 0;
+  width: 109px;
+  height: 47px;
+  background: transparent url(images/arrow.png) 0 0 no-repeat scroll;
+}
+
 /* Content */
 #content {
   background: #fff;
