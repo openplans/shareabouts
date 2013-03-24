@@ -277,7 +277,17 @@ Here's an example:
       - prompt: Your Name
         type: text
         name: submitter_name
+      - prompt: Your Email
+        type: text
+        name: private-submitter_email
 
+##### Collecting Private Data
+
+Sometimes you'll want to collect data from users that you don't want to make
+available to the world (e.g., users' email addresses). You can mark data that
+is meant to be private with a `private-` prefix. This data will be available
+to you through the Shareabouts admin interface, but will not be shown through
+in your map.
 
 #### Support Form Configuration
 
