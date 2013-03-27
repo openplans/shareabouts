@@ -1,0 +1,105 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-27 13:05-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgid ""
+"Shareabouts is a mapping tool to gather crowd sourced public input. Use it "
+"to collect suggested locations and comments in a social, engaging process."
+msgstr ""
+
+msgid "Someone"
+msgstr "Alguien"
+
+msgid "Support This!"
+msgstr "Colabora con este!"
+
+msgid "comments"
+msgstr "comentarios"
+
+msgid "commented on"
+msgstr "comentarios sobre"
+
+msgid "Leave a Comment"
+msgstr "Leave a comment"
+
+msgid "Comment"
+msgstr "Comentario"
+
+msgid "Your Name"
+msgstr "Su nombre"
+
+msgid "comment"
+msgstr "comentario"
+
+msgid "Submit"
+msgstr "Presentar"
+
+msgid "created"
+msgstr "creado"
+
+msgid "Tell us more..."
+msgstr "Cuéntanos más..."
+
+msgid "Location Name"
+msgstr "Nombre Ubicación"
+
+msgid "Location Type"
+msgstr "Tipo de Oficina"
+
+msgid "Landmark"
+msgstr "Marca"
+
+msgid "Park"
+msgstr "Parque"
+
+msgid "School"
+msgstr "Escuela"
+
+msgid "Image"
+msgstr "Imagen"
+
+msgid "Add an Image"
+msgstr "Añadir una imagen"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Description..."
+msgstr "Descripción..."
+
+msgid "Add a Place"
+msgstr "Añadir un lugar"
+
+msgid "About"
+msgstr "Sobre"
+
+msgid "Why Shareabouts?"
+msgstr "¿Por qué Shareabouts?"
+
+msgid "Features"
+msgstr "Características"
+
+msgid "Feedback"
+msgstr "Reacción"
+
+msgid "Community Places"
+msgstr "Lugares Comunitarios"
