@@ -204,7 +204,7 @@ support:
 pages:
   - title: About Overlays
     slug: about
-    url: /static/pages/overview.html
+    name: overview
     start_page: true
 
   - title: OpenPlans

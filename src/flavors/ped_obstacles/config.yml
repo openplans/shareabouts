@@ -139,5 +139,4 @@ support:
 pages:
   - title: _(About)
     slug: about
-    url: /static/pages/about.html
     start_page: true

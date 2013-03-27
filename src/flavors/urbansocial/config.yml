@@ -132,7 +132,6 @@ support:
 pages:
   - title: About
     slug: about
-    url: /static/pages/about.html
     start_page: true
   - title: Kendall Innovation
     external: true

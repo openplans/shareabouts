@@ -306,8 +306,6 @@ support:
 pages:
   - title: About
     slug: about
-    url: /static/pages/about.html
     start_page: true
   - title: Disclaimer
     slug: disclaimer
-    url: /static/pages/disclaimer.html

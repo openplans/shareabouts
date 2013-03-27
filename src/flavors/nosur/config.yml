@@ -136,7 +136,7 @@ support:
 pages:
   - title: About
     slug: about
-    url: /static/pages/overview.html
+    name: overview
     start_page: true
   - title: Download the Data!
     external: true

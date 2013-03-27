@@ -315,6 +315,11 @@ will not:
     label: _(Button Label)
     type_name: survey_type
 
+You can also translate the content in your pages. Surround any text that you
+would like to be translatable with `{{#_}}` and `{{/_}}`. For example:
+
+    <h2>{{#_}}About{{/_}}</h2>
+
 To generate a translation template, run the following from your flavor
 directory:
 
@@ -368,20 +373,27 @@ For more information on language codes, see the [Django documentation](https://d
 Shareabouts allows you to create multiple static pages, linked from
 the top navigation bar. To create a page:
 
-* To add a page to the navigaton bar, first add a title, slug, and url
+* To add a page to the navigaton bar, first add a *title*, and *slug*
   to the "pages" array in config.yml.  For example:
 
-    - title: About
-      slug: about
-      url: /static/pages/about.html
-	  start_page: true
+        - title: About
+          slug: about
+      	  start_page: true
 
   The *start_page* option allows specifying that this page should be
   open when people first visit the site. If omitted, it defaults to false.
 
-* Create the page content (as HTML) in the file pointed to by the url.
-  For the given example, you would edit the content in
-  src/sa_web/static/pages/features.html.
+* Create the page content (as HTML). Shareabouts will look for your content
+  in a file in your flavor called *jstemplates/pages/about.html*. The filename
+  matches the slug by default. If you want to use a different name for your
+  page file, you can specify a *name* attribute as well, e.g.:
+
+        - title: About
+          slug: about
+          name: new
+      	  start_page: true
+
+  In this example, your file will be found at *jstemplates/pages/new.html*.
 
 You can also add links to external sites to the navigation bar.  To do
 this, simply add a title and url to the "pages" array in config.yml, and
@@ -390,6 +402,10 @@ set the "external" property to "true".  For example:
     - title: OpenPlans
       url: http://www.openplans.org/
       external: true
+
+**Note: Do not include `<script>` tags in your pages. If you want to do custom
+  scripting from within your flavor, add your scripts to the includes template
+  (*templates/includes.html*).**
 
 ### Styling
 

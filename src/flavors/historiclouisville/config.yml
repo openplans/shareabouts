@@ -132,12 +132,11 @@ support:
 pages:
   - title: About
     slug: about
-    url: /static/pages/overview.html
+    name: overview
     start_page: true
 
   - title: Tutorial
     slug: tutorial
-    url: /static/pages/tutorial.html
 
   - title: City Collaborative
     external: true

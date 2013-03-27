@@ -217,7 +217,7 @@ var Shareabouts = Shareabouts || {};
       });
 
       this.$panel.removeClass().addClass('page page-' + slug);
-      this.showPanel(pageConfig.content);
+      this.showPanel(ich['pages/' + (pageConfig.name || pageConfig.slug)]);
 
       this.hideNewPin();
       this.destroyNewModels();

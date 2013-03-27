@@ -169,7 +169,6 @@ support:
 pages:
   - title: Instructions
     slug: instructions
-    url: /static/pages/instructions.html
     start_page: true
 
   - title: Download Surveys

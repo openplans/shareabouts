@@ -150,5 +150,5 @@ support:
 pages:
   - title: _(Discussion)
     slug: discussions
-    url: /static/pages/home.html
+    name: home
     start_page: true

@@ -171,7 +171,6 @@ support:
 pages:
   - title: About
     slug: about
-    url: /static/pages/about.html
     start_page: true
 
   - title: Community Places

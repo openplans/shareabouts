@@ -34,58 +34,6 @@ class ShareaboutsApi (object):
         return (res.text if res.status_code == 200 else default)
 
 
-def init_pages_config(pages_config, request):
-    """
-    Get the content of the static pages linked in the menu.
-    """
-
-    for page_config in pages_config:
-        external = page_config.get('external', False)
-
-        page_url = page_config.pop('url', None)
-        sub_pages = page_config.pop('pages', [])
-        page_config['sub_pages'] = []
-
-        if external:
-            page_config['external'] = True
-            page_config['url'] = page_url
-
-        if not external and page_url is not None:
-            page_url = request.build_absolute_uri(page_url)
-            # TODO It would be good if this were also asynchronous. It would be
-            #      even better if we just popped some code into the template to
-            #      tell the client to load this URL.  Should we use an iframe?
-            #      Maybe an object tag? Something like:
-            #
-            #      response = ('<object type="text/html" data="{0}">'
-            #                  '</object>').format(page_url)
-
-            cache_key = 'page:' + page_config['slug']
-            content = page_config['content'] = cache.get(cache_key)
-
-            if content is None:
-                response = requests.get(page_url)
-
-                # If we successfully got the content, stick it into the config instead
-                # of the URL.
-                if response.status_code == 200:
-                    content = page_config['content'] = response.text
-                    cache.set(cache_key, content, 604800) # Cache for a week
-
-                # If there was an error, let the client know what the URL, status code,
-                # and text of the error was.
-                else:
-                    page_config['url'] = page_url
-                    page_config['status'] = response.status_code
-                    page_config['error'] = response.text
-
-        if sub_pages:
-            # Do menus recursively.
-            page_config['sub_pages'] = init_pages_config(sub_pages, request)
-
-    return pages_config
-
-
 @ensure_csrf_cookie
 def index(request, default_place_type):
 
@@ -107,7 +55,7 @@ def index(request, default_place_type):
     places_json = api.get('places', default=u'[]')
 
     # Get the content of the static pages linked in the menu.
-    pages_config = init_pages_config(config.get('pages', []), request)
+    pages_config = config.get('pages', [])
     pages_config_json = json.dumps(pages_config)
 
     # The user token will be a pair, with the first element being the type
