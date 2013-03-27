@@ -14,9 +14,79 @@ Copy the following template when creating a new version entry:
 
 Development (master)
 -----------------------------
+
+  * New Features:
+    - Translatable pages
+
+  * Upgrade Steps:
+
+    In order to update your Shareabouts codebase beyond commit [714c41f3](https://github.com/openplans/shareabouts/commit/714c41f3f00aeebaa0b25bf9297f4d0e67f92826), you will have to do the following:
+
+    Go into your flavor directory
+
+        $ cd flavors/myflavor
+
+    Move your existing pages into a folder called `jstemplates`
+
+        $ mkdir jstemplates
+        $ git mv static/pages/ jstemplates/
+
+    In your `config.yml` file, update your pages section. For example, if you had:
+
+        pages:
+          - title: _(About)
+            slug: about
+            url: /static/pages/overview.html
+            start_page: true
+
+          - title: _(Why Shareabouts?)
+            slug: why
+            url: /static/pages/why.html
+
+          - title: _(Features)
+            slug: features
+            url: /static/pages/features.html
+
+          - title: _(Feedback)
+            external: true
+            url: https://openplans.zendesk.com/anonymous_requests/new
+
+    You should change to:
+
+        pages:
+          - title: _(About)
+            slug: about
+            name: overview
+            start_page: true
+
+          - title: _(Why Shareabouts?)
+            slug: why
+
+          - title: _(Features)
+            slug: features
+
+          - title: _(Feedback)
+            external: true
+            url: https://openplans.zendesk.com/anonymous_requests/new
+
+    Things to note:
+
+    * If the name of the template is the same as the page slug (e.g., "Features"
+      has a slug 'features' and a filename of 'features.html') then you only need
+      to specify the slug. If they differ (e.g., "About" has a slug 'about', but
+      a file name of 'overview.html') you'll need to specify the page name in
+      addition to the slug.
+    * External links are the same as they were before.
+
+    See the [configuration documentation](https://github.com/openplans/shareabouts/blob/714c41f3f00aeebaa0b25bf9297f4d0e67f92826/doc/CONFIG.md#pages-and-links) for more information.
+
+2.0.1
+-----------------------------
   * New Features:
     - Now deployable to Heroku!
     - Add data layers to your map using [Argo configurations](https://github.com/openplans/argo/wiki/Configuration-Guide)
+    - Make your configuration strings translatable
+    - Upload images
 
   * Upgrade Steps:
     - The configuration values for setting the dataset root and api key have
@@ -74,7 +144,8 @@ figure that out when we have a use for it.
 # What version am I on
 
 Whichever version number heading is at the top of this file is the current
-version of this project.
+version of this project. If the version is Development (master), the last
+marked version is the next version number down.
 
 # When to mark a version
 
