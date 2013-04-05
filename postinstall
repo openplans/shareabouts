@@ -42,7 +42,7 @@ TEMPLATE_DEBUG = DEBUG
 EOF
 
 echo "Setting up static file service..."
-src/manage.py collectstatic --noinput
+python src/manage.py collectstatic --noinput
 
 echo "Configuring nginx to serve static files..."
 cat >> nginx.conf <<EOF
@@ -51,7 +51,7 @@ EOF
 
 echo "Compiling translations..."
 cd src/sa_web
-../manage.py compilemessages
+python ../manage.py compilemessages
 cd ../flavors/$SHAREABOUTS_FLAVOR
-../../manage.py compilemessages
+python ../../manage.py compilemessages
 cd ../../..
