@@ -194,7 +194,7 @@ var Shareabouts = Shareabouts || {};
 
       if (model) {
         // Called by the router
-        location = model.get('location');
+        location = model; 
         placeDetailView = this.getPlaceDetailView(model);
 
         this.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
@@ -203,7 +203,7 @@ var Shareabouts = Shareabouts || {};
         this.destroyNewModels();
         this.hideCenterPoint();
         this.hideAddButton();
-        map.panTo(this.getOffsetCenter(L.latLng(location.lat, location.lng)));
+        map.panTo(this.getOffsetCenter(L.latLng(location.get('lat'), location.get('lng'))));
 
         // Focus the one we're looking
         model.trigger('focus');
