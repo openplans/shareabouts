@@ -22,8 +22,13 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           items = S.TemplateHelpers.getItemsFromModel(self.options.placeConfig.items,
             this.model, ['submitter_name', 'name', 'location_type']),
-
+            location_type = this.model.get('location_type'),
+            placeType = this.options.placeTypes[location_type],
+          
+          // TODO : a better default than 'point'?
+          label = placeType ? (placeType.label || location_type) : 'point',
           data = _.extend({
+            place_type_label: label,
             permalink: window.location.toString(),
             pretty_created_datetime: function() {
               return S.Util.getPrettyDateTime(this.created_datetime,
