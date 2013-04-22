@@ -161,6 +161,10 @@ var Shareabouts = Shareabouts || {};
       if (!placeModel) {
         // Update the place collection and then render this action
         this.options.places.fetch({
+          // This is to prevent the place collection from completely resetting.
+          // If there is an unsaved model in the collection during reset, it
+          // will become detached and be unable to save.
+          add: true,
           success: function() {
             self.renderAction(model, index);
           }
