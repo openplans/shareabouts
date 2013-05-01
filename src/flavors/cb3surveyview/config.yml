@@ -27,43 +27,143 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   service:
-    default: blue
-    focused: red
+    default: blue_dot
+    focused: blue_marker
     label: _(Service Business)
   vacant:
-    default: blue
-    focused: red
+    default: yellow_dot
+    focused: yellow_marker
     label: _(Vacant Storefront)
   bar:
-    default: blue
-    focused: red
+    default: red_dot
+    focused: red_marker
     label: _(Bar)
   retail:
-    default: blue
-    focused: red
+    default: green_dot
+    focused: green_marker
     label: _(Retail Business)
   other:
-    default: blue
-    focused: red
+    default: pink_dot
+    focused: pink_marker
     label: _(Other type of Business)
   restaurant:
-    default: blue
-    focused: red
+    default: orange_dot
+    focused: orange_marker
     label: _(Restaurant)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  blue:
-    iconUrl: /static/css/images/feature-point.png
+  blue_dot:
+    iconUrl: /static/css/images/markers/dot-2654d2.png
     iconSize:
       width: 17
       height: 18
     iconAnchor:
       x: 9
       y: 9
-  red:
-    iconUrl: /static/css/images/marker-focused.png
+  blue_marker:
+    iconUrl: /static/css/images/markers/marker-2654d2.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  green_dot:
+    iconUrl: /static/css/images/markers/dot-4bbd45.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  green_marker:
+    iconUrl: /static/css/images/markers/marker-4bbd45.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  red_dot:
+    iconUrl: /static/css/images/markers/dot-e1264d.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  red_marker:
+    iconUrl: /static/css/images/markers/marker-e1264d.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  orange_dot:
+    iconUrl: /static/css/images/markers/dot-f39914.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  orange_marker:
+    iconUrl: /static/css/images/markers/marker-f39914.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  yellow_dot:
+    iconUrl: /static/css/images/markers/dot-dbcf2c.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  yellow_marker:
+    iconUrl: /static/css/images/markers/marker-dbcf2c.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  pink_dot:
+    iconUrl: /static/css/images/markers/dot-fa307d.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  pink_marker:
+    iconUrl: /static/css/images/markers/marker-fa307d.png
     shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
