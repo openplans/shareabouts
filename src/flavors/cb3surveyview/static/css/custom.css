@@ -1,0 +1,308 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+/* =Base Typography
+-------------------------------------------------------------- */
+
+body, select, input, textarea {
+/*  color: #000;*/
+/*  font-family: "Comic Sans MS", cursive, sans-serif;*/
+}
+
+
+/* =Links
+-------------------------------------------------------------- */
+
+a, a:active, a:visited {
+/*  color: #ff40ff;*/
+}
+
+a:hover {
+/*  color: #e500e5;*/
+}
+
+
+/* =The Site Header
+-------------------------------------------------------------- */
+
+#site-header {
+/*  color: #fff;*/
+/*  background-color: #994c99;*/
+}
+
+#site-header a, #site-header a:active, #site-header a:visited {
+/*  color: #ff80ff;*/
+}
+
+#site-header a:hover {
+  /* color: #ffbfff; */
+}
+
+
+/* =Logo
+-------------------------------------------------------------- */
+
+/* NOTE: Adjust the #site-title font size in the link
+ * (not in the #site-title itself) using the em unit,
+ * as to not break it scaling via media queries. */
+
+#site-title {
+/*  font-family: Impact, sans-serif;*/
+/*  color: #fff;*/
+/*  text-shadow: none;*/
+}
+
+#site-title a:link,
+#site-title a:visited {
+/*  font-size: 0.75em;*/
+/*  color: #fff;*/
+}
+
+#site-title a:hover {
+/*  color: #fff;*/
+}
+
+
+/* =Mobile Navigation Button
+-------------------------------------------------------------- */
+
+/* NOTE: Override the Mobile Navigation Button with caution.
+ * The Helvetica stack produces a good icon. */
+
+a#nav-bttn:link,
+a#nav-bttn:visited {
+/*  color: #bf00bf;*/
+/*  background: #ffbfff;*/
+/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
+}
+
+a#nav-bttn:hover {
+/*  color: #ffbfff;*/
+/*  background: #fff;*/
+}
+
+
+/* =Navigation Menu
+-------------------------------------------------------------- */
+
+.access {
+/*  border: 1em solid #994c99;*/
+/*  border-top: 0.5em solid #994c99;*/
+/*  background: #994c99;*/
+}
+
+.access li {
+/*  border-bottom: 2px solid #994c99;*/
+}
+
+.access a:hover {
+/*  color: #ffbfff;*/
+/*  background: #fff;*/
+}
+
+.access a:visited, .access a:active, .access a:link {
+/*  color: #ffbfff;*/
+}
+
+
+/* =The Big Button to Add A New Point
+-------------------------------------------------------------- */
+
+a.add-place {
+/*  background-color: #ff40ff;*/
+/*  color: #eee;*/
+/*  text-shadow: none;*/
+}
+
+a.add-place:hover {
+/*  background-color: #e500e5;*/
+/*  color: #fff;*/
+}
+
+
+/* =Close Content Button
+-------------------------------------------------------------- */
+
+/* NOTE: Override the Close Button font within the span. The link should
+ * remain the Helvetica stack, as it produces a good X close icon. */
+
+a.close-bttn {
+/*  color: #ff40ff;*/
+/*  background-color: #fff;*/
+/*  border-color: #ffbfff;*/
+/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
+}
+
+a.close-bttn:hover {
+/*  color: #e500e5;*/
+/*  background-color: #fff;*/
+/*  border-color: #e500e5;*/
+}
+a.close-bttn span {
+  /*  font-family: Impact, sans-serif;*/
+}
+
+
+/* =Forms
+-------------------------------------------------------------- */
+
+label {
+/*  color: #806080;*/
+}
+
+input[type=text],
+textarea {
+/*  border: 1px solid #000; */
+}
+
+.required {
+/*  color: red;*/
+}
+
+.bttn {
+/*  color: #eee;*/
+/*  background-color: #ff40ff;*/
+/*  text-shadow: none;*/
+}
+
+.bttn:hover {
+/*  color: #fff;*/
+/*  background-color: #e500e5;*/
+}
+
+.fileinput-container {
+  background-color: #00aaff;
+  color: #f0f0f0;
+  padding: 0.75em 1em;
+  border: 0;
+  margin: 0 0 0.667em;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  text-shadow: 1px -1px 0 #06A;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+.fileinput-container.disabled {
+  background-color: #e0e0e0;
+  color: #f0f0f0;
+  text-shadow: 1px -1px 0 #999;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+
+a.reply-link {
+/*  color: #1e5395;*/
+/*  background: #eef8fd;*/
+}
+
+a.reply-link:hover {
+/*  color: #fff;*/
+/*  background-color: #e500e5;*/
+}
+
+
+/* =Voting & Social Promotion
+-------------------------------------------------------------- */
+.promotion {
+/*  background-color: #bf8fbf;*/
+}
+
+#user_support label {
+/*  color: #ff80ff;*/
+/*  background-color: #fff;*/
+}
+
+#user_support:hover label,
+#user_support label:hover {
+/*  color: #e500e5;*/
+}
+
+
+/* =The Ticker
+-------------------------------------------------------------- */
+
+#ticker {
+/*  background-color: #806080;*/
+}
+
+ul.recent-points {
+/*  color: #eee;*/
+}
+
+.recent-points li {
+/*  border-bottom: 3px solid #664c66;*/
+}
+
+.recent-points li:hover {
+/*  background: #bf60bf;*/
+}
+
+.recent-points a {
+/*  color: #eee;*/
+}
+
+.recent-points li:hover a,
+.recent-points a:hover {
+/*  color: #fff;*/
+}
+
+/* =Zendesk
+-------------------------------------------------------------- */
+#zenbox_tab {
+  visibility: hidden;
+  top: 40% !important;
+  opacity: 0.7;
+}
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) { /* menu is visible */
+  #zenbox_tab {
+    visibility: visible;
+  }
+
+  .access {
+/*    border: 0;*/
+/*    background: transparent;*/
+  }
+
+  /* NOTE: The background-color is the X's color. The pseudo elements' border-color and
+   * inset shadow color should match to mask the X shape */
+  a.close-bttn {
+/*    background: white;*/
+/*    -webkit-box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
+/*       -moz-box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
+/*            box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
+  }
+  a.close-bttn:hover {
+/*    background: purple; */
+  }
+  a.close-bttn:before {
+/*    border-right-color: pink; */
+  }
+  a.close-bttn:after {
+/*    border-left-color: pink; */
+  }
+  a.close-bttn span:before {
+/*    border-top-color: pink; */
+  }
+  a.close-bttn span:after {
+/*    border-bottom-color: pink; */
+  }
+
+}
+
+@media only screen and (min-width: 1024px) { /* ticker is visible */
+}
+
+@media only screen and (min-width: 1300px) {
+}
