@@ -306,3 +306,11 @@ ul.recent-points {
 
 @media only screen and (min-width: 1300px) {
 }
+
+#reply,
+.reply-link,
+.support,
+.place-submission-details,
+.response-date {
+  display: none;
+}

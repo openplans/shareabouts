@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Shareabouts
+  title: CB3 Business Survey
   # Header name
-  name: Shareabouts
+  name: CB3 Business Survey
   # Meta description that will show up in Google search results
   meta_description: _(Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.)
 
@@ -15,8 +15,8 @@ map:
     center:
       lat: 40.7267
       lng: -73.9808
-    zoom: 14
-    minZoom: 10
+    zoom: 16
+    minZoom: 11
     maxZoom: 17
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
@@ -83,7 +83,7 @@ activity:
   interval: 30000
 
 place:
-  adding_supported: true
+  adding_supported: false
   add_button_label: _(Add a Place)
   action_text: _(added)
   title: _(Tell us more...)
@@ -135,27 +135,184 @@ place:
           value: _(Description...)
 
 survey:
-  submission_type: comments
+  submission_type: survey
 
   # Response config
   show_responses: true
-  response_name: _(comment)
-  response_plural_name: _(comments)
-  action_text: _(commented on)
+  response_name: _(business survey)
+  response_plural_name: _(business surveys)
+  action_text: _(collected information on)
   anonymous_name: _(Someone)
 
   # Survey form config
-  title: _(Leave a Comment)
-  form_link_text: _(Leave a Comment)
-  submit_btn_text: _(Comment)
+  title: _(Add a business)
+  form_link_text: _(Add a business)
+  submit_btn_text: _(Save Business Information)
   items:
-    - prompt: _(Comment)
-      label: _(Comment)
-      type: textarea
-      name: comment
-    - prompt: _(Your Name)
+    - prompt: _(Business Name)
       type: text
-      name: submitter_name
+      name: business_name
+
+    - prompt: _(Type of Business)
+      name: business_type
+      type: select
+      options:
+        - label: _(Vacant)
+          value: vacant
+        - label: _(Retail)
+          value: retail
+        - label: _(Bar)
+          value: bar
+        - label: _(Restaurant)
+          value: restaurant
+        - label: _(Service Business)
+          value: service
+        - label: _(Bank)
+          value: bank
+        - label: _(Grocery Store)
+          value: grocery
+        - label: _(Deli/Bodega)
+          value: deli
+        - label: _(Newspaper Stand)
+          value: newspapers
+        - label: _(Religious)
+          value: religious
+        - label: _(Cultural)
+          value: cultural
+        - label: _(Residential)
+          value: residential
+        - label: _(Other)
+          value: other
+
+    - prompt: _(What is sold?)
+      name: retail_type
+      condition:
+        - field: business_type
+          value: retail
+      type: select
+      options:
+        - label: _(Clothing)
+          value: clothing
+        - label: _(Medical/Alternative Medicine)
+          value: medical
+        - label: _(Arts & Design)
+          value: arts_design
+        - label: _(Gifts)
+          value: gifts
+        - label: _(Jewelry)
+          value: jewelry
+        - label: _(Other)
+          value: other
+
+    - prompt: _(Other retail...)
+      name: retail_type_other
+      condition:
+        - field: retail_type
+          value: other
+      type: text
+
+    - prompt: _(Type of Food)
+      name: food_type
+      type: text
+      condition:
+        - field: business_type
+          value: restaurant
+
+    - prompt: _(Type of service offered)
+      name: service_type
+      condition:
+        - field: business_type
+          value: service
+      type: text
+
+    - prompt: _(Wheelchair accessible?)
+      name: wheelchair_accessible
+      type: switch
+
+    - prompt: _(Hours of Operation)
+      type: textarea
+      name: hours
+
+    - prompt: _(Contact Name)
+      type: text
+      name: contact_name
+
+    - prompt: _(Contact Phone Number)
+      type: tel
+      name: phone_number
+      attrs:
+        - key: placeholder
+          value: _((___) ___-____)
+
+    - prompt: _(Contact Fax Number)
+      type: tel
+      name: fax_number
+      attrs:
+        - key: placeholder
+          value: _((___) ___-____ )
+
+    - prompt: _(Email Address)
+      type: email
+      name: email_address
+
+    - prompt: _(Web Address)
+      type: text
+      name: web_address
+      attrs:
+        - key: placeholder
+          value: 'http://'
+
+    - prompt: _(Number of Employees)
+      type: number
+      name: num_of_employee
+
+    - prompt: _(Opening Date)
+      type: month
+      name: opening_date
+      attrs:
+        key: placeholder
+        value: 'YYYY-MM'
+
+    - prompt: _(Owner Place of Residence)
+      type: textarea
+      name: owner_residence
+
+    - label: _(Owner identifies as...)
+      type: fieldset
+      name: owner_identity
+      items:
+        - type: toggle
+          label: _(Caucasian)
+          name: owner_is_caucasian
+        - type: toggle
+          label: _(African American)
+          name: owner_is_african_american
+        - type: toggle
+          label: _(Hispanic)
+          name: owner_is_hispanic
+        - type: toggle
+          label: _(Asian)
+          name: owner_is_asian
+        - type: toggle
+          label: _(Veteran)
+          name: owner_is_veteran
+        - type: toggle
+          label: _(Female)
+          name: owner_is_female
+
+    - prompt: _(Are there any issues with this listing?)
+      type: switch
+      name: problems
+
+    - prompt: ""
+      type: textarea
+      name: problem_description
+      attrs:
+        - key: placeholder
+          value: _(Note issues with the listing here.)
+      condition:
+        - field: problems
+          value: checked
 
 support:
   submission_type: support
@@ -163,20 +320,20 @@ support:
   action_text: supported
   anonymous_name: _(Someone)
 
-pages:
-  - title: _(About)
-    slug: about
-    name: overview
-    start_page: true
+#pages:
+#  - title: _(About)
+#    slug: about
+#    name: overview
+#    start_page: true
 
-  - title: _(Why Shareabouts?)
-    slug: why
-    url: /static/pages/why.html
+#  - title: _(Why Shareabouts?)
+#    slug: why
+#    url: /static/pages/why.html
 
-  - title: _(Features)
-    slug: features
-    url: /static/pages/features.html
+#  - title: _(Features)
+#    slug: features
+#    url: /static/pages/features.html
 
-  - title: _(Feedback)
-    external: true
-    url: https://openplans.zendesk.com/anonymous_requests/new
+#  - title: _(Feedback)
+#    external: true
+#    url: https://openplans.zendesk.com/anonymous_requests/new

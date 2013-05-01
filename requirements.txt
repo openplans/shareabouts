@@ -1,5 +1,5 @@
 # The server
-django<1.5
+django
 # gevent
 gunicorn
 
