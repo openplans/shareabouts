@@ -13,14 +13,15 @@ map:
   geolocation_onload: false
   options:
     center:
-      lat: 40.7267
-      lng: -73.9808
-    zoom: 16
+      lat: 40.7292
+      lng: -73.9813
+    zoom: 18
     minZoom: 11
-    maxZoom: 17
+    maxZoom: 18
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/doittgis.NYC_DoITT_base/{z}/{x}/{y}.png
     attribution: 'Map tiles &copy; <a href="http://www.nyc.gov/doitt/">New York City DoITT</a>. Based on the latest planimetric data.'
+    maxZoom: 18
   layers: []
 
 # The keys show up in the dropdown list when you are adding a new place
