@@ -26,18 +26,30 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  landmark:
+  service:
     default: blue
     focused: red
-    label: _(Landmark)
-  park:
+    label: _(Service Business)
+  vacant:
     default: blue
     focused: red
-    label: _(Park)
-  school:
+    label: _(Vacant Storefront)
+  bar:
     default: blue
     focused: red
-    label: _(School)
+    label: _(Bar)
+  retail:
+    default: blue
+    focused: red
+    label: _(Retail Business)
+  other:
+    default: blue
+    focused: red
+    label: _(Other type of Business)
+  restaurant:
+    default: blue
+    focused: red
+    label: _(Restaurant)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
