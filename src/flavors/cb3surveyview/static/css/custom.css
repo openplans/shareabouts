@@ -314,3 +314,16 @@ ul.recent-points {
 .response-date {
   display: none;
 }
+
+.response-label {
+  font-weight: bold;
+  color: #888;
+}
+
+.response-label:after {
+  content: ":";
+}
+
+.response-value {
+  display: inline;
+}

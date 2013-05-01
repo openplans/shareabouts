@@ -249,11 +249,11 @@ survey:
   form_link_text: _(Add a business)
   submit_btn_text: _(Save Business Information)
   items:
-    - prompt: _(Business Name)
+    - label: _(Business Name)
       type: text
       name: business_name
 
-    - prompt: _(Type of Business)
+    - label: _(Type of Business)
       name: business_type
       type: select
       options:
@@ -284,96 +284,96 @@ survey:
         - label: _(Other)
           value: other
 
-    - prompt: _(What is sold?)
-      name: retail_type
-      condition:
-        - field: business_type
-          value: retail
-      type: select
-      options:
-        - label: _(Clothing)
-          value: clothing
-        - label: _(Medical/Alternative Medicine)
-          value: medical
-        - label: _(Arts & Design)
-          value: arts_design
-        - label: _(Gifts)
-          value: gifts
-        - label: _(Jewelry)
-          value: jewelry
-        - label: _(Other)
-          value: other
+#    - label: _(What is sold?)
+#      name: retail_type
+#      condition:
+#        - field: business_type
+#          value: retail
+#      type: select
+#      options:
+#        - label: _(Clothing)
+#          value: clothing
+#        - label: _(Medical/Alternative Medicine)
+#          value: medical
+#        - label: _(Arts & Design)
+#          value: arts_design
+#        - label: _(Gifts)
+#          value: gifts
+#        - label: _(Jewelry)
+#          value: jewelry
+#        - label: _(Other)
+#          value: other
 
-    - prompt: _(Other retail...)
+    - label: _(What is sold)
       name: retail_type_other
       condition:
         - field: retail_type
           value: other
       type: text
 
-    - prompt: _(Type of Food)
+    - label: _(Type of Food)
       name: food_type
       type: text
       condition:
         - field: business_type
           value: restaurant
 
-    - prompt: _(Type of service offered)
+    - label: _(Type of service offered)
       name: service_type
       condition:
         - field: business_type
           value: service
       type: text
 
-    - prompt: _(Wheelchair accessible?)
+    - label: _(Is Wheelchair accessible)
       name: wheelchair_accessible
       type: switch
 
-    - prompt: _(Hours of Operation)
+    - label: _(Hours of Operation)
       type: textarea
       name: hours
 
-    - prompt: _(Contact Name)
+    - label: _(Contact Name)
       type: text
       name: contact_name
 
-    - prompt: _(Contact Phone Number)
+    - label: _(Contact Phone Number)
       type: tel
       name: phone_number
       attrs:
         - key: placeholder
           value: _((___) ___-____)
 
-    - prompt: _(Contact Fax Number)
+    - label: _(Contact Fax Number)
       type: tel
       name: fax_number
       attrs:
         - key: placeholder
           value: _((___) ___-____ )
 
-    - prompt: _(Email Address)
+    - label: _(Email Address)
       type: email
       name: email_address
 
-    - prompt: _(Web Address)
+    - label: _(Web Address)
       type: text
       name: web_address
       attrs:
         - key: placeholder
           value: 'http://'
 
-    - prompt: _(Number of Employees)
+    - label: _(Number of Employees)
       type: number
       name: num_of_employee
 
-    - prompt: _(Opening Date)
+    - label: _(Opening Date)
       type: month
       name: opening_date
       attrs:
         key: placeholder
         value: 'YYYY-MM'
 
-    - prompt: _(Owner Place of Residence)
+    - label: _(Owner Place of Residence)
       type: textarea
       name: owner_residence
 
@@ -400,11 +400,11 @@ survey:
           label: _(Female)
           name: owner_is_female
 
-    - prompt: _(Are there any issues with this listing?)
+    - label: _(Are there any issues with this listing?)
       type: switch
       name: problems
 
-    - prompt: ""
+    - label: _(Problems)
       type: textarea
       name: problem_description
       attrs:
