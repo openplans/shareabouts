@@ -231,3 +231,4 @@ if 'CONFIG' not in SHAREABOUTS:
 if 'PACKAGE' not in SHAREABOUTS:
     SHAREABOUTS['PACKAGE'] = '.'.join(['flavors', flavor])
     INSTALLED_APPS = (SHAREABOUTS['PACKAGE'],) + INSTALLED_APPS
+ALLOWED_HOSTS = ['*']
