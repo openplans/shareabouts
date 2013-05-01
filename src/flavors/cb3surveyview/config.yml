@@ -304,26 +304,26 @@ survey:
 #        - label: _(Other)
 #          value: other
 
-    - label: _(What is sold)
-      name: retail_type_other
-      condition:
-        - field: retail_type
-          value: other
-      type: text
+#    - label: _(What is sold)
+#      name: retail_type_other
+#      condition:
+#        - field: retail_type
+#          value: other
+#      type: text
 
-    - label: _(Type of Food)
-      name: food_type
-      type: text
-      condition:
-        - field: business_type
-          value: restaurant
+#    - label: _(Type of Food)
+#      name: food_type
+#      type: text
+#      condition:
+#        - field: business_type
+#          value: restaurant
 
-    - label: _(Type of service offered)
-      name: service_type
-      condition:
-        - field: business_type
-          value: service
-      type: text
+#    - label: _(Type of service offered)
+#      name: service_type
+#      condition:
+#        - field: business_type
+#          value: service
+#      type: text
 
     - label: _(Is Wheelchair accessible)
       name: wheelchair_accessible

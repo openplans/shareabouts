@@ -327,3 +327,7 @@ ul.recent-points {
 .response-value {
   display: inline;
 }
+
+.response-item {
+  margin: 0.5em;
+}
