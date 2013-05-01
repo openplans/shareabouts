@@ -9,12 +9,12 @@ app:
 
 # Settings for map and layer configs
 map:
-  geolocation_enabled: true
-  geolocation_onload: true
+  geolocation_enabled: false
+  geolocation_onload: false
   options:
     center:
-      lat: 39.9523524
-      lng: -75.1636075
+      lat: 40.7267
+      lng: -73.9808
     zoom: 14
     minZoom: 10
     maxZoom: 17
