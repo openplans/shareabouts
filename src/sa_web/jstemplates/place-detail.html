@@ -1,6 +1,16 @@
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
+          {{#if thanks}}
+            <h2 class="thanks">Well done! This 
+              {{# place_type_label }}
+                {{ place_type_label }}
+              {{/ place_type_label}}
+              {{^ place_type_label }}place{{/ place_type_label}}
+              has been added to the map. Share it with your friends.
+            </h2>
+          {{/if}}
+          
           <h1>{{ name }}</h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
@@ -49,6 +59,8 @@
           {{/each_place_item }}
         </section>
 
+        {{#unless thanks}}
         {{#if survey_config}}
         <section class="survey" id="survey"></section>
         {{/if}}
+        {{/unless}}

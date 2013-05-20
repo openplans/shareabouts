@@ -53,7 +53,12 @@ var Shareabouts = Shareabouts || {};
             place_config: this.options.placeConfig,
             survey_config: this.options.surveyConfig
           }, this.model.toJSON());
-
+      
+      if (S.justSubmitted) {
+        S.justSubmitted = false;
+        data.thanks = true;
+      }
+      
       data.submitter_name = this.model.get('submitter_name') ||
         this.options.placeConfig.anonymous_name;
 
