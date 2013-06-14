@@ -1,28 +1,90 @@
+@import url(chunk-fontfacekit/stylesheet.css);
 
-/* =The Site Header
--------------------------------------------------------------- */
+body {
+  background-color: #fff;
+  font-family: Tahoma, Geneva, sans-serif;
+}
 
 #site-header {
   display: none;
 }
 
-
-/* =The Map
--------------------------------------------------------------- */
-
+/* The Map */
 #map-container {
   top: 0;
 }
 
+/* The Add Place Button */
+a.add-place {
+  font-family: "ChunkFiveRegular",helvetica,arial;
+  font-weight: normal;
+  background-color: #00aeef;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px #2e6aa7;
+  text-shadow: 1px 1px #3e79b9;
+}
+a.add-place:hover {
+  color: #fff;
+}
 
-/* =The Content
+/* The Ticker */
+#ticker {
+  top: 0; /* must match height of #site-header */
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+ul.recent-points {
+  color: #00aeef;
+}
+.recent-points li {
+  border-bottom: 1px solid #eee;
+}
+.recent-points li:hover {
+  background: #eee;
+}
+.recent-points a {
+  color: #00aeef;
+}
+.recent-points a:hover {
+  color: #444;
+}
+
+/* Powered By */
+#powered-by {
+  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+
+/* =Media Queries
 -------------------------------------------------------------- */
 
 @media only screen and (min-width: 768px) {
   #content { top: 1.75em; }
+
+  .activity-enabled .noscript {
+    margin-right: 18em; /* width of ticker */
+  }
+  .activity-enabled #ticker {
+    display: block;
+  }
+  .activity-enabled #map-container {
+    right: 18em; /* width of ticker */
+  }
+  .activity-enabled #content {
+/*    right: 18.75em; /* width of ticker + extra 0.75em */*/
+    left: 40%;
+  }
+  .activity-enabled #powered-by {
+    bottom: 0;
+  }
+
 }
 @media only screen and (min-width: 1024px) {
   #content { top: 1.75em; }
+  .activity-enabled #powered-by {
+    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+  }
 }
 @media only screen and (min-width: 1300px) {
   #content { top: 1.75em; }
