@@ -129,6 +129,7 @@ button {width: auto; overflow: visible;}
 /* =Nonsemantic Base Styles
 -------------------------------------------------------------- */
 
+span.nowrap { white-space: nowrap; }
 /* Hide for both screenreaders and browsers:
    css-discuss.incutio.com/wiki/Screenreader_Visibility */
 .hidden { display: none; visibility: hidden; }
@@ -309,7 +310,7 @@ body {
   position: absolute;
   top: 4em; /* must match height of #site-header */
   right: 0;
-  bottom: 0;
+  bottom: 2em;
   left: 0;
   z-index: 10;
 }
@@ -323,6 +324,7 @@ a.add-place {
   position: fixed;
   right: auto;
   bottom: 20px;
+  margin-bottom: 0.8em;
   left: 10px;
   z-index: 1001;
   background-color: #00aaff;
@@ -848,6 +850,7 @@ article.response footer {
   top: 5em; /* must match height of #site-header */
   right: 0;
   bottom: 0;
+  border-bottom: 4.75em solid #5D5D5D;
   left: auto;
   width: 18em;
   overflow: auto;
@@ -901,33 +904,38 @@ ul.recent-points {
 }
 
 /* Powered By */
-#ticker ul {
-  padding-bottom: 3em;
-}
 #powered-by {
   color: #ddd;
   background-color: #777;
-  line-height: 3em;
   text-align: center;
-  width: 18em;
+  line-height: 2em;
+  height: 2em;
   position: fixed;
   right: 0;
+  left: 0;
   bottom: 0;
   overflow: hidden;
   z-index: 16;
-     -moz-box-shadow: 0 -4px 0 rgba(85, 85, 85, 0.5);
-  -webkit-box-shadow: 0 -4px 0 rgba(85, 85, 85, 0.5);
-          box-shadow: 0 -4px 0 rgba(85, 85, 85, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
 }
-#powered-by a {
-  color: #a3c7d9;
+#powered-by a.shareabouts-logo {
   font-family: 'Dancing Script', cursive;
   font-weight: bold;
   font-size: 1.4em;
+  color: #a3c7d9;
+  font-weight: bold;
   text-decoration: none;
-  padding-right: 0.125em;
 }
-#powered-by a:hover {
+#powered-by a.shareabouts-logo:hover {
+  color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+#powered-by a.openplans-logo {
+  color: #ffb885;
+  font-weight: bold;
+  text-decoration: none;
+}
+#powered-by a.openplans-logo:hover {
   color: #fff;
   border-bottom: 1px solid #ccc;
 }
@@ -1000,6 +1008,7 @@ ul.recent-points {
 @media only screen and (min-width: 768px) { /* menu is visible */
   a.add-place {
     padding: 0.6em 1em;
+    margin-bottom: 0;
     font-size: 2.5em;
     bottom: 1.5em;
     left: 1em;
@@ -1163,6 +1172,26 @@ ul.recent-points {
     font-size: 11px;
   }
 
+  #map-container {
+    bottom: 0;
+  }
+  #powered-by {
+    line-height: 3em;
+    text-align: center;
+    width: 18em;
+    height: 4.75em;
+    right: -4px;
+    bottom: 2em;
+    border-right: 4px solid #777;
+    left: auto;
+    overflow: hidden;
+    box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  #powered-by .nowrap {
+    display: block;
+    margin-top: -1.5em;
+  }
+
   #site-header a,
   .close-bttn {
     -webkit-transition: color,background-color 0.1s;
@@ -1214,6 +1243,10 @@ ul.recent-points {
   }
   .activity-enabled #ticker {
     display: block;
+  }
+  .activity-enabled #powered-by {
+    bottom: 0;
+    box-shadow: 0 -4px 0 rgba(85, 85, 85, 0.5), inset 0 1px 0 rgba(255,255,255,0.25);
   }
   #user-menu {
     padding-top: 0.75em;
