@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Shareabouts
+  title: WeHo Walk + Bike Better
   # Header name
-  name: Shareabouts
+  name: WeHo Walk + Bike Better
   # Meta description that will show up in Google search results
-  meta_description: _(Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.)
+  meta_description: _(Share your insights and experiences to help make West Hollywood a more inviting city for pedestrians and bicyclists.)
 
 # Settings for map and layer configs
 map:
@@ -123,26 +123,73 @@ place:
   add_button_label: _(Add a Place)
   action_text: _(added)
   title: _(Tell us more...)
-  action_text: _(created)
+  action_text: _(added)
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
   items:
-    - prompt: _(Location Name)
-      type: text
-      name: name
-      attrs:
-        - key: placeholder
-          value: _(Location Name)
-        - key: size
-          value: 30
-    - prompt: _(Location Type)
+    # - prompt: _(Location Title)
+    #   type: text
+    #   name: name
+    #   attrs:
+    #     - key: placeholder
+    #       value: _(Location Title)
+    #     - key: size
+    #       value: 30
+    - prompt: _(Walking or Biking?)
+      name: location_type
       type: select
       options:
         - label: _(Walking)
           value: walking
         - label: _(Biking)
           value: biking
-      name: location_type
+    - prompt: _(Walk Better)
+      name: walk_better
+      type: select
+      options:
+        - label: _(This is a safe place to walk.)
+          value: This is a safe place to walk.
+        - label: _(This is an unsafe place to walk.)
+          value: This is an unsafe place to walk.
+        - label: _(This place is beautiful.)
+          value: This place is beautiful.
+        - label: _(This place is an eyesore.)
+          value: This place is an eyesore.
+        - label: _(Please put a crosswalk here.)
+          value: Please put a crosswalk here.
+        - label: _(Please widen the sidewalk here.)
+          value: Please widen the sidewalk here.
+        - label: _(This place needs better lighting.)
+          value: This place needs better lighting.
+        - label: _(This place needs better signage.)
+          value: This place needs better signage.
+        - label: _(An ADA facility is needed here.)
+          value: An ADA facility is needed here.
+    - prompt: _(Bike Better)
+      name: bike_better
+      type: select
+      options:
+        - label: _(This is a safe place to bike.)
+          value: This is a safe place to bike.
+        - label: _(This is an unsafe place to bike.)
+          value: This is an unsafe place to bike.
+        - label: _(Please put a bike lane here.)
+          value: Please put a bike lane here.
+        - label: _(This street isn't bike friendly.)
+          value: This street isn't bike friendly.
+        - label: _(Please add bike signage here.)
+          value: Please add bike signage here.
+        - label: _(This place needs bike parking.)
+          value: This place needs bike parking.
+        - label: _(Bikeshare should be here.)
+          value: Bikeshare should be here.
+    - prompt: _(Description)
+      type: textarea
+      name: description
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...)
     - prompt: _(Image)
       inputfile_label: _(Add an Image)
       type: file
@@ -160,13 +207,25 @@ place:
           value: _(Name)
         - key: size
           value: 30
-    - prompt: _(Description)
-      type: textarea
-      name: description
+    - prompt: _(Email Address)
+      type: text
+      name: private-submitter_email_address
       optional: true
       attrs:
         - key: placeholder
-          value: _(Description...)
+          value: _(email@example.org)
+        - key: size
+          value: 30
+    - prompt: _(ZIP Code)
+      type: text
+      name: private-submitter_zipcode
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(ZIP Code)
+        - key: size
+          value: 5
+
 
 survey:
   submission_type: comments

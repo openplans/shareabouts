@@ -9,6 +9,37 @@ body {
   display: none;
 }
 
+.response-date {
+  display: inline-block;
+}
+.response-date:first-letter {
+  text-transform: uppercase;
+}
+
+.place-header-walking, .place-header-biking {
+  padding: 8px 0 20px 72px;
+  margin-bottom: 0;
+}
+.place-header-walking {
+  background: url(images/icon-walking.png) left top no-repeat scroll;
+}
+.place-header-biking {
+  background: url(images/icon-biking.png) left top no-repeat scroll;
+}
+.place-header h1 {
+  font-size: 1.5em;
+  margin-bottom: 0;
+}
+
+.place-item-walk_better,
+.place-item-bike_better {
+  display: none;
+}
+
+label small {
+  font-weight: normal;
+}
+
 /* The Map */
 #map-container {
   top: 0;
