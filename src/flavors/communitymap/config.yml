@@ -3,7 +3,7 @@ app:
   # HTML Title
   title: Active recreation spaces!
   # Header name
-  name: Active Parks!
+  name: Active spaces in CB1
   # Meta description that will show up in Google search results
   meta_description: "Which parks in Mahattan Community Board 1 need more active recreation space? Powered by Shareabouts, a mapping tool to gather crowd sourced public input."
 # Settings for map and layer configs
@@ -14,7 +14,7 @@ map:
     center:
       lat:  40.707987
       lng: -74.007232
-    zoom: 17
+    zoom: 16
     minZoom: 11
     maxZoom: 18
     maxBounds: [ [40.5, -74.36], [40.9, -73.47] ]
@@ -37,30 +37,26 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  ATM:
-    default: blue
-    focused: red
+  need:
+    default: green
+    focused: yellow
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  blue:
-    iconUrl: /static/css/images/marker-dollar.png
-    shadowUrl: /static/css/images/marker-shadow.png
+  green:
+    iconUrl: /static/css/images/markers/dot-f39914.png
     iconSize:
-      width: 25
-      height: 41
-    shadowSize:
-      width: 41
-      height: 41
+      width: 17
+      height: 18
     iconAnchor:
       x: 12
-      y: 41
+      y: 12
     popupAnchor:
       x: 12
       y: 6
-  red:
-    iconUrl: /static/css/images/marker-focused.png
+  yellow:
+    iconUrl: /static/css/images/marker-focused-yellow.png
     shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
@@ -81,26 +77,27 @@ place:
   adding_supported: true
   add_button_label: Where are more active spaces needed?
   title: Identify opportunities for active spaces
-  action_text: added
+  action_text: identified
   anonymous_name: Someone
   submit_button_label: Submit
   items:
-    - prompt: Short Description
+    - prompt: Location
       type: text
       name: name
+      label: "Location"
       attrs:
         - key: placeholder
-          value: E.g. The BofA on the corner of Canal and Broadway
-    - prompt: Surcharge
-      type: text
-      name: surcharge
-      label: 'Surcharge: $'
+          value: E.g. Pumphouse Park
+    - prompt: What's needed?
+      type: textarea
+      name: needed
+      label: "What's needed?"
       attrs:
         - key: placeholder
-          value: $
+          value: 
         - key: size
           value: 30
-    - prompt: Your Name
+    - prompt: Your name
       type: text
       name: submitter_name
       optional: true
@@ -113,34 +110,34 @@ place:
       name: location_type
       attrs:
         - key: value
-          value: ATM
+          value: need
 
 survey:
   submission_type: comments
 
   # Response display config
   show_responses: true
-  response_name: tip
-  response_plural_name: tips
-  action_text: left a tip
+  response_name: comment
+  response_plural_name: comments
+  action_text: left a comment
   anonymous_name: Someone
 
   # Survey form config
-  title: Add a Tip
-  form_link_text: Add a Tip!
+  title: Add a comment
+  form_link_text: Add a comment!
   submit_btn_text: Submit
   items:
-    - prompt: Add a Tip
+    - prompt: Add a comment
       type: textarea
-      name: tip
+      name: comment
     - prompt: Your Name
       type: text
       name: submitter_name
 
 support:
   submission_type: support
-  submit_btn_text: Support This!
-  action_text: supported
+  submit_btn_text: I agree!
+  action_text: agreed
   anonymous_name: Someone
 
 pages:
@@ -148,6 +145,3 @@ pages:
     slug: about
     url: /static/pages/overview.html
     start_page: true
-  - title: Download the Data!
-    external: true
-    url: /download/places.csv
