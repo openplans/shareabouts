@@ -26,32 +26,80 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  landmark:
-    default: blue
-    focused: red
-    label: _(Landmark)
-  park:
-    default: blue
-    focused: red
-    label: _(Park)
-  school:
-    default: blue
-    focused: red
-    label: _(School)
+  walking:
+    default: walkingblue
+    focused: walkingorange
+    label: _(Walking)
+  biking:
+    default: bikinggreen
+    focused: bikingorange
+    label: _(Biking)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  blue:
-    iconUrl: /static/css/images/feature-point.png
+  walkingblue:
+    iconUrl: /static/css/images/weho-walking-blue.png
+    shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
-      width: 17
-      height: 18
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
     iconAnchor:
-      x: 9
-      y: 9
-  red:
-    iconUrl: /static/css/images/marker-focused.png
+      x: 12
+      y: 41
+  walkinggreen:
+    iconUrl: /static/css/images/weho-walking-green.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  walkingorange:
+    iconUrl: /static/css/images/weho-walking-orange.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  bikingblue:
+    iconUrl: /static/css/images/weho-biking-blue.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  bikinggreen:
+    iconUrl: /static/css/images/weho-biking-green.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  bikingorange:
+    iconUrl: /static/css/images/weho-biking-orange.png
     shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
@@ -90,12 +138,10 @@ place:
     - prompt: _(Location Type)
       type: select
       options:
-        - label: _(Landmark)
-          value: landmark
-        - label: _(Park)
-          value: park
-        - label: _(School)
-          value: school
+        - label: _(Walking)
+          value: walking
+        - label: _(Biking)
+          value: biking
       name: location_type
     - prompt: _(Image)
       inputfile_label: _(Add an Image)
