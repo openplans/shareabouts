@@ -18,9 +18,9 @@ From the root Shareabouts directory...
 
   *DotCloud*
 
-         dotcloud create <instance name>
+         dotcloud create <instance name> -f live
 
-  This will create the application on DotCloud and prompt you connect it to your current directory: `Connect the current directory to "<instance name>"?` If you choose yes, this application will become your default and you can ignore the `-A <instance name>` flags below.
+  This will create the application on DotCloud using the live flavor, and prompt you connect it to your current directory: `Connect the current directory to "<instance name>"?` If you choose yes, this application will become your default and you can ignore the `-A <instance name>` flags below.
 
   *Heroku*
 
