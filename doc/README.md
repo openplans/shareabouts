@@ -75,16 +75,12 @@ to activate your virtual environment every time you start a new terminal session
 Running the Shareabouts API Service
 ------------------------------------
 
-For local development, you will also want to install and run the
-back-end API service.  To do so, you will want clone the
+For local development, your best bet is to use OpenPlans' hosted API. Go to [api.shareabouts.org](http://api.shareabouts.org) and request access.
+
+Alternatively, install and run the
+back-end API service yourself.  To do so, you will want clone the
 [Shareabouts API](https://github.com/openplans/shareabouts-api).
 
-For example, in another terminal session, do this:
-
-    git clone https://github.com/openplans/shareabouts-api
-    cd shareabouts-api
-
-Then read its own install documentation, in `doc/README.md`.
 You'll want to run it on a separate port; we usually use 8001.
 
 Configuration
