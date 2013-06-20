@@ -12,3 +12,35 @@
     s.parentNode.insertBefore(t, s);
   })();
 </script>
+
+<script type="text/javascript">
+
+  $(Shareabouts).on('panelshow', function(evt, app, path) {
+
+    // add class for displaying labels as inline
+    $("label[for*=place-location_type],label[for*=place-my_image]").addClass("inline-label");
+
+    // add class to paragraphs containing dynamic menus
+    $("#place-walk_better").parent("p").addClass("walk-better-menu");
+    $("#place-bike_better").parent("p").addClass("bike-better-menu");
+
+    $(".walk-better-menu,.bike-better-menu").hide();
+
+    $("#place-location_type").change(function() {
+      $(".walk-better-menu,.bike-better-menu").hide();
+      var chosen = $("#place-location_type").val();
+      switch (chosen) {
+        case "no-choice":
+          break;
+        case "walking":
+          $(".walk-better-menu").show();
+          break;
+        case "biking":
+          $(".bike-better-menu").show();
+          break;
+      }
+
+    });
+
+  });
+</script>

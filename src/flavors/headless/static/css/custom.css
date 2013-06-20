@@ -102,6 +102,22 @@ ul.recent-points {
   border-bottom: 1px solid #ff8b38;
 }
 
+input[type=text],
+input[type=number],
+textarea {
+  padding: 0.5em;
+}
+.fileinput-container {
+  padding: 0.25em 0.75em;
+}
+.inline-label {
+  display: inline;
+  margin-right: 0.5em;
+}
+#place-form p {
+  margin-bottom: 0.8em;
+}
+
 
 /* =Media Queries
 -------------------------------------------------------------- */

@@ -139,14 +139,18 @@ place:
       name: location_type
       type: select
       options:
+        - label: _(Choose...)
+          value: no-choice
         - label: _(Walking)
           value: walking
         - label: _(Biking)
           value: biking
-    - prompt: _(Walk Better)
+    - # prompt: _(Walk Better)
       name: walk_better
       type: select
       options:
+        - label: _(Please choose...)
+          value: no-choice
         - label: _(This is a safe place to walk.)
           value: This is a safe place to walk.
         - label: _(This is an unsafe place to walk.)
@@ -165,10 +169,12 @@ place:
           value: This place needs better signage.
         - label: _(An ADA facility is needed here.)
           value: An ADA facility is needed here.
-    - prompt: _(Bike Better)
+    - # prompt: _(Bike Better)
       name: bike_better
       type: select
       options:
+        - label: _(Please choose...)
+          value: no-choice
         - label: _(This is a safe place to bike.)
           value: This is a safe place to bike.
         - label: _(This is an unsafe place to bike.)
