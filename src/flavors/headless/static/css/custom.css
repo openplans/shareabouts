@@ -83,7 +83,23 @@ ul.recent-points {
 /* Powered By */
 #powered-by {
   font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
-  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+  box-shadow: none;
+  background: #fff;
+  color: #777;
+}
+#powered-by a.shareabouts-logo {
+  color: #00aaff;
+}
+#powered-by a.shareabouts-logo:hover {
+  color: #00aaff;
+  border-bottom: 1px solid #00aaff;
+}
+#powered-by a.openplans-logo {
+  color: #ff8b38;
+}
+#powered-by a.openplans-logo:hover {
+  color: #ff8b38;
+  border-bottom: 1px solid #ff8b38;
 }
 
 
@@ -108,6 +124,24 @@ ul.recent-points {
   }
   .activity-enabled #powered-by {
     bottom: 0;
+  }
+
+  #powered-by {
+    line-height: 2em;
+    width: auto;
+    height: 2em;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-right: 0;
+    z-index: 16;
+  }
+  #powered-by .nowrap {
+    display: inline;
+    margin-top: 0;
+  }
+  #map-container {
+    bottom: 2em;
   }
 
 }
