@@ -118,6 +118,10 @@ textarea {
   margin-bottom: 0.8em;
 }
 
+.social {
+  display: none;
+}
+
 
 /* =Media Queries
 -------------------------------------------------------------- */
