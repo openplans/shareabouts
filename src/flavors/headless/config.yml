@@ -219,7 +219,6 @@ place:
     - prompt: _(Description)
       type: textarea
       name: description
-      optional: true
       attrs:
         - key: placeholder
           value: _(Description...)
@@ -227,14 +226,12 @@ place:
       inputfile_label: _(Add an Image)
       type: file
       name: my_image
-      optional: true
       attrs:
         - key: accept
           value: image/*
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      optional: true
       attrs:
         - key: placeholder
           value: _(Name)
@@ -243,7 +240,6 @@ place:
     - prompt: _(Email Address)
       type: text
       name: private-submitter_email_address
-      optional: true
       attrs:
         - key: placeholder
           value: _(email@example.org)
@@ -252,7 +248,6 @@ place:
     - prompt: _(ZIP Code)
       type: text
       name: private-submitter_zipcode
-      optional: true
       attrs:
         - key: placeholder
           value: _(ZIP Code)
