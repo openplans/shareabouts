@@ -21,7 +21,10 @@ map:
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
-  layers: 
+  layers:
+  - id: 'labels'
+    url: 'http://{s}.tiles.mapbox.com/v3/openplans.weho/{z}/{x}/{y}.png'
+    type: 'tile'
   - id: 'bike-lanes'
     url: '/static/layers/bike-lanes.json'
     type: 'json'

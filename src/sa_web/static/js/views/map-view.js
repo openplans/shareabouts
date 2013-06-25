@@ -26,10 +26,12 @@ var Shareabouts = Shareabouts || {};
       // Init all of the vector layer views
       argoConfigs = new Backbone.Collection(self.options.mapConfig.layers);
       argoConfigs.each(function(model, i) {
-        self.argoLayerViews[model.get('id')] = new A.LayerView({
-          map: self.map,
-          model: model
-        });
+        if (model.type !== 'tile') {
+          self.argoLayerViews[model.get('id')] = new A.LayerView({
+            map: self.map,
+            model: model
+          });
+        }
       });
 
       // Remove default prefix
@@ -41,8 +43,11 @@ var Shareabouts = Shareabouts || {};
       }
 
       _.each(self.options.mapConfig.layers, function(layerConfig){
-        var layer = L.tileLayer(layerConfig.url, layerConfig);
-        self.map.addLayer(layer);
+        var layer;
+        if (layerConfig.type === 'tile') {
+          layer = L.tileLayer(layerConfig.url, layerConfig);
+          self.map.addLayer(layer);
+        }
       });
 
       self.map.addLayer(self.placeLayers);
