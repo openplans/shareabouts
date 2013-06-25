@@ -156,15 +156,3 @@ pages:
     slug: about
     name: overview
     start_page: true
-
-  - title: _(Why Shareabouts?)
-    slug: why
-    url: /static/pages/why.html
-
-  - title: _(Features)
-    slug: features
-    url: /static/pages/features.html
-
-  - title: _(Feedback)
-    external: true
-    url: https://openplans.zendesk.com/anonymous_requests/new
