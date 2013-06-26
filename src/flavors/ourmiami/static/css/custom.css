@@ -8,8 +8,7 @@
 -------------------------------------------------------------- */
 
 body, select, input, textarea {
-/*  color: #000;*/
-/*  font-family: "Comic Sans MS", cursive, sans-serif;*/
+
 }
 
 
@@ -17,11 +16,11 @@ body, select, input, textarea {
 -------------------------------------------------------------- */
 
 a, a:active, a:visited {
-/*  color: #ff40ff;*/
+  color: #00afdb;
 }
 
 a:hover {
-/*  color: #e500e5;*/
+  color: #0087a8;
 }
 
 
@@ -29,59 +28,47 @@ a:hover {
 -------------------------------------------------------------- */
 
 #site-header {
-/*  color: #fff;*/
-/*  background-color: #994c99;*/
+  color: #fff;
+  background-color: #000;
+  box-shadow: inset 0 -3px 0 #dbef16, inset 0 3px 0 #00afdb;
 }
 
 #site-header a, #site-header a:active, #site-header a:visited {
-/*  color: #ff80ff;*/
+  color: #fff;
 }
 
 #site-header a:hover {
-  /* color: #ffbfff; */
 }
 
 
 /* =Logo
 -------------------------------------------------------------- */
 
-/* NOTE: Adjust the #site-title font size in the link
- * (not in the #site-title itself) using the em unit,
- * as to not break it scaling via media queries. */
-
 #site-title {
-/*  font-family: Impact, sans-serif;*/
-/*  color: #fff;*/
-/*  text-shadow: none;*/
+  height: 4em;
+  font-size: 1em;
+  text-indent: -9999px;
+  width: 250px;
+  margin-left: -45px;
+  background: url(images/ourmiami-logo-sm.png) center center no-repeat scroll;
 }
 
 #site-title a:link,
 #site-title a:visited {
-/*  font-size: 0.75em;*/
-/*  color: #fff;*/
 }
 
 #site-title a:hover {
-/*  color: #fff;*/
 }
 
 
 /* =Mobile Navigation Button
 -------------------------------------------------------------- */
 
-/* NOTE: Override the Mobile Navigation Button with caution.
- * The Helvetica stack produces a good icon. */
-
 a#nav-bttn:link,
-a#nav-bttn:visited {
-/*  color: #bf00bf;*/
-/*  background: #ffbfff;*/
-/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
-}
-
+a#nav-bttn:visited,
 a#nav-bttn:hover {
-/*  color: #ffbfff;*/
-/*  background: #fff;*/
+  color: #fff;
+  background: #555;
 }
 
 
@@ -89,89 +76,38 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 .access {
-/*  border: 1em solid #994c99;*/
-/*  border-top: 0.5em solid #994c99;*/
-/*  background: #994c99;*/
+  border-color: #000;
 }
 
 .access li {
-/*  border-bottom: 2px solid #994c99;*/
+  border-bottom: 2px solid #000;
 }
 
-.access a:hover {
-/*  color: #ffbfff;*/
-/*  background: #fff;*/
+#site-header .access a:hover {
+  background: #dbef16; 
+  color: #000;
 }
 
-.access a:visited, .access a:active, .access a:link {
-/*  color: #ffbfff;*/
+#site-header .access a:visited, .access a:active, .access a:link {
+  background: #dbef16; 
+  color: #000;
 }
 
 
 /* =The Big Button to Add A New Point
 -------------------------------------------------------------- */
 
-a.add-place {
-/*  background-color: #ff40ff;*/
-/*  color: #eee;*/
-/*  text-shadow: none;*/
-}
-
-a.add-place:hover {
-/*  background-color: #e500e5;*/
-/*  color: #fff;*/
-}
-
-
-/* =Close Content Button
--------------------------------------------------------------- */
-
-/* NOTE: Override the Close Button font within the span. The link should
- * remain the Helvetica stack, as it produces a good X close icon. */
-
-a.close-bttn {
-/*  color: #ff40ff;*/
-/*  background-color: #fff;*/
-/*  border-color: #ffbfff;*/
-/*  font-family: "Helvetica Neue", Arial, Helvetica, serif;*/
-}
-
-a.close-bttn:hover {
-/*  color: #e500e5;*/
-/*  background-color: #fff;*/
-/*  border-color: #e500e5;*/
-}
-a.close-bttn span {
-  /*  font-family: Impact, sans-serif;*/
+a.add-place,
+a.add-place:hover,
+.bttn {
+  background-color: #00afdb;
+  color: #fff;
+  text-shadow: none;
 }
 
 
 /* =Forms
 -------------------------------------------------------------- */
-
-label {
-/*  color: #806080;*/
-}
-
-input[type=text],
-textarea {
-/*  border: 1px solid #000; */
-}
-
-.required {
-/*  color: red;*/
-}
-
-.bttn {
-/*  color: #eee;*/
-/*  background-color: #ff40ff;*/
-/*  text-shadow: none;*/
-}
-
-.bttn:hover {
-/*  color: #fff;*/
-/*  background-color: #e500e5;*/
-}
 
 .fileinput-container {
   background-color: #00aaff;
@@ -199,30 +135,13 @@ textarea {
 }
 
 a.reply-link {
-/*  color: #1e5395;*/
-/*  background: #eef8fd;*/
+  color: #fff;
+  background: #000;
 }
 
 a.reply-link:hover {
-/*  color: #fff;*/
-/*  background-color: #e500e5;*/
-}
-
-
-/* =Voting & Social Promotion
--------------------------------------------------------------- */
-.promotion {
-/*  background-color: #bf8fbf;*/
-}
-
-#user_support label {
-/*  color: #ff80ff;*/
-/*  background-color: #fff;*/
-}
-
-#user_support:hover label,
-#user_support label:hover {
-/*  color: #e500e5;*/
+  color: #fff;
+  background-color: #000;
 }
 
 
@@ -230,78 +149,61 @@ a.reply-link:hover {
 -------------------------------------------------------------- */
 
 #ticker {
-/*  background-color: #806080;*/
+  background: #fff url("http://ourmiami.org/wp-content/themes/engage/img/background.png") center bottom repeat scroll;
 }
 
 ul.recent-points {
-/*  color: #eee;*/
+  color: #000;
 }
 
 .recent-points li {
-/*  border-bottom: 3px solid #664c66;*/
+  border-bottom: 3px solid #f5f5f5;
 }
 
 .recent-points li:hover {
-/*  background: #bf60bf;*/
+  background: #000;
 }
 
 .recent-points a {
-/*  color: #eee;*/
+  color: #00afdb;
 }
 
 .recent-points li:hover a,
 .recent-points a:hover {
-/*  color: #fff;*/
-}
-
-/* =Zendesk
--------------------------------------------------------------- */
-#zenbox_tab {
-  visibility: hidden;
-  top: 40% !important;
-  opacity: 0.7;
+  color: #fff;
 }
 
 /* =Media Queries
 -------------------------------------------------------------- */
 
+@media only screen and (min-width: 480px) {
+  #site-title {
+    margin-left: 0;
+  }
+}
+
 @media only screen and (min-width: 768px) { /* menu is visible */
-  #zenbox_tab {
-    visibility: visible;
+  #site-header .access a:link, 
+  #site-header .access a:visited {
+    background: #000; 
+    color: #fff;
   }
-
+  #site-header .access a:hover {
+    background: #dbef16; 
+    color: #000;
+  }
   .access {
-/*    border: 0;*/
-/*    background: transparent;*/
+    margin-top: 0.5em;
   }
-
-  /* NOTE: The background-color is the X's color. The pseudo elements' border-color and
-   * inset shadow color should match to mask the X shape */
-  a.close-bttn {
-/*    background: white;*/
-/*    -webkit-box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
-/*       -moz-box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
-/*            box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
-  }
-  a.close-bttn:hover {
-/*    background: purple; */
-  }
-  a.close-bttn:before {
-/*    border-right-color: pink; */
-  }
-  a.close-bttn:after {
-/*    border-left-color: pink; */
-  }
-  a.close-bttn span:before {
-/*    border-top-color: pink; */
-  }
-  a.close-bttn span:after {
-/*    border-bottom-color: pink; */
-  }
-
 }
 
 @media only screen and (min-width: 1024px) { /* ticker is visible */
+  .access {
+    margin-top: 1.25em;
+  }
+  #site-title {
+    height: 5em;
+  }
 }
 
 @media only screen and (min-width: 1300px) {
