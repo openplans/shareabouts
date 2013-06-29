@@ -123,7 +123,7 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a Place)
+  add_button_label: _(Share an idea)
   action_text: _(added)
   title: _(Tell us more...)
   action_text: _(added)
@@ -154,51 +154,49 @@ place:
       options:
         - label: _(Please choose...)
           value: no-choice
-        - label: _(This is a safe place to walk.)
-          value: This is a safe place to walk.
-        - label: _(This is an unsafe place to walk.)
-          value: This is an unsafe place to walk.
-        - label: _(This place is beautiful.)
-          value: This place is beautiful.
-        - label: _(This place is an eyesore.)
-          value: This place is an eyesore.
-        - label: _(Please put a crosswalk here.)
-          value: Please put a crosswalk here.
-        - label: _(Please widen the sidewalk here.)
-          value: Please widen the sidewalk here.
-        - label: _(This place needs better lighting.)
-          value: This place needs better lighting.
-        - label: _(This place needs better signage.)
-          value: This place needs better signage.
-        - label: _(An ADA facility is needed here.)
-          value: An ADA facility is needed here.
+        - label: _(This is a comfortable place to walk.)
+          value: This is a comfortable place to walk.
+        - label: _(This is an uncomfortable place to walk.)
+          value: This is an uncomfortable place to walk.
+        - label: _(Please improve the crossing here.)
+          value: Please improve the crossing here.
+        - label: _(Please improve the sidewalk here.)
+          value: Please improve the sidewalk here.
+        - label: _(Please add pedestrian lighting here.)
+          value: Please add pedestrian lighting here.
+        - label: _(Please add pedestrian signage here.)
+          value: Please add pedestrian signage here.
+        - label: _(Please add street trees here.)
+          value: Please add street trees here.
+        - label: _(Other ideas (please specify).)
+          value: Other ideas (please specify).
     - # prompt: _(Bike Better)
       name: bike_better
       type: select
       options:
         - label: _(Please choose...)
           value: no-choice
-        - label: _(This is a safe place to bike.)
-          value: This is a safe place to bike.
-        - label: _(This is an unsafe place to bike.)
-          value: This is an unsafe place to bike.
-        - label: _(Please put a bike lane here.)
-          value: Please put a bike lane here.
-        - label: _(This street isn't bike friendly.)
-          value: This street isn't bike friendly.
+        - label: _(This is a comfortable place to bike.)
+          value: This is a comfortable place to bike.
+        - label: _(This is an uncomfortable place to bike.)
+          value: This is an uncomfortable place to bike.
+        - label: _(Please add a bike lane here.)
+          value: Please add a bike lane here.
+        - label: _(Please add bike parking here.)
+          value: Please add bike parking here.
         - label: _(Please add bike signage here.)
           value: Please add bike signage here.
-        - label: _(This place needs bike parking.)
-          value: This place needs bike parking.
-        - label: _(Bikeshare should be here.)
-          value: Bikeshare should be here.
+        - label: _(This would be a good place for bike share.)
+          value: This would be a good place for bike share.
+        - label: _(Other ideas (please specify).)
+          value: Other ideas (please specify)
     - prompt: _(Description)
       type: textarea
       name: description
       attrs:
         - key: placeholder
-          value: _(Description...)
-    - prompt: _(Image)
+          value: _(...)
+    - prompt: _(Share a picture of the location)
       inputfile_label: _(Add an Image)
       type: file
       name: my_image
