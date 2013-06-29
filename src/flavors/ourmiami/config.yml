@@ -26,24 +26,65 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  landmark:
-    default: blue
+  CommunityGardenUrbanFarming:
+    default: puck-green
     focused: red
-    label: _(Landmark)
-  park:
-    default: blue
+    label: _(Community Garden/Urban Farming)
+  SocialSeating:
+    default: puck-blue
     focused: red
-    label: _(Park)
-  school:
-    default: blue
+    label: _(Social Seating)
+  Shade:
+    default: puck-yellow
     focused: red
-    label: _(School)
+    label: _(Shade and Rain Cover)
+  PocketPark:
+    default: puck-red
+    focused: red
+    label: _(Pocket Park)    
+  PedestrianPlaza:
+    default: puck-purple
+    focused: red
+    label: _(Pedestrian Plaza)
+
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  blue:
-    iconUrl: /static/css/images/feature-point.png
+  puck-green:
+    iconUrl: /static/css/images/markers/dot-70d52c.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  puck-blue:
+    iconUrl: /static/css/images/markers/dot-2654d2.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  puck-yellow:
+    iconUrl: /static/css/images/markers/dot-dbcf2c.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  puck-red:
+    iconUrl: /static/css/images/markers/dot-e1264d.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  puck-purple:
+    iconUrl: /static/css/images/markers/dot-744edc.png
     iconSize:
       width: 17
       height: 18
@@ -72,30 +113,26 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a Place)
+  add_button_label: _(Add a suggestion)
   action_text: _(added)
   title: _(Tell us more...)
-  action_text: _(created)
+  action_text: _(suggested)
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
   items:
-    - prompt: _(Location Name)
-      type: text
-      name: name
-      attrs:
-        - key: placeholder
-          value: _(Location Name)
-        - key: size
-          value: 30
-    - prompt: _(Location Type)
+    - prompt: _(Suggestion Type)
       type: select
       options:
-        - label: _(Landmark)
-          value: landmark
-        - label: _(Park)
-          value: park
-        - label: _(School)
-          value: school
+        - label: _(Community Garden/Urban Farming)
+          value: CommunityGardenUrbanFarming
+        - label: _(Social Seating)
+          value: SocialSeating
+        - label: _(Shade & Rain Cover)
+          value: Shade
+        - label: _(Pocket Park)
+          value: PocketPark          
+        - label: _(Pedestrian Plaza)
+          value: PedestrianPlaza          
       name: location_type
     - prompt: _(Image)
       inputfile_label: _(Add an Image)
@@ -108,7 +145,6 @@ place:
     - prompt: _(Your Name)
       type: text
       name: submitter_name
-      optional: true
       attrs:
         - key: placeholder
           value: _(Name)
@@ -117,7 +153,6 @@ place:
     - prompt: _(Description)
       type: textarea
       name: description
-      optional: true
       attrs:
         - key: placeholder
           value: _(Description...)
