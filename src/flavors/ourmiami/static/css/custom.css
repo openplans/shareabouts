@@ -8,7 +8,7 @@
 -------------------------------------------------------------- */
 
 body, select, input, textarea {
-
+  font-family: 'OpenSansRegular', sans-serif;
 }
 
 
@@ -29,8 +29,8 @@ a:hover {
 
 #site-header {
   color: #fff;
-  background-color: #000;
-  box-shadow: inset 0 -3px 0 #dbef16, inset 0 3px 0 #00afdb;
+  background-color: #181818;
+  box-shadow: 0 5px 10px rgba(85, 85, 85, 0.5), inset 0 -3px 0 #00afdb, inset 0 3px 0 #dbef16;
 }
 
 #site-header a, #site-header a:active, #site-header a:visited {
@@ -48,7 +48,7 @@ a:hover {
   height: 4em;
   font-size: 1em;
   text-indent: -9999px;
-  width: 250px;
+  width: 270px;
   margin-left: -45px;
   background: url(images/ourmiami-logo-sm.png) center center no-repeat scroll;
 }
@@ -69,6 +69,7 @@ a#nav-bttn:visited,
 a#nav-bttn:hover {
   color: #fff;
   background: #555;
+  font-family: "Helvetica Neue", Arial !important;
 }
 
 
@@ -76,21 +77,24 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 .access {
-  border-color: #000;
+  border-color: #181818;
+  font-family: 'OpenSansBold';
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 .access li {
-  border-bottom: 2px solid #000;
+  border-bottom: 2px solid #181818;
 }
 
 #site-header .access a:hover {
   background: #dbef16; 
-  color: #000;
+  color: #181818;
 }
 
 #site-header .access a:visited, .access a:active, .access a:link {
   background: #dbef16; 
-  color: #000;
+  color: #181818;
 }
 
 
@@ -98,11 +102,25 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 a.add-place,
-a.add-place:hover,
-.bttn {
+a.add-place:hover {
+  background-color: #dbef16;
+  color: #000;
+  text-shadow: none;
+  font-family: 'DINBlackRegular', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
+  box-shadow: -3px 3px 10px rgba(85, 85, 85, 0.5);
+}
+
+/* regular buttons */
+.bttn, a.bttn:active, a.bttn:visited {
   background-color: #00afdb;
   color: #fff;
   text-shadow: none;
+  box-shadow: none;
+  font-family: 'DINBlackRegular', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 
@@ -110,38 +128,32 @@ a.add-place:hover,
 -------------------------------------------------------------- */
 
 .fileinput-container {
-  background-color: #00aaff;
-  color: #f0f0f0;
-  padding: 0.75em 1em;
-  border: 0;
-  margin: 0 0 0.667em;
-  font-size: 1.1em;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  white-space: nowrap;
-  text-shadow: 1px -1px 0 #06A;
-     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  text-shadow: none;
+  background-color: #00afdb;
+  color: #fff;
+  box-shadow: none;
+  font-family: 'DINBlackRegular', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
 }
-.fileinput-container.disabled {
-  background-color: #e0e0e0;
-  color: #f0f0f0;
-  text-shadow: 1px -1px 0 #999;
-     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
-          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+.fileinput-container:hover {
+  color: #fff;
 }
 
 a.reply-link {
   color: #fff;
-  background: #000;
+  background: #181818;
 }
 
 a.reply-link:hover {
   color: #fff;
-  background-color: #000;
+  background-color: #181818;
+}
+
+label {
+  font-family: 'DINBoldRegular', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 
@@ -150,10 +162,11 @@ a.reply-link:hover {
 
 #ticker {
   background: #fff url("http://ourmiami.org/wp-content/themes/engage/img/background.png") center bottom repeat scroll;
+  box-shadow: -5px 0 10px rgba(85, 85, 85, 0.5);
 }
 
 ul.recent-points {
-  color: #000;
+  color: #181818;
 }
 
 .recent-points li {
@@ -161,7 +174,7 @@ ul.recent-points {
 }
 
 .recent-points li:hover {
-  background: #000;
+  background: #181818;
 }
 
 .recent-points a {
@@ -172,6 +185,11 @@ ul.recent-points {
 .recent-points a:hover {
   color: #fff;
 }
+
+.openplans-logo {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
 
 /* =Media Queries
 -------------------------------------------------------------- */
@@ -185,15 +203,21 @@ ul.recent-points {
 @media only screen and (min-width: 768px) { /* menu is visible */
   #site-header .access a:link, 
   #site-header .access a:visited {
-    background: #000; 
+    background: #181818; 
     color: #fff;
   }
   #site-header .access a:hover {
     background: #dbef16; 
-    color: #000;
+    color: #181818;
   }
   .access {
     margin-top: 0.5em;
+  }
+  #content {
+    box-shadow: -3px 3px 10px rgba(85, 85, 85, 0.5);
+  }
+  a.close-bttn {
+    box-shadow: 0 0 5px 2px rgba(85, 85, 85, 0.5);
   }
 }
 
@@ -207,4 +231,8 @@ ul.recent-points {
 }
 
 @media only screen and (min-width: 1300px) {
+  #site-title {
+    height: 6em;
+    width: 280px;
+  }
 }
