@@ -30,6 +30,10 @@ body {
   font-size: 1.5em;
   margin-bottom: 0;
 }
+.place-header-walking h1 .bike-better,
+.place-header-biking .walk-better {
+  display: none;
+}
 
 .place-item-walk_better,
 .place-item-bike_better {

@@ -23,11 +23,15 @@
     // add class to paragraphs containing dynamic menus
     $("#place-walk_better").parent("p").addClass("walk-better-menu");
     $("#place-bike_better").parent("p").addClass("bike-better-menu");
+    $("#save-place-btn").addClass("hidden");
 
     $(".walk-better-menu,.bike-better-menu").hide();
 
     $("#place-location_type").change(function() {
       $(".walk-better-menu,.bike-better-menu").hide();
+      $('.walk-better-menu option,.bike-better-menu option')[0].selected = true;
+      $("#save-place-btn").addClass("hidden");
+      
       var chosen = $("#place-location_type").val();
       switch (chosen) {
         case "no-choice":
@@ -39,7 +43,10 @@
           $(".bike-better-menu").show();
           break;
       }
+    });
 
+    $(".walk-better-menu,.bike-better-menu").change(function() {
+      $("#save-place-btn").removeClass("hidden");
     });
 
   });
