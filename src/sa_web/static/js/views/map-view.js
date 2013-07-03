@@ -26,7 +26,7 @@ var Shareabouts = Shareabouts || {};
       // Init all of the vector layer views
       argoConfigs = new Backbone.Collection(self.options.mapConfig.layers);
       argoConfigs.each(function(model, i) {
-        if (model.type !== 'tile') {
+        if (model.get('type') !== 'tile') {
           self.argoLayerViews[model.get('id')] = new A.LayerView({
             map: self.map,
             model: model
