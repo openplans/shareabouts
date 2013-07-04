@@ -196,14 +196,14 @@ place:
       attrs:
         - key: placeholder
           value: _(...)
-    - prompt: _(Share a picture of the location)
-      inputfile_label: _(Add an Image)
+    - prompt: _( )
+      inputfile_label: _(Share an image for this area)
       type: file
       name: my_image
       attrs:
         - key: accept
           value: image/*
-    - prompt: _(Your Name)
+    - prompt: _(Your Name (optional))
       type: text
       name: submitter_name
       attrs:
@@ -211,7 +211,7 @@ place:
           value: _(Name)
         - key: size
           value: 30
-    - prompt: _(Email Address)
+    - prompt: _(Email address (optional))
       type: text
       name: private-submitter_email_address
       attrs:
@@ -219,7 +219,7 @@ place:
           value: _(email@example.org)
         - key: size
           value: 30
-    - prompt: _(ZIP Code)
+    - prompt: _(ZIP Code (optional))
       type: text
       name: private-submitter_zipcode
       attrs:
