@@ -138,7 +138,7 @@ place:
     #       value: _(Location Title)
     #     - key: size
     #       value: 30
-    - prompt: _(Walking or Biking?)
+    - prompt: _(Is your idea about walking or biking?)
       name: location_type
       type: select
       options:
@@ -190,7 +190,7 @@ place:
           value: This would be a good place for bike share.
         - label: _(Other ideas (please specify).)
           value: Other ideas (please specify)
-    - prompt: _(Description)
+    - prompt: _(Share your idea or comment here)
       type: textarea
       name: description
       attrs:
