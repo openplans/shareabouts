@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.cache import cache
 from django.utils.timezone import now
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from proxy.views import proxy_view
 
 
@@ -141,6 +141,13 @@ def index(request, default_place_type):
     return render(request, 'index.html', context)
 
 
+#
+# NOTE: Disabling CSRF protection for WeHo site; they are including
+#       Shareabouts through an IFrame, and the CSRF token is not being
+#       sent to the server in IE 9. Also see the changes to middleware
+#       in the settings module.
+#
+@csrf_exempt
 def api(request, path):
     """
     A small proxy for a Shareabouts API server, exposing only

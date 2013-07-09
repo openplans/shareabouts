@@ -93,7 +93,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'sa_web.middleware.CacheRequestBody',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #
+    # NOTE: Disabling CSRF protection for WeHo site; they are including
+    #       Shareabouts through an IFrame, and the CSRF token is not being
+    #       sent to the server in IE 9.
+    #
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
