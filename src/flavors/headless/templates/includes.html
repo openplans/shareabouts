@@ -12,8 +12,16 @@
 </script>
 
 <script type="text/javascript">
+  function canReadAsBinaryString() {
+    return !!(
+      window.FileReader && (new FileReader()).readAsBinaryString
+    );
+  }
 
   $(Shareabouts).on('panelshow', function(evt, app, path) {
+    if (!canReadAsBinaryString()) {
+      $('.place-my_image-field-container').hide();
+    }
 
     // add class for displaying labels as inline
     $("label[for*=place-location_type],label[for*=place-my_image]").addClass("inline-label");
