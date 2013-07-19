@@ -19,7 +19,7 @@ map:
     minZoom: 10
     maxZoom: 17
   base_layer:
-    url: http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
+    url: http://{s}.tiles.mapbox.com/v3/openplans.map-szhztxnp/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
   layers: []
 
@@ -113,49 +113,78 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a suggestion)
+  add_button_label: _(Add an idea)
   action_text: _(added)
   title: _(Tell us more...)
   action_text: _(suggested)
   anonymous_name: _(Someone)
-  submit_button_label: _(Submit)
+  submit_button_label: _(Post it to the map)
   items:
-    - prompt: _(Suggestion Type)
+    - prompt: _(My idea to improve this place...)
+      type: textarea
+      name: description
+      attrs:
+        - key: placeholder
+          value: _(...short term, low cost, block focused, all street scale or smaller ideas welcome...)
+    - prompt: _(So that people could...)
+      type: textarea
+      name: description
+      attrs:
+        - key: placeholder
+          value: _(Tell us why this idea would help make our Miami better)
+    - prompt: _(Idea type)
       type: select
       options:
-        - label: _(Community Garden/Urban Farming)
-          value: CommunityGardenUrbanFarming
-        - label: _(Social Seating)
-          value: SocialSeating
-        - label: _(Shade & Rain Cover)
-          value: Shade
-        - label: _(Pocket Park)
-          value: PocketPark          
-        - label: _(Pedestrian Plaza)
-          value: PedestrianPlaza          
+        - label: _(Child or Senior Citizen Focused Idea)
+          value: ChildIdea
+        - label: _(Community Gathering Space)
+          value: CommunityGatheringSpace
+        - label: _(Existing Place Makeover)
+          value: ExistingPlaceMakeover
+        - label: _(Garden Or Farmers Market)
+          value: GardenFarmersMarket
+        - label: _(Night Focused Idea)
+          value: NightFocusedIdea
+        - label: _(Park/Parklet/Plaza)
+          value: ParkParkletPlaza
+        - label: _(Public Waterfront)
+          value: PublicWaterfront
+        - label: _(Safe Streets)
+          value: SafeStreets
+        - label: _(Shade and Public Comfort)
+          value: ShadePublicComfort          
       name: location_type
-    - prompt: _(Image)
-      inputfile_label: _(Add an Image)
-      type: file
-      name: my_image
-      optional: true
-      attrs:
-        - key: accept
-          value: image/*
     - prompt: _(Your Name)
       type: text
       name: submitter_name
       attrs:
         - key: placeholder
-          value: _(Name)
+          value: _(Your or your organization's name will get credit for your idea publically)
         - key: size
           value: 30
-    - prompt: _(Description)
-      type: textarea
-      name: description
+    - prompt: _(Your email)
+      type: text
+      name: private-email
       attrs:
         - key: placeholder
-          value: _(Description...)
+          value: _(Your email will not be shown publicly)
+        - key: size
+          value: 30
+    - prompt: _(Show us with a picture)
+      inputfile_label: _(Upload an image)
+      type: file
+      name: my_image
+      attrs:
+        - key: accept
+          value: image/*
+    - prompt: _(Add a link)
+      type: text
+      name: infolink
+      attrs:
+        - key: placeholder
+          value: _(Add a link to page related to your idea, e.g. more info about it, or an example)
+        - key: size
+          value: 30
 
 survey:
   submission_type: comments
