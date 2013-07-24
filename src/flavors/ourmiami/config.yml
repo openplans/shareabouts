@@ -220,3 +220,13 @@ pages:
     slug: about
     name: overview
     start_page: true
+
+languages:
+  - code: en
+    label: English
+
+  - code: es
+    label: Español
+
+  - code: ht
+    label: Kreyòl ayisyen
