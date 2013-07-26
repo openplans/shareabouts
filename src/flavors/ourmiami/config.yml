@@ -26,27 +26,42 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  CommunityGardenUrbanFarming:
+  ChildIdea:
     default: puck-green
     focused: red
-    label: _(Community Garden/Urban Farming)
-  SocialSeating:
+    label: _(Child or Senior Citizen Focused Idea)
+  CommunityGatheringSpace:
     default: puck-blue
     focused: red
-    label: _(Social Seating)
-  Shade:
+    label: _(Community Gathering Space)
+  ExistingPlaceMakeover:
     default: puck-yellow
     focused: red
-    label: _(Shade and Rain Cover)
-  PocketPark:
+    label: _(Existing Place Makeover)
+  GardenFarmersMarket:
     default: puck-red
     focused: red
-    label: _(Pocket Park)    
-  PedestrianPlaza:
+    label: _(Garden Or Farmers Market)    
+  NightFocusedIdea:
     default: puck-purple
     focused: red
-    label: _(Pedestrian Plaza)
-
+    label: _(Night Focused Idea)
+  ParkParkletPlaza:
+    default: puck-blue
+    focused: red
+    label: _(Park/Parklet/Plaza)
+  PublicWaterfront:
+    default: puck-yellow
+    focused: red
+    label: _(Public Waterfront)
+  SafeStreets:
+    default: puck-red
+    focused: red
+    label: _(Safe Streets)    
+  ShadePublicComfort:
+    default: puck-purple
+    focused: red
+    label: _(Shade and Public Comfort)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
@@ -114,7 +129,7 @@ activity:
 place:
   adding_supported: true
   add_button_label: _(Add an idea)
-  action_text: _(added)
+  action_text: _(suggested)
   title: _(Tell us more...)
   action_text: _(suggested)
   anonymous_name: _(Someone)
@@ -220,13 +235,3 @@ pages:
     slug: about
     name: overview
     start_page: true
-
-languages:
-  - code: en
-    label: English
-
-  - code: es
-    label: Español
-
-  - code: ht
-    label: Kreyòl ayisyen
