@@ -219,6 +219,36 @@ ul.recent-points {
   a.close-bttn {
     box-shadow: 0 0 5px 2px rgba(85, 85, 85, 0.5);
   }
+  a.add-place {
+    bottom: 3em;
+  }
+  #powered-by {
+    bottom: 0;
+    box-shadow: 0 5px 5px rgba(85, 85, 85, 0.5);
+  }
+  #map-container {
+    bottom: 4.75em;
+  }
+  #site-footer {
+    height: 4.75em;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #f4f6f8;
+  }
+  .footer-logos {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    bottom: 0.5em;
+    left: 0.5em;
+  }
+  .footer-logo {
+    width: auto;
+    max-height: 100%;
+    margin: 0 0.75em;
+  }
 }
 
 @media only screen and (min-width: 1024px) { /* ticker is visible */
