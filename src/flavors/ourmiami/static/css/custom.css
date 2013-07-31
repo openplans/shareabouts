@@ -238,6 +238,7 @@ ul.recent-points {
     bottom: 0;
     left: 0;
     background: #f4f6f8;
+    z-index: 15;
   }
   .footer-logos {
     position: absolute;
@@ -247,6 +248,23 @@ ul.recent-points {
     left: 0.5em;
   }
   .footer-logo {
+    float: left;
+    position: relative;
+  }
+  .footer-logo .prompt {
+    display: none;
+  }
+  .footer-logo:hover .prompt {
+    display: block;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    white-space: nowrap;
+    background: #f4f6f8;
+    margin-bottom: 0.5em;
+    padding: 0.5em 0.75em;
+  }
+  .footer-logo img {
     width: auto;
     max-height: 100%;
     margin: 0 0.75em;
