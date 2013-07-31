@@ -139,6 +139,7 @@ place:
       type: textarea
       name: description
       optional: false
+      label: _(My idea to improve this place...)
       attrs:
         - key: placeholder
           value: _(...short term, low cost, block focused, all street scale or smaller ideas welcome...)
@@ -146,14 +147,16 @@ place:
           value: required
     - prompt: _(So that people could... (required))
       type: textarea
-      name: description
+      name: details
       optional: false
+      label: _(So that people could...)
       attrs:
         - key: placeholder
           value: _(Tell us why this idea would help make our Miami better)
         - key: required
           value: required
     - prompt: _(Idea type (Required))
+      label: _(Idea type)
       type: select
       options:
         - label: _(please choose)
@@ -181,6 +184,7 @@ place:
         value: required         
       name: location_type
     - prompt: _(Your Name)
+      label: _(Suggested by)
       type: text
       name: submitter_name
       attrs:
