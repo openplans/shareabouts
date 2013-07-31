@@ -5,7 +5,7 @@ app:
   # Header name
   name: OurMiami
   # Meta description that will show up in Google search results
-  meta_description: _(Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.)
+  meta_description: _('The Miami Foundation and our partners created the Our Miami Public Space Challenge to discover the best ideas for improving, creating, and activating local public spaces.')
 
 # Settings for map and layer configs
 map:
