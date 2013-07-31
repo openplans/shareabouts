@@ -19,3 +19,21 @@ ga('create', 'UA-42750851-1');
 ga('send', 'pageview');
 
 </script>
+
+
+<script type="text/javascript">
+  function canReadAsBinaryString() {
+    return !!(
+      window.FileReader && (new FileReader()).readAsBinaryString
+    );
+  }
+
+  $(Shareabouts).on('panelshow', function(evt, app, path) {
+    if (!canReadAsBinaryString()) {
+      $('.fileinput-container').hide();
+      $('label[for="place-my_image"]').hide();
+    }
+
+});
+</script>
+

@@ -142,6 +142,8 @@ place:
       attrs:
         - key: placeholder
           value: _(...short term, low cost, block focused, all street scale or smaller ideas welcome...)
+        - key: required
+          value: required
     - prompt: _(So that people could... (required))
       type: textarea
       name: description
@@ -180,7 +182,7 @@ place:
         - key: size
           value: 30
     - prompt: _(Your email (required))
-      type: text
+      type: email
       optional: false
       name: private-email
       attrs:
@@ -188,6 +190,8 @@ place:
           value: _(Your email will not be shown publicly)
         - key: size
           value: 30
+        - key: required
+          value: required
     - prompt: _(Show us with a picture)
       inputfile_label: _(Upload an image)
       type: file
