@@ -250,6 +250,7 @@ ul.recent-points {
   .footer-logo {
     float: left;
     position: relative;
+    height: 100%;
   }
   .footer-logo .prompt {
     display: none;
@@ -266,7 +267,8 @@ ul.recent-points {
   }
   .footer-logo img {
     width: auto;
-    max-height: 100%;
+    height: 100%;
+    height: 100%;
     margin: 0 0.75em;
   }
 }
