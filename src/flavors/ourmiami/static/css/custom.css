@@ -114,8 +114,8 @@ a.add-place:hover {
 
 /* regular buttons */
 .bttn, a.bttn:active, a.bttn:visited {
-  background-color: #00afdb;
-  color: #fff;
+  background-color: #dbef16;
+  color: #000;
   text-shadow: none;
   box-shadow: none;
   font-family: 'DINBlackRegular', Arial, Helvetica, sans-serif;
