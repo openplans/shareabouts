@@ -17,7 +17,7 @@ map:
       lng: -80.24002075195312
     zoom: 12
     minZoom: 10
-    maxZoom: 17
+    maxZoom: 18
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/openplans.map-szhztxnp/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
@@ -135,15 +135,17 @@ place:
   anonymous_name: _(Someone)
   submit_button_label: _(Post it to the map)
   items:
-    - prompt: _(My idea to improve this place...)
+    - prompt: _(My idea to improve this place... (required))
       type: textarea
       name: description
+      optional: false
       attrs:
         - key: placeholder
           value: _(...short term, low cost, block focused, all street scale or smaller ideas welcome...)
-    - prompt: _(So that people could...)
+    - prompt: _(So that people could... (required))
       type: textarea
       name: description
+      optional: false
       attrs:
         - key: placeholder
           value: _(Tell us why this idea would help make our Miami better)
@@ -177,8 +179,9 @@ place:
           value: _(Your or your organization's name will get credit for your idea publically)
         - key: size
           value: 30
-    - prompt: _(Your email)
+    - prompt: _(Your email (required))
       type: text
+      optional: false
       name: private-email
       attrs:
         - key: placeholder
