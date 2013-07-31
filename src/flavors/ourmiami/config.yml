@@ -151,9 +151,13 @@ place:
       attrs:
         - key: placeholder
           value: _(Tell us why this idea would help make our Miami better)
-    - prompt: _(Idea type)
+        - key: required
+          value: required
+    - prompt: _(Idea type (Required))
       type: select
       options:
+        - label: _(please choose)
+          value: ""
         - label: _(Child or Senior Citizen Focused Idea)
           value: ChildIdea
         - label: _(Community Gathering Space)
@@ -171,7 +175,10 @@ place:
         - label: _(Safe Streets)
           value: SafeStreets
         - label: _(Shade and Public Comfort)
-          value: ShadePublicComfort          
+          value: ShadePublicComfort
+      attrs:
+      - key: required
+        value: required         
       name: location_type
     - prompt: _(Your Name)
       type: text
