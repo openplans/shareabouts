@@ -28,8 +28,8 @@ a:hover {
 -------------------------------------------------------------- */
 
 #site-header {
-  color: #fff;
-  background-color: #181818;
+  color: #181818;
+  background-color: #fff;
   box-shadow: 0 5px 10px rgba(85, 85, 85, 0.5), inset 0 -3px 0 #00afdb, inset 0 3px 0 #dbef16;
 }
 
@@ -47,12 +47,15 @@ a:hover {
 #site-title {
   height: 4em;
   font-size: 1em;
-  text-indent: -9999px;
-  width: 270px;
-  margin-left: -45px;
-  background: url(images/ourmiami-logo-sm.png) center center no-repeat scroll;
+  -webkit-box-sizing: border-box; 
+     -moz-box-sizing: border-box; 
+          box-sizing: border-box;
+  padding: 8px;
 }
-
+#site-logo {
+  height: 100%;
+  width: auto;
+}
 #site-title a:link,
 #site-title a:visited {
 }
@@ -77,14 +80,14 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 .access {
-  border-color: #181818;
+  border-color: #fff;
   font-family: 'OpenSansBold';
   font-weight: normal;
   text-transform: uppercase;
 }
 
 .access li {
-  border-bottom: 2px solid #181818;
+  border-bottom: 2px solid #fff;
 }
 
 #site-header .access a:hover {
@@ -196,15 +199,14 @@ ul.recent-points {
 
 @media only screen and (min-width: 480px) {
   #site-title {
-    margin-left: 0;
   }
 }
 
 @media only screen and (min-width: 768px) { /* menu is visible */
   #site-header .access a:link, 
   #site-header .access a:visited {
-    background: #181818; 
-    color: #fff;
+    background: #fff; 
+    color: #181818;
   }
   #site-header .access a:hover {
     background: #dbef16; 
@@ -263,6 +265,5 @@ ul.recent-points {
 @media only screen and (min-width: 1300px) {
   #site-title {
     height: 6em;
-    width: 280px;
   }
 }
