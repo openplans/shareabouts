@@ -12,13 +12,13 @@ map:
   geolocation_enabled: true
   options:
     center:
-      lat: 38.5815719
-      lng: -121.37557983398438
-    zoom: 12
+      lat: 38.5792709
+      lng: -121.4898175
+    zoom: 15
     minZoom: 11
     maxZoom: 17
   base_layer:
-    url: http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
+    url: http://{s}.tiles.mapbox.com/v3/openplans.map-jo9bww2s/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
   layers: []
 
@@ -200,4 +200,4 @@ pages:
   - title: About
     slug: about
     name: overview
-    start_page: true
+    start_page: false
