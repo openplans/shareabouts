@@ -19,7 +19,7 @@ map:
     minZoom: 10
     maxZoom: 18
   base_layer:
-    url: http://{s}.tiles.mapbox.com/v3/openplans.map-szhztxnp/{z}/{x}/{y}.png
+    url: http://{s}.tiles.mapbox.com/v3/openplans.map-jo9bww2s/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
   layers: []
 

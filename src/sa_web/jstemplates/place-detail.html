@@ -6,7 +6,7 @@
             {{#_}}<strong class="point-submitter">
               {{ submitter_name }}
             </strong> added this {{# place_type_label }}{{ place_type_label }}{{/ place_type_label}}
-                                 {{^ place_type_label }}place{{/ place_type_label}}
+                                 {{^ place_type_label }}place{{/ place_type_label}} idea
             {{#region}}
               in {{ region }}
             {{/region}}{{/_}}
@@ -22,10 +22,13 @@
           </div>
           {{/ attachments }}
           
+          <p><strong>My idea to improve this place...</strong></p>
           <p>{{description}}</p>
           
+          <p><strong>So that people could...</strong></p>
           <p>{{details}}</p>
           
+          <p><strong>Supporting info:</strong></p>
           <p><a href="{{infolink}}">{{infolink}}</a></p>
           
         </section>
