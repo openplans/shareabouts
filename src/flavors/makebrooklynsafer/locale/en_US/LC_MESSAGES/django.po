@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-27 14:41-0500\n"
+"POT-Creation-Date: 2013-08-06 09:32-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,3 +17,61 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Add to the map"
+msgstr ""
+
+msgid "Describe the problem"
+msgstr ""
+
+msgid "Speeding"
+msgstr ""
+
+msgid "Failure to yield"
+msgstr ""
+
+msgid "Crosswalk needs painting"
+msgstr ""
+
+msgid "Sidewalk problem"
+msgstr ""
+
+msgid "Other safety issue"
+msgstr ""
+
+msgid "Suggestion"
+msgstr ""
+
+msgid "This spot is nice!"
+msgstr ""
+
+msgid ""
+"Give us a brief description of the problem or place, and the approximate "
+"time and day when you pass by here."
+msgstr ""
+
+msgid "Show us with a picture"
+msgstr ""
+
+msgid "Upload an image"
+msgstr ""
+
+msgid "Your Name"
+msgstr ""
+
+msgid "Your name will be shown on the map alongside your comment."
+msgstr ""
+
+msgid "Your Email"
+msgstr ""
+
+msgid "Optionally, leave your email to stay informed."
+msgstr ""
+
+msgid "Identify a safety issue"
+msgstr ""
+
+msgid "Crosswalk needing repainting"
+msgstr ""
+
+msgid "Nice spot!"
+msgstr ""

@@ -15,8 +15,8 @@ map:
       lat: 38.5792709
       lng: -121.4898175
     zoom: 15
-    minZoom: 11
-    maxZoom: 17
+    minZoom: 14
+    maxZoom: 18
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/openplans.map-jo9bww2s/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
