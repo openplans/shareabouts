@@ -26,57 +26,29 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   IntersectionIssue:
-    default: bubbleexclamation
-    focused: markerexclaimation
+    default: triangle-pink
+    focused: triangle-pink-big
     label: _(Intersection issue)
   CrosswalkIssue:
-    default: bubbleexclamation
-    focused: markerexclaimation
+    default: triangle-blue
+    focused: triangle-blue-big
     label: _(Crosswalk issue)
   SidewalkIssue:
-    default: bubbleexclamation
-    focused: markerexclaimation
+    default: triangle-orange
+    focused: triangle-orange-big
     label: _(Sidewalk issue)
   Other:
-    default: bubbleexclamation
-    focused: markerexclaimation
+    default: triangle-purple
+    focused: triangle-purple-big
     label: _(Other safety issue)
   Suggestion:
-    default: bubbleexclamation
-    focused: markerexclaimation
+    default: triangle-green
+    focused: triangle-green-big
     label: _(Suggestion)
     
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  bubblethumb:
-    iconUrl: /static/css/images/bubble-thumbsup.png
-    iconSize:
-      width: 30
-      height: 28
-    iconAnchor:
-      x: 25
-      y: 26
-  markerthumb:
-    iconUrl: /static/css/images/marker-thumbsup.png
-    shadowUrl: /static/css/images/marker-shadow.png
-    iconSize:
-      width: 25
-      height: 41
-    shadowSize:
-      width: 41
-      height: 41
-    iconAnchor:
-      x: 12
-      y: 41
-  bubbleexclamation:
-    iconUrl: /static/css/images/bubble-exclamation.png
-    iconSize:
-      width: 30
-      height: 28
-    iconAnchor:
-      x: 25
-      y: 26
   markerexclaimation:
     iconUrl: /static/css/images/marker-exclamation.png
     shadowUrl: /static/css/images/marker-shadow.png
@@ -89,7 +61,86 @@ place_type_icons:
     iconAnchor:
       x: 12
       y: 41
-
+  triangle-pink:
+    iconUrl: /static/css/images/markers/triangle-fa307d.png
+    iconSize:
+      width: 27
+      height: 23
+    iconAnchor:
+      x: 10
+      y: 9
+  triangle-pink-big:
+    iconUrl: /static/css/images/markers/triangle-fa307d.png
+    iconSize:
+      width: 42
+      height: 36
+    iconAnchor:
+      x: 21
+      y: 18
+  triangle-orange:
+    iconUrl: /static/css/images/markers/triangle-f39914.png
+    iconSize:
+      width: 27
+      height: 23
+    iconAnchor:
+      x: 10
+      y: 9
+  triangle-purple:
+    iconUrl: /static/css/images/markers/triangle-d849e0.png
+    iconSize:
+      width: 27
+      height: 23
+    iconAnchor:
+      x: 10
+      y: 9
+  triangle-green:
+    iconUrl: /static/css/images/markers/triangle-70d52c.png
+    iconSize:
+      width: 27
+      height: 23
+    iconAnchor:
+      x: 10
+      y: 9
+  triangle-blue:
+    iconUrl: /static/css/images/markers/triangle-0d85e9.png
+    iconSize:
+      width: 27
+      height: 23
+    iconAnchor:
+      x: 10
+      y: 9
+  triangle-orange-big:
+    iconUrl: /static/css/images/markers/triangle-f39914.png
+    iconSize:
+      width: 42
+      height: 36
+    iconAnchor:
+      x: 21
+      y: 18
+  triangle-purple-big:
+    iconUrl: /static/css/images/markers/triangle-d849e0.png
+    iconSize:
+      width: 42
+      height: 36
+    iconAnchor:
+      x: 21
+      y: 18
+  triangle-green-big:
+    iconUrl: /static/css/images/markers/triangle-70d52c.png
+    iconSize:
+      width: 42
+      height: 36
+    iconAnchor:
+      x: 21
+      y: 18
+  triangle-blue-big:
+    iconUrl: /static/css/images/markers/triangle-0d85e9.png
+    iconSize:
+      width: 42
+      height: 36
+    iconAnchor:
+      x: 21
+      y: 18
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
@@ -111,9 +162,9 @@ place:
         - label: _(Crosswalk issue)
           value: CrosswalkIssue
         - label: _(Sidewalk issue)
-          value: Sidewalkissue
+          value: SidewalkIssue
         - label: _(Other safety issue)
-          value: Other safety issue
+          value: Other
         - label: _(Suggestion)
           value: Suggestion
       name: location_type
