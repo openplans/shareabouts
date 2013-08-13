@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Safer Sacramento
+  title: _(Safer Sacramento)
   # Header name
   name: Safer Sacramento
   # Meta description that will show up in Google search results
-  meta_description:  "We want our sidewalks and streets to be safe, so that children can walk or bike to school and play areas. Please help us by identifying unsafe conditions on your route to school, and giving us suggestions about how to improve them."
+  meta_description:  _(We want our sidewalks and streets to be safe, so that children can walk or bike to school and play areas. Please help us by identifying unsafe conditions on your route to school, and giving us suggestions about how to improve them.")
 
 # Settings for map and layer configs
 map:
@@ -25,22 +25,18 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  Speeding:
+  IntersectionIssue:
     default: bubbleexclamation
     focused: markerexclaimation
-    label: _(Speeding)
-  Failure:
+    label: _(Intersection issue)
+  CrosswalkIssue:
     default: bubbleexclamation
     focused: markerexclaimation
-    label: _(Failure to yield)
-  Crosswalk:
+    label: _(Crosswalk issue)
+  SidewalkIssue:
     default: bubbleexclamation
     focused: markerexclaimation
-    label: _(Crosswalk needing repainting)
-  SidewalkProblem:
-    default: bubbleexclamation
-    focused: markerexclaimation
-    label: _(Sidewalk problem)
+    label: _(Sidewalk issue)
   Other:
     default: bubbleexclamation
     focused: markerexclaimation
@@ -49,10 +45,7 @@ place_types:
     default: bubbleexclamation
     focused: markerexclaimation
     label: _(Suggestion)
-  NiceSpot:
-    default: bubblethumb
-    focused: markerthumb
-    label: _(Nice spot!)
+    
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
@@ -110,23 +103,19 @@ place:
   anonymous_name: Someone
   submit_button_label: _(Add to the map)
   items:
-    - prompt: Issue
+    - prompt: _(Issue type)
       type: select
       options:
-        - label: _(Speeding)
-          value: Speeding
-        - label: _(Failure to yield)
-          value: Failure
-        - label: _(Crosswalk needs painting)
-          value: Crosswalk
-        - label: _(Sidewalk problem)
-          value: SidewalkProblem
+        - label: _(Intersection issue)
+          value: IntersectionIssue
+        - label: _(Crosswalk issue)
+          value: CrosswalkIssue
+        - label: _(Sidewalk issue)
+          value: Sidewalkissue
         - label: _(Other safety issue)
-          value: Other
+          value: Other safety issue
         - label: _(Suggestion)
           value: Suggestion
-        - label: _(This spot is nice!)
-          value: NiceSpot
       name: location_type
     - prompt: Description
       type: textarea
