@@ -1,19 +1,19 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Kids Riding on Safe Streets
+  title: Safer Salem
   # Header name
-  name: Kids Riding on Safe Streets
+  name: Safe Routes to School & Play
   # Meta description that will show up in Google search results
-  meta_description:  "KROSSwalk Project (Kids Riding on Safe Streets) is about bicycle safety in downtown Brooklyn, NY."
+  meta_description:  "Safe Routes to School & Play in Salem, MA."
 
 # Settings for map and layer configs
 map:
   geolocation_enabled: true
   options:
     center:
-      lat: 40.698763153732166
-      lng: -73.98431539535522
+      lat: 42.51954
+      lng: -70.8967155
     zoom: 15
     minZoom: 11
     maxZoom: 17
@@ -302,7 +302,3 @@ pages:
     slug: about
     name: overview
     start_page: true
-
-  - title: Make Brooklyn Safer
-    external: true
-    url: http://MakeBrooklynSafer.org

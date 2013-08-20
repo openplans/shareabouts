@@ -29,16 +29,16 @@ a:hover {
 -------------------------------------------------------------- */
 
 #site-header {
-  color: #555;
-  background-color: #fff;
+  color: #fff;
+  background-color: #7D0079;
 }
 
 #site-header a, #site-header a:active, #site-header a:visited {
-  color: #a64b3c;
+  color: #fff;
 }
 
 #site-header a:hover {
-   color: #d67053; 
+   color: #47BD3F; 
 }
 
 
@@ -63,11 +63,11 @@ a:hover {
   text-transform: uppercase;
   white-space: normal !important;
   line-height: 1.3;
-  color: #444;
+  color: #fff;
 }
 
 #site-title a:hover {
-  color: #d67053;
+  color: #47BD3F;
 }
 
 
@@ -117,13 +117,13 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 a.add-place {
-  background-color: #a64b3c;
+  background-color: #FF8600;
   color: #fff;
   text-shadow: none;
 }
 
 a.add-place:hover {
-  background-color: #d67053;
+  background-color: #47BD3F;
   color: #fff;
   text-shadow: 1px -1px 0 #a64b3c;
 }
@@ -163,13 +163,13 @@ textarea {
 }
 
 .bttn {
-  background-color: #a64b3c;
+  background-color: #FF8600;
   color: #fff;
   text-shadow: none;
 }
 
 .bttn:hover {
-  background-color: #d67053;
+  background-color: #47BD3F;
   color: #fff;
   text-shadow: 1px -1px 0 #a64b3c;
 }
