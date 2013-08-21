@@ -5,7 +5,8 @@
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
               {{ submitter_name }}
-            </strong> identified this problem
+            </strong> added this {{# place_type_label }}{{ place_type_label }}{{/ place_type_label}}
+                                 {{^ place_type_label }}place{{/ place_type_label}}
             {{#region}}
               in {{ region }}
             {{/region}}{{/_}}
@@ -20,16 +21,12 @@
             <img src="{{ url }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
           </div>
           {{/ attachments }}
-          
-          <p><strong>Issue:</strong> {{ place_type_label }}
-          {{# pedlight-detail }} - {{ pedlight-detail }}{{/ pedlight-detail }}
-          {{# streetlight-detail }} - {{ streetlight-detail }}{{/ streetlight-detail }}
-          {{# greenspace-detail }} - {{ greenspace-detail }}{{/ greenspace-detail }}
-          {{# sidewalk-detail }} - {{ sidewalk-detail }}{{/ sidewalk-detail }}
-          {{# drainage-detail }} - {{ drainage-detail }}{{/ drainage-detail }}</p>
-          
-          {{# description }} <p><strong>Details:</strong> {{ description }}</p> {{/ description }}
-          
+          {{# items }}
+          <div class="place-item place-item-{{ name }}">
+            <span class="place-label place-label-{{ name }}">{{ label }}</span>
+            <p class="place-value place-value-{{ name }}">{{ value }}</p>
+          </div>
+          {{/ items }}
         </section>
 
         {{#survey_config}}
