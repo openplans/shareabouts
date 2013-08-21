@@ -30,7 +30,7 @@ From the root Shareabouts directory...
 
   *DotCloud*
 
-         dotcloud push -A <instance name> -b master --git
+         dotcloud push --application <instance name> -b master --git
 
   Note you should either push all your changes to your master repository (eg. github or whatever you're using for version control); otherwise you must omit the `--git` option and _everything_ in your current directory will be pushed up.
 
@@ -46,7 +46,7 @@ From the root Shareabouts directory...
 
   *DotCloud*
 
-         dotcloud env -A <instance name> set SHAREABOUTS_FLAVOR=<flavor name> \
+         dotcloud env --application <instance name> set SHAREABOUTS_FLAVOR=<flavor name> \
                                              SHAREABOUTS_DATASET_ROOT=<dataset root url> \
                                              SHAREABOUTS_DATASET_KEY=<dataset api key>
 
