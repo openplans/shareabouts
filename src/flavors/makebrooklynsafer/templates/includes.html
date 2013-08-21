@@ -1,1 +1,78 @@
 <!-- no analytics on shareabouts day. -->
+
+
+
+<!-- controlling what shows up in the data view -->
+<script type="text/javascript">
+
+  $(Shareabouts).on('panelshow', function(evt, app, path) {
+    
+    // hide pointless location type label
+    $("label[for=place-location_type]").hide();  
+
+    // add some classes to make selections easier...
+
+    //drainage
+    $("[id*=drainage]").addClass("drainage");
+    $("label[for*=drainage]").hide();
+    
+    //sidewalk
+    $("[id*=sidewalk]").addClass("sidewalk");
+    $("label[for*=sidewalk]").hide();
+
+    //greenspace
+    $("[id*=greenspace]").addClass("greenspace");
+    $("label[for*=greenspace]").hide();
+
+    //streetlight
+    $("[id*=streetlight]").addClass("streetlight");
+    $("label[for*=streetlight]").hide();
+
+    //pedlight
+    $("[id*=pedlight]").addClass("pedlight");
+    $("label[for*=pedlight]").hide();
+
+
+    //add a label to the name and submit boxes
+    $("[id*=place-submitter]").addClass("existing problem new");
+    $("label[for*=place-submitter]").addClass("existing problem new");
+    $("#save-place-btn").addClass("existing problem new");
+
+    //now hide everything...
+    $(".drainage,.sidewalk,.greenspace,.streetlight,.pedlight").hide();
+
+    $("#place-location_type").change(function() {
+
+      // set everything to have hidden class
+    $(".drainage,.sidewalk,.greenspace,.streetlight,.pedlight").hide();
+
+      // choose what will show up
+      var chosen = $("#place-location_type").val();
+
+      switch (chosen)
+      {
+        case "no-choice":
+          break;
+        case "DrainageIssue":
+          $(".drainage").show();
+          break;
+        case "SidewalkIssue":
+          $(".sidewalk").show();
+          break;
+        case "GreenspaceIssue":
+          $(".greenspace").show();
+          break;
+        case "StreetlightIssue":
+          $(".streetlight").show();
+          break;
+        case "PedLightProblem":
+          $(".pedlight").show();
+          break;
+        default:
+          break;            
+      }
+
+    });
+     
+  });
+</script>

@@ -25,26 +25,124 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  Safe Intersection:
-    default: bubblethumb
-    focused: markerthumb
-  Unsafe Intersection:
-    default: bubbleexclamation
-    focused: markerexclaimation
+  Speeding:
+    default: puck-green
+    focused: red
+    label: _(Speeding)
+  FTY:
+    default: puck-green
+    focused: red
+    label: _(Failure to yield)
+  DangerousIntersection:
+    default: puck-green
+    focused: red
+    label: _(Dangerous intersection)
+  DoesNotFeelSafe:
+    default: puck-green
+    focused: red
+    label: _(Does not feel safe)
+  NeedBetterSignage:
+    default: puck-green
+    focused: red
+    label: _(Need better signage)
+  Driveway:
+    default: puck-green
+    focused: red
+    label: _(Driveway/parking lot problem)
+  DrainageIssue:
+    default: puck-green
+    focused: red 
+    label: _(Drainage issue)
+  SidewalkIssue:
+    default: puck-green
+    focused: red
+    label: _(Sidewalk/path problem)
+  Crosswalk:
+    default: puck-green
+    focused: red
+    label: _(Crosswalk needs painting)
+  CurbRamp:
+    default: puck-green
+    focused: red
+    label: _(Curb ramp needed)
+  TrafficCalmingNeeded:
+    default: puck-green
+    focused: red
+    label: _(Traffic calming needed)
+  OtherSafetyIssue:
+    default: puck-green
+    focused: red
+    label: _(Other safety issue)
+  BikeInfrastructure:
+    default: puck-green
+    focused: red
+    label: _(Bike infrastructure needed)
+  BikeParking:
+    default: puck-green
+    focused: red
+    label: _(Bike parking needed)
+  GreenspaceIssue:
+    default: puck-green
+    focused: red
+    label: _(More greenspace needed)
+  StreetlightIssue:
+    default: puck-green
+    focused: red
+    label: _(Street light problem)
+  PedLightProblem:
+    default: puck-green
+    focused: red
+    label: _(Ped light problem)
+  WideRoad:
+    default: puck-green
+    focused: red
+    label: _(Wide road)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  bubblethumb:
-    iconUrl: /static/css/images/bubble-thumbsup.png
+  puck-green:
+    iconUrl: /static/css/images/markers/dot-70d52c.png
     iconSize:
-      width: 30
-      height: 28
+      width: 17
+      height: 18
     iconAnchor:
-      x: 25
-      y: 26
-  markerthumb:
-    iconUrl: /static/css/images/marker-thumbsup.png
+      x: 9
+      y: 9
+  puck-blue:
+    iconUrl: /static/css/images/markers/dot-2654d2.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  puck-yellow:
+    iconUrl: /static/css/images/markers/dot-dbcf2c.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  puck-red:
+    iconUrl: /static/css/images/markers/dot-e1264d.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  puck-purple:
+    iconUrl: /static/css/images/markers/dot-744edc.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  red:
+    iconUrl: /static/css/images/marker-focused.png
     shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
@@ -55,27 +153,6 @@ place_type_icons:
     iconAnchor:
       x: 12
       y: 41
-  bubbleexclamation:
-    iconUrl: /static/css/images/bubble-exclamation.png
-    iconSize:
-      width: 30
-      height: 28
-    iconAnchor:
-      x: 25
-      y: 26
-  markerexclaimation:
-    iconUrl: /static/css/images/marker-exclamation.png
-    shadowUrl: /static/css/images/marker-shadow.png
-    iconSize:
-      width: 25
-      height: 41
-    shadowSize:
-      width: 41
-      height: 41
-    iconAnchor:
-      x: 12
-      y: 41
-
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
@@ -89,107 +166,160 @@ place:
   anonymous_name: Someone
   submit_button_label: Submit
   items:
-    - prompt: Intersection
-      type: text
-      name: intersection_name
-      optional: false
-      attrs:
-        - key: placeholder
-          value: For example, NE corner of Adams St and Tillary St
-        - key: size
-          value: 30
-    - prompt: Description
+    - prompt: Issue
+      type: select
+      options:
+        - label: _(Speeding)
+          value: Speeding
+        - label: _(Failure to yield)
+          value: FTY
+        - label: _(Dangerous intersection)
+          value: DangerousIntersection
+        - label: _(Does not feel safe)
+          value: DoesNotFeelSafe
+        - label: _(Need better signage)
+          value: NeedBetterSignage
+        - label: _(Driveway/parking lot problem)
+          value: Driveway
+        - label: _(Drainage issue)
+          value: DrainageIssue
+        - label: _(Sidewalk/path problem)
+          value: SidewalkIssue
+        - label: _(Crosswalk needs painting)
+          value: Crosswalk
+        - label: _(Curb ramp needed)
+          value: CurbRamp
+        - label: _(Traffic calming needed)
+          value: TrafficCalmingNeeded
+        - label: _(Other safety issue)
+          value: OtherSafetyIssue
+        - label: _(Bike infrastructure here please)
+          value: BikeInfrastructure
+        - label: _(Bike parking here please)
+          value: BikeParking
+        - label: _(More greenspace needed here)
+          value: GreenspaceIssue
+        - label: _(Street light problem)
+          value: StreetlightIssue
+        - label: _(Ped light problem)
+          value: PedLightProblem
+        - label: _(Wide road)
+          value: WideRoad
+      name: location_type
+    - prompt: _(Drainage issue)
+      type: select
+      options:
+        - label: _(Please specify...)
+          value: ""
+        - label: _(Drain grate in bike lane)
+          value: Drain grate in bike lane
+        - label: _(Drain grate parallel to travel lane)
+          value: Drain grate parallel to travel lane
+        - label: _(Drain grate in crosswalk/sidewalk)
+          value: Drain grate in crosswalk/sidewalk
+        - label: _(For pooled water or blocked drains - please report to DPW)
+          value: Pooled water or blocked drain
+      name: drainage-detail
+    - prompt: _(Sidewalk issue)
+      type: select
+      options:
+        - label: _(Please specify...)
+          value: ""
+        - label: _(Uneven surface)
+          value: Uneven surface
+        - label: _(Washed out - has holes, or needs cleaning - please report to DPW)
+          value: Washed out
+        - label: _(Blocked by vegetation)
+          value: Blocked by vegetation
+        - label: _(Blocked by signage)
+          value: Blocked by signage   
+        - label: _(Indirect pedestrian path)
+          value: Indirect pedestrian path
+        - label: _(Unattractive)
+          value: Unattractive
+        - label: _(Too narrow)
+          value: Too narrow
+        - label: _(Too wide)
+          value: Too wide          
+        - label: _(Need sidewalk)
+          value: Need sidewalk
+      name: sidewalk-detail
+    - prompt: _(Greenspace issue)
+      type: select
+      options:
+        - label: _(Please specify...)
+          value: ""
+        - label: _(Street trees please)
+          value: Street trees please
+        - label: _(A park here would be nice)
+          value: A park here would be nice
+        - label: _(A Community garden here would be nice)
+          value: A Community garden here would be nice
+        - label: _(Planters or other greenspace please)
+          value: Planters or other greenspace please
+      name: greenspace-detail
+    - prompt: Streetlight issue
+      type: select
+      options:
+        - label: _(Please specify...)
+          value: ""
+        - label: _(Not working or partially working - please report to electrical department)
+          value: Not working or partially working
+        - label: _(Need street light)
+          value: Need street light
+        - label: _(Too dim or blocked)
+          value: Too dim or blocked
+      name: streetlight-detail
+    - prompt: Ped light issue
+      type: select
+      options:
+        - label: _(Please specify...)
+          value: ""
+        - label: _(No push button)
+          value: No push button
+        - label: _(Can't access button)
+          value: Can't access button
+        - label: _(Button does not work - please report to electrical department)
+          value: Button does not work
+        - label: _(Need audible signal)
+          value: Need audible signal
+        - label: _(Walk phase needs to be longer)
+          value: Walk phase needs to be longer
+        - label: _(Walk phase needs to come sooner)
+          value: Walk phase needs to come sooner
+      name: pedlight-detail
+    - prompt: Share more details
       type: textarea
       name: description
       optional: false
       attrs:
         - key: placeholder
-          value: Give us a brief description of the problem or place, and the approximate time and day when you pass by here.
-    - prompt: Location Type
-      type: select
-      options:
-        - Unsafe Intersection
-        - Safe Intersection
-      name: location_type
-
-    - prompt: Traffic Does Not Yield
-      type: checkbox
-      optional: true
-      name:  traffic_does_not_yield
+          value: Give us a brief description of the problem or place.      
+    - prompt: _(Show us with a picture)
+      inputfile_label: _(Upload an image)
+      type: file
+      name: my_image
       attrs:
-        - key: value
-          value: Traffic Does Not Yield
-    - prompt: Bike Lane Blocked
-      type: checkbox
-      optional: true
-      name: bike_lane_blocked
-      attrs:
-        - key: value
-          value: Bike Lane Blocked
-    - prompt: No Bike Lane
-      type: checkbox
-      optional: true
-      name: no_bike_lane
-      attrs:
-        - key: value
-          value: No Bike Lane
-    - prompt: Speeding Traffic
-      type: checkbox
-      optional: true
-      name: speeding_traffic
-      attrs:
-        - key: value
-          value: Speeding Traffic
-    - prompt: Not enough time to cross
-      type: checkbox
-      optional: true
-      name: not_enough_time_to_cross
-      attrs:
-        - key: value
-          value: Not enough time to cross
-    - prompt: Dangerous Crossing
-      type: checkbox
-      optional: true
-      name: dangerous_crossing
-      attrs:
-        - key: value
-          value: Dangerous Crossing
-    - prompt: Sidewalk too small
-      type: checkbox
-      optional: true
-      name: sidewalk_too_small
-      attrs:
-        - key: value
-          value: Sidewalk too small
-    - prompt: Crosswalk Blocked
-      type: checkbox
-      optional: true
-      name: crosswalk_blocked
-      attrs:
-        - key: value
-          value: Crosswalk Blocked
-    - prompt: Double Parked Cars/Trucks
-      type: checkbox
-      optional: true
-      name: double_parked
-      attrs:
-        - key: value
-          value: Double Parked Cars/Trucks
-    - prompt: "Bike/Foot or Other"
-      type: textarea
-      attrs:
-        - key: placeholder
-          value: Let us know if you were on the sidewalk/street and if you were on a bike or on foot, stroller, etc.
-    - prompt: Your Name
+        - key: accept
+          value: image/*
+    - prompt: Your name (optional, will be shown on the map)
       type: text
-      name: submitter_name
-      optional: false
+      name: participant
       attrs:
-        - key: placeholder
-          value: You must leave name to have your comment be visible to others.
         - key: size
           value: 30
-
+    - prompt: Your email (will be kept private)
+      type: text
+      name: private-email
+      attrs:
+        - key: size
+          value: 30
+    - prompt: How do you typically get around for most trips? (will be kept private)
+      type: text
+      name: private-mode
+      attrs:
+        - key: size
+          value: 30
 
 survey:
   submission_type: comments
@@ -212,7 +342,7 @@ survey:
       optional: false
       attrs:
         - key: placeholder
-          value: Give us a brief description of the problem or place, and the approximate time and day when you pass by here.
+          value: ...
     - prompt: Your Name
       type: text
       name: submitter_name
@@ -222,74 +352,7 @@ survey:
           value: You must leave name to have your comment be visible to others.
         - key: size
           value: 30
-    - prompt: Traffic Does Not Yield
-      type: checkbox
-      optional: true
-      name:  traffic_does_not_yield
-      attrs:
-        - key: value
-          value: Traffic Does Not Yield
-    - prompt: Bike Lane Blocked
-      type: checkbox
-      optional: true
-      name: bike_lane_blocked
-      attrs:
-        - key: value
-          value: Bike Lane Blocked
-    - prompt: No Bike Lane
-      type: checkbox
-      optional: true
-      name: no_bike_lane
-      attrs:
-        - key: value
-          value: No Bike Lane
-    - prompt: Speeding Traffic
-      type: checkbox
-      optional: true
-      name: speeding_traffic
-      attrs:
-        - key: value
-          value: Speeding Traffic
-    - prompt: Not enough time to cross
-      type: checkbox
-      optional: true
-      name: not_enough_time_to_cross
-      attrs:
-        - key: value
-          value: Not enough time to cross
-    - prompt: Dangerous Crossing
-      type: checkbox
-      optional: true
-      name: dangerous_crossing
-      attrs:
-        - key: value
-          value: Dangerous Crossing
-    - prompt: Sidewalk too small
-      type: checkbox
-      optional: true
-      name: sidewalk_too_small
-      attrs:
-        - key: value
-          value: Sidewalk too small
-    - prompt: Crosswalk Blocked
-      type: checkbox
-      optional: true
-      name: crosswalk_blocked
-      attrs:
-        - key: value
-          value: Crosswalk Blocked
-    - prompt: Double Parked Cars/Trucks
-      type: checkbox
-      optional: true
-      name: double_parked
-      attrs:
-        - key: value
-          value: Double Parked Cars/Trucks
-    - prompt: "Bike/Foot or Other"
-      type: textarea
-      attrs:
-        - key: placeholder
-          value: Let us know if you were on the sidewalk/street and if you were on a bike or on foot, stroller, etc.
+
 
 support:
   submission_type: support
