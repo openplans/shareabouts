@@ -304,7 +304,7 @@ place:
           value: image/*
     - prompt: Your name (optional, will be shown on the map)
       type: text
-      name: submitter_name
+      name: participant
       attrs:
         - key: size
           value: 30
