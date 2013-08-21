@@ -1,34 +1,37 @@
-        {{> place-detail-promotion-bar }}
+{{> place-detail-promotion-bar }}
 
-        <header class="place-header clearfix">
-          <h1>{{ name }}</h1>
-          <span class="place-submission-details">
-            {{#_}}<strong class="point-submitter">
-              {{ submitter_name }}
-            </strong> added this {{# place_type_label }}{{ place_type_label }}{{/ place_type_label}}
-                                 {{^ place_type_label }}place{{/ place_type_label}}
-            {{#region}}
-              in {{ region }}
-            {{/region}}{{/_}}
+<header class="place-header clearfix">
+  <h1>{{ name }}</h1>
+  <span class="place-submission-details">
+    {{#_}}<strong class="point-submitter">
+      {{ submitter_name }}
+    </strong> identified this problem
+    {{#region}}
+      in {{ region }}
+    {{/region}}{{/_}}
 
-            <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.
-          </span>
-        </header>
+    <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.
+  </span>
+</header>
 
-        <section class="place-items">
-          {{# attachments }}
-          <div class="place-item place-attachment-{{ name }}">
-            <img src="{{ url }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
-          </div>
-          {{/ attachments }}
-          {{# items }}
-          <div class="place-item place-item-{{ name }}">
-            <span class="place-label place-label-{{ name }}">{{ label }}</span>
-            <p class="place-value place-value-{{ name }}">{{ value }}</p>
-          </div>
-          {{/ items }}
-        </section>
+<section class="place-items">
+  {{# attachments }}
+  <div class="place-item place-attachment-{{ name }}">
+    <img src="{{ url }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
+  </div>
+  {{/ attachments }}
+  
+  <p><strong>Issue:</strong> {{ place_type_label }}
+  {{# pedlight-detail }} - {{ pedlight-detail }}{{/ pedlight-detail }}
+  {{# streetlight-detail }} - {{ streetlight-detail }}{{/ streetlight-detail }}
+  {{# greenspace-detail }} - {{ greenspace-detail }}{{/ greenspace-detail }}
+  {{# sidewalk-detail }} - {{ sidewalk-detail }}{{/ sidewalk-detail }}
+  {{# drainage-detail }} - {{ drainage-detail }}{{/ drainage-detail }}</p>
+  
+  {{# description }} <p><strong>Details:</strong> {{ description }}</p> {{/ description }}
+  
+</section>
 
-        {{#survey_config}}
-        <section class="survey"></section>
-        {{/survey_config}}
+{{#survey_config}}
+<section class="survey"></section>
+{{/survey_config}}
