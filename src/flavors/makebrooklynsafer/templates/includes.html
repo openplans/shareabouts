@@ -7,6 +7,14 @@
 
   $(Shareabouts).on('panelshow', function(evt, app, path) {
     
+    // turn off some select items
+    $("#place-location_type>option:eq(1)").prop('disabled', true);
+    $("#place-location_type>option:eq(9)").prop('disabled', true);
+    $("#place-location_type>option:eq(15)").prop('disabled', true);
+    $("#place-location_type>option:eq(18)").prop('disabled', true);
+    $("#place-location_type>option:eq(21)").prop('disabled', true);
+   // $("#place-location_type").val('FTY').prop('disabled', true);
+    
     // hide pointless location type label
     $("label[for=place-location_type]").hide();  
 

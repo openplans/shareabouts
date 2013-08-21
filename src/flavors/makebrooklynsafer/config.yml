@@ -169,6 +169,11 @@ place:
     - prompt: Issue
       type: select
       options:
+        - label: _(Please choose...)
+          value: ""
+        # traffic
+        - label: _(-- Traffic issues --)
+          value: ""
         - label: _(Speeding)
           value: Speeding
         - label: _(Failure to yield)
@@ -179,6 +184,13 @@ place:
           value: DoesNotFeelSafe
         - label: _(Need better signage)
           value: NeedBetterSignage
+        - label: _(Traffic calming needed)
+          value: TrafficCalmingNeeded
+        - label: _(Other safety issue)
+          value: OtherSafetyIssue
+        # sidewalk
+        - label: _(-- Sidewalk and crosswalk issues --)
+          value: ""
         - label: _(Driveway/parking lot problem)
           value: Driveway
         - label: _(Drainage issue)
@@ -189,22 +201,26 @@ place:
           value: Crosswalk
         - label: _(Curb ramp needed)
           value: CurbRamp
-        - label: _(Traffic calming needed)
-          value: TrafficCalmingNeeded
-        - label: _(Other safety issue)
-          value: OtherSafetyIssue
+        # biking
+        - label: _(-- Bike infrastrucure and bike parking --)
+          value: ""
         - label: _(Bike infrastructure here please)
           value: BikeInfrastructure
         - label: _(Bike parking here please)
           value: BikeParking
-        - label: _(More greenspace needed here)
-          value: GreenspaceIssue
+        # lighting
+        - label: _(-- Lighting --)
+          value: ""
         - label: _(Street light problem)
           value: StreetlightIssue
         - label: _(Ped light problem)
           value: PedLightProblem
+        - label: _(-- Public space --)
+          value: ""
         - label: _(Wide road)
           value: WideRoad
+        - label: _(More greenspace needed here)
+          value: GreenspaceIssue
       name: location_type
     - prompt: _(Drainage issue)
       type: select
@@ -361,7 +377,11 @@ support:
   anonymous_name: Someone
 
 pages:
+  - title: Welcome
+    slug: welcome
+    name: welcome
+    start_page: true
   - title: About
     slug: about
     name: overview
-    start_page: true
+    start_page: false
