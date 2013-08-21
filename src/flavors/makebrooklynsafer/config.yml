@@ -168,7 +168,10 @@ support:
   anonymous_name: Someone
 
 pages:
+  - title: Welcome
+    slug: welcome
+    name: welcome
+    start_page: true
   - title: About
     slug: about
     name: overview
-    start_page: true
