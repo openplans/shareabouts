@@ -408,9 +408,9 @@ set the "external" property to "true".  For example:
       url: http://www.openplans.org/
       external: true
 
-**Note: Do not include `<script>` tags in your pages. If you want to do custom
+**NOTE** Do not include `<script>` tags in your pages. If you want to do custom
   scripting from within your flavor, add your scripts to the includes template
-  (*templates/includes.html*).**
+  (_templates/includes.html_).
 
 ### Styling
 
