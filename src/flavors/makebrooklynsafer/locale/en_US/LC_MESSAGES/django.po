@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-06 09:32-0400\n"
+"POT-Creation-Date: 2013-08-28 17:52-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,38 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid ""
+"We want our sidewalks and streets to be safe, so that children can walk or "
+"bike to school and play areas. Please help us by identifying unsafe "
+"conditions on your route to school, and giving us suggestions about how to "
+"improve them."
+msgstr ""
+
+msgid "Safer Sacramento"
+msgstr ""
+
 msgid "Add to the map"
 msgstr ""
 
 msgid "Describe the problem"
 msgstr ""
 
-msgid "Speeding"
+msgid "Issue type"
 msgstr ""
 
-msgid "Failure to yield"
+msgid "Intersection issue"
 msgstr ""
 
-msgid "Crosswalk needs painting"
+msgid "Crosswalk issue"
 msgstr ""
 
-msgid "Sidewalk problem"
+msgid "Sidewalk issue"
 msgstr ""
 
 msgid "Other safety issue"
 msgstr ""
 
 msgid "Suggestion"
-msgstr ""
-
-msgid "This spot is nice!"
 msgstr ""
 
 msgid ""
@@ -68,10 +75,4 @@ msgid "Optionally, leave your email to stay informed."
 msgstr ""
 
 msgid "Identify a safety issue"
-msgstr ""
-
-msgid "Crosswalk needing repainting"
-msgstr ""
-
-msgid "Nice spot!"
 msgstr ""
