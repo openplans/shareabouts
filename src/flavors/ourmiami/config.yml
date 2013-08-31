@@ -41,7 +41,7 @@ place_types:
   GardenFarmersMarket:
     default: puck-red
     focused: red
-    label: _(Garden Or Farmers Market)    
+    label: _(Garden/Farmer's Market/Healthy Eating)    
   NightFocusedIdea:
     default: puck-purple
     focused: red
@@ -62,6 +62,10 @@ place_types:
     default: puck-purple
     focused: red
     label: _(Shade and Public Comfort)
+  PhysicalActivity:
+    default: puck-green
+    focused: red
+    label: _(Physical Activity/Exercise)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
@@ -167,12 +171,14 @@ place:
           value: CommunityGatheringSpace
         - label: _(Existing Place Makeover)
           value: ExistingPlaceMakeover
-        - label: _(Garden Or Farmers Market)
+        - label: _(Garden/Farmer's Market/Healthy Eating)
           value: GardenFarmersMarket
         - label: _(Night Focused Idea)
           value: NightFocusedIdea
         - label: _(Park/Parklet/Plaza)
           value: ParkParkletPlaza
+        - label: _(Physical Activity/Exercise)
+          value: PhysicalActivity
         - label: _(Public Waterfront)
           value: PublicWaterfront
         - label: _(Safe Streets)
@@ -218,6 +224,11 @@ place:
           value: _(Add a link to page related to your idea, e.g. more info about it, or an example)
         - key: size
           value: 30
+    - type: hidden
+      name: private-conf
+      attrs:
+        - key: value
+          value: "Not sent"
 
 survey:
   submission_type: comments
