@@ -255,8 +255,8 @@ survey:
 
 support:
   submission_type: support
-  submit_btn_text: _(Support This!)
-  action_text: supported
+  submit_btn_text: _(Like This!)
+  action_text: liked
   anonymous_name: _(Someone)
 
 pages:
