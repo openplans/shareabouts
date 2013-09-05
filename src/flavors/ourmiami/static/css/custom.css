@@ -160,6 +160,17 @@ label {
 }
 
 
+/* =Box for ioby logo
+-------------------------------------------------------------- */
+
+.crowdfunding {
+  margin: 0 auto;
+  width: 250px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
 /* =The Ticker
 -------------------------------------------------------------- */
 

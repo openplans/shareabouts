@@ -266,3 +266,11 @@ pages:
   - title: _(Contact us)
     slug: contact
     name: features
+  - title: _(Filter)
+    pages:
+      - title: All
+        external: true
+        url: /
+      - title: SafeStreets
+        external: true
+        url: /SafeStreets

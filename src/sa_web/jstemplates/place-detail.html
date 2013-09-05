@@ -28,10 +28,20 @@
           <p><strong>So that people could...</strong></p>
           <p>{{details}}</p>
           
+          {{#infolink}}
           <p><strong>Supporting info:</strong></p>
           <p><a href="{{infolink}}">{{infolink}}</a></p>
+          {{/infolink}}
+        </section>
+        
+        <section class="crowdfunding">
+          
+          {{#ioby}}
+          <a href="http://ioby.org/project/{{ioby}}"><img src="/static/ourmiami-button-lockup.png"></a>
+          {{/ioby}}
           
         </section>
+        
 
         {{#survey_config}}
         <section class="survey"></section>
