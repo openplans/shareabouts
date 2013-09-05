@@ -163,11 +163,9 @@ label {
 /* =Box for ioby logo
 -------------------------------------------------------------- */
 
-.crowdfunding {
-  margin: 0 auto;
-  width: 250px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+.ioby {
+  float: left;
+  padding: 0 !important;
 }
 
 
