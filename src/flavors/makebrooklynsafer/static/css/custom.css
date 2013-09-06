@@ -13,15 +13,15 @@ body, select, input, textarea {
 }
 
 
-
 /* =Links
 -------------------------------------------------------------- */
 
 a, a:active, a:visited {
-  color: #a64b3c;
+  color: #00994d;
 }
+
 a:hover {
-  color: #d67053;
+  color: #00cc66;
 }
 
 
@@ -29,16 +29,18 @@ a:hover {
 -------------------------------------------------------------- */
 
 #site-header {
-  color: #555;
+  color: #444;
   background-color: #fff;
+  background: #fff url(images/lander.png) 0.5em center no-repeat scroll;
+  
 }
 
 #site-header a, #site-header a:active, #site-header a:visited {
-  color: #a64b3c;
+  color: #00994d;
 }
 
 #site-header a:hover {
-   color: #d67053; 
+   color: #00cc66;
 }
 
 
@@ -59,7 +61,7 @@ a:hover {
   margin-top: 0.5em;
   font-size: 0.4em;
   display: block;
-  width: 9em;
+  width: 12em;
   text-transform: uppercase;
   white-space: normal !important;
   line-height: 1.3;
@@ -67,7 +69,7 @@ a:hover {
 }
 
 #site-title a:hover {
-  color: #d67053;
+  color: #00994d;
 }
 
 
@@ -79,14 +81,14 @@ a:hover {
 
 a#nav-bttn:link,
 a#nav-bttn:visited {
-  color: #555;
-  background: #ccc;
+  color: #fff;
+  background: #bbb;
   font-family: "Helvetica Neue", Arial, Helvetica, serif;
 }
 
 a#nav-bttn:hover {
   color: #fff;
-  background: #555;
+  background: #777;
 }
 
 
@@ -94,8 +96,8 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 .access {
-  border: 1em solid #fff;
-  border-top: 0.5em solid #fff;
+  border: 1em solid #eee;
+  border-top: 0.5em solid #eee;
   background: #fff;
 }
 
@@ -103,13 +105,13 @@ a#nav-bttn:hover {
   border-bottom: 2px solid #eee;
 }
 
-.access a:hover {
-  color: #d67053;
-  background: #eee;
+.access a:visited, .access a:active, .access a:link {
+  color: #00994d;
 }
 
-.access a:visited, .access a:active, .access a:link {
-  color: #a64b3c;
+.access a:hover {
+  color: #fff;
+  background: #000;
 }
 
 
@@ -117,15 +119,14 @@ a#nav-bttn:hover {
 -------------------------------------------------------------- */
 
 a.add-place {
-  background-color: #a64b3c;
+  background-color: #00994d;
   color: #fff;
   text-shadow: none;
 }
 
 a.add-place:hover {
-  background-color: #d67053;
+  background-color: #00cc66;
   color: #fff;
-  text-shadow: 1px -1px 0 #a64b3c;
 }
 
 
@@ -136,13 +137,19 @@ a.add-place:hover {
  * remain the Helvetica stack, as it produces a good X close icon. */
 
 a.close-bttn {
-  color: #d67053;
+  color: #bbb;
+/*  background-color: #fff;*/
+/*  border-color: #ffbfff;*/
+  font-family: "Helvetica Neue", Arial, Helvetica, serif;
 }
 
 a.close-bttn:hover {
-  color: #a64b3c;
+  color: #00994d;
+/*  background-color: #fff;*/
+/*  border-color: #e500e5;*/
 }
 a.close-bttn span {
+  font-family: Futura, "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
 }
 
 
@@ -163,152 +170,43 @@ textarea {
 }
 
 .bttn {
-  background-color: #a64b3c;
   color: #fff;
+  background-color: #00994d;
   text-shadow: none;
 }
 
 .bttn:hover {
-  background-color: #d67053;
   color: #fff;
-  text-shadow: 1px -1px 0 #a64b3c;
+  background-color: #00cc66;
 }
 
 a.reply-link {
-  color: #a64b3c;
-  background: #fff;
+  color: #00994d;
+  background: #bbb;
 }
 
 a.reply-link:hover {
   color: #fff;
-  background-color: #d67053;
-}
-
-.survey-field-traffic_does_not_yield,
-.survey-field-bike_lane_blocked,
-.survey-field-no_bike_lane,
-.survey-field-speeding_traffic,
-.survey-field-not_enough_time_to_cross,
-.survey-field-dangerous_crossing,
-.survey-field-sidewalk_too_small,
-.survey-field-crosswalk_blocked,
-.survey-field-double_parked {
-  position: relative;
-  padding-left: 1.5em;
-}
-.survey-field-traffic_does_not_yield input,
-.survey-field-bike_lane_blocked input,
-.survey-field-no_bike_lane input,
-.survey-field-speeding_traffic input,
-.survey-field-not_enough_time_to_cross input,
-.survey-field-dangerous_crossing input,
-.survey-field-sidewalk_too_small input,
-.survey-field-crosswalk_blocked input,
-.survey-field-double_parked  input {
-  position: absolute;
-  top: 0.325em;
-  left: 0;
-}
-.survey-field-traffic_does_not_yield {
-  margin-top: 0.75em;
-}
-.survey-field-double_parked {
-  margin-bottom: 0.75em;
-}
-
-.place-items {
-  margin-bottom: 1.5em;
-}
-
-.place-items:before, .place-items:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
-.place-items:after { clear: both; }
-.place-items { zoom: 1; }
-
-.response-body:before, .response-body:after { content: "\0020"; display: block; height: 0; visibility: hidden; }
-.response-body:after { clear: both; }
-.response-body { zoom: 1; }
-
-.place-item-traffic_does_not_yield,
-.place-item-bike_lane_blocked,
-.place-item-no_bike_lane,
-.place-item-speeding_traffic,
-.place-item-not_enough_time_to_cross,
-.place-item-dangerous_crossing,
-.place-item-sidewalk_too_small,
-.place-item-crosswalk_blocked,
-.place-item-double_parked,
-.response-item-traffic_does_not_yield,
-.response-item-bike_lane_blocked,
-.response-item-no_bike_lane,
-.response-item-speeding_traffic,
-.response-item-not_enough_time_to_cross,
-.response-item-dangerous_crossing,
-.response-item-sidewalk_too_small,
-.response-item-crosswalk_blocked,
-.response-item-double_parked {
-  display: inline;
-}
-#content .place-item-traffic_does_not_yield p,
-#content .place-item-bike_lane_blocked p,
-#content .place-item-no_bike_lane p,
-#content .place-item-speeding_traffic p,
-#content .place-item-not_enough_time_to_cross p,
-#content .place-item-dangerous_crossing p,
-#content .place-item-sidewalk_too_small p,
-#content .place-item-crosswalk_blocked p,
-#content .place-item-double_parked p,
-#content .response-item-traffic_does_not_yield p,
-#content .response-item-bike_lane_blocked p,
-#content .response-item-no_bike_lane p,
-#content .response-item-speeding_traffic p,
-#content .response-item-not_enough_time_to_cross p,
-#content .response-item-dangerous_crossing p,
-#content .response-item-sidewalk_too_small p,
-#content .response-item-crosswalk_blocked p,
-#content .response-item-double_parked p {
-  display: inline;
-  background: #999;
-  color: #fff;
-  padding: 0;
-}
-#content .place-item-traffic_does_not_yield p:not(:empty),
-#content .place-item-bike_lane_blocked p:not(:empty),
-#content .place-item-no_bike_lane p:not(:empty),
-#content .place-item-speeding_traffic p:not(:empty),
-#content .place-item-not_enough_time_to_cross p:not(:empty),
-#content .place-item-dangerous_crossing p:not(:empty),
-#content .place-item-sidewalk_too_small p:not(:empty),
-#content .place-item-crosswalk_blocked p:not(:empty),
-#content .place-item-double_parked p:not(:empty),
-#content .response-item-traffic_does_not_yield p:not(:empty),
-#content .response-item-bike_lane_blocked p:not(:empty),
-#content .response-item-no_bike_lane p:not(:empty),
-#content .response-item-speeding_traffic p:not(:empty),
-#content .response-item-not_enough_time_to_cross p:not(:empty),
-#content .response-item-dangerous_crossing p:not(:empty),
-#content .response-item-sidewalk_too_small p:not(:empty),
-#content .response-item-crosswalk_blocked p:not(:empty),
-#content .response-item-double_parked p:not(:empty) {
-  padding: 0.25em 0.5em;
-  margin: 0 0.25em 0.25em 0;
-  float: left;
-  display: block;
+  background-color: #00994d;
 }
 
 
 /* =Voting & Social Promotion
 -------------------------------------------------------------- */
 .promotion {
+  background-color: #bbb;
+/*  border-bottom: 0.5em solid #806080;*/
 }
 
 #user_support label {
-  color: #a64b3c;
-  background-color: #fff;
+  color: #fff;
+  background-color: #00994d;
 }
 
 #user_support:hover label,
 #user_support label:hover {
-  color: #d67053;
+  color: #00994d;
+  background-color: #fff;
 }
 
 
@@ -316,15 +214,15 @@ a.reply-link:hover {
 -------------------------------------------------------------- */
 
 #ticker {
-  background-color: #515151;
+  background-color: #ddd;
 }
 
 ul.recent-points {
-  color: #eee;
+/*  color: #eee;*/
 }
 
 .recent-points li {
-  border-bottom: 3px solid #666;
+  border-bottom: 3px solid #ccc;
 }
 
 .recent-points li:hover {
@@ -332,7 +230,7 @@ ul.recent-points {
 }
 
 .recent-points a {
-  color: #eee;
+  color: #444;
 }
 
 .recent-points li:hover a,
@@ -341,16 +239,67 @@ ul.recent-points {
 }
 
 
+/* =Zendesk
+-------------------------------------------------------------- */
+#zenbox_tab {
+  visibility: hidden;
+  top: 40% !important;
+  opacity: 0.7;
+}
+
 /* =Media Queries
 -------------------------------------------------------------- */
 
 @media only screen and (min-width: 768px) { /* menu is visible */
+  #zenbox_tab {
+    visibility: visible;
+  }
+
   .access {
     border: 0;
     background: transparent;
   }
   .access li {
-    border-bottom: 0;
+    border-bottom: 6px solid transparent;
+  }
+  .access ul ul a {
+    background-color: #eee;
+  }
+
+  /* NOTE: The background-color is the X's color. The pseudo elements' border-color and
+   * inset shadow color should match to mask the X shape */
+  a.close-bttn {
+/*    background: white;*/
+/*    -webkit-box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
+/*       -moz-box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
+/*            box-shadow: 0 0 0 2px white, -4px 4px 0 2px rgba(85, 85, 85, 0.5), inset 0 0 0 0.25em pink;*/
+  }
+  a.close-bttn:hover { 
+/*    background: purple; */
+  }
+  a.close-bttn:before { 
+/*    border-right-color: pink; */
+  }
+  a.close-bttn:after { 
+/*    border-left-color: pink; */
+  }
+  a.close-bttn span:before { 
+/*    border-top-color: pink; */
+  }
+  a.close-bttn span:after { 
+/*    border-bottom-color: pink; */
+  }
+
+}
+
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) { /* menu is visible */
+  .access {
+/*    border: 0;*/
+/*    background: transparent;*/
   }
 }
 

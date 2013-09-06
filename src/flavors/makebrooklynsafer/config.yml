@@ -1,21 +1,21 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Kids Riding on Safe Streets
+  title: Ideas for downtown Macon
   # Header name
-  name: Kids Riding on Safe Streets
+  name: Ideas for downtown Macon
   # Meta description that will show up in Google search results
-  meta_description:  "KROSSwalk Project (Kids Riding on Safe Streets) is about bicycle safety in downtown Brooklyn, NY."
+  meta_description:  "Ideas for downtown Macon."
 
 # Settings for map and layer configs
 map:
   geolocation_enabled: true
   options:
     center:
-      lat: 40.698763153732166
-      lng: -73.98431539535522
-    zoom: 15
-    minZoom: 11
+      lat: 32.8331245
+      lng: -83.6471455
+    zoom: 16
+    minZoom: 14
     maxZoom: 17
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
@@ -25,46 +25,80 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  Safe Intersection:
-    default: bubblethumb
-    focused: markerthumb
-  Unsafe Intersection:
-    default: bubbleexclamation
-    focused: markerexclaimation
+  TrashRecycling:
+    default: puck-green
+    focused: red
+  PublicSafety:
+    default: puck-blue
+    focused: red
+  Branding:
+    default: puck-yellow
+    focused: red
+  Events:
+    default: puck-red
+    focused: red
+  WalkingBiking:
+    default: puck-purple
+    focused: red
+  Parks:
+    default: puck-green
+    focused: red
+  Business:
+    default: puck-blue
+    focused: red
+  Housing:
+    default: puck-yellow
+    focused: red
+  Other:
+    default: puck-red
+    focused: red
+  
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  bubblethumb:
-    iconUrl: /static/css/images/bubble-thumbsup.png
+  puck-green:
+    iconUrl: /static/css/images/markers/dot-70d52c.png
     iconSize:
-      width: 30
-      height: 28
+      width: 17
+      height: 18
     iconAnchor:
-      x: 25
-      y: 26
-  markerthumb:
-    iconUrl: /static/css/images/marker-thumbsup.png
-    shadowUrl: /static/css/images/marker-shadow.png
+      x: 9
+      y: 9
+  puck-blue:
+    iconUrl: /static/css/images/markers/dot-2654d2.png
     iconSize:
-      width: 25
-      height: 41
-    shadowSize:
-      width: 41
-      height: 41
+      width: 17
+      height: 18
     iconAnchor:
-      x: 12
-      y: 41
-  bubbleexclamation:
-    iconUrl: /static/css/images/bubble-exclamation.png
+      x: 9
+      y: 9
+  puck-yellow:
+    iconUrl: /static/css/images/markers/dot-dbcf2c.png
     iconSize:
-      width: 30
-      height: 28
+      width: 17
+      height: 18
     iconAnchor:
-      x: 25
-      y: 26
-  markerexclaimation:
-    iconUrl: /static/css/images/marker-exclamation.png
+      x: 9
+      y: 9
+  puck-red:
+    iconUrl: /static/css/images/markers/dot-e1264d.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  puck-purple:
+    iconUrl: /static/css/images/markers/dot-744edc.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  red:
+    iconUrl: /static/css/images/marker-focused.png
     shadowUrl: /static/css/images/marker-shadow.png
     iconSize:
       width: 25
@@ -83,110 +117,59 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: Add a Location!
-  title: Tell us more...
+  add_button_label: Share an idea
+  title: Describe your idea...
   action_text: identified
   anonymous_name: Someone
-  submit_button_label: Submit
+  submit_button_label: Add to map
   items:
-    - prompt: Intersection
+    - prompt: Location
       type: text
       name: intersection_name
       optional: false
-      attrs:
-        - key: placeholder
-          value: For example, NE corner of Adams St and Tillary St
-        - key: size
-          value: 30
+    - prompt: Location Type
+      type: select
+      options:
+        - label: _(Trash/Recycling)
+          value: TrashRecycling
+        - label: _(Public Safety)
+          value: PublicSafety
+        - label: _(Branding)
+          value: Branding
+        - label: _(Events)
+          value: Events
+        - label: _(Walking/Biking)
+          value: WalkingBiking
+        - label: _(Parks)
+          value: Parks
+        - label: _(Business)
+          value: Business
+        - label: _(Housing)
+          value: Housing
+        - label: _(Other)
+          value: Other
+      name: location_type            
     - prompt: Description
       type: textarea
       name: description
       optional: false
       attrs:
         - key: placeholder
-          value: Give us a brief description of the problem or place, and the approximate time and day when you pass by here.
-    - prompt: Location Type
-      type: select
-      options:
-        - Unsafe Intersection
-        - Safe Intersection
-      name: location_type
-
-    - prompt: Traffic Does Not Yield
-      type: checkbox
-      optional: true
-      name:  traffic_does_not_yield
-      attrs:
-        - key: value
-          value: Traffic Does Not Yield
-    - prompt: Bike Lane Blocked
-      type: checkbox
-      optional: true
-      name: bike_lane_blocked
-      attrs:
-        - key: value
-          value: Bike Lane Blocked
-    - prompt: No Bike Lane
-      type: checkbox
-      optional: true
-      name: no_bike_lane
-      attrs:
-        - key: value
-          value: No Bike Lane
-    - prompt: Speeding Traffic
-      type: checkbox
-      optional: true
-      name: speeding_traffic
-      attrs:
-        - key: value
-          value: Speeding Traffic
-    - prompt: Not enough time to cross
-      type: checkbox
-      optional: true
-      name: not_enough_time_to_cross
-      attrs:
-        - key: value
-          value: Not enough time to cross
-    - prompt: Dangerous Crossing
-      type: checkbox
-      optional: true
-      name: dangerous_crossing
-      attrs:
-        - key: value
-          value: Dangerous Crossing
-    - prompt: Sidewalk too small
-      type: checkbox
-      optional: true
-      name: sidewalk_too_small
-      attrs:
-        - key: value
-          value: Sidewalk too small
-    - prompt: Crosswalk Blocked
-      type: checkbox
-      optional: true
-      name: crosswalk_blocked
-      attrs:
-        - key: value
-          value: Crosswalk Blocked
-    - prompt: Double Parked Cars/Trucks
-      type: checkbox
-      optional: true
-      name: double_parked
-      attrs:
-        - key: value
-          value: Double Parked Cars/Trucks
-    - prompt: "Bike/Foot or Other"
-      type: textarea
-      attrs:
-        - key: placeholder
-          value: Let us know if you were on the sidewalk/street and if you were on a bike or on foot, stroller, etc.
+          value: Share some more information.
     - prompt: Your Name
       type: text
       name: submitter_name
-      optional: false
       attrs:
         - key: placeholder
-          value: You must leave name to have your comment be visible to others.
+          value: Your name will be visible on the map.
+        - key: size
+          value: 30
+    - prompt: Your email (will not be shared)
+      type: text
+      name: private-email
+      attrs:
+        - key: placeholder
+          value: Your email will not be public.
         - key: size
           value: 30
 
@@ -222,74 +205,6 @@ survey:
           value: You must leave name to have your comment be visible to others.
         - key: size
           value: 30
-    - prompt: Traffic Does Not Yield
-      type: checkbox
-      optional: true
-      name:  traffic_does_not_yield
-      attrs:
-        - key: value
-          value: Traffic Does Not Yield
-    - prompt: Bike Lane Blocked
-      type: checkbox
-      optional: true
-      name: bike_lane_blocked
-      attrs:
-        - key: value
-          value: Bike Lane Blocked
-    - prompt: No Bike Lane
-      type: checkbox
-      optional: true
-      name: no_bike_lane
-      attrs:
-        - key: value
-          value: No Bike Lane
-    - prompt: Speeding Traffic
-      type: checkbox
-      optional: true
-      name: speeding_traffic
-      attrs:
-        - key: value
-          value: Speeding Traffic
-    - prompt: Not enough time to cross
-      type: checkbox
-      optional: true
-      name: not_enough_time_to_cross
-      attrs:
-        - key: value
-          value: Not enough time to cross
-    - prompt: Dangerous Crossing
-      type: checkbox
-      optional: true
-      name: dangerous_crossing
-      attrs:
-        - key: value
-          value: Dangerous Crossing
-    - prompt: Sidewalk too small
-      type: checkbox
-      optional: true
-      name: sidewalk_too_small
-      attrs:
-        - key: value
-          value: Sidewalk too small
-    - prompt: Crosswalk Blocked
-      type: checkbox
-      optional: true
-      name: crosswalk_blocked
-      attrs:
-        - key: value
-          value: Crosswalk Blocked
-    - prompt: Double Parked Cars/Trucks
-      type: checkbox
-      optional: true
-      name: double_parked
-      attrs:
-        - key: value
-          value: Double Parked Cars/Trucks
-    - prompt: "Bike/Foot or Other"
-      type: textarea
-      attrs:
-        - key: placeholder
-          value: Let us know if you were on the sidewalk/street and if you were on a bike or on foot, stroller, etc.
 
 support:
   submission_type: support
@@ -301,8 +216,4 @@ pages:
   - title: About
     slug: about
     name: overview
-    start_page: true
-
-  - title: Make Brooklyn Safer
-    external: true
-    url: http://MakeBrooklynSafer.org
+    start_page: false
