@@ -26,9 +26,11 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   TrashRecycling:
+    label: _(Trash/Recycling)
     default: puck-green
     focused: red
   PublicSafety:
+    label: _(Public Safety)
     default: puck-blue
     focused: red
   Branding:
@@ -38,6 +40,7 @@ place_types:
     default: puck-red
     focused: red
   WalkingBiking:
+    label: _(Walking/Biking)
     default: puck-purple
     focused: red
   Parks:
@@ -119,7 +122,7 @@ place:
   adding_supported: true
   add_button_label: Share an idea
   title: Describe your idea...
-  action_text: identified
+  action_text: suggested
   anonymous_name: Someone
   submit_button_label: Add to map
   items:
