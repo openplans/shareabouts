@@ -192,20 +192,20 @@ survey:
   form_link_text: Leave a Comment
   submit_btn_text: Comment
   items:
-    - prompt: Description
+    - prompt: Comment
       type: textarea
       name: description
       optional: false
       attrs:
         - key: placeholder
-          value: Give us a brief description of the problem or place, and the approximate time and day when you pass by here.
+          value: 
     - prompt: Your Name
       type: text
       name: submitter_name
       optional: false
       attrs:
         - key: placeholder
-          value: You must leave name to have your comment be visible to others.
+          value: 
         - key: size
           value: 30
 
