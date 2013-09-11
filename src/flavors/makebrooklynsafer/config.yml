@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Ideas for downtown Macon
+  title: Your Ideas to Improve the College Hill Corridor
   # Header name
-  name: Ideas for downtown Macon
+  name: Your Ideas to Improve the College Hill Corridor
   # Meta description that will show up in Google search results
-  meta_description:  "Ideas for downtown Macon."
+  meta_description:  "Your Ideas to Improve the College Hill Corridor."
 
 # Settings for map and layer configs
 map:
