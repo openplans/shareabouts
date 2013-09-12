@@ -25,67 +25,142 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  Building/Facility Need:
-    default: puck-blue
-    focused: triangle-blue
-  Roadway/Streetscape Need:
-    default: puck-yellow
-    focused: triangle-yellow
-  Park/Open Space Need:
-    default: puck-green
-    focused: triangle-green
+  building:
+    default: building
+    focused: building
+    label: _(Building/Facility Need)
+  street:
+    default: cone
+    focused: cone
+    label: _(Roadway/Streetscape Need)
+  park:
+    default: tree
+    focused: tree
+    label: _(Park/Open Space Need)
+  building-approved:
+    default: building-gold
+    focused: building-gold
+    label: _(Approved Building/Facility)
+  street-approved:
+    default: cone-gold
+    focused: cone-gold
+    label: _(Approved Roadway/Streetscape)
+  park-approved:
+    default: tree-gold
+    focused: tree-gold
+    label: _(Approved Park/Open Space)
+  building-rejected:
+    default: building-gray
+    focused: building-gray
+    label: _(Rejected Building/Facility)
+  street-rejected:
+    default: cone-gray
+    focused: cone-gray
+    label: _(Rejected Roadway/Streetscape)
+  park-rejected:
+    default: tree-gray
+    focused: tree-gray
+    label: _(Rejected Park/Open Space)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
 place_type_icons:
-  puck-green:
-    iconUrl: /static/css/images/markers/dot-70d52c.png
+  tree:
+    iconUrl: /static/css/images/tree.png
+    shadowUrl: /static/css/images/shadow-round.png
     iconSize:
-      width: 17
-      height: 18
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
     iconAnchor:
-      x: 9
-      y: 9
-  triangle-green:
-    iconUrl: /static/css/images/markers/triangle-70d52c.png
+      x: 16
+      y: 25
+  tree-gray:
+    iconUrl: /static/css/images/tree-gray.png
+    shadowUrl: /static/css/images/shadow-round.png
     iconSize:
-      width: 40
-      height: 40
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
     iconAnchor:
-      x: 20
-      y: 20
-  puck-blue:
-    iconUrl: /static/css/images/markers/dot-2654d2.png
+      x: 16
+      y: 25
+  tree-gold:
+    iconUrl: /static/css/images/tree-gold.png
     iconSize:
-      width: 17
-      height: 18
+      width: 31
+      height: 32
     iconAnchor:
-      x: 9
-      y: 9
-  triangle-blue:
-    iconUrl: /static/css/images/markers/triangle-2654d2.png
+      x: 16
+      y: 25
+  cone:
+    iconUrl: /static/css/images/cone.png
+    shadowUrl: /static/css/images/shadow-square.png
     iconSize:
-      width: 40
-      height: 40
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
     iconAnchor:
-      x: 20
-      y: 20
-  puck-yellow:
-    iconUrl: /static/css/images/markers/dot-dbcf2c.png
+      x: 16
+      y: 25
+  cone-gray:
+    iconUrl: /static/css/images/cone-gray.png
+    shadowUrl: /static/css/images/shadow-square.png
     iconSize:
-      width: 17
-      height: 18
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
     iconAnchor:
-      x: 9
-      y: 9
-  triangle-yellow:
-    iconUrl: /static/css/images/markers/triangle-dbcf2c.png
+      x: 16
+      y: 25
+  cone-gold:
+    iconUrl: /static/css/images/cone-gold.png
     iconSize:
-      width: 40
-      height: 40
+      width: 31
+      height: 32
     iconAnchor:
-      x: 20
-      y: 20
+      x: 16
+      y: 25
+  building:
+    iconUrl: /static/css/images/building.png
+    shadowUrl: /static/css/images/shadow-square.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
+  building-gray:
+    iconUrl: /static/css/images/building-gray.png
+    shadowUrl: /static/css/images/shadow-square.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
+  building-gold:
+    iconUrl: /static/css/images/building-gold.png
+    iconSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true

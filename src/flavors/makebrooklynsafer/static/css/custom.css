@@ -72,10 +72,22 @@ a:hover {
 
 /* map key */
 
-#mapkey {
+ul#mapkey {
   background-color: #fff;
+  margin: 0;
   padding: 20px;
+  list-style: none;
 }
+ul#mapkey li {
+  margin: 0;
+  padding: 10px 0 10px 36px;
+  clear: left;
+}
+ul#mapkey li img {
+  float: left;
+  margin: -8px 0 0 -36px;
+}
+
 
 /* =Mobile Navigation Button
 -------------------------------------------------------------- */
