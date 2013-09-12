@@ -21,14 +21,42 @@
   </div>
   {{/ attachments }}
   
-  <p><strong>Issue:</strong> {{ place_type_label }}
-  {{# pedlight-detail }} - {{ pedlight-detail }}{{/ pedlight-detail }}
-  {{# streetlight-detail }} - {{ streetlight-detail }}{{/ streetlight-detail }}
-  {{# greenspace-detail }} - {{ greenspace-detail }}{{/ greenspace-detail }}
-  {{# sidewalk-detail }} - {{ sidewalk-detail }}{{/ sidewalk-detail }}
-  {{# drainage-detail }} - {{ drainage-detail }}{{/ drainage-detail }}</p>
-  
-  {{# description }} <p><strong>Details:</strong> {{ description }}</p> {{/ description }}
+  <p><strong>Issue:</strong> {{ place_type_label }}</p>
+
+  <p><strong>Details:</strong></p>
+    <ul>
+      {{# lighting1 }} <li>{{ lighting1 }}</li> {{/ lighting1 }}
+      {{# lighting2 }}<li> {{ lighting2 }}</li> {{/ lighting2 }}
+      {{# lighting3 }}<li> {{ lighting3 }}</li> {{/ lighting3 }}
+      {{# lighting4 }}<li> {{ lighting4 }}</li> {{/ lighting4 }}
+      {{# lighting5 }}<li> {{ lighting5 }}</li> {{/ lighting5 }}
+      {{# lighting6 }}<li> {{ lighting6 }}</li> {{/ lighting6 }}
+     {{# traffic1 }} <li> {{ traffic1 }}</li> {{/ traffic1 }}
+     {{# traffic2 }} <li> {{ traffic2 }}</li> {{/ traffic2 }}
+     {{# traffic3 }} <li> {{ traffic3 }}</li> {{/ traffic3 }}
+     {{# traffic4 }} <li> {{ traffic4 }}</li> {{/ traffic4 }}
+     {{# traffic5 }} <li> {{ traffic5 }}</li> {{/ traffic5 }}
+     {{# traffic6 }} <li> {{ traffic6 }}</li> {{/ traffic6 }}
+     {{# traffic7 }} <li> {{ traffic7 }}</li> {{/ traffic7 }}
+     {{# sidewalk1 }} <li> {{ sidewalk1 }}</li> {{/ sidewalk1 }}
+     {{# sidewalk2 }} <li> {{ sidewalk2 }}</li> {{/ sidewalk2 }}
+     {{# sidewalk3 }} <li> {{ sidewalk3 }}</li> {{/ sidewalk3 }}
+     {{# sidewalk4 }} <li> {{ sidewalk4 }}</li> {{/ sidewalk4 }}
+     {{# sidewalk5 }} <li> {{ sidewalk5 }}</li> {{/ sidewalk5 }}
+     {{# sidewalk6 }} <li> {{ sidewalk6 }}</li> {{/ sidewalk6 }}
+     {{# sidewalk7 }} <li> {{ sidewalk7 }}</li> {{/ sidewalk7 }}
+     {{# sidewalk8 }} <li> {{ sidewalk8 }}</li> {{/ sidewalk8 }}
+     {{# publicspace1 }} <li> {{ publicspace1 }}</li> {{/ publicspace1 }}
+     {{# publicspace2 }} <li> {{ publicspace2 }}</li> {{/ publicspace2 }}
+     {{# publicspace3 }} <li> {{ publicspace3 }}</li> {{/ publicspace3 }}
+     {{# publicspace4 }} <li> {{ publicspace4 }}</li> {{/ publicspace4 }}
+     {{# publicspace5 }} <li> {{ publicspace5 }}</li> {{/ publicspace5 }}      
+     {{# drain1 }} <li> {{ drain1 }}</li> {{/ drain1 }}
+     {{# drain2 }} <li> {{ drain2 }}</li> {{/ drain2 }}
+     {{# drain3 }} <li> {{ drain3 }}</li> {{/ drain3 }}      
+    </ul>
+
+  {{# description }} <p><strong>More info:</strong> {{ description }}</p> {{/ description }}
   
 </section>
 
