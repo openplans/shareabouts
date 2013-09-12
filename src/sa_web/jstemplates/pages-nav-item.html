@@ -13,10 +13,12 @@
     {{/ slug }}
   {{/ external }}
 
-  <ul>
-  {{# sub_pages }}
-    {{> pages-nav-item }}
-  {{/ sub_pages }}
-  </ul>
+  {{^ url }}
+    <ul>
+    {{# sub_pages }}
+      {{> pages-nav-item }}
+    {{/ sub_pages }}
+    </ul>
+  {{/ url }}
 
 </li>
