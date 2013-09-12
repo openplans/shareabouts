@@ -13,6 +13,17 @@ body, select, input, textarea {
 }
 
 
+/* formatting for the data entry form */
+
+label {
+  display: inline-block;
+}
+
+
+.checkbox-label {
+  font-weight: normal;
+}
+
 
 /* =Links
 -------------------------------------------------------------- */

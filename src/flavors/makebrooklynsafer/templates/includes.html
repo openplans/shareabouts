@@ -8,37 +8,27 @@
   $(Shareabouts).on('panelshow', function(evt, app, path) {
     
     // turn off some select items
-    $("#place-location_type>option:eq(1)").prop('disabled', true);
-    $("#place-location_type>option:eq(9)").prop('disabled', true);
-    $("#place-location_type>option:eq(15)").prop('disabled', true);
-    $("#place-location_type>option:eq(18)").prop('disabled', true);
-    $("#place-location_type>option:eq(21)").prop('disabled', true);
-   // $("#place-location_type").val('FTY').prop('disabled', true);
+    $("#place-location_type>option:eq(0)").prop('disabled', true);
     
     // hide pointless location type label
-    $("label[for=place-location_type]").hide();  
+    //$("label[for=place-location_type]").hide();  
 
     // add some classes to make selections easier...
 
-    //drainage
-    $("[id*=drainage]").addClass("drainage");
-    $("label[for*=drainage]").hide();
+    $("[id*=traffic]").addClass("traffic");
+    $("label[for*=traffic]").addClass("traffic checkbox-label").hide();
     
-    //sidewalk
     $("[id*=sidewalk]").addClass("sidewalk");
-    $("label[for*=sidewalk]").hide();
+    $("label[for*=sidewalk]").addClass("sidewalk checkbox-label").hide();
 
-    //greenspace
-    $("[id*=greenspace]").addClass("greenspace");
-    $("label[for*=greenspace]").hide();
+    $("[id*=publicspace]").addClass("publicspace");
+    $("label[for*=publicspace]").addClass("publicspace checkbox-label").hide();
 
-    //streetlight
-    $("[id*=streetlight]").addClass("streetlight");
-    $("label[for*=streetlight]").hide();
+    $("[id*=lighting]").addClass("streetlight");
+    $("label[for*=lighting]").addClass("streetlight checkbox-label").hide();
 
-    //pedlight
-    $("[id*=pedlight]").addClass("pedlight");
-    $("label[for*=pedlight]").hide();
+    $("[id*=drain]").addClass("drain");
+    $("label[for*=drain]").addClass("drain checkbox-label").hide();
 
 
     //add a label to the name and submit boxes
@@ -47,12 +37,12 @@
     $("#save-place-btn").addClass("existing problem new");
 
     //now hide everything...
-    $(".drainage,.sidewalk,.greenspace,.streetlight,.pedlight").hide();
+    $(".traffic,.sidewalk,.publicspace,.streetlight,.drain").hide();
 
     $("#place-location_type").change(function() {
 
       // set everything to have hidden class
-    $(".drainage,.sidewalk,.greenspace,.streetlight,.pedlight").hide();
+    $(".traffic,.sidewalk,.publicspace,.streetlight,.drain").hide();
 
       // choose what will show up
       var chosen = $("#place-location_type").val();
@@ -61,20 +51,20 @@
       {
         case "no-choice":
           break;
-        case "DrainageIssue":
-          $(".drainage").show();
+        case "TrafficIssue":
+          $(".traffic").show();
           break;
-        case "SidewalkIssue":
+        case "SidewalkCrosswalks":
           $(".sidewalk").show();
           break;
-        case "GreenspaceIssue":
-          $(".greenspace").show();
+        case "PublicSpace":
+          $(".publicspace").show();
           break;
-        case "StreetlightIssue":
+        case "Lighting":
           $(".streetlight").show();
           break;
-        case "PedLightProblem":
-          $(".pedlight").show();
+        case "Drainage":
+          $(".drain").show();
           break;
         default:
           break;            

@@ -25,78 +25,26 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  Speeding:
+  TrafficIssue:
     default: puck-green
-    focused: red
-    label: _(Speeding)
-  FTY:
-    default: puck-green
-    focused: red
-    label: _(Failure to yield)
-  DangerousIntersection:
-    default: puck-green
-    focused: red
-    label: _(Dangerous intersection)
-  DoesNotFeelSafe:
-    default: puck-green
-    focused: red
-    label: _(Does not feel safe)
-  NeedBetterSignage:
-    default: puck-green
-    focused: red
-    label: _(Need better signage)
-  Driveway:
-    default: puck-green
-    focused: red
-    label: _(Driveway/parking lot problem)
-  DrainageIssue:
-    default: puck-green
-    focused: red 
+    focused: dropper-green
+    label: _(Traffic issue)
+  SidewalkCrosswalks:
+    default: puck-blue
+    focused: dropper-blue
+    label: _(Sidewalk/Crosswalk issue)
+  PublicSpace:
+    default: puck-red
+    focused: dropper-red
+    label: _(Public Space needs)
+  Drainage:
+    default: puck-yellow
+    focused: dropper-yellow
     label: _(Drainage issue)
-  SidewalkIssue:
-    default: puck-green
-    focused: red
-    label: _(Sidewalk/path problem)
-  Crosswalk:
-    default: puck-green
-    focused: red
-    label: _(Crosswalk needs painting)
-  CurbRamp:
-    default: puck-green
-    focused: red
-    label: _(Curb ramp needed)
-  TrafficCalmingNeeded:
-    default: puck-green
-    focused: red
-    label: _(Traffic calming needed)
-  OtherSafetyIssue:
-    default: puck-green
-    focused: red
-    label: _(Other safety issue)
-  BikeInfrastructure:
-    default: puck-green
-    focused: red
-    label: _(Bike infrastructure needed)
-  BikeParking:
-    default: puck-green
-    focused: red
-    label: _(Bike parking needed)
-  GreenspaceIssue:
-    default: puck-green
-    focused: red
-    label: _(More greenspace needed)
-  StreetlightIssue:
-    default: puck-green
-    focused: red
-    label: _(Street light problem)
-  PedLightProblem:
-    default: puck-green
-    focused: red
-    label: _(Ped light problem)
-  WideRoad:
-    default: puck-green
-    focused: red
-    label: _(Wide road)
+  Lighting:
+    default: puck-purple
+    focused: dropper-purple
+    label: _(Lighting and signal issue)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
@@ -141,6 +89,66 @@ place_type_icons:
     iconAnchor:
       x: 9
       y: 9
+  dropper-green:
+    iconUrl: /static/css/images/markers/marker-70d52c.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  dropper-blue:
+    iconUrl: /static/css/images/markers/marker-2654d2.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  dropper-yellow:
+    iconUrl: /static/css/images/markers/marker-dbcf2c.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  dropper-red:
+    iconUrl: /static/css/images/markers/marker-e1264d.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  dropper-purple:
+    iconUrl: /static/css/images/markers/marker-744edc.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
   red:
     iconUrl: /static/css/images/marker-focused.png
     shadowUrl: /static/css/images/marker-shadow.png
@@ -166,144 +174,209 @@ place:
   anonymous_name: Someone
   submit_button_label: Add to the map
   items:
-    - prompt: Issue
+    - prompt: ""
       type: select
       options:
-        - label: _(Please choose...)
+        - label: _(Please choose a category)
           value: ""
-        # traffic
-        - label: _(-- Traffic issues --)
-          value: ""
-        - label: _(Speeding)
-          value: Speeding
-        - label: _(Failure to yield)
-          value: FTY
-        - label: _(Dangerous intersection)
-          value: DangerousIntersection
-        - label: _(Does not feel safe)
-          value: DoesNotFeelSafe
-        - label: _(Need better signage)
-          value: NeedBetterSignage
-        - label: _(Traffic calming needed)
-          value: TrafficCalmingNeeded
-        - label: _(Other safety issue)
-          value: OtherSafetyIssue
-        # sidewalk
-        - label: _(-- Sidewalk and crosswalk issues --)
-          value: ""
-        - label: _(Driveway/parking lot problem)
-          value: Driveway
-        - label: _(Drainage issue)
-          value: DrainageIssue
-        - label: _(Sidewalk/path problem)
-          value: SidewalkIssue
-        - label: _(Crosswalk needs painting)
-          value: Crosswalk
-        - label: _(Curb ramp needed)
-          value: CurbRamp
-        # biking
-        - label: _(-- Bike infrastrucure and bike parking --)
-          value: ""
-        - label: _(Bike infrastructure here please)
-          value: BikeInfrastructure
-        - label: _(Bike parking here please)
-          value: BikeParking
-        # lighting
-        - label: _(-- Lighting --)
-          value: ""
-        - label: _(Street light problem)
-          value: StreetlightIssue
-        - label: _(Ped light problem)
-          value: PedLightProblem
-        - label: _(-- Public space --)
-          value: ""
-        - label: _(Wide road)
-          value: WideRoad
-        - label: _(More greenspace needed here)
-          value: GreenspaceIssue
+        - label: _(Traffic issues)
+          value: "TrafficIssue"
+        - label: _(Sidewalk/Crosswalk issues)
+          value: "SidewalkCrosswalks"
+        - label: _(Public Space needs)
+          value: "PublicSpace"
+        - label: _(Drainage issues)
+          value: "Drainage"
+        - label: _(Lighting and signal issues)
+          value: "Lighting"
       name: location_type
-    - prompt: _(Drainage issue)
-      type: select
-      options:
-        - label: _(Please specify...)
-          value: ""
-        - label: _(Drain grate in bike lane)
-          value: Drain grate in bike lane
-        - label: _(Drain grate parallel to travel lane)
-          value: Drain grate parallel to travel lane
-        - label: _(Drain grate in crosswalk/sidewalk)
-          value: Drain grate in crosswalk/sidewalk
-        - label: _(For pooled water or blocked drains - please report to DPW)
-          value: Pooled water or blocked drain
-      name: drainage-detail
-    - prompt: _(Sidewalk issue)
-      type: select
-      options:
-        - label: _(Please specify...)
-          value: ""
-        - label: _(Uneven surface)
-          value: Uneven surface
-        - label: _(Washed out - has holes, or needs cleaning - please report to DPW)
-          value: Washed out
-        - label: _(Blocked by vegetation)
-          value: Blocked by vegetation
-        - label: _(Blocked by signage)
-          value: Blocked by signage   
-        - label: _(Indirect pedestrian path)
-          value: Indirect pedestrian path
-        - label: _(Unattractive)
-          value: Unattractive
-        - label: _(Too narrow)
-          value: Too narrow
-        - label: _(Too wide)
-          value: Too wide          
-        - label: _(Need sidewalk)
-          value: Need sidewalk
-      name: sidewalk-detail
-    - prompt: _(Greenspace issue)
-      type: select
-      options:
-        - label: _(Please specify...)
-          value: ""
-        - label: _(Street trees please)
-          value: Street trees please
-        - label: _(A park here would be nice)
-          value: A park here would be nice
-        - label: _(A Community garden here would be nice)
-          value: A Community garden here would be nice
-        - label: _(Planters or other greenspace please)
-          value: Planters or other greenspace please
-      name: greenspace-detail
-    - prompt: Streetlight issue
-      type: select
-      options:
-        - label: _(Please specify...)
-          value: ""
-        - label: _(Not working or partially working - please report to electrical department)
-          value: Not working or partially working
-        - label: _(Need street light)
+
+    # lighting checkboxes
+    - prompt: Need street light
+      type: checkbox
+      name: lighting1
+      attrs:
+        - key: value
           value: Need street light
-        - label: _(Too dim or blocked)
-          value: Too dim or blocked
-      name: streetlight-detail
-    - prompt: Ped light issue
-      type: select
-      options:
-        - label: _(Please specify...)
-          value: ""
-        - label: _(No push button)
-          value: No push button
-        - label: _(Can't access button)
-          value: Can't access button
-        - label: _(Button does not work - please report to electrical department)
-          value: Button does not work
-        - label: _(Need audible signal)
-          value: Need audible signal
-        - label: _(Walk phase needs to be longer)
+    - prompt: No walk signal or walk button
+      type: checkbox
+      name: lighting2
+      attrs:
+        - key: value
+          value: No walk signal or walk button
+        - key: label
+          value: This is a label
+    - prompt: Can’t access button
+      type: checkbox
+      name: lighting3
+      attrs:
+        - key: value
+          value: Can’t access button
+    - prompt: No audible signal
+      type: checkbox
+      name: lighting4
+      attrs:
+        - key: value
+          value: No audible signal
+    - prompt: Walk phase needs to be longer
+      type: checkbox
+      name: lighting5
+      attrs:
+        - key: value
           value: Walk phase needs to be longer
-        - label: _(Walk phase needs to come sooner)
+    - prompt: Walk phase needs to come sooner
+      type: checkbox
+      name: lighting6
+      attrs:
+        - key: value
           value: Walk phase needs to come sooner
-      name: pedlight-detail
+
+    # traffic issues
+    - prompt: Speeding
+      type: checkbox
+      name: traffic1
+      attrs:
+        - key: value
+          value: Speeding
+    - prompt: Traffic calming needed
+      type: checkbox
+      name: traffic2
+      attrs:
+        - key: value
+          value: Traffic calming needed
+    - prompt: Failure to yield
+      type: checkbox
+      name: traffic3
+      attrs:
+        - key: value
+          value: Failure to yield
+    - prompt: Dangerous intersection (please explain)
+      type: checkbox
+      name: traffic4
+      attrs:
+        - key: value
+          value: Dangerous intersection (please explain)
+    - prompt: Area does not feel safe or is confusing
+      type: checkbox
+      name: traffic5
+      attrs:
+        - key: value
+          value: Area does not feel safe or is confusing
+    - prompt: Bike infrastructure here please
+      type: checkbox
+      name: traffic6
+      attrs:
+        - key: value
+          value: Bike infrastructure here please
+    - prompt: Other safety issue (please specify)
+      type: checkbox
+      name: traffic7
+      attrs:
+        - key: value
+          value: Other safety issue (please specify)
+    
+    # sidewalk issues
+    - prompt: Uneven surface
+      type: checkbox
+      name: sidewalk1
+      attrs:
+        - key: value
+          value: Uneven surface
+    - prompt: Indirect pedestrian path
+      type: checkbox
+      name: sidewalk2
+      attrs:
+        - key: value
+          value: Indirect pedestrian path
+    - prompt: Unattractive
+      type: checkbox
+      name: sidewalk3
+      attrs:
+        - key: value
+          value: Unattractive
+    - prompt: Too narrow
+      type: checkbox
+      name: sidewalk4
+      attrs:
+        - key: value
+          value: Too narrow
+    - prompt: Need sidewalk
+      type: checkbox
+      name: sidewalk5
+      attrs:
+        - key: value
+          value: Need sidewalk
+    - prompt: Curb ramp/cut needed
+      type: checkbox
+      name: sidewalk6
+      attrs:
+        - key: value
+          value: Curb ramp/cut needed
+    - prompt: Too many driveways/parking lots
+      type: checkbox
+      name: sidewalk7
+      attrs:
+        - key: value
+          value: Too many driveways/parking lots
+    - prompt: Other sidewalk issue (please specify)
+      type: checkbox
+      name: sidewalk8
+      attrs:
+        - key: value
+          value: Other sidewalk issue (please specify)
+
+    # public space
+    - prompt: More street trees please
+      type: checkbox
+      name: publicspace1
+      attrs:
+        - key: value
+          value: More street trees please
+    - prompt: A park here would be nice
+      type: checkbox
+      name: publicspace2
+      attrs:
+        - key: value
+          value: A park here would be nice
+    - prompt: A Community garden here would be nice
+      type: checkbox
+      name: publicspace3
+      attrs:
+        - key: value
+          value: A Community garden here would be nice
+    - prompt: Planters or other greenspace please
+      type: checkbox
+      name: publicspace4
+      attrs:
+        - key: value
+          value: Planters or other greenspace please
+    - prompt: Bike parking/rack here please
+      type: checkbox
+      name: publicspace5
+      attrs:
+        - key: value
+          value: Bike parking/rack here please
+
+    # drainage
+    - prompt: Drain grate in bike lane
+      type: checkbox
+      name: drain1
+      attrs:
+        - key: value
+          value: Drain grate in bike lane
+    - prompt: Drain grate parallel to travel lane
+      type: checkbox
+      name: drain2
+      attrs:
+        - key: value
+          value: Drain grate parallel to travel lane
+    - prompt: Drain grate in crosswalk/sidewalk
+      type: checkbox
+      name: drain3
+      attrs:
+        - key: value
+          value: Drain grate in crosswalk/sidewalk
+    # other info
     - prompt: Share more details
       type: textarea
       name: description
