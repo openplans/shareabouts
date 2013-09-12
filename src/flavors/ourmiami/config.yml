@@ -267,7 +267,7 @@ pages:
     slug: contact
     name: features
   - title: _(Filter)
-    pages:
+    sub_pages:
       - title: All
         external: true
         url: /

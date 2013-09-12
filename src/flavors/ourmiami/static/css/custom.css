@@ -212,6 +212,7 @@ ul.recent-points {
 }
 
 @media only screen and (min-width: 768px) { /* menu is visible */
+  #site-header .access a, 
   #site-header .access a:link, 
   #site-header .access a:visited {
     background: #fff; 
@@ -223,6 +224,9 @@ ul.recent-points {
   }
   .access {
     margin-top: 0.5em;
+  }
+  .access ul ul {
+    margin-top: 0px;
   }
   #content {
     box-shadow: -3px 3px 10px rgba(85, 85, 85, 0.5);
