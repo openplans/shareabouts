@@ -1,1 +1,15 @@
-<!-- no analytics on shareabouts day. -->
+
+
+
+<script type="text/javascript">
+
+  $(Shareabouts).on('panelshow', function(evt, app, path) {
+    
+    // if we're showing a rejected or approved need, don't show it.
+    $('[class*="rejected"]').hide();
+    $('[class*="approved"]').hide();
+    
+    
+  });
+  
+  </script>

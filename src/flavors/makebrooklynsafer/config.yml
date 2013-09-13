@@ -26,28 +26,28 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   building:
-    default: building
-    focused: building
-    label: _(Building/Facility Need)
-  street:
-    default: cone
-    focused: cone
-    label: _(Roadway/Streetscape Need)
-  park:
-    default: tree
-    focused: tree
-    label: _(Park/Open Space Need)
-  building-approved:
     default: building-gold
     focused: building-gold
-    label: _(Approved Building/Facility)
-  street-approved:
+    label: _(Building/Facility Need)
+  street:
     default: cone-gold
     focused: cone-gold
-    label: _(Approved Roadway/Streetscape)
-  park-approved:
+    label: _(Roadway/Streetscape Need)
+  park:
     default: tree-gold
     focused: tree-gold
+    label: _(Park/Open Space Need)
+  building-approved:
+    default: building
+    focused: building
+    label: _(Approved Building/Facility)
+  street-approved:
+    default: cone
+    focused: cone
+    label: _(Approved Roadway/Streetscape)
+  park-approved:
+    default: tree
+    focused: tree
     label: _(Approved Park/Open Space)
   building-rejected:
     default: building-gray
@@ -177,11 +177,11 @@ place:
       type: select
       options:
         - label: _(Building/Facility Need)
-          value: "Building/Facility Need"
+          value: building
         - label: _(Roadway/Streetscape Need)
-          value: "Roadway/Streetscape Need"
+          value: street
         - label: _(Park/Open Space Need)
-          value: "Park/Open Space Need"
+          value: park
       name: location_type
     - prompt: Description
       type: textarea

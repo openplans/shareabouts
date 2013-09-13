@@ -1,33 +1,25 @@
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
-          <h1>{{ name }}</h1>
-          <span class="place-submission-details">
+          <h1>{{ place_type_label }}</h1>
+        </header>
+          
+        <section class="place-items">
+          <p>{{ description }}</p>
+
+                  
+          <span class="place-submission-details {{ location_type }}">
+          
             {{#_}}<strong class="point-submitter">
               {{ submitter_name }}
-            </strong> identified this {{# place_type_label }}{{ place_type_label }}{{/ place_type_label}}
-                                 {{^ place_type_label }}place{{/ place_type_label}}
-            {{#region}}
-              in {{ region }}
-            {{/region}}{{/_}}
+            </strong> added {{# place_type_label }}{{ place_type_label }}{{/ place_type_label}}
+                                 {{^ place_type_label }}place{{/ place_type_label}} {{/_}}
 
             <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.
           </span>
-        </header>
+          
+          </section>
 
-        <section class="place-items">
-          {{# attachments }}
-          <div class="place-item place-attachment-{{ name }}">
-            <img src="{{ url }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
-          </div>
-          {{/ attachments }}
-          {{# items }}
-          <div class="place-item place-item-{{ name }}">
-            <span class="place-label place-label-{{ name }}">{{ label }}</span>
-            <p class="place-value place-value-{{ name }}">{{ value }}</p>
-          </div>
-          {{/ items }}
-        </section>
 
         {{#survey_config}}
         <section class="survey"></section>
