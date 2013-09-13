@@ -27,39 +27,39 @@ map:
 place_types:
   building:
     default: building-gold
-    focused: building-gold
+    focused: building-gold-focused
     label: _(Building/Facility Need)
   street:
     default: cone-gold
-    focused: cone-gold
+    focused: cone-gold-focused
     label: _(Roadway/Streetscape Need)
   park:
     default: tree-gold
-    focused: tree-gold
+    focused: tree-gold-focused
     label: _(Park/Open Space Need)
   building-approved:
     default: building
-    focused: building
+    focused: building-focused
     label: _(Approved Building/Facility)
   street-approved:
     default: cone
-    focused: cone
+    focused: cone-focused
     label: _(Approved Roadway/Streetscape)
   park-approved:
     default: tree
-    focused: tree
+    focused: tree-focused
     label: _(Approved Park/Open Space)
   building-rejected:
     default: building-gray
-    focused: building-gray
+    focused: building-gray-focused
     label: _(Rejected Building/Facility)
   street-rejected:
     default: cone-gray
-    focused: cone-gray
+    focused: cone-gray-focused
     label: _(Rejected Roadway/Streetscape)
   park-rejected:
     default: tree-gray
-    focused: tree-gray
+    focused: tree-gray-focused
     label: _(Rejected Park/Open Space)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
@@ -68,6 +68,18 @@ place_type_icons:
   tree:
     iconUrl: /static/css/images/tree.png
     shadowUrl: /static/css/images/shadow-round.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
+  tree-focused:
+    iconUrl: /static/css/images/tree.png
+    shadowUrl: /static/css/images/shadow-round-white.png
     iconSize:
       width: 31
       height: 32
@@ -89,9 +101,37 @@ place_type_icons:
     iconAnchor:
       x: 16
       y: 25
+  tree-gray-focused:
+    iconUrl: /static/css/images/tree-gray.png
+    shadowUrl: /static/css/images/shadow-round-white.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
   tree-gold:
     iconUrl: /static/css/images/tree-gold.png
+    shadowUrl: /static/css/images/shadow-round-gold.png
     iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
+  tree-gold-focused:
+    iconUrl: /static/css/images/tree-gold.png
+    shadowUrl: /static/css/images/shadow-round-white.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
       width: 31
       height: 32
     iconAnchor:
@@ -100,6 +140,18 @@ place_type_icons:
   cone:
     iconUrl: /static/css/images/cone.png
     shadowUrl: /static/css/images/shadow-square.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
+  cone-focused:
+    iconUrl: /static/css/images/cone.png
+    shadowUrl: /static/css/images/shadow-square-white.png
     iconSize:
       width: 31
       height: 32
@@ -121,9 +173,37 @@ place_type_icons:
     iconAnchor:
       x: 16
       y: 25
+  cone-gray-focused:
+    iconUrl: /static/css/images/cone-gray.png
+    shadowUrl: /static/css/images/shadow-square-white.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
   cone-gold:
     iconUrl: /static/css/images/cone-gold.png
+    shadowUrl: /static/css/images/shadow-square-gold.png
     iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
+  cone-gold-focused:
+    iconUrl: /static/css/images/cone-gold.png
+    shadowUrl: /static/css/images/shadow-square-white.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
       width: 31
       height: 32
     iconAnchor:
@@ -132,6 +212,18 @@ place_type_icons:
   building:
     iconUrl: /static/css/images/building.png
     shadowUrl: /static/css/images/shadow-square.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
+  building-focused:
+    iconUrl: /static/css/images/building.png
+    shadowUrl: /static/css/images/shadow-square-white.png
     iconSize:
       width: 31
       height: 32
@@ -153,9 +245,37 @@ place_type_icons:
     iconAnchor:
       x: 16
       y: 25
+  building-gray-focused:
+    iconUrl: /static/css/images/building-gray.png
+    shadowUrl: /static/css/images/shadow-square-white.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
   building-gold:
     iconUrl: /static/css/images/building-gold.png
+    shadowUrl: /static/css/images/shadow-square-gold.png
     iconSize:
+      width: 31
+      height: 32
+    shadowSize:
+      width: 31
+      height: 32
+    iconAnchor:
+      x: 16
+      y: 25
+  building-gold-focused:
+    iconUrl: /static/css/images/building-gold.png
+    shadowUrl: /static/css/images/shadow-square-white.png
+    iconSize:
+      width: 31
+      height: 32
+    shadowSize:
       width: 31
       height: 32
     iconAnchor:
