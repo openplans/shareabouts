@@ -21,12 +21,10 @@
             <img src="{{ url }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
           </div>
           {{/ attachments }}
-          {{# items }}
-          <div class="place-item place-item-{{ name }}">
-            <span class="place-label place-label-{{ name }}">{{ label }}</span>
-            <p class="place-value place-value-{{ name }}">{{ value }}</p>
-          </div>
-          {{/ items }}
+
+          {{# intersection_name }}<p><strong>Location:</strong> {{ intersection_name }}</p>{{/ intersection_name }}
+          {{# description }}<p><strong>Description:</strong> {{ description }}</p>{{/ description }}
+          
         </section>
 
         {{#survey_config}}

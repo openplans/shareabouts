@@ -9,7 +9,7 @@
 
 body, select, input, textarea {
   color: #444;
-  font-family: "Calibri", Arial, Helvetica, serif;
+  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }
 
 
@@ -53,7 +53,7 @@ a:hover {
  * as to not break it scaling via media queries. */
 
 #site-title {
-  font-family: "Helvetica Neue", Arial, Helvetica, serif;
+  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
   text-shadow: none;
 }
 
@@ -406,13 +406,13 @@ textarea {
 }
 
 a.reply-link {
-  color: #00994d;
+  color: #CC6600;
   background: #bbb;
 }
 
 a.reply-link:hover {
   color: #fff;
-  background-color: #00994d;
+  background-color: #FF6600;
 }
 
 
@@ -425,12 +425,12 @@ a.reply-link:hover {
 
 #user_support label {
   color: #fff;
-  background-color: #00994d;
+  background-color: #CC6600;
 }
 
 #user_support:hover label,
 #user_support label:hover {
-  color: #00994d;
+  color: #CC6600;
   background-color: #fff;
 }
 

@@ -122,19 +122,15 @@ place:
   adding_supported: true
   add_button_label: Share an idea
   title: Describe your idea...
-  action_text: suggested
+  action_text: shared
   anonymous_name: Someone
   submit_button_label: Add to map
   items:
-    - prompt: Location
-      type: text
-      name: intersection_name
-      optional: false
-    - prompt: Location Type
+    - prompt: _(What's your idea?)
       type: select
       options:
         - label: _(Please choose...)
-          value: Choose
+          value: TrashRecycling
         - label: _(Trash/Recycling)
           value: TrashRecycling
         - label: _(Public Safety)
@@ -154,7 +150,11 @@ place:
         - label: _(Other)
           value: Other
       name: location_type            
-    - prompt: Description
+    - prompt: _(Describe the location)
+      type: text
+      name: intersection_name
+      optional: false
+    - prompt: _(Tell us more about this idea)
       type: textarea
       name: description
       optional: false
@@ -169,7 +169,7 @@ place:
           value: Your name will be visible on the map.
         - key: size
           value: 30
-    - prompt: Your email (will not be shared)
+    - prompt: _(Your email (will not be visible on the map))
       type: text
       name: private-email
       attrs:
