@@ -66,6 +66,10 @@ place_types:
     default: triangle-green
     focused: red
     label: _(Physical Activity/Exercise)
+  Crowdfunded:
+    default: triangle-pink
+    focused: red
+    label: _(Idea Being Crowdfunded)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
@@ -314,11 +318,3 @@ pages:
   - title: _(Contact us)
     slug: contact
     name: features
-  - title: _(Filter)
-    sub_pages:
-      - title: All
-        external: true
-        url: /
-      - title: SafeStreets
-        external: true
-        url: /SafeStreets
