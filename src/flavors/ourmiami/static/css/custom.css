@@ -202,6 +202,24 @@ ul.recent-points {
   font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
+ul#mapkey {
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+}
+ul#mapkey li {
+  margin: 0;
+  padding: 10px 0 10px 36px;
+  clear: left;
+}
+ul#mapkey li img {
+  float: left;
+  margin: -8px 0 0 -36px;
+}
+
+.active {
+  background: #181818;
+}
 
 /* =Media Queries
 -------------------------------------------------------------- */

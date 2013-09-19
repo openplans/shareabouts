@@ -47,23 +47,23 @@ place_types:
     focused: red
     label: _(Night Focused Idea)
   ParkParkletPlaza:
-    default: puck-blue
+    default: triangle-blue
     focused: red
     label: _(Park/Parklet/Plaza)
   PublicWaterfront:
-    default: puck-yellow
+    default: triangle-yellow
     focused: red
     label: _(Public Waterfront)
   SafeStreets:
-    default: puck-red
+    default: triangle-red
     focused: red
     label: _(Safe Streets)    
   ShadePublicComfort:
-    default: puck-purple
+    default: triangle-purple
     focused: red
     label: _(Shade and Public Comfort)
   PhysicalActivity:
-    default: puck-green
+    default: triangle-green
     focused: red
     label: _(Physical Activity/Exercise)
 
@@ -106,6 +106,54 @@ place_type_icons:
     iconUrl: /static/css/images/markers/dot-744edc.png
     iconSize:
       width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-green:
+    iconUrl: /static/css/images/triangle-4ab767.png
+    iconSize:
+      width: 21
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-blue:
+    iconUrl: /static/css/images/triangle-2654d2.png
+    iconSize:
+      width: 21
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-yellow:
+    iconUrl: /static/css/images/triangle-dbcf2c.png
+    iconSize:
+      width: 21
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-red:
+    iconUrl: /static/css/images/triangle-e1264d.png
+    iconSize:
+      width: 21
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-purple:
+    iconUrl: /static/css/images/triangle-744edc.png
+    iconSize:
+      width: 21
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-pink:
+    iconUrl: /static/css/images/triangle-fa307d.png
+    iconSize:
+      width: 21
       height: 18
     iconAnchor:
       x: 9

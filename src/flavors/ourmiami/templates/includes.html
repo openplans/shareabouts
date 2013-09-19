@@ -34,7 +34,13 @@ ga('send', 'pageview');
       $('.fileinput-container').hide();
       $('label[for="place-my_image"]').hide();
     }
-
+    
 });
+
+  $(document).ready(function() {
+    if(window.location.pathname) {
+      $(window.location.pathname.split('/')[1]).addClass('active');
+      }
+    });
 </script>
 
