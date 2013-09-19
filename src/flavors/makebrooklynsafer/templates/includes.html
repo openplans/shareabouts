@@ -1,1 +1,11 @@
 <!-- no analytics on shareabouts day. -->
+
+<script type="text/javascript">
+
+  $(Shareabouts).on('panelshow', function(evt, app, path) {
+    
+    // turn off some select items
+    $("#place-location_type>option:eq(0)").prop('disabled', true);
+     
+  });
+</script>

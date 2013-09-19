@@ -133,6 +133,8 @@ place:
     - prompt: Location Type
       type: select
       options:
+        - label: _(Please choose...)
+          value: Choose
         - label: _(Trash/Recycling)
           value: TrashRecycling
         - label: _(Public Safety)

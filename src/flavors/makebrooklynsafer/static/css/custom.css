@@ -9,7 +9,7 @@
 
 body, select, input, textarea {
   color: #444;
-  font-family: "Helvetica Neue", Arial, Helvetica, serif;
+  font-family: "Calibri", Arial, Helvetica, serif;
 }
 
 
@@ -31,7 +31,8 @@ a:hover {
 #site-header {
   color: #444;
   background-color: #fff;
-  background: #fff 0.5em center no-repeat scroll;
+  background: #fff url(images/cha-hi-res-xparent.png) 0.5em center no-repeat scroll;
+  
   
 }
 
@@ -66,6 +67,8 @@ a:hover {
   white-space: normal !important;
   line-height: 1.3;
   color: #CC6600;
+  position: relative;
+  padding-left: 220px;
 }
 
 #site-title a:hover {
