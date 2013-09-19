@@ -23,16 +23,19 @@ var Shareabouts = Shareabouts || {};
 
   S.ShareaboutsApiModel = Backbone.Model.extend({
     sync: function(method, model, options) {
-      var data = model.toJSON();
+      if (method !== 'read') {
+        var data = model.toJSON();
 
-      delete data.created_datetime;
-      delete data.dataset;
-      delete data.id;
-      delete data.updated_datetime;
+        delete data.created_datetime;
+        delete data.dataset;
+        delete data.id;
+        delete data.updated_datetime;
+        delete data.distance;
 
-      options = options || {};
-      options.contentType = 'application/json';
-      options.data = JSON.stringify(data);
+        options = options || {};
+        options.contentType = 'application/json';
+        options.data = JSON.stringify(data);
+      }
 
       Backbone.sync(method, model, options);
     }
@@ -68,15 +71,34 @@ var Shareabouts = Shareabouts || {};
   });
 
   S.PlaceModel = S.ShareaboutsApiModel.extend({
-    initialize: function(attributes, options) {
-      this.responseCollection = new S.SubmissionCollection([], {
-        placeModel: this,
-        submissionType: options.responseType
+    initialize: function() {
+      var model = this,
+          submissionSetsData = this.get('submissions') || [],
+          responsesData = [], supportsData = [];
+
+      _.each(submissionSetsData, function(submissionSetData) {
+        var submissionSetName;
+
+        if (_.isArray(submissionSetData)) {
+          submissionSetName = _.first(submissionSetData).type;
+          // TODO: Figure out a better, more general way to treat submission sets.
+          if (submissionSetName === model.collection.options.responseType) {
+            responsesData = submissionSetData;
+          }
+          else if (submissionSetName === model.collection.options.supportType) {
+            supportsData = submissionSetData;
+          }
+        }
       });
 
-      this.supportCollection = new S.SubmissionCollection([], {
+      this.responseCollection = new S.SubmissionCollection(responsesData, {
         placeModel: this,
-        submissionType: options.supportType
+        submissionType: this.collection.options.responseType
+      });
+
+      this.supportCollection = new S.SubmissionCollection(supportsData, {
+        placeModel: this,
+        submissionType: this.collection.options.supportType
       });
 
       var attachmentData = this.get('attachments') || [];
@@ -86,11 +108,27 @@ var Shareabouts = Shareabouts || {};
     },
 
     set: function(key, val, options) {
-      var args = normalizeModelArguments(key, val, options);
+      var args = normalizeModelArguments(key, val, options),
+          model = this;
 
       if (_.isArray(args.attrs.attachments) && this.attachmentCollection && !args.options.ignoreAttachnments) {
         this.attachmentCollection.reset(args.attrs.attachments);
       }
+
+      _.each(args.attrs.submissions, function(submissionSet) {
+        var submissionSetName;
+
+        if (_.isArray(submissionSet)) {
+          submissionSetName = _.first(submissionSet).type;
+          // TODO: Figure out a better, more general way to treat submission sets.
+          if (submissionSetName === model.collection.options.responseType && model.responseCollection) {
+            model.responseCollection.reset(submissionSet);
+          }
+          else if (submissionSetName === model.collection.options.supportType && model.supportCollection) {
+            model.supportCollection.reset(submissionSet);
+          }
+        }
+      });
 
       return S.PlaceModel.__super__.set.call(this, args.attrs, args.options);
     },
