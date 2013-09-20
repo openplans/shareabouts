@@ -98,7 +98,7 @@ var Shareabouts = Shareabouts || {};
           actionText = this.options.placeConfig.action_text;
           anonSubmitterName = this.options.placeConfig.anonymous_name;
         } else {
-          placeData = this.options.places.get(actionModel.get('target').id).toJSON();
+          placeData = placeModel.toJSON(); //this.options.places.get(actionModel.get('target').id).toJSON();
 
           if (actionType === surveyConfig.submission_type) {
             // Survey
@@ -140,7 +140,16 @@ var Shareabouts = Shareabouts || {};
     },
 
     getPlaceForAction: function(actionModel) {
-      return this.options.places.get(actionModel.get('target').id);
+      var placeUrl = actionModel.get('target').place,
+          placeId;
+
+      if (placeUrl) {
+        placeId = _.last(placeUrl.split('/'));
+      } else {
+        placeId = actionModel.get('target').id;
+      }
+
+      return this.options.places.get(placeId);
     },
 
     renderAction: function(model, index) {
