@@ -245,7 +245,14 @@ var Shareabouts = Shareabouts || {};
   });
 
   S.ActionCollection = S.PaginatedCollection.extend({
-    url: '/api/actions'
+    url: '/api/actions',
+    comparator: function(a, b) {
+      if (a.get('created_datetime') > b.get('created_datetime')) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }
   });
 
 }(Shareabouts, jQuery));
