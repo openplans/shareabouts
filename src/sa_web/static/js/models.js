@@ -180,8 +180,6 @@ var Shareabouts = Shareabouts || {};
   // This does not support editing at this time, which is why it is not a
   // ShareaboutsModel
   S.AttachmentModel = Backbone.Model.extend({
-    idAttribute: 'name',
-
     initialize: function(attributes, options) {
       this.options = options;
     },
