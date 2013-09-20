@@ -215,13 +215,15 @@ ul#mapkey li img {
   float: left;
   margin: -8px 0 0 -36px;
 }
-
-.active {
-  background: #181818;
+#filter-area {
+  padding 10px 0 10px;
 }
 
-.legend {
+#filter-dropdown {
+  width: 230px;
 }
+
+
 
 /* =Media Queries
 -------------------------------------------------------------- */

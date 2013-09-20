@@ -116,20 +116,22 @@
 
   <div id="ticker">
     
-    <ul id="mapkey" >
-      <a class='legend' href="/Crowdfunded"><li><img class="mapkey" src="/static/css/images/triangle-fa307d.png"/> Ideas Being Crowdfunded</li></a>
-      <a class='legend' href="/ChildIdea"><li id="ChildIdea"><img class="mapkey" src="/static/css/images/markers/dot-70d52c.png"/> Child or Senior Citizen Focused Idea</li></a>
-      <a class='legend' href="/CommunityGatheringSpace"><li><img class="mapkey" src="/static/css/images/markers/dot-2654d2.png"/> Community Gathering Space</li></a>
-      <a class='legend' href="/ExistingPlaceMakeover"><li class='ExistingPlaceMakeover'><img class="mapkey" src="/static/css/images/markers/dot-dbcf2c.png"/> Existing Place Makeover</li></a>
-      <a class='legend' href="/GardenFarmersMarket"><li><img class="mapkey" src="/static/css/images/markers/dot-e1264d.png"/>  Garden/Farmer's Market/Healthy Eating</li></a>
-      <a class='legend' href="/NightFocusedIdea"><li><img class="mapkey" src="/static/css/images/markers/dot-744edc.png"/> Night Focused Idea</li></a>
-      <a class='legend' href="/PhysicalActivity"><li><img class="mapkey" src="/static/css/images/triangle-4ab767.png"/> Physical Activity/Exercise</li></a>
-      <a class='legend' href="/ParkParkletPlaza"><li><img class="mapkey" src="/static/css/images/triangle-2654d2.png"/> Park/Parklet/Plaza</li></a>
-      <a class='legend' href="/PublicWaterfront"><li><img class="mapkey" src="/static/css/images/triangle-dbcf2c.png"/> Public Waterfront</li></a>
-      <a class='legend' href="/SafeStreets"><li><img class="mapkey" src="/static/css/images/triangle-e1264d.png"/> Safe Streets</li></a>
-      <a class='legend' href="/ShadePublicComfort"><li><img class="mapkey" src="/static/css/images/triangle-744edc.png"/> Shade and Public Comfort</li></a>
-      <li><a href="/" class='fileinput-container'>View all ideas</a></li>
-      </ul>
+    <div class='filter-area'> Filter the map: <br/>
+    <select id="filter-dropdown">
+     <option value="">View all</option>
+     <option value="Crowdfunded">Ideas Being Crowdfunded</option>
+     <option value="ChildIdea">Child or Senior Citizen Focused Idea</option>
+     <option value="CommunityGatheringSpace">Community Gathering Space</option>
+     <option value="ExistingPlaceMakeover">Existing Place Makeover</option>
+     <option value="GardenFarmersMarket">Garden/Farmer's Market/Healthy Eating</option>
+     <option value="NightFocusedIdea">Night Focused Idea</option>
+     <option value="PhysicalActivity">Physical Activity/Exercise</option>
+     <option value="ParkParkletPlaza">Park/Parklet/Plaza</option>
+     <option value="PublicWaterfront">Public Waterfront</option>
+     <option value="SafeStreets">Safe Streets</option>
+     <option value="ShadePublicComfort">Shade and Public Comfort</option>
+     </select>
+      </div>
       
     <ul class="recent-points"></ul>
   </div>

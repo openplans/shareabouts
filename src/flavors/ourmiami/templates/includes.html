@@ -38,8 +38,17 @@ ga('send', 'pageview');
 });
 
   $(document).ready(function() {
-    });
     
+    if(window.location.pathname) {
+     var slug = window.location.pathname.split('/')[1];    
+     $("#filter-dropdown option[value='" + slug + "']").prop("selected", true);
+     };
+     
+     $( "#filter-dropdown" ).change(function() {
+       window.location.href = "http://" + window.location.host + "/" + this.value;
+     });
+     
+   });
 
 </script>
 
