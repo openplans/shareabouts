@@ -1,6 +1,6 @@
       <li class="activity-item clearfix">
-        {{# data }}
-          <a href="/place/{{ place_id }}">{{#_}}<strong>
+        {{# target }}
+          <a href="/place/{{ id }}">{{#_}}<strong>
           {{ submitter_name }}
           </strong>
           {{# is_place }}
@@ -14,5 +14,5 @@
             {{^ place.name }}a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }} {{ place.place_type_label }}{{/ place.name }}
           {{/ is_place }}
           {{/_}}</a>
-        {{/ data }}
+        {{/ target }}
       </li>

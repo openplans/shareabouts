@@ -75,8 +75,8 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
-    onAddAction: function(model, collection, options) {
-      this.renderAction(model, options.index);
+    onAddAction: function(model, collection) {
+      this.renderAction(model, collection.indexOf(model));
     },
 
     onResetActivity: function(collection) {
