@@ -1,3 +1,5 @@
+/*globals Backbone jQuery _ */
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
@@ -13,11 +15,8 @@ var Shareabouts = Shareabouts || {};
     initialize: function(options) {
       var startPageConfig;
 
-      this.collection = new S.PlaceCollection([], {
-        responseType: options.surveyConfig['submission_type'],
-        supportType: options.supportConfig['submission_type']
-      });
-      this.activities = new S.ActivityCollection(options.activity);
+      this.collection = new S.PlaceCollection([]);
+      this.activities = new S.ActionCollection(options.activity);
       this.appView = new S.AppView({
         el: 'body',
         collection: this.collection,
@@ -36,8 +35,10 @@ var Shareabouts = Shareabouts || {};
 
       // Call reset after the views are created, since they're all going to
       // be listening to reset.
-      this.collection.reset(options.places);
-      this.activities.fetch({data: {limit: 20}})
+      this.collection.reset(options.places, {
+        parse: true
+      });
+      this.activities.fetch({data: {limit: 20}});
 
       // Start tracking the history
       var historyOptions = {pushState: true};
@@ -79,4 +80,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+}(Shareabouts, jQuery, Shareabouts.Util.console));

@@ -1,3 +1,5 @@
+/*globals _ jQuery L Backbone ich */
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
@@ -120,12 +122,12 @@ var Shareabouts = Shareabouts || {};
     },
     onMapMoveStart: function(evt) {
       this.$centerpoint.addClass('dragging');
-      
+
       // fade the instructions out (and don't show them again)
       if (this.$instructions.is(':visible')) {
         this.instructionsShown = true;
       }
-      
+
       this.hideInstructions();
     },
     onMapMoveEnd: function(evt) {
@@ -199,11 +201,11 @@ var Shareabouts = Shareabouts || {};
     },
     viewPlace: function(model) {
       var map = this.mapView.map,
-          location, placeDetailView;
+          point, placeDetailView;
 
       if (model) {
         // Called by the router
-        location = model.get('location');
+        point = model.get('geometry');
         placeDetailView = this.getPlaceDetailView(model);
 
         this.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
@@ -213,7 +215,8 @@ var Shareabouts = Shareabouts || {};
         this.hideCenterPoint();
         this.hideAddButton();
         this.hideInstructions(true);
-        map.panTo(this.getOffsetCenter(L.latLng(location.lat, location.lng)));
+
+        map.panTo(this.getOffsetCenter(L.latLng(point.coordinates[1], point.coordinates[0])));
 
         // Focus the one we're looking
         model.trigger('focus');
@@ -263,26 +266,28 @@ var Shareabouts = Shareabouts || {};
     },
     showInstructions: function() {
       var self = this;
-      
-      if (self.instructionsShown)
+
+      if (self.instructionsShown) {
         return;
-      
+      }
+
       self.$instructions.css('display', null).addClass('show');
       // also add a class to the add button, indicating that we are instructing
       self.$addButton.addClass('instructionsShowing');
     },
     hideInstructions: function(instant) {
-      if (instant)
+      if (instant) {
         this.$instructions.removeClass('show');
-      else
+      } else {
         this.$instructions.fadeOut();
-      
+      }
+
       this.$addButton.removeClass('instructionsShowing');
     },
     hidePanel: function() {
       this.unfocusAllPlaces();
       this.$panel.hide();
-      
+
       this.showInstructions();
     },
     hideNewPin: function() {
@@ -307,4 +312,4 @@ var Shareabouts = Shareabouts || {};
       this.mapView.render();
     }
   });
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+}(Shareabouts, jQuery, Shareabouts.Util.console));

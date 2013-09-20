@@ -42,9 +42,9 @@ var Shareabouts = Shareabouts || {};
       });
 
       // Get the location attributes from the map
-      attrs.location = {
-        lat: center.lat,
-        lng: center.lng
+      attrs.geometry = {
+        type: 'Point',
+        coordinates: [center.lng, center.lat]
       };
 
       return attrs;

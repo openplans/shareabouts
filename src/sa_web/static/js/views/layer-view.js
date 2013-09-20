@@ -1,3 +1,5 @@
+/*globals L Backbone _ jQuery */
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
@@ -20,7 +22,7 @@ var Shareabouts = Shareabouts || {};
       this.initLayer();
     },
     initLayer: function() {
-      var location;
+      var point;
 
       // Handle if an existing place type does not match the list of available
       // place types.
@@ -33,8 +35,8 @@ var Shareabouts = Shareabouts || {};
 
       // Don't draw new places. They are shown by the centerpoint in the app view
       if (!this.model.isNew()) {
-        location = this.model.get('location');
-        this.latLng = L.latLng(location.lat, location.lng);
+        point = this.model.get('geometry');
+        this.latLng = L.latLng(point.coordinates[1], point.coordinates[0]);
 
         this.layer = L.marker(this.latLng, {icon: this.placeType['default']});
 
@@ -98,4 +100,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+}(Shareabouts, jQuery, Shareabouts.Util.console));

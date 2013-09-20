@@ -87,8 +87,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     processActionData: function(actionModel, placeModel) {
-      var actionType = actionModel.get('type'),
-          isPlaceAction = (actionType === 'places'),
+      var actionType = actionModel.get('target_type'),
+          isPlaceAction = (actionType === 'place'),
           surveyConfig = this.options.surveyConfig,
           supportConfig = this.options.supportConfig,
           placeData,
@@ -102,11 +102,11 @@ var Shareabouts = Shareabouts || {};
       if (placeType) {
         // Get the place that the action is about.
         if (isPlaceAction) {
-          placeData = actionModel.get('data');
+          placeData = actionModel.get('target');
           actionText = this.options.placeConfig.action_text;
           anonSubmitterName = this.options.placeConfig.anonymous_name;
         } else {
-          placeData = this.options.places.get(actionModel.get('place_id')).toJSON();
+          placeData = this.options.places.get(actionModel.get('target').id).toJSON();
 
           if (actionType === surveyConfig.submission_type) {
             // Survey
@@ -137,7 +137,7 @@ var Shareabouts = Shareabouts || {};
         actionData.action = actionText;
 
         // Set the submitter_name here in case it is null in the model.
-        actionData.data.submitter_name = actionModel.get('data').submitter_name || anonSubmitterName;
+        actionData.target.submitter_name = actionModel.get('target').submitter_name || anonSubmitterName;
 
         return actionData;
       }  // if (placeType)
@@ -148,7 +148,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     getPlaceForAction: function(actionModel) {
-      return this.options.places.get(actionModel.get('place_id'));
+      return this.options.places.get(actionModel.get('target').id);
     },
 
     renderAction: function(model, index) {
