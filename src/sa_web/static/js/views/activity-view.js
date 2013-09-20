@@ -1,3 +1,5 @@
+/*globals jQuery _ Backbone ich */
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
@@ -35,15 +37,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     checkForNewActivity: function() {
-      var options = {
-        add: true,
-        at: 0
-      };
-
-      // Only get new activity where id is greater than the newest id, if it exists
-      if (this.collection.size() > 0) {
-        options.data = {after: this.collection.first().get('id')};
-      }
+      var options = {};
 
       options.complete = _.bind(function() {
         // After a check for activity has completed, no matter the result,
@@ -66,9 +60,7 @@ var Shareabouts = Shareabouts || {};
 
       if (shouldFetch && !self.fetching) {
         self.fetching = true;
-        this.collection.fetch({
-          data: {before: this.collection.last().get('id'), limit: 10},
-          add: true,
+        this.collection.fetchNextPage({
           success: function() { _.delay(notFetching, notFetchingDelay); },
           error: function() {_.delay(notFetching, notFetchingDelay); }
         });
@@ -121,8 +113,8 @@ var Shareabouts = Shareabouts || {};
 
         // Check whether the location type starts with a vowel; useful for
         // choosing between 'a' and 'an'.  Not language-independent.
-        if ('AEIOUaeiou'.indexOf(placeData['location_type'][0]) > -1) {
-          placeData['type_starts_with_vowel'] = true;
+        if ('AEIOUaeiou'.indexOf(placeData.location_type[0]) > -1) {
+          placeData.type_starts_with_vowel = true;
         }
 
         placeData.place_type_label = placeType.label || placeData.location_type;
@@ -224,4 +216,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+}(Shareabouts, jQuery, Shareabouts.Util.console));

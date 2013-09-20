@@ -38,7 +38,9 @@ var Shareabouts = Shareabouts || {};
       this.collection.reset(options.places, {
         parse: true
       });
-      this.activities.fetch();
+      this.activities.fetch({
+        reset: true
+      });
 
       // Start tracking the history
       var historyOptions = {pushState: true};
