@@ -215,15 +215,20 @@ ul#mapkey li img {
   float: left;
   margin: -8px 0 0 -36px;
 }
-#filter-area {
-  padding 10px 0 10px;
+
+.filter-area {
+  padding: 1em;
+  border-bottom: 3px solid #f5f5f5;
+  background-color: #f5f5f5;
 }
 
 #filter-dropdown {
-  width: 230px;
+  display: block;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: 100%;
+  margin: 0.5em 0 0 0;
 }
-
-
 
 /* =Media Queries
 -------------------------------------------------------------- */
