@@ -19,7 +19,7 @@ from proxy.views import proxy_view
 def make_resource_uri(resource, root):
     resource = resource.strip('/')
     root = root.rstrip('/')
-    uri = '%s/%s/' % (root, resource)
+    uri = '%s/%s' % (root, resource)
     return uri
 
 
