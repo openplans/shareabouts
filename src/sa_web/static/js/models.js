@@ -72,7 +72,15 @@ var Shareabouts = Shareabouts || {};
       this.submissionSets = {};
 
       _.each(this.get('submission_sets'), function(submissions, name) {
-        this.submissionSets[name] = new S.SubmissionCollection(submissions, {
+        var models = [];
+
+        // It's a summary if it's not an array of objects
+        if (_.isArray(submissions)) {
+          models = submissions;
+        }
+
+        this.submissionSets[name] = new S.SubmissionCollection(models, {
+          submissionType: name,
           placeModel: this
         });
       }, this);
@@ -84,27 +92,18 @@ var Shareabouts = Shareabouts || {};
     },
 
     set: function(key, val, options) {
-      var args = normalizeModelArguments(key, val, options),
-          model = this;
+      var args = normalizeModelArguments(key, val, options);
 
-      if (_.isArray(args.attrs.attachments) && this.attachmentCollection && !args.options.ignoreAttachnments) {
+      if (_.isArray(args.attrs.attachments) && this.attachmentCollection && !args.options.ignoreAttachments) {
         this.attachmentCollection.reset(args.attrs.attachments);
       }
 
-      _.each(args.attrs.submissions, function(submissionSet) {
-        var submissionSetName;
-
-        if (_.isArray(submissionSet)) {
-          submissionSetName = _.first(submissionSet).type;
-          // TODO: Figure out a better, more general way to treat submission sets.
-          if (submissionSetName === model.collection.options.responseType && model.responseCollection) {
-            model.responseCollection.reset(submissionSet);
-          }
-          else if (submissionSetName === model.collection.options.supportType && model.supportCollection) {
-            model.supportCollection.reset(submissionSet);
-          }
+      _.each(args.attrs.submission_sets, function(submissions, name) {
+        // It's a summary if it's not an array of objects
+        if (this.submissionSets && this.submissionSets[name] && _.isArray(submissions)) {
+          this.submissionSets[name].reset(submissions);
         }
-      });
+      }, this);
 
       return S.PlaceModel.__super__.set.call(this, args.attrs, args.options);
     },
@@ -132,7 +131,7 @@ var Shareabouts = Shareabouts || {};
         self.saveAttachments();
       }
 
-      options.ignoreAttachnments = true;
+      options.ignoreAttachments = true;
       S.PlaceModel.__super__.save.call(this, attrs, options);
     },
 
