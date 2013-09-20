@@ -228,6 +228,7 @@ ul#mapkey li img {
 
 @media only screen and (min-width: 480px) {
   #site-title {
+    font-size: 1em;
   }
 }
 
@@ -241,6 +242,9 @@ ul#mapkey li img {
   #site-header .access a:hover {
     background: #dbef16; 
     color: #181818;
+  }
+  #site-title {
+    font-size: 1em;
   }
   .access {
     margin-top: 0.5em;
@@ -312,11 +316,13 @@ ul#mapkey li img {
   }
   #site-title {
     height: 5em;
+    font-size: 1em;
   }
 }
 
 @media only screen and (min-width: 1300px) {
   #site-title {
     height: 6em;
+    font-size: 1em;
   }
 }
