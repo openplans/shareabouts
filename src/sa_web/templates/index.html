@@ -166,8 +166,14 @@
         })
       }
     });
+
+    // User object for testing
+    Shareabouts.bootstrapped = {
+      staticUrl: '{{ STATIC_URL }}'
+    };
   </script>
 
+  <script src="{{STATIC_URL}}js/handlebars-helpers.js"></script>
   <script src="{{STATIC_URL}}js/models.js"></script>
   <script src="{{STATIC_URL}}js/views/pages-nav-view.js"></script>
   <script src="{{STATIC_URL}}js/views/activity-view.js"></script>

@@ -46,15 +46,31 @@
               {{#survey_config.items}}
 
                 <div class="survey-field survey-field-{{ name }}">
+                  {{#is_authenticated}}
+                    {{^is_submitter_name}}
+                    <label class="survey-label survey-label-{{ name }}" for="survey-{{ name }}">
+                      {{#_}}{{ prompt }}{{# optional }} (optional){{/ optional }}{{/_}}
+                    </label>
+                    {{/is_submitter_name}}
+                  {{^}}
                   <label class="survey-label survey-label-{{ name }}" for="survey-{{ name }}">
                     {{#_}}{{ prompt }}{{# optional }} (optional){{/ optional }}{{/_}}
                   </label>
+                  {{/is_authenticated}}
 
                   <div class="survey-widgets survey-widgets-{{ name }}">
                     {{#is_input}}
-                    <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-
+                      {{#is_submitter_name}}
+                        {{#is_authenticated}}
+                          <p><img src="{{ current_user "avatar_url" }}" /> {{ current_user "name" }}</p>
+                        {{^}}
+                          <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                        {{/is_authenticated}}
+                      {{^}}
+                        <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                      {{/is_submitter_name}}
                     {{/is_input}}
+
                     {{#is_textarea}}
                     <textarea id="survey-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
                     {{/is_textarea}}

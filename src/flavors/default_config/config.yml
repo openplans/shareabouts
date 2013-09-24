@@ -105,6 +105,13 @@ place:
       attrs:
         - key: accept
           value: image/*
+    - prompt: _(Description)
+      type: textarea
+      name: description
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...)
     - prompt: _(Your Name)
       type: text
       name: submitter_name
@@ -114,13 +121,6 @@ place:
           value: _(Name)
         - key: size
           value: 30
-    - prompt: _(Description)
-      type: textarea
-      name: description
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Description...)
 
 survey:
   submission_type: comments

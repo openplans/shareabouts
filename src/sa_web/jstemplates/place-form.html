@@ -13,11 +13,25 @@
 
             {{# place_config.items }}
             <p>
+              {{#is_authenticated}}
+                {{^is_submitter_name}}
+                <label for="place-{{ name }}">{{ prompt }} {{# optional }}(optional){{/ optional }}</label>
+                {{/is_submitter_name}}
+              {{^}}
               <label for="place-{{ name }}">{{ prompt }} {{# optional }}(optional){{/ optional }}</label>
+              {{/is_authenticated}}
 
-              {{#is_input}}
-              <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-              {{/is_input}}
+              {{#if is_input}}
+                {{#is_submitter_name}}
+                  {{#is_authenticated}}
+                    <p><img src="{{ current_user "avatar_url" }}" /> {{ current_user "name" }}</p>
+                  {{^}}
+                    <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                  {{/is_authenticated}}
+                {{^}}
+                  <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                {{/is_submitter_name}}
+              {{/if}}
 
               {{#is_textarea}}
               <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
