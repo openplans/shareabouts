@@ -1,6 +1,11 @@
       <li class="activity-item clearfix">
         <a href="/place/{{ place.id }}">{{#_}}<strong>
-        {{ target.submitter_name }}
+
+        {{#if target.submitter}}
+          <img src="{{ target.submitter.avatar_url }}" /> {{ target.submitter.name }}
+        {{^}}
+          {{ target.submitter_name }}
+        {{/if}}
         </strong>
 
         {{#if is_place }}

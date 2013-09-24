@@ -4,7 +4,11 @@
           <h1>{{ name }}</h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
-              {{ submitter_name }}
+              {{#if submitter}}
+                <img src="{{ submitter.avatar_url }}" /> {{ submitter.name }}
+              {{^}}
+                {{ submitter_name }}
+              {{/if}}
             </strong> added this {{# place_type_label }}{{ place_type_label }}{{/ place_type_label}}
                                  {{^ place_type_label }}place{{/ place_type_label}}
             {{#region}}
