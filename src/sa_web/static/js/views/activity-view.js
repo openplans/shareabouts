@@ -1,4 +1,4 @@
-/*globals jQuery _ Backbone ich */
+/*globals jQuery _ Backbone Handlebars */
 
 var Shareabouts = Shareabouts || {};
 
@@ -176,7 +176,7 @@ var Shareabouts = Shareabouts || {};
       modelData = this.processActionData(model, placeModel);
 
       if (modelData) {
-        $template = ich['activity-list-item'](modelData);
+        $template = $(Handlebars.templates['activity-list-item'](modelData));
 
         if (index >= this.$el.children().length) {
           this.$el.append($template);
@@ -216,7 +216,7 @@ var Shareabouts = Shareabouts || {};
         }
       });
 
-      $template = ich['activity-list']({activities: collectionData});
+      $template = $(Handlebars.templates['activity-list']({activities: collectionData}));
       self.$el.html($template);
 
       self.checkForNewActivity();

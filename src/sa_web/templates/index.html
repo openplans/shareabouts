@@ -1,4 +1,4 @@
-{% load mustachejs %}
+{% load jstemplate %}
 {% load compress %}
 {% load i18n %}
 {% load shareabouts_utils %}
@@ -130,8 +130,7 @@
   {% compress js %}
   <script src="{{STATIC_URL}}libs/underscore.js"></script>
   <script src="{{STATIC_URL}}libs/backbone.js"></script>
-  <script src="{{STATIC_URL}}libs/mustache.js"></script>
-  <script src="{{STATIC_URL}}libs/ICanHaz-no-mustache.min.js"></script>
+  <script src="{{STATIC_URL}}libs/handlebars-1.0.0.js"></script>
   <script src="{{STATIC_URL}}libs/moment.min.js"></script>
   <script src="{{STATIC_URL}}libs/json2.js"></script>
   <script src="{{STATIC_URL}}libs/argo/views.js"></script>
@@ -183,19 +182,8 @@
   <script src="{{STATIC_URL}}js/hide-address-bar.js"></script>
   {% endcompress %}
 
-  {% mustacheich "place-form" %}
-  {% mustacheich "place-detail" %}
-  {% mustacheich "place-detail-survey" %}
-  {% mustacheich "place-detail-support" %}
-  {% mustacheich "place-detail-promotion-bar" %}
-  {% mustacheich "activity-list-item" %}
-  {% mustacheich "activity-list" %}
-  {% mustacheich "pages-nav-item" %}
-  {% mustacheich "pages-nav" %}
-  {% mustacheich "unsupported-overlay" %}
-  {% mustacheich "add-places" %}
-
-  {% mustacheich "pages/*" %}
+  {% handlebarsjs '(.*)' precompile register_partials %}
+  {% handlebarsjs 'pages/*' precompile %}
 
   <script type="text/javascript">
   // moment.lang({{locale}});

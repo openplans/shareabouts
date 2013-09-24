@@ -128,7 +128,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     # 3rd-party reusaple apps
-    'mustachejs',
+    'jstemplate',
     'compressor',
 
     # Project apps

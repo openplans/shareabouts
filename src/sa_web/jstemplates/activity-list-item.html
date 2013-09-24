@@ -1,18 +1,20 @@
       <li class="activity-item clearfix">
-          <a href="/place/{{ place.id }}">{{#_}}<strong>
-          {{ target.submitter_name }}
-          </strong>
-        {{# target }}
-          {{# is_place }}
-            {{ action }} a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }} <span class="place-type">{{ place.place_type_label }}</span>
-            {{# place.name }} named <span class="place-name">{{ place.name }}</span>{{/ place.name }}
-          {{/ is_place }}
+        <a href="/place/{{ place.id }}">{{#_}}<strong>
+        {{ target.submitter_name }}
+        </strong>
 
-          {{^ is_place }}
-            {{ action }}
-            {{# place.name }}<span class="place-name">{{ place.name }}</span>{{/ place.name }}
-            {{^ place.name }}a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }} {{ place.place_type_label }}{{/ place.name }}
-          {{/ is_place }}
-          {{/_}}</a>
-        {{/ target }}
+        {{#if is_place }}
+          {{ action }} a{{#if place.type_starts_with_vowel }}n{{/if }} <span class="place-type">{{ place.place_type_label }}</span>
+          {{#if place.name }} named <span class="place-name">{{ place.name }}</span>{{/if }}
+        {{else}}
+          {{ action }}
+
+          {{#if place.name }}
+            <span class="place-name">{{ place.name }}</span>
+          {{else}}
+            a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }} {{ place.place_type_label }}
+          {{/if }}
+
+        {{/if }}
+        {{/_}}</a>
       </li>

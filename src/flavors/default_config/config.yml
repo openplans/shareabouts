@@ -165,6 +165,6 @@ pages:
     slug: features
     url: /static/pages/features.html
 
-  - title: _(Feedback)
+  - title: _(GitHub)
     external: true
-    url: https://openplans.zendesk.com/anonymous_requests/new
+    url: https://github.com/openplans/shareabouts

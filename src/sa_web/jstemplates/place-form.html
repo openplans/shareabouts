@@ -26,12 +26,11 @@
               {{#is_select}}
               <select id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
                 {{# options }}
-                  {{#label}}
+                  {{#if label}}
                   <option value="{{value}}">{{label}}</option>
-                  {{/label}}
-                  {{^label}}
+                  {{else}}
                   <option value="{{.}}">{{.}}</option>
-                  {{/label}}
+                  {{/if}}
                 {{/ options }}
               </select>
               {{/is_select}}

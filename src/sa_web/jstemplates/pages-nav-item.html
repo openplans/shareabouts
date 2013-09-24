@@ -1,24 +1,21 @@
 <li class="menu-item{{# slug }} internal-menu-item menu-item-{{ slug }}{{/ slug }}">
 
-  {{# external }}
+  {{#if external }}
     <a href="{{ url }}">{{ title }}</a>
-  {{/ external }}
-
-  {{^ external }}
-    {{# slug }}
+  {{else }}
+    {{#if slug }}
       <a href="/page/{{ slug }}">{{ title }}</a>
-    {{/ slug }}
-    {{^ slug }}
+    {{else }}
       <a>{{ title }}</a>
-    {{/ slug }}
-  {{/ external }}
+    {{/if }}
+  {{/if }}
 
-  {{^ url }}
+  {{#unless url }}
     <ul>
     {{# sub_pages }}
       {{> pages-nav-item }}
     {{/ sub_pages }}
     </ul>
-  {{/ url }}
+  {{/unless }}
 
 </li>

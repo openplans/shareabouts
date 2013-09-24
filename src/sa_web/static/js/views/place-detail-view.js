@@ -71,7 +71,7 @@ var Shareabouts = Shareabouts || {};
       // Augment the template data with the attachments list
       data.attachments = this.model.attachmentCollection.toJSON();
 
-      this.$el.html(ich['place-detail'](data));
+      this.$el.html(Handlebars.templates['place-detail'](data));
 
       // Render the view as-is (collection may have content already)
       this.$('.survey').html(this.surveyView.render().$el);

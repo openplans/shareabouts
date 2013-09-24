@@ -18,10 +18,11 @@ var Shareabouts = Shareabouts || {};
     render: function(){
       // Augment the model data with place types for the drop down
       var data = _.extend({
-        place_config: this.options.placeConfig
+        place_config: this.options.placeConfig,
+        current_user: S.currentUser
       }, this.model.toJSON());
 
-      this.$el.html(ich['place-form'](data));
+      this.$el.html(Handlebars.templates['place-form'](data));
       return this;
     },
     remove: function() {

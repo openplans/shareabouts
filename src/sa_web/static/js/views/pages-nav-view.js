@@ -1,3 +1,5 @@
+/*globals jQuery _ Handlebars Backbone */
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
@@ -12,8 +14,8 @@ var Shareabouts = Shareabouts || {};
             pages: this.options.pagesConfig,
             has_pages: (this.options.pagesConfig.length > 0)
           },
-          $template = ich['pages-nav'](data);
-      this.$el.html($template);
+          template = Handlebars.templates['pages-nav'](data);
+      this.$el.html(template);
 
       return this;
     },
@@ -32,4 +34,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+}(Shareabouts, jQuery, Shareabouts.Util.console));

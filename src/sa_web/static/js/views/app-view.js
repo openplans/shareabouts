@@ -26,7 +26,7 @@ var Shareabouts = Shareabouts || {};
       this.collection.on('remove', this.onRemovePlace, this);
 
       // Only append the tools to add places (if supported)
-      $('#map-container').append(ich['add-places'](this.options.placeConfig));
+      $('#map-container').append(Handlebars.templates['add-places'](this.options.placeConfig));
 
       this.pagesNavView = (new S.PagesNavView({
               el: '#pages-nav-container',
@@ -230,7 +230,7 @@ var Shareabouts = Shareabouts || {};
       });
 
       this.$panel.removeClass().addClass('page page-' + slug);
-      this.showPanel(ich['pages/' + (pageConfig.name || pageConfig.slug)]);
+      this.showPanel(Handlebars.templates['pages/' + (pageConfig.name || pageConfig.slug)]);
 
       this.hideNewPin();
       this.destroyNewModels();
