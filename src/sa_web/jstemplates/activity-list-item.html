@@ -2,9 +2,10 @@
         <a href="/place/{{ place.id }}">{{#_}}<strong>
 
         {{#if target.submitter}}
-          <img src="{{ target.submitter.avatar_url }}" /> {{ target.submitter.name }}
+          <img src="{{ target.submitter.avatar_url }}" class="avatar" /> {{ target.submitter.name }}
         {{^}}
-          {{ target.submitter_name }}
+          <!-- TODO: FIXME: don't hardcode image URL -->
+          <img src="/static/css/images/user-50.png" class="avatar" /> {{ target.submitter_name }}
         {{/if}}
         </strong>
 

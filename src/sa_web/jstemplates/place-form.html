@@ -24,7 +24,7 @@
               {{#if is_input}}
                 {{#is_submitter_name}}
                   {{#is_authenticated}}
-                    <p><img src="{{ current_user "avatar_url" }}" /> {{ current_user "name" }}</p>
+                    <p class="signed-in-as"><img src="{{ current_user "avatar_url" }}" class="avatar" /> {{ current_user "name" }}</p>
                   {{^}}
                     <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
                   {{/is_authenticated}}

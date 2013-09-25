@@ -276,6 +276,21 @@ body {
   background: url(images/twitter-login-16.gif) 0 0 no-repeat scroll;
 }
 
+.avatar {
+  width: 40px;
+  height: 40px;
+}
+.signed-in-as {
+  line-height: 2;
+}
+.signed-in-as .avatar {
+  width: 2em;
+  height: 2em;
+  float: left;
+  margin: 0 0.5em 0.75em 0;
+}
+
+
 /* Main (map & content, does not include ticker) */
 #main {
 }
@@ -646,8 +661,10 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 textarea {
-  width: 80%;
-  height: 4.5em;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  width: 100%;
+  height: 6.5em;
   resize: vertical;
 }
 .required {
@@ -785,9 +802,17 @@ textarea {
 .place-header {
   margin-bottom: 1em;
 }
-.place-header .response-submitter {
-  font-size: 16px;
+.place-submission-details {
+  display: block;
+  padding-left: 2.5em;
 }
+.point-submitter .avatar {
+  width: 2em;
+  height: 2em;
+  float: left;
+  margin-left: -2.5em;
+}
+.response-date {}
 .description {
   font-size: 16px;
   line-height: 26px;
@@ -845,13 +870,16 @@ article.response {
 .response-header {
   line-height: 1.4;
   margin-bottom: 1em;
+  padding-left: 2.5em;
 }
-.avatar {
+.response-submitter {}
+.response-submitter .avatar {
+  width: 2em;
+  height: 2em;
   float: left;
-  margin-right: 1.2em;
+  margin-left: -2.5em;
 }
-.response-meta {
-}
+.response-meta {}
 .response-body {
   border-bottom: 1px solid #ddd;
   padding-bottom: 1em;
@@ -911,14 +939,12 @@ ul.recent-points {
 .recent-points li:hover {
   background: #606060;
 }
-.recent-points .avatar {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
 .recent-points a {
-  display: block;
-  padding: 10px 10px 10px 10px;
+  float: left;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  width: 100%;
+  padding: 10px 10px 10px 50px;
   color: #ddd;
   text-decoration: none;
   position: relative;
@@ -926,6 +952,12 @@ ul.recent-points {
 }
 .recent-points a:hover {
   color: #fff;
+}
+.recent-points .avatar {
+  width: 30px;
+  height: 30px;
+  float: left;
+  margin-left: -40px;
 }
 .recent-points .badge {
   background: transparent url(images/ticker-point.png) 0 0 no-repeat scroll;

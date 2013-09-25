@@ -14,9 +14,10 @@
                 <header class="response-header clearfix">
                   {{#_}}<strong class="response-submitter">
                     {{#if submitter}}
-                      <img src="{{ submitter.avatar_url }}" /> {{ submitter.name }}
+                      <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
                     {{^}}
-                      {{ submitter_name }}
+                      <!-- TODO: FIXME: don't hardcode image URL -->
+                      <img src="/static/css/images/user-50.png" class="avatar" /> {{ submitter_name }}
                     {{/if}}
                   </strong>
                   <span class="response-date">
@@ -66,7 +67,7 @@
                     {{#is_input}}
                       {{#is_submitter_name}}
                         {{#is_authenticated}}
-                          <p><img src="{{ current_user "avatar_url" }}" /> {{ current_user "name" }}</p>
+                          <p class="signed-in-as"><img src="{{ current_user "avatar_url" }}" class="avatar" /> {{ current_user "name" }}</p>
                         {{^}}
                           <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
                         {{/is_authenticated}}
