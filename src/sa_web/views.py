@@ -25,13 +25,27 @@ def make_resource_uri(resource, root):
 
 class ShareaboutsApi (object):
     def __init__(self, root):
-        self.root = root
+        self.dataset_root = root
+
+        components = root.split('/')
+        if root.endswith('/'):
+            auth_root = '/'.join(components[:-4] + ['users', ''])
+        else:
+            auth_root = '/'.join(components[:-3] + ['users', ''])
+
+        self.auth_root = auth_root
 
     def get(self, resource, default=None, **kwargs):
-        uri = make_resource_uri(resource, root=self.root)
+        uri = make_resource_uri(resource, root=self.dataset_root)
         res = requests.get(uri, params=kwargs,
                            headers={'Accept': 'application/json'})
         return (res.text if res.status_code == 200 else default)
+
+    def current_user(self, default=u'{}', **kwargs):
+        uri = make_resource_uri('current', root=self.auth_root)
+        res = requests.get(uri, headers={'Accept': 'application/json'}, **kwargs)
+
+        return (res.text if res.status_code == 200 else default)            
 
 
 @ensure_csrf_cookie
@@ -53,6 +67,8 @@ def index(request, default_place_type):
 
     # TODO These requests should be done asynchronously (in parallel).
     places_json = api.get('places', default=u'[]')
+    current_user_json = api.current_user(cookies=request.COOKIES)
+    logged_in = (current_user_json != '{}')
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
@@ -78,6 +94,8 @@ def index(request, default_place_type):
     user_agent_json = json.dumps(user_agent)
 
     context = {'places_json': places_json,
+               'current_user_json': current_user_json,
+               'logged_in': logged_in,
 
                'config': config,
 

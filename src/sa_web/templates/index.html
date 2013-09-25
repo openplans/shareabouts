@@ -80,6 +80,15 @@
       </nav>
     </div> <!-- .language-picker -->
     {% endif %}
+
+    {% if not logged_in %}
+    <ul class="menu">
+      <li class="menu-item">
+        <a class="auth" href="/users/login/twitter/">Log in with Twitter</a>
+        <a class="auth" href="/users/login/facebook/">Log in with Facebook</a>
+      </li>
+    </ul>
+    {% endif %}
   </header>
 
   <div class="unsupported-overlay"></div>
@@ -169,7 +178,8 @@
 
     // User object for testing
     Shareabouts.bootstrapped = {
-      staticUrl: '{{ STATIC_URL }}'
+      staticUrl: '{{ STATIC_URL }}',
+      currentUser: {{ current_user_json|safe }}
     };
   </script>
 
