@@ -102,6 +102,25 @@ def api(request, path):
     return proxy_view(request, url, requests_args={'headers': headers})
 
 
+def users(request, path):
+    """
+    A small proxy for a Shareabouts API server, exposing only
+    user authentication.
+    """
+    root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    api_key = settings.SHAREABOUTS.get('DATASET_KEY')
+
+    components = root.split('/')
+    if root.endswith('/'):
+        auth_root = '/'.join(components[:-4] + ['users', ''])
+    else:
+        auth_root = '/'.join(components[:-3] + ['users', ''])
+
+    url = make_resource_uri(path, auth_root)
+    headers = {'X-Shareabouts-Key': api_key}
+    return proxy_view(request, url, requests_args={'headers': headers, 'allow_redirects': False})
+
+
 def csv_download(request, path):
     """
     A small proxy for a Shareabouts API server, exposing only
