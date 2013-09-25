@@ -7,7 +7,10 @@ describe('activity-view.js', function() {
       var router = new Backbone.Router();
 
       activityCollection = new Backbone.Collection(Shareabouts.SpecData.activityCollectionData);
-      placeCollection = new Shareabouts.PlaceCollection(Shareabouts.SpecData.placeCollectionData);
+      placeCollection = new Shareabouts.PlaceCollection(Shareabouts.SpecData.placeCollectionData, {
+        responseType: 'comments',
+        supportType: 'supports'
+      });
 
       activityView = new Shareabouts.ActivityView({
         collection: activityCollection,
