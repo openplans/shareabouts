@@ -67,8 +67,6 @@ def index(request, default_place_type):
 
     # TODO These requests should be done asynchronously (in parallel).
     places_json = api.get('places', default=u'[]')
-    current_user_json = api.current_user(cookies=request.COOKIES)
-    logged_in = (current_user_json != '{}')
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
@@ -94,8 +92,6 @@ def index(request, default_place_type):
     user_agent_json = json.dumps(user_agent)
 
     context = {'places_json': places_json,
-               'current_user_json': current_user_json,
-               'logged_in': logged_in,
 
                'config': config,
 
@@ -103,6 +99,8 @@ def index(request, default_place_type):
                'pages_config_json': pages_config_json,
                'user_agent_json': user_agent_json,
                'default_place_type': validated_default_place_type,
+
+               'AUTH_ROOT': api.auth_root,
                }
     return render(request, 'index.html', context)
 
