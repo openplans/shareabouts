@@ -81,14 +81,16 @@
     </div> <!-- .language-picker -->
     {% endif %}
 
-    {% if not logged_in %}
     <ul class="menu">
       <li class="menu-item">
+        {% if not logged_in %}
         <a class="auth" href="/users/login/twitter/">Log in with Twitter</a>
         <a class="auth" href="/users/login/facebook/">Log in with Facebook</a>
+        {% else %}
+        <a class="auth" href="/users/logout/">Log out</a>
+        {% endif %}
       </li>
     </ul>
-    {% endif %}
   </header>
 
   <div class="unsupported-overlay"></div>
