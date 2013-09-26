@@ -313,6 +313,10 @@ a.reply-link:hover {
   display: block;
 }
 
+.edit-link {
+  font-size: x-small;
+  text-align: right;
+}
 
 /* =Voting & Social Promotion
 -------------------------------------------------------------- */

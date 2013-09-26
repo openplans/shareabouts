@@ -5,7 +5,7 @@
 </header>
   
 <section class="place-items">
-  <p>A <span class="place-submission-details {{ location_type }}">{{ place_type_label }}</span>.</p>
+  <p>Request type: <span class="place-submission-details">{{ place_type_label }}</span>.</p>
 
   {{# year }}
   <p>Requested by {{ submitter_name }} in <span class="submission-year">{{ year }}</span>.</p>
@@ -33,3 +33,5 @@
 {{#survey_config}}
 <section class="survey"></section>
 {{/survey_config}}
+
+<p class="edit-link"><a href="http://api.shareabouts.org/manage/cb6/datasets/cb6capex/places/{{ id }}">Admin </a></p>
