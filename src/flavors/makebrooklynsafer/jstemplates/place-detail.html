@@ -5,8 +5,16 @@
 </header>
   
 <section class="place-items">
-  <p>A <span class="place-submission-details {{ location_type }}">{{ place_type_label }}</span> identified by {{ submitter_name }} <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.</p>
+  <p>A <span class="place-submission-details {{ location_type }}">{{ place_type_label }}</span>.</p>
+
+  {{# year }}
+  <p>Requested by {{ submitter_name }} in <span class="submission-year">{{ year }}</span>.</p>
+  {{/year }}
   
+  {{^year }}
+  <p>Identified by {{ submitter_name }} <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.
+ {{/year }}
+    
   {{# status }}
   <p><span class="submission-status">{{ status }}</span></p>
   {{/status }}
