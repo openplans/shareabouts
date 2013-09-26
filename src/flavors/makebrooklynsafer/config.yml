@@ -12,9 +12,9 @@ map:
   geolocation_enabled: true
   options:
     center:
-      lat: 32.8331245
+      lat: 32.838
       lng: -83.6471455
-    zoom: 16
+    zoom: 15
     minZoom: 14
     maxZoom: 17
   base_layer:
@@ -120,7 +120,7 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: Share an idea
+  add_button_label: Share Your Idea
   title: Describe your idea...
   action_text: shared
   anonymous_name: Someone
@@ -218,7 +218,7 @@ support:
   anonymous_name: Someone
 
 pages:
-  - title: About
+  - title: More Info
     slug: about
     name: overview
     start_page: false
