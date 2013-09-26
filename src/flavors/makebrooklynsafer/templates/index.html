@@ -1,0 +1,268 @@
+{% load mustachejs %}
+{% load compress %}
+{% load i18n %}
+{% load shareabouts_utils %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE7">
+
+  <title>{{ config.app.title }}</title>
+  <meta name="description" content="{{ config.app.meta_description }}">
+  <meta name="author" content="OpenPlans.org">
+
+  <!-- Mobile Viewport Fix -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
+  <link rel="shortcut icon" href="{{ config.static_url }}css/images/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ config.static_url }}css/images/apple-touch-icon-144x144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ config.static_url }}css/images/apple-touch-icon-114x114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ config.static_url }}css/images/apple-touch-icon-72x72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/apple-touch-icon-precomposed.png">
+
+  <!-- Google WebFonts -->
+  <!-- We shouldn't include this if the custom stylesheet overrides the #site-title font. -->
+  <link href='http://fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="{{ config.static_url }}css/custom.css">
+
+  <link rel="profile" href="http://gmpg.org/xfn/11" />
+
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css" />
+  <!--[if lte IE 8]>
+      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.ie.css" />
+  <![endif]-->
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+  <![endif]-->
+
+</head>
+<body>
+
+  <header id="site-header" class="clearfix">
+    <h1 id="site-title"><a href="/"><img id="site-logo" src="{{ config.static_url }}css/images/cha-hi-res-xparent.png"><span id="site-name">{{ config.app.name }}</span></a></h1>
+    <div id="pages-nav-container"></div>
+
+    {% if config.languages %}
+    <div id="language-picker">
+      <nav class="access" role="article">
+        <ul class="menu">
+          <li class="menu-item">
+            {% get_language_info for LANGUAGE_CODE as language %}
+            <a class="current-language {{ LANGUAGE_CODE }}">{{ language.name_local }} ⌄</a>
+
+            <form action="{% url 'set_language' %}" method="post">
+              {% csrf_token %}
+              <ul class="menu">
+                {% for language in config.languages %}
+                <li class="menu-item">
+                  <button type="submit" name="language" value="{{ language.code }}" class="{{ language.code }}">{{ language.label }}</button>
+                </li>
+                {% endfor %}
+              </ul>
+            </form>
+          </li>
+        </ul>
+      </nav>
+    </div> <!-- .language-picker -->
+    {% endif %}
+  </header>
+
+  <div class="unsupported-overlay"></div>
+
+  <div role="main" id="main">
+    <noscript>
+      <div class="noscript">
+      <h3>
+        {% blocktrans %}
+        Oops, {{ config.app.name}} needs JavaScript to achieve full awesomeness.
+        {% endblocktrans %}
+      </h3>
+      <p>
+        {% blocktrans %}
+        {{ config.app.name }} is great but it needs something called JavaScript to work
+        properly. But fear not, it's really easy to turn on. Click
+        <a href="http://enable-javascript.com/" target="_blank">here</a> for simple instructions!
+        {% endblocktrans %}
+      </p>
+      </div>
+    </noscript>
+
+    <div id="map-container">
+      <div id="ajax-error-msg">
+        {% blocktrans %}Blast! We can't connect to the server. Hang tight while we re-establish communication with the mothership.{% endblocktrans %}</div>
+      <div id="map"></div>
+    </div>
+
+    <div id="content"><!-- .place or .page -->
+      <a href="#" class="close-bttn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
+      <article></article>
+    </div><!-- end #content -->
+  </div><!-- end #main -->
+
+  <div id="ticker">
+    <ul class="recent-points"></ul>
+  </div>
+  <p id="powered-by">{% blocktrans %}Powered by{% endblocktrans %} <a href="http://shareabouts.org/" class="shareabouts-logo">Shareabouts</a>, <span class="nowrap">a project of <a href="http://openplans.org/" class="openplans-logo">OpenPlans</a>.</span></p>
+
+  <footer id="colophon">
+  </footer>
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.7.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
+  <script src="http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js"></script>
+
+  {% compress js %}
+  <script src="{{STATIC_URL}}libs/underscore-min.js"></script>
+  <script src="{{STATIC_URL}}libs/backbone-min.js"></script>
+  <script src="{{STATIC_URL}}libs/mustache.js"></script>
+  <script src="{{STATIC_URL}}libs/ICanHaz-no-mustache.min.js"></script>
+  <script src="{{STATIC_URL}}libs/moment.min.js"></script>
+  <script src="{{STATIC_URL}}libs/json2.js"></script>
+  <script src="{{STATIC_URL}}libs/argo/views.js"></script>
+  <script src="{{STATIC_URL}}libs/binaryajax.js"></script>
+  <script src="{{STATIC_URL}}libs/exif.js"></script>
+  <script src="{{STATIC_URL}}libs/load-image.min.js"></script>
+  <script src="{{STATIC_URL}}libs/canvas-to-blob.min.js"></script>
+
+  <script src="{{STATIC_URL}}js/utils.js"></script>
+  <script src="{{STATIC_URL}}js/template-helpers.js"></script>
+
+  <script>
+    $(function() {
+      // Check official browser support.
+      var userAgent = {{ user_agent_json|safe }};
+
+      if (!Shareabouts.Util.isSupported(userAgent)) {
+        var userAgentData = userAgent,
+            $unsupportedEl = $('.unsupported-overlay'),
+            unsupportedHtml;
+
+        userAgentData['is_ie'] = (userAgent.browser.name === 'Microsoft Internet Explorer');
+        unsupportedHtml = ich['unsupported-overlay'](userAgentData);
+
+        $unsupportedEl.hide()
+        $unsupportedEl.html(unsupportedHtml);
+        $unsupportedEl.slideDown();
+
+        $unsupportedEl.find('.close-bttn').click(function(evt) {
+          evt.preventDefault();
+          $unsupportedEl.slideUp();
+          return false;
+        })
+      }
+    });
+  </script>
+
+  <script src="{{STATIC_URL}}js/models.js"></script>
+  <script src="{{STATIC_URL}}js/views/pages-nav-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/activity-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/app-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/layer-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/map-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/support-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
+  <script src="{{STATIC_URL}}js/routes.js"></script>
+  <script src="{{STATIC_URL}}js/hide-address-bar.js"></script>
+  {% endcompress %}
+
+  {% mustacheich "place-form" %}
+  {% mustacheich "place-detail" %}
+  {% mustacheich "place-detail-survey" %}
+  {% mustacheich "place-detail-support" %}
+  {% mustacheich "place-detail-promotion-bar" %}
+  {% mustacheich "activity-list-item" %}
+  {% mustacheich "activity-list" %}
+  {% mustacheich "pages-nav-item" %}
+  {% mustacheich "pages-nav" %}
+  {% mustacheich "unsupported-overlay" %}
+  {% mustacheich "add-places" %}
+
+  {% mustacheich "pages/*" %}
+
+  <script type="text/javascript">
+  // moment.lang({{locale}});
+
+  (function(S, $){
+    // Boostrapping the place types and their icons
+    var placeConfig = {{ config.place|as_json }},
+        placeTypesConfig = {{ config.place_types|as_json }},
+        placeTypeIconsConfig = {{ config.place_type_icons|as_json }},
+        placeTypeIcons = {},
+        placeTypes = {},
+
+        surveyConfig = {{ config.survey|as_json }},
+        supportConfig = {{ config.support|as_json }},
+        mapConfig = {{ config.map|as_json }},
+        activityConfig = {{ config.activity|as_json }},
+
+        pagesConfig = {{ pages_config_json|safe }},
+        defaultPlaceTypeName = '{{ default_place_type }}';
+
+    // Define each Leaflet Icon type
+    _.each(placeTypeIconsConfig, function(config, name) {
+      placeTypeIcons[name] = L.icon({
+        iconUrl: config.iconUrl,
+        shadowUrl: config.shadowUrl,
+        iconSize: new L.Point(config.iconSize.width, config.iconSize.height),
+        iconAnchor: new L.Point(config.iconAnchor.x, config.iconAnchor.y),
+        popupAnchor: new L.Point(config.iconAnchor.x, config.iconAnchor.y)
+      });
+    });
+
+    // Init each icon and attach it to its type
+    _.each(placeTypesConfig, function(config, name) {
+
+      if (!defaultPlaceTypeName || name.toLowerCase() === defaultPlaceTypeName.toLowerCase()) {
+        placeTypes[name] = _.extend(config, {
+          'default': placeTypeIcons[config['default']],
+          'focused': placeTypeIcons[config.focused]
+        });
+
+        // Update in case if there is a case issue
+        if(defaultPlaceTypeName) {
+          defaultPlaceTypeName = name;
+        }
+      }
+    });
+
+    $(function() {
+      // Ready set go!
+      window.app = new Shareabouts.App({
+        defaultPlaceTypeName: defaultPlaceTypeName,
+        places: {{ places_json|safe }},
+        activity: [],
+        userToken: {{ user_token_json|safe }},
+        placeTypes: placeTypes,
+        surveyConfig: surveyConfig,
+        supportConfig: supportConfig,
+        pagesConfig: pagesConfig,
+        mapConfig: mapConfig,
+        placeConfig: placeConfig,
+        activityConfig: activityConfig
+      });
+    });
+  })(Shareabouts, jQuery);
+  </script>
+
+  {% include "includes.html" %}
+
+</body>
+</html>

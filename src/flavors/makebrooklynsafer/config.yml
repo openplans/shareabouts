@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Your Ideas to Improve the College Hill Corridor
+  title: College Hill Corridor Idea Map
   # Header name
-  name: Your Ideas to Improve the College Hill Corridor
+  name: College Hill Corridor Idea Map
   # Meta description that will show up in Google search results
   meta_description:  "Your Ideas to Improve the College Hill Corridor."
 
