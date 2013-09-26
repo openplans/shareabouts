@@ -25,30 +25,30 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  building:
+  building-approved:
     default: building-gold
     focused: building-gold-focused
-    label: _(Building/Facility Need)
-  street:
-    default: cone-gold
-    focused: cone-gold-focused
-    label: _(Roadway/Streetscape Need)
-  park:
-    default: tree-gold
-    focused: tree-gold-focused
-    label: _(Park/Open Space Need)
-  building-approved:
-    default: building
-    focused: building-focused
     label: _(Approved Building/Facility)
   street-approved:
-    default: cone
-    focused: cone-focused
+    default: cone-gold
+    focused: cone-gold-focused
     label: _(Approved Roadway/Streetscape)
   park-approved:
+    default: tree-gold
+    focused: tree-gold-focused
+    label: _(ApprovedPark/Open Space)
+  building:
+    default: building
+    focused: building-focused
+    label: _(Building/Facility Need)
+  street:
+    default: cone
+    focused: cone-focused
+    label: _(Roadway/Streetscape Need)
+  park:
     default: tree
     focused: tree-focused
-    label: _(Approved Park/Open Space)
+    label: _(Park/Open Space Need)
   building-rejected:
     default: building-gray
     focused: building-gray-focused
@@ -303,7 +303,16 @@ place:
         - label: _(Park/Open Space Need)
           value: park
       name: location_type
-    - prompt: Description
+    - prompt: _(Short description of the need)
+      type: text
+      name: project_title
+      optional: false
+      attrs:
+        - key: size
+          value: 30
+        - key: placeholder
+          value: _(What and where?)
+    - prompt: _(Explain more about the need)
       type: textarea
       name: description
       optional: false
@@ -317,7 +326,7 @@ place:
       attrs:
         - key: size
           value: 30
-    - prompt: Your Email
+    - prompt: _(Your Email (will not be shown on the map))
       type: text
       name: private-email
       attrs:
@@ -345,14 +354,14 @@ survey:
       optional: false
       attrs:
         - key: placeholder
-          value: Give us a brief description of the problem or place, and the approximate time and day when you pass by here.
+          value: _(What's your reaction to the proposal?)
     - prompt: Your Name
       type: text
       name: submitter_name
       optional: false
       attrs:
         - key: placeholder
-          value: You must leave name to have your comment be visible to others.
+          value: _(Will be visible with your comment)
         - key: size
           value: 30
 
