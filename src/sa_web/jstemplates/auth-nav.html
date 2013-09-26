@@ -1,0 +1,17 @@
+<nav class="access" role="article">
+  <ul class="menu">
+    <li class="menu-item">
+      {{# is_authenticated }}
+      <a class="auth" href="/users/logout/">
+        <img class="avatar" src="{{ current_user "avatar_url" }}"> {{ current_user "name" }},
+        Log out</a>
+      {{ else }}
+      <a class="current-language {{ LANGUAGE_CODE }}">Log in... ⌄</a>
+      <ul class="menu">
+        <li class="menu-item"><a class="auth" href="/users/login/twitter/">Log in with Twitter</a></li>
+        <li class="menu-item"><a class="auth" href="/users/login/facebook/">Log in with Facebook</a></li>
+      </ul>
+      {{/ is_authenticated }}
+    </li>
+  </ul>
+</nav>
