@@ -81,16 +81,7 @@
     </div> <!-- .language-picker -->
     {% endif %}
 
-    <ul class="menu">
-      <li class="menu-item">
-        {% if not logged_in %}
-        <a class="auth" href="/users/login/twitter/">Log in with Twitter</a>
-        <a class="auth" href="/users/login/facebook/">Log in with Facebook</a>
-        {% else %}
-        <a class="auth" href="/users/logout/">Log out</a>
-        {% endif %}
-      </li>
-    </ul>
+    <div id="auth-nav-container"></div>
   </header>
 
   <div class="unsupported-overlay"></div>
@@ -188,6 +179,7 @@
   <script src="{{STATIC_URL}}js/handlebars-helpers.js"></script>
   <script src="{{STATIC_URL}}js/models.js"></script>
   <script src="{{STATIC_URL}}js/views/pages-nav-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/auth-nav-view.js"></script>
   <script src="{{STATIC_URL}}js/views/activity-view.js"></script>
   <script src="{{STATIC_URL}}js/views/app-view.js"></script>
   <script src="{{STATIC_URL}}js/views/layer-view.js"></script>

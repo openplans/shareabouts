@@ -41,7 +41,7 @@ class ShareaboutsApi (object):
                            headers={'Accept': 'application/json'})
         return (res.text if res.status_code == 200 else default)
 
-    def current_user(self, default=u'{}', **kwargs):
+    def current_user(self, default=u'null', **kwargs):
         uri = make_resource_uri('current', root=self.auth_root)
         res = requests.get(uri, headers={'Accept': 'application/json'}, **kwargs)
 

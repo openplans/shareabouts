@@ -34,6 +34,11 @@ var Shareabouts = Shareabouts || {};
               router: this.options.router
             })).render();
 
+      this.authNavView = (new S.AuthNavView({
+              el: '#auth-nav-container',
+              router: this.options.router
+            })).render();
+
       // Activity is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
       if (_.isUndefined(this.options.activityConfig.enabled) ||
