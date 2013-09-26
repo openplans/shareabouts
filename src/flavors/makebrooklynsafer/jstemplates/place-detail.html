@@ -1,0 +1,27 @@
+{{> place-detail-promotion-bar }}
+
+<header class="place-header clearfix">
+  <h1>{{ project_title }}</h1>
+</header>
+  
+<section class="place-items">
+  <p>A <span class="place-submission-details {{ location_type }}">{{ place_type_label }}</span> identified by {{ submitter_name }} <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.</p>
+  
+  {{# status }}
+  <p><span class="submission-status">{{ status }}</span></p>
+  {{/status }}
+  
+  <p><strong>Description</strong> {{ description }}</p>
+
+  {{# agency }}
+  <p><strong>Responsible agency</strong> <span class="submission-agency">{{ agency }}</span></p>
+  {{/agency }}
+  
+  </span>
+  
+  </section>
+
+
+{{#survey_config}}
+<section class="survey"></section>
+{{/survey_config}}
