@@ -55,13 +55,25 @@ var Shareabouts = Shareabouts || {};
     onSubmit: function(evt) {
       evt.preventDefault();
       var $form = this.$('form'),
+          $button = this.$('[name="commit"]'),
           attrs = S.Util.getAttrs($form);
 
-      // Create a model with the attributes from the form
-      this.collection.create(attrs);
+      // Disable the submit button until we're done, so that the user doesn't
+      // over-click it
+      $button.attr('disabled', 'disabled');
 
-      // Clear the form
-      $form.get(0).reset();
+      // Create a model with the attributes from the form
+      this.collection.create(attrs, {
+        wait: true,
+        success: function() {
+          // Clear the form
+          $form.get(0).reset();
+        },
+        complete: function() {
+          // No matter what, enable the button
+          $button.removeAttr('disabled');
+        }
+      });
     },
 
     onReplyClick: function(evt) {
