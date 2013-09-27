@@ -7,6 +7,14 @@ var Shareabouts = Shareabouts || {};
     return NS.bootstrapped.staticUrl;
   });
 
+  Handlebars.registerHelper('debug', function(value) {
+    if (typeof(value) === typeof({})) {
+      return JSON.stringify(value, null, 4);
+    } else {
+      return value;
+    }
+  });
+
   // Current user -------------------------------------------------------------
 
   Handlebars.registerHelper('is_authenticated', function(options) {
