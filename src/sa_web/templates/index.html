@@ -260,7 +260,10 @@
         defaultPlaceTypeName: defaultPlaceTypeName,
         places: {{ places_json|safe }},
         activity: [],
-        userToken: {{ user_token_json|safe }},
+        userToken: (
+          Shareabouts.bootstrapped.currentUser ?
+          'user:' + Shareabouts.bootstrapped.currentUser.id :
+          {{ user_token_json|safe }}),
         placeTypes: placeTypes,
         surveyConfig: surveyConfig,
         supportConfig: supportConfig,
