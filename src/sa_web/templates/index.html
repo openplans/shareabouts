@@ -168,8 +168,10 @@
         })
       }
     });
+  </script>
 
-    // User object for testing
+  <!-- Bootstrap site and user information -->
+  <script>
     Shareabouts.bootstrapped = {
       staticUrl: '{{ STATIC_URL }}'
     };
@@ -177,8 +179,15 @@
     function bootstrapCurrentUser(data) {
       Shareabouts.bootstrapped.currentUser = data;
     }
+
+    function setApiSessionCookie(data) {
+      if (data) {
+        Shareabouts.Util.cookies.save('sa-api-sessionid', data.sessionid);
+      }
+    }
   </script>
-  <script src="{{AUTH_ROOT}}current?format=jsonp&callback=bootstrapCurrentUser"></script>
+  <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
+  <script src="{{API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
 
   <script src="{{STATIC_URL}}js/handlebars-helpers.js"></script>
   <script src="{{STATIC_URL}}js/models.js"></script>
