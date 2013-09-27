@@ -120,13 +120,14 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: Share Your Idea
+  add_button_label: Share Your Idea!
   title: Describe your idea...
+  help_text: _(Make sure the red marker is over your idea location, then describe your idea below.)
   action_text: shared
   anonymous_name: Someone
   submit_button_label: Add to map
   items:
-    - prompt: _(What's your idea?)
+    - prompt: _(What type of idea do you have?)
       type: select
       options:
         - label: _(Please choose...)
@@ -149,7 +150,8 @@ place:
           value: Housing
         - label: _(Other)
           value: Other
-      name: location_type            
+      name: location_type
+      optional: false            
     - prompt: _(Describe the location)
       type: text
       name: intersection_name
@@ -164,6 +166,7 @@ place:
     - prompt: Your Name
       type: text
       name: submitter_name
+      optional: false
       attrs:
         - key: placeholder
           value: Your name will be visible on the map.
@@ -172,6 +175,7 @@ place:
     - prompt: _(Your email (will not be visible on the map))
       type: text
       name: private-email
+      optional: false
       attrs:
         - key: placeholder
           value: Your email will not be public.
