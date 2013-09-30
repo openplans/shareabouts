@@ -250,44 +250,52 @@ body {
 }
 
 /* User Menu */
-#user-menu {
+.user-menu {
   float: right;
-  padding-top: 1.5em;
-  line-height: 1.5;
-  position: relative;
+  font-size: 1em;
+  margin: 1em -0.5em 0 0;
+  text-align: right;
 }
-#user-menu .sign-in-text {
-  float: left;
+.header-avatar {
+  float: right;
+  height: 3em;
+  width: 3em;
+  margin: -0.5em 0 0 0.5em;
+}
+.current-user {
+  white-space: nowrap;
+}
+a.logout-btn {
+  display: block;
+  font-size: 0.85em;
+  font-weight: bold;
+  text-decoration: none;
   text-transform: uppercase;
-  font-size: 85%;
 }
-.login {
-  width: 16px;
-  height: 16px;
-  text-indent: -9999px;
-  margin-left: 5px;
+.sign-in-prompt {
+  display: block;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  margin: -0.5em 0 0.25em;
+  text-align: center;
 }
-.facebook-login {
+.sign-in-menu-item {
   float: left;
-  background: url(images/facebook-login-16.gif) 0 0 no-repeat scroll;
+  font-weight: bold;
+  margin-left: 0.5em;
 }
-.twitter-login {
-  float: left;
-  background: url(images/twitter-login-16.gif) 0 0 no-repeat scroll;
+.auth {
+  text-decoration: none;
+  display: block;
+  padding: 0.25em 0.5em;
 }
-
-.avatar {
-  width: 40px;
-  height: 40px;
+a.twitter-btn {
+  background-color: #4099FF;
+  color: #fff !important;
 }
-.signed-in-as {
-  line-height: 2;
-}
-.signed-in-as .avatar {
-  width: 2em;
-  height: 2em;
-  float: left;
-  margin: 0 0.5em 0.75em 0;
+a.facebook-btn {
+  background-color: #3b5998;
+  color: #fff !important;
 }
 
 
