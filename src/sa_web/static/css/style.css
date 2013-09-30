@@ -171,6 +171,9 @@ body {
   -webkit-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
 }
+#site-header.has-pages {
+  padding-left: 4em;
+}
 #site-header a, #site-header button { white-space: nowrap; }
 #site-header a, #site-header a:active, #site-header a:visited,
 #site-header button, #site-header button:active, #site-header button:visited { color: #a3c7d9; }
@@ -179,10 +182,10 @@ body {
 /* Logo */
 #site-title {
   font-family: 'Dancing Script', cursive;
-  font-size: 3em;
+  font-size: 2.25em;
   font-weight: bold;
   text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
-  line-height: 1.325;
+  line-height: 1.875;
   color: #eee;
   float: left;
   margin: 0 0.5em 0 0;
@@ -199,15 +202,16 @@ body {
 /* Primary Menu */
 #nav-bttn {
   float: right;
+  width: 1.25em;
   font-size: 2em;
   line-height: 1;
   background: #444;
   text-decoration: none;
   text-align: center;
-  padding: 0.125em 0.4em;
-  margin: 0.4em 0 0 0.5em;
+  padding: 0.125em 0;
+  margin: 0.4em;
   position: absolute;
-  right: 0.4em;
+  left: 0;
 }
 #nav-bttn:hover {
   background: #a3c7d9;
@@ -252,8 +256,10 @@ body {
 /* User Menu */
 .user-menu {
   float: right;
+  position: absolute;
   font-size: 1em;
-  margin: 1em -0.5em 0 0;
+  top: 1em;
+  right: 0.5em;
   text-align: right;
 }
 .header-avatar {
@@ -1203,6 +1209,9 @@ ul.recent-points {
   }
 
   /* Page Menu */
+  #site-header.has-pages {
+    padding-left: 1em;
+  }
   #nav-bttn {
     display: none;
   }
@@ -1335,25 +1344,24 @@ ul.recent-points {
     bottom: 0;
     box-shadow: 0 -4px 0 rgba(85, 85, 85, 0.5), inset 0 1px 0 rgba(255,255,255,0.25);
   }
-  #user-menu {
-    padding-top: 0.75em;
+
+  .user-menu {
+    top: 1.25em;
   }
-  #user-menu .sign-in-text {
-    float: none;
-    display: block;
+  .header-avatar {
+    height: 4em;
+    width: 4em;
+    margin-top: -0.75em;
   }
-  .login {
-    width: 32px;
-    height: 32px;
-    margin: 0;
+  .current-user {
+    font-size: 1.25em;
   }
-  .facebook-login {
-    float: left;
-    background: url(images/facebook-login-32.png) 0 0 no-repeat scroll;
+  a.logout-btn {
+    margin-top: 0.25em;
   }
-  .twitter-login {
-    float: right;
-    background: url(images/twitter-login-32.png) 0 0 no-repeat scroll;
+  .sign-in-prompt,
+  .sign-in-menu {
+    margin-right: 1em;
   }
   .promotion {
     margin: -2em -2em 1em -2em;
@@ -1369,6 +1377,10 @@ ul.recent-points {
   }
   #site-title {
     font-size: 4.25em;
+  }
+  .user-menu {
+    top: 2em;
+    right: 1em;
   }
   .access li {
     font-size: 1.25em;
