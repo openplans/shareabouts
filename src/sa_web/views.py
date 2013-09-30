@@ -127,7 +127,8 @@ def api(request, path):
     headers = {'X-SHAREABOUTS-KEY': api_key,
                'X-CSRFTOKEN': api_csrf_token}
     cookies = {'sessionid': api_session_cookie,
-               'csrftoken': api_csrf_token}
+               'csrftoken': api_csrf_token} \
+              if api_session_cookie else {'csrftoken': api_csrf_token}
 
     # Clear cookies from the current domain, so that they don't interfere with
     # our settings here.
@@ -148,8 +149,8 @@ def users(request, path):
     api_session_cookie = request.COOKIES.get('sa-api-session')
 
     url = make_resource_uri(path, root)
-    headers = {'X-Shareabouts-Key': api_key}
-    cookies = {'sessionid': api_session_cookie}
+    headers = {'X-Shareabouts-Key': api_key} if api_key else {}
+    cookies = {'sessionid': api_session_cookie} if api_session_cookie else {}
     return proxy_view(request, url, requests_args={
         'headers': headers, 
         'allow_redirects': False, 
@@ -171,7 +172,7 @@ def csv_download(request, path):
         'X-Shareabouts-Key': api_key,
         'ACCEPT': 'text/csv'
     }
-    cookies = {'sessionid': api_session_cookie}
+    cookies = {'sessionid': api_session_cookie} if api_session_cookie else {}
     return proxy_view(request, url, requests_args={
         'headers': headers,
         'cookies': cookies
