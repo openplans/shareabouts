@@ -14,8 +14,8 @@ map:
     center:
       lat: 42.51954
       lng: -70.8967155
-    zoom: 15
-    minZoom: 11
+    zoom: 16
+    minZoom: 14
     maxZoom: 17
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/openplans.map-5f9w3eg9/{z}/{x}/{y}.png
@@ -25,26 +25,22 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  TrafficIssue:
+  Autos:
     default: puck-green
     focused: dropper-green
-    label: _(Traffic issue)
-  SidewalkCrosswalks:
+    label: _(Auto Traffic issue)
+  Pedestrians:
     default: puck-blue
     focused: dropper-blue
-    label: _(Sidewalk/Crosswalk issue)
-  PublicSpace:
+    label: _(Pedestrian Traffic issue)
+  Bikes:
     default: puck-red
     focused: dropper-red
-    label: _(Public Space needs)
-  Drainage:
+    label: _(Bike Traffic issue)
+  PublicSpace:
     default: puck-yellow
     focused: dropper-yellow
-    label: _(Drainage issue)
-  Lighting:
-    default: puck-purple
-    focused: dropper-purple
-    label: _(Lighting and signal issue)
+    label: _(Public Space issue)
 
 # Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
 # for documention of each property. Any omitted property will be undefined.
@@ -179,57 +175,41 @@ place:
       options:
         - label: _(Please choose a category)
           value: ""
-        - label: _(Traffic issues)
-          value: "TrafficIssue"
-        - label: _(Sidewalk/Crosswalk issues)
-          value: "SidewalkCrosswalks"
-        - label: _(Public Space needs)
-          value: "PublicSpace"
-        - label: _(Drainage issues)
-          value: "Drainage"
-        - label: _(Lighting and signal issues)
-          value: "Lighting"
+        - label: _(Auto Traffic issues)
+          value: "Autos"
+        - label: _(Pedestrian Traffic issues)
+          value: "Pedestrians"
+        - label: _(Bike Traffic issues)
+          value: "Bikes"
+        - label: _(Public Space)
+          value: "PublicSpace"          
       name: location_type
 
-    # lighting checkboxes
-    - prompt: Need street light
+    # Pedestrian traffic checkboxes
+    - prompt: Uneven or indirect path
       type: checkbox
-      name: lighting1
+      name: pedestrian1
       attrs:
         - key: value
-          value: Need street light
-    - prompt: No walk signal or walk button
+          value: Uneven or indirect path
+    - prompt: Sidewalk too narrow or missing
       type: checkbox
-      name: lighting2
+      name: pedestrian2
       attrs:
         - key: value
-          value: No walk signal or walk button
-        - key: label
-          value: This is a label
-    - prompt: Can’t access button
+          value: Sidewalk too narrow or missing
+    - prompt: Intersection or crossing issue
       type: checkbox
-      name: lighting3
+      name: pedestrian3
       attrs:
         - key: value
-          value: Can’t access button
-    - prompt: No audible signal
+          value: Intersection or crossing issue
+    - prompt: Other
       type: checkbox
-      name: lighting4
+      name: pedestrian4
       attrs:
         - key: value
-          value: No audible signal
-    - prompt: Walk phase needs to be longer
-      type: checkbox
-      name: lighting5
-      attrs:
-        - key: value
-          value: Walk phase needs to be longer
-    - prompt: Walk phase needs to come sooner
-      type: checkbox
-      name: lighting6
-      attrs:
-        - key: value
-          value: Walk phase needs to come sooner
+          value: Other
 
     # traffic issues
     - prompt: Speeding
@@ -238,144 +218,82 @@ place:
       attrs:
         - key: value
           value: Speeding
-    - prompt: Traffic calming needed
+    - prompt: Confusing intersection
       type: checkbox
       name: traffic2
       attrs:
         - key: value
-          value: Traffic calming needed
-    - prompt: Failure to yield
+          value: Confusing intersection
+    - prompt: Cut-through vehicles
       type: checkbox
       name: traffic3
       attrs:
         - key: value
-          value: Failure to yield
-    - prompt: Dangerous intersection (please explain)
+          value: Cut-through vehicles
+    - prompt: Other (please explain)
       type: checkbox
       name: traffic4
       attrs:
         - key: value
-          value: Dangerous intersection (please explain)
-    - prompt: Area does not feel safe or is confusing
-      type: checkbox
-      name: traffic5
-      attrs:
-        - key: value
-          value: Area does not feel safe or is confusing
-    - prompt: Bike infrastructure here please
-      type: checkbox
-      name: traffic6
-      attrs:
-        - key: value
-          value: Bike infrastructure here please
-    - prompt: Other safety issue (please specify)
-      type: checkbox
-      name: traffic7
-      attrs:
-        - key: value
-          value: Other safety issue (please specify)
+          value: Other (please explain)
     
-    # sidewalk issues
-    - prompt: Uneven surface
+    # bike issues
+    - prompt: Obstacle or hazard in path
       type: checkbox
-      name: sidewalk1
+      name: bike1
       attrs:
         - key: value
-          value: Uneven surface
-    - prompt: Indirect pedestrian path
+          value: Obstacle or hazard in path
+    - prompt: Bike infrastructure needed
       type: checkbox
-      name: sidewalk2
+      name: bike2
       attrs:
         - key: value
-          value: Indirect pedestrian path
-    - prompt: Unattractive
+          value: Bike infrastructure needed
+    - prompt: Bike parking needed
       type: checkbox
-      name: sidewalk3
+      name: bike3
       attrs:
         - key: value
-          value: Unattractive
-    - prompt: Too narrow
+          value: Bike parking needed
+    - prompt: Other
       type: checkbox
-      name: sidewalk4
+      name: bike4
       attrs:
         - key: value
-          value: Too narrow
-    - prompt: Need sidewalk
-      type: checkbox
-      name: sidewalk5
-      attrs:
-        - key: value
-          value: Need sidewalk
-    - prompt: Curb ramp/cut needed
-      type: checkbox
-      name: sidewalk6
-      attrs:
-        - key: value
-          value: Curb ramp/cut needed
-    - prompt: Too many driveways/parking lots
-      type: checkbox
-      name: sidewalk7
-      attrs:
-        - key: value
-          value: Too many driveways/parking lots
-    - prompt: Other sidewalk issue (please specify)
-      type: checkbox
-      name: sidewalk8
-      attrs:
-        - key: value
-          value: Other sidewalk issue (please specify)
+          value: Other
 
     # public space
-    - prompt: More street trees please
+    - prompt: Greenspace here please
       type: checkbox
       name: publicspace1
       attrs:
         - key: value
-          value: More street trees please
-    - prompt: A park here would be nice
+          value: Greenspace here please
+    - prompt: Community garden here would be nice
       type: checkbox
       name: publicspace2
       attrs:
         - key: value
-          value: A park here would be nice
-    - prompt: A Community garden here would be nice
+          value: Community garden here would be nice
+    - prompt: More street trees
       type: checkbox
       name: publicspace3
       attrs:
         - key: value
-          value: A Community garden here would be nice
-    - prompt: Planters or other greenspace please
+          value: More street trees
+    - prompt: Area does not feel safe or is unattractive
       type: checkbox
       name: publicspace4
       attrs:
         - key: value
-          value: Planters or other greenspace please
-    - prompt: Bike parking/rack here please
+          value: Area does not feel safe or is unattractive
+    - prompt: Other
       type: checkbox
       name: publicspace5
       attrs:
         - key: value
-          value: Bike parking/rack here please
-
-    # drainage
-    - prompt: Drain grate in bike lane
-      type: checkbox
-      name: drain1
-      attrs:
-        - key: value
-          value: Drain grate in bike lane
-    - prompt: Drain grate parallel to travel lane
-      type: checkbox
-      name: drain2
-      attrs:
-        - key: value
-          value: Drain grate parallel to travel lane
-    - prompt: Drain grate in crosswalk/sidewalk
-      type: checkbox
-      name: drain3
-      attrs:
-        - key: value
-          value: Drain grate in crosswalk/sidewalk
+          value: Other
 
     # other info
     - prompt: Share more details

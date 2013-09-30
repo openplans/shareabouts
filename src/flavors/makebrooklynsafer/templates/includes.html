@@ -15,21 +15,21 @@
 
     // add some classes to make selections easier...
 
+    // traffic issues
     $("[id*=traffic]").addClass("traffic");
     $("label[for*=traffic]").addClass("traffic checkbox-label").hide();
     
-    $("[id*=sidewalk]").addClass("sidewalk");
-    $("label[for*=sidewalk]").addClass("sidewalk checkbox-label").hide();
+    // pedestrian issues
+    $("[id*=pedestrian]").addClass("pedestrian");
+    $("label[for*=pedestrian]").addClass("pedestrian checkbox-label").hide();
 
+    // public space issues
     $("[id*=publicspace]").addClass("publicspace");
     $("label[for*=publicspace]").addClass("publicspace checkbox-label").hide();
 
-    $("[id*=lighting]").addClass("streetlight");
-    $("label[for*=lighting]").addClass("streetlight checkbox-label").hide();
-
-    $("[id*=drain]").addClass("drain");
-    $("label[for*=drain]").addClass("drain checkbox-label").hide();
-
+    // bike traffic issues
+    $("[id*=bike]").addClass("bike");
+    $("label[for*=bike]").addClass("bike checkbox-label").hide();
 
     //add a label to the name and submit boxes
     $("[id*=place-submitter]").addClass("existing problem new");
@@ -37,12 +37,12 @@
     $("#save-place-btn").addClass("existing problem new");
 
     //now hide everything...
-    $(".traffic,.sidewalk,.publicspace,.streetlight,.drain").hide();
+    $(".traffic,.pedestrian,.publicspace,.bike").hide();
 
     $("#place-location_type").change(function() {
 
       // set everything to have hidden class
-    $(".traffic,.sidewalk,.publicspace,.streetlight,.drain").hide();
+    $(".traffic,.pedestrian,.publicspace,.bike").hide();
 
       // choose what will show up
       var chosen = $("#place-location_type").val();
@@ -51,20 +51,17 @@
       {
         case "no-choice":
           break;
-        case "TrafficIssue":
+        case "Autos":
           $(".traffic").show();
           break;
-        case "SidewalkCrosswalks":
-          $(".sidewalk").show();
+        case "Pedestrians":
+          $(".pedestrian").show();
           break;
         case "PublicSpace":
           $(".publicspace").show();
           break;
-        case "Lighting":
-          $(".streetlight").show();
-          break;
-        case "Drainage":
-          $(".drain").show();
+        case "Bikes":
+          $(".bike").show();
           break;
         default:
           break;            
