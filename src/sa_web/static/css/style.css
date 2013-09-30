@@ -185,10 +185,10 @@ body {
   font-size: 2.25em;
   font-weight: bold;
   text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
-  line-height: 1.875;
+  line-height: 1.325;
   color: #eee;
   float: left;
-  margin: 0 0.5em 0 0;
+  margin: 0.25em 0.5em 0 0;
 }
 #site-title a:link,
 #site-title a:visited {
@@ -1312,6 +1312,7 @@ ul.recent-points {
   #site-title {
     font-size: 3.4em;
     line-height: 1.5;
+    margin-top: 0;
   }
   .access {
     margin-top: 1.75em;
