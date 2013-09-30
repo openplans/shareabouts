@@ -53,7 +53,7 @@
 </head>
 <body>
 
-  <header id="site-header" class="clearfix has-pages"><!-- TODO: Only include has-pages class if there are pages. -->
+  <header id="site-header" class="clearfix{% if pages_config %} has-pages{% endif %}">
     <h1 id="site-title"><a href="/">{{ config.app.name }}</a></h1>
     <div id="pages-nav-container"></div>
 

@@ -100,6 +100,7 @@ def index(request, default_place_type):
                'config': config,
 
                'user_token_json': user_token_json,
+               'pages_config': pages_config,
                'pages_config_json': pages_config_json,
                'user_agent_json': user_agent_json,
                'default_place_type': validated_default_place_type,
