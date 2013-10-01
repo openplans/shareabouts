@@ -171,9 +171,6 @@ body {
   -webkit-box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
           box-shadow: 0 4px 0 rgba(85, 85, 85, 0.5);
 }
-#site-header.has-pages {
-  padding-left: 4em;
-}
 #site-header a, #site-header button { white-space: nowrap; }
 #site-header a, #site-header a:active, #site-header a:visited,
 #site-header button, #site-header button:active, #site-header button:visited { color: #a3c7d9; }
@@ -181,17 +178,26 @@ body {
 
 /* Logo */
 #site-title {
+  font-size: 1em;
   font-family: 'Dancing Script', cursive;
-  font-size: 2.25em;
   font-weight: bold;
   text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
-  line-height: 1.325;
   color: #eee;
   float: left;
-  margin: 0.25em 0.5em 0 0;
+  margin: 0 0.5em 0 0;
+  padding: 0.5em 0;
+  height: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.has-pages #site-title {
+  padding-left: 3em;
 }
 #site-title a:link,
 #site-title a:visited {
+  display: block;
+  font-size: 2.25em;
+  line-height: 1.5;
   text-decoration: none;
   color: #eee;
 }
@@ -219,7 +225,7 @@ body {
 .access {
   display: none;
   width: 100%;
-  margin: -0.25em -1em 0;
+  margin: 0em -1em 0;
   border: 1em solid #777;
   border-top: 0.5em solid #777;
   font-weight: bold;
@@ -1209,8 +1215,8 @@ ul.recent-points {
   }
 
   /* Page Menu */
-  #site-header.has-pages {
-    padding-left: 1em;
+  .has-pages #site-title {
+    padding-left: 0;
   }
   #nav-bttn {
     display: none;
@@ -1309,10 +1315,10 @@ ul.recent-points {
   #site-header {
     height: 5em;
   }
-  #site-title {
-    font-size: 3.4em;
-    line-height: 1.5;
-    margin-top: 0;
+  #site-title a:link,
+  #site-title a:visited {
+    font-size: 3.25em;
+    line-height: 1.25;
   }
   .access {
     margin-top: 1.75em;
@@ -1376,8 +1382,10 @@ ul.recent-points {
     height: 6em;
     padding: 0 1.5em;
   }
-  #site-title {
-    font-size: 4.25em;
+  #site-title a:link,
+  #site-title a:visited {
+    font-size: 4em;
+    line-height: 1.25;
   }
   .user-menu {
     top: 2em;
