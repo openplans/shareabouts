@@ -122,7 +122,7 @@ activity:
   interval: 30000
 
 place:
-  adding_supported: true
+  adding_supported: false
   add_button_label: _(Share an idea)
   action_text: _(added)
   title: _(Tell us more...)
