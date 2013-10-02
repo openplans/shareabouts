@@ -69,9 +69,6 @@ def index(request, default_place_type):
     else:
         validated_default_place_type = ''
 
-    # TODO These requests should be done asynchronously (in parallel).
-    places_json = api.get('places', default=u'[]')
-
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
     pages_config_json = json.dumps(pages_config)
@@ -95,9 +92,7 @@ def index(request, default_place_type):
     user_agent = httpagentparser.detect(user_agent_string)
     user_agent_json = json.dumps(user_agent)
 
-    context = {'places_json': places_json,
-
-               'config': config,
+    context = {'config': config,
 
                'user_token_json': user_token_json,
                'pages_config': pages_config,
@@ -106,6 +101,7 @@ def index(request, default_place_type):
                'default_place_type': validated_default_place_type,
 
                'API_ROOT': api.root,
+               'DATASET_ROOT': api.dataset_root,
                }
     return render(request, 'index.html', context)
 
