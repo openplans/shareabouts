@@ -44,7 +44,7 @@
 
           <div id="reply">
             <h4 class="reply-header">{{ title }}</h4>
-            <form id="new_response" class="new_response" action="#" method="post">
+            <form id="new_response" class="new_response clearfix" action="#" method="post">
               <input type="hidden" name="visible" value="on">
 
               <fieldset>
@@ -67,7 +67,6 @@
                     {{#is_input}}
                       {{#is_submitter_name}}
                         {{#is_authenticated}}
-                          <p class="signed-in-as"><img src="{{ current_user "avatar_url" }}" class="avatar" /> {{ current_user "name" }}</p>
                         {{^}}
                           <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
                         {{/is_authenticated}}
@@ -92,6 +91,12 @@
               {{/survey_config.items}}
               </fieldset>
 
-              <input name="commit" type="submit" value="{{ survey_config.submit_btn_text }}" class="bttn">
+              <input name="commit" type="submit" value="{{ survey_config.submit_btn_text }}" class="bttn submit-bttn">
+
+              {{#is_authenticated}}
+                <p class="signed-in-as"><img src="{{ current_user "avatar_url" }}" class="avatar" /> {{ current_user "name" }}. <a class="" href="/users/logout/">Log Out</a></p>
+              {{^}}
+              {{/is_authenticated}}
+
             </form>
           </div>

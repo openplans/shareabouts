@@ -301,6 +301,11 @@ a.logout-btn {
   display: block;
   padding: 0.25em 0.5em;
 }
+.auth-inline {
+  text-decoration: none;
+  display: inline;
+  padding: 0.25em 0.5em;
+}
 a.twitter-btn {
   background-color: #4099FF;
   color: #fff !important;
@@ -309,7 +314,10 @@ a.facebook-btn {
   background-color: #3b5998;
   color: #fff !important;
 }
-
+.or-sign-in {
+  display: block;
+  padding-top: 0.75em;
+}
 
 /* Main (map & content, does not include ticker) */
 #main {
@@ -929,6 +937,28 @@ article.response footer {
 }
 .response-box label {
   display: none;
+}
+
+.submit-bttn {
+  float: left;
+  margin: 0 0.75em 0 0;
+}
+.signed-in-as {
+  float: left;
+  white-space: nowrap;
+  padding-top: 0.75em;
+  line-height: 1.5;
+}
+.signed-in-as .avatar {
+  height: 1.5em;
+  width: auto;
+  position: relative;
+  top: 0.5em;
+}
+.signed-in-as a {
+  font-weight: bold;
+  font-size: 0.85em;
+  text-transform: uppercase;
 }
 
 /* Ticker */
