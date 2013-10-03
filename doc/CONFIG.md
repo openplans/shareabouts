@@ -179,7 +179,7 @@ label. The setting has no other effect.
 * with `optional:` omitted, users can leave form items blank, and will not see the _(optional)_ 
 label. You may prefer this if all your items are optional.
 
-To make an item required, use the `attr` section to set `value: required` and  `value: true`. We're using HTML5 validation, so browsers handle this differently 
+To make an item required, use the `attr` section to set `key: required` and  `value: true`. We're using HTML5 validation, so browsers handle this differently 
 (or [not at all](http://caniuse.com/form-validation)).
 
 The *label* setting can also be used for a place item. It is used as the label
