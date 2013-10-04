@@ -832,15 +832,20 @@ textarea {
 }
 .place-submission-details {
   display: block;
-  padding-left: 2.5em;
+  padding-left: 3.75em;
 }
 .point-submitter .avatar {
-  width: 2em;
-  height: 2em;
+  width: 3.25em;
+  height: 3.25em;
   float: left;
-  margin-left: -2.5em;
+  margin-left: -3.75em;
 }
-.response-date {}
+.response-date {
+  display: block;
+  text-transform: uppercase;
+  color: #888;
+  font-size: 0.85em;
+}
 .description {
   font-size: 16px;
   line-height: 26px;
@@ -876,7 +881,9 @@ ol.responses {
   margin-left: 0;
 }
 .responses .response {
-  padding-bottom: 1em;
+  position: relative;
+  padding-bottom: 40px;
+  margin-bottom: 1em;
 }
 .responses .children {
   list-style: none;
@@ -896,22 +903,48 @@ article.response {
   display: block;
 }
 .response-header {
-  line-height: 1.4;
-  margin-bottom: 1em;
-  padding-left: 2.5em;
+  padding-left: 3.75em;
+  margin: 0 0 0 1em;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 .response-submitter {}
 .response-submitter .avatar {
-  width: 2em;
-  height: 2em;
+  width: 3.25em;
+  height: 3.25em;
   float: left;
-  margin-left: -2.5em;
+  margin-left: -3.75em;
 }
 .response-meta {}
 .response-body {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 1em;
+  margin: 0 0 1em;
+  padding: 1em;
+  border-top: 1px solid #a8a8a8;
+  border-right: 1px solid #c8c8c8;
+  border-bottom: 0;
+  border-left: 1px solid #c8c8c8;
+  background: #eee;
+  border-radius: 1em;
+  position: relative;
 }
+.response-body:after {
+  content: '';
+  height: 0;
+  width: 0;
+  border: 1em solid transparent;
+  border-top-color: #eee;
+  position: absolute;
+  top: 100%;
+  left: 20px;
+}
+.response-label-comment {
+  display: none;
+}
+.response-value-comment {
+  margin-bottom: 0.5em !important;
+}
+
 article.response footer {
   text-align: right;
 }
