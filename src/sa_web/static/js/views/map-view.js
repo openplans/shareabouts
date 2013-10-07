@@ -1,3 +1,5 @@
+/*globals L Backbone _ */
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, A, $, console){
@@ -7,18 +9,17 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function() {
       var self = this,
-          i, layerModel,
-          // Base layer config is optional, default to Mapbox Streets
-          baseLayerConfig = _.extend({
-            url: 'http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png',
-            attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
-          }, self.options.mapConfig.base_layer),
-          baseLayer = L.tileLayer(baseLayerConfig.url, baseLayerConfig);
+          i, layerModel;
 
       // Init the map
       self.map = L.map(self.el, self.options.mapConfig.options);
       self.placeLayers = L.layerGroup();
-      self.map.addLayer(baseLayer);
+
+      // Add layers defined in the config file
+      _.each(self.options.mapConfig.layers, function(layerConfig){
+        var layer = L.tileLayer(layerConfig.url, layerConfig);
+        self.map.addLayer(layer);
+      });
 
       // Cache additional vector layer views
       self.argoLayerViews = {};
@@ -41,11 +42,6 @@ var Shareabouts = Shareabouts || {};
       if (self.options.mapConfig.geolocation_enabled) {
         self.initGeolocation();
       }
-
-      _.each(self.options.mapConfig.layers, function(layerConfig){
-        var layer = L.tileLayer(layerConfig.url, layerConfig);
-        self.map.addLayer(layer);
-      });
 
       self.map.addLayer(self.placeLayers);
 
