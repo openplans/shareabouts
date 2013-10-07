@@ -21,6 +21,15 @@ map:
   layers:
     - url: http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
+    - url: /static/data/philadelphia.geojson
+      type: json
+      rules:
+        - condition: true
+          style:
+            color: "#444"
+            opacity: 0.6
+            fillOpacity: 0.2
+            weight: 1
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).

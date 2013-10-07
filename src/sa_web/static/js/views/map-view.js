@@ -2,7 +2,7 @@
 
 var Shareabouts = Shareabouts || {};
 
-(function(S, A, $, console){
+(function(S, $, console){
   S.MapView = Backbone.View.extend({
     events: {
       'click .locate-me': 'geolocate'
@@ -16,22 +16,14 @@ var Shareabouts = Shareabouts || {};
       self.placeLayers = L.layerGroup();
 
       // Add layers defined in the config file
-      _.each(self.options.mapConfig.layers, function(layerConfig){
-        var layer = L.tileLayer(layerConfig.url, layerConfig);
-        self.map.addLayer(layer);
-      });
-
-      // Cache additional vector layer views
-      self.argoLayerViews = {};
-
-      // Init all of the vector layer views
-      argoConfigs = new Backbone.Collection(self.options.mapConfig.layers);
-      argoConfigs.each(function(model, i) {
-        if (model.get('type') !== 'tile') {
-          self.argoLayerViews[model.get('id')] = new A.LayerView({
-            map: self.map,
-            model: model
-          });
+      _.each(self.options.mapConfig.layers, function(config){
+        // type is required by Argo for fetching data, so it's a pretty good
+        // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
+        if (config.type) {
+          L.argo(config.url, config).addTo(self.map);
+        } else {
+          // Assume a tile layer
+          L.tileLayer(config.url, config).addTo(self.map);
         }
       });
 
@@ -140,4 +132,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, Argo, jQuery, Shareabouts.Util.console);
+})(Shareabouts, jQuery, Shareabouts.Util.console);
