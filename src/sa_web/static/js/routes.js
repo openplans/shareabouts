@@ -57,7 +57,7 @@ var Shareabouts = Shareabouts || {};
         });
 
         if (startPageConfig && startPageConfig.slug) {
-          this.navigate('page/' + startPageConfig.slug);
+          this.navigate('page/' + startPageConfig.slug, {trigger: true});
         }
       }
     },
