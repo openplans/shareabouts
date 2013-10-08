@@ -90,7 +90,14 @@ python src/manage.py collectstatic --noinput
 
 echo "Configuring nginx to serve static files..."
 cat >> nginx.conf <<EOF
-location /static/ { root /home/dotcloud/current ; }
+location /static/ {
+    root /home/dotcloud/current ;
+    expires max;
+}
+gzip on;
+gzip_types
+    text/plain text/html text/css text/csv
+    application/json application/javascript;
 EOF
 
 echo "Compiling translations..."
