@@ -22,7 +22,7 @@ var Shareabouts = Shareabouts || {};
       this.initLayer();
     },
     initLayer: function() {
-      var point;
+      var geom;
 
       // Handle if an existing place type does not match the list of available
       // place types.
@@ -35,10 +35,17 @@ var Shareabouts = Shareabouts || {};
 
       // Don't draw new places. They are shown by the centerpoint in the app view
       if (!this.model.isNew()) {
-        point = this.model.get('geometry');
-        this.latLng = L.latLng(point.coordinates[1], point.coordinates[0]);
+        geom = this.model.get('geometry');
 
-        this.layer = L.marker(this.latLng, {icon: this.placeType['default']});
+        this.style = L.Argo.getStyleRule(this.model.toJSON(), this.placeType.rules).style;
+        this.focus_style = L.Argo.getStyleRule(this.model.toJSON(), this.placeType.rules).focus_style;
+
+        if (geom.type === 'Point') {
+          this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
+          this.layer = L.marker(this.latLng, {icon: L.icon(this.style)});
+        } else {
+          this.layer = L.GeoJSON.geometryToLayer(geom, null, null, this.style);
+        }
 
         // Focus on the marker onclick
         this.layer.on('click', this.onMarkerClick, this);
@@ -72,13 +79,21 @@ var Shareabouts = Shareabouts || {};
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
     },
     focus: function() {
-      if (this.placeType) {
-        this.setIcon(this.placeType.focused);
+      if (this.focus_style) {
+        if (this.model.get('geometry').type === 'Point') {
+          this.setIcon(L.icon(this.focus_style));
+        } else {
+
+        }
       }
     },
     unfocus: function() {
-      if (this.placeType) {
-        this.setIcon(this.placeType['default']);
+      if (this.style) {
+        if (this.model.get('geometry').type === 'Point') {
+          this.setIcon(L.icon(this.style));
+        } else {
+
+        }
       }
     },
     remove: function() {

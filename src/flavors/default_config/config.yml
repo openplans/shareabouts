@@ -24,7 +24,7 @@ map:
     - url: /static/data/philadelphia.geojson
       type: json
       rules:
-        - condition: true
+        - condition: 'true'
           style:
             color: "#444"
             opacity: 0.6
@@ -35,42 +35,65 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   landmark:
-    default: blue
-    focused: red
     label: _(Landmark)
+    rules:
+      - condition: '"{{location_type}}" === "landmark"'
+        style:
+          iconUrl: /static/css/images/feature-point.png
+          iconSize:
+            width: 17
+            height: 18
+          iconAnchor: [9, 9]
+        focus_style:
+          iconUrl: /static/css/images/marker-focused.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize:
+            width: 25
+            height: 41
+          shadowSize:
+            width: 41
+            height: 41
+          iconAnchor: [12, 41]
   park:
-    default: blue
-    focused: red
     label: _(Park)
+    rules:
+      - condition: '"{{location_type}}" === "park"'
+        style:
+          iconUrl: /static/css/images/markers/dot-4bbd45.png
+          iconSize:
+            width: 17
+            height: 18
+          iconAnchor: [9, 9]
+        focus_style:
+          iconUrl: /static/css/images/marker-focused.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize:
+            width: 25
+            height: 41
+          shadowSize:
+            width: 41
+            height: 41
+          iconAnchor: [12, 41]
   school:
-    default: blue
-    focused: red
     label: _(School)
-
-# Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
-# for documention of each property. Any omitted property will be undefined.
-place_type_icons:
-  blue:
-    iconUrl: /static/css/images/feature-point.png
-    iconSize:
-      width: 17
-      height: 18
-    iconAnchor:
-      x: 9
-      y: 9
-  red:
-    iconUrl: /static/css/images/marker-focused.png
-    shadowUrl: /static/css/images/marker-shadow.png
-    iconSize:
-      width: 25
-      height: 41
-    shadowSize:
-      width: 41
-      height: 41
-    iconAnchor:
-      x: 12
-      y: 41
-
+    rules:
+      - condition: '"{{location_type}}" === "school"'
+        style:
+          iconUrl: /static/css/images/markers/dot-f95016.png
+          iconSize:
+            width: 17
+            height: 18
+          iconAnchor: [9, 9]
+        focus_style:
+          iconUrl: /static/css/images/marker-focused.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize:
+            width: 25
+            height: 41
+          shadowSize:
+            width: 41
+            height: 41
+          iconAnchor: [12, 41]
 
 activity:
   # Optional. Activity is supported by default. Set to false to disable.

@@ -49,7 +49,7 @@ class ShareaboutsApi (object):
         uri = make_resource_uri('current', root=self.auth_root)
         res = requests.get(uri, headers={'Accept': 'application/json'}, **kwargs)
 
-        return (res.text if res.status_code == 200 else default)            
+        return (res.text if res.status_code == 200 else default)
 
 
 @ensure_csrf_cookie
@@ -148,8 +148,8 @@ def users(request, path):
     headers = {'X-Shareabouts-Key': api_key} if api_key else {}
     cookies = {'sessionid': api_session_cookie} if api_session_cookie else {}
     return proxy_view(request, url, requests_args={
-        'headers': headers, 
-        'allow_redirects': False, 
+        'headers': headers,
+        'allow_redirects': False,
         'cookies': cookies
     })
 

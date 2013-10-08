@@ -29,7 +29,7 @@ L.Argo = L.GeoJSON.extend({
 
         // Simpler code plus a trusted source; negligible performance hit
         if (eval(condition)) {
-          return rules[i].style;
+          return rules[i];
         }
       }
       return null;
@@ -73,7 +73,7 @@ L.Argo = L.GeoJSON.extend({
   },
 
   _onEachFeature: function(feature, layer) {
-    var style = L.Argo.getStyleRule(feature.properties, this.rules),
+    var style = L.Argo.getStyleRule(feature.properties, this.rules).style,
         popupContent;
 
     if (this.popupContent) {

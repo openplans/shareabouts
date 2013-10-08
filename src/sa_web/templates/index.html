@@ -221,9 +221,6 @@
     // Boostrapping the place types and their icons
     var placeConfig = {{ config.place|as_json }},
         placeTypesConfig = {{ config.place_types|as_json }},
-        placeTypeIconsConfig = {{ config.place_type_icons|as_json }},
-        placeTypeIcons = {},
-        placeTypes = {},
 
         surveyConfig = {{ config.survey|as_json }},
         supportConfig = {{ config.support|as_json }},
@@ -232,33 +229,6 @@
 
         pagesConfig = {{ pages_config_json|safe }},
         defaultPlaceTypeName = '{{ default_place_type }}';
-
-    // Define each Leaflet Icon type
-    _.each(placeTypeIconsConfig, function(config, name) {
-      placeTypeIcons[name] = L.icon({
-        iconUrl: config.iconUrl,
-        shadowUrl: config.shadowUrl,
-        iconSize: new L.Point(config.iconSize.width, config.iconSize.height),
-        iconAnchor: new L.Point(config.iconAnchor.x, config.iconAnchor.y),
-        popupAnchor: new L.Point(config.iconAnchor.x, config.iconAnchor.y)
-      });
-    });
-
-    // Init each icon and attach it to its type
-    _.each(placeTypesConfig, function(config, name) {
-
-      if (!defaultPlaceTypeName || name.toLowerCase() === defaultPlaceTypeName.toLowerCase()) {
-        placeTypes[name] = _.extend(config, {
-          'default': placeTypeIcons[config['default']],
-          'focused': placeTypeIcons[config.focused]
-        });
-
-        // Update in case if there is a case issue
-        if(defaultPlaceTypeName) {
-          defaultPlaceTypeName = name;
-        }
-      }
-    });
 
     $(function() {
       // Ready set go!
@@ -270,7 +240,7 @@
           Shareabouts.bootstrapped.currentUser ?
           'user:' + Shareabouts.bootstrapped.currentUser.id :
           {{ user_token_json|safe }}),
-        placeTypes: placeTypes,
+        placeTypes: placeTypesConfig,
         surveyConfig: surveyConfig,
         supportConfig: supportConfig,
         pagesConfig: pagesConfig,
