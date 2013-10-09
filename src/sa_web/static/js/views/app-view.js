@@ -232,11 +232,13 @@ var Shareabouts = Shareabouts || {};
     },
     viewPage: function(slug) {
       var pageConfig = _.find(this.options.pagesConfig, function(pageConfig) {
-        return pageConfig.slug ===  slug;
-      });
+            return pageConfig.slug ===  slug;
+          }),
+          pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
+          pageHtml = Handlebars.templates[pageTemplateName]({config: this.options.config});
 
       this.$panel.removeClass().addClass('page page-' + slug);
-      this.showPanel(Handlebars.templates['pages/' + (pageConfig.name || pageConfig.slug)]);
+      this.showPanel(pageHtml);
 
       this.hideNewPin();
       this.destroyNewModels();

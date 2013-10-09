@@ -219,7 +219,9 @@
 
   (function(S, $){
     // Boostrapping the place types and their icons
-    var placeConfig = {{ config.place|as_json }},
+    var flavorConfig = {{ config.data|as_json }},
+
+        placeConfig = {{ config.place|as_json }},
         placeTypesConfig = {{ config.place_types|as_json }},
 
         surveyConfig = {{ config.survey|as_json }},
@@ -240,6 +242,9 @@
           Shareabouts.bootstrapped.currentUser ?
           'user:' + Shareabouts.bootstrapped.currentUser.id :
           {{ user_token_json|safe }}),
+
+        config: flavorConfig,
+
         placeTypes: placeTypesConfig,
         surveyConfig: surveyConfig,
         supportConfig: supportConfig,
