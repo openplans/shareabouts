@@ -71,7 +71,7 @@ var Shareabouts = Shareabouts || {};
       // Show if it is within the current map bounds
       var mapBounds = this.map.getBounds();
 
-      if (this.model.get('geometry').type === 'Point') {
+      if (this.latLng) {
         if (mapBounds.contains(this.latLng)) {
           this.show();
         } else {
@@ -84,20 +84,41 @@ var Shareabouts = Shareabouts || {};
     onMarkerClick: function() {
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
     },
+    
+    isStyledWithIcon: function() {
+      return (
+        this.styleRule.icon &&
+        this.model.get('geometry').type == 'Point'
+      );
+    },
+    hasFocusIconToggle: function() {
+      return (
+        this.styleRule.icon &&
+        this.styleRule.focus_icon &&
+        this.model.get('geometry').type == 'Point'
+      );
+    },
+    hasFocusStyleToggle: function() {
+      return (
+        this.styleRule.style &&
+        this.styleRule.focus_style
+      );
+    },
+
     focus: function() {
       if (this.styleRule) {
-        if (this.styleRule.icon && this.styleRule.focus_icon) {
+        if (this.hasFocusIconToggle()) {
           this.setIcon(L.icon(this.styleRule.focus_icon));
-        } else if (this.styleRule.style && this.styleRule.focus_style) {
+        } else if (this.hasFocusStyleToggle()) {
           this.layer.setStyle(this.styleRule.focus_style);
         }
       }
     },
     unfocus: function() {
       if (this.styleRule) {
-        if (this.styleRule.icon && this.styleRule.focus_icon) {
+        if (this.hasFocusIconToggle()) {
           this.setIcon(L.icon(this.styleRule.icon));
-        } else if (this.styleRule.style && this.styleRule.focus_style) {
+        } else if (this.hasFocusStyleToggle()) {
           this.layer.setStyle(this.styleRule.style);
         }
       }
