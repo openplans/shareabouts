@@ -85,17 +85,21 @@ var Shareabouts = Shareabouts || {};
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
     },
     focus: function() {
-      if (this.styleRule.icon && this.styleRule.focus_icon) {
-        this.setIcon(L.icon(this.styleRule.focus_icon));
-      } else if (this.styleRule.style && this.styleRule.focus_style) {
-        this.layer.setStyle(this.styleRule.focus_style);
+      if (this.styleRule) {
+        if (this.styleRule.icon && this.styleRule.focus_icon) {
+          this.setIcon(L.icon(this.styleRule.focus_icon));
+        } else if (this.styleRule.style && this.styleRule.focus_style) {
+          this.layer.setStyle(this.styleRule.focus_style);
+        }
       }
     },
     unfocus: function() {
-      if (this.styleRule.icon && this.styleRule.focus_icon) {
-        this.setIcon(L.icon(this.styleRule.icon));
-      } else if (this.styleRule.style && this.styleRule.focus_style) {
-        this.layer.setStyle(this.styleRule.style);
+      if (this.styleRule) {
+        if (this.styleRule.icon && this.styleRule.focus_icon) {
+          this.setIcon(L.icon(this.styleRule.icon));
+        } else if (this.styleRule.style && this.styleRule.focus_style) {
+          this.layer.setStyle(this.styleRule.style);
+        }
       }
     },
     remove: function() {
