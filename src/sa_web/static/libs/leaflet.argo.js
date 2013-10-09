@@ -7,34 +7,6 @@
 L.Argo = L.GeoJSON.extend({
 
   initialize: function (geojson, options) {
-    // http://mir.aculo.us/2011/03/09/little-helpers-a-tweet-sized-javascript-templating-engine/
-    L.Argo.t = function t(s,d){
-      if (typeof s === 'string' || s instanceof String) {
-        for(var p in d) {
-          s=s.replace(new RegExp('{{'+p+'}}','g'), d[p]);
-        }
-      }
-      return s;
-    };
-
-    // Get the style rule for this feature by evaluating the condition option
-    L.Argo.getStyleRule = function(properties, rules) {
-      var self = this,
-          i, condition, len;
-
-      for (i=0, len=rules.length; i<len; i++) {
-        // Replace the template with the property variable, not the value.
-        // this is so we don't have to worry about strings vs nums.
-        condition = L.Argo.t(rules[i].condition, properties);
-
-        // Simpler code plus a trusted source; negligible performance hit
-        if (eval(condition)) {
-          return rules[i];
-        }
-      }
-      return null;
-    };
-
     // Set options
     L.Util.setOptions(this, options);
     L.Util.setOptions(this, {
@@ -131,6 +103,36 @@ L.Argo = L.GeoJSON.extend({
       success: success,
       error: error
     });
+  }
+});
+
+L.extend(L.Argo, {
+  // http://mir.aculo.us/2011/03/09/little-helpers-a-tweet-sized-javascript-templating-engine/
+  t: function t(s,d){
+    if (typeof s === 'string' || s instanceof String) {
+      for(var p in d) {
+        s=s.replace(new RegExp('{{'+p+'}}','g'), d[p]);
+      }
+    }
+    return s;
+  },
+
+  // Get the style rule for this feature by evaluating the condition option
+  getStyleRule: function(properties, rules) {
+    var self = this,
+        i, condition, len;
+
+    for (i=0, len=rules.length; i<len; i++) {
+      // Replace the template with the property variable, not the value.
+      // this is so we don't have to worry about strings vs nums.
+      condition = L.Argo.t(rules[i].condition, properties);
+
+      // Simpler code plus a trusted source; negligible performance hit
+      if (eval(condition)) {
+        return rules[i];
+      }
+    }
+    return null;
   }
 });
 

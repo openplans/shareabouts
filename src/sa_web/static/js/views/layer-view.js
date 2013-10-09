@@ -44,7 +44,8 @@ var Shareabouts = Shareabouts || {};
           this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
           this.layer = L.marker(this.latLng, {icon: L.icon(this.style)});
         } else {
-          this.layer = L.GeoJSON.geometryToLayer(geom, null, null, this.style);
+          this.layer = L.GeoJSON.geometryToLayer(geom);
+          this.layer.setStyle(this.style);
         }
 
         // Focus on the marker onclick
@@ -67,12 +68,14 @@ var Shareabouts = Shareabouts || {};
       // Show if it is within the current map bounds
       var mapBounds = this.map.getBounds();
 
-      if (this.latLng) {
+      if (this.model.get('geometry').type === 'Point') {
         if (mapBounds.contains(this.latLng)) {
           this.show();
         } else {
           this.hide();
         }
+      } else {
+        this.show();
       }
     },
     onMarkerClick: function() {
@@ -83,7 +86,7 @@ var Shareabouts = Shareabouts || {};
         if (this.model.get('geometry').type === 'Point') {
           this.setIcon(L.icon(this.focus_style));
         } else {
-
+          this.layer.setStyle(this.focus_style);
         }
       }
     },
@@ -92,7 +95,7 @@ var Shareabouts = Shareabouts || {};
         if (this.model.get('geometry').type === 'Point') {
           this.setIcon(L.icon(this.style));
         } else {
-
+          this.layer.setStyle(this.style);
         }
       }
     },
