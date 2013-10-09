@@ -19,7 +19,7 @@ var Shareabouts = Shareabouts || {};
       // are definitely unbound after the first render.
       this.delegateEvents();
 
-      this.$el.html(ich['place-detail-support']({
+      this.$el.html(Handlebars.templates['place-detail-support']({
         count: this.collection.size() || '',
         user_token: this.options.userToken,
         is_supporting: (this.userSupport !== undefined),

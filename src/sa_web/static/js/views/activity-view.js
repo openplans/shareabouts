@@ -1,3 +1,5 @@
+/*globals jQuery _ Backbone Handlebars */
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
@@ -35,15 +37,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     checkForNewActivity: function() {
-      var options = {
-        add: true,
-        at: 0
-      };
-
-      // Only get new activity where id is greater than the newest id, if it exists
-      if (this.collection.size() > 0) {
-        options.data = {after: this.collection.first().get('id')};
-      }
+      var options = {};
 
       options.complete = _.bind(function() {
         // After a check for activity has completed, no matter the result,
@@ -66,17 +60,15 @@ var Shareabouts = Shareabouts || {};
 
       if (shouldFetch && !self.fetching) {
         self.fetching = true;
-        this.collection.fetch({
-          data: {before: this.collection.last().get('id'), limit: 10},
-          add: true,
+        this.collection.fetchNextPage({
           success: function() { _.delay(notFetching, notFetchingDelay); },
           error: function() {_.delay(notFetching, notFetchingDelay); }
         });
       }
     },
 
-    onAddAction: function(model, collection, options) {
-      this.renderAction(model, options.index);
+    onAddAction: function(model, collection) {
+      this.renderAction(model, collection.indexOf(model));
     },
 
     onResetActivity: function(collection) {
@@ -87,8 +79,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     processActionData: function(actionModel, placeModel) {
-      var actionType = actionModel.get('type'),
-          isPlaceAction = (actionType === 'places'),
+      var actionType = actionModel.get('target_type'),
+          isPlaceAction = (actionType === 'place'),
           surveyConfig = this.options.surveyConfig,
           supportConfig = this.options.supportConfig,
           placeData,
@@ -102,11 +94,11 @@ var Shareabouts = Shareabouts || {};
       if (placeType) {
         // Get the place that the action is about.
         if (isPlaceAction) {
-          placeData = actionModel.get('data');
+          placeData = actionModel.get('target');
           actionText = this.options.placeConfig.action_text;
           anonSubmitterName = this.options.placeConfig.anonymous_name;
         } else {
-          placeData = this.options.places.get(actionModel.get('place_id')).toJSON();
+          placeData = placeModel.toJSON(); //this.options.places.get(actionModel.get('target').id).toJSON();
 
           if (actionType === surveyConfig.submission_type) {
             // Survey
@@ -121,8 +113,8 @@ var Shareabouts = Shareabouts || {};
 
         // Check whether the location type starts with a vowel; useful for
         // choosing between 'a' and 'an'.  Not language-independent.
-        if ('AEIOUaeiou'.indexOf(placeData['location_type'][0]) > -1) {
-          placeData['type_starts_with_vowel'] = true;
+        if ('AEIOUaeiou'.indexOf(placeData.location_type[0]) > -1) {
+          placeData.type_starts_with_vowel = true;
         }
 
         placeData.place_type_label = placeType.label || placeData.location_type;
@@ -137,7 +129,7 @@ var Shareabouts = Shareabouts || {};
         actionData.action = actionText;
 
         // Set the submitter_name here in case it is null in the model.
-        actionData.data.submitter_name = actionModel.get('data').submitter_name || anonSubmitterName;
+        actionData.target.submitter_name = actionModel.get('target').submitter_name || anonSubmitterName;
 
         return actionData;
       }  // if (placeType)
@@ -148,7 +140,16 @@ var Shareabouts = Shareabouts || {};
     },
 
     getPlaceForAction: function(actionModel) {
-      return this.options.places.get(actionModel.get('place_id'));
+      var placeUrl = actionModel.get('target').place,
+          placeId;
+
+      if (placeUrl) {
+        placeId = _.last(placeUrl.split('/'));
+      } else {
+        placeId = actionModel.get('target').id;
+      }
+
+      return this.options.places.get(placeId);
     },
 
     renderAction: function(model, index) {
@@ -175,7 +176,7 @@ var Shareabouts = Shareabouts || {};
       modelData = this.processActionData(model, placeModel);
 
       if (modelData) {
-        $template = ich['activity-list-item'](modelData);
+        $template = $(Handlebars.templates['activity-list-item'](modelData));
 
         if (index >= this.$el.children().length) {
           this.$el.append($template);
@@ -215,7 +216,7 @@ var Shareabouts = Shareabouts || {};
         }
       });
 
-      $template = ich['activity-list']({activities: collectionData});
+      $template = $(Handlebars.templates['activity-list']({activities: collectionData}));
       self.$el.html($template);
 
       self.checkForNewActivity();
@@ -224,4 +225,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+}(Shareabouts, jQuery, Shareabouts.Util.console));

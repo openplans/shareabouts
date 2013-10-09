@@ -40,6 +40,49 @@ DEBUG = (env.get('DEBUG', 'False') in ['true', 'True'])
 TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = ['*']
 
+admin_email = env.get('SHAREABOUTS_ADMIN_EMAIL')
+if admin_email:
+    projname = env.get('DOTCLOUD_PROJECT')
+    username = env.get('DOTCLOUD_USERNAME')
+    ADMINS = (
+        ('Shareabouts - %s:%s' % (projname, username), admin_email),
+    )
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(name)s: %(message)s %(process)d %(thread)d'
+        },
+        'moderate': {
+            'format': '%(levelname)s %(asctime)s %(name)s: %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
 EOF
 
 echo "Setting up static file service..."
@@ -47,7 +90,14 @@ python src/manage.py collectstatic --noinput
 
 echo "Configuring nginx to serve static files..."
 cat >> nginx.conf <<EOF
-location /static/ { root /home/dotcloud/current ; }
+location /static/ {
+    root /home/dotcloud/current ;
+    expires max;
+}
+gzip on;
+gzip_types
+    text/plain text/html text/css text/csv
+    application/json application/javascript;
 EOF
 
 echo "Compiling translations..."

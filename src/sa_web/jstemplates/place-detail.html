@@ -4,7 +4,12 @@
           <h1>{{ name }}</h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
-              {{ submitter_name }}
+              {{#if submitter}}
+                <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
+              {{^}}
+                <!-- TODO: FIXME: don't hardcode image URL -->
+                <img src="/static/css/images/user-50.png" class="avatar" /> {{ submitter_name }}
+              {{/if}}
             </strong> added this {{# place_type_label }}{{ place_type_label }}{{/ place_type_label}}
                                  {{^ place_type_label }}place{{/ place_type_label}}
             {{#region}}
@@ -18,7 +23,7 @@
         <section class="place-items">
           {{# attachments }}
           <div class="place-item place-attachment-{{ name }}">
-            <img src="{{ url }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
+            <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
           </div>
           {{/ attachments }}
           {{# items }}

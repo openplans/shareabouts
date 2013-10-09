@@ -1,3 +1,5 @@
+/*globals _ jQuery L Backbone ich */
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
@@ -24,11 +26,16 @@ var Shareabouts = Shareabouts || {};
       this.collection.on('remove', this.onRemovePlace, this);
 
       // Only append the tools to add places (if supported)
-      $('#map-container').append(ich['add-places'](this.options.placeConfig));
+      $('#map-container').append(Handlebars.templates['add-places'](this.options.placeConfig));
 
       this.pagesNavView = (new S.PagesNavView({
               el: '#pages-nav-container',
               pagesConfig: this.options.pagesConfig,
+              router: this.options.router
+            })).render();
+
+      this.authNavView = (new S.AuthNavView({
+              el: '#auth-nav-container',
               router: this.options.router
             })).render();
 
@@ -120,12 +127,12 @@ var Shareabouts = Shareabouts || {};
     },
     onMapMoveStart: function(evt) {
       this.$centerpoint.addClass('dragging');
-      
+
       // fade the instructions out (and don't show them again)
       if (this.$instructions.is(':visible')) {
         this.instructionsShown = true;
       }
-      
+
       this.hideInstructions();
     },
     onMapMoveEnd: function(evt) {
@@ -199,12 +206,13 @@ var Shareabouts = Shareabouts || {};
     },
     viewPlace: function(model) {
       var map = this.mapView.map,
-          location, placeDetailView;
+          layer, center, placeDetailView;
 
       if (model) {
         // Called by the router
-        location = model.get('location');
+        layer = this.mapView.layerViews[model.cid].layer;
         placeDetailView = this.getPlaceDetailView(model);
+        center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
 
         this.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
         this.showPanel(placeDetailView.render().$el);
@@ -213,7 +221,8 @@ var Shareabouts = Shareabouts || {};
         this.hideCenterPoint();
         this.hideAddButton();
         this.hideInstructions(true);
-        map.panTo(this.getOffsetCenter(L.latLng(location.lat, location.lng)));
+
+        map.panTo(this.getOffsetCenter(center));
 
         // Focus the one we're looking
         model.trigger('focus');
@@ -227,7 +236,7 @@ var Shareabouts = Shareabouts || {};
       });
 
       this.$panel.removeClass().addClass('page page-' + slug);
-      this.showPanel(ich['pages/' + (pageConfig.name || pageConfig.slug)]);
+      this.showPanel(Handlebars.templates['pages/' + (pageConfig.name || pageConfig.slug)]);
 
       this.hideNewPin();
       this.destroyNewModels();
@@ -263,26 +272,28 @@ var Shareabouts = Shareabouts || {};
     },
     showInstructions: function() {
       var self = this;
-      
-      if (self.instructionsShown)
+
+      if (self.instructionsShown) {
         return;
-      
+      }
+
       self.$instructions.css('display', null).addClass('show');
       // also add a class to the add button, indicating that we are instructing
       self.$addButton.addClass('instructionsShowing');
     },
     hideInstructions: function(instant) {
-      if (instant)
+      if (instant) {
         this.$instructions.removeClass('show');
-      else
+      } else {
         this.$instructions.fadeOut();
-      
+      }
+
       this.$addButton.removeClass('instructionsShowing');
     },
     hidePanel: function() {
       this.unfocusAllPlaces();
       this.$panel.hide();
-      
+
       this.showInstructions();
     },
     hideNewPin: function() {
@@ -307,4 +318,4 @@ var Shareabouts = Shareabouts || {};
       this.mapView.render();
     }
   });
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+}(Shareabouts, jQuery, Shareabouts.Util.console));

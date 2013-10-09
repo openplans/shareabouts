@@ -3,24 +3,21 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
-  S.PagesNavView = Backbone.View.extend({
+  S.AuthNavView = Backbone.View.extend({
     events: {
-      'click .internal-menu-item a': 'onPageLinkClick',
+      'click .internal-menu-item a': 'onLinkClick',
       'click #nav-bttn': 'onMobileNavClick'
     },
 
     render: function() {
-      var data = {
-            pages: this.options.pagesConfig,
-            has_pages: (this.options.pagesConfig.length > 0)
-          },
-          template = Handlebars.templates['pages-nav'](data);
+      var data = S.bootstrapped.currentUser,
+          template = Handlebars.templates['auth-nav'](data);
       this.$el.html(template);
 
       return this;
     },
 
-    onPageLinkClick: function(evt) {
+    onLinkClick: function(evt) {
       evt.preventDefault();
       // Hide mobile list when one is selected
       $('.access').removeClass('expose');

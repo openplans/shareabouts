@@ -21,114 +21,89 @@ var Shareabouts = Shareabouts || {};
     };
   };
 
-  S.ShareaboutsApiModel = Backbone.Model.extend({
-    sync: function(method, model, options) {
-      if (method !== 'read') {
-        var data = model.toJSON();
+  S.PaginatedCollection = Backbone.Collection.extend({
+    parse: function(response) {
+      this.metadata = response.metadata;
+      return response.results;
+    },
 
-        delete data.created_datetime;
-        delete data.dataset;
-        delete data.id;
-        delete data.updated_datetime;
-        delete data.distance;
+    fetchNextPage: function(success, error) {
+      var collection = this,
+          nextUrl;
 
-        options = options || {};
-        options.contentType = 'application/json';
-        options.data = JSON.stringify(data);
+      if (this.metadata.next) {
+        nextUrl = function() { return collection.metadata.next; };
+
+        S.Utils.patch(this, {url: nextUrl}, function() {
+          collection.fetch({
+            remove: false,
+            success: success,
+            error: error
+          });
+        });
       }
-
-      Backbone.sync(method, model, options);
     }
   });
 
-  S.SubmissionModel = S.ShareaboutsApiModel.extend({
-    url: function() {
-      // This is to make Django happy. I'm sad to have to add it.
-      var url = S.SubmissionModel.__super__.url.call(this);
-      url += url.charAt(url.length-1) === '/' ? '' : '/';
-
-      return url;
-    }
-  });
-
-  S.SubmissionCollection = Backbone.Collection.extend({
+  S.SubmissionCollection = S.PaginatedCollection.extend({
     initialize: function(models, options) {
       this.options = options;
     },
 
-    model: S.SubmissionModel,
-
     url: function() {
       var submissionType = this.options.submissionType,
-          placeId = this.options.placeModel.id;
+          placeId = this.options.placeModel && this.options.placeModel.id;
+
+      if (!submissionType) { throw new Error('submissionType option' +
+                                                     ' is required.'); }
 
       if (!placeId) { throw new Error('Place model id is not defined. You ' +
-                                      'must save the Place before saving ' +
+                                      'must save the place before saving ' +
                                       'its ' + submissionType + '.'); }
 
-      return '/api/places/' + placeId + '/' + submissionType + '/';
+      return '/api/places/' + placeId + '/' + submissionType;
     }
   });
 
-  S.PlaceModel = S.ShareaboutsApiModel.extend({
+  S.PlaceModel = Backbone.Model.extend({
     initialize: function() {
-      var model = this,
-          submissionSetsData = this.get('submissions') || [],
-          responsesData = [], supportsData = [];
+      var attachmentData;
 
-      _.each(submissionSetsData, function(submissionSetData) {
-        var submissionSetName;
+      this.submissionSets = {};
 
-        if (_.isArray(submissionSetData)) {
-          submissionSetName = _.first(submissionSetData).type;
-          // TODO: Figure out a better, more general way to treat submission sets.
-          if (submissionSetName === model.collection.options.responseType) {
-            responsesData = submissionSetData;
-          }
-          else if (submissionSetName === model.collection.options.supportType) {
-            supportsData = submissionSetData;
-          }
+      _.each(this.get('submission_sets'), function(submissions, name) {
+        var models = [];
+
+        // It's a summary if it's not an array of objects
+        if (_.isArray(submissions)) {
+          models = submissions;
         }
-      });
 
-      this.responseCollection = new S.SubmissionCollection(responsesData, {
-        placeModel: this,
-        submissionType: this.collection.options.responseType
-      });
+        this.submissionSets[name] = new S.SubmissionCollection(models, {
+          submissionType: name,
+          placeModel: this
+        });
+      }, this);
 
-      this.supportCollection = new S.SubmissionCollection(supportsData, {
-        placeModel: this,
-        submissionType: this.collection.options.supportType
-      });
-
-      var attachmentData = this.get('attachments') || [];
+      attachmentData = this.get('attachments') || [];
       this.attachmentCollection = new S.AttachmentCollection(attachmentData, {
         thingModel: this
       });
     },
 
     set: function(key, val, options) {
-      var args = normalizeModelArguments(key, val, options),
-          model = this;
+      var args = normalizeModelArguments(key, val, options);
 
-      if (_.isArray(args.attrs.attachments) && this.attachmentCollection && !args.options.ignoreAttachnments) {
+      if (_.isArray(args.attrs.attachments) && this.attachmentCollection && !args.options.ignoreAttachments) {
         this.attachmentCollection.reset(args.attrs.attachments);
       }
 
-      _.each(args.attrs.submissions, function(submissionSet) {
-        var submissionSetName;
-
-        if (_.isArray(submissionSet)) {
-          submissionSetName = _.first(submissionSet).type;
-          // TODO: Figure out a better, more general way to treat submission sets.
-          if (submissionSetName === model.collection.options.responseType && model.responseCollection) {
-            model.responseCollection.reset(submissionSet);
-          }
-          else if (submissionSetName === model.collection.options.supportType && model.supportCollection) {
-            model.supportCollection.reset(submissionSet);
-          }
+      _.each(args.attrs.submission_sets, function(submissions, name) {
+        // It's a summary if it's not an array of objects
+        if (this.submissionSets && this.submissionSets[name] && _.isArray(submissions)) {
+          this.submissionSets[name].reset(submissions);
         }
-      });
+      }, this);
 
       return S.PlaceModel.__super__.set.call(this, args.attrs, args.options);
     },
@@ -156,7 +131,7 @@ var Shareabouts = Shareabouts || {};
         self.saveAttachments();
       }
 
-      options.ignoreAttachnments = true;
+      options.ignoreAttachments = true;
       S.PlaceModel.__super__.save.call(this, attrs, options);
     },
 
@@ -166,32 +141,45 @@ var Shareabouts = Shareabouts || {};
           attachment.save();
         }
       });
+    },
+
+    parse: function(response) {
+      var properties = _.clone(response.properties);
+      properties.geometry = _.clone(response.geometry);
+      return properties;
+    },
+
+    sync: function(method, model, options) {
+      var attrs;
+
+      if (method === 'create' || method === 'update') {
+        attrs = {
+          'type': 'Feature',
+          'geometry': model.get('geometry'),
+          'properties': _.omit(model.toJSON(), 'geometry')
+        };
+
+        options.data = JSON.stringify(attrs);
+        options.contentType = 'application/json';
+      }
+
+      return Backbone.sync(method, model, options);
     }
   });
 
-  S.PlaceCollection = Backbone.Collection.extend({
-    url: '/api/places/',
+  S.PlaceCollection = S.PaginatedCollection.extend({
+    url: '/api/places',
     model: S.PlaceModel,
 
-    initialize: function(models, options) {
-      this.options = options;
-    },
-
-    add: function(models, options) {
-      // Pass the submissionType into each PlaceModel so that it makes its way
-      // to the SubmissionCollections
-      options = options || {};
-      options.responseType = this.options && this.options.responseType;
-      options.supportType = this.options && this.options.supportType;
-      return S.PlaceCollection.__super__.add.call(this, models, options);
+    parse: function(response) {
+      this.metadata = response.metadata;
+      return response.features;
     }
   });
 
   // This does not support editing at this time, which is why it is not a
   // ShareaboutsModel
   S.AttachmentModel = Backbone.Model.extend({
-    idAttr: 'name',
-
     initialize: function(attributes, options) {
       this.options = options;
     },
@@ -249,15 +237,22 @@ var Shareabouts = Shareabouts || {};
       var thingModel = this.options.thingModel,
           thingUrl = thingModel.url();
 
-      return thingUrl + '/attachments/';
+      return thingUrl + '/attachments';
     }
   });
 
-  S.ActivityCollection = Backbone.Collection.extend({
-    url: '/api/activity/'
+  S.ActionCollection = S.PaginatedCollection.extend({
+    url: '/api/actions',
+    comparator: function(a, b) {
+      if (a.get('created_datetime') > b.get('created_datetime')) {
+        return -1;
+      } else {
+        return 1;
+      }
+    }
   });
 
-}(Shareabouts, jQuery, Shareabouts.Util.console));
+}(Shareabouts, jQuery));
 
 /*global jQuery */
 

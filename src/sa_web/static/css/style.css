@@ -178,17 +178,26 @@ body {
 
 /* Logo */
 #site-title {
+  font-size: 1em;
   font-family: 'Dancing Script', cursive;
-  font-size: 3em;
   font-weight: bold;
   text-shadow: 1px -1px 0 rgba(0, 0, 0, 0.5);
-  line-height: 1.325;
   color: #eee;
   float: left;
   margin: 0 0.5em 0 0;
+  padding: 0.5em 0;
+  height: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.has-pages #site-title {
+  padding-left: 3em;
 }
 #site-title a:link,
 #site-title a:visited {
+  display: block;
+  font-size: 2.25em;
+  line-height: 1.5;
   text-decoration: none;
   color: #eee;
 }
@@ -199,15 +208,16 @@ body {
 /* Primary Menu */
 #nav-bttn {
   float: right;
+  width: 1.25em;
   font-size: 2em;
   line-height: 1;
   background: #444;
   text-decoration: none;
   text-align: center;
-  padding: 0.125em 0.4em;
-  margin: 0.4em 0 0 0.5em;
+  padding: 0.125em 0;
+  margin: 0.4em;
   position: absolute;
-  right: 0.4em;
+  left: 0;
 }
 #nav-bttn:hover {
   background: #a3c7d9;
@@ -215,7 +225,7 @@ body {
 .access {
   display: none;
   width: 100%;
-  margin: -0.25em -1em 0;
+  margin: 0em -1em 0;
   border: 1em solid #777;
   border-top: 0.5em solid #777;
   font-weight: bold;
@@ -250,30 +260,63 @@ body {
 }
 
 /* User Menu */
-#user-menu {
+.user-menu {
   float: right;
-  padding-top: 1.5em;
-  line-height: 1.5;
-  position: relative;
+  position: absolute;
+  font-size: 1em;
+  top: 1em;
+  right: 0.5em;
+  text-align: right;
 }
-#user-menu .sign-in-text {
-  float: left;
+.header-avatar {
+  float: right;
+  height: 3em;
+  width: 3em;
+  margin: -0.5em 0 0 0.5em;
+}
+.current-user {
+  white-space: nowrap;
+}
+a.logout-btn {
+  display: block;
+  font-size: 0.85em;
+  font-weight: bold;
+  text-decoration: none;
   text-transform: uppercase;
-  font-size: 85%;
 }
-.login {
-  width: 16px;
-  height: 16px;
-  text-indent: -9999px;
-  margin-left: 5px;
+.sign-in-prompt {
+  display: block;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  margin: -0.5em 0 0.25em;
+  text-align: center;
 }
-.facebook-login {
+.sign-in-menu-item {
   float: left;
-  background: url(images/facebook-login-16.gif) 0 0 no-repeat scroll;
+  font-weight: bold;
+  margin-left: 0.5em;
 }
-.twitter-login {
-  float: left;
-  background: url(images/twitter-login-16.gif) 0 0 no-repeat scroll;
+.auth {
+  text-decoration: none;
+  display: block;
+  padding: 0.25em 0.5em;
+}
+.auth-inline {
+  text-decoration: none;
+  display: inline;
+  padding: 0.25em 0.5em;
+}
+a.twitter-btn {
+  background-color: #4099FF;
+  color: #fff !important;
+}
+a.facebook-btn {
+  background-color: #3b5998;
+  color: #fff !important;
+}
+.or-sign-in {
+  display: block;
+  padding-top: 0.75em;
 }
 
 /* Main (map & content, does not include ticker) */
@@ -351,34 +394,30 @@ a.add-place:before {
 }
 
 .locate-me {
+  width: 20px;
+  height: 20px;
+  background-image: url(images/locate-me.png);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
   display: block;
-  float: right;
-	padding: 5px;
-	background-color: rgba(0, 0, 0, 0.25);
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
-	border-radius: 7px;
+  padding: 3px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
+  cursor: auto;
+  text-align: center;
+  background-color: #FFFFFF;
+}
+.locate-me:hover {
+  background-color: #f4f4f4;
 }
 .locate-me span {
-  display: block;
-  float: right;
-  background-color: #fff;
-  background-color: rgba(255, 255, 255, 0.75);
-  background-image: url(images/locate-me.png);
-  background-position: center center;
-  background-repeat: no-repeat;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  width: 19px;
-  height: 19px;
+  display:block;
   text-indent: -9999px;
-  cursor: pointer;
 }
-.locate-me span:hover {
-  background-color: #fff;
-}
-.leaflet-touch .locate-me span {
+
+.leaflet-touch .locate-me {
 	width: 27px;
 	height: 27px;
 }
@@ -646,8 +685,10 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 textarea {
-  width: 80%;
-  height: 4.5em;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  width: 100%;
+  height: 6.5em;
   resize: vertical;
 }
 .required {
@@ -785,8 +826,21 @@ textarea {
 .place-header {
   margin-bottom: 1em;
 }
-.place-header .response-submitter {
-  font-size: 16px;
+.place-submission-details {
+  display: block;
+  padding-left: 3.75em;
+}
+.point-submitter .avatar {
+  width: 3.25em;
+  height: 3.25em;
+  float: left;
+  margin-left: -3.75em;
+}
+.response-date {
+  display: block;
+  text-transform: uppercase;
+  color: #888;
+  font-size: 0.85em;
 }
 .description {
   font-size: 16px;
@@ -823,7 +877,9 @@ ol.responses {
   margin-left: 0;
 }
 .responses .response {
-  padding-bottom: 1em;
+  position: relative;
+  padding-bottom: 40px;
+  margin-bottom: 1em;
 }
 .responses .children {
   list-style: none;
@@ -843,19 +899,48 @@ article.response {
   display: block;
 }
 .response-header {
-  line-height: 1.4;
-  margin-bottom: 1em;
+  padding-left: 3.75em;
+  margin: 0 0 0 1em;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
-.avatar {
+.response-submitter {}
+.response-submitter .avatar {
+  width: 3.25em;
+  height: 3.25em;
   float: left;
-  margin-right: 1.2em;
+  margin-left: -3.75em;
 }
-.response-meta {
-}
+.response-meta {}
 .response-body {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 1em;
+  margin: 0 0 1em;
+  padding: 1em;
+  border-top: 1px solid #a8a8a8;
+  border-right: 1px solid #c8c8c8;
+  border-bottom: 0;
+  border-left: 1px solid #c8c8c8;
+  background: #eee;
+  border-radius: 1em;
+  position: relative;
 }
+.response-body:after {
+  content: '';
+  height: 0;
+  width: 0;
+  border: 1em solid transparent;
+  border-top-color: #eee;
+  position: absolute;
+  top: 100%;
+  left: 20px;
+}
+.response-label-comment {
+  display: none;
+}
+.response-value-comment {
+  margin-bottom: 0.5em !important;
+}
+
 article.response footer {
   text-align: right;
 }
@@ -881,6 +966,28 @@ article.response footer {
 }
 .response-box label {
   display: none;
+}
+
+.submit-bttn {
+  float: left;
+  margin: 0 0.75em 0 0;
+}
+.signed-in-as {
+  float: left;
+  white-space: nowrap;
+  padding-top: 0.75em;
+  line-height: 1.5;
+}
+.signed-in-as .avatar {
+  height: 1.5em;
+  width: auto;
+  position: relative;
+  top: 0.5em;
+}
+.signed-in-as a {
+  font-weight: bold;
+  font-size: 0.85em;
+  text-transform: uppercase;
 }
 
 /* Ticker */
@@ -911,14 +1018,12 @@ ul.recent-points {
 .recent-points li:hover {
   background: #606060;
 }
-.recent-points .avatar {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-}
 .recent-points a {
-  display: block;
-  padding: 10px 10px 10px 10px;
+  float: left;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  width: 100%;
+  padding: 10px 10px 10px 50px;
   color: #ddd;
   text-decoration: none;
   position: relative;
@@ -926,6 +1031,12 @@ ul.recent-points {
 }
 .recent-points a:hover {
   color: #fff;
+}
+.recent-points .avatar {
+  width: 30px;
+  height: 30px;
+  float: left;
+  margin-left: -40px;
 }
 .recent-points .badge {
   background: transparent url(images/ticker-point.png) 0 0 no-repeat scroll;
@@ -1163,6 +1274,9 @@ ul.recent-points {
   }
 
   /* Page Menu */
+  .has-pages #site-title {
+    padding-left: 0;
+  }
   #nav-bttn {
     display: none;
   }
@@ -1260,9 +1374,10 @@ ul.recent-points {
   #site-header {
     height: 5em;
   }
-  #site-title {
-    font-size: 3.4em;
-    line-height: 1.5;
+  #site-title a:link,
+  #site-title a:visited {
+    font-size: 3.25em;
+    line-height: 1.25;
   }
   .access {
     margin-top: 1.75em;
@@ -1295,25 +1410,24 @@ ul.recent-points {
     bottom: 0;
     box-shadow: 0 -4px 0 rgba(85, 85, 85, 0.5), inset 0 1px 0 rgba(255,255,255,0.25);
   }
-  #user-menu {
-    padding-top: 0.75em;
+
+  .user-menu {
+    top: 1.25em;
   }
-  #user-menu .sign-in-text {
-    float: none;
-    display: block;
+  .header-avatar {
+    height: 4em;
+    width: 4em;
+    margin-top: -0.75em;
   }
-  .login {
-    width: 32px;
-    height: 32px;
-    margin: 0;
+  .current-user {
+    font-size: 1.25em;
   }
-  .facebook-login {
-    float: left;
-    background: url(images/facebook-login-32.png) 0 0 no-repeat scroll;
+  a.logout-btn {
+    margin-top: 0.25em;
   }
-  .twitter-login {
-    float: right;
-    background: url(images/twitter-login-32.png) 0 0 no-repeat scroll;
+  .sign-in-prompt,
+  .sign-in-menu {
+    margin-right: 1em;
   }
   .promotion {
     margin: -2em -2em 1em -2em;
@@ -1327,8 +1441,14 @@ ul.recent-points {
     height: 6em;
     padding: 0 1.5em;
   }
-  #site-title {
-    font-size: 4.25em;
+  #site-title a:link,
+  #site-title a:visited {
+    font-size: 4em;
+    line-height: 1.25;
+  }
+  .user-menu {
+    top: 2em;
+    right: 1em;
   }
   .access li {
     font-size: 1.25em;
@@ -1359,7 +1479,7 @@ ul.recent-points {
     background-image: url(images/crosshair@2x.png);
     background-size: contain;
   }
-  .locate-me span {
+  .locate-me {
     background-image: url(images/locate-me@2x.png);
     background-size: contain;
   }

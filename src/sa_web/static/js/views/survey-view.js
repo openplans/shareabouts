@@ -26,15 +26,15 @@ var Shareabouts = Shareabouts || {};
       this.collection.each(function(model, i) {
         var items = S.TemplateHelpers.getItemsFromModel(self.options.surveyConfig.items, model, ['submitter_name']);
 
-        responses.push({
+        responses.push(_.extend(model.toJSON(), {
           submitter_name: model.get('submitter_name') || self.options.surveyConfig.anonymous_name,
           pretty_created_datetime: S.Util.getPrettyDateTime(model.get('created_datetime'),
             self.options.surveyConfig.pretty_datetime_format),
           items: items
-        });
+        }));
       });
 
-      this.$el.html(ich['place-detail-survey']({
+      this.$el.html(Handlebars.templates['place-detail-survey']({
         responses: responses,
         has_single_response: (responses.length === 1),
         survey_config: this.options.surveyConfig
@@ -55,13 +55,25 @@ var Shareabouts = Shareabouts || {};
     onSubmit: function(evt) {
       evt.preventDefault();
       var $form = this.$('form'),
+          $button = this.$('[name="commit"]'),
           attrs = S.Util.getAttrs($form);
 
-      // Create a model with the attributes from the form
-      this.collection.create(attrs);
+      // Disable the submit button until we're done, so that the user doesn't
+      // over-click it
+      $button.attr('disabled', 'disabled');
 
-      // Clear the form
-      $form.get(0).reset();
+      // Create a model with the attributes from the form
+      this.collection.create(attrs, {
+        wait: true,
+        success: function() {
+          // Clear the form
+          $form.get(0).reset();
+        },
+        complete: function() {
+          // No matter what, enable the button
+          $button.removeAttr('disabled');
+        }
+      });
     },
 
     onReplyClick: function(evt) {

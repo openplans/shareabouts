@@ -13,7 +13,12 @@
               <article class="response">
                 <header class="response-header clearfix">
                   {{#_}}<strong class="response-submitter">
-                    {{ submitter_name }}
+                    {{#if submitter}}
+                      <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
+                    {{^}}
+                      <!-- TODO: FIXME: don't hardcode image URL -->
+                      <img src="/static/css/images/user-50.png" class="avatar" /> {{ submitter_name }}
+                    {{/if}}
                   </strong>
                   <span class="response-date">
                     around {{ pretty_created_datetime }}
@@ -39,22 +44,37 @@
 
           <div id="reply">
             <h4 class="reply-header">{{ title }}</h4>
-            <form id="new_response" class="new_response" action="#" method="post">
+            <form id="new_response" class="new_response clearfix" action="#" method="post">
               <input type="hidden" name="visible" value="on">
 
               <fieldset>
               {{#survey_config.items}}
 
                 <div class="survey-field survey-field-{{ name }}">
+                  {{#is_authenticated}}
+                    {{^is_submitter_name}}
+                    <label class="survey-label survey-label-{{ name }}" for="survey-{{ name }}">
+                      {{#_}}{{ prompt }}{{# optional }} (optional){{/ optional }}{{/_}}
+                    </label>
+                    {{/is_submitter_name}}
+                  {{^}}
                   <label class="survey-label survey-label-{{ name }}" for="survey-{{ name }}">
                     {{#_}}{{ prompt }}{{# optional }} (optional){{/ optional }}{{/_}}
                   </label>
+                  {{/is_authenticated}}
 
                   <div class="survey-widgets survey-widgets-{{ name }}">
                     {{#is_input}}
-                    <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-
+                      {{#is_submitter_name}}
+                        {{#is_authenticated}}
+                        {{^}}
+                          <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                        {{/is_authenticated}}
+                      {{^}}
+                        <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                      {{/is_submitter_name}}
                     {{/is_input}}
+
                     {{#is_textarea}}
                     <textarea id="survey-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
                     {{/is_textarea}}
@@ -71,6 +91,12 @@
               {{/survey_config.items}}
               </fieldset>
 
-              <input name="commit" type="submit" value="{{ survey_config.submit_btn_text }}" class="bttn">
+              <input name="commit" type="submit" value="{{ survey_config.submit_btn_text }}" class="bttn submit-bttn">
+
+              {{#is_authenticated}}
+                <p class="signed-in-as"><img src="{{ current_user "avatar_url" }}" class="avatar" /> {{ current_user "name" }}. <a class="" href="/users/logout/">Log Out</a></p>
+              {{^}}
+              {{/is_authenticated}}
+
             </form>
           </div>
