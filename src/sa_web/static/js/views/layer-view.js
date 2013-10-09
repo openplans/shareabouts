@@ -37,15 +37,18 @@ var Shareabouts = Shareabouts || {};
       if (!this.model.isNew()) {
         geom = this.model.get('geometry');
 
-        this.style = L.Argo.getStyleRule(this.model.toJSON(), this.placeType.rules).style;
-        this.focus_style = L.Argo.getStyleRule(this.model.toJSON(), this.placeType.rules).focus_style;
+        this.styleRule = L.Argo.getStyleRule(this.model.toJSON(), this.placeType.rules);
 
         if (geom.type === 'Point') {
           this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
-          this.layer = L.marker(this.latLng, {icon: L.icon(this.style)});
+          if (this.styleRule.icon) {
+            this.layer = L.marker(this.latLng, {icon: L.icon(this.styleRule.icon)});
+          } else {
+            this.layer = L.circleMarker(this.latLng, this.styleRule.style);
+          }
         } else {
           this.layer = L.GeoJSON.geometryToLayer(geom);
-          this.layer.setStyle(this.style);
+          this.layer.setStyle(this.styleRule.style);
         }
 
         // Focus on the marker onclick
@@ -82,21 +85,17 @@ var Shareabouts = Shareabouts || {};
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
     },
     focus: function() {
-      if (this.focus_style) {
-        if (this.model.get('geometry').type === 'Point') {
-          this.setIcon(L.icon(this.focus_style));
-        } else {
-          this.layer.setStyle(this.focus_style);
-        }
+      if (this.styleRule.icon && this.styleRule.focus_icon) {
+        this.setIcon(L.icon(this.styleRule.focus_icon));
+      } else if (this.styleRule.style && this.styleRule.focus_style) {
+        this.layer.setStyle(this.styleRule.focus_style);
       }
     },
     unfocus: function() {
-      if (this.style) {
-        if (this.model.get('geometry').type === 'Point') {
-          this.setIcon(L.icon(this.style));
-        } else {
-          this.layer.setStyle(this.style);
-        }
+      if (this.styleRule.icon && this.styleRule.focus_icon) {
+        this.setIcon(L.icon(this.styleRule.icon));
+      } else if (this.styleRule.style && this.styleRule.focus_style) {
+        this.layer.setStyle(this.styleRule.style);
       }
     },
     remove: function() {
