@@ -1,36 +1,29 @@
+/*globals L Backbone _ */
+
 var Shareabouts = Shareabouts || {};
 
-(function(S, A, $, console){
+(function(S, $, console){
   S.MapView = Backbone.View.extend({
     events: {
       'click .locate-me': 'geolocate'
     },
     initialize: function() {
       var self = this,
-          i, layerModel,
-          // Base layer config is optional, default to Mapbox Streets
-          baseLayerConfig = _.extend({
-            url: 'http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png',
-            attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
-          }, self.options.mapConfig.base_layer),
-          baseLayer = L.tileLayer(baseLayerConfig.url, baseLayerConfig);
+          i, layerModel;
 
       // Init the map
       self.map = L.map(self.el, self.options.mapConfig.options);
       self.placeLayers = L.layerGroup();
-      self.map.addLayer(baseLayer);
 
-      // Cache additional vector layer views
-      self.argoLayerViews = {};
-
-      // Init all of the vector layer views
-      argoConfigs = new Backbone.Collection(self.options.mapConfig.layers);
-      argoConfigs.each(function(model, i) {
-        if (model.get('type') !== 'tile') {
-          self.argoLayerViews[model.get('id')] = new A.LayerView({
-            map: self.map,
-            model: model
-          });
+      // Add layers defined in the config file
+      _.each(self.options.mapConfig.layers, function(config){
+        // type is required by Argo for fetching data, so it's a pretty good
+        // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
+        if (config.type) {
+          L.argo(config.url, config).addTo(self.map);
+        } else {
+          // Assume a tile layer
+          L.tileLayer(config.url, config).addTo(self.map);
         }
       });
 
@@ -41,11 +34,6 @@ var Shareabouts = Shareabouts || {};
       if (self.options.mapConfig.geolocation_enabled) {
         self.initGeolocation();
       }
-
-      _.each(self.options.mapConfig.layers, function(layerConfig){
-        var layer = L.tileLayer(layerConfig.url, layerConfig);
-        self.map.addLayer(layer);
-      });
 
       self.map.addLayer(self.placeLayers);
 
@@ -144,4 +132,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, Argo, jQuery, Shareabouts.Util.console);
+})(Shareabouts, jQuery, Shareabouts.Util.console);

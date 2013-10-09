@@ -206,12 +206,13 @@ var Shareabouts = Shareabouts || {};
     },
     viewPlace: function(model) {
       var map = this.mapView.map,
-          point, placeDetailView;
+          layer, center, placeDetailView;
 
       if (model) {
         // Called by the router
-        point = model.get('geometry');
+        layer = this.mapView.layerViews[model.cid].layer;
         placeDetailView = this.getPlaceDetailView(model);
+        center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
 
         this.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
         this.showPanel(placeDetailView.render().$el);
@@ -221,7 +222,7 @@ var Shareabouts = Shareabouts || {};
         this.hideAddButton();
         this.hideInstructions(true);
 
-        map.panTo(this.getOffsetCenter(L.latLng(point.coordinates[1], point.coordinates[0])));
+        map.panTo(this.getOffsetCenter(center));
 
         // Focus the one we're looking
         model.trigger('focus');

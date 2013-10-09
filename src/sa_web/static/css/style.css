@@ -394,34 +394,30 @@ a.add-place:before {
 }
 
 .locate-me {
+  width: 20px;
+  height: 20px;
+  background-image: url(images/locate-me.png);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
   display: block;
-  float: right;
-	padding: 5px;
-	background-color: rgba(0, 0, 0, 0.25);
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
-	border-radius: 7px;
+  padding: 3px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
+  cursor: auto;
+  text-align: center;
+  background-color: #FFFFFF;
+}
+.locate-me:hover {
+  background-color: #f4f4f4;
 }
 .locate-me span {
-  display: block;
-  float: right;
-  background-color: #fff;
-  background-color: rgba(255, 255, 255, 0.75);
-  background-image: url(images/locate-me.png);
-  background-position: center center;
-  background-repeat: no-repeat;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  width: 19px;
-  height: 19px;
+  display:block;
   text-indent: -9999px;
-  cursor: pointer;
 }
-.locate-me span:hover {
-  background-color: #fff;
-}
-.leaflet-touch .locate-me span {
+
+.leaflet-touch .locate-me {
 	width: 27px;
 	height: 27px;
 }
@@ -1483,7 +1479,7 @@ ul.recent-points {
     background-image: url(images/crosshair@2x.png);
     background-size: contain;
   }
-  .locate-me span {
+  .locate-me {
     background-image: url(images/locate-me@2x.png);
     background-size: contain;
   }
