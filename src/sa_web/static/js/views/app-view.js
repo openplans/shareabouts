@@ -1,4 +1,4 @@
-/*globals _ jQuery L Backbone ich */
+/*globals _ jQuery L Backbone Handlebars */
 
 var Shareabouts = Shareabouts || {};
 
@@ -252,6 +252,7 @@ var Shareabouts = Shareabouts || {};
       this.$panelContent.html(markup);
       this.$panel.show();
 
+      this.$panelContent.scrollTop(0);
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
     },
     showNewPin: function() {
