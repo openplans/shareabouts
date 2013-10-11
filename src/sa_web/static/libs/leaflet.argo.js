@@ -108,13 +108,36 @@ L.Argo = L.GeoJSON.extend({
 
 L.extend(L.Argo, {
   // http://mir.aculo.us/2011/03/09/little-helpers-a-tweet-sized-javascript-templating-engine/
-  t: function t(s,d){
-    if (typeof s === 'string' || s instanceof String) {
-      for(var p in d) {
-        s=s.replace(new RegExp('{{'+p+'}}','g'), d[p]);
+  t: function t(str, obj){
+    function find(obj, key) {
+      var parts, partKey;
+      if (!obj) {
+        return obj;
+      }
+
+      if (key.indexOf('.') > -1) {
+        parts = key.split('.');
+        partKey = parts.shift();
+        return find(obj[partKey], parts.join('.'));
+      } else {
+        return obj[key];
       }
     }
-    return s;
+
+    var regex = /\{\{ *([\w\.]+) *\}\}/g,
+        matches = str.match(regex),
+        val, m, i;
+
+    if (matches) {
+      for (i=0; i<matches.length; i++) {
+        m = matches[i].replace(/[\{\}]/g, '');
+        val = find(obj, m);
+
+        str=str.replace(new RegExp(matches[i], 'g'), val);
+      }
+    }
+
+    return str;
   },
 
   // Get the style rule for this feature by evaluating the condition option
