@@ -336,4 +336,5 @@ var Shareabouts = Shareabouts || {};
       this.mapView.render();
     }
   });
+  $("#powered-by").addClass("is-loaded");
 }(Shareabouts, jQuery, Shareabouts.Util.console));
