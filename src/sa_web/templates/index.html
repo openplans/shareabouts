@@ -30,10 +30,10 @@
   <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/apple-touch-icon-precomposed.png">
 
   <!-- Google WebFonts -->
-  <!-- We shouldn't include this if the custom stylesheet overrides the #site-title font. -->
   <link href='http://fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css">
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="{{ config.static_url }}css/custom.css">
@@ -55,6 +55,7 @@
 
   <header id="site-header" class="clearfix{% if pages_config %} has-pages{% endif %}">
     <h1 id="site-title"><a href="/">{{ config.app.name }}</a></h1>
+    <div id="auth-nav-container"></div>
     <div id="pages-nav-container"></div>
 
     {% if config.languages %}
@@ -81,7 +82,6 @@
     </div> <!-- .language-picker -->
     {% endif %}
 
-    <div id="auth-nav-container"></div>
   </header>
 
   <div class="unsupported-overlay"></div>
@@ -111,17 +111,17 @@
     </div>
 
     <div id="content"><!-- .place or .page -->
-      <a href="#" class="close-bttn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
+      <a href="#" class="close-btn">&#10005;<span>{% blocktrans %}Close{% endblocktrans %}</span></a>
       <article></article>
     </div><!-- end #content -->
   </div><!-- end #main -->
 
   <div id="ticker">
-    <ul class="recent-points"></ul>
+    <ul class="recent-points unstyled-list"></ul>
   </div>
-  <p id="powered-by">{% blocktrans %}Powered by{% endblocktrans %} <a href="http://shareabouts.org/" class="shareabouts-logo">Shareabouts</a>, <span class="nowrap">a project of <a href="http://openplans.org/" class="openplans-logo">OpenPlans</a>.</span></p>
 
   <footer id="colophon">
+    <p id="powered-by">{% blocktrans %}Powered by{% endblocktrans %} <a href="http://shareabouts.org/" class="shareabouts-logo">Shareabouts</a>, <span class="nobreak">a project of <a href="http://openplans.org/" class="openplans-logo">OpenPlans</a>.</span></p>
   </footer>
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
@@ -162,7 +162,7 @@
         $unsupportedEl.html(unsupportedHtml);
         $unsupportedEl.slideDown();
 
-        $unsupportedEl.find('.close-bttn').click(function(evt) {
+        $unsupportedEl.find('.close-btn').click(function(evt) {
           evt.preventDefault();
           $unsupportedEl.slideUp();
           return false;

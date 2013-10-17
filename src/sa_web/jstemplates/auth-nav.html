@@ -1,15 +1,16 @@
 <nav class="user-menu" role="article">
   {{# is_authenticated }}
-  <div class="user-is-authenticated">
-    <img class="avatar header-avatar" src="{{ current_user "avatar_url" }}">
-    <span class="current-user">{{ current_user "name" }}</span>
-    <a class="logout-btn" href="/users/logout/">Log Out</a>
-  </div>
-  {{ else }}
-  <span class="sign-in-prompt">Sign in with</span>
+  <a href="#" id="sign-in-btn" class="authed"><img class="avatar header-avatar" src="{{ current_user "avatar_url" }}"></a>
   <ul class="menu sign-in-menu">
-    <li class="menu-item sign-in-menu-item"><a class="auth twitter-btn" href="/users/login/twitter/">Twitter</a></li>
-    <li class="menu-item sign-in-menu-item"><a class="auth facebook-btn" href="/users/login/facebook/">Facebook</a></li>
+    <li><span class="signed-in-as">Signed in as</span> <span class="current-user">{{ current_user "name" }}</span></li>
+    <li class=""><a class="logout-btn" href="/users/logout/">Log Out</a>
+    </li>
+  </ul>
+  {{ else }}
+  <a href="#" id="sign-in-btn">Sign In</a>
+  <ul class="menu sign-in-menu">
+    <li class="menu-item sign-in-menu-item"><a class="auth-btn twitter-btn" href="/users/login/twitter/">Twitter</a></li>
+    <li class="menu-item sign-in-menu-item"><a class="auth-btn facebook-btn" href="/users/login/facebook/">Facebook</a></li>
   </ul>
   {{/ is_authenticated }}
 </nav>
