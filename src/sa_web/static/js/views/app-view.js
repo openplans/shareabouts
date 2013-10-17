@@ -6,7 +6,7 @@ var Shareabouts = Shareabouts || {};
   S.AppView = Backbone.View.extend({
     events: {
       'click #add-place': 'onClickAddPlaceBtn',
-      'click .close-bttn': 'onClickClosePanelBtn'
+      'click .close-btn': 'onClickClosePanelBtn'
     },
     initialize: function(){
       // Boodstrapped data from the page
@@ -70,10 +70,9 @@ var Shareabouts = Shareabouts || {};
       // Cache panel elements that we use a lot
       this.$panel = $('#content');
       this.$panelContent = $('#content article');
-      this.$panelCloseBtn = $('.close-bttn');
+      this.$panelCloseBtn = $('.close-btn');
       this.$centerpoint = $('#centerpoint');
-      this.$instructions = $('#instructions');
-      this.$addButton = $('#add-place');
+      this.$addButton = $('#add-place-btn-container');
 
       // Bind to map move events so we can style our center points
       // with utmost awesomeness.
@@ -127,13 +126,6 @@ var Shareabouts = Shareabouts || {};
     },
     onMapMoveStart: function(evt) {
       this.$centerpoint.addClass('dragging');
-
-      // fade the instructions out (and don't show them again)
-      if (this.$instructions.is(':visible')) {
-        this.instructionsShown = true;
-      }
-
-      this.hideInstructions();
     },
     onMapMoveEnd: function(evt) {
       this.$centerpoint.removeClass('dragging');
@@ -167,7 +159,6 @@ var Shareabouts = Shareabouts || {};
         this.placeFormView.$('textarea, input').not('[type="hidden"]').first().focus();
         this.showNewPin();
         this.hideAddButton();
-        this.hideInstructions(true);
       }
     },
     onRemovePlace: function(model) {
@@ -220,7 +211,6 @@ var Shareabouts = Shareabouts || {};
         this.destroyNewModels();
         this.hideCenterPoint();
         this.hideAddButton();
-        this.hideInstructions(true);
 
         map.panTo(this.getOffsetCenter(center));
 
@@ -244,7 +234,6 @@ var Shareabouts = Shareabouts || {};
       this.destroyNewModels();
       this.hideCenterPoint();
       this.hideAddButton();
-      this.hideInstructions(true);
     },
     showPanel: function(markup) {
       this.unfocusAllPlaces();
@@ -273,31 +262,9 @@ var Shareabouts = Shareabouts || {};
     hideCenterPoint: function() {
       this.$centerpoint.hide();
     },
-    showInstructions: function() {
-      var self = this;
-
-      if (self.instructionsShown) {
-        return;
-      }
-
-      self.$instructions.css('display', null).addClass('show');
-      // also add a class to the add button, indicating that we are instructing
-      self.$addButton.addClass('instructionsShowing');
-    },
-    hideInstructions: function(instant) {
-      if (instant) {
-        this.$instructions.removeClass('show');
-      } else {
-        this.$instructions.fadeOut();
-      }
-
-      this.$addButton.removeClass('instructionsShowing');
-    },
     hidePanel: function() {
       this.unfocusAllPlaces();
       this.$panel.hide();
-
-      this.showInstructions();
     },
     hideNewPin: function() {
       this.showCenterPoint();

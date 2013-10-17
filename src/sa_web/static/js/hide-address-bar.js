@@ -6,7 +6,7 @@ var Shareabouts = Shareabouts || {};
     Auto-scrolling to hide mobile address bar 
     via http://menacingcloud.com/?c=iPhoneAddressBar 
     + function to detect orientation change
-    FIXME: Should probably also fire on .close-bttn click. 
+    FIXME: Should probably also fire on .close-btn click. 
   -------------------------------------------------- */
 
   var bodyTag;
