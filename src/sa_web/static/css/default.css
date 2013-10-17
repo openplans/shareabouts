@@ -138,7 +138,7 @@ hr {
 .btn-block:link {
   clear: both;
   display: block;
-  padding-top: 0.75em;
+  padding-top: 0.5em;
   padding-bottom: 0.5em;
   width: 100%;
   -moz-box-sizing: border-box;
@@ -163,9 +163,12 @@ fieldset {
 label {}
 input[type=text],
 textarea {
-  border: 0.25em solid #ddd;
-  padding: 0.5em;
   outline: 0;
+  border: 0.25em solid #ddd;
+  border-radius: 0;
+  padding: 0.5em;
+  display: block;
+  /* TODO: Inputs are > 100% in iOS Simulator. */
   width: 100%;
   -moz-box-sizing: border-box;
        box-sizing: border-box;
@@ -402,31 +405,9 @@ a.logout-btn {
 
 /* Geolocation Button */
 .locate-me {
-  width: 20px;
-  height: 20px;
   background-image: url(images/locate-me.png);
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  display: block;
-  padding: 3px;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
-  cursor: auto;
-  text-align: center;
-  background-color: #FFFFFF;
-}
-.locate-me:hover {
-  background-color: #f4f4f4;
-}
-.locate-me span {
-  display:block;
-  text-indent: -9999px;
-}
-.leaflet-touch .locate-me {
-	width: 27px;
-	height: 27px;
+	width: 27px !important;
+	height: 27px !important;
 }
 
 /* Map Attribution */
