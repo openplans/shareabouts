@@ -93,7 +93,7 @@ hr {
   display: inline-block;
   *display: inline;
   *zoom: 1;
-  padding: 0.325em 0.5em 0.125em;
+  padding: 0.325em 0.625em;
   margin-bottom: 0;
   text-align: center;
   vertical-align: middle;
@@ -134,8 +134,7 @@ hr {
 .btn-block:link {
   clear: both;
   display: block;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding: 0.5em 0.75em;
   width: 100%;
   -moz-box-sizing: border-box;
        box-sizing: border-box;
@@ -160,7 +159,7 @@ label {}
 input[type=text],
 textarea {
   outline: 0;
-  border: 0.25em solid #ddd;
+  border: 0.25em solid #a3c7d9;
   border-radius: 0;
   padding: 0.5em;
   display: block;
@@ -190,13 +189,6 @@ img {
 }
 .icon-muted {
   opacity: 0.75;
-}
-
-/* Avatars */
-.avatar {
-  display: block;
-  width: 50px;
-  height: 50px;
 }
 
 
@@ -593,7 +585,7 @@ a.close-btn span {
   box-shadow: none;
   border-radius: 0;
   font-size: 1em;
-  padding-left: 20px;
+  padding-left: 22px;
 }
 #user_support input[type=checkbox]:checked ~ label {
   background-image: url(images/heart.png);
@@ -655,49 +647,23 @@ a.close-btn span {
   position: relative;
 }
 .survey-header {
-  border-bottom: 1px solid #A8A8A8;
-  padding-bottom: 0.5em;
+  border-bottom: 1px solid #a8a8a8;
+  padding-bottom: 0.75em;
   margin-bottom: 1em;
   font-size: 1.25em;
 }
 a.reply-link {
-  background: #A3C7D9;
-  color: white;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 0 0.5em;
   float: right;
   position: absolute;
   top: 0;
   right: 0;
-  font-size: 85%;
-}
-a.reply-link:hover {
-  background: #00aaff;
 }
 ol.responses {
 }
-.responses .response {
+.response {
   position: relative;
-  padding-bottom: 3.25em;
+  padding-bottom: 2.625em;
   margin-bottom: 1em;
-}
-.responses .children {
-  list-style: none;
-  margin-left: 2em;
-  margin-bottom: 0;
-}
-.responses .children .response {
-  padding-top: 2em;
-  padding-bottom: 0;
-}
-.responses .bypostauthor {
-  background: #f7f7f7;
-  padding: 0.5em  0.5em  2.5em;
-  margin: 0 -0.5em;
-}
-article.response {
-  display: block;
 }
 .response-header {
   padding-left: 3.75em;
@@ -708,8 +674,8 @@ article.response {
 }
 .response-submitter {}
 .response-submitter .avatar {
-  width: 3.25em;
-  height: 3.25em;
+  width: 3em;
+  height: 3em;
   float: left;
   margin-left: -3.75em;
 }
@@ -733,13 +699,13 @@ article.response {
   border-top-color: #eee;
   position: absolute;
   top: 100%;
-  left: 20px;
+  left: 1.5em;
 }
 .response-label-comment {
   display: none;
 }
 .response-value-comment {
-  margin-bottom: 0.5em !important;
+  margin-bottom: 0.5em;
 }
 
 article.response footer {
@@ -755,22 +721,6 @@ article.response footer {
 .survey-reply-link:hover {
   background: #607890;
   color: #fff;
-}
-.reply-header {
-}
-#reply .survey-form-response label {
-  display: none;
-}
-#reply p {
-}
-#reply p.response-box {
-}
-.response-box label {
-  display: none;
-}
-.submit-bttn {
-  float: left;
-  margin: 0 0.75em 0 0;
 }
 
 
@@ -880,7 +830,7 @@ Check this out on an unsupported browser. */
 .unsupported-overlay p a {
   color: white;
 }
-.unsupported-overlay .close-bttn {
+.unsupported-overlay .close-btn {
   position: static;
   float: right;
   margin-right: 1em;
@@ -890,7 +840,7 @@ Check this out on an unsupported browser. */
   background: none;
   box-shadow: none;
 }
-.unsupported-overlay .close-bttn:hover {
+.unsupported-overlay .close-btn:hover {
   color: #444;
 }
 
