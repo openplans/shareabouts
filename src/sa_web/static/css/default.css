@@ -930,7 +930,7 @@ Check this out on an unsupported browser. */
     box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.2);
     width: 18em;
     margin: 0;
-    padding: 0.875em;
+    padding: 1em 0.875em 1.125em 0.875em;
     position: absolute;
     top: 4.125em;
     right: 1em;
