@@ -5,7 +5,7 @@
             {{^ has_single_response }}{{ survey_config.response_plural_name }}{{/ has_single_response }}
           </h4>
 
-          <a href="#reply" class="reply-link">{{ survey_config.form_link_text }}</a>
+          <a href="#reply" class="reply-link btn btn-small">{{ survey_config.form_link_text }}</a>
 
           <ol class="responses unstyled-list">
             {{#responses}}
@@ -91,7 +91,7 @@
               {{/survey_config.items}}
               </fieldset>
 
-              <input name="commit" type="submit" value="{{ survey_config.submit_btn_text }}" class="bttn submit-bttn">
+              <input name="commit" type="submit" value="{{ survey_config.submit_btn_text }}" class="btn btn-primary submit-btn">
 
               {{#is_authenticated}}
                 <p class="signed-in-as"><img src="{{ current_user "avatar_url" }}" class="avatar" /> {{ current_user "name" }}. <a class="" href="/users/logout/">Log Out</a></p>
