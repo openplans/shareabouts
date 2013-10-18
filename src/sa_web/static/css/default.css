@@ -104,7 +104,7 @@ hr {
   background-color: #a3c7d9;
   box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.1);
   font-weight: 600;
-  border: 3px solid #93b7c9;
+  border: 3px solid rgba(0,0,0,0.05);
   border-radius: 3px;
 }
 .btn:hover {
@@ -114,12 +114,20 @@ hr {
 .btn-primary:visited,
 .btn-primary:link {
   background-color: #00aaff;
-  border-color: #007fbf;
-  border-color: rgba(0,0,0,0.05);
   color: #fff;
 }
 .btn-primary:hover {
   background-color: #007fbf;
+}
+.btn-secondary,
+.btn-secondary:visited,
+.btn-secondary:link {
+  background-color: #ccc;
+  color: #007fbf;
+}
+.btn-secondary:hover {
+  background-color: #007fbf;
+  color: #fff;
 }
 .btn-block,
 .btn-block:visited,
@@ -289,20 +297,6 @@ img {
 	padding-top: 0.5em;
 	padding-bottom: 0;
 }
-.access a {
-  background: #00aaff;
-  color: #fff;
-  font-size: 1.25em;
-  text-decoration: none;
-  display: block;
-  margin: 0;
-  padding: 0.5em;
-  box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.1);
-}
-.access a:hover {
-  background: #00aaff;
-  color: #fff;
-}
 
 /* User Menu */
 .user-menu {
@@ -318,6 +312,9 @@ img {
   display: block;
   padding: 0 0.5em;
   margin: 0 0 0 0.5em;
+}
+#sign-in-btn:hover {
+  color: #fff;
 }
 .sign-in-menu {
   font-weight: bold;
@@ -937,29 +934,91 @@ Check this out on an unsupported browser. */
 }
 
 @media only screen and (min-width: 768px) {
+
   #map {
     height: 375px;
   }
+
 }
 
 @media only screen and (min-width: 60em) {
+
   html,
   body {
     height: 100%;
     position: relative;
   }
+
+  /* Header */
   #site-header {
-    height: 5em;
+    background-color: #888;
+    padding-left: 1em;
     overflow: visible;
+    height: 5em;
     -moz-box-sizing: border-box;
          box-sizing: border-box;
   }
   .has-pages #site-title {
-    padding: 0.5em;
+    padding-left: 0;
+  }
+  #site-title a:link,
+  #site-title a:visited {
+    font-size: 3em;
+    line-height: 1.325;
   }
   #nav-btn {
     display: none;
   }
+  #pages-nav-container {
+    height: 100%;
+  }
+  .access {
+    font-size: 0.875em;
+    width: auto;
+    display: block;
+    margin: -1.125em 0 0 0.5em;
+    position: relative;
+    top: 50%;
+  }
+  .access li,
+  .access li li {
+  	float: left;
+  	padding: 0;
+  	margin: 0 0 0 0.5em;
+  }
+  #sign-in-btn {
+    font-size: 1em;
+    text-decoration: none;
+    line-height: 1.5;
+    padding: 0.5em;
+    margin: 0.75em 0.75em 0 0.75em;
+    position: relative;
+    z-index: 3;
+  }
+  .sign-in-menu {
+    background: #666;
+    border-radius: 3px;
+    box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.2);
+    width: 18em;
+    margin: 0;
+    padding: 0.875em;
+    position: absolute;
+    top: 4.125em;
+    right: 1em;
+    z-index: 2;
+  }
+  .sign-in-menu:before {
+    content: '';
+    height: 0;
+    width: 0;
+    border: 1em solid transparent;
+    border-bottom-color: #666;
+    position: absolute;
+    bottom: 100%;
+    right: 1.5em;
+  }
+
+  /* Map*/
   #map-container {
     position: absolute;
     top: 5em; /* height of #site-header */
@@ -986,6 +1045,8 @@ Check this out on an unsupported browser. */
     padding-right: 1em;
     padding-left: 1em;
   }
+
+  /* Content */
   #content {
     position: absolute;
     top: 5em;
@@ -995,6 +1056,8 @@ Check this out on an unsupported browser. */
     overflow: auto;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
   }
+
+  /* The Ticker */
   #ticker {
     position: absolute;
     top: 5em; /* height of #site-header */
@@ -1014,7 +1077,10 @@ Check this out on an unsupported browser. */
   .activity-enabled #colophon {
     right: 18em; /* width of #ticker */
   }
+
+  /* Footer */
   #colophon {
+    background-color: #666;
     font-size: 1em;
     position: absolute;
     top: auto;
@@ -1028,6 +1094,7 @@ Check this out on an unsupported browser. */
     -moz-box-sizing: border-box;
          box-sizing: border-box;
   }
+
 }
 
 @media only screen and (min-width: 1300px) {
