@@ -649,10 +649,6 @@ a.close-btn span {
   color: #888;
   font-size: 0.85em;
 }
-.description {
-  font-size: 16px;
-  line-height: 26px;
-}
 
 /* Surveys */
 .survey {
@@ -1054,8 +1050,10 @@ Check this out on an unsupported browser. */
     top: 1.125em;
     left: auto;
     right: 100%;
-    padding: 0.125em 0.25em 0.125em 0.625em;
+    margin: 0 -0.325em 0 0;
+    padding: 0.125em 0.625em 0.125em 0.625em;
     border-radius: 0.325em 0 0 0.325em;
+    box-shadow: -0.325em 0.325em 0 rgba(0,0,0,0.1);
   }
   a.close-btn:hover {
   }
