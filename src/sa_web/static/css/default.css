@@ -1048,13 +1048,36 @@ Check this out on an unsupported browser. */
 
   /* Content */
   #content {
+    padding: 0;
     position: absolute;
     top: 5em;
     right: 0;
     bottom: 2.25em;
     left: 30%;
-    overflow: auto;
+    overflow: visible;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
+  }
+  a.close-btn {
+    font-size: 1em;
+    line-height: 2;
+    top: 1.125em;
+    left: auto;
+    right: 100%;
+    padding: 0.125em 0.25em 0.125em 0.625em;
+    border-radius: 0.325em 0 0 0.325em;
+  }
+  a.close-btn:hover {
+  }
+  a.close-btn span {
+    display: none;
+  }
+  #content > article {
+    overflow: auto;
+    padding: 1em 1em 2em;
+    width: 100%;
+    height: 100%;
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
   }
 
   /* The Ticker */
