@@ -350,19 +350,18 @@ a.facebook-btn {
   margin-left: 0.25em;
 }
 
-#sign-in-btn.authed {
+.authed #sign-in-btn {
   font-size: 1em;
+  padding: 0;
 }
 .header-avatar {
   float: right;
   width: 3em;
   height: 3em;
-  margin: -0.25em -0.25em -0.25em 0.25em;
 }
 .signed-in-as {
   font-weight: normal;
   font-size: 0.875em;
-  
 }
 .current-user {
 }
@@ -773,27 +772,9 @@ article.response footer {
 .response-box label {
   display: none;
 }
-
 .submit-bttn {
   float: left;
   margin: 0 0.75em 0 0;
-}
-.signed-in-as {
-  float: left;
-  white-space: nowrap;
-  padding-top: 0.75em;
-  line-height: 1.5;
-}
-.signed-in-as .avatar {
-  height: 1.5em;
-  width: auto;
-  position: relative;
-  top: 0.5em;
-}
-.signed-in-as a {
-  font-weight: bold;
-  font-size: 0.85em;
-  text-transform: uppercase;
 }
 
 
@@ -1013,9 +994,17 @@ Check this out on an unsupported browser. */
     width: 0;
     border: 1em solid transparent;
     border-bottom-color: #666;
+    border-top: 0;
     position: absolute;
     bottom: 100%;
     right: 1.5em;
+  }
+  .authed #sign-in-btn {
+    margin: 0.5em 0.5em 0 0.5em;
+    z-index: 1;
+  }
+  .authed .sign-in-menu:before {
+    right: 0.5em;
   }
 
   /* Map*/
