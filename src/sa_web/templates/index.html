@@ -209,7 +209,7 @@
 
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
-  <script src="{{DATASET_ROOT}}places?format=jsonp&page_size=600&callback=bootstrapPlaces"></script>
+  <script src="{{DATASET_ROOT}}places?format=jsonp&page_size=10000&callback=bootstrapPlaces"></script>
 
   {% handlebarsjs '(.*)' precompile register_partials %}
   {% handlebarsjs 'pages/*' precompile %}
