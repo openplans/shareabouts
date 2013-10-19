@@ -34,7 +34,7 @@ var Shareabouts = Shareabouts || {};
       if (this.metadata.next) {
         nextUrl = function() { return collection.metadata.next; };
 
-        S.Utils.patch(this, {url: nextUrl}, function() {
+        S.Util.patch(this, {url: nextUrl}, function() {
           collection.fetch({
             remove: false,
             success: success,
@@ -174,6 +174,25 @@ var Shareabouts = Shareabouts || {};
     parse: function(response) {
       this.metadata = response.metadata;
       return response.features;
+    },
+
+    fetchPlace: function(id, options) {
+      options = options ? _.clone(options) : {};
+      var self = this,
+          place = new S.PlaceModel(),
+          success = options.success;
+
+      place.id = id;
+      place.collection = self;
+
+      options.success = function() {
+        var args = Array.prototype.slice.call(arguments);
+        self.add(place);
+        if (success) {
+          success.apply(this, args);
+        }
+      };
+      place.fetch(options);
     }
   });
 
