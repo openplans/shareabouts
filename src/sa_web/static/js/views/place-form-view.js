@@ -1,3 +1,5 @@
+/*globals _ Spinner Handlebars Backbone jQuery */
+
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console){
@@ -91,18 +93,26 @@ var Shareabouts = Shareabouts || {};
           model = this.model,
           // Should not include any files
           attrs = this.getAttrs(),
-          $fileInputs;
+          $button = this.$('name="save-place-btn"'),
+          spinner, $fileInputs;
 
       evt.preventDefault();
+
+      $button.attr('disabled', 'disabled');
+      spinner = new Spinner(S.smallSpinnerOptions).spin(this.$('.form-spinner')[0]);
 
       // Save and redirect
       this.model.save(attrs, {
         success: function() {
           router.navigate('/place/' + model.id, {trigger: true});
         },
+        complete: function() {
+          $button.removeAttr('disabled');
+          spinner.stop();
+        },
         wait: true
       });
     }
   });
 
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+}(Shareabouts, jQuery, Shareabouts.Util.console));
