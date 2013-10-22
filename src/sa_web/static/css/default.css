@@ -852,10 +852,18 @@ Check this out on an unsupported browser. */
 /* =Media Queries for Responsive Layout
 -------------------------------------------------------------- */
 
+@media only screen and (min-height: 440px) {
+
+  #map {
+    height: 200px;
+  }
+
+}
+
 @media only screen and (min-height: 568px) {
 
   #map {
-    height: 250px;
+    height: 275px;
   }
 
 }
