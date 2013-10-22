@@ -786,7 +786,7 @@ ul.recent-points {
 
 /* Powered By */
 #powered-by {
-  font-size: 0.875em;
+  font-size: 0.75em;
   text-align: center;
 }
 .shareabouts-logo {
@@ -972,7 +972,7 @@ Check this out on an unsupported browser. */
     position: absolute;
     top: 5em; /* height of #site-header */
     right: 0;
-    bottom: 2.25em;
+    bottom: 1.75em;
     left: 0;
   }
   .content-visible #map-container {
@@ -1074,11 +1074,14 @@ Check this out on an unsupported browser. */
     bottom: 0;
     left: 0;
     z-index: 14;
-    padding: 0.5em;
+    padding: 0.25em;
     box-shadow: 0 -0.325em rgba(0,0,0,0.1);
-    height: 2.25em;
+    height: 1.75em;
     -moz-box-sizing: border-box;
          box-sizing: border-box;
+  }
+  #powered-by {
+    margin-bottom: 0;
   }
 
 }
