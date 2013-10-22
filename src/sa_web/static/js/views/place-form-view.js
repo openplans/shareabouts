@@ -93,7 +93,7 @@ var Shareabouts = Shareabouts || {};
           model = this.model,
           // Should not include any files
           attrs = this.getAttrs(),
-          $button = this.$('name="save-place-btn"'),
+          $button = this.$('[name="save-place-btn"]'),
           spinner, $fileInputs;
 
       evt.preventDefault();
