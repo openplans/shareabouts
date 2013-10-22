@@ -242,6 +242,7 @@ var Shareabouts = Shareabouts || {};
       this.$panel.show();
 
       this.$panelContent.scrollTop(0);
+      $('body').addClass('content-visible');
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
     },
     showNewPin: function() {
@@ -265,6 +266,7 @@ var Shareabouts = Shareabouts || {};
     hidePanel: function() {
       this.unfocusAllPlaces();
       this.$panel.hide();
+      $('body').removeClass('content-visible');
     },
     hideNewPin: function() {
       this.showCenterPoint();
