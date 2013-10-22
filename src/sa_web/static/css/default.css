@@ -732,6 +732,10 @@ article.response footer {
   position: relative;
   z-index: 30;
 }
+.content-visible #ticker {
+  display: none;
+}
+
 ul.recent-points {
   list-style: none;
   margin: 0;
@@ -963,6 +967,15 @@ Check this out on an unsupported browser. */
     bottom: 2.25em;
     left: 0;
   }
+  .content-visible #map-container {
+    left: 18em;
+    margin-left: -18em;
+    width: 30%;
+  }
+  .content-visible .leaflet-top.leaflet-right {
+    display: none;
+  }
+  
   #map {
     height: 100%;
   }
@@ -1030,6 +1043,9 @@ Check this out on an unsupported browser. */
     overflow: auto;
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
+  }
+  .content-visible #ticker {
+    display: block;
   }
   ul.recent-points {
     font-size: 0.875em;
