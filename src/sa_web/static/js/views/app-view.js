@@ -107,39 +107,9 @@ var Shareabouts = Shareabouts || {};
       this.showAddButton();
       this.showCenterPoint();
     },
-    // Get the appropriate center, depending on the visibility of the
-    // content panel
+    // Get the center of the map
     getCenter: function() {
-      if (this.$panel.is(':visible')) {
-          return this.getFocusedCenter();
-      } else {
-        return this.mapView.map.getCenter();
-      }
-    },
-    // Okay, so this is really confusing but here goes. We have three things
-    // we're talking about:
-    //   - map center: the real center of the map
-    //   - offset center: the lat/lng of what will be the map center after you
-    //     open the content panel
-    //   - focused center: the lat/lng of the former map center after we open
-    //     the content panel and reposition the map
-    getFocusedCenter: function() {
-      var map = this.mapView.map,
-          centerLatLng = map.getCenter(),
-          centerPoint = map.latLngToLayerPoint(centerLatLng),
-          mapSize = map.getSize(),
-          offsetPoint = L.point(centerPoint.x - mapSize.x * this.offsetRatio.x,
-                                    centerPoint.y - mapSize.y * this.offsetRatio.y);
-      return map.layerPointToLatLng(offsetPoint);
-    },
-    getOffsetCenter: function(latLng) {
-      var map = this.mapView.map,
-          mapSize = map.getSize(),
-          pos = map.latLngToLayerPoint(latLng);
-
-      return map.layerPointToLatLng(
-        L.point(pos.x + this.offsetRatio.x * mapSize.x,
-                pos.y + this.offsetRatio.y * mapSize.y) );
+      return this.mapView.map.getCenter();
     },
     onMapMoveStart: function(evt) {
       this.$centerpoint.addClass('dragging');
@@ -238,7 +208,7 @@ var Shareabouts = Shareabouts || {};
         this.hideCenterPoint();
         this.hideAddButton();
 
-        map.panTo(self.getOffsetCenter(center));
+        map.panTo(center, {animate: true});
 
         // Focus the one we're looking
         model.trigger('focus');
@@ -286,6 +256,8 @@ var Shareabouts = Shareabouts || {};
       this.hideAddButton();
     },
     showPanel: function(markup) {
+      var map = this.mapView.map;
+
       this.unfocusAllPlaces();
 
       this.$panelContent.html(markup);
@@ -293,13 +265,12 @@ var Shareabouts = Shareabouts || {};
 
       this.$panelContent.scrollTop(0);
       $('body').addClass('content-visible');
+      map.invalidateSize({ pan:false });
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
     },
     showNewPin: function() {
       var map = this.mapView.map;
-
       this.$centerpoint.show().addClass('newpin');
-      map.panTo(this.getOffsetCenter(map.getCenter()));
     },
     showAddButton: function() {
       this.$addButton.show();
@@ -314,9 +285,12 @@ var Shareabouts = Shareabouts || {};
       this.$centerpoint.hide();
     },
     hidePanel: function() {
+      var map = this.mapView.map;
+
       this.unfocusAllPlaces();
       this.$panel.hide();
       $('body').removeClass('content-visible');
+      map.invalidateSize({ pan:false });
     },
     hideNewPin: function() {
       this.showCenterPoint();
