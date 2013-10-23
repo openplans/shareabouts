@@ -495,6 +495,21 @@ a.logout-btn {
   top: -20px;
 }
 
+/* Drag Marker Instructions (for adding a new place) */
+.drag-marker-instructions {
+  background-color: LightYellow;
+  background-color: rgba(240,240,0,0.2);
+  color: #444;
+  font-size: 0.875em;
+  font-weight: bold;
+  text-shadow: -1px 1px 0 rgba(255,255,255,0.5);
+  text-align: center;
+  line-height: 2;
+  margin-bottom: 1em;
+  padding: 0.325em;
+  border-radius: 0.325em;
+}
+
 /* Ajax Error Message */
 #ajax-error-msg {
   display: none;
