@@ -382,8 +382,12 @@ a.logout-btn {
 /* Geolocation Button */
 .locate-me {
   background-image: url(images/locate-me.png);
-	width: 27px !important;
-	height: 27px !important;
+}
+#map .leaflet-bar a, 
+#map .leaflet-bar a:hover {
+  width: 33px;
+  height: 33px;
+  line-height: 33px;
 }
 
 /* Map Attribution */
@@ -1001,8 +1005,10 @@ Check this out on an unsupported browser. */
   .activity-enabled.content-visible #map-container {
     width: 30%;
   }
-  .content-visible .leaflet-top.leaflet-right {
-    display: none;
+  .leaflet-top.leaflet-right {
+    right: auto;
+    left: 10px;
+    top: 77px;
   }
   
   #map {
