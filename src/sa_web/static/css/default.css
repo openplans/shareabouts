@@ -731,6 +731,10 @@ article.response footer {
   background: #777;
   position: relative;
   z-index: 30;
+  display: none;
+}
+.activity-enabled #ticker {
+  display: block;
 }
 .content-visible #ticker {
   display: none;
@@ -976,8 +980,12 @@ Check this out on an unsupported browser. */
     left: 0;
   }
   .content-visible #map-container {
+    right: auto;
     left: 18em;
     margin-left: -18em;
+    width: 40%;
+  }
+  .activity-enabled.content-visible #map-container {
     width: 30%;
   }
   .content-visible .leaflet-top.leaflet-right {
@@ -1010,10 +1018,14 @@ Check this out on an unsupported browser. */
     position: absolute;
     top: 5em;
     right: 0;
-    bottom: 2.25em;
-    left: 30%;
+    bottom: 1.75em;
+    left: 40%;
     overflow: visible;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
+  }
+  .activity-enabled #content {
+    left: 30%;
+    right: 18em;
   }
   a.close-btn {
     font-size: 1em;
@@ -1052,15 +1064,13 @@ Check this out on an unsupported browser. */
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
   }
-  .content-visible #ticker {
+  .activity-enabled.content-visible #ticker {
     display: block;
   }
   ul.recent-points {
     font-size: 0.875em;
   }
-  .activity-enabled #map-container,
-  .activity-enabled #content,
-  .activity-enabled #colophon {
+  .activity-enabled #map-container {
     right: 18em; /* width of #ticker */
   }
 
@@ -1079,6 +1089,9 @@ Check this out on an unsupported browser. */
     height: 1.75em;
     -moz-box-sizing: border-box;
          box-sizing: border-box;
+  }
+  .activity-enabled #colophon {
+    right: 18em; /* width of #ticker */
   }
   #powered-by {
     margin-bottom: 0;
