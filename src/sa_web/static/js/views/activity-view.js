@@ -157,7 +157,7 @@ var Shareabouts = Shareabouts || {};
 
       // Otherwise, fetch the place and pass the callbacks along.
       } else if (!placeModel) {
-        this.options.places.fetchPlace(placeId, options);
+        this.options.places.fetchById(placeId, options);
       }
     },
 

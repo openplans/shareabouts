@@ -176,7 +176,21 @@ var Shareabouts = Shareabouts || {};
       return response.features;
     },
 
-    fetchPlace: function(id, options) {
+    fetchByIds: function(ids, options) {
+      var base = _.result(this, 'url');
+
+      if (ids.length === 1) {
+        this.fetchById(ids[0], options);
+      } else {
+        ids = _.map(ids, function(id) { return encodeURIComponent(id); });
+        options = options ? _.clone(options) : {};
+        options.url = base + (base.charAt(base.length - 1) === '/' ? '' : '/') + ids.join(',');
+
+        this.fetch(options);
+      }
+    },
+
+    fetchById: function(id, options) {
       options = options ? _.clone(options) : {};
       var self = this,
           place = new S.PlaceModel(),
