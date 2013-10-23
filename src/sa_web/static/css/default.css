@@ -581,7 +581,6 @@ a.close-btn span {
 #user_support label {
   display: block;
   background: transparent url(images/heart-empty.png) left center no-repeat scroll;
-  font-weight: normal;
   box-shadow: none;
   border-radius: 0;
   font-size: 1em;
@@ -594,7 +593,6 @@ a.close-btn span {
   color: #fff;
 }
 .support-count {
-  font-weight: bold;
 }
 .social {
   min-width: 84px;
