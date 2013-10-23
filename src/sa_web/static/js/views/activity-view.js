@@ -12,6 +12,8 @@ var Shareabouts = Shareabouts || {};
 
       this.activityViews = [];
 
+      this.placeCollection = this.options.places;
+
       // Infinite scroll elements and functions
       // Window where the activity lives
       this.$container = this.$el.parent();
@@ -72,7 +74,30 @@ var Shareabouts = Shareabouts || {};
     },
 
     onResetActivity: function(collection) {
-      this.render();
+      var self = this,
+          placeIdsToFetch = [];
+
+      // We have acttions to show. Let's make sure we have the places we need
+      // to render them. If not, we'll fetch them in bulk and render after.
+      collection.each(function(actionModel) {
+        var actionType = actionModel.get('target_type'),
+            targetData = actionModel.get('target');
+
+        if (actionType === 'place' && !self.placeCollection.get(targetData.id)) {
+          placeIdsToFetch.push(targetData.id);
+        }
+      });
+
+      if (placeIdsToFetch.length > 0) {
+        // Get the missing places and then render activity
+        self.placeCollection.fetchByIds(placeIdsToFetch, {
+          success: function() {
+            self.render();
+          }
+        });
+      } else {
+        this.render();
+      }
     },
 
     preparePlaceData: function(placeModel) {
@@ -98,7 +123,7 @@ var Shareabouts = Shareabouts || {};
           actionText = this.options.placeConfig.action_text;
           anonSubmitterName = this.options.placeConfig.anonymous_name;
         } else {
-          placeData = placeModel.toJSON(); //this.options.places.get(actionModel.get('target').id).toJSON();
+          placeData = placeModel.toJSON();
 
           if (actionType === surveyConfig.submission_type) {
             // Survey
@@ -151,13 +176,13 @@ var Shareabouts = Shareabouts || {};
       }
 
       // If a place with the given ID exists, call sucess immediately.
-      placeModel = this.options.places.get(placeId);
+      placeModel = this.placeCollection.get(placeId);
       if (placeModel && options.success) {
         options.success(placeModel, null, options);
 
       // Otherwise, fetch the place and pass the callbacks along.
       } else if (!placeModel) {
-        this.options.places.fetchById(placeId, options);
+        this.placeCollection.fetchById(placeId, options);
       }
     },
 
