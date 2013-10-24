@@ -433,6 +433,35 @@ a.add-place:before {
   -webkit-text-size-adjust: none; /* keep iPhone from getting smart with the font sizes */
 }
 
+/* Progress Bars */
+.progress-bar {
+  background: #777;
+  background: rgba(85,85,85,0.5);
+	height: 20px;
+	padding: 0 5px;
+	position: relative;
+	border-radius: 13px;
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+.progress-bar span {
+  background: #00aaff;
+	display: block;
+  width: 0%;
+	height: 10px;
+	position: relative;
+	top: 5px;
+	overflow: hidden;
+	border-radius: 5px;
+}
+#map-progress {
+  position: absolute;
+  top: 15px;
+  right: 50px;
+  bottom: auto;
+  left: 50px;
+  z-index: 1;
+}
+
 /* Center Point: crosshairs and new point icon */
 #centerpoint {
   display: none;
