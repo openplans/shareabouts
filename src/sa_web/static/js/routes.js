@@ -46,6 +46,7 @@ var Shareabouts = Shareabouts || {};
 
       // Fetch all places by page
       this.collection.fetch({
+        remove: false,
         data: placeParams,
         success: function(collection, data) {
           var pageSize = data.features.length,
@@ -94,8 +95,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     viewPlace: function(id) {
-      var model = this.collection.get(id);
-      this.appView.viewPlace(model);
+      this.appView.viewPlace(id);
     },
 
     editPlace: function(){},
