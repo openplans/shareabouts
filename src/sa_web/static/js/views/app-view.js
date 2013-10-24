@@ -222,12 +222,20 @@ var Shareabouts = Shareabouts || {};
       this.collection.add({});
     },
     viewPlace: function(model) {
-      var map = this.mapView.map,
-          self = this,
-          layer, center, placeDetailView,
+      var self = this,
           onPlaceFound, onPlaceNotFound, modelId;
 
       onPlaceFound = function(model) {
+        var map = self.mapView.map,
+            layer, center, placeDetailView;
+
+        // If this model is a duplicate of one that already exists in the
+        // places collection, it may not correspond to a layerView. For this
+        // case, get the model that's actually in the places collection.
+        if (_.isUndefined(self.mapView.layerViews[model.cid])) {
+          model = self.places.get(model.id);
+        }
+
         layer = self.mapView.layerViews[model.cid].layer;
         placeDetailView = self.getPlaceDetailView(model);
         center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
