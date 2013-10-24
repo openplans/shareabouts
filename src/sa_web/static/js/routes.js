@@ -41,7 +41,7 @@ var Shareabouts = Shareabouts || {};
       // Use the page size as dictated by the server by default, unless
       // directed to do otherwise in the configuration.
       if (options.config.app.places_page_size) {
-        placeParams['page_size'] = options.config.app.places_page_size;
+        placeParams.page_size = options.config.app.places_page_size;
       }
 
       // Fetch all places by page
