@@ -181,10 +181,6 @@
       Shareabouts.bootstrapped.currentUser = data;
     }
 
-    function bootstrapPlaces(data) {
-      Shareabouts.bootstrapped.places = data;
-    }
-
     function setApiSessionCookie(data) {
       if (data) {
         Shareabouts.Util.cookies.save('sa-api-sessionid', data.sessionid);
@@ -210,7 +206,6 @@
 
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
-  <script src="{{DATASET_ROOT}}places?format=jsonp&page_size=10000&callback=bootstrapPlaces"></script>
 
   {% handlebarsjs '(.*)' precompile register_partials %}
   {% handlebarsjs 'pages/*' precompile %}
@@ -237,7 +232,6 @@
       // Ready set go!
       window.app = new Shareabouts.App({
         defaultPlaceTypeName: defaultPlaceTypeName,
-        places: Shareabouts.bootstrapped.places,
         activity: [],
         userToken: (
           Shareabouts.bootstrapped.currentUser ?

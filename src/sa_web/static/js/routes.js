@@ -13,7 +13,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     initialize: function(options) {
-      var startPageConfig;
+      var self = this,
+          startPageConfig;
 
       this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
@@ -36,10 +37,22 @@ var Shareabouts = Shareabouts || {};
         router: this
       });
 
-      // Call reset after the views are created, since they're all going to
-      // be listening to reset.
-      this.collection.reset(options.places, {
-        parse: true
+      // Fetch all places by page
+      this.collection.fetch({
+        success: function(collection, data) {
+          var pageSize = data.features.length,
+              totalPages = Math.ceil(data.metadata.length / pageSize),
+              i;
+
+          if (data.metadata.next) {
+            for (i=2; i <= totalPages; i++) {
+              self.collection.fetch({
+                remove: false,
+                data: { page: i }
+              });
+            }
+          }
+        }
       });
 
       this.activities.fetch({reset: true});
