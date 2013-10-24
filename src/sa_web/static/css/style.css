@@ -455,11 +455,12 @@ a.add-place:before {
 }
 #map-progress {
   position: absolute;
-  top: 15px;
+  top: 10px;
   right: 50px;
   bottom: auto;
   left: 50px;
   z-index: 1;
+  display:none;
 }
 
 /* Center Point: crosshairs and new point icon */
