@@ -14,7 +14,8 @@ var Shareabouts = Shareabouts || {};
 
     initialize: function(options) {
       var self = this,
-          startPageConfig;
+          startPageConfig,
+          placeParams = {};
 
       this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
@@ -37,8 +38,15 @@ var Shareabouts = Shareabouts || {};
         router: this
       });
 
+      // Use the page size as dictated by the server by default, unless
+      // directed to do otherwise in the configuration.
+      if (options.config.app.places_page_size) {
+        placeParams['page_size'] = options.config.app.places_page_size;
+      }
+
       // Fetch all places by page
       this.collection.fetch({
+        data: placeParams,
         success: function(collection, data) {
           var pageSize = data.features.length,
               totalPages = Math.ceil(data.metadata.length / pageSize),
@@ -48,7 +56,7 @@ var Shareabouts = Shareabouts || {};
             for (i=2; i <= totalPages; i++) {
               self.collection.fetch({
                 remove: false,
-                data: { page: i }
+                data: _.extend(placeParams, { page: i })
               });
             }
           }
