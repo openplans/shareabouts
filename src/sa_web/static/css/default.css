@@ -407,7 +407,7 @@ a.logout-btn {
 }
 #add-place {}
 
-/* Center Point: crosshairs and new point icon */
+/* Center Point (new point icon) */
 #centerpoint {
   display: none;
 }
@@ -1119,4 +1119,22 @@ Check this out on an unsupported browser. */
 }
 
 @media only screen and (min-width: 1300px) {
+}
+
+/* High Resolution Displays */
+@media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
+
+  .share-twitter a {
+    background-image: url(images/twitter-64.png);
+    background-size: contain;
+  }
+  .share-facebook a {
+    background-image: url(images/facebook-64.png);
+    background-size: contain;
+  }
+  .locate-me {
+    background-image: url(images/locate-me@2x.png);
+    background-size: contain;
+  }
+
 }
