@@ -1,4 +1,4 @@
-/*global _ Backbone jQuery */
+/*global _, Backbone, jQuery */
 
 var Shareabouts = Shareabouts || {};
 
@@ -28,18 +28,14 @@ var Shareabouts = Shareabouts || {};
     },
 
     fetchNextPage: function(success, error) {
-      var collection = this,
-          nextUrl;
+      var collection = this;
 
       if (this.metadata.next) {
-        nextUrl = function() { return collection.metadata.next; };
-
-        S.Util.patch(this, {url: nextUrl}, function() {
-          collection.fetch({
-            remove: false,
-            success: success,
-            error: error
-          });
+        collection.fetch({
+          remove: false,
+          url: collection.metadata.next,
+          success: success,
+          error: error
         });
       }
     }
@@ -88,6 +84,10 @@ var Shareabouts = Shareabouts || {};
       attachmentData = this.get('attachments') || [];
       this.attachmentCollection = new S.AttachmentCollection(attachmentData, {
         thingModel: this
+      });
+
+      this.attachmentCollection.each(function(attachment) {
+        attachment.set({saved: true});
       });
     },
 
@@ -186,7 +186,10 @@ var Shareabouts = Shareabouts || {};
         options = options ? _.clone(options) : {};
         options.url = base + (base.charAt(base.length - 1) === '/' ? '' : '/') + ids.join(',');
 
-        this.fetch(options);
+        this.fetch(_.extend(
+          {remove: false},
+          options
+        ));
       }
     },
 
@@ -213,8 +216,14 @@ var Shareabouts = Shareabouts || {};
   // This does not support editing at this time, which is why it is not a
   // ShareaboutsModel
   S.AttachmentModel = Backbone.Model.extend({
+    idAttribute: 'name',
+
     initialize: function(attributes, options) {
       this.options = options;
+    },
+
+    isNew: function() {
+      return this.get('saved') !== true;
     },
 
     // TODO: We should be overriding sync instead of save here. The only
@@ -229,6 +238,7 @@ var Shareabouts = Shareabouts || {};
 
     _attachBlob: function(blob, name, options) {
       var formData = new FormData(),
+          self = this,
           progressHandler = S.Util.wrapHandler('progress', this, options.progress),
           myXhr = $.ajaxSettings.xhr();
 
@@ -247,7 +257,19 @@ var Shareabouts = Shareabouts || {};
           return myXhr;
         },
         //Ajax events
-        success: options.success,
+        success: function() {
+          var args = Array.prototype.slice.call(arguments);
+
+          // Set the save attribute on the incoming data so that we know it's
+          // not new.
+          args[0].saved = true;
+          self.set({saved: true});
+
+          if (options.success) {
+            options.success.apply(this, args);
+          }
+
+        },
         error: options.error,
         // Form data
         data: formData,
