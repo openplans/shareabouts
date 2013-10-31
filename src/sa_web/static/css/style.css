@@ -1381,26 +1381,6 @@ ul.recent-points {
     font-size: 11px;
   }
 
-  #map-container {
-    bottom: 0;
-  }
-  #powered-by {
-    line-height: 3em;
-    text-align: center;
-    width: 18em;
-    height: 4.75em;
-    right: -4px;
-    bottom: 2em;
-    border-right: 4px solid #777;
-    left: auto;
-    overflow: hidden;
-    box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5), inset 0 1px 0 rgba(255,255,255,0.25);
-  }
-  #powered-by .nowrap {
-    display: block;
-    margin-top: -1.5em;
-  }
-
   #site-header a,
   #site-header button,
   .close-bttn {
@@ -1437,6 +1417,9 @@ ul.recent-points {
   #map-container {
     top: 5em; /* must match height of #site-header */
   }
+  .activity-enabled #map-container {
+    bottom: 0;
+  }
   #content {
     top: 6.75em; /* height of #site-header + extra 1.75em */
     right: 1.5em;
@@ -1457,7 +1440,19 @@ ul.recent-points {
   }
   .activity-enabled #powered-by {
     bottom: 0;
+    line-height: 3em;
+    text-align: center;
+    width: 18em;
+    height: 4.75em;
+    right: -4px;
+    border-right: 4px solid #777;
+    left: auto;
+    overflow: hidden;
     box-shadow: 0 -4px 0 rgba(85, 85, 85, 0.5), inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  .activity-enabled #powered-by .nowrap {
+    display: block;
+    margin-top: -1.5em;
   }
 
   .user-menu {
