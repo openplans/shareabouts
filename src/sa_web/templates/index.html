@@ -105,8 +105,8 @@
     </noscript>
 
     <div id="map-container">
-      <div id="ajax-error-msg">
-        {% blocktrans %}Blast! We can't connect to the server. Hang tight while we re-establish communication with the mothership.{% endblocktrans %}</div>
+      <div id="ajax-error-msg">{% blocktrans %}Blast! We can't connect to the server. Hang tight while we re-establish communication with the mothership.{% endblocktrans %}</div>
+      <div id="map-progress" class="progress-bar"><span class="current-progress"></span></div>
       <div id="map"></div>
     </div>
 
@@ -140,6 +140,7 @@
   <script src="{{STATIC_URL}}libs/exif.js"></script>
   <script src="{{STATIC_URL}}libs/load-image.min.js"></script>
   <script src="{{STATIC_URL}}libs/canvas-to-blob.min.js"></script>
+  <script src="{{STATIC_URL}}libs/spin.min.js"></script>
 
   <script src="{{STATIC_URL}}js/utils.js"></script>
   <script src="{{STATIC_URL}}js/template-helpers.js"></script>
@@ -180,10 +181,6 @@
       Shareabouts.bootstrapped.currentUser = data;
     }
 
-    function bootstrapPlaces(data) {
-      Shareabouts.bootstrapped.places = data;
-    }
-
     function setApiSessionCookie(data) {
       if (data) {
         Shareabouts.Util.cookies.save('sa-api-sessionid', data.sessionid);
@@ -209,7 +206,6 @@
 
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
   <script src="{{API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script>
-  <script src="{{DATASET_ROOT}}places?format=jsonp&page_size=600&callback=bootstrapPlaces"></script>
 
   {% handlebarsjs '(.*)' precompile register_partials %}
   {% handlebarsjs 'pages/*' precompile %}
@@ -236,7 +232,6 @@
       // Ready set go!
       window.app = new Shareabouts.App({
         defaultPlaceTypeName: defaultPlaceTypeName,
-        places: Shareabouts.bootstrapped.places,
         activity: [],
         userToken: (
           Shareabouts.bootstrapped.currentUser ?

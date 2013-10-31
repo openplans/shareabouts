@@ -268,11 +268,15 @@ body {
   right: 0.5em;
   text-align: right;
 }
+.user-is-authenticated {
+  margin-right: 3.5em;
+}
 .header-avatar {
-  float: right;
   height: 3em;
   width: 3em;
-  margin: -0.5em 0 0 0.5em;
+  position: absolute;
+  top: -0.5em;
+  right: 0;
 }
 .current-user {
   white-space: nowrap;
@@ -433,6 +437,36 @@ a.add-place:before {
   -webkit-text-size-adjust: none; /* keep iPhone from getting smart with the font sizes */
 }
 
+/* Progress Bars */
+.progress-bar {
+  background: #777;
+  background: rgba(85,85,85,0.5);
+	height: 20px;
+	padding: 0 5px;
+	position: relative;
+	border-radius: 13px;
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+.progress-bar span {
+  background: #00aaff;
+	display: block;
+  width: 0%;
+	height: 10px;
+	position: relative;
+	top: 5px;
+	overflow: hidden;
+	border-radius: 5px;
+}
+#map-progress {
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  bottom: auto;
+  left: 50px;
+  z-index: 1;
+  display:none;
+}
+
 /* Center Point: crosshairs and new point icon */
 #centerpoint {
   display: none;
@@ -552,6 +586,12 @@ a.add-place:hover + #centerpoint,
   margin: -58px 0 0 -200px;
   pointer-events: none;
   z-index: 11;
+}
+
+.form-spinner {
+  float: left;
+  margin-top: 25px;
+  margin-left: 25px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -1423,10 +1463,13 @@ ul.recent-points {
   .user-menu {
     top: 1.25em;
   }
+  .user-is-authenticated {
+    margin-right: 4.75em;
+  }
   .header-avatar {
     height: 4em;
     width: 4em;
-    margin-top: -0.75em;
+    top: -0.75em;
   }
   .current-user {
     font-size: 1.25em;

@@ -1,7 +1,10 @@
 <nav class="user-menu" role="article">
   {{# is_authenticated }}
-  <img class="avatar header-avatar" src="{{ current_user "avatar_url" }}"><span class="current-user">{{ current_user "name" }}</span>
-  <a class="logout-btn" href="/users/logout/">Log Out</a>
+  <div class="user-is-authenticated">
+    <img class="avatar header-avatar" src="{{ current_user "avatar_url" }}">
+    <span class="current-user">{{ current_user "name" }}</span>
+    <a class="logout-btn" href="/users/logout/">Log Out</a>
+  </div>
   {{ else }}
   <span class="sign-in-prompt">Sign in with</span>
   <ul class="menu sign-in-menu">

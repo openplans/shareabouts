@@ -1,4 +1,4 @@
-/*global _ moment BinaryFile loadImage EXIF */
+/*global _, moment, BinaryFile, loadImage, EXIF */
 
 var Shareabouts = Shareabouts || {};
 

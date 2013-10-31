@@ -56,7 +56,7 @@ Where is Sharabouts going? Check [our roadmap](https://github.com/openplans/shar
 Problems? Ideas? Let us know!
 --------------------
 
-We strongly welcome your feature suggestions. Add them to [our list on FreshDesk](https://openplans.freshdesk.com/categories/21477), and help us with prioritizing by voting up the features you'd like to see.
+We strongly welcome your feature suggestions. [Create an issue](https://github.com/openplans/shareabouts/issues) on this GitHub repo, and help us with prioritizing by commenting on the features you'd like to see.
 
 If you have questions for the development team,
 * [the developer discussion list](http://groups.google.com/group/shareabouts-dev) is a good starting point for troubleshooting or questions
