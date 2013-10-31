@@ -268,11 +268,15 @@ body {
   right: 0.5em;
   text-align: right;
 }
+.user-is-authenticated {
+  margin-right: 3.5em;
+}
 .header-avatar {
-  float: right;
   height: 3em;
   width: 3em;
-  margin: -0.5em 0 0 0.5em;
+  position: absolute;
+  top: -0.5em;
+  right: 0;
 }
 .current-user {
   white-space: nowrap;
@@ -1459,10 +1463,13 @@ ul.recent-points {
   .user-menu {
     top: 1.25em;
   }
+  .user-is-authenticated {
+    margin-right: 4.75em;
+  }
   .header-avatar {
     height: 4em;
     width: 4em;
-    margin-top: -0.75em;
+    top: -0.75em;
   }
   .current-user {
     font-size: 1.25em;
