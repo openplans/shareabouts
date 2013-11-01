@@ -44,16 +44,16 @@ place_types:
     default: puck-purple
     focused: red
   Parks:
-    default: puck-green
+    default: triangle-green
     focused: red
   Business:
-    default: puck-blue
+    default: triangle-blue
     focused: red
   Housing:
-    default: puck-yellow
+    default: triangle-yellow
     focused: red
   Other:
-    default: puck-red
+    default: triangle-red
     focused: red
   
 
@@ -96,6 +96,46 @@ place_type_icons:
     iconUrl: /static/css/images/markers/dot-744edc.png
     iconSize:
       width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-green:
+    iconUrl: /static/css/images/markers/triangle-70d52c.png
+    iconSize:
+      width: 21
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-blue:
+    iconUrl: /static/css/images/markers/triangle-2654d2.png
+    iconSize:
+      width: 21
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-yellow:
+    iconUrl: /static/css/images/markers/triangle-dbcf2c.png
+    iconSize:
+      width: 21
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-red:
+    iconUrl: /static/css/images/markers/triangle-e1264d.png
+    iconSize:
+      width: 21
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  triangle-purple:
+    iconUrl: /static/css/images/markers/triangle-744edc.png
+    iconSize:
+      width: 21
       height: 18
     iconAnchor:
       x: 9

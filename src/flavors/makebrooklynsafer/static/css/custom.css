@@ -13,6 +13,7 @@ body, select, input, textarea {
 }
 
 
+
 /* =Links
 -------------------------------------------------------------- */
 
@@ -242,13 +243,28 @@ ul.recent-points {
   color: #fff;
 }
 
-
-
-
-
-
 #add-place.instructionsShowing {
   display: inline !important;
+}
+
+/* map key */
+
+ul#mapkey {
+  margin: 0;
+  padding: 20px;
+  list-style: none;
+  background-color: #fff;
+  color: #CC6600;
+}
+
+ul#mapkey li {
+  margin: 0;
+  padding: 10px 0 10px 36px;
+  clear: left;
+}
+ul#mapkey li img {
+  float: left;
+  margin: -8px 0 0 -36px;
 }
 
 /* =Media Queries
