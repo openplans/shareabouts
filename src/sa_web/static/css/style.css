@@ -441,21 +441,35 @@ a.add-place:before {
 .progress-bar {
   background: #777;
   background: rgba(85,85,85,0.5);
-	height: 20px;
-	padding: 0 5px;
-	position: relative;
-	border-radius: 13px;
-	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+  height: 1.5em;
+  padding: 0 0.25em;
+  position: relative;
+  border-radius: 0.75em;
+  cursor: default;
+  pointer-events: none;
+}
+.progress-bar strong {
+  position: absolute;
+  top: 0;
+  left: 1em;
+  z-index: 2;
+  color: #fff;
+  font-size: 0.75em;
+  line-height: 1.875;
+  text-transform: uppercase;
+  text-shadow: 0 0 0.25em rgba(85,85,85,1);
 }
 .progress-bar span {
   background: #00aaff;
-	display: block;
+  display: block;
   width: 0%;
-	height: 10px;
-	position: relative;
-	top: 5px;
-	overflow: hidden;
-	border-radius: 5px;
+  height: 1em;
+  position: relative;
+  z-index: 1;
+  top: 0.25em;
+  overflow: visible;
+  border-radius: 0.5em;
+  white-space: nowrap;
 }
 #map-progress {
   position: absolute;
@@ -465,6 +479,7 @@ a.add-place:before {
   left: 50px;
   z-index: 1;
   display:none;
+  font-size: 1.5em;
 }
 
 /* Center Point: crosshairs and new point icon */
