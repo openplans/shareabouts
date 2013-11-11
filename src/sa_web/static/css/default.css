@@ -820,22 +820,33 @@ article.response footer {
   margin: 0 0.75em 0 0;
 }
 
-.signed-in-as {
+form .signed-in-as {
   float: left;
   white-space: nowrap;
   padding-top: 0.125em;
   line-height: 1.5;
 }
-.signed-in-as .avatar {
+form .signed-in-as .avatar {
   height: 1.5em;
   width: auto;
   position: relative;
   top: 0.5em;
 }
-.signed-in-as a {
+form .signed-in-as a {
   font-weight: bold;
   font-size: 0.85em;
   text-transform: uppercase;
+}
+.or-sign-in {
+  display: block;
+  margin-top: 0.5em;
+}
+a.auth-inline {
+  display: inline;
+  font-size: 0.875em;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.25em 0.5em;
 }
 
 
