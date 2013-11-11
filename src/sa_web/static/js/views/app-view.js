@@ -201,12 +201,12 @@ var Shareabouts = Shareabouts || {};
         placeDetailView = self.getPlaceDetailView(model);
         center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
 
-        this.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        this.showPanel(placeDetailView.render().$el);
-        this.hideNewPin();
-        this.destroyNewModels();
-        this.hideCenterPoint();
-        this.hideAddButton();
+        self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
+        self.showPanel(placeDetailView.render().$el);
+        self.hideNewPin();
+        self.destroyNewModels();
+        self.hideCenterPoint();
+        self.hideAddButton();
 
         map.panTo(center, {animate: true});
 
