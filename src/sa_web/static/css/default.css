@@ -203,6 +203,10 @@ textarea {
 .fileinput-name {
   display: inline-block;
 }
+.form-spinner {
+  clear: both;
+  padding: 1em;
+}
 
 /* Images */
 img {
