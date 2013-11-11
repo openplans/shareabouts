@@ -837,6 +837,17 @@ form .signed-in-as a {
   font-size: 0.85em;
   text-transform: uppercase;
 }
+.or-sign-in {
+  display: block;
+  margin-top: 0.5em;
+}
+a.auth-inline {
+  display: inline;
+  font-size: 0.875em;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.25em 0.5em;
+}
 
 
 /* =The Ticker
