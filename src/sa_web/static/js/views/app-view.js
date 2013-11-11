@@ -36,8 +36,6 @@ var Shareabouts = Shareabouts || {};
         $('#ajax-error-msg').hide();
       });
 
-      $('#powered-by').addClass('is-loaded');
-
       // Handle collection events
       this.collection.on('add', this.onAddPlace, this);
       this.collection.on('remove', this.onRemovePlace, this);
