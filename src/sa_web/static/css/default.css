@@ -951,10 +951,12 @@ a.shareabouts-logo:hover {
 .unsupported-overlay {
   position: relative;
   z-index: 999999;
-  background-color: #0AF;
   color: #eee;
-  padding: 1em;
   font-weight: bold;
+}
+.unsupported-overlay > div {
+  background-color: #0AF;
+  padding: 1em;
 }
 .unsupported-overlay a {
   color: #fff;
