@@ -156,7 +156,7 @@
             unsupportedHtml;
 
         userAgentData['is_ie'] = (userAgent.browser.name === 'Microsoft Internet Explorer');
-        unsupportedHtml = ich['unsupported-overlay'](userAgentData);
+        unsupportedHtml = Handlebars.templates['unsupported-overlay'](userAgentData);
 
         $unsupportedEl.hide()
         $unsupportedEl.html(unsupportedHtml);
