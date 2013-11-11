@@ -949,38 +949,19 @@ a.shareabouts-logo:hover {
 /* =Unsupported Browsers
 -------------------------------------------------------------- */
 
-/* TODO - Pulled directly from style.css. 
-Check this out on an unsupported browser. */
 .unsupported-overlay {
-  position: absolute;
-  top: 0px;
-  z-index: 9000;
+  position: relative;
+  z-index: 999999;
   background-color: #0AF;
-  color: white;
-  width: 100%;
-  opacity: 0.9;
-}
-.unsupported-overlay p {
+  color: #eee;
   padding: 1em;
-  font-size: 1.25em;
   font-weight: bold;
 }
-.unsupported-overlay p a {
-  color: white;
+.unsupported-overlay a {
+  color: #fff;
 }
-.unsupported-overlay .close-btn {
-  position: static;
-  float: right;
-  margin-right: 1em;
-  margin-top: 1em;
-  color: white;
-  border: none;
-  background: none;
-  box-shadow: none;
-}
-.unsupported-overlay .close-btn:hover {
-  color: #444;
-}
+.unsupported-overlay .close-btn {}
+.unsupported-overlay .close-btn:hover {}
 
 
 /* =Media Queries for Responsive Layout
