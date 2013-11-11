@@ -129,6 +129,14 @@ hr {
   background-color: #007fbf;
   color: #fff;
 }
+.btn-disabled,
+.btn-disabled:visited,
+.btn-disabled:link,
+.btn-disabled:hover {
+  background-color: #eee;
+  color: #ccc;
+  box-shadow: none;
+}
 .btn-block,
 .btn-block:visited,
 .btn-block:link {
@@ -175,6 +183,25 @@ textarea:focus {
 textarea {
   height: 6.5em;
   resize: none;
+}
+
+.fileinput-container {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.fileinput-container input {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.fileinput-name {
+  display: inline-block;
 }
 
 /* Images */
