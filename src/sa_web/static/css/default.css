@@ -858,7 +858,7 @@ ul.recent-points {
   font-size: 0.75em;
   text-align: center;
 }
-.shareabouts-logo {
+a.shareabouts-logo {
   font-family: 'Dancing Script', cursive;
   font-weight: bold;
   font-size: 1.325em;
