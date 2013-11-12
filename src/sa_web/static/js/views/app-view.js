@@ -260,6 +260,10 @@ var Shareabouts = Shareabouts || {};
       this.$panel.show();
 
       this.$panelContent.scrollTop(0);
+      // Scroll to the top of window when showing new content on mobile. Does
+      // nothing on desktop.
+      window.scrollTo(0);
+
       $('body').addClass('content-visible');
       map.invalidateSize({ pan:false });
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
