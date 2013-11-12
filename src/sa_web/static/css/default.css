@@ -1207,6 +1207,7 @@ a.close-unsupported-overlay {
     left: auto;
     width: 18em;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     z-index: 15;
     box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
   }
@@ -1215,6 +1216,7 @@ a.close-unsupported-overlay {
   }
   ul.recent-points {
     font-size: 0.875em;
+    -webkit-transform: translateZ(0px); /* needed on #ticker > * for touch scrolling */
   }
   .activity-enabled #map-container {
     right: 18em; /* width of #ticker */
