@@ -52,7 +52,7 @@ var Shareabouts = Shareabouts || {};
         case 'Chrome':
         case 'Firefox':
         case 'Safari':
-        case 'CriOS':
+        case 'ChromeiOS':
           return true;
         case 'Microsoft Internet Explorer':
           var firstDot = userAgent.browser.version.indexOf('.'),
