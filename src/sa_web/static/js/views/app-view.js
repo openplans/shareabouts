@@ -140,8 +140,6 @@ var Shareabouts = Shareabouts || {};
 
         this.$panel.removeClass().addClass('place-form');
         this.showPanel(this.placeFormView.render().$el);
-        // Autofocus on the first input element
-        this.placeFormView.$('textarea, input').not('[type="hidden"]').first().focus();
         this.showNewPin();
         this.hideAddButton();
       }
