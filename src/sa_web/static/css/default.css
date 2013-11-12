@@ -375,6 +375,7 @@ a.facebook-btn {
 .authed #sign-in-btn {
   font-size: 1em;
   padding: 0;
+  outline: 0;
 }
 .header-avatar {
   float: right;
