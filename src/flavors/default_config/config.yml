@@ -33,7 +33,7 @@ map:
           style:
             color: "#444"
             opacity: 0.6
-            fillOpacity: 0.2
+            fillOpacity: 0.1
             weight: 1
 
 # The keys show up in the dropdown list when you are adding a new place
@@ -47,19 +47,13 @@ place_types:
 
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize:
-            width: 17
-            height: 18
+          iconSize: [17, 18]
           iconAnchor: [9, 9]
         focus_icon:
           iconUrl: /static/css/images/markers/marker-0d85e9.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize:
-            width: 25
-            height: 41
-          shadowSize:
-            width: 41
-            height: 41
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
           iconAnchor: [12, 41]
 
         # style:
@@ -83,19 +77,13 @@ place_types:
 
         icon:
           iconUrl: /static/css/images/markers/dot-4bbd45.png
-          iconSize:
-            width: 17
-            height: 18
+          iconSize: [17, 18]
           iconAnchor: [9, 9]
         focus_icon:
           iconUrl: /static/css/images/markers/marker-4bbd45.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize:
-            width: 25
-            height: 41
-          shadowSize:
-            width: 41
-            height: 41
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
           iconAnchor: [12, 41]
 
         # ...and parks that are polygons as shapes.
@@ -121,19 +109,13 @@ place_types:
 
         # icon:
         #   iconUrl: /static/css/images/markers/dot-f95016.png
-        #   iconSize:
-        #     width: 17
-        #     height: 18
+        #   iconSize: [17, 18]
         #   iconAnchor: [9, 9]
         # focus_icon:
         #   iconUrl: /static/css/images/markers/marker-f95016.png
         #   shadowUrl: /static/css/images/marker-shadow.png
-        #   iconSize:
-        #     width: 25
-        #     height: 41
-        #   shadowSize:
-        #     width: 41
-        #     height: 41
+        #   iconSize: [25, 41]
+        #   shadowSize: [41, 41]
         #   iconAnchor: [12, 41]
 
         style:
