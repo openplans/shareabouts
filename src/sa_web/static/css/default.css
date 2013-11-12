@@ -381,6 +381,7 @@ a.facebook-btn {
   float: right;
   width: 3em;
   height: 3em;
+  max-width: none;
 }
 .signed-in-as {
   font-weight: normal;
