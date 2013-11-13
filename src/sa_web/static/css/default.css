@@ -606,7 +606,7 @@ a.logout-btn {
   right: 50px;
   bottom: auto;
   left: 50px;
-  z-index: 1;
+  z-index: 3;
   display:none;
   font-size: 1.25em;
 }
