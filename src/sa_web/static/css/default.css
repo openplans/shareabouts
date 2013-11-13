@@ -144,8 +144,9 @@ hr {
   display: block;
   padding: 0.5em 0.75em;
   width: 100%;
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .btn-large {
   font-size: 1.25em;
@@ -172,8 +173,9 @@ textarea {
   padding: 0.5em;
   display: block;
   width: 100%;
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 input:focus,
 textarea:focus {
@@ -889,8 +891,9 @@ ul.recent-points {
   border-bottom: 1px solid #666;
   padding: 0.5em 0.5em 0.5em 3em;
   width: 100%;
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .recent-points li:first-child a {
   border-top: 0;
@@ -1029,8 +1032,9 @@ a.close-unsupported-overlay {
     padding-left: 1em;
     overflow: visible;
     height: 5em;
-    -moz-box-sizing: border-box;
-         box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
   }
   .has-pages #site-title {
     padding-left: 0;
@@ -1194,8 +1198,9 @@ a.close-unsupported-overlay {
     padding: 1em 1em 2em;
     width: 100%;
     height: 100%;
-    -moz-box-sizing: border-box;
-         box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
   }
 
   /* The Ticker */
@@ -1235,8 +1240,9 @@ a.close-unsupported-overlay {
     padding: 0.25em;
     box-shadow: 0 -0.325em rgba(0,0,0,0.1);
     height: 1.75em;
-    -moz-box-sizing: border-box;
-         box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
   }
   .activity-enabled #colophon {
     right: 18em; /* width of #ticker */
