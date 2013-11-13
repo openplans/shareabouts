@@ -58,7 +58,9 @@ var Shareabouts = Shareabouts || {};
                                       'its ' + submissionType + '.'); }
 
       return '/api/places/' + placeId + '/' + submissionType;
-    }
+    },
+
+    comparator: 'created_datetime'
   });
 
   S.PlaceModel = Backbone.Model.extend({
