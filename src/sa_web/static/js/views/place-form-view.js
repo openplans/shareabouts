@@ -67,7 +67,7 @@ var Shareabouts = Shareabouts || {};
                 data = {
                   name: fieldName,
                   blob: blob,
-                  url: canvas.toDataURL('image/jpeg')
+                  file: canvas.toDataURL('image/jpeg')
                 };
 
             attachment = self.model.attachmentCollection.find(function(model) {
