@@ -34,13 +34,16 @@ var BinaryFile = function(strData, iDataOffset, iDataLength) {
 
 	} else if (strData instanceof ArrayBuffer) {
 		dataLength = iDataLength || data.byteLength;
+		data = new Uint8Array(data);
 
 		this.getByteAt = function(iOffset) {
-			return (new Uint8Array(slice.call(data, iOffset, iOffset+1)))[0];
+			return data[iOffset + dataOffset];
 		};
 
 		this.getBytesAt = function(iOffset, iLength) {
-			return (new Uint8Array(slice.call(data, iOffset, iOffset+iLength)));
+			return slice.call(data,
+				iOffset + dataOffset,
+				iOffset + dataOffset + iLength);
 		};
 
 	} else if (typeof strData == "unknown") {
