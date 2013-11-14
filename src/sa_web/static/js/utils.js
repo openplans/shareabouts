@@ -166,7 +166,7 @@ var Shareabouts = Shareabouts || {};
           }, options);
       };
 
-      fr.readAsBinaryString(file); // read the file
+      fr.readAsArrayBuffer(file); // read the file
     },
 
     wrapHandler: function(evtName, model, origHandler) {
