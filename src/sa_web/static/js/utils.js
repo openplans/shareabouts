@@ -66,11 +66,20 @@ var Shareabouts = Shareabouts || {};
       return false;
     },
 
-    // http://stackoverflow.com/questions/4127829/detect-browser-support-of-html-file-input-element
     fileInputSupported: function() {
+      // http://stackoverflow.com/questions/4127829/detect-browser-support-of-html-file-input-element
       var dummy = document.createElement('input');
       dummy.setAttribute('type', 'file');
-      return dummy.disabled === false;
+      if (dummy.disabled) return false;
+
+      // We also need support for the FileReader interface
+      // https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+      var fr;
+      if (!window.FileReader) return false;
+      fr = new FileReader();
+      if (!fr.readAsArrayBuffer) return false;
+
+      return true;
     },
 
     // For browsers without a console
