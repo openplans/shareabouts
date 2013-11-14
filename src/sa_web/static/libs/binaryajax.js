@@ -15,6 +15,7 @@ var BinaryFile = function(strData, iDataOffset, iDataLength) {
 		return data;
 	};
 
+	// as from readAsBinaryString...
 	if (typeof strData == "string") {
 		dataLength = iDataLength || data.length;
 
@@ -32,6 +33,7 @@ var BinaryFile = function(strData, iDataOffset, iDataLength) {
 			return aBytes;
 		};
 
+	// as from readAsBufferArray...
 	} else if (strData instanceof ArrayBuffer) {
 		dataLength = iDataLength || data.byteLength;
 		data = new Uint8Array(data);
