@@ -164,7 +164,15 @@ fieldset {
   margin: 0;
   padding: 0 0 1.2em;
 }
-label {}
+label {
+  font-size: 0.75em;
+  text-transform: uppercase;
+  color: #999;
+  margin-right: 0.5em;
+}
+label small {
+  text-transform: none;
+}
 input[type=text],
 textarea {
   outline: 0;
@@ -686,12 +694,13 @@ a.close-btn span {
   border-radius: 0;
   font-size: 1em;
   padding-left: 22px;
+  color: #007fbf; 
 }
 #user_support input[type=checkbox]:checked ~ label {
   background-image: url(images/heart.png);
 }
 #user_support:hover label {
-  color: #fff;
+  background-color: #93b7c9;
 }
 .support-count {
 }

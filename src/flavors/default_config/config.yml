@@ -160,6 +160,15 @@ place:
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
   items:
+    - prompt: _(Your Name)
+      type: text
+      name: submitter_name
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Name)
+        - key: size
+          value: 30
     - prompt: _(Location Name)
       type: text
       name: name
@@ -178,6 +187,13 @@ place:
         - label: _(School)
           value: school
       name: location_type
+    - prompt: _(Description)
+      type: textarea
+      name: description
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...)
     - prompt: _(Image)
       inputfile_label: _(Add an Image)
       type: file
@@ -186,22 +202,6 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - prompt: _(Description)
-      type: textarea
-      name: description
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Description...)
-    - prompt: _(Your Name)
-      type: text
-      name: submitter_name
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Name)
-        - key: size
-          value: 30
 
 survey:
   submission_type: comments

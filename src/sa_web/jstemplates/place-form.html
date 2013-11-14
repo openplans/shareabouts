@@ -14,13 +14,13 @@
               -->
 
             {{# place_config.items }}
-            <p>
+            <p class="{{ type }}">
               {{#is_authenticated}}
                 {{^is_submitter_name}}
-                <label for="place-{{ name }}">{{ prompt }} {{# optional }}(optional){{/ optional }}</label>
+                <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>(optional)</small>{{/ optional }}</label>
                 {{/is_submitter_name}}
               {{^}}
-              <label for="place-{{ name }}">{{ prompt }} {{# optional }}(optional){{/ optional }}</label>
+              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>(optional)</small>{{/ optional }}</label>
               {{/is_authenticated}}
 
               {{#if is_input}}
@@ -52,16 +52,18 @@
               {{/is_select}}
 
               {{#is_file}}
+              <!--[if lt IE 10 ]><br>Sorry, your browser isn't compatible with our file upload method.<![endif]-->
+              <!--[if (gt IE 9)|!(IE)]><!-->
               <span class="fileinput-container btn btn-small{{^is_fileinput_supported}} btn-disabled{{/is_fileinput_supported}}">
                 <span>{{ inputfile_label }}</span>
                 <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}"
                        {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}
                        {{^is_fileinput_supported}} disabled{{/is_fileinput_supported}}>
               </span>
-
               <span class="fileinput-name">
                 {{^is_fileinput_supported}}Sorry, your browser doesn't support file uploads.{{/is_fileinput_supported}}
               </span>
+              <!--<![endif]-->
               {{/is_file}}
             </p>
             {{/ place_config.items }}
