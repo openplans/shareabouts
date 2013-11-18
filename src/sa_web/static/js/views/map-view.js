@@ -96,8 +96,8 @@ var Shareabouts = Shareabouts || {};
 
       // Add the geolocation control link
       this.$('.leaflet-top.leaflet-right').append(
-        '<div class="leaflet-control">' +
-          '<a href="#" class="locate-me"><span>Locate Me</span></a>' +
+        '<div class="leaflet-control leaflet-bar">' +
+          '<a href="#" class="locate-me"></a>' +
         '</div>'
       );
 

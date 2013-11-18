@@ -62,10 +62,10 @@ var Shareabouts = Shareabouts || {};
 
       if (shouldFetch && !self.fetching) {
         self.fetching = true;
-        this.collection.fetchNextPage({
-          success: function() { _.delay(notFetching, notFetchingDelay); },
-          error: function() {_.delay(notFetching, notFetchingDelay); }
-        });
+        this.collection.fetchNextPage(
+          function() { _.delay(notFetching, notFetchingDelay); },
+          function() {_.delay(notFetching, notFetchingDelay); }
+        );
       }
     },
 

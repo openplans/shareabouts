@@ -33,7 +33,7 @@ map:
           style:
             color: "#444"
             opacity: 0.6
-            fillOpacity: 0.2
+            fillOpacity: 0.1
             weight: 1
 
 # The keys show up in the dropdown list when you are adding a new place
@@ -47,19 +47,13 @@ place_types:
 
         icon:
           iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize:
-            width: 17
-            height: 18
+          iconSize: [17, 18]
           iconAnchor: [9, 9]
         focus_icon:
           iconUrl: /static/css/images/markers/marker-0d85e9.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize:
-            width: 25
-            height: 41
-          shadowSize:
-            width: 41
-            height: 41
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
           iconAnchor: [12, 41]
 
         # style:
@@ -83,19 +77,13 @@ place_types:
 
         icon:
           iconUrl: /static/css/images/markers/dot-4bbd45.png
-          iconSize:
-            width: 17
-            height: 18
+          iconSize: [17, 18]
           iconAnchor: [9, 9]
         focus_icon:
           iconUrl: /static/css/images/markers/marker-4bbd45.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize:
-            width: 25
-            height: 41
-          shadowSize:
-            width: 41
-            height: 41
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
           iconAnchor: [12, 41]
 
         # ...and parks that are polygons as shapes.
@@ -121,19 +109,13 @@ place_types:
 
         # icon:
         #   iconUrl: /static/css/images/markers/dot-f95016.png
-        #   iconSize:
-        #     width: 17
-        #     height: 18
+        #   iconSize: [17, 18]
         #   iconAnchor: [9, 9]
         # focus_icon:
         #   iconUrl: /static/css/images/markers/marker-f95016.png
         #   shadowUrl: /static/css/images/marker-shadow.png
-        #   iconSize:
-        #     width: 25
-        #     height: 41
-        #   shadowSize:
-        #     width: 41
-        #     height: 41
+        #   iconSize: [25, 41]
+        #   shadowSize: [41, 41]
         #   iconAnchor: [12, 41]
 
         style:
@@ -178,6 +160,15 @@ place:
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
   items:
+    - prompt: _(Your Name)
+      type: text
+      name: submitter_name
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Name)
+        - key: size
+          value: 30
     - prompt: _(Location Name)
       type: text
       name: name
@@ -196,6 +187,13 @@ place:
         - label: _(School)
           value: school
       name: location_type
+    - prompt: _(Description)
+      type: textarea
+      name: description
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...)
     - prompt: _(Image)
       inputfile_label: _(Add an Image)
       type: file
@@ -204,22 +202,6 @@ place:
       attrs:
         - key: accept
           value: image/*
-    - prompt: _(Description)
-      type: textarea
-      name: description
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Description...)
-    - prompt: _(Your Name)
-      type: text
-      name: submitter_name
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Name)
-        - key: size
-          value: 30
 
 survey:
   submission_type: comments
@@ -246,7 +228,7 @@ survey:
 
 support:
   submission_type: support
-  submit_btn_text: _(Support This!)
+  submit_btn_text: _(Support)
   action_text: supported
   anonymous_name: _(Someone)
 
@@ -254,7 +236,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    start_page: true
+    # start_page: true
 
   - title: _(Why Shareabouts?)
     slug: why

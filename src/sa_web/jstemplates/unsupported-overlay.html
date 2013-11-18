@@ -1,24 +1,7 @@
-<div>
-  <a href="#" class="close-bttn">&#10005;<span> {{#_}}Close Button{{/_}}</span></a>
-
-  <p>
-    {{#_}}
-    App Name is not officially supported in {{browser.name}}
-    {{browser.version}}. Things may not work. Or they may, we're not sure. If
-    you want to be safe, we suggest using one of <a
-    href="http://upgradeyourbrowser.net/" target="_blank">these</a> instead.
-    {{/_}}
+<div class="unsupported-message">
+  <p class="browsehappy">{{#_}}You are using an unsupported browser. Please
+    <a href="http://browsehappy.com/">upgrade your browser</a> to improve
+    your experience.{{/_}}
   </p>
-
-
-  {{# is_ie }}
-    <p>
-    {{#_}}
-    For Internet Explorer, you could also install <a
-    href="http://www.google.com/chromeframe" target="_blank">Google Chrome
-    Frame</a>, a plug-in which gives you access to Google's Chrome browser
-    technology from within IE.
-    {{/_}}
-    </p>
-  {{/ is_ie}}
+  <a href="#" class="close-btn btn-block close-unsupported-overlay">{{#_}}Proceed Anyway{{/_}}</a>
 </div>

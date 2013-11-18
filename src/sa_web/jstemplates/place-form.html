@@ -1,8 +1,10 @@
+        <p class="drag-marker-instructions">Drag the map to your location.</p>
+
         <h4 class="">{{ place_config.title }}</h4>
 
         <p>{{ place_config.help_text }}</p>
 
-        <form id="place-form" class="place-form">
+        <form id="place-form" class="place-form clearfix">
 
           <fieldset>
             <input type="hidden" name="visible" value="on">
@@ -12,13 +14,13 @@
               -->
 
             {{# place_config.items }}
-            <p>
+            <p class="{{ type }}">
               {{#is_authenticated}}
                 {{^is_submitter_name}}
-                <label for="place-{{ name }}">{{ prompt }} {{# optional }}(optional){{/ optional }}</label>
+                <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>(optional)</small>{{/ optional }}</label>
                 {{/is_submitter_name}}
               {{^}}
-              <label for="place-{{ name }}">{{ prompt }} {{# optional }}(optional){{/ optional }}</label>
+              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>(optional)</small>{{/ optional }}</label>
               {{/is_authenticated}}
 
               {{#if is_input}}
@@ -26,7 +28,7 @@
                   {{#is_authenticated}}
                   {{^}}
                     <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-                    <span class="or-sign-in">Sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a></span>
+                    <span class="or-sign-in">Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a></span>
                   {{/is_authenticated}}
                 {{^}}
                   <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
@@ -50,20 +52,24 @@
               {{/is_select}}
 
               {{#is_file}}
-              <span class="fileinput-container {{^is_fileinput_supported}}disabled{{/is_fileinput_supported}}">
+              <!--[if lt IE 10 ]><br>Sorry, your browser isn't compatible with our file upload method.<![endif]-->
+              <!--[if (gt IE 9)|!(IE)]><!-->
+              <span class="fileinput-container btn btn-small{{^is_fileinput_supported}} btn-disabled{{/is_fileinput_supported}}">
                 <span>{{ inputfile_label }}</span>
-                <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}"
+                       {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}
+                       {{^is_fileinput_supported}} disabled{{/is_fileinput_supported}}>
               </span>
-
               <span class="fileinput-name">
                 {{^is_fileinput_supported}}Sorry, your browser doesn't support file uploads.{{/is_fileinput_supported}}
               </span>
+              <!--<![endif]-->
               {{/is_file}}
             </p>
             {{/ place_config.items }}
           </fieldset>
 
-          <input name="save-place-btn" id="save-place-btn" type="submit" value="{{ place_config.submit_button_label }}" class="bttn submit-bttn">
+          <input name="save-place-btn" id="save-place-btn" type="submit" value="{{ place_config.submit_button_label }}" class="btn btn-primary submit-btn">
 
           {{#is_authenticated}}
             <p class="signed-in-as"><img src="{{ current_user "avatar_url" }}" class="avatar" /> {{ current_user "name" }}. <a class="" href="/users/logout/">Log Out</a></p>

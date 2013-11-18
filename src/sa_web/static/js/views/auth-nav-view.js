@@ -6,7 +6,8 @@ var Shareabouts = Shareabouts || {};
   S.AuthNavView = Backbone.View.extend({
     events: {
       'click .internal-menu-item a': 'onLinkClick',
-      'click #nav-bttn': 'onMobileNavClick'
+      'click #nav-btn': 'onMobileNavClick',
+      'click #sign-in-btn': 'onAuthNavClick'
     },
 
     render: function() {
@@ -28,6 +29,11 @@ var Shareabouts = Shareabouts || {};
     onMobileNavClick: function(evt) {
       evt.preventDefault();
       $('.access').toggleClass('expose');
+    },
+
+    onAuthNavClick: function(evt) {
+      evt.preventDefault();
+      $('.sign-in-menu').toggleClass('expose');
     }
   });
 

@@ -55,8 +55,10 @@ var Shareabouts = Shareabouts || {};
               $currentProgress = $('#map-progress .current-progress'),
               pagesComplete = 1,
               onPageFetch = function() {
-                var percent = (pagesComplete/totalPages*100);
+                var percent;
+
                 pagesComplete++;
+                percent = (pagesComplete/totalPages*100);
                 $currentProgress.width(percent + '%');
 
                 if (pagesComplete === totalPages) {
