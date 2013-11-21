@@ -54,7 +54,7 @@
 <body>
 
   <header id="site-header" class="clearfix{% if pages_config %} has-pages{% endif %}">
-    <h1 id="site-title"><a href="/">{{ config.app.name }}</a></h1>
+    <h1 id="site-title">{% block site-title %}{% endblock %}</h1>
     <div id="auth-nav-container"></div>
     <div id="pages-nav-container"></div>
 
@@ -91,7 +91,7 @@
       <div class="noscript">
       <h3>
         {% blocktrans %}
-        Oops, {{ config.app.name}} needs JavaScript to achieve full awesomeness.
+        Oops, {{ config.app.name}} needs JavaScript to work properly.
         {% endblocktrans %}
       </h3>
       <p>
@@ -117,6 +117,7 @@
   </div><!-- end #main -->
 
   <div id="ticker">
+    {% block sidebar %}{% endblock %}
     <ul class="recent-points unstyled-list"></ul>
   </div>
 
@@ -251,7 +252,7 @@
   })(Shareabouts, jQuery);
   </script>
 
-  {% include "includes.html" %}
+  {% block includes %}{% endblock %}
 
 </body>
 </html>

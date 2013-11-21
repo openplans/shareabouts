@@ -20,7 +20,7 @@ Step 1: Create a flavor
 
 A "flavor" is a particular configuration of Shareabouts.
 
-Copy the *flavors/default_config* folder to a new subdirectory
+Copy the *flavors/default* folder to a new subdirectory
 of *flavors/*.  Name it whatever you want.
 
 
@@ -176,10 +176,10 @@ generate the following HTML:
 The *optional* setting can be used to indicate optional items.
 * with `optional: true`, the user sees _(optional)_ added to the form
 label. The setting has no other effect.
-* with `optional:` omitted, users can leave form items blank, and will not see the _(optional)_ 
+* with `optional:` omitted, users can leave form items blank, and will not see the _(optional)_
 label. You may prefer this if all your items are optional.
 
-To make an item required, use the `attr` section to set `key: required` and  `value: true`. We're using HTML5 validation, so browsers handle this differently 
+To make an item required, use the `attr` section to set `key: required` and  `value: true`. We're using HTML5 validation, so browsers handle this differently
 (or [not at all](http://caniuse.com/form-validation)).
 
 The *label* setting can also be used for a place item. It is used as the label
