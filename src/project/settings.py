@@ -141,7 +141,7 @@ TEST_RUNNER = 'sa_web.test_runner.DatabaselessTestSuiteRunner'
 
 # Shareabouts flavor config
 SHAREABOUTS = {
-    'FLAVOR': 'default_config',
+    'FLAVOR': 'default',
     # The name of the flavor. Optional, but useful for using the default settings.
 
     'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/demo-user/demo-data/',

@@ -9,7 +9,7 @@ TEMPLATE_DEBUG = DEBUG
 # information for the flavor.
 
 SHAREABOUTS = {
-  'FLAVOR': 'default_config',
+  'FLAVOR': 'default',
   'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/demo-user/datasets/demo-data/',
   'DATASET_KEY': 'abc123',
 }
