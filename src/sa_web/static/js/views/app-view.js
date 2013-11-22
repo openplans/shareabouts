@@ -178,7 +178,7 @@ var Shareabouts = Shareabouts || {};
       // Called by the router
       this.collection.add({});
     },
-    viewPlace: function(model) {
+    viewPlace: function(model, zoom) {
       var self = this,
           onPlaceFound, onPlaceNotFound, modelId;
 
@@ -204,7 +204,16 @@ var Shareabouts = Shareabouts || {};
         self.hideCenterPoint();
         self.hideAddButton();
 
-        map.panTo(center, {animate: true});
+        if (zoom) {
+          if (layer.getLatLng) {
+            map.setView(center, map.getMaxZoom()-1, {animate: true});
+          } else {
+            map.fitBounds(layer.getBounds());
+          }
+
+        } else {
+          map.panTo(center, {animate: true});
+        }
 
         // Focus the one we're looking
         model.trigger('focus');

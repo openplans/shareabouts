@@ -17,6 +17,7 @@ var Shareabouts = Shareabouts || {};
           startPageConfig,
           placeParams = {};
 
+      this.loading = true;
       this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
       this.appView = new S.AppView({
@@ -105,6 +106,8 @@ var Shareabouts = Shareabouts || {};
           this.navigate('page/' + startPageConfig.slug, {trigger: true});
         }
       }
+
+      this.loading = false;
     },
 
     viewMap: function() {
@@ -116,7 +119,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     viewPlace: function(id) {
-      this.appView.viewPlace(id);
+      this.appView.viewPlace(id, this.loading);
     },
 
     editPlace: function(){},
