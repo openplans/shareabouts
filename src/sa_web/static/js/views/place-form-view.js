@@ -1,4 +1,4 @@
-/*globals _ Spinner Handlebars Backbone jQuery */
+/*globals _ Spinner Handlebars Backbone jQuery Gatekeeper */
 
 var Shareabouts = Shareabouts || {};
 
@@ -88,7 +88,7 @@ var Shareabouts = Shareabouts || {};
         });
       }
     },
-    onSubmit: function(evt) {
+    onSubmit: Gatekeeper.onValidSubmit(function(evt) {
       var router = this.options.router,
           model = this.model,
           // Should not include any files
@@ -112,7 +112,7 @@ var Shareabouts = Shareabouts || {};
         },
         wait: true
       });
-    }
+    })
   });
 
 }(Shareabouts, jQuery, Shareabouts.Util.console));

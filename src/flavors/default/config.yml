@@ -177,9 +177,12 @@ place:
           value: _(Location Name)
         - key: size
           value: 30
+        - key: required
     - prompt: _(Location Type)
       type: select
       options:
+        - label: _(Choose One)
+          value: ''
         - label: _(Landmark)
           value: landmark
         - label: _(Park)
@@ -187,6 +190,8 @@ place:
         - label: _(School)
           value: school
       name: location_type
+      attrs:
+        - key: required
     - prompt: _(Description)
       type: textarea
       name: description
@@ -222,6 +227,8 @@ survey:
       label: _(Comment)
       type: textarea
       name: comment
+      attrs:
+        - key: required
     - prompt: _(Your Name)
       type: text
       name: submitter_name

@@ -1,4 +1,4 @@
-/*globals jQuery Backbone _ Handlebars Spinner */
+/*globals jQuery Backbone _ Handlebars Spinner Gatekeeper */
 
 var Shareabouts = Shareabouts || {};
 
@@ -54,7 +54,7 @@ var Shareabouts = Shareabouts || {};
       this.render();
     },
 
-    onSubmit: function(evt) {
+    onSubmit: Gatekeeper.onValidSubmit(function(evt) {
       evt.preventDefault();
       var $form = this.$('form'),
           $button = this.$('[name="commit"]'),
@@ -79,7 +79,7 @@ var Shareabouts = Shareabouts || {};
           spinner.stop();
         }
       });
-    },
+    }),
 
     onReplyClick: function(evt) {
       evt.preventDefault();
