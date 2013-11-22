@@ -11,19 +11,19 @@ body {
 }
 
 /* Links */
-a, a:active, a:visited { 
-  color: #007fbf; 
+a, a:active, a:visited {
+  color: #007fbf;
 }
-a:hover { 
-  color: #00aaff; 
+a:hover {
+  color: #00aaff;
 }
-a:hover, a:active { 
-  outline: none; 
+a:hover, a:active {
+  outline: none;
 }
 
 /* Typography */
-body { 
-  line-height: 1.25; 
+body {
+  line-height: 1.25;
 }
 body, select, input, textarea {
   color: #555;
@@ -32,37 +32,37 @@ body, select, input, textarea {
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 0.25em 0;
 }
-h1 { 
-  font-size: 2em; 
+h1 {
+  font-size: 2em;
 }
-h2 { 
-  font-size: 2em; 
+h2 {
+  font-size: 2em;
 }
-h3 { 
-  font-size: 1.75em; 
+h3 {
+  font-size: 1.75em;
 }
-h4 { 
-  font-size: 1.5em; 
+h4 {
+  font-size: 1.5em;
 }
-h5 { 
-  font-size: 1.25em; 
+h5 {
+  font-size: 1.25em;
 }
-h6 { 
-  font-size: 1em; 
-  text-transform: uppercase; 
+h6 {
+  font-size: 1em;
+  text-transform: uppercase;
 }
-p { 
-  margin: 0 0 1.5em; 
+p {
+  margin: 0 0 1.5em;
 }
-ul, 
-ol, 
-dl { 
-  margin-bottom: 0.75em; 
+ul,
+ol,
+dl {
+  margin-bottom: 0.75em;
 }
-li { 
-  padding-bottom: 0.75em; 
+li {
+  padding-bottom: 0.75em;
 }
-nav ul, 
+nav ul,
 nav ol,
 .unstyled-list {
   list-style-type: none;
@@ -192,6 +192,11 @@ textarea:focus {
 textarea {
   height: 6.5em;
   resize: none;
+}
+.form-submitted input:invalid,
+.form-submitted textarea:invalid,
+.form-submitted select:invalid {
+  outline: 2px solid #b2182b;
 }
 
 .fileinput-container {
@@ -425,7 +430,7 @@ a.logout-btn {
 .locate-me {
   background-image: url(images/locate-me.png);
 }
-#map .leaflet-bar a, 
+#map .leaflet-bar a,
 #map .leaflet-bar a:hover {
   width: 33px;
   height: 33px;
@@ -694,7 +699,7 @@ a.close-btn span {
   border-radius: 0;
   font-size: 1em;
   padding-left: 22px;
-  color: #007fbf; 
+  color: #007fbf;
 }
 #user_support input[type=checkbox]:checked ~ label {
   background-image: url(images/heart.png);
@@ -1135,7 +1140,7 @@ a.close-unsupported-overlay {
     left: 10px;
     top: 77px;
   }
-  
+
   #map {
     height: 100%;
   }
@@ -1201,7 +1206,7 @@ a.close-unsupported-overlay {
     right: auto;
     border-radius: 0.325em;
   }
-  
+
   #content > article {
     overflow: auto;
     padding: 1em 1em 2em;
