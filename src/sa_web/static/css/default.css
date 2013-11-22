@@ -240,7 +240,7 @@ img {
 .clearfix { zoom: 1; }
 
 /* Hide for both screenreaders and browsers */
-.is-hidden { display: none; visibility: hidden; }
+.is-hidden, .hidden { display: none; visibility: hidden; }
 /* Hide only visually, but have it available for screenreaders */
 .is-screen-reader-text,
 .is-visuallyhidden {
