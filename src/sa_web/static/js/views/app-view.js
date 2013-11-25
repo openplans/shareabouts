@@ -121,6 +121,7 @@ var Shareabouts = Shareabouts || {};
     },
     onClickClosePanelBtn: function(evt) {
       evt.preventDefault();
+      S.Util.log('USER', 'panel', 'close-btn-click');
       this.options.router.navigate('/', {trigger: true});
     },
     // This gets called for every model that gets added to the place
