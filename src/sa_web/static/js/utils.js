@@ -67,7 +67,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     // ====================================================
-    // Analytics
+    // Event and State Logging
 
     log: function() {
       var args = Array.prototype.slice.call(arguments, 0);
