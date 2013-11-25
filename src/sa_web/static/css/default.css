@@ -641,15 +641,16 @@ a.logout-btn {
 a.close-btn {
   background: #fff;
   color: #ff5e99;
-  font-size: 0.75em;
+  font-size: 1.25em;
+  font-weight: bold;
   text-decoration: none;
-  line-height: 1.25em;
+  line-height: 1.125em;
   float: left;
   display: block;
   position: absolute;
-  top: -1.5em;
+  top: -1.325em;
   left: 0.5em;
-  padding: 0.5em 0.75em;
+  padding: 0.325em 0.625em;
   z-index: 2;
   box-shadow: 0 -0.325em 0 rgba(0,0,0,0.1);
   border-radius: 0.325em 0.325em 0 0;
@@ -658,12 +659,11 @@ a.close-btn:hover {
   color: #cd2c67;
 }
 a.close-btn span {
-  font-size: 0.75em;
-  font-weight: normal;
+  font-size: 0.625em;
   text-transform: uppercase;
-  margin-left: 0.375em;
+  margin-left: 0.625em;
   position: relative;
-  top: -0.125em;
+  top: -0.2em;
 }
 
 /* Promotion: Voting & Sharing */
@@ -1002,38 +1002,25 @@ a.close-unsupported-overlay {
 /* =Media Queries for Responsive Layout
 -------------------------------------------------------------- */
 
-@media only screen and (min-height: 440px) {
-
+@media only screen and (min-height: 440px) and (max-width: 60em) {
   #map {
-    height: 200px;
+    height: 250px;
   }
-
 }
 
-@media only screen and (min-height: 568px) {
-
+@media only screen and (min-height: 568px) and (max-width: 60em) {
   #map {
-    height: 275px;
+    height: 325px;
   }
-
 }
 
-@media only screen and (min-width: 320px) {
-}
-
-@media only screen and (min-width: 480px) {
-}
-
-@media only screen and (min-width: 768px) {
-
+@media only screen and (min-width: 768px) and (max-width: 60em) {
   #map {
-    height: 375px;
+    height: 400px;
   }
-
 }
 
 @media only screen and (min-width: 60em) {
-
   html,
   body {
     height: 100%;
@@ -1177,9 +1164,8 @@ a.close-unsupported-overlay {
     right: 18em;
   }
   a.close-btn {
-    font-size: 1em;
     line-height: 2;
-    top: 1.125em;
+    top: 10px;
     left: auto;
     right: 100%;
     margin: 0 -0.325em 0 0;
@@ -1264,10 +1250,22 @@ a.close-unsupported-overlay {
   #powered-by {
     margin-bottom: 0;
   }
-
 }
 
-@media only screen and (min-width: 1300px) {
+@media only screen and (min-width: 80em) {
+  #content {
+    right: 0;
+    left: 60%;
+  }
+  .activity-enabled #content {
+    left: 45%;
+  }
+  .content-visible #map-container {
+    width: 60%;
+  }
+  .activity-enabled.content-visible #map-container {
+    width: 45%;
+  }
 }
 
 /* High Resolution Displays */
