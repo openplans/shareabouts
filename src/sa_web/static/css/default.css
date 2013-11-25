@@ -641,15 +641,16 @@ a.logout-btn {
 a.close-btn {
   background: #fff;
   color: #ff5e99;
-  font-size: 0.75em;
+  font-size: 1.25em;
+  font-weight: bold;
   text-decoration: none;
-  line-height: 1.25em;
+  line-height: 1.125em;
   float: left;
   display: block;
   position: absolute;
-  top: -1.5em;
+  top: -1.325em;
   left: 0.5em;
-  padding: 0.5em 0.75em;
+  padding: 0.325em 0.625em;
   z-index: 2;
   box-shadow: 0 -0.325em 0 rgba(0,0,0,0.1);
   border-radius: 0.325em 0.325em 0 0;
@@ -658,12 +659,11 @@ a.close-btn:hover {
   color: #cd2c67;
 }
 a.close-btn span {
-  font-size: 0.75em;
-  font-weight: normal;
+  font-size: 0.625em;
   text-transform: uppercase;
-  margin-left: 0.375em;
+  margin-left: 0.625em;
   position: relative;
-  top: -0.125em;
+  top: -0.2em;
 }
 
 /* Promotion: Voting & Sharing */
@@ -1177,9 +1177,8 @@ a.close-unsupported-overlay {
     right: 18em;
   }
   a.close-btn {
-    font-size: 1em;
     line-height: 2;
-    top: 1.125em;
+    top: 10px;
     left: auto;
     right: 100%;
     margin: 0 -0.325em 0 0;
