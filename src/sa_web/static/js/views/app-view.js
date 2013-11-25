@@ -143,6 +143,8 @@ var Shareabouts = Shareabouts || {};
         this.showPanel(this.placeFormView.render().$el);
         this.showNewPin();
         this.hideAddButton();
+
+        S.Util.log('USER', 'map', 'new-place-btn-click');
       }
     },
     onRemovePlace: function(model) {
