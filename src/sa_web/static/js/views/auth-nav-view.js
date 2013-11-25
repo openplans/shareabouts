@@ -34,6 +34,7 @@ var Shareabouts = Shareabouts || {};
     onAuthNavClick: function(evt) {
       evt.preventDefault();
       $('.sign-in-menu').toggleClass('expose');
+      S.Util.log('USER', 'page-menu', ($('.sign-in-menu').hasClass('expose') ? 'show' : 'hide') + '-auth');
     }
   });
 
