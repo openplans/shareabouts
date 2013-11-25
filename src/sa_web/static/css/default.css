@@ -1266,7 +1266,20 @@ a.close-unsupported-overlay {
 
 }
 
-@media only screen and (min-width: 1300px) {
+@media only screen and (min-width: 80em) {
+  #content {
+    right: 0;
+    left: 60%;
+  }
+  .activity-enabled #content {
+    left: 45%;
+  }
+  .content-visible #map-container {
+    width: 60%;
+  }
+  .activity-enabled.content-visible #map-container {
+    width: 45%;
+  }
 }
 
 /* High Resolution Displays */
