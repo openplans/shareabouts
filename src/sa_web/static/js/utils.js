@@ -66,6 +66,26 @@ var Shareabouts = Shareabouts || {};
       return false;
     },
 
+    // ====================================================
+    // Analytics
+
+    log: function() {
+      var args = Array.prototype.slice.call(arguments, 0);
+      S.Util.console.log(args);
+    },
+
+    // For browsers without a console
+    console: window.console || {
+      log: function(){},
+      debug: function(){},
+      info: function(){},
+      warn: function(){},
+      error: function(){}
+    },
+
+    // ====================================================
+    // File and Image Handling
+
     fileInputSupported: function() {
       // http://stackoverflow.com/questions/4127829/detect-browser-support-of-html-file-input-element
       var dummy = document.createElement('input');
@@ -80,15 +100,6 @@ var Shareabouts = Shareabouts || {};
       if (!fr.readAsArrayBuffer) return false;
 
       return true;
-    },
-
-    // For browsers without a console
-    console: window.console || {
-      log: function(){},
-      debug: function(){},
-      info: function(){},
-      warn: function(){},
-      error: function(){}
     },
 
     fixImageOrientation: function(canvas, orientation) {

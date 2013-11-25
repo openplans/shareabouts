@@ -101,10 +101,16 @@ var Shareabouts = Shareabouts || {};
       $button.attr('disabled', 'disabled');
       spinner = new Spinner(S.smallSpinnerOptions).spin(this.$('.form-spinner')[0]);
 
+      S.Util.log('USER', 'new-place', 'submit-place-btn-click');
+
       // Save and redirect
       this.model.save(attrs, {
         success: function() {
+          S.Util.log('USER', 'new-place', 'successfully-add-place');
           router.navigate('/place/' + model.id, {trigger: true});
+        },
+        error: function() {
+          S.Util.log('USER', 'new-place', 'fail-to-add-place');
         },
         complete: function() {
           $button.removeAttr('disabled');

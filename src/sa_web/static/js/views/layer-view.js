@@ -82,6 +82,7 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onMarkerClick: function() {
+      S.Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
     },
     

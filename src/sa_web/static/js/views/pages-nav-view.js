@@ -27,11 +27,13 @@ var Shareabouts = Shareabouts || {};
       $('.access').removeClass('expose');
       // Load the content
       this.options.router.navigate(evt.target.getAttribute('href'), {trigger: true});
+      S.Util.log('USER', 'page-menu', 'click-link', evt.target.getAttribute('href') + " -- " + evt.target.textContent);
     },
 
     onMobileNavClick: function(evt) {
       evt.preventDefault();
       $('.access').toggleClass('expose');
+      S.Util.log('USER', 'page-menu', ($('.access').hasClass('expose') ? 'show' : 'hide') + '-mobile-nav');
     },
 
     onAuthNavClick: function(evt) {
