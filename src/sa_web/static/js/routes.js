@@ -17,6 +17,10 @@ var Shareabouts = Shareabouts || {};
           startPageConfig,
           placeParams = {};
 
+      S.PlaceModel.prototype.getLoggingDetails = function() {
+        return this.id;
+      };
+      
       // Global route changes
       this.bind('route', function(route, router) {
         S.Util.log('ROUTE', self.getCurrentPath());

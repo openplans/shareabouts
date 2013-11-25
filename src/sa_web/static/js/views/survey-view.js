@@ -66,12 +66,18 @@ var Shareabouts = Shareabouts || {};
       $button.attr('disabled', 'disabled');
       spinner = new Spinner(S.smallSpinnerOptions).spin(this.$('.form-spinner')[0]);
 
+      S.Util.log('USER', 'place', 'submit-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
+
       // Create a model with the attributes from the form
       this.collection.create(attrs, {
         wait: true,
         success: function() {
           // Clear the form
           $form.get(0).reset();
+          S.Util.log('USER', 'place', 'successfully-reply', this.collection.options.placeModel.getLoggingDetails());
+        },
+        error: function() {
+          S.Util.log('USER', 'place', 'fail-to-reply', this.collection.options.placeModel.getLoggingDetails());
         },
         complete: function() {
           // No matter what, enable the button
@@ -84,6 +90,7 @@ var Shareabouts = Shareabouts || {};
     onReplyClick: function(evt) {
       evt.preventDefault();
       this.$('textarea, input').not('[type="hidden"]').first().focus();
+      S.Util.log('USER', 'place', 'leave-reply-btn-click', this.collection.options.placeModel.getLoggingDetails(), this.collection.size());
     }
 
   });
