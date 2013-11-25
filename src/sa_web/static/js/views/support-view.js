@@ -58,7 +58,7 @@ var Shareabouts = Shareabouts || {};
       evt.target.disabled = true;
 
       if (checked) {
-        $form = this.$('form'),
+        $form = this.$('form');
         attrs = S.Util.getAttrs($form);
         this.collection.create(attrs, {
           wait: true,
