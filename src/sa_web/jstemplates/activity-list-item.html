@@ -1,5 +1,6 @@
       <li class="activity-item clearfix">
-        <a href="/place/{{ place.id }}">{{#_}}<strong>
+        {{!-- data attributes are not ideal, see comment in activity view --}}
+        <a href="/place/{{ place.id }}" data-action-type="{{ target_type }}" data-place-id="{{ place.id }}">{{#_}}<strong>
 
         {{#if target.submitter}}
           <img src="{{ target.submitter.avatar_url }}" class="avatar" /> {{ target.submitter.name }}

@@ -27,6 +27,13 @@ var Shareabouts = Shareabouts || {};
       // Bind click event to an action so that you can see it in a map
       this.$el.delegate('a', 'click', function(evt){
         evt.preventDefault();
+
+        // HACK! Each action should have its own view and bind its own events.
+        // A Marionette CompositeView/ItemView would be ideal. Until then...
+        var actionType = this.getAttribute('data-action-type'),
+            placeId = this.getAttribute('data-place-id');
+
+        S.Util.log('USER', 'action', 'click', actionType+' -- '+placeId);
         self.options.router.navigate(this.getAttribute('href'), {trigger: true});
       });
 
