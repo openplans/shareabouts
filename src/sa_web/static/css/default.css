@@ -1002,38 +1002,25 @@ a.close-unsupported-overlay {
 /* =Media Queries for Responsive Layout
 -------------------------------------------------------------- */
 
-@media only screen and (min-height: 440px) {
-
+@media only screen and (min-height: 440px) and (max-width: 60em) {
   #map {
-    height: 200px;
+    height: 250px;
   }
-
 }
 
-@media only screen and (min-height: 568px) {
-
+@media only screen and (min-height: 568px) and (max-width: 60em) {
   #map {
-    height: 275px;
+    height: 325px;
   }
-
 }
 
-@media only screen and (min-width: 320px) {
-}
-
-@media only screen and (min-width: 480px) {
-}
-
-@media only screen and (min-width: 768px) {
-
+@media only screen and (min-width: 768px) and (max-width: 60em) {
   #map {
-    height: 375px;
+    height: 400px;
   }
-
 }
 
 @media only screen and (min-width: 60em) {
-
   html,
   body {
     height: 100%;
@@ -1263,7 +1250,6 @@ a.close-unsupported-overlay {
   #powered-by {
     margin-bottom: 0;
   }
-
 }
 
 @media only screen and (min-width: 80em) {
