@@ -278,6 +278,8 @@ var Shareabouts = Shareabouts || {};
 
       $('body').addClass('content-visible');
       map.invalidateSize({ pan:false });
+
+      S.Util.log('APP', 'panel-state', 'open');
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
     },
     showNewPin: function() {
@@ -303,6 +305,8 @@ var Shareabouts = Shareabouts || {};
       this.$panel.hide();
       $('body').removeClass('content-visible');
       map.invalidateSize({ pan:false });
+
+      S.Util.log('APP', 'panel-state', 'closed');
     },
     hideNewPin: function() {
       this.showCenterPoint();
