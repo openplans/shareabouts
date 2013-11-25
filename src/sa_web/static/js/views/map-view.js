@@ -40,6 +40,20 @@ var Shareabouts = Shareabouts || {};
       // Init the layer view cache
       this.layerViews = {};
 
+      self.map.on('dragend', function(evt) {
+        S.Util.log('USER', 'map', 'drag', self.map.getBounds().toBBoxString(), self.map.getZoom());
+      });
+
+      self.map.on('zoomend', function(evt) {
+        S.Util.log('USER', 'map', 'zoom', self.map.getBounds().toBBoxString(), self.map.getZoom());
+        S.Util.log('APP', 'zoom', self.map.getZoom());
+      });
+
+      self.map.on('moveend', function(evt) {
+        S.Util.log('APP', 'center_lat', self.map.getCenter().lat);
+        S.Util.log('APP', 'center_lng', self.map.getCenter().lng);
+      });
+
       // Bind data events
       self.collection.on('reset', self.render, self);
       self.collection.on('add', self.addLayerView, self);
