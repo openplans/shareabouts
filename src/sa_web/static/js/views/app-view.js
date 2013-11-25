@@ -117,6 +117,7 @@ var Shareabouts = Shareabouts || {};
     },
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
+      S.Util.log('USER', 'map', 'new-place-btn-click');
       this.options.router.navigate('/place/new', {trigger: true});
     },
     onClickClosePanelBtn: function(evt) {
@@ -143,8 +144,6 @@ var Shareabouts = Shareabouts || {};
         this.showPanel(this.placeFormView.render().$el);
         this.showNewPin();
         this.hideAddButton();
-
-        S.Util.log('USER', 'map', 'new-place-btn-click');
       }
     },
     onRemovePlace: function(model) {
@@ -279,8 +278,8 @@ var Shareabouts = Shareabouts || {};
       $('body').addClass('content-visible');
       map.invalidateSize({ pan:false });
 
-      S.Util.log('APP', 'panel-state', 'open');
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
+      S.Util.log('APP', 'panel-state', 'open');
     },
     showNewPin: function() {
       var map = this.mapView.map;
