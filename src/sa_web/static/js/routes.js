@@ -17,6 +17,11 @@ var Shareabouts = Shareabouts || {};
           startPageConfig,
           placeParams = {};
 
+      // Global route changes
+      this.bind('route', function(route, router) {
+        S.Util.log('ROUTE', self.getCurrentPath());
+      });
+
       this.loading = true;
       this.collection = new S.PlaceCollection([]);
       this.activities = new S.ActionCollection(options.activity);
@@ -108,6 +113,12 @@ var Shareabouts = Shareabouts || {};
       }
 
       this.loading = false;
+    },
+
+    getCurrentPath: function() {
+      var root = Backbone.history.root,
+          fragment = Backbone.history.fragment;
+      return root + fragment;
     },
 
     viewMap: function() {
