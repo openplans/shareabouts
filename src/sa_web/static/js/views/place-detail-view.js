@@ -5,6 +5,8 @@ var Shareabouts = Shareabouts || {};
 (function(S, $, console){
   S.PlaceDetailView = Backbone.View.extend({
     initialize: function() {
+      var self = this;
+
       this.surveyType = this.options.surveyConfig.submission_type;
       this.supportType = this.options.supportConfig.submission_type;
 
@@ -33,6 +35,14 @@ var Shareabouts = Shareabouts || {};
         collection: this.model.submissionSets[this.supportType],
         supportConfig: this.options.supportConfig,
         userToken: this.options.userToken
+      });
+
+      this.$el.on('click', '.share-link a', function(evt){
+
+        // HACK! Each action should have its own view and bind its own events.
+        var shareTo = this.getAttribute('data-shareto');
+
+        S.Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
       });
     },
 
