@@ -273,7 +273,7 @@ var Shareabouts = Shareabouts || {};
       this.$panelContent.scrollTop(0);
       // Scroll to the top of window when showing new content on mobile. Does
       // nothing on desktop.
-      window.scrollTo(0);
+      window.scrollTo(0, 0);
 
       $('body').addClass('content-visible');
       map.invalidateSize({ pan:false });
