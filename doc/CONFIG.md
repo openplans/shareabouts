@@ -39,6 +39,8 @@ Also update `DATASET_ROOT`, and `DATASET_KEY`. Get this info from your API serve
 repository, as anyone would be able to write to your data using your
 API key.**
 
+If after completing setup you see [a screen like this](https://f.cloud.github.com/assets/146749/1627911/d5e82492-56fe-11e3-89d7-9d6b35f10c6b.png) when saving or supporting a place or submitting a reply, then you probably have you dataset key set incorrectly in your settings.
+
 
 Step 3: Edit your flavor
 -----------------------
