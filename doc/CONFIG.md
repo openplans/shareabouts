@@ -92,30 +92,10 @@ folder.
 ### Place Types
 
 Shareabouts can handle multiple types of Place. To set up the types
-syou're interested in, edit config.yml and add an item to the
-place_types mapping, like so:
+syou're interested in, edit config.yml and add items to the `place_types` 
+section. Each Place value should match a location_type. 
 
-    place_types:
-      Landmark:
-        default: blue
-        focused: red
-
-The name of this type is "Landmark", and we've identified by name two
-icon configurations to use when this place type is selected or not.
-These icons are configured in the separate place_type_icons section,
-like so:
-
-    place_type_icons:
-      blue:
-        iconUrl: /static/css/images/feature-point.png
-        iconSize:
-          width: 17
-          height: 18
-        iconAnchor:
-          x: 9
-          y: 9
-
-The properties of icons are as per the Leaflet docs, see http://leaflet.cloudmade.com/reference.html#icon
+Look at the config.yml for examples of styling Places. The properties of icons are as per the Leaflet docs, see http://leaflet.cloudmade.com/reference.html#icon
 But briefly:
 
 The *iconUrl* is relative to the root of the website. Put the corresponding
