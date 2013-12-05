@@ -30,10 +30,10 @@ Step 2: Set up your local settings
 Copy the *project/local_settings.py.template* file to
 *project/local_settings.py*.
 
-Edit the new file, changing SHAREABOUTS_FLAVOR to the name of the flavor directory you just
+Edit the new file, changing `SHAREABOUTS_FLAVOR` to the name of the flavor directory you just
 created.
 
-Also update DATASET_ROOT, and DATASET_KEY. Get this info from your API server.
+Also update `DATASET_ROOT`, and `DATASET_KEY`. Get this info from your API server. In `DATASET_ROOT`, change _v1_ to _v2_.
 
 **NOTE: You don't want to check the API key information in to your
 repository, as anyone would be able to write to your data using your
