@@ -62,6 +62,7 @@ var Shareabouts = Shareabouts || {};
                 self.options.placeConfig.pretty_datetime_format);
             },
             items: items,
+            place_config: this.options.placeConfig,
             survey_config: this.options.surveyConfig
           }, this.model.toJSON());
 

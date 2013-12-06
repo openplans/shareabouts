@@ -10,7 +10,7 @@
                 <!-- TODO: FIXME: don't hardcode image URL -->
                 <img src="/static/css/images/user-50.png" class="avatar" /> {{ submitter_name }}
               {{/if}}
-            </strong> added this {{#if place_type_label}}{{ place_type_label }}{{else}}place{{/if}}
+            </strong> {{ place_config.action_text }} this {{#if place_type_label}}{{ place_type_label }}{{else}}place{{/if}}
 
             {{#if region}}
               in {{ region }}
