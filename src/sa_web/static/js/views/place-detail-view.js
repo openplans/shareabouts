@@ -77,11 +77,11 @@ var Shareabouts = Shareabouts || {};
       // Render the view as-is (collection may have content already)
       this.$('.survey').html(this.surveyView.render().$el);
       // Fetch for submissions and automatically update the element
-      this.model.submissionSets[this.surveyType].fetch();
+      this.model.submissionSets[this.surveyType].fetchAllPages();
 
       this.$('.support').html(this.supportView.render().$el);
       // Fetch for submissions and automatically update the element
-      this.model.submissionSets[this.supportType].fetch();
+      this.model.submissionSets[this.supportType].fetchAllPages();
 
       return this;
     },

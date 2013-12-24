@@ -55,46 +55,9 @@ var Shareabouts = Shareabouts || {};
       }
 
       // Fetch all places by page
-      this.collection.fetch({
-        remove: false,
-        data: placeParams,
-        success: function(collection, data) {
-          var pageSize = data.features.length,
-              totalPages = Math.ceil(data.metadata.length / pageSize),
-              $progressContainer = $('#map-progress'),
-              $currentProgress = $('#map-progress .current-progress'),
-              pagesComplete = 1,
-              onPageFetch = function() {
-                var percent;
+      this.loadPlaces(placeParams);
 
-                pagesComplete++;
-                percent = (pagesComplete/totalPages*100);
-                $currentProgress.width(percent + '%');
-
-                if (pagesComplete === totalPages) {
-                  _.delay(function() {
-                    $progressContainer.hide();
-                  }, 2000);
-                }
-              },
-              i;
-
-          if (data.metadata.next) {
-            $progressContainer.show();
-
-            $currentProgress.width((pagesComplete/totalPages*100) + '%');
-            for (i=2; i <= totalPages; i++) {
-
-              self.collection.fetch({
-                remove: false,
-                data: _.extend(placeParams, { page: i }),
-                complete: onPageFetch
-              });
-            }
-          }
-        }
-      });
-
+      // Fetch the first page of activity
       this.activities.fetch({reset: true});
 
       // Start tracking the history
@@ -117,6 +80,44 @@ var Shareabouts = Shareabouts || {};
       }
 
       this.loading = false;
+    },
+
+    loadPlaces: function(placeParams) {
+      var $progressContainer = $('#map-progress'),
+          $currentProgress = $('#map-progress .current-progress'),
+          pageSize,
+          totalPages,
+          pagesComplete = 0;
+
+      this.collection.fetchAllPages({
+        remove: false,
+        data: placeParams,
+
+        // Only do this for the first page...
+        pageSuccess: _.once(function(collection, data) {
+          pageSize = data.features.length;
+          totalPages = Math.ceil(data.metadata.length / pageSize);
+          
+          if (data.metadata.next) {
+            $progressContainer.show();
+          }
+        }),
+
+        // Do this for every page...
+        pageComplete: function() {
+          var percent;
+
+          pagesComplete++;
+          percent = (pagesComplete/totalPages*100);
+          $currentProgress.width(percent + '%');
+
+          if (pagesComplete === totalPages) {
+            _.delay(function() {
+              $progressContainer.hide();
+            }, 2000);
+          }
+        }
+      });
     },
 
     getCurrentPath: function() {
