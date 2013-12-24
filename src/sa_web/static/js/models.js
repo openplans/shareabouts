@@ -22,9 +22,11 @@ var Shareabouts = Shareabouts || {};
   };
 
   S.PaginatedCollection = Backbone.Collection.extend({
+    resultsAttr: 'results',
+
     parse: function(response) {
       this.metadata = response.metadata;
-      return response.results;
+      return response[this.resultsAttr];
     },
 
     fetchNextPage: function(success, error) {
@@ -38,6 +40,73 @@ var Shareabouts = Shareabouts || {};
           error: error
         });
       }
+    },
+
+    fetchAllPages: function(options) {
+      var self = this,
+          onFirstPageSuccess, onPageComplete,
+          onPageSuccess, onPageError,
+          onAllSuccess, onAnyError,
+          attemptedPages = 0, totalPages = 1;
+
+      options = options || {};
+      options.data = options.data || {};
+
+      if (options.error) {
+        onAnyError = _.once(options.error);
+      }
+
+      onFirstPageSuccess = function(obj, data) {
+        // Calculate the total number of pages based on the size of the rist
+        // page, assuming all pages except the last will be the same size.
+        var pageSize = data[self.resultsAttr].length, i;
+        totalPages = Math.ceil(data.metadata.length / pageSize);
+
+        if (options.success) {
+          onAllSuccess = _.after(totalPages, options.success);
+        }
+
+        // Fetch all the rest of the pages in parallel.
+        if (data.metadata.next) {
+          for (i = 2; i <= totalPages; i++) {
+            self.fetch(_.defaults({
+              remove: false,
+              data: _.defaults({ page: i }, options.data),
+              complete: onPageComplete,
+              success: onPageSuccess,
+              error: onPageError
+            }, options));
+          }
+        }
+
+        onPageSuccess.apply(this, arguments);
+      };
+
+      onPageComplete = function() {
+        attemptedPages++;
+        if (options.pageComplete) { options.pageComplete.apply(this, arguments); }
+        if (attemptedPages === totalPages && options.complete) { options.complete.apply(this, arguments); }
+      };
+
+      onPageSuccess = function() {
+        if (options.pageSuccess) { options.pageSuccess.apply(this, arguments); }
+        if (onAllSuccess) { onAllSuccess.apply(this, arguments); }
+      };
+
+      onPageError = function() {
+        if (options.pageError) { options.pageError.apply(this, arguments); }
+        if (onAnyError) { onAnyError.apply(this, arguments); }
+      };
+
+      this.fetch(_.defaults({
+        // Note that success gets called before complete, which is imprtant
+        // because complete should know whether correct total number of pages.
+        // However, if the request for the first page fails, complete will
+        // assume one page.
+        success: onFirstPageSuccess,
+        error: onPageError,
+        complete: onPageComplete
+      }, options));
     }
   });
 
@@ -172,11 +241,7 @@ var Shareabouts = Shareabouts || {};
   S.PlaceCollection = S.PaginatedCollection.extend({
     url: '/api/places',
     model: S.PlaceModel,
-
-    parse: function(response) {
-      this.metadata = response.metadata;
-      return response.features;
-    },
+    resultsAttr: 'features',
 
     fetchByIds: function(ids, options) {
       var base = _.result(this, 'url');
@@ -310,68 +375,3 @@ var Shareabouts = Shareabouts || {};
   });
 
 }(Shareabouts, jQuery));
-
-/*global jQuery */
-
-/*****************************************************************************
-
-CSRF Validation
----------------
-Django protects against Cross Site Request Forgeries (CSRF) by default. This
-type of attack occurs when a malicious Web site contains a link, a form button
-or some javascript that is intended to perform some action on your Web site,
-using the credentials of a logged-in user who visits the malicious site in their
-browser.
-
-Since the API proxy view sends requests that write data to the Shareabouts
-service authenticated as the owner of this dataset, we want to protect the API
-view against CSRF. In order to ensure that AJAX POST/PUT/DELETE requests that
-are made via jQuery will not be caught by the CSRF protection, we use the
-following code. For more information, see:
-https://docs.djangoproject.com/en/1.4/ref/contrib/csrf/
-
-*/
-
-jQuery(document).ajaxSend(function(event, xhr, settings) {
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    function sameOrigin(url) {
-        // url could be relative or scheme relative or absolute
-        var host = document.location.host; // host + port
-        var protocol = document.location.protocol;
-        var sr_origin = '//' + host;
-        var origin = protocol + sr_origin;
-        // Allow absolute or scheme relative URLs to same origin
-        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-            // or any other URL that isn't scheme relative or absolute i.e relative.
-            !(/^(\/\/|http:|https:).*/.test(url));
-    }
-    function safeMethod(method) {
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    }
-
-    // If this is a DELETE request, explicitly set the data to be sent so that
-    // the browser will calculate a value for the Content-Length header.
-    if (settings.type === 'DELETE') {
-        xhr.setRequestHeader("Content-Type", "application/json");
-        settings.data = '{}';
-    }
-});
