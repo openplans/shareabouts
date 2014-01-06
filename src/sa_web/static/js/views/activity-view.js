@@ -46,9 +46,20 @@ var Shareabouts = Shareabouts || {};
     },
 
     checkForNewActivity: function() {
-      var options = {};
+      var options = {
+            remove: false
+          },
+          meta = this.collection.metadata;
 
+      // The metadata will be reset to page 1 if a new action has been added.
+      // We need to cache the current page information so that when we will
+      // fetch to correct page when we scroll to the next break.
       options.complete = _.bind(function() {
+        // The total length may have changed, so don't overwrite it!
+        meta.length = this.collection.metadata.length;
+        this.collection.metadata = meta;
+        this.fetching = false;
+
         // After a check for activity has completed, no matter the result,
         // schedule another.
         if (this.newContentTimeout) {
@@ -57,7 +68,14 @@ var Shareabouts = Shareabouts || {};
         this.newContentTimeout = setTimeout(_.bind(this.checkForNewActivity, this), this.interval);
       }, this);
 
-      this.collection.fetch(options);
+      // Don't fetch new activity if we're in the middle of fetching a new page.
+      if (!this.fetching) {
+        this.fetching = true;
+        this.collection.fetch(options);
+      } else {
+        // Let's wait 5 seconds and try again.
+        this.newContentTimeout = setTimeout(_.bind(this.checkForNewActivity, this), 5000);
+      }
     },
 
     onScroll: function(evt) {
@@ -71,7 +89,7 @@ var Shareabouts = Shareabouts || {};
         self.fetching = true;
         this.collection.fetchNextPage(
           function() { _.delay(notFetching, notFetchingDelay); },
-          function() {_.delay(notFetching, notFetchingDelay); }
+          function() { _.delay(notFetching, notFetchingDelay); }
         );
       }
     },
