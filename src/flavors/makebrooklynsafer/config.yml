@@ -16,7 +16,7 @@ map:
       lng: -73.99699687957764
     zoom: 16
     minZoom: 15
-    maxZoom: 17
+    maxZoom: 19
   base_layer:
     url: http://{s}.tiles.mapbox.com/v3/openplans.map-uhk6289l/{z}/{x}/{y}.png
     attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
@@ -303,6 +303,14 @@ place:
         - label: _(Park/Open Space Need)
           value: park
       name: location_type
+    - prompt: _(District wide?)
+      type: checkbox
+      name: district-wide
+      attrs:
+        - key: value
+          value: _(District Wide)
+        - key: label
+          value: _(District wide project)
     - prompt: _(Short description of the need)
       type: text
       name: project_title
@@ -376,6 +384,9 @@ pages:
     slug: welcome
     name: welcome
     start_page: true
-  - title: About
+  - title: Guidelines
     slug: about
     name: overview
+  - title: Frequently Asked Questions
+    slug: faq
+    name: faq

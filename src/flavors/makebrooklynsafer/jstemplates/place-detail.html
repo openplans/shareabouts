@@ -5,15 +5,16 @@
 </header>
   
 <section class="place-items">
-  <p>Request type: <span class="place-submission-details">{{ place_type_label }}</span>.</p>
+  <p>Request type: <span class="place-submission-details">{{ place_type_label }}.</span> {{# district-wide}} This request is district wide.{{/district-wide}}</p>
 
-  {{# year }}
-  <p>Requested by {{ submitter_name }} in <span class="submission-year">{{ year }}</span>.</p>
-  {{/year }}
+  <p>
+  {{# request-year }}
+  <p>Requested by {{ submitter_name }} in <span class="submission-year">{{ request-year }}</span>.</p>
+  {{/request-year }}
   
-  {{^year }}
+  {{^request-year }}
   <p>Identified by {{ submitter_name }} <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>.
- {{/year }}
+ {{/request-year }}
     
   {{# status }}
   <p><span class="submission-status">{{ status }}</span></p>
@@ -24,6 +25,10 @@
   {{# agency }}
   <p><strong>Responsible agency</strong> <span class="submission-agency">{{ agency }}</span></p>
   {{/agency }}
+  
+  {{# agency-response }}
+  <p><strong>Agency response</strong> {{ agency-response }}</p>
+  {{/agency-response }}
   
   </span>
   
