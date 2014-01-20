@@ -39,6 +39,7 @@ var Shareabouts = Shareabouts || {};
       this.$el.html(Handlebars.templates['place-detail-survey']({
         responses: responses,
         has_single_response: (responses.length === 1),
+        user_token: this.options.userToken,
         survey_config: this.options.surveyConfig
       }));
 

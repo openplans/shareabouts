@@ -28,7 +28,8 @@ var Shareabouts = Shareabouts || {};
 
       this.surveyView = new S.SurveyView({
         collection: this.model.submissionSets[this.surveyType],
-        surveyConfig: this.options.surveyConfig
+        surveyConfig: this.options.surveyConfig,
+        userToken: this.options.userToken
       });
 
       this.supportView = new S.SupportView({
