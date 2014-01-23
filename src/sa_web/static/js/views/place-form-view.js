@@ -21,6 +21,7 @@ var Shareabouts = Shareabouts || {};
       // Augment the model data with place types for the drop down
       var data = _.extend({
         place_config: this.options.placeConfig,
+        user_token: this.options.userToken,
         current_user: S.currentUser
       }, this.model.toJSON());
 

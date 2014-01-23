@@ -137,7 +137,8 @@ var Shareabouts = Shareabouts || {};
           router: this.options.router,
           defaultPlaceTypeName: this.options.defaultPlaceTypeName,
           placeTypes: this.options.placeTypes,
-          placeConfig: this.options.placeConfig
+          placeConfig: this.options.placeConfig,
+          userToken: this.options.userToken
         });
 
         this.$panel.removeClass().addClass('place-form');
