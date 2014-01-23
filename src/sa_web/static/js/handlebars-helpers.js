@@ -34,6 +34,13 @@ var Shareabouts = Shareabouts || {};
     return datetime;
   });
 
+  Handlebars.registerHelper('fromnow', function(datetime) {
+    if (datetime) {
+      return moment(datetime).fromNow();
+    }
+    return '';
+  });
+
   // String -------------------------------------------------------------------
 
   Handlebars.registerHelper('truncatechars', function(text, maxLength, continuationString) {
