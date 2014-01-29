@@ -66,6 +66,10 @@
               </span>
               <!--<![endif]-->
               {{/is_file}}
+
+              {{#if help_text }}
+              <div class="help-text place-{{ name }}-help-text">{{ help_text }}</div>
+              {{/if}}
             </p>
             {{/ place_config.items }}
           </fieldset>
