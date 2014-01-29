@@ -91,6 +91,10 @@
                     </select>
                     {{/is_select}}
                   </div>
+
+                  {{#if help_text }}
+                  <div class="help-text place-{{ name }}-help-text">{{ help_text }}</div>
+                  {{/if}}
                 </div>
 
               {{/survey_config.items}}
