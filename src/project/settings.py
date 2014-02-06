@@ -190,6 +190,10 @@ LOGGING = {
         }
     },
     'handlers': {
+        'console': {
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'class': 'logging.StreamHandler',
+        },
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
@@ -200,6 +204,11 @@ LOGGING = {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
+            'propagate': True,
+        },
+        'sa_web': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
             'propagate': True,
         },
     }
@@ -218,6 +227,19 @@ if 'SHAREABOUTS_DATASET_ROOT' in env:
     SHAREABOUTS['DATASET_ROOT'] = env.get('SHAREABOUTS_DATASET_ROOT')
 if 'SHAREABOUTS_DATASET_KEY' in env:
     SHAREABOUTS['DATASET_KEY'] = env.get('SHAREABOUTS_DATASET_KEY')
+
+if 'EMAIL_ADDRESS' in env:
+    EMAIL_ADDRESS = env['EMAIL_ADDRESS']
+if 'EMAIL_HOST' in env:
+    EMAIL_HOST = env['EMAIL_HOST']
+if 'EMAIL_PORT' in env:
+    EMAIL_PORT = env['EMAIL_PORT']
+if 'EMAIL_USERNAME' in env:
+    EMAIL_HOST_USER = env['EMAIL_USERNAME']
+if 'EMAIL_PASSWORD' in env:
+    EMAIL_HOST_PASSWORD = env['EMAIL_PASSWORD']
+if 'EMAIL_USE_TLS' in env:
+    EMAIL_USE_TLS = env['EMAIL_USE_TLS']
 
 ##############################################################################
 # Local settings overrides

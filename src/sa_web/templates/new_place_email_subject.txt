@@ -1,0 +1,1 @@
+Thanks for submitting a new {{ place.properties.location_type }}!
