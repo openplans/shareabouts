@@ -1,0 +1,3 @@
+Thanks for submitting a new {{ place.properties.location_type }}!
+
+The URL for your place is http://{{ request.get_host }}/places/{{ place.id }}. Share it around.

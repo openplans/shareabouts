@@ -393,6 +393,32 @@ set the "external" property to "true".  For example:
   scripting from within your flavor, add your scripts to the includes template
   (_templates/includes.html_).
 
+### Email Notifications
+
+You can turn on the ability for users to receive notifications after adding a place. In your configuration file, add the following:
+
+    notifications:
+      on_new_place: true
+
+By default, this will look for a *submitter_email* field on submitted places to notify. If you want to use a different field you can specify it with the `submitter_email_field` attribute. For example, the following will look for a *private_submitter_email* field:
+
+    notifications:
+      on_new_place: true
+      subitter_email_field: "private_submitter_email"
+
+If you choose to use email notifications, be sure to set the following in your environment:
+
+    EMAIL_ADDRESS
+    EMAIL_USERNAME
+    EMAIL_PASSWORD
+    EMAIL_HOST
+    EMAIL_PORT
+    EMAIL_USE_TLS
+
+Refer to your email provider's instructions on configuring a client for sending email with SMTP
+
+To change the subject or body of the email that is sent to users, create templates called *new_place_email_subject.txt* and *new_place_email_body.txt* respectively in your flavor's *templates/* folder. These should templates have the variables `request`, `config`, and `place` in the context. See the file *src/sa_web/templates/new_place_email_body.txt* for an example.
+
 ### Styling
 
 See [Customizing the Theme](CUSTOM_THEME.md)

@@ -169,6 +169,15 @@ place:
           value: _(Name)
         - key: size
           value: 30
+    - prompt: _(Your Email)
+      type: text
+      name: submitter_email
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Email address)
+        - key: size
+          value: 30
     - prompt: _(Location Name)
       type: text
       name: name
@@ -256,3 +265,6 @@ pages:
   - title: _(GitHub)
     external: true
     url: https://github.com/openplans/shareabouts
+
+notifications:
+  on_new_place: true

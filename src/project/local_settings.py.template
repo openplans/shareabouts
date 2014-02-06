@@ -2,6 +2,9 @@ TIME_ZONE = 'America/New_York'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+EMAIL_ADDRESS = 'shareabouts@example.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 # The SHAREABOUTS['FLAVOR'] environment variable is used as a prefix for the
 # Shareabouts configuration. configuration is expected to live in a package
 # named 'flavors.<SHAREABOUTS_FLAVOR>'. This package will correspond to a
