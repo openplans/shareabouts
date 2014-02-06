@@ -266,7 +266,5 @@ pages:
     external: true
     url: https://github.com/openplans/shareabouts
 
-admin_email: "mjumbewu@gmail.com"
-
 notifications:
   on_new_place: true
