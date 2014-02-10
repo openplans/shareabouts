@@ -333,6 +333,13 @@ var Shareabouts = Shareabouts || {};
     },
     render: function() {
       this.mapView.render();
+    },
+    toggleListView: function() {
+      if (this.listView.$el.is(':visible')) {
+        this.listView.$el.hide();
+      } else {
+        this.listView.$el.show();
+      }
     }
   });
 }(Shareabouts, jQuery, Shareabouts.Util.console));
