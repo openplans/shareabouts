@@ -82,6 +82,11 @@ var Shareabouts = Shareabouts || {};
         placeTypes: this.options.placeTypes
       });
 
+      this.listView = new S.PlaceListView({
+        el: '#list-container',
+        collection: this.collection
+      }).render();
+
       // Cache panel elements that we use a lot
       this.$panel = $('#content');
       this.$panelContent = $('#content article');

@@ -104,10 +104,15 @@
       </div>
     </noscript>
 
-    <div id="map-container">
-      <div id="ajax-error-msg">{% blocktrans %}Blast! We can't connect to the server. Hang tight while we re-establish communication with the mothership.{% endblocktrans %}</div>
-      <div id="map-progress" class="progress-bar"><strong>Loading Map Data&hellip;</strong><span class="current-progress"></span></div>
-      <div id="map"></div>
+    <div class="places-container">
+      <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>
+      <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
+
+      <div id="map-container">
+        <div id="map"></div>
+      </div>
+
+      <div id="list-container"></div>
     </div>
 
     <div id="content"><!-- .place or .page -->
@@ -133,6 +138,7 @@
   {% compress js %}
   <script src="{{STATIC_URL}}libs/underscore.js"></script>
   <script src="{{STATIC_URL}}libs/backbone.js"></script>
+  <script src="{{STATIC_URL}}libs/backbone.marionette.js"></script>
   <script src="{{STATIC_URL}}libs/handlebars-1.0.0.js"></script>
   <script src="{{STATIC_URL}}libs/moment.min.js"></script>
   <script src="{{STATIC_URL}}libs/json2.js"></script>
@@ -202,6 +208,7 @@
   <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/place-list-view.js"></script>
   <script src="{{STATIC_URL}}js/routes.js"></script>
   {% endcompress %}
 
