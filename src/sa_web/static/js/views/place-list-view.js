@@ -8,9 +8,30 @@ var Shareabouts = Shareabouts || {};
     return Handlebars.compile(rawTemplate);
   };
 
-  S.PlaceListItemView = Backbone.Marionette.ItemView.extend({
-    template: '#place-list-item',
-    tagName: 'li'
+  S.PlaceListItemView = Backbone.Marionette.Layout.extend({
+    template: '#place-detail',
+    tagName: 'li',
+    regions: {
+      support: '.support'
+    },
+    initialize: function() {
+      var supportType = S.Config.support.submission_type;
+
+      this.model.submissionSets[supportType] = this.model.submissionSets[supportType] ||
+        new S.SubmissionCollection(null, {
+          submissionType: supportType,
+          placeModel: this.model
+        });
+
+      this.model.submissionSets[supportType].fetchAllPages();
+    },
+    onRender: function(evt) {
+      this.support.show(new S.SupportView({
+        collection: this.model.submissionSets[S.Config.support.submission_type],
+        supportConfig: S.Config.support,
+        userToken: S.Config.userToken
+      }));
+    }
   });
 
   S.PlaceListView = Backbone.Marionette.CompositeView.extend({

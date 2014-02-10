@@ -223,38 +223,39 @@
 
   (function(S, $){
     // Boostrapping the place types and their icons
-    var flavorConfig = {{ config.data|as_json }},
+    S.Config = {
+      defaultPlaceTypeName: '{{ default_place_type }}',
+      userToken: (
+        S.bootstrapped.currentUser ?
+        'user:' + S.bootstrapped.currentUser.id :
+        {{ user_token_json|safe }}),
 
-        placeConfig = {{ config.place|as_json }},
-        placeTypesConfig = {{ config.place_types|as_json }},
-
-        surveyConfig = {{ config.survey|as_json }},
-        supportConfig = {{ config.support|as_json }},
-        mapConfig = {{ config.map|as_json }},
-        activityConfig = {{ config.activity|as_json }},
-
-        pagesConfig = {{ pages_config_json|safe }},
-        defaultPlaceTypeName = '{{ default_place_type }}';
+      flavor:     {{ config.data|as_json }},
+      place:      {{ config.place|as_json }},
+      placeTypes: {{ config.place_types|as_json }},
+      survey:     {{ config.survey|as_json }},
+      support:    {{ config.support|as_json }},
+      map:        {{ config.map|as_json }},
+      activity:   {{ config.activity|as_json }},
+      pages:      {{ pages_config_json|safe }}
+    };
 
     $(function() {
       // Ready set go!
       window.app = new Shareabouts.App({
-        defaultPlaceTypeName: defaultPlaceTypeName,
         activity: [],
-        userToken: (
-          Shareabouts.bootstrapped.currentUser ?
-          'user:' + Shareabouts.bootstrapped.currentUser.id :
-          {{ user_token_json|safe }}),
 
-        config: flavorConfig,
+        defaultPlaceTypeName: S.Config.defaultPlaceTypeName,
+        userToken: S.Config.userToken,
 
-        placeTypes: placeTypesConfig,
-        surveyConfig: surveyConfig,
-        supportConfig: supportConfig,
-        pagesConfig: pagesConfig,
-        mapConfig: mapConfig,
-        placeConfig: placeConfig,
-        activityConfig: activityConfig
+        config: S.Config.flavor,
+        placeConfig: S.Config.place,
+        placeTypes: S.Config.placeTypes,
+        surveyConfig: S.Config.survey,
+        supportConfig: S.Config.support,
+        mapConfig: S.Config.map,
+        activityConfig: S.Config.activity,
+        pagesConfig: S.Config.pages
       });
     });
   })(Shareabouts, jQuery);

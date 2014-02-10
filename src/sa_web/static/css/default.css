@@ -686,9 +686,10 @@ a.close-btn span {
   margin-bottom: 0.75em;
   position: relative;
 }
-#user_support {
+.user-support {
+  position: relative;
 }
-#user_support input[type=checkbox] {
+.user-support input[type=checkbox] {
   cursor: pointer;
   display: block;
   padding: 0;
@@ -703,7 +704,7 @@ a.close-btn span {
   -ms-filter: "alpha(opacity=0)";
   zoom: 1;
 }
-#user_support label {
+.user-support label {
   display: block;
   background: transparent url(images/heart-empty.png) left center no-repeat scroll;
   box-shadow: none;
@@ -712,10 +713,10 @@ a.close-btn span {
   padding-left: 22px;
   color: #007fbf;
 }
-#user_support input[type=checkbox]:checked ~ label {
+.user-support input[type=checkbox]:checked ~ label {
   background-image: url(images/heart.png);
 }
-#user_support:hover label {
+.user-support:hover label {
   background-color: #93b7c9;
 }
 .support-count {
