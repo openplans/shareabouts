@@ -954,6 +954,11 @@ ul.recent-points {
   z-index: 39;
   overflow: auto;
 }
+.place-list,
+.place-list-header {
+  max-width: 70em;
+  margin: 0 auto;
+}
 
 /* Search */
 .list-search-form input {
@@ -1000,17 +1005,39 @@ ul.recent-points {
 .place-list .place-header:after { clear: none; }
 .place-list .place-header h1 {
   font-size: 1.75em;
+  margin-bottom: 0.75em;
 }
 .place-list .place-submission-details {
   float: left;
   width: 15em;
-  margin-right: 1em;
+  margin-top: 0.5em;
+  padding-left: 3em;
+}
+.place-list .point-submitter .avatar {
+  width: 2.5em;
+  height: 2.5em;
+  float: left;
+  margin-left: -3em;
 }
 .place-list .place-items {
+  margin-right: 5em;
+  margin-left: 16em;
 }
 .place-list .place-attachment-my_image {
   float: left;
   max-width: 9em;
+  margin: 0 1em 0.75em 0;
+}
+
+.place-list .place-label, 
+.place-list .place-value {
+}
+.place-list .place-label:empty, 
+.place-list .place-value:empty {
+  display: none;
+}
+.place-item-attachment .place-value:empty {
+  display: block;
 }
 
 
