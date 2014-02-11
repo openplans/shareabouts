@@ -412,24 +412,13 @@ a.logout-btn {
   text-transform: uppercase;
 }
 
-/* =Places Container
--------------------------------------------------------------- */
-.places-container {
-  background: #a3c7d9;
-  position: relative;
-  z-index: 10;
-}
-
-/* =List
--------------------------------------------------------------- */
-#list-container {
-  position: relative;
-}
 
 /* =Map
 -------------------------------------------------------------- */
 #map-container {
   position: relative;
+  background: #a3c7d9;
+  z-index: 10;
 }
 
 #map {
@@ -938,6 +927,22 @@ ul.recent-points {
 }
 
 
+/* =List View
+-------------------------------------------------------------- */
+
+#list-container {
+  display: none;
+  background: #fff;
+  position: absolute;
+  padding: 1.25em 1em;
+  top: 5em; /* height of #site-header (on large screens) */
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 39;
+}
+
+
 /* =Footer
 -------------------------------------------------------------- */
 
@@ -1118,36 +1123,26 @@ a.close-unsupported-overlay {
   }
 
   /* Map*/
-  .places-container {
+  #map-container {
     position: absolute;
     top: 5em; /* height of #site-header */
     right: 0;
     bottom: 1.75em;
     left: 0;
-
-    overflow: scroll;
   }
-  .content-visible .places-container {
+  .content-visible #map-container {
     right: auto;
     left: 18em;
     margin-left: -18em;
     width: 40%;
   }
-  .activity-enabled.content-visible .places-container {
+  .activity-enabled.content-visible #map-container {
     width: 30%;
   }
   .leaflet-top.leaflet-right {
     right: auto;
     left: 10px;
     top: 77px;
-  }
-
-  #map-container {
-    position: absolute;
-    top: 0; /* height of #site-header */
-    right: 0;
-    bottom: 0;
-    left: 0;
   }
 
   #map {
@@ -1245,8 +1240,13 @@ a.close-unsupported-overlay {
     font-size: 0.875em;
     -webkit-transform: translateZ(0px); /* needed on #ticker > * for touch scrolling */
   }
-  .activity-enabled .places-container {
+  .activity-enabled #map-container {
     right: 18em; /* width of #ticker */
+  }
+
+  /* List View */
+  #list-container {
+    display: block;
   }
 
   /* Footer */
@@ -1282,10 +1282,10 @@ a.close-unsupported-overlay {
   .activity-enabled #content {
     left: 45%;
   }
-  .content-visible .places-container {
+  .content-visible #map-container {
     width: 60%;
   }
-  .activity-enabled.content-visible .places-container {
+  .activity-enabled.content-visible #map-container {
     width: 45%;
   }
 }

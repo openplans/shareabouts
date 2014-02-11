@@ -104,15 +104,10 @@
       </div>
     </noscript>
 
-    <div class="places-container">
+    <div id="map-container">
       <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
-
-      <div id="map-container">
-        <div id="map"></div>
-      </div>
-
-      <div id="list-container"></div>
+      <div id="map"></div>
     </div>
 
     <div id="content"><!-- .place or .page -->
@@ -125,6 +120,8 @@
     {% block sidebar %}{% endblock %}
     <ul class="recent-points unstyled-list"></ul>
   </div>
+
+  <div id="list-container"></div>
 
   <footer id="colophon">
     {% block colophon %}{% endblock %}
