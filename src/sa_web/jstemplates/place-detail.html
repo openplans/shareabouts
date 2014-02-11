@@ -16,6 +16,13 @@
             {{/if}}{{/_}}
 
             <time datetime="{{ created_datetime }}" class="response-date"><a href="/place/{{ id }}">{{ fromnow created_datetime }}</a></time>
+
+            <!-- TODO:  Count might not be "comments". Use survey_config.submission_type. 
+                        Link this to an anchor in the survey in the map view. 
+                        Pluralize "Comments" correctly, using response_name or response_plural_name. 
+                        -->
+            <a href="#" class="submission-count">{{ submission_sets.comments.length }} <span class="submission-type">Comments</span></a>
+
           </span>
         </header>
 

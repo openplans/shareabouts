@@ -755,13 +755,23 @@ a.close-btn span {
   display: block;
   text-transform: uppercase;
   color: #888;
-  font-size: 0.875em;
+  font-size: 0.75em;
 }
 .response-date a {
   color: #888;
 }
 .response-date a:hover {
   color: #00aaff;
+}
+.submission-count {
+  font-size: 0.875em;
+  font-weight: bold;
+  text-transform: uppercase;
+  float: left;
+}
+.submission-count .submission-type {
+  font-size: 0.875em;
+  font-weight: normal;
 }
 
 /* Surveys */
@@ -999,25 +1009,31 @@ ul.recent-points {
   border-top: 1px solid #eeeeee;
 }
 .place-list .place-header {
-  font-size: 0.75em;
+  font-size: 0.875em;
 }
 .place-list .place-header:before, .place-list .place-header:after { display: none; }
 .place-list .place-header:after { clear: none; }
 .place-list .place-header h1 {
-  font-size: 1.75em;
+  font-size: 1.625em;
   margin-bottom: 0.75em;
 }
 .place-list .place-submission-details {
   float: left;
-  width: 15em;
+  width: 17.25em;
   margin-top: 0.5em;
   padding-left: 3em;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .place-list .point-submitter .avatar {
   width: 2.5em;
   height: 2.5em;
   float: left;
   margin-left: -3em;
+}
+.place-list .submission-count {
+  font-size: 1.25em;
 }
 .place-list .place-items {
   margin-right: 5em;
