@@ -1,22 +1,21 @@
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
-          <h1><a href="{{ permalink }}">{{ name }}</a></h1>
+          <h1><a href="/place/{{ id }}">{{ name }}</a></h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
               {{#if submitter}}
                 <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
               {{^}}
-                <!-- TODO: FIXME: don't hardcode image URL -->
-                <img src="/static/css/images/user-50.png" class="avatar" /> {{ submitter_name }}
+                <img src="{{ STATIC_URL }}/css/images/user-50.png" class="avatar" /> {{ anonymous_name }}
               {{/if}}
-            </strong> {{ place_config.action_text }} this {{#if place_type_label}}{{ place_type_label }}{{else}}place{{/if}}
+            </strong> {{ action_text }} this {{ place_type_label location_type}}
 
             {{#if region}}
               in {{ region }}
             {{/if}}{{/_}}
 
-            <time datetime="{{ created_datetime }}" class="response-date"><a href="{{ permalink }}">{{ pretty_created_datetime }}</a></time>
+            <time datetime="{{ created_datetime }}" class="response-date"><a href="/place/{{ id }}">{{ fromnow created_datetime }}</a></time>
           </span>
         </header>
 
@@ -26,12 +25,12 @@
             <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
           </div>
           {{/ attachments }}
-          {{# items }}
+          {{#each_place_item }}
           <div class="place-item place-item-{{ name }}">
             <span class="place-label place-label-{{ name }}">{{ label }}</span>
             <p class="place-value place-value-{{ name }}">{{ value }}</p>
           </div>
-          {{/ items }}
+          {{/each_place_item }}
         </section>
 
         {{#if survey_config}}
