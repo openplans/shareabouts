@@ -1319,7 +1319,7 @@ a.close-unsupported-overlay {
   /* List View */
   .list-toggle-nav { 
     display: block;
-    float: left;
+    float: right;
     width: auto;
     margin: -1.125em 0 0 0.5em;
     position: relative;
@@ -1328,6 +1328,16 @@ a.close-unsupported-overlay {
   }
   #list-container.is-exposed {
     display: block;
+  }
+  .list-toggle-btn,
+  .list-toggle-btn:visited,
+  .list-toggle-btn:link {
+    background-color: #007fbf;
+    color: #eee;
+  }
+  .list-toggle-btn:hover {
+    background-color: #00aaff;
+    color: #fff;
   }
 
   /* Footer */
