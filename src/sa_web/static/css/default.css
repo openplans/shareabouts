@@ -755,7 +755,7 @@ a.close-btn span {
   display: block;
   text-transform: uppercase;
   color: #888;
-  font-size: 0.85em;
+  font-size: 0.875em;
 }
 .response-date a {
   color: #888;
@@ -864,7 +864,7 @@ form .signed-in-as .avatar {
 }
 form .signed-in-as a {
   font-weight: bold;
-  font-size: 0.85em;
+  font-size: 0.875em;
   text-transform: uppercase;
 }
 .or-sign-in {
@@ -950,7 +950,40 @@ ul.recent-points {
   z-index: 39;
   overflow: auto;
 }
+
+/* Search */
+.list-search-form {}
+.list-search-form input {
+  max-width: 25em;
+  float: left;
+  padding: 0.5em;
+  margin-right: 0.5em;
+}
+
+/* Search & Sort */
+.list-sort-menu {
+  float: right;
+  padding: 1em 0 0;
+  color: #eee;
+  text-transform: uppercase;
+}
+.list-sort-prompt {
+  font-size: 0.75em;
+  color: #999;
+}
+.list-sort-menu a {
+  font-weight: bold;
+  font-size: 0.75em;
+  text-decoration: none;
+}
+.list-sort-menu a.is-selected {
+  color: #555;
+}
+
+/* Place List */
 .place-list {
+  clear: both;
+  padding: 1.25em 0 0;
 }
 .place-list > li {
   margin: 0 0 1.25em 0;
