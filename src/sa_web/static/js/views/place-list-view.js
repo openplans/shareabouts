@@ -11,6 +11,7 @@ var Shareabouts = Shareabouts || {};
   S.PlaceListItemView = Backbone.Marionette.Layout.extend({
     template: '#place-detail',
     tagName: 'li',
+    className: 'clearfix',
     regions: {
       support: '.support'
     },

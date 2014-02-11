@@ -78,7 +78,6 @@ strong {
 }
 hr {
   margin: 1.5em 0;
-  border: 0;
   border: 1px solid #eeeeee;
   border-top-color: rgba(0,0,0,0.2);
   border-bottom-color: rgba(255,255,255,0.75);
@@ -739,6 +738,9 @@ a.close-btn span {
 .place-header {
   margin-bottom: 1em;
 }
+.place-header a {
+  text-decoration: none;
+}
 .place-submission-details {
   display: block;
   padding-left: 3.75em;
@@ -754,6 +756,12 @@ a.close-btn span {
   text-transform: uppercase;
   color: #888;
   font-size: 0.85em;
+}
+.response-date a {
+  color: #888;
+}
+.response-date a:hover {
+  color: #00aaff;
 }
 
 /* Surveys */
@@ -940,6 +948,33 @@ ul.recent-points {
   bottom: 0;
   left: 0;
   z-index: 39;
+  overflow: auto;
+}
+.place-list {
+}
+.place-list > li {
+  margin: 0 0 1.25em 0;
+  padding: 0.75em 0 0 0;
+  border-top: 1px solid #eeeeee;
+}
+.place-list .place-header {
+  font-size: 0.75em;
+}
+.place-list .place-header:before, .place-list .place-header:after { display: none; }
+.place-list .place-header:after { clear: none; }
+.place-list .place-header h1 {
+  font-size: 1.75em;
+}
+.place-list .place-submission-details {
+  float: left;
+  width: 15em;
+  margin-right: 1em;
+}
+.place-list .place-items {
+}
+.place-list .place-attachment-my_image {
+  float: left;
+  max-width: 9em;
 }
 
 
