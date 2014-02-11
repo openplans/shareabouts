@@ -24,6 +24,7 @@ var Shareabouts = Shareabouts || {};
       'click .close-btn': 'onClickClosePanelBtn'
     },
     initialize: function(){
+      var self = this;
       // Boodstrapped data from the page
       this.activities = this.options.activities;
       this.places = this.collection;
@@ -34,6 +35,11 @@ var Shareabouts = Shareabouts || {};
 
       $('body').ajaxSuccess(function(evt, request, settings){
         $('#ajax-error-msg').hide();
+      });
+
+      $('.list-toggle-btn').click(function(evt){
+        evt.preventDefault();
+        self.toggleListView();
       });
 
       // Handle collection events
@@ -336,9 +342,13 @@ var Shareabouts = Shareabouts || {};
     },
     toggleListView: function() {
       if (this.listView.$el.is(':visible')) {
-        this.listView.$el.hide();
+        this.listView.$el.removeClass('is-exposed');
+        $('.show-the-list').removeClass('is-visuallyhidden');
+        $('.show-the-map').addClass('is-visuallyhidden');
       } else {
-        this.listView.$el.show();
+        this.listView.$el.addClass('is-exposed');
+        $('.show-the-list').addClass('is-visuallyhidden');
+        $('.show-the-map').removeClass('is-visuallyhidden');
       }
     }
   });

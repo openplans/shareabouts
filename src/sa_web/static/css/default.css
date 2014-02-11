@@ -938,6 +938,10 @@ ul.recent-points {
 /* =List View
 -------------------------------------------------------------- */
 
+.list-toggle-nav { 
+  display: none;
+}
+
 #list-container {
   display: none;
   background: #fff;
@@ -1134,6 +1138,7 @@ a.close-unsupported-overlay {
   }
   #pages-nav-container {
     height: 100%;
+    float: left;
   }
   .access {
     font-size: 0.875em;
@@ -1312,7 +1317,16 @@ a.close-unsupported-overlay {
   }
 
   /* List View */
-  #list-container {
+  .list-toggle-nav { 
+    display: block;
+    float: left;
+    width: auto;
+    margin: -1.125em 0 0 0.5em;
+    position: relative;
+    top: 50%;
+    font-size: 0.875em;
+  }
+  #list-container.is-exposed {
     display: block;
   }
 

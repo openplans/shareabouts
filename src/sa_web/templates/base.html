@@ -57,6 +57,9 @@
     <h1 id="site-title">{% block site-title %}{% endblock %}</h1>
     <div id="auth-nav-container"></div>
     <div id="pages-nav-container"></div>
+    <nav class="list-toggle-nav">
+      <a href="#" class="list-toggle-btn btn btn-block btn-primary"><span class="show-the-map is-visuallyhidden">Map</span><span class="is-screen-reader-text">/</span><span class="show-the-list">List</span> View</a>
+    </nav>
 
     {% if config.languages %}
     <div id="language-picker">
