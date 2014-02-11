@@ -322,7 +322,7 @@ img {
   padding: 0;
   display: none;
 }
-.access.expose {
+.access.is-exposed {
   display: block;
 }
 .access li {
@@ -361,7 +361,7 @@ img {
   padding: 0;
   display: none;
 }
-.sign-in-menu.expose {
+.sign-in-menu.is-exposed {
   display: block;
 }
 .sign-in-menu-item {
@@ -942,7 +942,7 @@ ul.recent-points {
   display: none;
   background: #fff;
   position: absolute;
-  padding: 1.25em 1em;
+  padding: 1.75em 1em;
   top: 5em; /* height of #site-header (on large screens) */
   right: 0;
   bottom: 0;
@@ -952,7 +952,6 @@ ul.recent-points {
 }
 
 /* Search */
-.list-search-form {}
 .list-search-form input {
   max-width: 25em;
   float: left;
