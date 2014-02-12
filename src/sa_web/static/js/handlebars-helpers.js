@@ -73,6 +73,24 @@ var Shareabouts = Shareabouts || {};
     return NS.Config.place.anonymous_name;
   });
 
+  Handlebars.registerHelper('survey_label', function() {
+    var submissionSet = this.submission_sets[NS.Config.survey.submission_type],
+        count = submissionSet ? submissionSet.length : 0;
+
+    if (count === 1) {
+      return NS.Config.survey.response_name;
+    }
+    return NS.Config.survey.response_plural_name;
+  });
+
+  Handlebars.registerHelper('survey_count', function() {
+    var submissionSet = this.submission_sets[NS.Config.survey.submission_type],
+        count = submissionSet ? submissionSet.length : 0;
+
+    return count;
+  });
+
+
   Handlebars.registerHelper('each_place_item', function(options) {
     var result = '';
 
