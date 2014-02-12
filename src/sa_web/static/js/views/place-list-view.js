@@ -23,8 +23,6 @@ var Shareabouts = Shareabouts || {};
           submissionType: supportType,
           placeModel: this.model
         });
-
-      this.model.submissionSets[supportType].fetchAllPages();
     },
     onRender: function(evt) {
       this.support.show(new S.SupportView({

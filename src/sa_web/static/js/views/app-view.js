@@ -255,7 +255,10 @@ var Shareabouts = Shareabouts || {};
       } else {
         this.places.fetchById(modelId, {
           success: onPlaceFound,
-          error: onPlaceNotFound
+          error: onPlaceNotFound,
+          data: {
+            include_submissions: true
+          }
         });
       }
     },
