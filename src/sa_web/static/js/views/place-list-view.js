@@ -15,6 +15,10 @@ var Shareabouts = Shareabouts || {};
     regions: {
       support: '.support'
     },
+    modelEvents: {
+      'show': 'show',
+      'hide': 'hide'
+    },
     initialize: function() {
       var supportType = S.Config.support.submission_type;
 
@@ -23,9 +27,6 @@ var Shareabouts = Shareabouts || {};
           submissionType: supportType,
           placeModel: this.model
         });
-
-      this.listenTo(this.model, 'show', this.show);
-      this.listenTo(this.model, 'hide', this.hide);
     },
     onRender: function(evt) {
       this.support.show(new S.SupportView({
@@ -48,11 +49,18 @@ var Shareabouts = Shareabouts || {};
     itemViewContainer: '.place-list',
     ui: {
       searchField: '#list-search',
-      searchForm: '.list-search-form'
+      searchForm: '.list-search-form',
+      allSorts: '.list-sort-menu a',
+      dateSort: '.date-sort',
+      surveySort: '.survey-sort',
+      supportSort: '.support-sort'
     },
     events: {
       'input @ui.searchField': 'handleSearchInput',
-      'submit @ui.searchForm': 'handleSearchSubmit'
+      'submit @ui.searchForm': 'handleSearchSubmit',
+      'click @ui.dateSort': 'handleDateSort',
+      'click @ui.surveySort': 'handleSurveyCountSort',
+      'click @ui.supportSort': 'handleSupportCountSort'
     },
     handleSearchInput: function(evt) {
       evt.preventDefault();
@@ -61,6 +69,77 @@ var Shareabouts = Shareabouts || {};
     handleSearchSubmit: function(evt) {
       evt.preventDefault();
       this.filter(this.ui.searchField.val());
+    },
+    handleDateSort: function(evt) {
+      evt.preventDefault();
+
+      this.dateSort();
+
+      this.ui.allSorts.removeClass('is-selected');
+      this.ui.dateSort.addClass('is-selected');
+    },
+    handleSurveyCountSort: function(evt) {
+      evt.preventDefault();
+
+      this.surveyCountSort();
+
+      this.ui.allSorts.removeClass('is-selected');
+      this.ui.surveySort.addClass('is-selected');
+    },
+    handleSupportCountSort: function(evt) {
+      evt.preventDefault();
+
+      this.supportCountSort();
+
+      this.ui.allSorts.removeClass('is-selected');
+      this.ui.supportSort.addClass('is-selected');
+    },
+
+    dateSort: function() {
+      this.sort(function(a, b) {
+        if (a.get('created_datetime') > b.get('created_datetime')) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+
+      this.ui.allSorts.removeClass('is-selected');
+      this.ui.dateSort.addClass('is-selected');
+    },
+    surveyCountSort: function() {
+      this.sort(function(a, b) {
+        var submissionA = a.get('submission_sets')[S.Config.survey.submission_type],
+            submissionB = b.get('submission_sets')[S.Config.survey.submission_type],
+            aCount = submissionA ? submissionA.length : 0,
+            bCount = submissionB ? submissionB.length : 0;
+
+        if (aCount > bCount) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+    },
+    supportCountSort: function() {
+      this.sort(function(a, b) {
+        var submissionA = a.get('submission_sets')[S.Config.support.submission_type],
+            submissionB = b.get('submission_sets')[S.Config.support.submission_type],
+            aCount = submissionA ? submissionA.length : 0,
+            bCount = submissionB ? submissionB.length : 0;
+
+        if (aCount > bCount) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+    },
+
+    sort: function(comparator) {
+      this.collection.comparator = comparator;
+      this.collection.sort();
+      this._renderChildren();
     },
     filter: function(term) {
       var len = S.Config.place.items.length,

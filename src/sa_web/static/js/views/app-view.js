@@ -350,6 +350,7 @@ var Shareabouts = Shareabouts || {};
         $('.show-the-map').addClass('is-visuallyhidden');
       } else {
         this.listView.$el.addClass('is-exposed');
+        this.listView.dateSort();
         $('.show-the-list').addClass('is-visuallyhidden');
         $('.show-the-map').removeClass('is-visuallyhidden');
       }

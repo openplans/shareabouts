@@ -73,7 +73,7 @@ var Shareabouts = Shareabouts || {};
     return NS.Config.place.anonymous_name;
   });
 
-  Handlebars.registerHelper('survey_label', function() {
+  Handlebars.registerHelper('survey_label_by_count', function() {
     var submissionSet = this.submission_sets[NS.Config.survey.submission_type],
         count = submissionSet ? submissionSet.length : 0;
 
@@ -81,6 +81,10 @@ var Shareabouts = Shareabouts || {};
       return NS.Config.survey.response_name;
     }
     return NS.Config.survey.response_plural_name;
+  });
+
+  Handlebars.registerHelper('survey_label', function() {
+    return NS.Config.survey.response_name;
   });
 
   Handlebars.registerHelper('survey_count', function() {
