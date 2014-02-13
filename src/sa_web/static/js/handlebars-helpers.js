@@ -92,6 +92,10 @@ var Shareabouts = Shareabouts || {};
     return NS.Config.survey.response_name;
   });
 
+  Handlebars.registerHelper('survey_label_plural', function() {
+    return NS.Config.survey.response_plural_name;
+  });
+
   Handlebars.registerHelper('survey_count', function() {
     var count = 0,
         submissionSet;
