@@ -25,6 +25,18 @@ var Shareabouts = Shareabouts || {};
         return this.id;
       };
 
+      // Reject a place that does not have a supported location type. This will
+      // prevent invalid places from being added or saved to the collection.
+      S.PlaceModel.prototype.validate = function(attrs, options) {
+        var locationType = attrs.location_type,
+            locationTypes = _.map(S.Config.placeTypes, function(config, key){ return key; });
+
+        if (!_.contains(locationTypes, locationType)) {
+          console.warn(locationType + ' is not supported.');
+          return locationType + ' is not supported.';
+        }
+      };
+
       // Global route changes
       this.bind('route', function(route, router) {
         S.Util.log('ROUTE', self.getCurrentPath());
@@ -95,6 +107,8 @@ var Shareabouts = Shareabouts || {};
 
       this.collection.fetchAllPages({
         remove: false,
+        // Check for a valid location type before adding it to the collection
+        validate: true,
         data: placeParams,
 
         // Only do this for the first page...

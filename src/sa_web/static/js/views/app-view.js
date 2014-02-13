@@ -254,6 +254,8 @@ var Shareabouts = Shareabouts || {};
       // Otherwise, fetch and use the result.
       } else {
         this.places.fetchById(modelId, {
+          // Check for a valid location type before adding it to the collection
+          validate: true,
           success: onPlaceFound,
           error: onPlaceNotFound,
           data: {
