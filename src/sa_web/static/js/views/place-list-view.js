@@ -80,6 +80,8 @@ var Shareabouts = Shareabouts || {};
       $itemViewContainer.empty();
       this.collection.each(function(model) {
         $itemViewContainer.append(this.views[model.cid].$el);
+        // Delegate the events so that the subviews still work
+        this.views[model.cid].supportView.delegateEvents();
       }, this);
     },
     handleSearchInput: function(evt) {
