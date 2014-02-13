@@ -64,6 +64,24 @@ var Shareabouts = Shareabouts || {};
       'click @ui.surveySort': 'handleSurveyCountSort',
       'click @ui.supportSort': 'handleSupportCountSort'
     },
+    initialize: function(options) {
+      // Init the views cache
+      this.views = {};
+    },
+    onAfterItemAdded: function(view) {
+      // Cache the views as they are added
+      this.views[view.model.cid] = view;
+    },
+    renderList: function() {
+      // A faster alternative to this._renderChildren. _renderChildren always
+      // discards and recreates a new ItemView. This simply rerenders the
+      // cached views.
+      var $itemViewContainer = this.getItemViewContainer(this);
+      $itemViewContainer.empty();
+      this.collection.each(function(model) {
+        $itemViewContainer.append(this.views[model.cid].$el);
+      }, this);
+    },
     handleSearchInput: function(evt) {
       evt.preventDefault();
       this.filter(this.ui.searchField.val());
@@ -141,7 +159,7 @@ var Shareabouts = Shareabouts || {};
     sort: function(comparator) {
       this.collection.comparator = comparator;
       this.collection.sort();
-      this._renderChildren();
+      this.renderList();
       this.filter(this.ui.searchField.val());
     },
     filter: function(term) {
