@@ -74,8 +74,13 @@ var Shareabouts = Shareabouts || {};
   });
 
   Handlebars.registerHelper('survey_label_by_count', function() {
-    var submissionSet = this.submission_sets[NS.Config.survey.submission_type],
-        count = submissionSet ? submissionSet.length : 0;
+    var count = 0,
+        submissionSet;
+
+    if (this.submission_sets && this.submission_sets[NS.Config.survey.submission_type]) {
+      submissionSet = this.submission_sets[NS.Config.survey.submission_type];
+      count = submissionSet ? submissionSet.length : 0;
+    }
 
     if (count === 1) {
       return NS.Config.survey.response_name;
@@ -88,8 +93,13 @@ var Shareabouts = Shareabouts || {};
   });
 
   Handlebars.registerHelper('survey_count', function() {
-    var submissionSet = this.submission_sets[NS.Config.survey.submission_type],
-        count = submissionSet ? submissionSet.length : 0;
+    var count = 0,
+        submissionSet;
+
+    if (this.submission_sets && this.submission_sets[NS.Config.survey.submission_type]) {
+      submissionSet = this.submission_sets[NS.Config.survey.submission_type];
+      count = submissionSet ? submissionSet.length : 0;
+    }
 
     return count;
   });
