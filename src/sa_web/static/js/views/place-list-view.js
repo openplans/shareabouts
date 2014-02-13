@@ -131,10 +131,10 @@ var Shareabouts = Shareabouts || {};
     },
     surveyCountSort: function() {
       this.sort(function(a, b) {
-        var submissionA = a.get('submission_sets')[S.Config.survey.submission_type],
-            submissionB = b.get('submission_sets')[S.Config.survey.submission_type],
-            aCount = submissionA ? submissionA.length : 0,
-            bCount = submissionB ? submissionB.length : 0;
+        var submissionA = a.submissionSets[S.Config.survey.submission_type],
+            submissionB = b.submissionSets[S.Config.survey.submission_type],
+            aCount = submissionA ? submissionA.size() : 0,
+            bCount = submissionB ? submissionB.size() : 0;
 
         if (aCount > bCount) {
           return -1;
@@ -145,10 +145,10 @@ var Shareabouts = Shareabouts || {};
     },
     supportCountSort: function() {
       this.sort(function(a, b) {
-        var submissionA = a.get('submission_sets')[S.Config.support.submission_type],
-            submissionB = b.get('submission_sets')[S.Config.support.submission_type],
-            aCount = submissionA ? submissionA.length : 0,
-            bCount = submissionB ? submissionB.length : 0;
+        var submissionA = a.submissionSets[S.Config.support.submission_type],
+            submissionB = b.submissionSets[S.Config.support.submission_type],
+            aCount = submissionA ? submissionA.size() : 0,
+            bCount = submissionB ? submissionB.size() : 0;
 
         if (aCount > bCount) {
           return -1;
@@ -157,7 +157,6 @@ var Shareabouts = Shareabouts || {};
         }
       });
     },
-
     sort: function(comparator) {
       this.collection.comparator = comparator;
       this.collection.sort();
