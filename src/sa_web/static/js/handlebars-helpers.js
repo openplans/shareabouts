@@ -105,16 +105,21 @@ var Shareabouts = Shareabouts || {};
   });
 
 
-  Handlebars.registerHelper('each_place_item', function(options) {
-    var result = '';
+  Handlebars.registerHelper('each_place_item', function() {
+    var result = '',
+        args = Array.prototype.slice.call(arguments),
+        exclusions, options;
+
+    options = args.slice(-1)[0];
+    exclusions = args.slice(0, args.length-1);
+
 
     _.each(NS.Config.place.items, function(item, i) {
-      var exclusions = ['submitter_name', 'name', 'location_type'],
-        newItem = {
-          name: item.name,
-          label: item.label,
-          value: this[item.name]
-        };
+      var newItem = {
+            name: item.name,
+            label: item.label,
+            value: this[item.name]
+          };
 
       // if not an exclusion and not private data
       if (_.contains(exclusions, item.name) === false &&
