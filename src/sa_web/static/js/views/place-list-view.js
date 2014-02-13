@@ -3,7 +3,7 @@
 var Shareabouts = Shareabouts || {};
 
 (function(S, $, console) {
-    // Handlebars support for Marionette
+  // Handlebars support for Marionette
   Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(rawTemplate) {
     return Handlebars.compile(rawTemplate);
   };
@@ -27,13 +27,15 @@ var Shareabouts = Shareabouts || {};
           submissionType: supportType,
           placeModel: this.model
         });
-    },
-    onRender: function(evt) {
-      this.support.show(new S.SupportView({
+
+      this.supportView = new S.SupportView({
         collection: this.model.submissionSets[S.Config.support.submission_type],
         supportConfig: S.Config.support,
         userToken: S.Config.userToken
-      }));
+      });
+    },
+    onRender: function(evt) {
+      this.support.show(this.supportView);
     },
     show: function() {
       this.$el.show();
@@ -140,6 +142,7 @@ var Shareabouts = Shareabouts || {};
       this.collection.comparator = comparator;
       this.collection.sort();
       this._renderChildren();
+      this.filter(this.ui.searchField.val());
     },
     filter: function(term) {
       var len = S.Config.place.items.length,
