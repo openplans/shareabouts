@@ -4,10 +4,19 @@
           <h1><a href="/place/{{ id }}">{{ name }}</a></h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
-              {{#if submitter}}
-                <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
+              {{#if submitter.avatar_url }}
+                <img src="{{ submitter.avatar_url }}" class="avatar" />
               {{^}}
-                <img src="{{ STATIC_URL }}/css/images/user-50.png" class="avatar" /> {{ anonymous_name }}
+                <img src="{{ STATIC_URL }}/css/images/user-50.png" class="avatar" />
+              {{/if}}
+              {{#if submitter.name }}
+                {{ submitter.name }}
+              {{^}}
+                {{#if submitter_name }}
+                  {{ submitter_name }}
+                {{^}}
+                  {{ anonymous_name }}
+                {{/if}}
               {{/if}}
             </strong> {{ action_text }} this {{ place_type_label location_type}}
 
