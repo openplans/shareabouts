@@ -57,6 +57,9 @@
     <h1 id="site-title">{% block site-title %}{% endblock %}</h1>
     <div id="auth-nav-container"></div>
     <div id="pages-nav-container"></div>
+    <nav class="list-toggle-nav">
+      <a href="#" class="list-toggle-btn btn btn-block"><span class="show-the-map is-visuallyhidden">Map</span><span class="is-screen-reader-text">/</span><span class="show-the-list">List</span> View</a>
+    </nav>
 
     {% if config.languages %}
     <div id="language-picker">
@@ -105,8 +108,8 @@
     </noscript>
 
     <div id="map-container">
-      <div id="ajax-error-msg">{% blocktrans %}Blast! We can't connect to the server. Hang tight while we re-establish communication with the mothership.{% endblocktrans %}</div>
-      <div id="map-progress" class="progress-bar"><strong>Loading Map Data&hellip;</strong><span class="current-progress"></span></div>
+      <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>
+      <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
       <div id="map"></div>
     </div>
 
@@ -121,6 +124,8 @@
     <ul class="recent-points unstyled-list"></ul>
   </div>
 
+  <div id="list-container"></div>
+
   <footer id="colophon">
     {% block colophon %}{% endblock %}
   </footer>
@@ -133,6 +138,7 @@
   {% compress js %}
   <script src="{{STATIC_URL}}libs/underscore.js"></script>
   <script src="{{STATIC_URL}}libs/backbone.js"></script>
+  <script src="{{STATIC_URL}}libs/backbone.marionette.js"></script>
   <script src="{{STATIC_URL}}libs/handlebars-1.0.0.js"></script>
   <script src="{{STATIC_URL}}libs/moment.min.js"></script>
   <script src="{{STATIC_URL}}libs/json2.js"></script>
@@ -202,6 +208,7 @@
   <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
   <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
+  <script src="{{STATIC_URL}}js/views/place-list-view.js"></script>
   <script src="{{STATIC_URL}}js/routes.js"></script>
   {% endcompress %}
 
@@ -216,38 +223,39 @@
 
   (function(S, $){
     // Boostrapping the place types and their icons
-    var flavorConfig = {{ config.data|as_json }},
+    S.Config = {
+      defaultPlaceTypeName: '{{ default_place_type }}',
+      userToken: (
+        S.bootstrapped.currentUser ?
+        'user:' + S.bootstrapped.currentUser.id :
+        {{ user_token_json|safe }}),
 
-        placeConfig = {{ config.place|as_json }},
-        placeTypesConfig = {{ config.place_types|as_json }},
-
-        surveyConfig = {{ config.survey|as_json }},
-        supportConfig = {{ config.support|as_json }},
-        mapConfig = {{ config.map|as_json }},
-        activityConfig = {{ config.activity|as_json }},
-
-        pagesConfig = {{ pages_config_json|safe }},
-        defaultPlaceTypeName = '{{ default_place_type }}';
+      flavor:     {{ config.data|as_json }},
+      place:      {{ config.place|as_json }},
+      placeTypes: {{ config.place_types|as_json }},
+      survey:     {{ config.survey|as_json }},
+      support:    {{ config.support|as_json }},
+      map:        {{ config.map|as_json }},
+      activity:   {{ config.activity|as_json }},
+      pages:      {{ pages_config_json|safe }}
+    };
 
     $(function() {
       // Ready set go!
       window.app = new Shareabouts.App({
-        defaultPlaceTypeName: defaultPlaceTypeName,
         activity: [],
-        userToken: (
-          Shareabouts.bootstrapped.currentUser ?
-          'user:' + Shareabouts.bootstrapped.currentUser.id :
-          {{ user_token_json|safe }}),
 
-        config: flavorConfig,
+        defaultPlaceTypeName: S.Config.defaultPlaceTypeName,
+        userToken: S.Config.userToken,
 
-        placeTypes: placeTypesConfig,
-        surveyConfig: surveyConfig,
-        supportConfig: supportConfig,
-        pagesConfig: pagesConfig,
-        mapConfig: mapConfig,
-        placeConfig: placeConfig,
-        activityConfig: activityConfig
+        config: S.Config.flavor,
+        placeConfig: S.Config.place,
+        placeTypes: S.Config.placeTypes,
+        surveyConfig: S.Config.survey,
+        supportConfig: S.Config.support,
+        mapConfig: S.Config.map,
+        activityConfig: S.Config.activity,
+        pagesConfig: S.Config.pages
       });
     });
   })(Shareabouts, jQuery);

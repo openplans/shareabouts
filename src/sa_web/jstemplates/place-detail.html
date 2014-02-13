@@ -1,37 +1,39 @@
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
-          <h1>{{ name }}</h1>
+          <h1><a href="/place/{{ id }}">{{ name }}</a></h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
               {{#if submitter}}
                 <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
               {{^}}
-                <!-- TODO: FIXME: don't hardcode image URL -->
-                <img src="/static/css/images/user-50.png" class="avatar" /> {{ submitter_name }}
+                <img src="{{ STATIC_URL }}/css/images/user-50.png" class="avatar" /> {{ anonymous_name }}
               {{/if}}
-            </strong> {{ place_config.action_text }} this {{#if place_type_label}}{{ place_type_label }}{{else}}place{{/if}}
+            </strong> {{ action_text }} this {{ place_type_label location_type}}
 
             {{#if region}}
               in {{ region }}
             {{/if}}{{/_}}
 
-            <time datetime="{{ created_datetime }}" class="response-date">{{ pretty_created_datetime }}</time>
+            <time datetime="{{ created_datetime }}" class="response-date"><a href="/place/{{ id }}">{{ fromnow created_datetime }}</a></time>
+
+            <a href="/place/{{ id }}" class="submission-count">{{ survey_count }} <span class="submission-type">{{ survey_label_by_count }}</span></a>
+
           </span>
         </header>
 
         <section class="place-items">
           {{# attachments }}
-          <div class="place-item place-attachment-{{ name }}">
+          <div class="place-item place-item-attachment place-attachment-{{ name }}">
             <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
           </div>
           {{/ attachments }}
-          {{# items }}
+          {{#each_place_item }}
           <div class="place-item place-item-{{ name }}">
             <span class="place-label place-label-{{ name }}">{{ label }}</span>
             <p class="place-value place-value-{{ name }}">{{ value }}</p>
           </div>
-          {{/ items }}
+          {{/each_place_item }}
         </section>
 
         {{#if survey_config}}

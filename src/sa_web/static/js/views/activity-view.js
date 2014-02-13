@@ -116,6 +116,8 @@ var Shareabouts = Shareabouts || {};
       if (placeIdsToFetch.length > 0) {
         // Get the missing places and then render activity
         self.placeCollection.fetchByIds(placeIdsToFetch, {
+          // Check for a valid location type before adding it to the collection
+          validate: true,
           success: function() {
             self.render();
           }
@@ -193,6 +195,9 @@ var Shareabouts = Shareabouts || {};
       var placeUrl = actionModel.get('target').place,
           placeId, placeModel;
       options = options || {};
+
+      // Check for a valid location type before adding it to the collection
+      options.validate = true;
 
       if (placeUrl) {
         placeId = _.last(placeUrl.split('/'));

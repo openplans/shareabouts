@@ -24,7 +24,7 @@ var Shareabouts = Shareabouts || {};
     onPageLinkClick: function(evt) {
       evt.preventDefault();
       // Hide mobile list when one is selected
-      $('.access').removeClass('expose');
+      $('.access').removeClass('is-exposed');
       // Load the content
       this.options.router.navigate(evt.target.getAttribute('href'), {trigger: true});
       S.Util.log('USER', 'page-menu', 'click-link', evt.target.getAttribute('href') + " -- " + evt.target.textContent);
@@ -32,13 +32,13 @@ var Shareabouts = Shareabouts || {};
 
     onMobileNavClick: function(evt) {
       evt.preventDefault();
-      $('.access').toggleClass('expose');
-      S.Util.log('USER', 'page-menu', ($('.access').hasClass('expose') ? 'show' : 'hide') + '-mobile-nav');
+      $('.access').toggleClass('is-exposed');
+      S.Util.log('USER', 'page-menu', ($('.access').hasClass('is-exposed') ? 'show' : 'hide') + '-mobile-nav');
     },
 
     onAuthNavClick: function(evt) {
       evt.preventDefault();
-      $('.sign-in-menu').toggleClass('expose');
+      $('.sign-in-menu').toggleClass('is-exposed');
     }
   });
 

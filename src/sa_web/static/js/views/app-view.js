@@ -24,6 +24,7 @@ var Shareabouts = Shareabouts || {};
       'click .close-btn': 'onClickClosePanelBtn'
     },
     initialize: function(){
+      var self = this;
       // Boodstrapped data from the page
       this.activities = this.options.activities;
       this.places = this.collection;
@@ -34,6 +35,11 @@ var Shareabouts = Shareabouts || {};
 
       $('body').ajaxSuccess(function(evt, request, settings){
         $('#ajax-error-msg').hide();
+      });
+
+      $('.list-toggle-btn').click(function(evt){
+        evt.preventDefault();
+        self.toggleListView();
       });
 
       // Handle collection events
@@ -81,6 +87,11 @@ var Shareabouts = Shareabouts || {};
         router: this.options.router,
         placeTypes: this.options.placeTypes
       });
+
+      this.listView = new S.PlaceListView({
+        el: '#list-container',
+        collection: this.collection
+      }).render();
 
       // Cache panel elements that we use a lot
       this.$panel = $('#content');
@@ -243,8 +254,13 @@ var Shareabouts = Shareabouts || {};
       // Otherwise, fetch and use the result.
       } else {
         this.places.fetchById(modelId, {
+          // Check for a valid location type before adding it to the collection
+          validate: true,
           success: onPlaceFound,
-          error: onPlaceNotFound
+          error: onPlaceNotFound,
+          data: {
+            include_submissions: true
+          }
         });
       }
     },
@@ -328,6 +344,18 @@ var Shareabouts = Shareabouts || {};
     },
     render: function() {
       this.mapView.render();
+    },
+    toggleListView: function() {
+      if (this.listView.$el.is(':visible')) {
+        this.listView.$el.removeClass('is-exposed');
+        $('.show-the-list').removeClass('is-visuallyhidden');
+        $('.show-the-map').addClass('is-visuallyhidden');
+      } else {
+        this.listView.$el.addClass('is-exposed');
+        this.listView.dateSort();
+        $('.show-the-list').addClass('is-visuallyhidden');
+        $('.show-the-map').removeClass('is-visuallyhidden');
+      }
     }
   });
 }(Shareabouts, jQuery, Shareabouts.Util.console));
