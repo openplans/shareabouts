@@ -17,7 +17,8 @@ var Shareabouts = Shareabouts || {};
     },
     modelEvents: {
       'show': 'show',
-      'hide': 'hide'
+      'hide': 'hide',
+      'change': 'render'
     },
     initialize: function() {
       var supportType = S.Config.support.submission_type;
