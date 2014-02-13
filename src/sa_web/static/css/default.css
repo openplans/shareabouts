@@ -1039,7 +1039,7 @@ ul.recent-points {
   margin-right: 5em;
   margin-left: 16em;
 }
-.place-list .place-attachment-my_image {
+.place-list .place-item-attachment {
   float: left;
   max-width: 9em;
   margin: 0 1em 0.75em 0;
