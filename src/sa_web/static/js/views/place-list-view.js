@@ -186,6 +186,9 @@ var Shareabouts = Shareabouts || {};
           model.trigger('hide');
         }
       });
+    },
+    isVisible: function() {
+      return this.$el.is(':visible');
     }
   });
 
