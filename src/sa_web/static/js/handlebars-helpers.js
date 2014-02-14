@@ -74,8 +74,13 @@ var Shareabouts = Shareabouts || {};
   });
 
   Handlebars.registerHelper('survey_label_by_count', function() {
-    var submissionSet = this.submission_sets[NS.Config.survey.submission_type],
-        count = submissionSet ? submissionSet.length : 0;
+    var count = 0,
+        submissionSet;
+
+    if (this.submission_sets && this.submission_sets[NS.Config.survey.submission_type]) {
+      submissionSet = this.submission_sets[NS.Config.survey.submission_type];
+      count = submissionSet ? submissionSet.length : 0;
+    }
 
     if (count === 1) {
       return NS.Config.survey.response_name;
@@ -87,26 +92,42 @@ var Shareabouts = Shareabouts || {};
     return NS.Config.survey.response_name;
   });
 
+  Handlebars.registerHelper('survey_label_plural', function() {
+    return NS.Config.survey.response_plural_name;
+  });
+
   Handlebars.registerHelper('survey_count', function() {
-    var submissionSet = this.submission_sets[NS.Config.survey.submission_type],
-        count = submissionSet ? submissionSet.length : 0;
+    var count = 0,
+        submissionSet;
+
+    if (this.submission_sets && this.submission_sets[NS.Config.survey.submission_type]) {
+      submissionSet = this.submission_sets[NS.Config.survey.submission_type];
+      count = submissionSet ? submissionSet.length : 0;
+    }
 
     return count;
   });
 
 
-  Handlebars.registerHelper('each_place_item', function(options) {
-    var result = '';
+  Handlebars.registerHelper('each_place_item', function() {
+    var result = '',
+        args = Array.prototype.slice.call(arguments),
+        exclusions, options;
+
+    options = args.slice(-1)[0];
+    exclusions = args.slice(0, args.length-1);
+
 
     _.each(NS.Config.place.items, function(item, i) {
-      var exclusions = ['submitter_name', 'name', 'location_type'],
-        newItem = {
-          name: item.name,
-          label: item.label,
-          value: this[item.name]
-        };
+      var newItem = {
+            name: item.name,
+            label: item.label,
+            value: this[item.name]
+          };
 
-      if (_.contains(exclusions, item.name) === false) {
+      // if not an exclusion and not private data
+      if (_.contains(exclusions, item.name) === false &&
+          item.name.indexOf('private-') !== 0) {
         result += options.fn(newItem);
       }
     }, this);

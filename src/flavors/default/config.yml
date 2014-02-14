@@ -171,7 +171,7 @@ place:
           value: 30
     - prompt: _(Your Email)
       type: text
-      name: submitter_email
+      name: private-submitter_email
       optional: true
       attrs:
         - key: placeholder
