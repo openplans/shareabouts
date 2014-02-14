@@ -11,7 +11,8 @@ from .config import get_shareabouts_config
 from django.shortcuts import render
 from django.conf import settings
 from django.core.cache import cache
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.utils.timezone import now
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -135,7 +136,7 @@ def send_place_created_notifications(request, response):
     errors = []
 
     try:
-        place = json.loads(response.content)
+        place = json.loads(request.body)
     except ValueError:
         errors.append('Received invalid place JSON: %r' % (response.content,))
 
@@ -166,19 +167,28 @@ def send_place_created_notifications(request, response):
     subject = render_to_string('new_place_email_subject.txt', context_data)
     body = render_to_string('new_place_email_body.txt', context_data)
 
+    try:
+        html_body = render_to_string('new_place_email_body.html', context_data)
+    except TemplateDoesNotExist:
+        html_body = None
+
     # connection = smtp.EmailBackend(
     #     host=...,
     #     port=...,
     #     username=...,
     #     use_tls=...)
 
-    send_mail(
+    # NOTE: In Django 1.7+, send_mail can handle multi-part email with the
+    # html_message parameter, but pre 1.7 cannot and we must construct the
+    # multipart message manually.
+    msg = EmailMultiAlternatives(
         subject,
         body,
         from_email,
-        [recipient_email])
-        # connection=connection,
-        # html_message=html_body)  # For multipart, HTML-enabled emails
+        [recipient_email])#,
+        # connection=connection)
+    msg.attach_alternative(html_body, 'text/html')
+    msg.send()
     return
 
 
