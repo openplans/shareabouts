@@ -379,6 +379,7 @@ var Shareabouts = Shareabouts || {};
       this.mapView.render();
     },
     showListView: function() {
+      this.listView.sort();
       this.listView.$el.addClass('is-exposed');
       $('.show-the-list').addClass('is-visuallyhidden');
       $('.show-the-map').removeClass('is-visuallyhidden');

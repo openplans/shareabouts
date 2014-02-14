@@ -68,6 +68,9 @@ var Shareabouts = Shareabouts || {};
     initialize: function(options) {
       // Init the views cache
       this.views = {};
+
+      // Set the default sort
+      this.sortBy = 'date';
     },
     onAfterItemAdded: function(view) {
       // Cache the views as they are added
@@ -96,7 +99,8 @@ var Shareabouts = Shareabouts || {};
     handleDateSort: function(evt) {
       evt.preventDefault();
 
-      this.dateSort();
+      this.sortBy = 'date';
+      this.sort();
 
       this.ui.allSorts.removeClass('is-selected');
       this.ui.dateSort.addClass('is-selected');
@@ -104,7 +108,8 @@ var Shareabouts = Shareabouts || {};
     handleSurveyCountSort: function(evt) {
       evt.preventDefault();
 
-      this.surveyCountSort();
+      this.sortBy = 'surveyCount';
+      this.sort();
 
       this.ui.allSorts.removeClass('is-selected');
       this.ui.surveySort.addClass('is-selected');
@@ -112,54 +117,59 @@ var Shareabouts = Shareabouts || {};
     handleSupportCountSort: function(evt) {
       evt.preventDefault();
 
-      this.supportCountSort();
+      this.sortBy = 'supportCount';
+      this.sort();
 
       this.ui.allSorts.removeClass('is-selected');
       this.ui.supportSort.addClass('is-selected');
     },
+    dateSort: function(a, b) {
+      if (a.get('created_datetime') > b.get('created_datetime')) {
+        return -1;
+      } else {
+        return 1;
+      }
+    },
+    surveyCountSort: function(a, b) {
+      var submissionA = a.submissionSets[S.Config.survey.submission_type],
+          submissionB = b.submissionSets[S.Config.survey.submission_type],
+          aCount = submissionA ? submissionA.size() : 0,
+          bCount = submissionB ? submissionB.size() : 0;
 
-    dateSort: function() {
-      this.sort(function(a, b) {
+      if (aCount === bCount) {
         if (a.get('created_datetime') > b.get('created_datetime')) {
           return -1;
         } else {
           return 1;
         }
-      });
-
-      this.ui.allSorts.removeClass('is-selected');
-      this.ui.dateSort.addClass('is-selected');
+      } else if (aCount > bCount) {
+        return -1;
+      } else {
+        return 1;
+      }
     },
-    surveyCountSort: function() {
-      this.sort(function(a, b) {
-        var submissionA = a.submissionSets[S.Config.survey.submission_type],
-            submissionB = b.submissionSets[S.Config.survey.submission_type],
-            aCount = submissionA ? submissionA.size() : 0,
-            bCount = submissionB ? submissionB.size() : 0;
+    supportCountSort: function(a, b) {
+      var submissionA = a.submissionSets[S.Config.support.submission_type],
+          submissionB = b.submissionSets[S.Config.support.submission_type],
+          aCount = submissionA ? submissionA.size() : 0,
+          bCount = submissionB ? submissionB.size() : 0;
 
-        if (aCount > bCount) {
+      if (aCount === bCount) {
+        if (a.get('created_datetime') > b.get('created_datetime')) {
           return -1;
         } else {
           return 1;
         }
-      });
+      } else if (aCount > bCount) {
+        return -1;
+      } else {
+        return 1;
+      }
     },
-    supportCountSort: function() {
-      this.sort(function(a, b) {
-        var submissionA = a.submissionSets[S.Config.support.submission_type],
-            submissionB = b.submissionSets[S.Config.support.submission_type],
-            aCount = submissionA ? submissionA.size() : 0,
-            bCount = submissionB ? submissionB.size() : 0;
+    sort: function() {
+      var sortFunction = this.sortBy + 'Sort';
 
-        if (aCount > bCount) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-    },
-    sort: function(comparator) {
-      this.collection.comparator = comparator;
+      this.collection.comparator = this[sortFunction];
       this.collection.sort();
       this.renderList();
       this.filter(this.ui.searchField.val());
