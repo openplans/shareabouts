@@ -1,7 +1,7 @@
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
-          <h1><a href="/place/{{ id }}">{{ name }}</a></h1>
+          <h1>{{ name }}</h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
               {{#if submitter.avatar_url }}
@@ -26,7 +26,12 @@
 
             <time datetime="{{ created_datetime }}" class="response-date"><a href="/place/{{ id }}">{{ fromnow created_datetime }}</a></time>
 
-            <a href="/place/{{ id }}" class="submission-count">{{ survey_count }} <span class="submission-type">{{ survey_label_by_count }}</span></a>
+            <!-- TODO: make this scroll to #survey without page refresh -->
+            <span class="survey-count"><a href="/place/{{ id }}">{{ survey_count }} {{ survey_label_by_count }}</a></span>
+
+            {{^if survey_config}}
+            <a href="/place/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
+            {{/if}}
 
           </span>
         </header>
@@ -46,5 +51,5 @@
         </section>
 
         {{#if survey_config}}
-        <section class="survey"></section>
+        <section class="survey" id="survey"></section>
         {{/if}}

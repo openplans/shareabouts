@@ -774,15 +774,10 @@ a.close-btn span {
 .response-date a:hover {
   color: #00aaff;
 }
-.submission-count {
-  font-size: 0.875em;
-  font-weight: bold;
+.survey-count {
+  font-size: 0.75em;
   text-transform: uppercase;
-  float: left;
-}
-.submission-count .submission-type {
-  font-size: 0.875em;
-  font-weight: normal;
+  display: block;
 }
 
 /* Surveys */
@@ -1015,8 +1010,8 @@ ul.recent-points {
   padding: 1.25em 0 0;
 }
 .place-list > li {
-  margin: 0 0 1.25em 0;
-  padding: 0.75em 0 0 0;
+  margin: 0;
+  padding: 0.75em 0 1.25em 0;
   border-top: 1px solid #eeeeee;
 }
 .place-list .place-header {
@@ -1025,8 +1020,7 @@ ul.recent-points {
 .place-list .place-header:before, .place-list .place-header:after { display: none; }
 .place-list .place-header:after { clear: none; }
 .place-list .place-header h1 {
-  font-size: 1.625em;
-  margin-bottom: 0.75em;
+  font-size: 1.5em;
 }
 .place-list .place-submission-details {
   float: left;
@@ -1042,9 +1036,6 @@ ul.recent-points {
   height: 2.5em;
   float: left;
   margin-left: -3em;
-}
-.place-list .submission-count {
-  font-size: 1.25em;
 }
 .place-list .place-items {
   margin-right: 5em;
@@ -1065,6 +1056,11 @@ ul.recent-points {
 }
 .place-item-attachment .place-value:empty {
   display: block;
+}
+
+.view-on-map-btn {
+  margin: 1em 0;
+  float: left;
 }
 
 
