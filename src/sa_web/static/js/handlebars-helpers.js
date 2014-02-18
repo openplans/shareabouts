@@ -96,6 +96,15 @@ var Shareabouts = Shareabouts || {};
     return NS.Config.survey.response_plural_name;
   });
 
+  Handlebars.registerHelper('support_label', function() {
+    return NS.Config.support.response_name;
+  });
+
+  Handlebars.registerHelper('support_label_plural', function() {
+    return NS.Config.support.response_plural_name;
+  });
+
+
   Handlebars.registerHelper('survey_count', function() {
     var count = 0,
         submissionSet;

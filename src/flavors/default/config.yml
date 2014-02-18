@@ -245,6 +245,8 @@ survey:
 support:
   submission_type: support
   submit_btn_text: _(Support)
+  response_name: _(support)
+  response_plural_name: _(supports)
   action_text: supported
   anonymous_name: _(Someone)
 
