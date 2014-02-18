@@ -181,13 +181,25 @@ var Shareabouts = Shareabouts || {};
 
       term = term.toUpperCase();
       this.collection.each(function(model) {
-        var show = false;
+        var show = false,
+            submitter;
         for (i=0; i<len; i++) {
           key = S.Config.place.items[i].name;
           val = model.get(key);
           if (_.isString(val) && val.toUpperCase().indexOf(term) !== -1) {
             show = true;
             break;
+          }
+        }
+
+        // Submitter is only present when a user submits a place when logged in
+        // with FB or Twitter. We handle it specially because it is an object,
+        // not a string.
+        submitter = model.get('submitter');
+        if (submitter) {
+          if (submitter.name && submitter.name.toUpperCase().indexOf(term) !== -1 ||
+              submitter.username && submitter.username.toUpperCase().indexOf(term) !== -1) {
+            show = true;
           }
         }
 
