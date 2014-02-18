@@ -136,9 +136,16 @@ def send_place_created_notifications(request, response):
     errors = []
 
     try:
-        place = json.loads(request.body)
+        # The reuest has any potentially private data fields.
+        requested_place = json.loads(request.body)
     except ValueError:
-        errors.append('Received invalid place JSON: %r' % (response.content,))
+        errors.append('Received invalid place JSON from request: %r' % (request.body,))
+
+    try:
+        # The response has things like ID and cretated datetime
+        place = json.loads(response.content)
+    except ValueError:
+        errors.append('Received invalid place JSON from response: %r' % (response.content,))
 
     try:
         from_email = settings.EMAIL_ADDRESS
@@ -147,7 +154,7 @@ def send_place_created_notifications(request, response):
 
     try:
         email_field = config.get('notifications', {}).get('submitter_email_field', 'submitter_email')
-        recipient_email = place['properties'][email_field]
+        recipient_email = requested_place['properties'][email_field]
     except KeyError:
         errors.append('No "%s" field found on the place. Be sure to configure the "notifications.submitter_email_field" property if necessary.' % (email_field,))
 
@@ -163,7 +170,7 @@ def send_place_created_notifications(request, response):
         return
 
     # If we didn't find any errors, then render the email and send.
-    context_data = {'place': place, 'config': config, 'request': request}
+    context_data = {'place': place, 'email': recipient_email, 'config': config, 'request': request}
     subject = render_to_string('new_place_email_subject.txt', context_data)
     body = render_to_string('new_place_email_body.txt', context_data)
 
@@ -187,7 +194,10 @@ def send_place_created_notifications(request, response):
         from_email,
         [recipient_email])#,
         # connection=connection)
-    msg.attach_alternative(html_body, 'text/html')
+
+    if html_body:
+        msg.attach_alternative(html_body, 'text/html')
+    
     msg.send()
     return
 
