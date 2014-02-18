@@ -182,7 +182,7 @@ var Shareabouts = Shareabouts || {};
       term = term.toUpperCase();
       this.collection.each(function(model) {
         var show = false,
-            submitter;
+            submitter, locationType;
         for (i=0; i<len; i++) {
           key = S.Config.place.items[i].name;
           val = model.get(key);
@@ -196,9 +196,17 @@ var Shareabouts = Shareabouts || {};
         // with FB or Twitter. We handle it specially because it is an object,
         // not a string.
         submitter = model.get('submitter');
-        if (submitter) {
+        if (!show && submitter) {
           if (submitter.name && submitter.name.toUpperCase().indexOf(term) !== -1 ||
               submitter.username && submitter.username.toUpperCase().indexOf(term) !== -1) {
+            show = true;
+          }
+        }
+
+        // If the location_type has a label, we should filter by it also.
+        locationType = S.Config.flavor.place_types[model.get('location_type')];
+        if (!show && locationType && locationType.label) {
+          if (locationType.label.toUpperCase().indexOf(term) !== -1) {
             show = true;
           }
         }
