@@ -459,6 +459,7 @@ var Shareabouts = Shareabouts || {};
     },
     toggleListView: function() {
       if (this.listView.isVisible()) {
+        this.viewMap();
         this.hideListView();
         this.options.router.navigate('');
       } else {
