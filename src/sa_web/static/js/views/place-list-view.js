@@ -54,16 +54,16 @@ var Shareabouts = Shareabouts || {};
       searchField: '#list-search',
       searchForm: '.list-search-form',
       allSorts: '.list-sort-menu a',
-      dateSort: '.date-sort',
-      surveySort: '.survey-sort',
-      supportSort: '.support-sort'
+      date: '.date-sort',
+      surveyCount: '.survey-sort',
+      supportCount: '.support-sort'
     },
     events: {
       'input @ui.searchField': 'handleSearchInput',
       'submit @ui.searchForm': 'handleSearchSubmit',
-      'click @ui.dateSort': 'handleDateSort',
-      'click @ui.surveySort': 'handleSurveyCountSort',
-      'click @ui.supportSort': 'handleSupportCountSort'
+      'click @ui.date': 'handleDateSort',
+      'click @ui.surveyCount': 'handleSurveyCountSort',
+      'click @ui.supportCount': 'handleSupportCountSort'
     },
     initialize: function(options) {
       // Init the views cache
@@ -102,8 +102,7 @@ var Shareabouts = Shareabouts || {};
       this.sortBy = 'date';
       this.sort();
 
-      this.ui.allSorts.removeClass('is-selected');
-      this.ui.dateSort.addClass('is-selected');
+      this.updateSortLinks();
     },
     handleSurveyCountSort: function(evt) {
       evt.preventDefault();
@@ -111,8 +110,7 @@ var Shareabouts = Shareabouts || {};
       this.sortBy = 'surveyCount';
       this.sort();
 
-      this.ui.allSorts.removeClass('is-selected');
-      this.ui.surveySort.addClass('is-selected');
+      this.updateSortLinks();
     },
     handleSupportCountSort: function(evt) {
       evt.preventDefault();
@@ -120,8 +118,11 @@ var Shareabouts = Shareabouts || {};
       this.sortBy = 'supportCount';
       this.sort();
 
+      this.updateSortLinks();
+    },
+    updateSortLinks: function() {
       this.ui.allSorts.removeClass('is-selected');
-      this.ui.supportSort.addClass('is-selected');
+      this.ui[this.sortBy].addClass('is-selected');
     },
     dateSort: function(a, b) {
       if (a.get('created_datetime') > b.get('created_datetime')) {

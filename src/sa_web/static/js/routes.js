@@ -9,17 +9,13 @@ var Shareabouts = Shareabouts || {};
       'place/new': 'newPlace',
       'place/:id': 'viewPlace',
       'place/:id/edit': 'editPlace',
+      'list': 'showList',
       'page/:slug': 'viewPage'
     },
 
     initialize: function(options) {
       var self = this,
-          startPageConfig,
-          placeParams = {
-            // NOTE: this is to simply support the list view. It won't
-            // scale well, so let's think about a better solution.
-            include_submissions: true
-          };
+          startPageConfig;
 
       S.PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
@@ -64,18 +60,6 @@ var Shareabouts = Shareabouts || {};
         router: this
       });
 
-      // Use the page size as dictated by the server by default, unless
-      // directed to do otherwise in the configuration.
-      if (options.config.app.places_page_size) {
-        placeParams.page_size = options.config.app.places_page_size;
-      }
-
-      // Fetch all places by page
-      this.loadPlaces(placeParams);
-
-      // Fetch the first page of activity
-      this.activities.fetch({reset: true});
-
       // Start tracking the history
       var historyOptions = {pushState: true};
       if (options.defaultPlaceTypeName) {
@@ -96,46 +80,6 @@ var Shareabouts = Shareabouts || {};
       }
 
       this.loading = false;
-    },
-
-    loadPlaces: function(placeParams) {
-      var $progressContainer = $('#map-progress'),
-          $currentProgress = $('#map-progress .current-progress'),
-          pageSize,
-          totalPages,
-          pagesComplete = 0;
-
-      this.collection.fetchAllPages({
-        remove: false,
-        // Check for a valid location type before adding it to the collection
-        validate: true,
-        data: placeParams,
-
-        // Only do this for the first page...
-        pageSuccess: _.once(function(collection, data) {
-          pageSize = data.features.length;
-          totalPages = Math.ceil(data.metadata.length / pageSize);
-
-          if (data.metadata.next) {
-            $progressContainer.show();
-          }
-        }),
-
-        // Do this for every page...
-        pageComplete: function() {
-          var percent;
-
-          pagesComplete++;
-          percent = (pagesComplete/totalPages*100);
-          $currentProgress.width(percent + '%');
-
-          if (pagesComplete === totalPages) {
-            _.delay(function() {
-              $progressContainer.hide();
-            }, 2000);
-          }
-        }
-      });
     },
 
     getCurrentPath: function() {
@@ -160,6 +104,10 @@ var Shareabouts = Shareabouts || {};
 
     viewPage: function(slug) {
       this.appView.viewPage(slug);
+    },
+
+    showList: function() {
+      this.appView.showListView();
     }
   });
 

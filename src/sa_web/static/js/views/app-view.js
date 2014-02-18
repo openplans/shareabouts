@@ -24,7 +24,19 @@ var Shareabouts = Shareabouts || {};
       'click .close-btn': 'onClickClosePanelBtn'
     },
     initialize: function(){
-      var self = this;
+      var self = this,
+          placeParams = {
+            // NOTE: this is to simply support the list view. It won't
+            // scale well, so let's think about a better solution.
+            include_submissions: true
+          };
+
+      // Use the page size as dictated by the server by default, unless
+      // directed to do otherwise in the configuration.
+      if (S.Config.flavor.app.places_page_size) {
+        placeParams.page_size = S.Config.flavor.app.places_page_size;
+      }
+
       // Boodstrapped data from the page
       this.activities = this.options.activities;
       this.places = this.collection;
@@ -73,8 +85,8 @@ var Shareabouts = Shareabouts || {};
       this.collection.on('remove', this.onRemovePlace, this);
 
       // On any route (/place or /page), hide the list view
-      this.options.router.bind('route', function(route, router) {
-        if (this.listView && this.listView.isVisible()) {
+      this.options.router.bind('route', function(route) {
+        if (route !== 'showList' && this.listView && this.listView.isVisible()) {
           this.hideListView();
         }
       }, this);
@@ -148,7 +160,61 @@ var Shareabouts = Shareabouts || {};
       // Show tools for adding data
       this.showAddButton();
       this.showCenterPoint();
+
+      // Load places from the API
+      this.loadPlaces(placeParams);
+
+      // Fetch the first page of activity
+      this.activities.fetch({reset: true});
     },
+
+    loadPlaces: function(placeParams) {
+      var self = this,
+          $progressContainer = $('#map-progress'),
+          $currentProgress = $('#map-progress .current-progress'),
+          pageSize,
+          totalPages,
+          pagesComplete = 0;
+
+      this.collection.fetchAllPages({
+        remove: false,
+        // Check for a valid location type before adding it to the collection
+        validate: true,
+        data: placeParams,
+
+        success: function() {
+          // Sort the list view after all of the pages have been fetched
+          self.listView.sort();
+          self.listView.updateSortLinks();
+        },
+
+        // Only do this for the first page...
+        pageSuccess: _.once(function(collection, data) {
+          pageSize = data.features.length;
+          totalPages = Math.ceil(data.metadata.length / pageSize);
+
+          if (data.metadata.next) {
+            $progressContainer.show();
+          }
+        }),
+
+        // Do this for every page...
+        pageComplete: function() {
+          var percent;
+
+          pagesComplete++;
+          percent = (pagesComplete/totalPages*100);
+          $currentProgress.width(percent + '%');
+
+          if (pagesComplete === totalPages) {
+            _.delay(function() {
+              $progressContainer.hide();
+            }, 2000);
+          }
+        }
+      });
+    },
+
     // Get the center of the map
     getCenter: function() {
       return this.mapView.map.getCenter();
@@ -379,7 +445,9 @@ var Shareabouts = Shareabouts || {};
       this.mapView.render();
     },
     showListView: function() {
+      // Re-sort if new places have come in
       this.listView.sort();
+      // Show
       this.listView.$el.addClass('is-exposed');
       $('.show-the-list').addClass('is-visuallyhidden');
       $('.show-the-map').removeClass('is-visuallyhidden');
@@ -392,8 +460,10 @@ var Shareabouts = Shareabouts || {};
     toggleListView: function() {
       if (this.listView.isVisible()) {
         this.hideListView();
+        this.options.router.navigate('');
       } else {
         this.showListView();
+        this.options.router.navigate('list');
       }
     }
   });
