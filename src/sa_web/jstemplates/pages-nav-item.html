@@ -1,5 +1,4 @@
 <li class="menu-item{{# slug }} internal-menu-item menu-item-{{ slug }}{{/ slug }}">
-
   {{#if external }}
     <a class="btn btn-block btn-secondary" href="{{ url }}">{{ title }}</a>
   {{else }}
@@ -10,12 +9,12 @@
     {{/if }}
   {{/if }}
 
-  {{#unless url }}
+  {{^if url }}
     <ul>
-    {{# sub_pages }}
+    {{# pages }}
       {{> pages-nav-item }}
-    {{/ sub_pages }}
+    {{/ pages }}
     </ul>
-  {{/unless }}
+  {{/if }}
 
 </li>
