@@ -264,9 +264,17 @@ pages:
     slug: features
     url: /static/pages/features.html
 
-  - title: _(GitHub)
-    external: true
-    url: https://github.com/openplans/shareabouts
+  - title: _(Links)
+    pages:
+      - title: _(Documentation)
+        external: true
+        url: https://github.com/openplans/shareabouts/tree/master/doc
+      - title: _(Issues)
+        external: true
+        url: https://github.com/openplans/shareabouts/issues
+      - title: _(GitHub)
+        external: true
+        url: https://github.com/openplans/shareabouts
 
 notifications:
   on_new_place: true
