@@ -1198,11 +1198,43 @@ a.close-unsupported-overlay {
     position: relative;
     top: 50%;
   }
-  .access li,
-  .access li li {
+  .access li {
   	float: left;
   	padding: 0;
   	margin: 0 0 0 0.5em;
+  }
+  .access li ul {
+    display: none;
+  }
+  .access li:hover > ul {
+    display: block;
+    background: #ccc;
+    box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.1);
+    border: 3px solid rgba(0,0,0,0.05);
+    border-radius: 0;
+    margin: -3px 0 0 0;
+    padding: 3px 0 0 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 2;
+    overflow: hidden;
+  }
+  .access li ul li:hover ul {
+    display: block;
+    top: 0;
+    left: 100%;
+  }
+  .access li li {
+  	float: none;
+  	padding: 0;
+  	margin: 0;
+  }
+  .access li li .btn {
+    border: 0;
+    border-radius: 0;
+    margin-top: -3px;
+    box-shadow: none;
   }
   #sign-in-btn {
     font-size: 1em;
