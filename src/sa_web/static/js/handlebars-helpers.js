@@ -15,6 +15,14 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
+  Handlebars.registerHelper('current_url', function() {
+    return window.location.toString();
+  });
+
+  Handlebars.registerHelper('permalink', function() {
+    return window.location.toString();
+  });
+
   // Current user -------------------------------------------------------------
 
   Handlebars.registerHelper('is_authenticated', function(options) {
@@ -59,7 +67,7 @@ var Shareabouts = Shareabouts || {};
     return (this.name === 'submitter_name') ? options.fn(this) : options.inverse(this);
   });
 
-  // Place Details
+  // Place Details ------------------------------------------------------------
   Handlebars.registerHelper('action_text', function() {
     return NS.Config.place.action_text || '';
   });
