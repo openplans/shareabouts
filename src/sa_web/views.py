@@ -189,7 +189,7 @@ def send_place_created_notifications(request, response):
 
     if html_body:
         msg.attach_alternative(html_body, 'text/html')
-    
+
     msg.send()
     return
 
