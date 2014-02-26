@@ -42,7 +42,7 @@ From the root Shareabouts directory...
 
 * Set your flavor, and dataset API key and root URL:
 
-  You will need your dataset root API URL for this step.  Suppose you are using an API server named *api.shareabouts.org* with a username *mjumbewu* and a dataset called *niceplaces*. In this case, your dataset root will he `http://api.shareabouts.org/api/v1/mjumbewu/datasets/niceplaces/`.  In general, it will always be `http://<api server>/api/v1/<username>/datasets/<dataset slug>/`.
+  You will need your dataset root API URL for this step.  Suppose you are using an API server named *api.shareabouts.org* with a username *mjumbewu* and a dataset called *niceplaces*. In this case, your dataset root will he `http://api.shareabouts.org/api/v2/mjumbewu/datasets/niceplaces/`.  In general, it will always be `http://<api server>/api/v2/<username>/datasets/<dataset slug>/`.
 
   *DotCloud*
 
