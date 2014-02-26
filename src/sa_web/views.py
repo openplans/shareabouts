@@ -59,7 +59,7 @@ class ShareaboutsApi (object):
 
 
 @ensure_csrf_cookie
-def index(request, default_place_type):
+def index(request):
 
     # Load app config settings
     config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
@@ -67,13 +67,6 @@ def index(request, default_place_type):
 
     # Get initial data for bootstrapping into the page.
     api = ShareaboutsApi(dataset_root=settings.SHAREABOUTS.get('DATASET_ROOT'))
-
-    # Handle place types in case insensitive way (park works just like Park)
-    lower_place_types = [k.lower() for k in config['place_types'].keys()]
-    if default_place_type.lower() in lower_place_types:
-        validated_default_place_type = default_place_type
-    else:
-        validated_default_place_type = ''
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
@@ -104,7 +97,6 @@ def index(request, default_place_type):
                'pages_config': pages_config,
                'pages_config_json': pages_config_json,
                'user_agent_json': user_agent_json,
-               'default_place_type': validated_default_place_type,
 
                'API_ROOT': api.root,
                'DATASET_ROOT': api.dataset_root,
