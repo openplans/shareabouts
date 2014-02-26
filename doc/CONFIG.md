@@ -404,7 +404,7 @@ By default, this will look for a *submitter_email* field on submitted places to 
 
     notifications:
       on_new_place: true
-      subitter_email_field: "private_submitter_email"
+      submitter_email_field: "private_submitter_email"
 
 If you choose to use email notifications, be sure to set the following in your environment:
 
