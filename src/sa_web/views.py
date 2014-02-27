@@ -59,8 +59,7 @@ class ShareaboutsApi (object):
 
 
 @ensure_csrf_cookie
-def index(request):
-
+def index(request, place_id=None):
     # Load app config settings
     config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
     config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
@@ -91,16 +90,24 @@ def index(request):
     user_agent = httpagentparser.detect(user_agent_string)
     user_agent_json = json.dumps(user_agent)
 
+    if place_id:
+        place = api.get('places/' + place_id)
+        if place:
+            place = json.loads(place)
+
     context = {'config': config,
 
                'user_token_json': user_token_json,
                'pages_config': pages_config,
                'pages_config_json': pages_config_json,
                'user_agent_json': user_agent_json,
+               # Useful for customized meta tags
+               'place': place,
 
                'API_ROOT': api.root,
                'DATASET_ROOT': api.dataset_root,
                }
+
     return render(request, 'index.html', context)
 
 
@@ -115,7 +122,7 @@ def place_was_created(request, path, response):
 def send_place_created_notifications(request, response):
     config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
     config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
-    
+
     # Before we start, check whether we're configured to send at all on new
     # place.
     should_send = config.get('notifications', {}).get('on_new_place', False)
