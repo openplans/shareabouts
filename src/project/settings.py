@@ -242,7 +242,7 @@ if 'EMAIL_USE_TLS' in env:
     EMAIL_USE_TLS = env['EMAIL_USE_TLS']
 
 if 'EMAIL_NOTIFICATIONS_BCC' in env:
-    EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC']
+    EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC'].split(',')
 
 ##############################################################################
 # Local settings overrides
