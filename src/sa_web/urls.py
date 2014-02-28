@@ -19,5 +19,6 @@ urlpatterns = patterns('',
     url(r'^api/(.*)$', views.api, name='api_proxy'),
     url(r'^users/(.*)$', views.users, name='auth_proxy'),
     url(r'^download/(.*).csv$', views.csv_download, name='csv_proxy'),
-    url(r'^(?P<default_place_type>[^/]*)/?', views.index, name='index'),
+    url(r'^place/(?P<place_id>[^/]+)$', views.index, name='place'),
+    url(r'^', views.index, name='index'),
 )
