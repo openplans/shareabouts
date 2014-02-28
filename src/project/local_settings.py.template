@@ -5,6 +5,10 @@ TEMPLATE_DEBUG = DEBUG
 EMAIL_ADDRESS = 'shareabouts@example.com'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Uncomment the following line if you would like to also receive emails that
+# are sent to your users.
+#EMAIL_NOTIFICATIONS_BCC = 'shareabouts@example.com'
+
 # The SHAREABOUTS['FLAVOR'] environment variable is used as a prefix for the
 # Shareabouts configuration. configuration is expected to live in a package
 # named 'flavors.<SHAREABOUTS_FLAVOR>'. This package will correspond to a

@@ -169,6 +169,9 @@ def send_place_created_notifications(request, response):
     if not recipient_email:
         return
 
+    # Set optional values
+    bcc_list = getattr(settings, 'EMAIL_NOTIFICATIONS_BCC', [])
+
     # If we didn't find any errors, then render the email and send.
     context_data = {'place': place, 'email': recipient_email, 'config': config, 'request': request}
     subject = render_to_string('new_place_email_subject.txt', context_data)
@@ -192,7 +195,8 @@ def send_place_created_notifications(request, response):
         subject,
         body,
         from_email,
-        [recipient_email])#,
+        to=[recipient_email],
+        bcc=bcc_list)#,
         # connection=connection)
 
     if html_body:
