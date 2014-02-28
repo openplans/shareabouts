@@ -90,6 +90,7 @@ def index(request, place_id=None):
     user_agent = httpagentparser.detect(user_agent_string)
     user_agent_json = json.dumps(user_agent)
 
+    place = None
     if place_id:
         place = api.get('places/' + place_id)
         if place:
