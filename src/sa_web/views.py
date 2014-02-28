@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.cache import cache
 from django.core.mail import EmailMultiAlternatives
-from django.template import TemplateDoesNotExist
+from django.template import TemplateDoesNotExist, RequestContext
 from django.template.loader import render_to_string
 from django.utils.timezone import now
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -169,8 +169,15 @@ def send_place_created_notifications(request, response):
     if not recipient_email:
         return
 
+    # Set optional values
+    bcc_list = getattr(settings, 'EMAIL_NOTIFICATIONS_BCC', [])
+
     # If we didn't find any errors, then render the email and send.
-    context_data = {'place': place, 'email': recipient_email, 'config': config, 'request': request}
+    context_data = RequestContext(request, {
+        'place': place,
+        'email': recipient_email,
+        'config': config,
+    })
     subject = render_to_string('new_place_email_subject.txt', context_data)
     body = render_to_string('new_place_email_body.txt', context_data)
 
@@ -192,7 +199,8 @@ def send_place_created_notifications(request, response):
         subject,
         body,
         from_email,
-        [recipient_email])#,
+        to=[recipient_email],
+        bcc=bcc_list)#,
         # connection=connection)
 
     if html_body:

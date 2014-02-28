@@ -241,6 +241,9 @@ if 'EMAIL_PASSWORD' in env:
 if 'EMAIL_USE_TLS' in env:
     EMAIL_USE_TLS = env['EMAIL_USE_TLS']
 
+if 'EMAIL_NOTIFICATIONS_BCC' in env:
+    EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC']
+
 ##############################################################################
 # Local settings overrides
 # ------------------------
