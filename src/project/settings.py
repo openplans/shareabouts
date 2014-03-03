@@ -1,4 +1,5 @@
 # Django settings for project project.
+import datetime
 import os.path
 
 HERE = os.path.abspath(os.path.join(os.path.dirname(__file__)))
@@ -243,6 +244,10 @@ if 'EMAIL_USE_TLS' in env:
 
 if 'EMAIL_NOTIFICATIONS_BCC' in env:
     EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC'].split(',')
+
+
+# For sitemaps and caching -- will be a new value every time the server starts
+LAST_DEPLOY_DATE = datetime.datetime.now().replace(second=0, microsecond=0).isoformat()
 
 ##############################################################################
 # Local settings overrides

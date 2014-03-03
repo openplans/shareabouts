@@ -36,10 +36,10 @@
   <link href='http://fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
 
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="{{ config.static_url }}css/custom.css">
+  <link rel="stylesheet" href="{{ config.static_url }}css/custom.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
 
   <link rel="profile" href="http://gmpg.org/xfn/11" />
 
