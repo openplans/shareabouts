@@ -415,7 +415,9 @@ If you choose to use email notifications, be sure to set the following in your e
     EMAIL_PORT
     EMAIL_USE_TLS
 
-Refer to your email provider's instructions on configuring a client for sending email with SMTP
+Refer to your email provider's instructions on configuring a client for sending email with SMTP. Also, if you would like to also be notified of new places posted, you can add yourself to a BCC list for each email by setting the following variable to a comma-separated list of email addresses:
+
+    EMAIL_NOTIFICATIONS_BCC
 
 To change the subject or body of the email that is sent to users, create templates called *new_place_email_subject.txt* and *new_place_email_body.txt* respectively in your flavor's *templates/* folder. These should templates have the variables `request`, `config`, and `place` in the context. See the file *src/sa_web/templates/new_place_email_body.txt* for an example.
 
