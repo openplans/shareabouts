@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block header_navi_block %}
+<ul class="navigation">
+  <li id="logo">
+    <img src="/static/images/logo.png"} />
+  </li>
+  <li id="quick-switch">
+  <a href=""> 
+      Help Prioritize
+      <img src="/static/images/arrow_down.svg" />
+    </a>
+    <ul>
+      <li>
+      <a href="">Get Informed</a>
+      </li>
+      <li>
+      <a href=""> Overview</a>
+      </li>
+    </ul>
+    </li>
+    <li>
+    <div id="pages-nav-container"></div>
+    </li>
+    <li>
+    <nav class="list-toggle-nav">
+      <a href="#" class="list-toggle-btn btn btn-block"><span class="show-the-map is-visuallyhidden">Map</span><span class="is-screen-reader-text">/</span><span class="show-the-list">List</span> View</a>
+    </nav>
+    </li>
+    <li class="sign-in">
+      <div id="auth-nav-container"></div>
+      </li>
+  </ul>
+{%endblock %}
+
+{% block meta %}
+  {% if place %}
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ place.properties.name }}">
+    <meta name="twitter:description" content="{{ place.properties.description }}">
+    {% with attachment=place.properties.attachments|first %}
+    <meta name="twitter:image:src" content="{{ attachment.file }}">
+    {% endwith %}
+    {% comment %} TODO: Fill this in when we know if the username is from twitter
+      <meta name="twitter:creator" content="place.submitter.username">
+    {% endcomment %}
+
+    <!-- Facebook -->
+    <meta property="og:site_name" content="{{ config.app.title }}" />
+    <meta property="og:title" content="{{ place.properties.name }}" />
+    <meta property="og:description" content="{{ place.properties.description }}" />
+    {% with attachment=place.properties.attachments|first %}
+    <meta name="og:image" content="{{ attachment.file }}">
+    {% endwith %}
+  {% else %}
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ config.app.title }}">
+    <meta name="twitter:description" content="{{ config.app.meta_description }}">
+
+    <!-- Facebook -->
+    <meta property="og:site_name" content="{{ config.app.title }}" />
+    <meta property="og:title" content="{{ config.app.title }}" />
+    <meta property="og:description" content="{{ config.app.meta_description }}" />
+  {% endif%}
+{% endblock %}
+
+<!--
+  This will place content at the top of the side bar
+ -->
+{% block sidebar %}
+{% endblock %}
+
+<!--
+  This will place content in the colophon below the map
+ -->
+{% block colophon %}
+<p id="powered-by">{% blocktrans %}Powered by{% endblocktrans %} <a href="http://shareabouts.org/" class="shareabouts-logo" target="_blank">Shareabouts</a>, <span class="nobreak">a project of <a href="http://openplans.org/" class="openplans-logo" target="_blank">OpenPlans</a>.</span></p>
+{% endblock %}
+
+<!--
+  Analytics, custom JS, and such go here
+ -->
+{% block includes %}
+{% endblock %}

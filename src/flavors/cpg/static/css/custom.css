@@ -1,0 +1,140 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+
+/* =Header
+-------------------------------------------------------------- */
+header#site-header {
+  background: #666;
+  border-bottom: 1px solid #777;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: auto;
+  width: 100%;
+  padding: 0;
+}
+header#site-header ul.navigation {
+  position: relative;
+  display: inline-table;
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+header#site-header ul li {
+  float: left;
+  padding: 15px 20px;
+  list-style: none;
+  margin: 0;
+}
+header#site-header ul li#logo {
+  padding: 5px 5px 0 5px;
+  margin: 0 0 0 10px;
+}
+header#site-header ul li#logo img {
+  height: 40px;
+}
+header#site-header ul.navigation li a{
+  color: #fff;
+  font-weight: normal;
+  text-decoration: none;
+}
+header ul li#quick-switch:hover {
+  background: #545454;
+}
+header ul li#quick-switch {
+  padding: 15px 0px;
+}
+header ul li#quick-switch img {
+  width: 12px;
+  height: 12px;
+}
+header ul li#quick-switch:hover ul {
+  display: block;
+}
+header ul li#quick-switch ul {
+  margin: 0;
+  display: none;
+  position: absolute;
+  top: 100%;
+  z-index: 1001;
+  background: rgba(113, 54, 48, 0.9);
+  width: inherit;
+  padding: 0;
+  margin: 0;
+}
+header ul li#quick-switch ul li {
+  position: relative;
+  float: none;
+  background: none;
+  padding: 10px;
+  margin: 0;
+}
+header ul li#quick-switch a {
+  padding: 0 15px;
+}
+header#site-header #pages-nav-container nav,header#site-header .list-toggle-nav {
+  top: 0;
+  margin: 0;
+  position: none;
+}
+header#site-header #pages-nav-container li {
+  padding: 0;
+  margin: 0;
+}
+header#site-header #pages-nav-container li:first-child {
+  padding: 0 40px 0 0;
+}
+header#site-header ul li.sign-in {
+  float: right;
+}
+header ul li.sign-in a#sign-in-btn{
+  margin: 0;
+  padding: 0;
+  line-height: 20px;
+}
+header#site-header ul li.sign-in .sign-in-menu {
+  top: 3.125em;
+}
+header#site-header ul li.sign-in .sign-in-menu li {
+  padding: 0;
+}
+header#site-header ul li nav a.btn {
+  background: none;
+  box-shadow: none;
+  border: none;
+  color: #fff;
+  padding: 0;
+  font-weight: normal;
+  text-decoration: none;
+  line-height: 20px;
+  font-size: 16px;
+  text-transform: none;
+}
+header ul li#quick-switch ul {
+  margin: 0;
+  display: none;
+  position: absolute;
+  top: 100%;
+  z-index: 1001;
+  background: rgba(84, 84, 84,0.9);
+  width: inherit;
+}
+#map-container,#content,#ticker,#list-container {
+  top: 3.2em;
+}
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1300px) {
+}
