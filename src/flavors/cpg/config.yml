@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Shareabouts
+  title: San Diego Infrastructure Projects (beta)
   # Header name
-  name: Shareabouts
+  name: San Diego Infrastructure Projects (beta)
   # Meta description that will show up in Google search results
-  meta_description: _(Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.)
+  meta_description: _(This app is intended for the citizens of San Diego to register their support for Capital Improvement Projects)
 
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
@@ -15,26 +15,17 @@ app:
 # Settings for map and layer configs
 map:
   geolocation_enabled: true
-  geolocation_onload: false
+  geolocation_onload: true
   options:
     center:
-      lat: 32.8245525
-      lng: -117.0951632
-    zoom: 14
+      lat: 32.8978028 
+      lng: -117.1425418
+    zoom: 10
     minZoom: 10
     maxZoom: 17
   layers:
     - url: http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
-    - url: /static/data/philadelphia.geojson
-      type: json
-      rules:
-        - condition: 'true'
-          style:
-            color: "#444"
-            opacity: 0.6
-            fillOpacity: 0.1
-            weight: 1
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
@@ -110,7 +101,7 @@ activity:
   interval: 30000
 
 place:
-  adding_supported: true
+  adding_supported: false
   add_button_label: _(Add a Place)
   action_text: _(added)
   title: _(Tell us more...)
@@ -118,6 +109,30 @@ place:
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
   items:
+    - prompt: _(Location Name)
+      type: text
+      name: name
+      attrs:
+        - key: placeholder
+          value: _(Location Name)
+        - key: size
+          value: 30
+    - prompt: _(Location Type)
+      type: select
+      options:
+        - label: _(CIP Project)
+          value: cpgproject
+        - label: _(Facilities)
+          value: facilities
+      name: location_type
+    - prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      type: file
+      name: my_image
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
     - prompt: _(Your Name)
       type: text
       name: submitter_name
@@ -127,15 +142,62 @@ place:
           value: _(Name)
         - key: size
           value: 30
-    - prompt: _(Your Email)
-      type: text
-      name: private-submitter_email
+    - prompt: _(Council District)
+      label: _(District)
+      type: textarea
+      name: district
       optional: true
       attrs:
         - key: placeholder
-          value: _(Email address)
-        - key: size
-          value: 30
+          value: _(District...)
+    - prompt: _(Community Planning Group)
+      label: _(Community Planning Group)
+      type: textarea
+      name: cpg
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Community Planning Group...)
+    - prompt: _(Neighborhood)
+      label: _(Neighborhood)
+      type: textarea
+      name: neighborhood
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Neighborhood...)
+    - prompt: _(General Location)
+      label: _(General Location)
+      type: textarea
+      name: general_location 
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(General Location...)
+    - prompt: _(Description)
+      label: _(Description)
+      type: textarea
+      name: description
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...)
+    - prompt: _(Purpose)
+      label: _(Purpose)
+      type: textarea
+      name: purpose
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Purpose...)
+    - prompt: _(Urgency)
+      label: _(Urgency)
+      type: textarea
+      name: urgency 
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Urgency...)
     - prompt: _(Location Name)
       type: text
       name: name
@@ -202,7 +264,7 @@ survey:
 
 support:
   submission_type: support
-  submit_btn_text: _(Support)
+  submit_btn_text: _(Support This!)
   response_name: _(support)
   response_plural_name: _(supports)
   action_text: supported
@@ -212,27 +274,11 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    # start_page: true
+    start_page: true
 
-  - title: _(Why Shareabouts?)
-    slug: why
-    url: /static/pages/why.html
-
-  - title: _(Features)
-    slug: features
-    url: /static/pages/features.html
-
-  - title: _(Links)
-    pages:
-      - title: _(Documentation)
-        external: true
-        url: https://github.com/openplans/shareabouts/tree/master/doc
-      - title: _(Issues)
-        external: true
-        url: https://github.com/openplans/shareabouts/issues
-      - title: _(GitHub)
-        external: true
-        url: https://github.com/openplans/shareabouts
+  - title: _(Feedback)
+    external: true
+    url: https://c4sd.uservoice.com/forums/199107-general 
 
 notifications:
   on_new_place: true

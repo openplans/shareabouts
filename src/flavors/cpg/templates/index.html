@@ -1,9 +1,38 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block site-title %}
-<a href="/">{{ config.app.name }}</a>
-{% endblock %}
+{% block header_navi_block %}
+<ul class="navigation">
+  <li id="logo">
+    <img src="/static/images/logo.png"} />
+  </li>
+  <li id="quick-switch">
+  <a href=""> 
+      Help Prioritize
+      <img src="/static/images/arrow_down.svg" />
+    </a>
+    <ul>
+      <li>
+      <a href="">Get Informed</a>
+      </li>
+      <li>
+      <a href=""> Overview</a>
+      </li>
+    </ul>
+    </li>
+    <li>
+    <div id="pages-nav-container"></div>
+    </li>
+    <li>
+    <nav class="list-toggle-nav">
+      <a href="#" class="list-toggle-btn btn btn-block"><span class="show-the-map is-visuallyhidden">Map</span><span class="is-screen-reader-text">/</span><span class="show-the-list">List</span> View</a>
+    </nav>
+    </li>
+    <li class="sign-in">
+      <div id="auth-nav-container"></div>
+      </li>
+  </ul>
+{%endblock %}
 
 {% block meta %}
   {% if place %}
