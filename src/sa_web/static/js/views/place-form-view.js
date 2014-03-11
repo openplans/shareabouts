@@ -37,8 +37,8 @@ var Shareabouts = Shareabouts || {};
     },
     // This is called from the app view
     setLatLng: function(latLng) {
-      console.log('set latlng');
       this.center = latLng;
+      this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
     },
     // Get the attributes from the form
     getAttrs: function() {

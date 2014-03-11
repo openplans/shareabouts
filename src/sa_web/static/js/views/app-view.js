@@ -222,17 +222,25 @@ var Shareabouts = Shareabouts || {};
     getCenter: function() {
       return this.mapView.map.getCenter();
     },
+    setPlaceFormViewLatLng: function(centerLatLng) {
+      if (this.placeFormView) {
+        this.placeFormView.setLatLng(centerLatLng);
+      }
+    },
     onMapMoveStart: function(evt) {
       this.$centerpoint.addClass('dragging');
     },
     onMapMoveEnd: function(evt) {
       this.$centerpoint.removeClass('dragging');
+
+      // Never set the placeFormView's latLng until the user does it with a
+      // drag event (below)
+      if (this.placeFormView && this.placeFormView.center) {
+        this.setPlaceFormViewLatLng(this.getCenter());
+      }
     },
     onMapDragEnd: function(evt) {
-      if (this.placeFormView) {
-        this.placeFormView.setLatLng(this.getCenter());
-        this.placeFormView.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
-      }
+      this.setPlaceFormViewLatLng(this.getCenter());
     },
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
