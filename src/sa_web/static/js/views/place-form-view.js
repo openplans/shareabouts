@@ -35,10 +35,14 @@ var Shareabouts = Shareabouts || {};
       // TODO handle model errors!
       console.log('oh no errors!!', model, res);
     },
+    // This is called from the app view
+    setLatLng: function(latLng) {
+      this.center = latLng;
+      this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
+    },
     // Get the attributes from the form
     getAttrs: function() {
-      var attrs = {},
-          center = this.options.appView.getCenter();
+      var attrs = {};
 
       // Get values from the form
       _.each(this.$('form').serializeArray(), function(item, i) {
@@ -48,7 +52,7 @@ var Shareabouts = Shareabouts || {};
       // Get the location attributes from the map
       attrs.geometry = {
         type: 'Point',
-        coordinates: [center.lng, center.lat]
+        coordinates: [this.center.lng, this.center.lat]
       };
 
       return attrs;
@@ -90,6 +94,20 @@ var Shareabouts = Shareabouts || {};
       }
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
+      // Make sure that the center point has been set after the form was
+      // rendered. If not, this is a good indication that the user neglected
+      // to move the map to set it in the correct location.
+      if (!this.center) {
+        this.$('.drag-marker-instructions').addClass('is-visuallyhidden');
+        this.$('.drag-marker-warning').removeClass('is-visuallyhidden');
+
+        // Scroll to the top of the panel if desktop
+        this.$el.parent('article').scrollTop(0);
+        // Scroll to the top of the window, if mobile
+        window.scrollTo(0, 0);
+        return;
+      }
+
       var router = this.options.router,
           model = this.model,
           // Should not include any files

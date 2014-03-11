@@ -557,18 +557,21 @@ a.logout-btn {
 }
 
 /* Drag Marker Instructions (for adding a new place) */
-.drag-marker-instructions {
+.drag-marker-instructions,
+.drag-marker-warning {
   background-color: LightYellow;
   background-color: rgba(240,240,0,0.2);
   color: #444;
-  font-size: 0.875em;
   font-weight: bold;
   text-shadow: -1px 1px 0 rgba(255,255,255,0.5);
   text-align: center;
-  line-height: 2;
   margin-bottom: 1em;
-  padding: 0.325em;
+  padding: 0.75em 1em 0.875em;
   border-radius: 0.325em;
+}
+.drag-marker-warning {
+  background-color: LightPink;
+  background-color: rgba(242, 206, 206, 0.8);
 }
 
 /* Ajax Error Message */
@@ -954,7 +957,7 @@ ul.recent-points {
 /* =List View
 -------------------------------------------------------------- */
 
-.list-toggle-nav { 
+.list-toggle-nav {
   display: none;
 }
 
@@ -1047,10 +1050,10 @@ ul.recent-points {
   margin: 0 1em 0.75em 0;
 }
 
-.place-list .place-label, 
+.place-list .place-label,
 .place-list .place-value {
 }
-.place-list .place-label:empty, 
+.place-list .place-label:empty,
 .place-list .place-value:empty {
   display: none;
 }
@@ -1399,7 +1402,7 @@ a.close-unsupported-overlay {
   }
 
   /* List View */
-  .list-toggle-nav { 
+  .list-toggle-nav {
     display: block;
     float: right;
     width: auto;

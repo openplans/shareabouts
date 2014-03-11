@@ -149,6 +149,9 @@ var Shareabouts = Shareabouts || {};
       // with utmost awesomeness.
       this.mapView.map.on('movestart', this.onMapMoveStart, this);
       this.mapView.map.on('moveend', this.onMapMoveEnd, this);
+      // For knowing if the user has moved the map after opening the form.
+      this.mapView.map.on('dragend', this.onMapDragEnd, this);
+
 
       // This is the "center" when the popup is open
       this.offsetRatio = {x: 0.2, y: 0.0};
@@ -219,11 +222,25 @@ var Shareabouts = Shareabouts || {};
     getCenter: function() {
       return this.mapView.map.getCenter();
     },
+    setPlaceFormViewLatLng: function(centerLatLng) {
+      if (this.placeFormView) {
+        this.placeFormView.setLatLng(centerLatLng);
+      }
+    },
     onMapMoveStart: function(evt) {
       this.$centerpoint.addClass('dragging');
     },
     onMapMoveEnd: function(evt) {
       this.$centerpoint.removeClass('dragging');
+
+      // Never set the placeFormView's latLng until the user does it with a
+      // drag event (below)
+      if (this.placeFormView && this.placeFormView.center) {
+        this.setPlaceFormViewLatLng(this.getCenter());
+      }
+    },
+    onMapDragEnd: function(evt) {
+      this.setPlaceFormViewLatLng(this.getCenter());
     },
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
