@@ -3,6 +3,8 @@ Shareabouts [![Build Status](https://secure.travis-ci.org/openplans/shareabouts.
 
 Shareabouts is an online mapping tool to gather crowdsourced public input in a social and engaging process. Using Shareabouts, people can drop a pin on a map to provide ideas, suggestions, and comments for planning and design issues. And as a mobile-friendly application, Shareabouts makes it easy to add input on the go.
 
+Read more about Shareabouts and find links to recent sites [on the OpenPlans website](http://openplans.org/work/shareabouts/).
+
 Features
 -------------
 <dl>
@@ -64,13 +66,6 @@ If you have questions for the development team,
 * hit us up on Twitter [@Shareabouts](http://twitter.com/shareabouts)
 
 You can always contact OpenPlans directly [via our website](http://openplans.org).
-
-Demos
-------------
-* [gathering usage data for a city park](http://sistercities.shareabouts.org/)
-* [mapping ATM surcharges](http://nosur.shareabouts.org/)
-* [surveying bike commuters about parking at stations](http://bikeparking.shareabouts.org/)
-* [tracking and describing community assets](http://communitymap.shareabouts.org/)
 
 Contributing
 ------------
