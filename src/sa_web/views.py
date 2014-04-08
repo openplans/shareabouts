@@ -86,9 +86,17 @@ def index(request, place_id=None):
     user_token_json = u'"{0}"'.format(request.session['user_token'])
 
     # Get the browser that the user is using.
-    user_agent_string = request.META['HTTP_USER_AGENT']
-    user_agent = httpagentparser.detect(user_agent_string)
-    user_agent_json = json.dumps(user_agent)
+    user_agent_string = request.META.get('HTTP_USER_AGENT', '')
+    if user_agent_string:
+        user_agent = httpagentparser.detect(user_agent_string)
+        user_agent_json = json.dumps(user_agent)
+    else:
+        # If no user agent is specified, stub a generic one in.
+        user_agent_json = json.dumps({
+            "os": {"name": ""},
+            "browser": {"name": "", "version": None},
+            "platform": {"name": "", "version": None}
+        })
 
     place = None
     if place_id:
