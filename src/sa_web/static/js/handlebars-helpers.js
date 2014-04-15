@@ -23,6 +23,14 @@ var Shareabouts = Shareabouts || {};
     return window.location.toString();
   });
 
+  Handlebars.registerHelper('place_url', function(place_id) {
+    var l = window.location,
+        protocol = l.protocol,
+        host = l.host;
+
+    return [protocol, '//', host, '/place/', place_id].join('');
+  });
+
   // Current user -------------------------------------------------------------
 
   Handlebars.registerHelper('is_authenticated', function(options) {
