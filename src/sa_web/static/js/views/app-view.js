@@ -308,13 +308,13 @@ var Shareabouts = Shareabouts || {};
       // Called by the router
       this.collection.add({});
     },
-    viewPlace: function(model, zoom) {
+    viewPlace: function(model, responseId, zoom) {
       var self = this,
           onPlaceFound, onPlaceNotFound, modelId;
 
       onPlaceFound = function(model) {
         var map = self.mapView.map,
-            layer, center, placeDetailView;
+            layer, center, placeDetailView, $responseToScrollTo;
 
         // If this model is a duplicate of one that already exists in the
         // places collection, it may not correspond to a layerView. For this
@@ -328,7 +328,7 @@ var Shareabouts = Shareabouts || {};
         center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        self.showPanel(placeDetailView.render().$el);
+        self.showPanel(placeDetailView.render().$el, true);
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -343,6 +343,16 @@ var Shareabouts = Shareabouts || {};
 
         } else {
           map.panTo(center, {animate: true});
+        }
+
+        if (responseId) {
+          // get the element based on the id
+          $responseToScrollTo = placeDetailView.$el.find('[data-response-id="'+ responseId +'"]');
+
+          // call scrollIntoView()
+          if ($responseToScrollTo.length > 0) {
+            $responseToScrollTo.get(0).scrollIntoView();
+          }
         }
 
         // Focus the one we're looking
@@ -395,7 +405,7 @@ var Shareabouts = Shareabouts || {};
       this.hideCenterPoint();
       this.hideAddButton();
     },
-    showPanel: function(markup) {
+    showPanel: function(markup, preventScrollToTop) {
       var map = this.mapView.map;
 
       this.unfocusAllPlaces();
@@ -403,10 +413,12 @@ var Shareabouts = Shareabouts || {};
       this.$panelContent.html(markup);
       this.$panel.show();
 
-      this.$panelContent.scrollTop(0);
-      // Scroll to the top of window when showing new content on mobile. Does
-      // nothing on desktop.
-      window.scrollTo(0, 0);
+      if (preventScrollToTop) {
+        this.$panelContent.scrollTop(0);
+        // Scroll to the top of window when showing new content on mobile. Does
+        // nothing on desktop.
+        window.scrollTo(0, 0);
+      }
 
       $('body').addClass('content-visible');
       map.invalidateSize({ pan:false });

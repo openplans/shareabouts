@@ -97,8 +97,8 @@ var Shareabouts = Shareabouts || {};
       this.appView.newPlace();
     },
 
-    viewPlace: function(id) {
-      this.appView.viewPlace(id, this.loading);
+    viewPlace: function(id, responseId) {
+      this.appView.viewPlace(id, responseId, this.loading);
     },
 
     editPlace: function(){},
