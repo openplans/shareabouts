@@ -17,7 +17,16 @@ var Shareabouts = Shareabouts || {};
 
     render: function() {
       var self = this,
-          responses = [];
+          responses = [],
+          url = window.location.toString(),
+          urlParts = url.split('response/'),
+          responseIdToScrollTo,
+          $responseToScrollTo;
+
+      // get the response id from the url
+      if (urlParts.length === 2) {
+        responseIdToScrollTo = urlParts[1];
+      }
 
       // I don't understand why we need to redelegate the event here, but they
       // are definitely unbound after the first render.
@@ -42,6 +51,16 @@ var Shareabouts = Shareabouts || {};
         user_token: this.options.userToken,
         survey_config: this.options.surveyConfig
       }));
+
+      // get the element based on the id
+      $responseToScrollTo = this.$el.find('[data-response-id="'+ responseIdToScrollTo +'"]');
+
+      // call scrollIntoView()
+      if ($responseToScrollTo.length > 0) {
+        setTimeout(function() {
+          $responseToScrollTo.get(0).scrollIntoView();
+        }, 500);
+      }
 
       return this;
     },

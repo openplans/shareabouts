@@ -23,6 +23,10 @@ var Shareabouts = Shareabouts || {};
     return window.location.toString();
   });
 
+  Handlebars.registerHelper('is', function(a, b, options) {
+    return a === b ? options.fn(this) : options.inverse(this);
+  });
+
   // Current user -------------------------------------------------------------
 
   Handlebars.registerHelper('is_authenticated', function(options) {
@@ -150,6 +154,14 @@ var Shareabouts = Shareabouts || {};
     }, this);
 
     return result;
+  });
+
+  Handlebars.registerHelper('place_url', function(place_id) {
+    var l = window.location,
+        protocol = l.protocol,
+        host = l.host;
+
+    return [protocol, '//', host, '/place/', place_id].join('');
   });
 
 }(Shareabouts));
