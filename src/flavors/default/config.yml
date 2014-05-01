@@ -42,13 +42,15 @@ place_types:
   landmark:
     label: _(Landmark)
     rules:
-      - condition: '"{{location_type}}" === "landmark"'
-        # Display landmarks as icons
+      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} < 13'
+        # Display landmarks as circles (vectors) when zoomed out
 
-        icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [17, 18]
-          iconAnchor: [9, 9]
+        style:
+          color: '#0d85e9'
+          radius: 3
+          weight: 1
+          opacity: 0.9
+          fillOpacity: 1
         focus_icon:
           iconUrl: /static/css/images/markers/marker-0d85e9.png
           shadowUrl: /static/css/images/marker-shadow.png
@@ -56,18 +58,19 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
 
-        # style:
-        #   color: '#0d85e9'
-        #   radius: 8
-        #   weight: 1
-        #   opacity: 0.9
-        #   fillOpacity: 0.4
-        # focus_style:
-        #   color: '#0d85e9'
-        #   radius: 16
-        #   weight: 1
-        #   opacity: 0.9
-        #   fillOpacity: 0.4
+      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} >= 13'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/dot-2654d2.png
+          iconSize: [17, 18]
+          iconAnchor: [9, 9]
+        focus_icon:
+          iconUrl: /static/css/images/markers/marker-2654d2.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
 
   park:
     label: _(Park)

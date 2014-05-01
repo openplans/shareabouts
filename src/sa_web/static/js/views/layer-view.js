@@ -16,13 +16,15 @@ var Shareabouts = Shareabouts || {};
       this.model.on('focus', this.focus, this);
       this.model.on('unfocus', this.unfocus, this);
 
+      this.map.on('zoomend', this.updateLayer, this);
+
       // On map move, adjust the visibility of the markers for max efficiency
       this.map.on('move', this.throttledRender, this);
 
       this.initLayer();
     },
     initLayer: function() {
-      var geom;
+      var geom, context;
 
       // Handle if an existing place type does not match the list of available
       // place types.
@@ -36,15 +38,19 @@ var Shareabouts = Shareabouts || {};
       // Don't draw new places. They are shown by the centerpoint in the app view
       if (!this.model.isNew()) {
         geom = this.model.get('geometry');
-
-        this.styleRule = L.Argo.getStyleRule(this.model.toJSON(), this.placeType.rules);
+        context = _.extend({}, this.model.toJSON(), {map: {zoom: this.map.getZoom()}});
+        this.styleRule = L.Argo.getStyleRule(context, this.placeType.rules);
 
         if (geom.type === 'Point') {
           this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
-          if (this.styleRule.icon) {
-            this.layer = L.marker(this.latLng, {icon: L.icon(this.styleRule.icon)});
-          } else {
-            this.layer = L.circleMarker(this.latLng, this.styleRule.style);
+          if (this.hasIconForState()) {
+            this.layer = this.isFocused ?
+              L.marker(this.latLng, {icon: L.icon(this.styleRule.focus_icon)}) :
+              L.marker(this.latLng, {icon: L.icon(this.styleRule.icon)});
+          } else if (this.hasStyle()) {
+            this.layer = this.isFocused ?
+              L.circleMarker(this.latLng, this.styleRule.focus_style) :
+              L.circleMarker(this.latLng, this.styleRule.style);
           }
         } else {
           this.layer = L.GeoJSON.geometryToLayer(geom);
@@ -52,7 +58,9 @@ var Shareabouts = Shareabouts || {};
         }
 
         // Focus on the marker onclick
-        this.layer.on('click', this.onMarkerClick, this);
+        if (this.layer) {
+          this.layer.on('click', this.onMarkerClick, this);
+        }
 
         this.render();
       }
@@ -85,43 +93,32 @@ var Shareabouts = Shareabouts || {};
       S.Util.log('USER', 'map', 'place-marker-click', this.model.getLoggingDetails());
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
     },
-    
-    isStyledWithIcon: function() {
-      return (
-        this.styleRule.icon &&
-        this.model.get('geometry').type == 'Point'
-      );
+
+    hasIcon: function() {
+      var isPoint = this.model.get('geometry').type == 'Point';
+      return isPoint && this.hasIconForState();
     },
-    hasFocusIconToggle: function() {
-      return (
-        this.styleRule.icon &&
-        this.styleRule.focus_icon &&
-        this.model.get('geometry').type == 'Point'
-      );
+    hasIconForState: function() {
+      return this.styleRule &&
+             ((!this.isFocused && this.styleRule.icon) ||
+              (this.isFocused && this.styleRule.focus_icon));
     },
-    hasFocusStyleToggle: function() {
-      return (
-        this.styleRule.style &&
-        this.styleRule.focus_style
-      );
+    hasStyle: function() {
+      return this.styleRule &&
+             ((!this.isFocused && this.styleRule.style) ||
+              (this.isFocused && this.styleRule.focus_style));
     },
 
     focus: function() {
-      if (this.styleRule) {
-        if (this.hasFocusIconToggle()) {
-          this.setIcon(L.icon(this.styleRule.focus_icon));
-        } else if (this.hasFocusStyleToggle()) {
-          this.layer.setStyle(this.styleRule.focus_style);
-        }
+      if (!this.isFocused) {
+        this.isFocused = true;
+        this.updateLayer();
       }
     },
     unfocus: function() {
-      if (this.styleRule) {
-        if (this.hasFocusIconToggle()) {
-          this.setIcon(L.icon(this.styleRule.icon));
-        } else if (this.hasFocusStyleToggle()) {
-          this.layer.setStyle(this.styleRule.style);
-        }
+      if (this.isFocused) {
+        this.isFocused = false;
+        this.updateLayer();
       }
     },
     remove: function() {

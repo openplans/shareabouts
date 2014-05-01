@@ -325,7 +325,10 @@ var Shareabouts = Shareabouts || {};
 
         layer = self.mapView.layerViews[model.cid].layer;
         placeDetailView = self.getPlaceDetailView(model);
-        center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
+
+        if (layer) {
+          center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
+        }
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
         self.showPanel(placeDetailView.render().$el, true);
@@ -334,15 +337,17 @@ var Shareabouts = Shareabouts || {};
         self.hideCenterPoint();
         self.hideAddButton();
 
-        if (zoom) {
-          if (layer.getLatLng) {
-            map.setView(center, map.getMaxZoom()-1, {animate: true});
-          } else {
-            map.fitBounds(layer.getBounds());
-          }
+        if (layer) {
+          if (zoom) {
+            if (layer.getLatLng) {
+              map.setView(center, map.getMaxZoom()-1, {animate: true});
+            } else {
+              map.fitBounds(layer.getBounds());
+            }
 
-        } else {
-          map.panTo(center, {animate: true});
+          } else {
+            map.panTo(center, {animate: true});
+          }
         }
 
         if (responseId) {
