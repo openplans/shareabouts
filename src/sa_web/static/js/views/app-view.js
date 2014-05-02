@@ -134,7 +134,7 @@ var Shareabouts = Shareabouts || {};
       });
 
 
-      // Activity is enabled by default (undefined) or by enabling it
+      // List view is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
       if (_.isUndefined(S.Config.flavor.app.list_enabled) ||
         S.Config.flavor.app.list_enabled) {
