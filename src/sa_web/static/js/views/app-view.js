@@ -25,10 +25,12 @@ var Shareabouts = Shareabouts || {};
     },
     initialize: function(){
       var self = this,
+          // Only include submissions if the list view is enabled (anything but false)
+          includeSubmissions = S.Config.flavor.app.list_enabled !== false,
           placeParams = {
             // NOTE: this is to simply support the list view. It won't
             // scale well, so let's think about a better solution.
-            include_submissions: true
+            include_submissions: includeSubmissions
           };
 
       // Use the page size as dictated by the server by default, unless
@@ -318,6 +320,7 @@ var Shareabouts = Shareabouts || {};
     },
     viewPlace: function(model, responseId, zoom) {
       var self = this,
+          includeSubmissions = S.Config.flavor.app.list_enabled !== false,
           onPlaceFound, onPlaceNotFound, modelId;
 
       onPlaceFound = function(model) {
@@ -398,7 +401,7 @@ var Shareabouts = Shareabouts || {};
           success: onPlaceFound,
           error: onPlaceNotFound,
           data: {
-            include_submissions: true
+            include_submissions: includeSubmissions
           }
         });
       }
