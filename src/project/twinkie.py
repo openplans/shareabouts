@@ -4,13 +4,15 @@ from django.conf import settings
 from wsgiref.headers import Headers
 from wsgiref.handlers import format_date_time
 from time import time
-from sys import stderr
 
-from logging import getLogger, DEBUG, StreamHandler
-
+from logging import getLogger
 log = getLogger(__name__)
-log.setLevel(DEBUG)
-log.addHandler(StreamHandler(stderr))
+
+## The following is useful for local debugging
+# from logging import DEBUG, StreamHandler
+# from sys import stderr
+# log.setLevel(DEBUG)
+# log.addHandler(StreamHandler(stderr))
 
 
 class ExpiresMiddleware (object):
