@@ -133,10 +133,16 @@ var Shareabouts = Shareabouts || {};
         placeTypes: this.options.placeTypes
       });
 
-      this.listView = new S.PlaceListView({
-        el: '#list-container',
-        collection: this.collection
-      }).render();
+
+      // Activity is enabled by default (undefined) or by enabling it
+      // explicitly. Set it to a falsey value to disable activity.
+      if (_.isUndefined(S.Config.flavor.app.list_enabled) ||
+        S.Config.flavor.app.list_enabled) {
+          this.listView = new S.PlaceListView({
+            el: '#list-container',
+            collection: this.collection
+          }).render();
+      }
 
       // Cache panel elements that we use a lot
       this.$panel = $('#content');
@@ -187,8 +193,10 @@ var Shareabouts = Shareabouts || {};
 
         success: function() {
           // Sort the list view after all of the pages have been fetched
-          self.listView.sort();
-          self.listView.updateSortLinks();
+          if (self.listView) {
+            self.listView.sort();
+            self.listView.updateSortLinks();
+          }
         },
 
         // Only do this for the first page...
