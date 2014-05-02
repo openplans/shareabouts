@@ -21,12 +21,18 @@ sys.path.insert(0, projectdir)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 
-# This application object is used by any WSGI server configured to use this
-# file. This includes Django's development server, if the WSGI_APPLICATION
-# setting points here.
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
-# Apply WSGI middleware here.
-# from helloworld.wsgi import HelloWorldApplication
-# application = HelloWorldApplication(application)
+from dj_static import Cling
+application = Cling(application)
+
+from .gzip_middleware import GzipMiddleware
+application = GzipMiddleware(application)
+
+from .twinkie import ExpiresMiddleware
+application = ExpiresMiddleware(application, {
+    'application/javascript': 365*24*60*60,
+    'text/css':               365*24*60*60,
+    'image/png':              365*24*60*60,
+})

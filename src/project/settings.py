@@ -61,10 +61,12 @@ MEDIA_URL = ''
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = './'
+COMPRESS_ROOT = STATIC_ROOT
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
+COMPRESS_URL = STATIC_URL
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -222,6 +224,9 @@ LOGGING = {
 
 env = os.environ
 
+if 'DEBUG' in env:
+    DEBUG = TEMPLATE_DEBUG = (env.get('DEBUG').lower() in ('true', 'on', 't', 'yes'))
+
 if 'SHAREABOUTS_FLAVOR' in env:
     SHAREABOUTS['FLAVOR'] = env.get('SHAREABOUTS_FLAVOR')
 if 'SHAREABOUTS_DATASET_ROOT' in env:
@@ -244,6 +249,16 @@ if 'EMAIL_USE_TLS' in env:
 
 if 'EMAIL_NOTIFICATIONS_BCC' in env:
     EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC'].split(',')
+
+if all(['S3_MEDIA_BUCKET' in env, 'AWS_ACCESS_KEY' in env, 'AWS_SECRET_KEY' in env]):
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_MEDIA_BUCKET')
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_KEY')
+
+    # Set the compress storage, but not the static files storage, to S3.
+    COMPRESS_ENABLED = not DEBUG
+    COMPRESS_STORAGE = 'project.backends.S3BotoStorage'
+    COMPRESS_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
 
 # For sitemaps and caching -- will be a new value every time the server starts

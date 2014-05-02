@@ -2,6 +2,7 @@
 django<1.6
 # gevent
 gunicorn
+dj-static
 
 # Database
 south
