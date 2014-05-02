@@ -3,7 +3,19 @@ Shareabouts [![Build Status](https://secure.travis-ci.org/openplans/shareabouts.
 
 Shareabouts is an online mapping tool to gather crowdsourced public input in a social and engaging process. Using Shareabouts, people can drop a pin on a map to provide ideas, suggestions, and comments for planning and design issues. And as a mobile-friendly application, Shareabouts makes it easy to add input on the go.
 
-Read more about Shareabouts and find links to recent sites [on the OpenPlans website](http://openplans.org/work/shareabouts/).
+Read more about Shareabouts and find links to recent sites [on the OpenPlans website](http://openplans.org/shareabouts/).
+
+Problems? Ideas? Let us know!
+--------------------
+
+We strongly welcome your feature suggestions. [Check out our roadmap](https://trello.com/b/94MT3WRQ/openplans-roadmap) and help us with prioritizing by commenting on the features you'd like to see. If you encounted a bug, [create an issue](https://github.com/openplans/shareabouts/issues) on this GitHub repo.
+
+If you have questions for the development team,
+* [community.openplans.org](http://community.openplans.org) is a good starting point for troubleshooting or questions, or just to share your Shareabouts stories
+* you'll find the Shareabouts team in #shareabouts on [irc.freenode.net](http://irc.freenode.net).
+* hit us up on Twitter [@OpenPlans](http://twitter.com/openplans)
+* email us at hello@openplans.org
+
 
 Features
 -------------
@@ -53,19 +65,7 @@ All of our documentation is is our `doc` directory. Use it to learn more about:
 * [how to deploy](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md)
 * [upgrading from an older version](https://github.com/openplans/shareabouts/blob/master/doc/UPGRADE.md)
 
-Where is Sharabouts going? Check [our roadmap](https://github.com/openplans/shareabouts/wiki/Roadmap) for details of possble future features we've identified.
-
-Problems? Ideas? Let us know!
---------------------
-
-We strongly welcome your feature suggestions. [Create an issue](https://github.com/openplans/shareabouts/issues) on this GitHub repo, and help us with prioritizing by commenting on the features you'd like to see.
-
-If you have questions for the development team,
-* [the developer discussion list](http://groups.google.com/group/shareabouts-dev) is a good starting point for troubleshooting or questions
-* you'll find the Shareabouts team in #shareabouts on [irc.freenode.net](http://irc.freenode.net).
-* hit us up on Twitter [@Shareabouts](http://twitter.com/shareabouts)
-
-You can always contact OpenPlans directly [via our website](http://openplans.org).
+Where is Sharabouts going? Check [our roadmap](https://trello.com/b/94MT3WRQ/openplans-roadmap) for details of possble future features we've identified.
 
 Contributing
 ------------
