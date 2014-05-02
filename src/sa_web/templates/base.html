@@ -35,8 +35,10 @@
   <!-- Google WebFonts -->
   <link href='http://fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
+  {% compress css %}
+  <link rel="stylesheet" href="{{ settings.COMPRESS_URL }}css/normalize.css">
+  <link rel="stylesheet" href="{{ settings.COMPRESS_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
+  {% endcompress %}
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="{{ config.static_url }}css/custom.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
@@ -139,22 +141,23 @@
   <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 
   {% compress js %}
-  <script src="{{STATIC_URL}}libs/underscore.js"></script>
-  <script src="{{STATIC_URL}}libs/backbone.js"></script>
-  <script src="{{STATIC_URL}}libs/backbone.marionette.js"></script>
-  <script src="{{STATIC_URL}}libs/handlebars-1.0.0.js"></script>
-  <script src="{{STATIC_URL}}libs/moment.min.js"></script>
-  <script src="{{STATIC_URL}}libs/json2.js"></script>
-  <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
-  <script src="{{STATIC_URL}}libs/binaryajax.js"></script>
-  <script src="{{STATIC_URL}}libs/exif.js"></script>
-  <script src="{{STATIC_URL}}libs/load-image.min.js"></script>
-  <script src="{{STATIC_URL}}libs/canvas-to-blob.min.js"></script>
-  <script src="{{STATIC_URL}}libs/spin.min.js"></script>
-  <script src="{{STATIC_URL}}libs/gatekeeper.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/underscore.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/backbone.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/backbone.marionette.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/handlebars-1.0.0.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/moment.min.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/json2.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/leaflet.argo.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/binaryajax.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/exif.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/load-image.min.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/canvas-to-blob.min.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/spin.min.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/gatekeeper.js"></script>
 
-  <script src="{{STATIC_URL}}js/utils.js"></script>
-  <script src="{{STATIC_URL}}js/template-helpers.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/utils.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/template-helpers.js"></script>
+  {% endcompress %}
 
   <script>
     $(function() {
@@ -199,20 +202,21 @@
     }
   </script>
 
-  <script src="{{STATIC_URL}}js/handlebars-helpers.js"></script>
-  <script src="{{STATIC_URL}}js/models.js"></script>
-  <script src="{{STATIC_URL}}js/views/pages-nav-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/auth-nav-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/activity-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/app-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/layer-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/map-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/support-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-list-view.js"></script>
-  <script src="{{STATIC_URL}}js/routes.js"></script>
+  {% compress js %}
+  <script src="{{settings.COMPRESS_URL}}js/handlebars-helpers.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/models.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/pages-nav-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/auth-nav-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/activity-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/app-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/layer-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/map-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/support-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/survey-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/place-detail-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/place-form-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/place-list-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/routes.js"></script>
   {% endcompress %}
 
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
