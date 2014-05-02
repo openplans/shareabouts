@@ -7,6 +7,7 @@ var Shareabouts = Shareabouts || {};
      // A view responsible for the representation of a place on the map.
     initialize: function(){
       this.map = this.options.map;
+      this.isFocused = false;
 
       // A throttled version of the render function
       this.throttledRender = _.throttle(this.render, 300);
@@ -37,27 +38,36 @@ var Shareabouts = Shareabouts || {};
 
       // Don't draw new places. They are shown by the centerpoint in the app view
       if (!this.model.isNew()) {
-        geom = this.model.get('geometry');
-        context = _.extend({}, this.model.toJSON(), {map: {zoom: this.map.getZoom()}});
+
+        // Determine the style rule to use based on the model data and the map
+        // state.
+        context = _.extend({},
+          this.model.toJSON(),
+          {map: {zoom: this.map.getZoom()}},
+          {layer: {focused: this.isFocused}});
         this.styleRule = L.Argo.getStyleRule(context, this.placeType.rules);
 
+        // Construct an appropriate layer based on the model geometry and the
+        // style rule. If the place is focused, use the 'focus_' portion of
+        // the style rule if it exists.
+        geom = this.model.get('geometry');
         if (geom.type === 'Point') {
           this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
-          if (this.hasIconForState()) {
-            this.layer = this.isFocused ?
+          if (this.hasIcon()) {
+            this.layer = (this.isFocused && this.styleRule.focus_icon ?
               L.marker(this.latLng, {icon: L.icon(this.styleRule.focus_icon)}) :
-              L.marker(this.latLng, {icon: L.icon(this.styleRule.icon)});
+              L.marker(this.latLng, {icon: L.icon(this.styleRule.icon)}));
           } else if (this.hasStyle()) {
-            this.layer = this.isFocused ?
+            this.layer = (this.isFocused && this.styleRule.focus_style ?
               L.circleMarker(this.latLng, this.styleRule.focus_style) :
-              L.circleMarker(this.latLng, this.styleRule.style);
+              L.circleMarker(this.latLng, this.styleRule.style));
           }
         } else {
           this.layer = L.GeoJSON.geometryToLayer(geom);
           this.layer.setStyle(this.styleRule.style);
         }
 
-        // Focus on the marker onclick
+        // Focus on the layer onclick
         if (this.layer) {
           this.layer.on('click', this.onMarkerClick, this);
         }
@@ -94,19 +104,14 @@ var Shareabouts = Shareabouts || {};
       this.options.router.navigate('/place/' + this.model.id, {trigger: true});
     },
 
-    hasIcon: function() {
-      var isPoint = this.model.get('geometry').type == 'Point';
-      return isPoint && this.hasIconForState();
+    isPoint: function() {
+      return this.model.get('geometry').type == 'Point';
     },
-    hasIconForState: function() {
-      return this.styleRule &&
-             ((!this.isFocused && this.styleRule.icon) ||
-              (this.isFocused && this.styleRule.focus_icon));
+    hasIcon: function() {
+      return this.styleRule && this.styleRule.icon;
     },
     hasStyle: function() {
-      return this.styleRule &&
-             ((!this.isFocused && this.styleRule.style) ||
-              (this.isFocused && this.styleRule.focus_style));
+      return this.styleRule && this.styleRule.style;
     },
 
     focus: function() {

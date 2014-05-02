@@ -42,7 +42,7 @@ place_types:
   landmark:
     label: _(Landmark)
     rules:
-      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} < 13'
+      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} < 13 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -51,22 +51,20 @@ place_types:
           weight: 1
           opacity: 0.9
           fillOpacity: 1
-        focus_icon:
-          iconUrl: /static/css/images/markers/marker-0d85e9.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [25, 41]
-          shadowSize: [41, 41]
-          iconAnchor: [12, 41]
 
-      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} >= 13'
+      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/markers/dot-2654d2.png
+          iconUrl: /static/css/images/markers/dot-0d85e9.png
           iconSize: [17, 18]
           iconAnchor: [9, 9]
-        focus_icon:
-          iconUrl: /static/css/images/markers/marker-2654d2.png
+
+      - condition: '"{{location_type}}" === "landmark" && {{layer.focused}} === true'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-0d85e9.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [25, 41]
           shadowSize: [41, 41]
@@ -75,14 +73,10 @@ place_types:
   park:
     label: _(Park)
     rules:
-      - condition: '"{{location_type}}" === "park"'
+      - condition: '"{{location_type}}" === "park" && {{layer.focused}}'
         # Show parks that are points as icons...
 
         icon:
-          iconUrl: /static/css/images/markers/dot-4bbd45.png
-          iconSize: [17, 18]
-          iconAnchor: [9, 9]
-        focus_icon:
           iconUrl: /static/css/images/markers/marker-4bbd45.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [25, 41]
@@ -93,13 +87,22 @@ place_types:
 
         style:
           color: '#4bbd45'
-          radius: 8
-          weight: 1
+          weight: 3
           opacity: 0.9
-          fillOpacity: 0.4
-        focus_style:
+          fillOpacity: 0.7
+
+      - condition: '"{{location_type}}" === "park"'
+        # Show parks that are points as icons...
+
+        icon:
+          iconUrl: /static/css/images/markers/dot-4bbd45.png
+          iconSize: [17, 18]
+          iconAnchor: [9, 9]
+
+        # ...and parks that are polygons as shapes.
+
+        style:
           color: '#4bbd45'
-          radius: 16
           weight: 1
           opacity: 0.9
           fillOpacity: 0.4
@@ -109,17 +112,6 @@ place_types:
     rules:
       - condition: '"{{location_type}}" === "school" && {{submission_sets.comments.length}} > 0'
         # Display schools as circles
-
-        # icon:
-        #   iconUrl: /static/css/images/markers/dot-f95016.png
-        #   iconSize: [17, 18]
-        #   iconAnchor: [9, 9]
-        # focus_icon:
-        #   iconUrl: /static/css/images/markers/marker-f95016.png
-        #   shadowUrl: /static/css/images/marker-shadow.png
-        #   iconSize: [25, 41]
-        #   shadowSize: [41, 41]
-        #   iconAnchor: [12, 41]
 
         style:
           color: '#f95016'
@@ -133,6 +125,7 @@ place_types:
           weight: 4
           opacity: 0.9
           fillOpacity: 0.4
+
       - condition: '"{{location_type}}" === "school"'
         style:
           color: '#f95016'
