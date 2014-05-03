@@ -256,7 +256,7 @@ if all(['S3_MEDIA_BUCKET' in env, 'AWS_ACCESS_KEY' in env, 'AWS_SECRET_KEY' in e
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_KEY')
 
     # Set the compress storage, but not the static files storage, to S3.
-    COMPRESS_ENABLED = not DEBUG
+    COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', str(not DEBUG)).lower() in ('true', 't')
     COMPRESS_STORAGE = 'project.backends.S3BotoStorage'
     COMPRESS_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
