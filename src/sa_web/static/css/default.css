@@ -1189,7 +1189,8 @@ a.close-unsupported-overlay {
   #nav-btn {
     display: none;
   }
-  #pages-nav-container {
+  #pages-nav-container,
+  #language-picker {
     height: 100%;
     float: left;
   }
@@ -1209,7 +1210,8 @@ a.close-unsupported-overlay {
   .access li ul {
     display: none;
   }
-  .access li:hover > ul {
+  .access li:hover > ul,
+  .access li:hover > form > ul {
     display: block;
     background: #ccc;
     box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.1);

@@ -75,14 +75,14 @@
         <ul class="menu">
           <li class="menu-item">
             {% get_language_info for LANGUAGE_CODE as language %}
-            <a class="current-language {{ LANGUAGE_CODE }}">{{ language.name_local }} ⌄</a>
+            <a class="current-language {{ LANGUAGE_CODE }} btn btn-block">{{ language.name_local }} ⌄</a>
 
             <form action="{% url 'set_language' %}" method="post">
               {% csrf_token %}
               <ul class="menu">
                 {% for language in config.languages %}
                 <li class="menu-item">
-                  <button type="submit" name="language" value="{{ language.code }}" class="{{ language.code }}">{{ language.label }}</button>
+                  <button type="submit" name="language" value="{{ language.code }}" class="{{ language.code }} btn btn-block">{{ language.label }}</button>
                 </li>
                 {% endfor %}
               </ul>
