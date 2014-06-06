@@ -6,6 +6,9 @@ app:
   name: Shareabouts
   # Meta description that will show up in Google search results
   meta_description: _(Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.)
+  # Meta author that will show up in Google search results
+  meta_author: OpenPlans.org
+
 
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
