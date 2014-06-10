@@ -6,14 +6,8 @@ Step 0: Create a Dataset
 
 You'll need an account on a Shareabouts API server.
 
-Log in to the API manager and create a new dataset. Remember the slug
-for your dataset, as you'll use it later. You will also need the API
-key for this dataset, which you can get from the "API Keys" tab of the
-manage UI.
-
-If you're using the OpenPlans API server, it's
-[api.shareabouts.org](http://api.shareabouts.org) and the API manager is
-[api.shareabouts.org/manage](http://api.shareabouts.org/manage).
+To use the OpenPlans hosted server, request a dataset and key via support@openplans.org. Your dataset will be on the OpenPlans API server, 
+[data.shareabouts.org](http://data.shareabouts.org).
 
 Step 1: Create a flavor
 -----------------------
