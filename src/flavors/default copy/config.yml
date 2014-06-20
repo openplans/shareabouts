@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: CrowdSpot
+  title: Shareabouts
   # Header name
-  name: CrowdSpot
+  name: Shareabouts
   # Meta description that will show up in Google search results
-  meta_description: _(CrowdSpot creates custom maps that allow people to give input on geogrpahic locations. Use it to collect data in a social, engaging process.)
+  meta_description: _(Shareabouts is a mapping tool to gather crowd sourced public input. Use it to collect suggested locations and comments in a social, engaging process.)
 
   # When the map loads, existing places will be loaded in chunks. By default,
   # the size of the chunks will be a reasonable default dictated by the API
@@ -152,7 +152,7 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a Spot)
+  add_button_label: _(Add a Place)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(List All Places)
   show_map_button_label: _(Show the Map)
@@ -258,21 +258,25 @@ pages:
     name: overview
     # start_page: true
 
-  - title: _(Why CrowdSpot?)
+  - title: _(Why Shareabouts?)
     slug: why
     url: /static/pages/why.html
 
-  - title: _(Contact)
+  - title: _(Features)
+    slug: features
+    url: /static/pages/features.html
+
+  - title: _(Links)
     pages:
-      - title: _(Website)
+      - title: _(Documentation)
         external: true
-        url: http://www.crowdspot.com.au/contact/
-      - title: _(Twitter)
+        url: https://github.com/openplans/shareabouts/tree/master/doc
+      - title: _(Issues)
         external: true
-        url: https://twitter.com/Crowd_Spot
-      - title: _(Facebook)
+        url: https://github.com/openplans/shareabouts/issues
+      - title: _(GitHub)
         external: true
-        url: https://www.facebook.com/pages/CrowdSpot/314531231976999
+        url: https://github.com/openplans/shareabouts
 
 notifications:
   on_new_place: true
