@@ -1066,6 +1066,15 @@ ul.recent-points {
   float: left;
 }
 
+/* =Geocoding
+-------------------------------------------------------------- */
+.geocode-address-field {
+  width: 100%;
+  border-style: solid;
+  border-color: gray;
+  border-width: 0 0 1px 0;
+}
+
 
 /* =Footer
 -------------------------------------------------------------- */

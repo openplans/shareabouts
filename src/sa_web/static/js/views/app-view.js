@@ -135,6 +135,13 @@ var Shareabouts = Shareabouts || {};
         placeTypes: this.options.placeTypes
       });
 
+      this.geocodeAddressView = (new S.GeocodeAddressView({
+        el: '#geocode-address-bar',
+        router: this.options.router,
+        map: this.mapView.map,
+        mapConfig: this.options.mapConfig
+      })).render();
+
 
       // List view is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
