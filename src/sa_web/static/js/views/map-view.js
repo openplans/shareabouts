@@ -149,6 +149,9 @@ var Shareabouts = Shareabouts || {};
     removeLayerView: function(model) {
       this.layerViews[model.cid].remove();
       delete this.layerViews[model.cid];
+    },
+    zoomInOn: function(latLng) {
+      this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
     }
   });
 

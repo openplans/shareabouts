@@ -142,6 +142,12 @@ var Shareabouts = Shareabouts || {};
         mapConfig: this.options.mapConfig
       })).render();
 
+      // When the user chooses a geocoded address, the address view will fire
+      // a geocode event on the namespace.
+      $(S).on('geocode', function(evt, locationData) {
+        self.mapView.zoomInOn(locationData.latLng);
+      });
+
 
       // List view is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.

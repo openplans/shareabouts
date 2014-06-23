@@ -258,6 +258,23 @@ var Shareabouts = Shareabouts || {};
       destroy: function(name) {
         this.save(name,'',-1);
       }
+    },
+
+    MapQuest: {
+      geocode: function(location, options) {
+        var mapQuestKey = S.bootstrapped.mapQuestKey;
+        options = options || {};
+        options.url = 'http://open.mapquestapi.com/geocoding/v1/address?key=' + mapQuestKey + '&location=' + location;
+        $.ajax(options);
+      },
+      reverseGeocode: function() {},
+      getLocationString: function(locationData) {
+        if (locationData.geocodeQuality == 'ADDRESS') {
+          return locationData.street + ', ' + locationData.adminArea5 + ' ' + locationData.adminArea3;
+        } else {
+          return '';
+        }
+      }
     }
   };
 }(Shareabouts));

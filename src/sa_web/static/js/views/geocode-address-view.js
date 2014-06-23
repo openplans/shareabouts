@@ -22,14 +22,15 @@ var Shareabouts = Shareabouts || {};
           $address = this.$('.geocode-address-field'),
           address = $address.val();
 
-      $.ajax({
-        url: 'http://open.mapquestapi.com/geocoding/v1/address?key=' + mapQuestKey + '&location=' + address,
+      S.Util.MapQuest.geocode(address, {
         success: function(data) {
           var locationsData = data.results[0].locations;
 
           console.log('Geocoded data: ', data);
           if (locationsData.length > 0) {
-            self.setMapQuestGeocodedLocation(locationsData[0]);
+            // TODO: This might make more sense if the view itself was the
+            //       event's target.
+            $(S).trigger('geocode', [locationsData[0]]);
           } else {
             // TODO: Show some feedback that we couldn't geocode.
             console.error('Woah, no location found for ', data.results[0].providedLocation.location);
@@ -45,15 +46,6 @@ var Shareabouts = Shareabouts || {};
     setMapQuestGeocodedLocation: function(locationData) {
       var location = this.getMapQuestLocationString(locationData);
       this.map.setView(locationData.latLng, 17);
-    },
-    getMapQuestLocationString: function(locationData) {
-      if (locationData.geocodeQuality == 'ADDRESS') {
-        return locationData.street + ', ' + locationData.adminArea5 + ' ' + locationData.adminArea3;
-      }
-
-      else {
-        return '';
-      }
     }
   });
 
