@@ -147,11 +147,25 @@ var Shareabouts = Shareabouts || {};
         self.mapView.zoomInOn(locationData.latLng);
       });
 
-      // When the map center moves, the map view will fire a reversegeocode
-      // event on the namespace.
+      // When the map center moves, the map view will fire a mapmoveend event
+      // on the namespace.
+      $(S).on('mapdragend', function(evt) {
+        if (self.options.mapConfig.geocoding_enabled) {
+          if (self.isAddingPlace()) {
+            self.mapView.reverseGeocodeMapCenter();
+          } else {
+            self.geocodeAddressView.setAddress('');
+          }
+        }
+      });
+
+      // After reverse geocoding, the map view will fire a reversegeocode
+      // event. This should only happen when adding a place.
       $(S).on('reversegeocode', function(evt, locationData) {
         var location = S.Util.MapQuest.getLocationString(locationData);
         self.geocodeAddressView.setAddress(location);
+        self.placeFormView.setLatLng(locationData.latLng);
+        self.placeFormView.setLocation(location);
       });
 
 
@@ -198,6 +212,9 @@ var Shareabouts = Shareabouts || {};
       this.activities.fetch({reset: true});
     },
 
+    isAddingPlace: function(model) {
+      return this.$panel.is(":visible") && this.$panel.hasClass('place-form');
+    },
     loadPlaces: function(placeParams) {
       var self = this,
           $progressContainer = $('#map-progress'),
@@ -301,6 +318,10 @@ var Shareabouts = Shareabouts || {};
         this.showPanel(this.placeFormView.render().$el);
         this.showNewPin();
         this.hideAddButton();
+
+        if (this.options.mapConfig.geocoding_enabled) {
+          this.mapView.reverseGeocodeMapCenter();
+        }
       }
     },
     onRemovePlace: function(model) {

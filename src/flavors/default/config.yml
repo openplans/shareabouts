@@ -168,6 +168,9 @@ place:
   action_text: _(created)
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
+
+  location_item_name: name
+
   items:
     - prompt: _(Your Name)
       type: text
@@ -187,15 +190,6 @@ place:
           value: _(Email address)
         - key: size
           value: 30
-    - prompt: _(Location Name)
-      type: text
-      name: name
-      attrs:
-        - key: placeholder
-          value: _(Location Name)
-        - key: size
-          value: 30
-        - key: required
     - prompt: _(Location Type)
       type: select
       options:

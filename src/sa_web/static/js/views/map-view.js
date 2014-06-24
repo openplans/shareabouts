@@ -52,15 +52,17 @@ var Shareabouts = Shareabouts || {};
 
       self.map.on('zoomend', function(evt) {
         S.Util.log('APP', 'zoom', self.map.getZoom());
-
-        self.reverseGeocodeMapCenter();
       });
 
       self.map.on('moveend', function(evt) {
         S.Util.log('APP', 'center-lat', self.map.getCenter().lat);
         S.Util.log('APP', 'center-lng', self.map.getCenter().lng);
 
-        self.reverseGeocodeMapCenter();
+        $(S).trigger('mapmoveend', [evt]);
+      });
+
+      self.map.on('dragend', function(evt) {
+        $(S).trigger('mapdragend', [evt]);
       });
 
       // Bind data events
