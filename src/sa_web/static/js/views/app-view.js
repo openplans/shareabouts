@@ -456,7 +456,7 @@ var Shareabouts = Shareabouts || {};
       }
 
       $('body').addClass('content-visible');
-      map.invalidateSize({ pan:false });
+      map.invalidateSize({ animate:true, pan:true });
 
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
       S.Util.log('APP', 'panel-state', 'open');
@@ -483,7 +483,7 @@ var Shareabouts = Shareabouts || {};
       this.unfocusAllPlaces();
       this.$panel.hide();
       $('body').removeClass('content-visible');
-      map.invalidateSize({ pan:false });
+      map.invalidateSize({ animate:true, pan:true });
 
       S.Util.log('APP', 'panel-state', 'closed');
     },
