@@ -92,10 +92,6 @@
     </div> <!-- .language-picker -->
     {% endif %}
 
-    {% if config.map.geocoding_enabled %}
-    <div id="geocode-address-bar"></div>
-    {% endif %}
-
   </header>
 
   <div class="unsupported-overlay"></div>
@@ -117,6 +113,10 @@
       </p>
       </div>
     </noscript>
+
+    {% if config.map.geocoding_enabled %}
+    <div id="geocode-address-bar"></div>
+    {% endif %}
 
     <div id="map-container">
       <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>

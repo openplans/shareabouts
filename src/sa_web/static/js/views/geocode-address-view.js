@@ -8,6 +8,10 @@ var Shareabouts = Shareabouts || {};
       'submit .geocode-address-form': 'onGeocodeAddress'
     },
     initialize: function() {
+
+      // Add class to the body to for geocoding layout
+      $('body').addClass('geocoding-enabled');
+
     },
     render: function() {
       var data = this.options.mapConfig;
