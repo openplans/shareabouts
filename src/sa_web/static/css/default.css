@@ -1106,6 +1106,7 @@ input.geocode-address-field:focus {
   margin-top: -0.625em;
   overflow: visible;
   text-indent: -9999px;
+  cursor: pointer;
 }
 .geocode-address-label:before,
 .geocode-address-label:after {
@@ -1145,12 +1146,20 @@ input.geocode-address-field:focus {
   color: #ddd;
   padding: 1em 0.5em;
   box-shadow: inset 0 0.325em rgba(0,0,0,0.1);
+  text-align: center;
+}
+#colophon a {
+  text-decoration: none;
+  color: #ddd;
+}
+#colophon a:hover {
+  border-bottom: 1px solid #ccc;
 }
 
 /* Powered By */
 #powered-by {
   font-size: 0.75em;
-  text-align: center;
+  display: inline;
 }
 a.shareabouts-logo {
   font-family: 'Dancing Script', cursive;
@@ -1158,20 +1167,26 @@ a.shareabouts-logo {
   font-size: 1.325em;
   color: #a3c7d9;
   font-weight: bold;
-  text-decoration: none;
 }
 a.shareabouts-logo:hover {
   color: #fff;
-  border-bottom: 1px solid #ccc;
 }
 #powered-by a.openplans-logo {
   color: #ffb885;
   font-weight: bold;
-  text-decoration: none;
 }
 #powered-by a.openplans-logo:hover {
   color: #fff;
-  border-bottom: 1px solid #ccc;
+}
+
+/* Mapquest Attribution */
+#mapquest-attribution {
+  font-size: 0.75em;
+  display: inline;
+}
+#mapquest-attribution img {
+  max-height: 0.75em;
+  width: auto;
 }
 
 
