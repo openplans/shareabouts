@@ -138,7 +138,6 @@ var Shareabouts = Shareabouts || {};
       this.geocodeAddressView = (new S.GeocodeAddressView({
         el: '#geocode-address-bar',
         router: this.options.router,
-        map: this.mapView.map,
         mapConfig: this.options.mapConfig
       })).render();
 
@@ -146,6 +145,13 @@ var Shareabouts = Shareabouts || {};
       // a geocode event on the namespace.
       $(S).on('geocode', function(evt, locationData) {
         self.mapView.zoomInOn(locationData.latLng);
+      });
+
+      // When the map center moves, the map view will fire a reversegeocode
+      // event on the namespace.
+      $(S).on('reversegeocode', function(evt, locationData) {
+        var location = S.Util.MapQuest.getLocationString(locationData);
+        self.geocodeAddressView.setAddress(location);
       });
 
 

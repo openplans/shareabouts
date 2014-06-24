@@ -52,11 +52,15 @@ var Shareabouts = Shareabouts || {};
 
       self.map.on('zoomend', function(evt) {
         S.Util.log('APP', 'zoom', self.map.getZoom());
+
+        self.reverseGeocodeMapCenter();
       });
 
       self.map.on('moveend', function(evt) {
         S.Util.log('APP', 'center-lat', self.map.getCenter().lat);
         S.Util.log('APP', 'center-lng', self.map.getCenter().lng);
+
+        self.reverseGeocodeMapCenter();
       });
 
       // Bind data events
@@ -64,6 +68,16 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
     },
+    reverseGeocodeMapCenter: _.debounce(function() {
+      var center = this.map.getCenter();
+      S.Util.MapQuest.reverseGeocode(center, {
+        success: function(data) {
+          var locationsData = data.results[0].locations;
+          console.log('Reverse geocoded center: ', data);
+          $(S).trigger('reversegeocode', [locationsData[0]]);
+        }
+      });
+    }, 1000),
     render: function() {
       var self = this;
 

@@ -8,7 +8,6 @@ var Shareabouts = Shareabouts || {};
       'submit .geocode-address-form': 'onGeocodeAddress'
     },
     initialize: function() {
-      this.map = this.options.map;
     },
     render: function() {
       var data = this.options.mapConfig;
@@ -43,9 +42,9 @@ var Shareabouts = Shareabouts || {};
 
       S.Util.log('USER', 'chicago', 'geocode-address', address);
     },
-    setMapQuestGeocodedLocation: function(locationData) {
-      var location = this.getMapQuestLocationString(locationData);
-      this.map.setView(locationData.latLng, 17);
+    setAddress: function(location) {
+      var $address = this.$('.geocode-address-field');
+      $address.val(location);
     }
   });
 

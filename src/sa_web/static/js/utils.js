@@ -267,7 +267,14 @@ var Shareabouts = Shareabouts || {};
         options.url = 'http://open.mapquestapi.com/geocoding/v1/address?key=' + mapQuestKey + '&location=' + location;
         $.ajax(options);
       },
-      reverseGeocode: function() {},
+      reverseGeocode: function(latLng, options) {
+        var mapQuestKey = S.bootstrapped.mapQuestKey,
+            lat = latLng.lat || latLng[0],
+            lng = latLng.lng || latLng[1];
+        options = options || {};
+        options.url = 'http://open.mapquestapi.com/geocoding/v1/reverse?key=' + mapQuestKey + '&location=' + lat + ',' + lng;
+        $.ajax(options);
+      },
       getLocationString: function(locationData) {
         if (locationData.geocodeQuality == 'ADDRESS') {
           return locationData.street + ', ' + locationData.adminArea5 + ' ' + locationData.adminArea3;
