@@ -20,3 +20,6 @@ SHAREABOUTS = {
   'DATASET_ROOT': 'http://data.shareabouts.org/api/v2/demo-user/datasets/demo-data/',
   'DATASET_KEY': 'NTNhODE3Y2IzODlmZGZjMWU4NmU3NDhj',
 }
+
+# For geocoding...
+MAPQUEST_KEY = 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u'

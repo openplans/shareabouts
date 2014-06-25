@@ -114,6 +114,10 @@
       </div>
     </noscript>
 
+    {% if config.map.geocoding_enabled %}
+    <div id="geocode-address-bar"></div>
+    {% endif %}
+
     <div id="map-container">
       <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
@@ -190,7 +194,8 @@
   <!-- Bootstrap site and user information -->
   <script>
     Shareabouts.bootstrapped = {
-      staticUrl: '{{ STATIC_URL }}'
+      staticUrl: '{{ STATIC_URL }}',
+      mapQuestKey: '{{ settings.MAPQUEST_KEY }}'
     };
 
     function bootstrapCurrentUser(data) {
@@ -218,6 +223,7 @@
   <script src="{{settings.COMPRESS_URL}}js/views/place-detail-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/place-form-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/place-list-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/geocode-address-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/routes.js"></script>
   {% endcompress %}
 
