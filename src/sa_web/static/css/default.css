@@ -1098,8 +1098,8 @@ input.geocode-address-field:focus {
   outline: 0;
 }
 .geocode-address-label {
-  position: absolute;  
-  top: 50%;
+  position: absolute;
+  top: 2.5em;
   left: 1.5em;
   height: 1.25em;
   width: 1.25em;
@@ -1135,6 +1135,11 @@ input.geocode-address-field:focus {
       -ms-transform: rotate(-45deg);
        -o-transform: rotate(-45deg);
           transform: rotate(-45deg);
+}
+#geocode-address-bar .error {
+  margin: 0;
+  margin-top: 0.5em;
+  color: #daa;
 }
 
 
@@ -1243,6 +1248,11 @@ a.close-unsupported-overlay {
 @media only screen and (min-width: 768px) and (max-width: 60em) {
   #map {
     height: 400px;
+  }
+
+  #geocode-address-bar .error {
+    float: right;
+    margin: -1.75em 1em 0 0;
   }
 }
 
@@ -1482,6 +1492,10 @@ a.close-unsupported-overlay {
   }
   .activity-enabled #geocode-address-bar {
     right: 18em;
+  }
+  #geocode-address-bar .error {
+    float: right;
+    margin: -1.75em 1em 0 0;
   }
 
   /* The Ticker */
