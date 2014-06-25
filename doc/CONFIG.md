@@ -6,7 +6,7 @@ Step 0: Create a Dataset
 
 You'll need an account on a Shareabouts API server.
 
-To use the OpenPlans hosted server, request a dataset and key via support@openplans.org. Your dataset will be on the OpenPlans API server, 
+To use the OpenPlans hosted server, request a dataset and key via support@openplans.org. Your dataset will be on the OpenPlans API server,
 [data.shareabouts.org](http://data.shareabouts.org).
 
 Step 1: Create a flavor
@@ -88,8 +88,8 @@ folder.
 ### Place Types
 
 Shareabouts can handle multiple types of Place. To set up the types
-syou're interested in, edit config.yml and add items to the `place_types` 
-section. Each Place value should match a location_type. 
+syou're interested in, edit config.yml and add items to the `place_types`
+section. Each Place value should match a location_type.
 
 Look at the config.yml for examples of styling Places. The properties of icons are as per the Leaflet docs, see http://leaflet.cloudmade.com/reference.html#icon
 But briefly:
@@ -121,9 +121,17 @@ The 'place' section of the config file starts like this:
     place:
       adding_supported: true
       title: The title of the form.
+      location_item_name: address
 
-If adding_supported is set to false, users cannot add places, and can
+If `adding_supported` is set to false, users cannot add places, and can
 only comment on or support the places you provide.
+
+The `location_item_name` attribute is used when the `geocoding_enabled` flag
+is set to true in the map config. When a user is adding a new place to the
+map, the location of the place will be reverse-geocoded every time they move
+the map. The result of that reverse-geocoding will be a string saved to the
+model in the `location_item_name` attribute. E.g., in the above example, the
+string will be saved in the `address` field of a place.
 
 Next you can have any number of input widgets to appear on the place
 adding form. These go in the *items* subsection, under *place*.
