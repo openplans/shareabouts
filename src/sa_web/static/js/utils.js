@@ -261,10 +261,13 @@ var Shareabouts = Shareabouts || {};
     },
 
     MapQuest: {
-      geocode: function(location, options) {
+      geocode: function(location, bounds, options) {
         var mapQuestKey = S.bootstrapped.mapQuestKey;
         options = options || {};
         options.url = 'http://open.mapquestapi.com/geocoding/v1/address?key=' + mapQuestKey + '&location=' + location;
+        if (bounds) {
+          options.url += '&boundingBox=' + bounds.join(',');
+        }
         $.ajax(options);
       },
       reverseGeocode: function(latLng, options) {

@@ -23,13 +23,14 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           mapQuestKey = S.bootstrapped.mapQuestKey,
           $address = this.$('.geocode-address-field'),
-          address = $address.val();
+          address = $address.val(),
+          bounds = this.options.mapConfig.geocode_bounding_box;
 
-      S.Util.MapQuest.geocode(address, {
+      S.Util.MapQuest.geocode(address, bounds, {
         success: function(data) {
           var locationsData = data.results[0].locations;
 
-          console.log('Geocoded data: ', data);
+          // console.log('Geocoded data: ', data);
           if (locationsData.length > 0) {
             // TODO: This might make more sense if the view itself was the
             //       event's target.

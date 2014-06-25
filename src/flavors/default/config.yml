@@ -25,6 +25,7 @@ map:
 
   geocoding_enabled: true
   geocode_field_label: _(Enter an address...)
+  geocode_bounding_box: [39.830159, -75.478821, 40.167331, -74.781189]  # top, left, bottom, right
 
   options:
     center:
