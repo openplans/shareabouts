@@ -1082,9 +1082,8 @@ ul.recent-points {
 .geocoding-enabled #geocode-address-bar {
   display: block;
 }
-.activity-enabled #geocode-address-bar {
-}
-.content-visible #geocode-address-bar {
+.geocode-address-form {
+  position: relative;
 }
 input.geocode-address-field {
   width: 100%;
@@ -1099,8 +1098,8 @@ input.geocode-address-field:focus {
 }
 .geocode-address-label {
   position: absolute;
-  top: 2.5em;
-  left: 1.5em;
+  top: 1.5em;
+  left: 1em;
   height: 1.25em;
   width: 1.25em;
   margin-top: -0.625em;
@@ -1137,9 +1136,25 @@ input.geocode-address-field:focus {
           transform: rotate(-45deg);
 }
 #geocode-address-bar .error {
+  background-color: #BF6083;
+  color: #fff;
+  line-height: 1.75;
   margin: 0;
-  margin-top: 0.5em;
-  color: #daa;
+  padding: 0.25em 0.5em;
+  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
+  position: absolute;
+  top: 3em;
+  right: 0.5em;
+  bottom: auto;
+  left: 0.5em;
+}
+#geocode-address-bar .error + form {
+  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
+  margin-bottom: 2.5em;
+}
+#geocode-address-bar .error.is-hidden + form {
+  box-shadow: none;
+  margin-bottom: 0;
 }
 
 
@@ -1248,11 +1263,6 @@ a.close-unsupported-overlay {
 @media only screen and (min-width: 768px) and (max-width: 60em) {
   #map {
     height: 400px;
-  }
-
-  #geocode-address-bar .error {
-    float: right;
-    margin: -1.75em 1em 0 0;
   }
 }
 
@@ -1494,8 +1504,25 @@ a.close-unsupported-overlay {
     right: 18em;
   }
   #geocode-address-bar .error {
+    padding: 0.25em 0.5em;
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
     float: right;
-    margin: -1.75em 1em 0 0;
+    width: 15em;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+  #geocode-address-bar .error + form {
+    margin-bottom: 0;
+    margin-right: 15em;
+  }
+  #geocode-address-bar .error.is-hidden + form {
+    margin-right: 0;
   }
 
   /* The Ticker */

@@ -5,7 +5,8 @@ var Shareabouts = Shareabouts || {};
 (function(S, $, console){
   S.GeocodeAddressView = Backbone.View.extend({
     events: {
-      'submit .geocode-address-form': 'onGeocodeAddress'
+      'submit .geocode-address-form': 'onGeocodeAddress',
+      'change .geocode-address-field': 'onAddressChange'
     },
     initialize: function() {
 
@@ -17,6 +18,11 @@ var Shareabouts = Shareabouts || {};
       var data = this.options.mapConfig;
       this.$el.html(Handlebars.templates['geocode-address'](data));
       return this;
+    },
+    onAddressChange: function(evt) {
+      // .hide().addClass('is-hidden') is a bit redundant, but the .hide
+      // is so that we can do a fade-in effect.
+      this.$('.error').hide().addClass('is-hidden');
     },
     onGeocodeAddress: function(evt) {
       evt.preventDefault();
@@ -32,9 +38,7 @@ var Shareabouts = Shareabouts || {};
 
           // console.log('Geocoded data: ', data);
           if (locationsData.length > 0) {
-            // .hide().addClass('is-hidden') is a bit redundant, but the .hide
-            // is so that we can do a fade-in effect.
-            self.$('.error').hide().addClass('is-hidden');
+            // self.$('.error').hide().addClass('is-hidden');
 
             // TODO: This might make more sense if the view itself was the
             //       event's target.
@@ -54,7 +58,7 @@ var Shareabouts = Shareabouts || {};
     },
     setAddress: function(location) {
       var $address = this.$('.geocode-address-field');
-      $address.val(location);
+      $address.val(location).change();
     }
   });
 
