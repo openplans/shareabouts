@@ -135,6 +135,7 @@ var Shareabouts = Shareabouts || {};
         placeTypes: this.options.placeTypes
       });
 
+      // Init the address search bar
       this.geocodeAddressView = (new S.GeocodeAddressView({
         el: '#geocode-address-bar',
         router: this.options.router,
@@ -142,25 +143,31 @@ var Shareabouts = Shareabouts || {};
       })).render();
 
       // When the user chooses a geocoded address, the address view will fire
-      // a geocode event on the namespace.
+      // a geocode event on the namespace. At that point we center the map on
+      // the geocoded location.
       $(S).on('geocode', function(evt, locationData) {
         self.mapView.zoomInOn(locationData.latLng);
       });
 
       // When the map center moves, the map view will fire a mapmoveend event
-      // on the namespace.
+      // on the namespace. If the move was the result of the user dragging, a
+      // mapdragend event will be fired.
+      //
+      // If the user is adding a place, we want to take the opportunity to
+      // reverse geocode the center of the map, if geocoding is enabled. If
+      // the user is doing anything else, we just want to clear out any text
+      // that's currently set in the address search bar.
       $(S).on('mapdragend', function(evt) {
-        if (self.options.mapConfig.geocoding_enabled) {
-          if (self.isAddingPlace()) {
-            self.mapView.reverseGeocodeMapCenter();
-          } else {
-            self.geocodeAddressView.setAddress('');
-          }
+        if (self.isAddingPlace()) {
+          self.conditionallyReverseGeocode();
+        } else if (self.geocodeAddressView) {
+          self.geocodeAddressView.setAddress('');
         }
       });
 
       // After reverse geocoding, the map view will fire a reversegeocode
-      // event. This should only happen when adding a place.
+      // event. This should only happen when adding a place while geocoding
+      // is enabled.
       $(S).on('reversegeocode', function(evt, locationData) {
         var location = S.Util.MapQuest.getLocationString(locationData);
         self.geocodeAddressView.setAddress(location);
@@ -319,9 +326,12 @@ var Shareabouts = Shareabouts || {};
         this.showNewPin();
         this.hideAddButton();
 
-        if (this.options.mapConfig.geocoding_enabled) {
-          this.mapView.reverseGeocodeMapCenter();
-        }
+        this.conditionallyReverseGeocode();
+      }
+    },
+    conditionallyReverseGeocode: function() {
+      if (this.options.mapConfig.geocoding_enabled) {
+        this.mapView.reverseGeocodeMapCenter();
       }
     },
     onRemovePlace: function(model) {
