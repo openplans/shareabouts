@@ -1,4 +1,9 @@
 {{#if . }}
+  {{#is geocodeQuality 'POINT' }}
+    {{!-- <street address>, <city> <state> --}}
+    {{street}}, {{adminArea5}} {{adminArea3}}
+  {{/is}}
+
   {{#is geocodeQuality 'ADDRESS' }}
     {{!-- <street address>, <city> <state> --}}
     {{street}}, {{adminArea5}} {{adminArea3}}
