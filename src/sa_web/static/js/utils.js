@@ -311,6 +311,7 @@ var Shareabouts = Shareabouts || {};
 
         options = options || {};
         options.dataType = 'jsonp';
+        options.cache = true;
         options.url = 'http://open.mapquestapi.com/geocoding/v1/address?key=' + mapQuestKey + '&location=' + location;
         if (bounds) {
           options.url += '&boundingBox=' + bounds.join(',');
