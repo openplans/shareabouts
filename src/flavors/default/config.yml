@@ -170,7 +170,7 @@ place:
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
 
-  location_item_name: name
+  location_item_name: location
 
   items:
     - prompt: _(Your Name)
@@ -189,6 +189,15 @@ place:
       attrs:
         - key: placeholder
           value: _(Email address)
+        - key: size
+          value: 30
+    - prompt: _(Location Name)
+      type: text
+      name: name
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Location Name)
         - key: size
           value: 30
     - prompt: _(Location Type)

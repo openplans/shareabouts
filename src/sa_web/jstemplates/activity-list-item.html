@@ -12,7 +12,13 @@
 
         {{#if is_place }}
           {{ action }} a{{#if place.type_starts_with_vowel }}n{{/if }} <span class="place-type">{{ place.place_type_label }}</span>
-          {{#if place.name }} named <span class="place-name">{{ place.name }}</span>{{/if }}
+          {{#if place.name }}
+            named <span class="place-name">{{ place.name }}</span>
+          {{^}}
+            {{#if place.location }}
+              at <span class="place-name">{{>location-string place.location }}</span>
+            {{/if }}
+          {{/if }}
         {{else}}
           {{ action }}
 

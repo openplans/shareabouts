@@ -41,7 +41,7 @@ var Shareabouts = Shareabouts || {};
       this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
     },
     setLocation: function(location) {
-      this.locationText = location;
+      this.location = location;
     },
     // Get the attributes from the form
     getAttrs: function() {
@@ -59,8 +59,8 @@ var Shareabouts = Shareabouts || {};
         coordinates: [this.center.lng, this.center.lat]
       };
 
-      if (this.locationText && locationAttr) {
-        attrs[locationAttr] = this.locationText;
+      if (this.location && locationAttr) {
+        attrs[locationAttr] = this.location;
       }
 
       return attrs;

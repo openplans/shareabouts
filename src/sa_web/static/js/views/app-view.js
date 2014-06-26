@@ -147,6 +147,11 @@ var Shareabouts = Shareabouts || {};
       // the geocoded location.
       $(S).on('geocode', function(evt, locationData) {
         self.mapView.zoomInOn(locationData.latLng);
+
+        if (self.isAddingPlace()) {
+          self.placeFormView.setLatLng(locationData.latLng);
+          self.placeFormView.setLocation(locationData);
+        }
       });
 
       // When the map center moves, the map view will fire a mapmoveend event
@@ -169,10 +174,10 @@ var Shareabouts = Shareabouts || {};
       // event. This should only happen when adding a place while geocoding
       // is enabled.
       $(S).on('reversegeocode', function(evt, locationData) {
-        var location = S.Util.MapQuest.getLocationString(locationData);
-        self.geocodeAddressView.setAddress(location);
+        var locationString = Handlebars.templates['location-string'](locationData);
+        self.geocodeAddressView.setAddress(locationString.trim());
         self.placeFormView.setLatLng(locationData.latLng);
-        self.placeFormView.setLocation(location);
+        self.placeFormView.setLocation(locationData);
       });
 
 

@@ -1,7 +1,7 @@
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">
-          <h1>{{ name }}</h1>
+          <h1>{{#if name }}{{ name }}{{^}}{{>location-string location }}{{/if}}</h1>
           <span class="place-submission-details">
             {{#_}}<strong class="point-submitter">
               {{#if submitter.avatar_url }}
