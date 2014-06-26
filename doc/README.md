@@ -1,10 +1,6 @@
 From 0 to Shareabouts in about an hour
 ======================================
 
-If you are converting from Shareabouts 1.0, note that
-we have switched platforms. See [the upgrade docs](UPGRADE.md). If you are looking for documentation 
-for Shareabouts v1, see [the original docs](https://github.com/openplans/shareabouts/blob/v1/doc/README_FOR_APP).
-
 What's here
 ------------
 
@@ -18,7 +14,10 @@ to use the beta hosted API, managed by OpenPlans.
 Go to [api.shareabouts.org](http://api.shareabouts.org) and request access.
 
 For more about the parts of Shareabouts,
-see [the architecture documentation](ARCHITECTURE.md).
+see [the architecture documentation](ARCHITECTURE.md). 
+
+If you are converting from Shareabouts 1.0, note that
+we have switched platforms. See [upgrade info](UPGRADE.md) and [original docs](https://github.com/openplans/shareabouts/blob/v1/doc/README_FOR_APP).
 
 Local Setup
 ------------
@@ -61,9 +60,8 @@ To run the development server:
 
     src/manage.py runserver
 
-The server will, by default, be started at http://localhost:8000/ .
-But note that it won't be very useful till you complete configuration
-below.
+The server will, by default, be started at [http://localhost:8000/](http://localhost:8000/).
+But it won't be very useful [till you configure it](CONFIG.md).
 
 NOTE: If you're new to programming with virtualenv, be sure to remember
 to activate your virtual environment every time you start a new terminal session:
@@ -75,13 +73,11 @@ Running the Shareabouts API Service
 ------------------------------------
 
 For local development, your best bet is to use OpenPlans' hosted API. 
-Go to [api.shareabouts.org](http://api.shareabouts.org) and request access.
+Go to [data.shareabouts.org](http://data.shareabouts.org) and request access.
 
 Alternatively, install and run the
 back-end API service yourself.  To do so, you will want clone the
 [Shareabouts API](https://github.com/openplans/shareabouts-api).
-
-You'll want to run it on a separate port; we usually use 8001.
 
 Configuration
 --------------
