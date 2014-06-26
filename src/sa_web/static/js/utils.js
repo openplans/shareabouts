@@ -306,6 +306,9 @@ var Shareabouts = Shareabouts || {};
     MapQuest: {
       geocode: function(location, bounds, options) {
         var mapQuestKey = S.bootstrapped.mapQuestKey;
+
+        if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
+
         options = options || {};
         options.dataType = 'jsonp';
         options.url = 'http://open.mapquestapi.com/geocoding/v1/address?key=' + mapQuestKey + '&location=' + location;
@@ -316,8 +319,12 @@ var Shareabouts = Shareabouts || {};
       },
       reverseGeocode: function(latLng, options) {
         var mapQuestKey = S.bootstrapped.mapQuestKey,
-            lat = latLng.lat || latLng[0],
-            lng = latLng.lng || latLng[1];
+            lat, lng;
+
+        if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
+
+        lat = latLng.lat || latLng[0];
+        lng = latLng.lng || latLng[1];
         options = options || {};
         options.dataType = 'jsonp';
         options.url = 'http://open.mapquestapi.com/geocoding/v1/reverse?key=' + mapQuestKey + '&location=' + lat + ',' + lng;
