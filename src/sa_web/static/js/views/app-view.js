@@ -147,6 +147,11 @@ var Shareabouts = Shareabouts || {};
       // the geocoded location.
       $(S).on('geocode', function(evt, locationData) {
         self.mapView.zoomInOn(locationData.latLng);
+
+        if (self.isAddingPlace()) {
+          self.placeFormView.setLatLng(locationData.latLng);
+          self.placeFormView.setLocation(locationData);
+        }
       });
 
       // When the map center moves, the map view will fire a mapmoveend event
