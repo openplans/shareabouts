@@ -327,15 +327,9 @@ var Shareabouts = Shareabouts || {};
         lng = latLng.lng || latLng[1];
         options = options || {};
         options.dataType = 'jsonp';
+        options.cache = true;
         options.url = 'http://open.mapquestapi.com/geocoding/v1/reverse?key=' + mapQuestKey + '&location=' + lat + ',' + lng;
         $.ajax(options);
-      },
-      getLocationString: function(locationData) {
-        if (locationData.geocodeQuality == 'ADDRESS') {
-          return locationData.street + ', ' + locationData.adminArea5 + ' ' + locationData.adminArea3;
-        } else {
-          return '';
-        }
       }
     }
   };
