@@ -75,7 +75,7 @@ var Shareabouts = Shareabouts || {};
       S.Util.MapQuest.reverseGeocode(center, {
         success: function(data) {
           var locationsData = data.results[0].locations;
-          console.log('Reverse geocoded center: ', data);
+          // S.Util.console.log('Reverse geocoded center: ', data);
           $(S).trigger('reversegeocode', [locationsData[0]]);
         }
       });
