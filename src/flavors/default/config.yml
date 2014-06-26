@@ -170,7 +170,7 @@ place:
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
 
-  location_item_name: name
+  location_item_name: location
 
   items:
     - prompt: _(Your Name)

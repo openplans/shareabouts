@@ -169,10 +169,10 @@ var Shareabouts = Shareabouts || {};
       // event. This should only happen when adding a place while geocoding
       // is enabled.
       $(S).on('reversegeocode', function(evt, locationData) {
-        var location = S.Util.MapQuest.getLocationString(locationData);
-        self.geocodeAddressView.setAddress(location);
+        var locationString = Handlebars.templates['location-string'](locationData);
+        self.geocodeAddressView.setAddress(locationString);
         self.placeFormView.setLatLng(locationData.latLng);
-        self.placeFormView.setLocation(location);
+        self.placeFormView.setLocation(locationData);
       });
 
 
