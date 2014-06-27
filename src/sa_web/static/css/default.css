@@ -12,10 +12,10 @@ body {
 
 /* Links */
 a, a:active, a:visited {
-  color: #007fbf;
+  color: #FF1609;
 }
 a:hover {
-  color: #00aaff;
+  color: #C8C8C8;
 }
 a:hover, a:active {
   outline: none;
@@ -49,7 +49,7 @@ h5 {
 }
 h6 {
   font-size: 1em;
-  text-transform: uppercase;
+  text-transform: none;
 }
 p {
   margin: 0 0 1.5em;
@@ -97,35 +97,36 @@ hr {
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
-  color: #007fbf;
+  color: #585A59;
   text-decoration: none;
-  text-transform: uppercase;
-  background-color: #a3c7d9;
-  box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.1);
+  text-transform: none;
+  background-color: #C8C8C8;
+  box-shadow: -0.1em 0.1em 0 rgba(0,0,0,0.1);
   font-weight: 600;
   border: 3px solid rgba(0,0,0,0.05);
   border-radius: 3px;
 }
 .btn:hover {
-  background-color: #93b7c9;
+  background-color: #585A59;
+  color: #fff;
 }
 .btn-primary,
 .btn-primary:visited,
 .btn-primary:link {
-  background-color: #00aaff;
+  background-color: #FF1609;
   color: #fff;
 }
 .btn-primary:hover {
-  background-color: #007fbf;
+  background-color: #585A59;
 }
 .btn-secondary,
 .btn-secondary:visited,
 .btn-secondary:link {
   background-color: #ccc;
-  color: #007fbf;
+  color: #585A59;
 }
 .btn-secondary:hover {
-  background-color: #007fbf;
+  background-color: #585A59;
   color: #fff;
 }
 .btn-disabled,
@@ -165,7 +166,7 @@ fieldset {
 }
 label {
   font-size: 0.75em;
-  text-transform: uppercase;
+  text-transform: none;
   color: #999;
   margin-right: 0.5em;
 }
@@ -279,7 +280,9 @@ img {
   position: relative;
   z-index: 40;
   padding: 0.5em;
-  box-shadow: 0 0.325em 0 rgba(0,0,0,0.1);
+  box-shadow: 0 0.1em 0 rgba(0,0,0,0.1);
+  border-top: #FF1609 3px solid
+
 }
 #site-title {
   color: #646464;
@@ -302,7 +305,7 @@ img {
   color: #646464;
 }
 #site-title a:hover {
-  color: #fff;
+  color: #C8C8C8;
 }
 
 /* Navigation Button */
@@ -348,9 +351,9 @@ img {
 .user-menu {
 }
 #sign-in-btn {
-  color: #a3c7d9;
+  color: #585A59;
   font-size: 0.75em;
-  text-transform: uppercase;
+  text-transform: none;
   text-align: center;
   text-decoration: none;
   line-height: 3.25;
@@ -383,7 +386,7 @@ a.auth-btn {
   text-decoration: none;
   display: block;
   padding: 0.5em;
-  box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.1);
+  box-shadow: -0.1em 0.1em 0 rgba(0,0,0,0.1);
 }
 a.twitter-btn {
   background-color: #4099FF;
@@ -418,7 +421,7 @@ a.logout-btn {
   font-size: 0.875em;
   font-weight: normal;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 
@@ -458,7 +461,7 @@ a.logout-btn {
   padding: 0.5em 0.5em 0.75em;
   position: relative;
   z-index: 30;
-  box-shadow: 0 -0.325em 0 rgba(0,0,0,0.1);
+  box-shadow: 0 -0.1em 0 rgba(0,0,0,0.1);
   border-bottom: 1px solid #666;
 }
 #add-place {}
@@ -610,7 +613,7 @@ a.logout-btn {
   color: #fff;
   font-size: 0.75em;
   line-height: 1.875;
-  text-transform: uppercase;
+  text-transform: auto;
   text-shadow: 0 0 0.25em rgba(85,85,85,1);
 }
 .progress-bar span {
@@ -645,7 +648,7 @@ a.logout-btn {
   padding: 1em 1em 2em;
   position: relative;
   z-index: 10;
-  box-shadow: 0 -0.325em 0 rgba(0,0,0,0.1);
+  box-shadow: 0 -0.1em 0 rgba(0,0,0,0.1);
   display: none;
 }
 
@@ -672,7 +675,7 @@ a.close-btn:hover {
 }
 a.close-btn span {
   font-size: 0.625em;
-  text-transform: uppercase;
+  text-transform: none;
   margin-left: 0.625em;
   position: relative;
   top: -0.2em;
@@ -712,13 +715,15 @@ a.close-btn span {
   border-radius: 0;
   font-size: 1em;
   padding-left: 22px;
-  color: #007fbf;
+  color: #585A59;
 }
 .user-support input[type=checkbox]:checked ~ label {
   background-image: url(images/heart.png);
 }
 .user-support:hover label {
-  background-color: #93b7c9;
+  background-color: #585A59;
+  color: #fff;
+  
 }
 .support-count {
 }
@@ -766,7 +771,7 @@ a.close-btn span {
 }
 .response-date {
   display: block;
-  text-transform: uppercase;
+  text-transform: none;
   color: #888;
   font-size: 0.75em;
 }
@@ -778,7 +783,7 @@ a.close-btn span {
 }
 .survey-count {
   font-size: 0.75em;
-  text-transform: uppercase;
+  text-transform: none;
   display: block;
 }
 
@@ -883,7 +888,7 @@ form .signed-in-as .avatar {
 form .signed-in-as a {
   font-weight: bold;
   font-size: 0.875em;
-  text-transform: uppercase;
+  text-transform: none;
 }
 .or-sign-in {
   display: block;
@@ -925,7 +930,7 @@ ul.recent-points {
 .recent-points li:hover {
 }
 .recent-points a {
-  color: #eee;
+  color: #585A59;
   text-decoration: none;
   float: left;
   border-top: 1px solid #888;
@@ -991,7 +996,7 @@ ul.recent-points {
   float: right;
   padding: 1em 0 0;
   color: #eee;
-  text-transform: uppercase;
+  text-transform: none;
 }
 .list-sort-prompt {
   font-size: 0.75em;
@@ -1073,7 +1078,7 @@ ul.recent-points {
   background-color: #666;
   color: #646464;
   padding: 1em 0.5em;
-  box-shadow: inset 0 0.325em rgba(0,0,0,0.1);
+  box-shadow: inset 0 0.1em rgba(0,0,0,0.1);
 }
 
 /* Powered By */
@@ -1134,7 +1139,7 @@ a.close-unsupported-overlay {
   left: 0;
   border-radius: 0.325em;
   text-align: center;
-  text-transform: uppercase;
+  text-transform: none;
   box-shadow: -0.325em 0.325em 0 rgba(0,0,0,0.1);
 }
 
@@ -1250,7 +1255,7 @@ a.close-unsupported-overlay {
   .sign-in-menu {
     background: #666;
     border-radius: 3px;
-    box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.2);
+    box-shadow: -0.1em 0.1em 0 rgba(0,0,0,0.2);
     width: 18em;
     margin: 0;
     padding: 1em 0.875em 1.125em 0.875em;
@@ -1387,7 +1392,7 @@ a.close-unsupported-overlay {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     z-index: 15;
-    box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
+    box-shadow: -0.1em 0 0 rgba(0,0,0,0.1);
   }
   .activity-enabled.content-visible #ticker {
     display: block;
@@ -1416,11 +1421,11 @@ a.close-unsupported-overlay {
   .list-toggle-btn,
   .list-toggle-btn:visited,
   .list-toggle-btn:link {
-    background-color: #007fbf;
+    background-color: #FF1609;
     color: #eee;
   }
   .list-toggle-btn:hover {
-    background-color: #00aaff;
+    background-color: #585A59;
     color: #fff;
   }
 
@@ -1435,7 +1440,7 @@ a.close-unsupported-overlay {
     left: 0;
     z-index: 14;
     padding: 0.25em;
-    box-shadow: 0 -0.325em rgba(0,0,0,0.1);
+    box-shadow: 0 -0.1em rgba(0,0,0,0.1);
     height: 1.75em;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;

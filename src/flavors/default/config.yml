@@ -98,8 +98,8 @@ place_types:
         # Show parks that are points as icons...
 
         icon:
-          iconUrl: /static/css/images/markers/dot-4bbd45.png
-          iconSize: [17, 18]
+          iconUrl: /static/css/images/master-pin-green.png
+          iconSize: [85, 41]
           iconAnchor: [9, 9]
 
         # ...and parks that are polygons as shapes.
