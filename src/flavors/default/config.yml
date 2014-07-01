@@ -27,7 +27,7 @@ map:
     minZoom: 10
     maxZoom: 17
   layers:
-    - url: http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
+    - url: http://{s}.tiles.mapbox.com/v3/aisey.map-u8fegfjt/{z}/{x}/{y}.png
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
     - url: /static/data/philadelphia.geojson
       type: json
@@ -59,9 +59,10 @@ place_types:
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [17, 18]
-          iconAnchor: [9, 9]
+          iconUrl: /static/css/images/master-pin-blue.png
+          shadowUrl: /static/css/images/master-pin-shadow.png
+          iconSize: [85, 41]
+          iconAnchor: [42, 42]
 
       - condition: '"{{location_type}}" === "landmark" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
@@ -80,7 +81,7 @@ place_types:
         # Show parks that are points as icons...
 
         icon:
-          iconUrl: /static/css/images/markers/marker-4bbd45.png
+          iconUrl: /static/css/images/markers/marker-4ab767.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [25, 41]
           shadowSize: [41, 41]
@@ -99,8 +100,9 @@ place_types:
 
         icon:
           iconUrl: /static/css/images/master-pin-green.png
+          shadowUrl: /static/css/images/master-pin-shadow.png
           iconSize: [85, 41]
-          iconAnchor: [9, 9]
+          iconAnchor: [42, 42]
 
         # ...and parks that are polygons as shapes.
 

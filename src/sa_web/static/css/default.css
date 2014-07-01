@@ -167,7 +167,7 @@ fieldset {
 label {
   font-size: 0.75em;
   text-transform: none;
-  color: #999;
+  color: #585A59;
   margin-right: 0.5em;
 }
 label small {
@@ -187,7 +187,7 @@ input[type=url],
 input[type=week],
 textarea {
   outline: 0;
-  border: 0.25em solid #a3c7d9;
+  border: 0.15em solid #C1C1C1;
   border-radius: 0;
   padding: 0.5em;
   display: block;
@@ -198,7 +198,7 @@ textarea {
 }
 input:focus,
 textarea:focus {
-  outline: 2px solid #007fbf;
+  outline: 2px solid #585A59;
 }
 textarea {
   height: 6.5em;
