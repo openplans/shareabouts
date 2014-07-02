@@ -42,108 +42,37 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  landmark:
-    label: _(Landmark)
+  wifi:
+    label: _(Wifi Spot)
     rules:
-      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "wifi" && {{map.zoom}} < 13 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
-          color: '#0d85e9'
+          color: '#FF1609'
           radius: 3
           weight: 1
           opacity: 0.9
           fillOpacity: 1
 
-      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "wifi" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/master-pin-blue.png
+          iconUrl: /static/css/images/master-pin-wifi.png
           shadowUrl: /static/css/images/master-pin-shadow.png
           iconSize: [85, 41]
           iconAnchor: [42, 42]
 
-      - condition: '"{{location_type}}" === "landmark" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "wifi" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/markers/marker-0d85e9.png
+          iconUrl: /static/css/images/markers/marker-f95016.png
           shadowUrl: /static/css/images/marker-shadow.png
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
-
-  park:
-    label: _(Park)
-    rules:
-      - condition: '"{{location_type}}" === "park" && {{layer.focused}}'
-        # Show parks that are points as icons...
-
-        icon:
-          iconUrl: /static/css/images/markers/marker-4ab767.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [25, 41]
-          shadowSize: [41, 41]
-          iconAnchor: [12, 41]
-
-        # ...and parks that are polygons as shapes.
-
-        style:
-          color: '#4bbd45'
-          weight: 3
-          opacity: 0.9
-          fillOpacity: 0.7
-
-      - condition: '"{{location_type}}" === "park"'
-        # Show parks that are points as icons...
-
-        icon:
-          iconUrl: /static/css/images/master-pin-green.png
-          shadowUrl: /static/css/images/master-pin-shadow.png
-          iconSize: [85, 41]
-          iconAnchor: [42, 42]
-
-        # ...and parks that are polygons as shapes.
-
-        style:
-          color: '#4bbd45'
-          weight: 1
-          opacity: 0.9
-          fillOpacity: 0.4
-
-  school:
-    label: _(School)
-    rules:
-      - condition: '"{{location_type}}" === "school" && {{submission_sets.comments.length}} > 0'
-        # Display schools as circles
-
-        style:
-          color: '#f95016'
-          radius: 8
-          weight: 4
-          opacity: 0.9
-          fillOpacity: 0.4
-        focus_style:
-          color: '#f95016'
-          radius: 16
-          weight: 4
-          opacity: 0.9
-          fillOpacity: 0.4
-
-      - condition: '"{{location_type}}" === "school"'
-        style:
-          color: '#f95016'
-          radius: 8
-          weight: 1
-          opacity: 0.9
-          fillOpacity: 0.4
-        focus_style:
-          color: '#f95016'
-          radius: 16
-          weight: 1
-          opacity: 0.9
-          fillOpacity: 0.4
 
 
 activity:
@@ -164,44 +93,22 @@ place:
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
   items:
-    - prompt: _(Your Name)
-      type: text
-      name: submitter_name
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Name)
-        - key: size
-          value: 30
-    - prompt: _(Your Email)
-      type: text
-      name: private-submitter_email
-      optional: true
-      attrs:
-        - key: placeholder
-          value: _(Email address)
-        - key: size
-          value: 30
-    - prompt: _(Location Name)
+    - prompt: _(Spot Name)
       type: text
       name: name
       attrs:
         - key: placeholder
-          value: _(Location Name)
+          value: _(Spot Name)
         - key: size
           value: 30
         - key: required
-    - prompt: _(Location Type)
+    - prompt: _(Spot Type)
       type: select
       options:
         - label: _(Choose One)
           value: ''
-        - label: _(Landmark)
-          value: landmark
-        - label: _(Park)
-          value: park
-        - label: _(School)
-          value: school
+        - label: _(Wifi Spot)
+          value: wifi
       name: location_type
       attrs:
         - key: required
@@ -211,7 +118,7 @@ place:
       optional: true
       attrs:
         - key: placeholder
-          value: _(Description...)
+          value: _(Description...) 
     - prompt: _(Image)
       inputfile_label: _(Add an Image)
       type: file
@@ -219,7 +126,25 @@ place:
       optional: true
       attrs:
         - key: accept
-          value: image/*
+          value: image/*           
+    - prompt: _(Your Name)
+      type: text
+      name: submitter_name
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Name)
+        - key: size
+          value: 30     
+    - prompt: _(Your Email)
+      type: text
+      name: private-submitter_email
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Email address)
+        - key: size
+          value: 30      
 
 survey:
   submission_type: comments
