@@ -284,6 +284,15 @@ img {
   border-top: #FF1609 3px solid
 
 }
+
+#site-title {
+  background: url('images/crowdspot-logo-horizontal-324x53.png') no-repeat
+center;
+  background-size: contain;
+  width: 232px;
+  text-indent: -133337px;
+}
+
 #site-title {
   color: #646464;
   font-size: 1em;
