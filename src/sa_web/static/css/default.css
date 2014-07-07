@@ -1096,10 +1096,15 @@ ul.recent-points {
   font-size: 0.75em;
   text-align: center;
 
+}
+
+#powered-by a {
   background: url('images/crowdspot-logo-horizontal-256x41.png') no-repeat
  center;
   background-size: contain;
+  color: rgba(0,0,0,0);
 }
+
 
 a.shareabouts-logo {
   font-family: 'Proxima nova', cursive;
