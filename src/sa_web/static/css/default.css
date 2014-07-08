@@ -303,8 +303,10 @@ center;
   padding: 0;
 }
 .has-pages #site-title {
-  padding-left: 3.25em;
+  margin-left: 3.25em;
 }
+
+
 #site-title a:link,
 #site-title a:visited {
   display: block;
@@ -1203,7 +1205,7 @@ a.close-unsupported-overlay {
             box-sizing: border-box;
   }
   .has-pages #site-title {
-    padding-left: 0;
+    margin-left: 0;
   }
   #site-title a:link,
   #site-title a:visited {
