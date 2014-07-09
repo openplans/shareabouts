@@ -394,6 +394,9 @@ center;
   width: 50%;
   font-weight: bold;
 }
+.why-sign-in {
+  display: none;
+}
 a.auth-btn {
   text-decoration: none;
   display: block;
@@ -435,7 +438,7 @@ a.logout-btn {
   text-decoration: none;
   text-transform: none;
 }
-
+  
 
 /* =Map
 -------------------------------------------------------------- */
@@ -1297,6 +1300,34 @@ a.close-unsupported-overlay {
     bottom: 100%;
     right: 1.5em;
   }
+  .why-sign-in {
+    display: block;
+    position: absolute;
+    right: 2.25em;
+    bottom: 0.875em;
+    color: #555;
+    font-size: 0.625em;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+  .why-sign-in span {
+    display: none;
+  }
+  .why-sign-in:hover span {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 25em;
+    cursor: default;
+    background: #fff;
+    font-size: 1.375em;
+    text-transform: none;
+    text-decoration: none;
+    box-shadow: -0.125em 0.125em 0.5em rgba(0,0,0,0.25);
+    padding: 1.5em;
+    border-radius: 0.25em;
+  }
   .authed #sign-in-btn {
     margin: 0.5em 0.5em 0 0.5em;
     z-index: 1;
@@ -1305,6 +1336,8 @@ a.close-unsupported-overlay {
     right: 0.5em;
   }
 
+
+  
   /* Map*/
   #map-container {
     position: absolute;
