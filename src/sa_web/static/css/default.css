@@ -1320,7 +1320,8 @@ a.close-unsupported-overlay {
     top: 100%;
     width: 25em;
     cursor: default;
-    background: #fff;
+    background: #EAEAEB;
+    color: #585A59;
     font-size: 1.375em;
     text-transform: none;
     text-decoration: none;
