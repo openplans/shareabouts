@@ -57,6 +57,10 @@ var Shareabouts = Shareabouts || {};
       if (S.justSubmitted) {
         S.justSubmitted = false;
         data.thanks = true;
+        
+        var location_type = this.model.get('location_type');
+        if (location_type)
+          data.place_type_label = this.options.placeConfig[location_type]['label'];
       }
       
       data.submitter_name = this.model.get('submitter_name') ||
