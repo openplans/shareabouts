@@ -3,10 +3,7 @@
         <header class="place-header clearfix">
           {{#if thanks}}
             <h2 class="thanks">Well done! This 
-              {{# place_type_label }}
-                {{ place_type_label }}
-              {{/ place_type_label}}
-              {{^ place_type_label }}place{{/ place_type_label}}
+              {{#if place_type_label }}{{ place_type_label }}{{else}}place{{/if}}
               has been added to the map. Share it with your friends.
             </h2>
           {{/if}}
