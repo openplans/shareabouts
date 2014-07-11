@@ -12,7 +12,7 @@ body {
 
 /* Links */
 a, a:active, a:visited {
-  color: #BCBCBC;
+  color: #FF1609;
 }
 a:hover {
   color: #C8C8C8;
@@ -1300,12 +1300,12 @@ a.close-unsupported-overlay {
     bottom: 100%;
     right: 1.5em;
   }
-  .why-sign-in {
+  a.why-sign-in {
     display: block;
     position: absolute;
     right: 2.25em;
     bottom: 0.875em;
-    color: #555;
+    color: #BCBCBC;
     font-size: 0.625em;
     text-transform: uppercase;
     z-index: 1;
