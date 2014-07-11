@@ -58,9 +58,16 @@ var Shareabouts = Shareabouts || {};
         S.justSubmitted = false;
         data.thanks = true;
         
+        var location_config = _.find(this.options.placeConfig.items, function(item) { 
+          return item.name === 'location_type';
+        });
         var location_type = this.model.get('location_type');
-        if (location_type)
-          data.place_type_label = this.options.placeConfig[location_type]['label'];
+        
+        if (location_type && location_config) {
+          data.place_type_label = _.find(location_config.options, function(option) {
+            return option.value === location_type;
+          }).label;
+        }
       }
       
       data.submitter_name = this.model.get('submitter_name') ||
