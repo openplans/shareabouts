@@ -376,6 +376,8 @@ var Shareabouts = Shareabouts || {};
     viewPlace: function(model, responseId, zoom) {
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
+          // will be "mobile" or "desktop", as defined in default.css
+          layout = window.getComputedStyle(document.body,':after').getPropertyValue('content'),
           onPlaceFound, onPlaceNotFound, modelId;
 
       onPlaceFound = function(model) {
@@ -397,7 +399,7 @@ var Shareabouts = Shareabouts || {};
         }
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        self.showPanel(placeDetailView.render().$el, true);
+        self.showPanel(placeDetailView.render().$el, !!responseId);
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
@@ -422,7 +424,13 @@ var Shareabouts = Shareabouts || {};
 
           // call scrollIntoView()
           if ($responseToScrollTo.length > 0) {
-            $responseToScrollTo.get(0).scrollIntoView();
+            if (layout === 'desktop') {
+              // For desktop, the panel content is scrollable
+              self.$panelContent.scrollTo($responseToScrollTo, 500);
+            } else {
+              // For mobile, it's the window
+              $(window).scrollTo($responseToScrollTo, 500);
+            }
           }
         }
 
@@ -484,11 +492,17 @@ var Shareabouts = Shareabouts || {};
       this.$panelContent.html(markup);
       this.$panel.show();
 
-      if (preventScrollToTop) {
-        this.$panelContent.scrollTop(0);
-        // Scroll to the top of window when showing new content on mobile. Does
-        // nothing on desktop.
-        window.scrollTo(0, 0);
+      if (!preventScrollToTop) {
+        // will be "mobile" or "desktop", as defined in default.css
+        var layout = window.getComputedStyle(document.body,':after').getPropertyValue('content');
+        if (layout === 'desktop') {
+          // For desktop, the panel content is scrollable
+          this.$panelContent.scrollTo(0, 0);
+        } else {
+          // Scroll to the top of window when showing new content on mobile. Does
+          // nothing on desktop. (Except when embedded in a scrollable site.)
+          window.scrollTo(0, 0);
+        }
       }
 
       $('body').addClass('content-visible');

@@ -10,6 +10,12 @@ body {
   text-align: left;
 }
 
+/* A helper to let the JS know what kind of layout we're using */
+body:after {
+  content: "mobile";
+  display: none;
+}
+
 /* Links */
 a, a:active, a:visited {
   color: #007fbf;
@@ -1271,6 +1277,11 @@ a.close-unsupported-overlay {
   body {
     height: 100%;
     position: relative;
+  }
+
+  /* A helper to let the JS know what kind of layout we're using */
+  body:after {
+    content: "desktop";
   }
 
   /* Header */
