@@ -55,7 +55,7 @@
   <![endif]-->
 
 </head>
-<body>
+<body class="{% if config.map.geocoding_enabled %} geocoding-enabled{% endif %}">
 
   <header id="site-header" class="clearfix{% if pages_config %} has-pages{% endif %}">
     <h1 id="site-title">{% block site-title %}{% endblock %}</h1>
