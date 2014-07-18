@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block body-classes %}{% if config.map.geocoding_enabled %}geocoding-enabled{% endif %}{% endblock %}
+{% block body-classes %}embedded {% if config.map.geocoding_enabled %}geocoding-enabled{% endif %}{% endblock %}
 
 {% block site-title %}
 <a href="/">{{ config.app.name }}</a>

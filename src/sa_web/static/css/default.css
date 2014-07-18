@@ -287,6 +287,9 @@ img {
   padding: 0.5em;
   box-shadow: 0 0.325em 0 rgba(0,0,0,0.1);
 }
+.embedded #site-header {
+  display: none;
+}
 #site-title {
   color: #eee;
   font-size: 1em;
