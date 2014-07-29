@@ -63,6 +63,12 @@ var Shareabouts = Shareabouts || {};
         attrs = S.Util.getAttrs($form);
         this.collection.create(attrs, {
           wait: true,
+          beforeSend: function($xhr) {
+            // Do not generate activity for anonymous supports
+            if (!S.bootstrapped.currentUser) {
+              $xhr.setRequestHeader('X-Shareabouts-Silent', 'true');
+            }
+          },
           success: function() {
             S.Util.log('USER', 'place', 'successfully-support', self.collection.options.placeModel.getLoggingDetails());
           },
