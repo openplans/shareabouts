@@ -1,4 +1,16 @@
 
+/* =Hiding Social Sign-in
+-------------------------------------------------------------- */
+
+#auth-nav-container {
+  display: none;
+}
+
+#place-form .or-sign-in {
+  display: none;
+}
+
+
 /* =Base Styles
 -------------------------------------------------------------- */
 
@@ -1466,7 +1478,7 @@ a.close-unsupported-overlay {
     display: block;
     float: right;
     width: auto;
-    margin: -1.125em 0 0 0.5em;
+    margin: -1.125em 5.5em 0 0.5em;
     position: relative;
     top: 50%;
     font-size: 0.875em;
