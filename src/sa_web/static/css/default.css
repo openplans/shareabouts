@@ -470,6 +470,10 @@ a.logout-btn {
 }
 #add-place {}
 
+.content-visible #add-place-btn-container {
+  display: none; /* hide the add button on mobile when the panel is open */
+}
+
 /* Center Point (new point icon) */
 #centerpoint {
   display: none;
@@ -1440,6 +1444,12 @@ a.close-unsupported-overlay {
   #add-place-btn-container .btn:link {
     padding-right: 1em;
     padding-left: 1em;
+  }
+  .content-visible #add-place-btn-container {
+    display: block; /* override of the mobile style */
+  }
+  .place-form-visible #add-place-btn-container {
+    display: none;
   }
 
   /* Content */

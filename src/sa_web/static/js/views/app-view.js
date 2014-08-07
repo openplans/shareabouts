@@ -214,7 +214,7 @@ var Shareabouts = Shareabouts || {};
       this.placeDetailViews = {};
 
       // Show tools for adding data
-      this.showAddButton();
+      this.setBodyClass();
       this.showCenterPoint();
 
       // Load places from the API
@@ -329,9 +329,27 @@ var Shareabouts = Shareabouts || {};
         this.$panel.removeClass().addClass('place-form');
         this.showPanel(this.placeFormView.render().$el);
         this.showNewPin();
-        this.hideAddButton();
+        this.setBodyClass('content-visible', 'place-form-visible');
 
         this.conditionallyReverseGeocode();
+      }
+    },
+    setBodyClass: function(/* newBodyClasses */) {
+      var bodyClasses = ['content-visible', 'place-form-visible'],
+          newBodyClasses = Array.prototype.slice.call(arguments, 0),
+          i, $body = $('body');
+
+      for (i = 0; i < bodyClasses.length; ++i) {
+        $body.removeClass(bodyClasses[i]);
+      }
+      for (i = 0; i < newBodyClasses.length; ++i) {
+        // If the newBodyClass isn't among the ones that will be cleared
+        // (bodyClasses), then we probably don't want to use this method and
+        // should fail loudly.
+        if (bodyClasses.indexOf(newBodyClasses[i]) === -1) {
+          S.Util.console.error('Setting an unrecognized body class.\nYou should probably just use jQuery directly.');
+        }
+        $body.addClass(newBodyClasses[i]);
       }
     },
     conditionallyReverseGeocode: function() {
@@ -367,7 +385,7 @@ var Shareabouts = Shareabouts || {};
       this.hidePanel();
       this.hideNewPin();
       this.destroyNewModels();
-      this.showAddButton();
+      this.setBodyClass();
     },
     newPlace: function() {
       // Called by the router
@@ -403,7 +421,7 @@ var Shareabouts = Shareabouts || {};
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
-        self.hideAddButton();
+        self.setBodyClass('content-visible');
 
         if (layer) {
           if (zoom) {
@@ -482,7 +500,7 @@ var Shareabouts = Shareabouts || {};
       this.hideNewPin();
       this.destroyNewModels();
       this.hideCenterPoint();
-      this.hideAddButton();
+      this.setBodyClass('content-visible');
     },
     showPanel: function(markup, preventScrollToTop) {
       var map = this.mapView.map;
@@ -505,7 +523,7 @@ var Shareabouts = Shareabouts || {};
         }
       }
 
-      $('body').addClass('content-visible');
+      this.setBodyClass('content-visible');
       map.invalidateSize({ animate:true, pan:true });
 
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
@@ -514,12 +532,6 @@ var Shareabouts = Shareabouts || {};
     showNewPin: function() {
       var map = this.mapView.map;
       this.$centerpoint.show().addClass('newpin');
-    },
-    showAddButton: function() {
-      this.$addButton.show();
-    },
-    hideAddButton: function() {
-      this.$addButton.hide();
     },
     showCenterPoint: function() {
       this.$centerpoint.show().removeClass('newpin');
@@ -532,7 +544,7 @@ var Shareabouts = Shareabouts || {};
 
       this.unfocusAllPlaces();
       this.$panel.hide();
-      $('body').removeClass('content-visible');
+      this.setBodyClass();
       map.invalidateSize({ animate:true, pan:true });
 
       S.Util.log('APP', 'panel-state', 'closed');
