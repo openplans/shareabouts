@@ -21,13 +21,13 @@ map:
   geolocation_onload: false
   options:
     center:
-      lat: -37.804966 
-      lng: 144.992541
-    zoom: 14
-    minZoom: 10
-    maxZoom: 17
+      lat: -37.798380 
+      lng: 144.960998
+    zoom: 17
+    minZoom: 16
+    maxZoom: 19
   layers:
-    - url: http://{s}.tiles.mapbox.com/v3/aisey.map-u8fegfjt/{z}/{x}/{y}.png
+    - url: http://{s}.tiles.mapbox.com/v3/aisey.ida5d102/{z}/{x}/{y}.png
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
     - url: /static/data/philadelphia.geojson
       type: json
@@ -42,29 +42,29 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  wifi:
-    label: _(Wifi Spot)
+  bike:
+    label: _(Bike Parking Spot)
     rules:
-      - condition: '"{{location_type}}" === "wifi" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "bike" && {{map.zoom}} < 17 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
-          color: '#FF1609'
-          radius: 3
+          color: '#1849D7'
+          radius: 4
           weight: 1
           opacity: 0.9
-          fillOpacity: 1
+          fillOpacity: 0.5
 
-      - condition: '"{{location_type}}" === "wifi" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "bike" && {{map.zoom}} >= 17 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/master-pin-wifi.png
+          iconUrl: /static/css/images/master-pin-bike-blue.png
           shadowUrl: /static/css/images/master-pin-shadow.png
           iconSize: [85, 41]
           iconAnchor: [42, 42]
 
-      - condition: '"{{location_type}}" === "wifi" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "bike" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -88,37 +88,100 @@ place:
   show_list_button_label: _(List All Spots)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
-  title: _(Tell us more...)
+  title: _(Where do you want more bike parking?)
   action_text: _(created)
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
   items:
-    - prompt: _(Spot Name)
+    - prompt: _(1. Where is this location?)
       type: text
       name: name
       attrs:
         - key: placeholder
-          value: _(Spot Name)
+          value: _(Building name, intersection, etc.)
         - key: size
           value: 30
         - key: required
     - prompt: _(Spot Type)
       type: select
       options:
-        - label: _(Choose One)
+        - label: _(Please select)
           value: ''
-        - label: _(Wifi Spot)
-          value: wifi
+        - label: _(Bike Parking Spot)
+          value: bike
       name: location_type
       attrs:
+        - key: required      
+    - prompt: _(2. What is the main bike parking issue here?)
+      type: select
+      options:
+        - label: _(Please choose)
+          value: please choose
+        - label: _(There is not enough bike parking)
+          value: There is not enough bike parking
+        - label: _(There is no bike parking)
+          value: There is no bike parking
+        - label: _(Other)
+          value: Other  
+      name: issue
+      attrs:
         - key: required
-    - prompt: _(Description)
+    - prompt: _(If other, please type here..)
+      type: text
+      name: Other
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Type here..)
+        - key: size
+          value: 30      
+    - prompt: _(3. What time does this issue occur most?)
+      type: select
+      options:
+        - label: _(Please choose)
+          value: Please choose
+        - label: _(8am - 12pm)
+          value: 8am - 12pm
+        - label: _(12pm - 4pm)
+          value: 12pm - 4pm
+        - label: _(4pm - 8pm)
+          value: 4pm - 8pm
+        - label: _(All of the above)
+          value: All of the above
+      name: time
+      attrs:
+        - key: required
+    - prompt: _(4. Your age)
+      type: select
+      options:
+        - label: _(Please choose)
+          value: Please choose
+        - label: _(15 - 19)
+          value: 15 - 19
+        - label: _(20 - 24)
+          value: 20 - 24
+        - label: _(25 - 34)
+          value: 25 - 34
+        - label: _(35 - 44)
+          value: 35 - 44
+        - label: _(45 - 54)
+          value: 45 - 54
+        - label: _(55 - 64)
+          value: 55 - 64
+        - label: _(65 - 74)
+          value: 65 - 74
+        - label: _(+75)
+          value: +75  
+      name: age
+      attrs:
+        - key: required         
+    - prompt: _(Anything else?)
       type: textarea
       name: description
       optional: true
       attrs:
         - key: placeholder
-          value: _(Description...) 
+          value: _(Type here...) 
     - prompt: _(Image)
       inputfile_label: _(Add an Image)
       type: file
@@ -133,7 +196,7 @@ place:
       optional: true
       attrs:
         - key: placeholder
-          value: _(Name)
+          value: _(Your name will be visible)
         - key: size
           value: 30     
     - prompt: _(Your Email)
@@ -142,7 +205,7 @@ place:
       optional: true
       attrs:
         - key: placeholder
-          value: _(Email address)
+          value: _(Used only for feedback)
         - key: size
           value: 30      
 
@@ -180,16 +243,16 @@ support:
   anonymous_name: _(Someone)
 
 pages:
-  - title: _(About)
-    slug: about
+  - title: _(Welcome)
+    slug: welcome
     name: overview
     # start_page: true
 
-  - title: _(Why CrowdSpot?)
+  - title: _(FAQs)
     slug: why
     url: /static/pages/why.html
 
-  - title: _(Contact)
+  - title: _(CrowdSpot)
     pages:
       - title: _(Website)
         external: true

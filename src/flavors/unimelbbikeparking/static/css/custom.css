@@ -4,9 +4,99 @@
  * NOTE: "With great power comes great responsibility."
  */
 
+/*
+COLOR PALETTE...
+
+Dark blue   #042A5E
+Medium blue #1D4578
+Light blue  #A3C0DD
+
+
+*/
+
+
+/* =Base Styles
+-------------------------------------------------------------- */
+
+/* Buttons */
+.btn,
+.btn:visited,
+.btn:link {
+  font-weight: 600;
+  border: 0;
+}
+
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:link {
+  background-color: #042A5E;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #1D4578;
+}
+.btn-secondary,
+.btn-secondary:visited,
+.btn-secondary:link {
+/*  background-color: #ccc;*/
+/*  color: #007fbf;*/
+}
+.btn-secondary:hover {
+/*  background-color: #007fbf;*/
+/*  color: #fff;*/
+}
 
 /* =Header
 -------------------------------------------------------------- */
+
+#site-header {
+  border-top: #042A5E 3px solid
+}
+
+#site-header {
+  background-color: #fff;
+}
+
+#site-title {
+  background: url('images/uom_logo.jpg') no-repeat
+center;
+  background-size: contain;
+  width: 232px;
+  text-indent: -133337px;
+}
+
+.site-name {
+  font-size: 0.45em;
+  float: left;
+  line-height: 1.2;
+  background-color: #26A0DA;
+  position: relative;
+  top: -0.6em;
+}
+
+
+/* =Map
+-------------------------------------------------------------- */
+
+/* Add Place Button */
+
+
+/* =Existing Spots
+-------------------------------------------------------------- */
+
+.place-value-issue:before {
+  content: "Issue: ";
+  font-weight: bold;
+}
+
+.place-value-time:before {
+  content: "Busiest time: ";
+  font-weight: bold;
+}
+
+.place-value-age {
+  display: none;
+}
 
 
 /* =Media Queries
