@@ -11,7 +11,9 @@ Dark blue   #042A5E
 Medium blue #1D4578
 Light blue  #A3C0DD
 
-
+CrowdSpot Red #FF1609
+CrowdSpot Green #45BA00
+CrowdSpot Grey (text) #585A59
 */
 
 
@@ -74,12 +76,60 @@ center;
   top: -0.6em;
 }
 
+/* =The Ticker
+-------------------------------------------------------------- */
+
+#ticker {
+  background: #fff;
+}
+
+/* =Content: Pages & Places
+-------------------------------------------------------------- */
+
+#content {
+  background: #F8F8FF;
+}
+
+/* Close Button */
+a.close-btn {
+  background: #F8F8FF;
+}
+
+
+
+/* =List View
+-------------------------------------------------------------- */
+
+#list-container {
+  background: #eee;
+}
+
+.list-toggle-btn,
+  .list-toggle-btn:visited,
+  .list-toggle-btn:link {
+    background-color: #45BA00;
+ }
+ 
+.list-toggle-btn:hover {
+    background-color: #585A59;
+    color: #fff;
+  }   
 
 /* =Map
 -------------------------------------------------------------- */
 
-/* Add Place Button */
-
+/* Drag Marker Instructions (for adding a new place) */
+.drag-marker-instructions,
+.drag-marker-warning {
+  background-color: #45BA00;
+  color: #585A59;
+  text-shadow: none;
+}
+.drag-marker-warning {
+  background-color: #FF1609;
+  color: #fff;
+  text-shadow: none;
+}
 
 /* =Existing Spots
 -------------------------------------------------------------- */
