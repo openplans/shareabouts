@@ -246,7 +246,7 @@ pages:
   - title: _(Welcome)
     slug: welcome
     name: overview
-    # start_page: true
+    start_page: true
 
   - title: _(FAQs)
     slug: why

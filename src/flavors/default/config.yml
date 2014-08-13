@@ -183,7 +183,7 @@ pages:
   - title: _(About)
     slug: about
     name: overview
-    # start_page: true
+    start_page: true
 
   - title: _(Why CrowdSpot?)
     slug: why

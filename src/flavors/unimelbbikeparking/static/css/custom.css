@@ -60,7 +60,7 @@ CrowdSpot Grey (text) #585A59
 }
 
 #site-title {
-  background: url('images/uom_logo_text_cropped.png') no-repeat
+  background: url('images/uom_logo_text2.png') no-repeat
 center;
   background-size: contain;
   width: 400px;
@@ -77,7 +77,7 @@ center;
 }
 
 .has-pages #site-title {
-  margin-left: 0.50em;
+  margin-left: 0.25em;
 }
 
 /* =The Ticker
