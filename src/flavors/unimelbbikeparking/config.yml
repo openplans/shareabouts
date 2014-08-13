@@ -34,10 +34,10 @@ map:
       rules:
         - condition: 'true'
           style:
-            color: "#444"
+            color: "#042A5E"
             opacity: 0.6
             fillOpacity: 0.1
-            weight: 1
+            weight: 0.5
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
@@ -49,9 +49,9 @@ place_types:
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
-          color: '#1849D7'
-          radius: 4
-          weight: 1
+          color: '#042A5E'
+          radius: 5
+          weight: 0.5
           opacity: 0.9
           fillOpacity: 0.5
 
@@ -59,7 +59,7 @@ place_types:
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/master-pin-bike-blue.png
+          iconUrl: /static/css/images/master-pin-bike-dblue.png
           shadowUrl: /static/css/images/master-pin-shadow.png
           iconSize: [85, 41]
           iconAnchor: [42, 42]
