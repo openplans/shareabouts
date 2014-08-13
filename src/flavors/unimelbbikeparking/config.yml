@@ -111,16 +111,17 @@ place:
       type: select
       options:
         - label: _(Please choose)
-          value: please choose
+          value: 
         - label: _(There is not enough bike parking)
-          value: There is not enough bike parking
+          value: not enough
         - label: _(There is no bike parking)
-          value: There is no bike parking
+          value: none
         - label: _(Other)
           value: Other  
       name: issue
       attrs:
         - key: required
+          value: true
     - prompt: _(If other, please type here..)
       type: text
       name: Other
@@ -134,23 +135,24 @@ place:
       type: select
       options:
         - label: _(Please choose)
-          value: Please choose
+          value: 
         - label: _(8am - 12pm)
           value: 8am - 12pm
         - label: _(12pm - 4pm)
           value: 12pm - 4pm
         - label: _(4pm - 8pm)
           value: 4pm - 8pm
-        - label: _(All of the above)
-          value: All of the above
+        - label: _(All times)
+          value: All times
       name: time
       attrs:
         - key: required
+          value: true
     - prompt: _(4. Your age)
       type: select
       options:
         - label: _(Please choose)
-          value: Please choose
+          value: 
         - label: _(15 - 19)
           value: 15 - 19
         - label: _(20 - 24)
@@ -169,7 +171,8 @@ place:
           value: +75  
       name: age
       attrs:
-        - key: required         
+        - key: required  
+          value: true       
     - prompt: _(Anything else?)
       type: textarea
       name: description
