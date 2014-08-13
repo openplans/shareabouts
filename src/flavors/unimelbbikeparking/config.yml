@@ -49,17 +49,17 @@ place_types:
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
-          color: '#042A5E'
-          radius: 5
+          color: '#255EE6'
+          radius: 4
           weight: 0.5
           opacity: 0.9
-          fillOpacity: 0.5
+          fillOpacity: 0.75
 
       - condition: '"{{location_type}}" === "bike" && {{map.zoom}} >= 17 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/master-pin-bike-dblue.png
+          iconUrl: /static/css/images/master-pin-bike-mblue.png
           shadowUrl: /static/css/images/master-pin-shadow.png
           iconSize: [85, 41]
           iconAnchor: [42, 42]
