@@ -58,6 +58,7 @@ var Shareabouts = Shareabouts || {};
         S.justSubmitted = false;
         data.thanks = true;
         
+/*  XXX: this doesn't work and causes an error if you use a hidden location_type
         var location_config = _.find(this.options.placeConfig.items, function(item) { 
           return item.name === 'location_type';
         });
@@ -68,6 +69,7 @@ var Shareabouts = Shareabouts || {};
             return option.value === location_type;
           }).label;
         }
+*/
       }
       
       data.submitter_name = this.model.get('submitter_name') ||
