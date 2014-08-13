@@ -122,6 +122,16 @@ var Shareabouts = Shareabouts || {};
 
       S.Util.log('USER', 'new-place', 'submit-place-btn-click');
 
+      // simple required validation
+      var errors = '';
+      _.each(this.options.placeConfig.items, function(item) {
+        if (! item.optional && ! attrs[item.name]) {
+          errors = errors + item.prompt + " is required. ";
+        }
+      });
+      if (errors)
+        return alert(errors);
+
       // Save and redirect
       this.model.save(attrs, {
         success: function() {
