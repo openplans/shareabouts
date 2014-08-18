@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: University of Melbourne Bike Parking Map
+  title: CrowdSpot
   # Header name
-  name: University of Melbourne Bike Parking Map
+  name: CrowdSpot
   # Meta description that will show up in Google search results
   meta_description: _(CrowdSpot creates custom maps that allow people to give input on geogrpahic locations. Use it to collect data in a social, engaging process.)
 
