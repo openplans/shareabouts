@@ -1403,7 +1403,7 @@ a.close-unsupported-overlay {
     bottom: 1.75em;
     left: 40%;
     overflow: visible;
-    box-shadow: -0.325em 0 0 rgba(0,0,0,0.1);
+    box-shadow: -0.15em 0 0 rgba(0,0,0,0.1);
   }
   .activity-enabled #content {
     left: 30%;
@@ -1417,7 +1417,7 @@ a.close-unsupported-overlay {
     margin: 0 -0.325em 0 0;
     padding: 0.125em 0.625em 0.125em 0.625em;
     border-radius: 0.325em 0 0 0.325em;
-    box-shadow: -0.325em 0.325em 0 rgba(0,0,0,0.1);
+    box-shadow: -0.15em 0em 0 rgba(0,0,0,0.1);
   }
   a.close-btn:hover {
   }
