@@ -102,16 +102,11 @@ place:
         - key: size
           value: 30
         - key: required
-    - prompt: _(Spot Type)
-      type: select
-      options:
-        - label: _(Choose One)
-          value: ''
-        - label: _(Wifi Spot)
-          value: wifi
+    - type: hidden
       name: location_type
       attrs:
-        - key: required
+        - key: value
+          value: wifi
     - prompt: _(Description)
       type: textarea
       name: description
