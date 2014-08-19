@@ -71,7 +71,50 @@ var Shareabouts = Shareabouts || {};
 
     log: function() {
       var args = Array.prototype.slice.call(arguments, 0);
-      S.Util.console.log(args);
+
+      if (window.ga) {
+        this.analytics(args);
+      } else {
+        S.Util.console.log(args);
+      }
+    },
+
+    analytics: function(args) {
+      var firstArg = args.shift(),
+          secondArg,
+          measure,
+          measures = {
+            'center-lat': 'metric1',
+            'center-lng': 'metric2',
+            'zoom': 'metric3',
+
+            'panel-state': 'dimension1'
+          };
+
+      switch (firstArg.toLowerCase()) {
+        case 'route':
+          args = ['send', 'pageview'].concat(args);
+          break;
+
+        case 'user':
+          args = ['send', 'event'].concat(args);
+          break;
+
+        case 'app':
+          secondArg = args.shift();
+          measure = measures[secondArg];
+          if (!measure) {
+            this.console.error('No metrics or dimensions matching "' + secondArg + '"');
+            return;
+          }
+          args = ['set', measure].concat(args);
+          break;
+
+        default:
+          return;
+      }
+
+      window.ga.apply(window, args);
     },
 
     // For browsers without a console
@@ -257,6 +300,37 @@ var Shareabouts = Shareabouts || {};
       },
       destroy: function(name) {
         this.save(name,'',-1);
+      }
+    },
+
+    MapQuest: {
+      geocode: function(location, bounds, options) {
+        var mapQuestKey = S.bootstrapped.mapQuestKey;
+
+        if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
+
+        options = options || {};
+        options.dataType = 'jsonp';
+        options.cache = true;
+        options.url = 'http://open.mapquestapi.com/geocoding/v1/address?key=' + mapQuestKey + '&location=' + location;
+        if (bounds) {
+          options.url += '&boundingBox=' + bounds.join(',');
+        }
+        $.ajax(options);
+      },
+      reverseGeocode: function(latLng, options) {
+        var mapQuestKey = S.bootstrapped.mapQuestKey,
+            lat, lng;
+
+        if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
+
+        lat = latLng.lat || latLng[0];
+        lng = latLng.lng || latLng[1];
+        options = options || {};
+        options.dataType = 'jsonp';
+        options.cache = true;
+        options.url = 'http://open.mapquestapi.com/geocoding/v1/reverse?key=' + mapQuestKey + '&location=' + lat + ',' + lng;
+        $.ajax(options);
       }
     }
   };

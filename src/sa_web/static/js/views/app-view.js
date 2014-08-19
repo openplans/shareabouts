@@ -135,6 +135,51 @@ var Shareabouts = Shareabouts || {};
         placeTypes: this.options.placeTypes
       });
 
+      // Init the address search bar
+      this.geocodeAddressView = (new S.GeocodeAddressView({
+        el: '#geocode-address-bar',
+        router: this.options.router,
+        mapConfig: this.options.mapConfig
+      })).render();
+
+      // When the user chooses a geocoded address, the address view will fire
+      // a geocode event on the namespace. At that point we center the map on
+      // the geocoded location.
+      $(S).on('geocode', function(evt, locationData) {
+        self.mapView.zoomInOn(locationData.latLng);
+
+        if (self.isAddingPlace()) {
+          self.placeFormView.setLatLng(locationData.latLng);
+          self.placeFormView.setLocation(locationData);
+        }
+      });
+
+      // When the map center moves, the map view will fire a mapmoveend event
+      // on the namespace. If the move was the result of the user dragging, a
+      // mapdragend event will be fired.
+      //
+      // If the user is adding a place, we want to take the opportunity to
+      // reverse geocode the center of the map, if geocoding is enabled. If
+      // the user is doing anything else, we just want to clear out any text
+      // that's currently set in the address search bar.
+      $(S).on('mapdragend', function(evt) {
+        if (self.isAddingPlace()) {
+          self.conditionallyReverseGeocode();
+        } else if (self.geocodeAddressView) {
+          self.geocodeAddressView.setAddress('');
+        }
+      });
+
+      // After reverse geocoding, the map view will fire a reversegeocode
+      // event. This should only happen when adding a place while geocoding
+      // is enabled.
+      $(S).on('reversegeocode', function(evt, locationData) {
+        var locationString = Handlebars.templates['location-string'](locationData);
+        self.geocodeAddressView.setAddress(locationString.trim());
+        self.placeFormView.setLatLng(locationData.latLng);
+        self.placeFormView.setLocation(locationData);
+      });
+
 
       // List view is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
@@ -169,7 +214,7 @@ var Shareabouts = Shareabouts || {};
       this.placeDetailViews = {};
 
       // Show tools for adding data
-      this.showAddButton();
+      this.setBodyClass();
       this.showCenterPoint();
 
       // Load places from the API
@@ -179,6 +224,9 @@ var Shareabouts = Shareabouts || {};
       this.activities.fetch({reset: true});
     },
 
+    isAddingPlace: function(model) {
+      return this.$panel.is(":visible") && this.$panel.hasClass('place-form');
+    },
     loadPlaces: function(placeParams) {
       var self = this,
           $progressContainer = $('#map-progress'),
@@ -281,7 +329,32 @@ var Shareabouts = Shareabouts || {};
         this.$panel.removeClass().addClass('place-form');
         this.showPanel(this.placeFormView.render().$el);
         this.showNewPin();
-        this.hideAddButton();
+        this.setBodyClass('content-visible', 'place-form-visible');
+
+        this.conditionallyReverseGeocode();
+      }
+    },
+    setBodyClass: function(/* newBodyClasses */) {
+      var bodyClasses = ['content-visible', 'place-form-visible'],
+          newBodyClasses = Array.prototype.slice.call(arguments, 0),
+          i, $body = $('body');
+
+      for (i = 0; i < bodyClasses.length; ++i) {
+        $body.removeClass(bodyClasses[i]);
+      }
+      for (i = 0; i < newBodyClasses.length; ++i) {
+        // If the newBodyClass isn't among the ones that will be cleared
+        // (bodyClasses), then we probably don't want to use this method and
+        // should fail loudly.
+        if (bodyClasses.indexOf(newBodyClasses[i]) === -1) {
+          S.Util.console.error('Setting an unrecognized body class.\nYou should probably just use jQuery directly.');
+        }
+        $body.addClass(newBodyClasses[i]);
+      }
+    },
+    conditionallyReverseGeocode: function() {
+      if (this.options.mapConfig.geocoding_enabled) {
+        this.mapView.reverseGeocodeMapCenter();
       }
     },
     onRemovePlace: function(model) {
@@ -312,7 +385,7 @@ var Shareabouts = Shareabouts || {};
       this.hidePanel();
       this.hideNewPin();
       this.destroyNewModels();
-      this.showAddButton();
+      this.setBodyClass();
     },
     newPlace: function() {
       // Called by the router
@@ -321,6 +394,8 @@ var Shareabouts = Shareabouts || {};
     viewPlace: function(model, responseId, zoom) {
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
+          // will be "mobile" or "desktop", as defined in default.css
+          layout = window.getComputedStyle(document.body,':after').getPropertyValue('content'),
           onPlaceFound, onPlaceNotFound, modelId;
 
       onPlaceFound = function(model) {
@@ -342,11 +417,11 @@ var Shareabouts = Shareabouts || {};
         }
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        self.showPanel(placeDetailView.render().$el, true);
+        self.showPanel(placeDetailView.render().$el, !!responseId);
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();
-        self.hideAddButton();
+        self.setBodyClass('content-visible');
 
         if (layer) {
           if (zoom) {
@@ -367,7 +442,13 @@ var Shareabouts = Shareabouts || {};
 
           // call scrollIntoView()
           if ($responseToScrollTo.length > 0) {
-            $responseToScrollTo.get(0).scrollIntoView();
+            if (layout === 'desktop') {
+              // For desktop, the panel content is scrollable
+              self.$panelContent.scrollTo($responseToScrollTo, 500);
+            } else {
+              // For mobile, it's the window
+              $(window).scrollTo($responseToScrollTo, 500);
+            }
           }
         }
 
@@ -419,7 +500,7 @@ var Shareabouts = Shareabouts || {};
       this.hideNewPin();
       this.destroyNewModels();
       this.hideCenterPoint();
-      this.hideAddButton();
+      this.setBodyClass('content-visible');
     },
     showPanel: function(markup, preventScrollToTop) {
       var map = this.mapView.map;
@@ -429,15 +510,21 @@ var Shareabouts = Shareabouts || {};
       this.$panelContent.html(markup);
       this.$panel.show();
 
-      if (preventScrollToTop) {
-        this.$panelContent.scrollTop(0);
-        // Scroll to the top of window when showing new content on mobile. Does
-        // nothing on desktop.
-        window.scrollTo(0, 0);
+      if (!preventScrollToTop) {
+        // will be "mobile" or "desktop", as defined in default.css
+        var layout = window.getComputedStyle(document.body,':after').getPropertyValue('content');
+        if (layout === 'desktop') {
+          // For desktop, the panel content is scrollable
+          this.$panelContent.scrollTo(0, 0);
+        } else {
+          // Scroll to the top of window when showing new content on mobile. Does
+          // nothing on desktop. (Except when embedded in a scrollable site.)
+          window.scrollTo(0, 0);
+        }
       }
 
-      $('body').addClass('content-visible');
-      map.invalidateSize({ pan:false });
+      this.setBodyClass('content-visible');
+      map.invalidateSize({ animate:true, pan:true });
 
       $(S).trigger('panelshow', [this.options.router, Backbone.history.getFragment()]);
       S.Util.log('APP', 'panel-state', 'open');
@@ -445,12 +532,6 @@ var Shareabouts = Shareabouts || {};
     showNewPin: function() {
       var map = this.mapView.map;
       this.$centerpoint.show().addClass('newpin');
-    },
-    showAddButton: function() {
-      this.$addButton.show();
-    },
-    hideAddButton: function() {
-      this.$addButton.hide();
     },
     showCenterPoint: function() {
       this.$centerpoint.show().removeClass('newpin');
@@ -463,8 +544,8 @@ var Shareabouts = Shareabouts || {};
 
       this.unfocusAllPlaces();
       this.$panel.hide();
-      $('body').removeClass('content-visible');
-      map.invalidateSize({ pan:false });
+      this.setBodyClass();
+      map.invalidateSize({ animate:true, pan:true });
 
       S.Util.log('APP', 'panel-state', 'closed');
     },

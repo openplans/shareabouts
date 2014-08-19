@@ -2,9 +2,7 @@
 
         <header class="place-header clearfix">
           {{#if thanks}}
-            <h2 class="thanks">Well done! Your spot
-               has been added to the map. Share it with your friends.
-            </h2>
+            <h2 class="thanks">Well done! Your spot has been added to the map. Share it with your friends.</h2>
           {{/if}}
           
           <h1>{{ name }}</h1>
@@ -50,7 +48,7 @@
           {{#each_place_item "submitter_name" "name" "location_type"}}
           <div class="place-item place-item-{{ name }}">
             <span class="place-label place-label-{{ name }}">{{ label }}</span>
-            <p class="place-value place-value-{{ name }}">{{ value }}</p>
+            <p class="place-value place-value-{{ name }}">{{nlToBr value }}</p>
           </div>
           {{/each_place_item }}
         </section>

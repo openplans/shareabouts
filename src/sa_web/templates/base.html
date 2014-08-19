@@ -16,14 +16,13 @@
 
   <title>{{ config.app.title }}</title>
   <meta name="description" content="{{ config.app.meta_description }}">
-  <meta name="author" content="OpenPlans.org">
+  <meta name="author" content="{{ config.app.meta_author }}">
 
   <!-- Social Media meta tags and such -->
   {% block meta %}{% endblock %}
 
   <!-- Mobile Viewport Fix -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
 
   <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
   <link rel="shortcut icon" href="{{ config.static_url }}css/images/favicon.ico">
@@ -56,7 +55,7 @@
   <![endif]-->
 
 </head>
-<body>
+<body class="{% if config.map.geocoding_enabled %} geocoding-enabled{% endif %}">
 
   <header id="site-header" class="clearfix{% if pages_config %} has-pages{% endif %}">
     <h1 id="site-title">{% block site-title %}{% endblock %}</h1>
@@ -75,14 +74,14 @@
         <ul class="menu">
           <li class="menu-item">
             {% get_language_info for LANGUAGE_CODE as language %}
-            <a class="current-language {{ LANGUAGE_CODE }}">{{ language.name_local }} ⌄</a>
+            <a class="current-language {{ LANGUAGE_CODE }} btn btn-block">{{ language.name_local }} ⌄</a>
 
             <form action="{% url 'set_language' %}" method="post">
               {% csrf_token %}
               <ul class="menu">
                 {% for language in config.languages %}
                 <li class="menu-item">
-                  <button type="submit" name="language" value="{{ language.code }}" class="{{ language.code }}">{{ language.label }}</button>
+                  <button type="submit" name="language" value="{{ language.code }}" class="{{ language.code }} btn btn-block">{{ language.label }}</button>
                 </li>
                 {% endfor %}
               </ul>
@@ -114,6 +113,10 @@
       </p>
       </div>
     </noscript>
+
+    {% if config.map.geocoding_enabled %}
+    <div id="geocode-address-bar" class="clearfix"></div>
+    {% endif %}
 
     <div id="map-container">
       <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>
@@ -157,9 +160,13 @@
   <script src="{{settings.COMPRESS_URL}}libs/canvas-to-blob.min.js"></script>
   <script src="{{settings.COMPRESS_URL}}libs/spin.min.js"></script>
   <script src="{{settings.COMPRESS_URL}}libs/gatekeeper.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/swag.min.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/jquery.scrollTo.js"></script>
 
   <script src="{{settings.COMPRESS_URL}}js/utils.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/template-helpers.js"></script>
+  <!-- https://github.com/openplans/handlebars-helpers -->
+  <script src="{{settings.COMPRESS_URL}}libs/handlebars-helpers.js"></script>
   {% endcompress %}
 
   <script>
@@ -191,7 +198,8 @@
   <!-- Bootstrap site and user information -->
   <script>
     Shareabouts.bootstrapped = {
-      staticUrl: '{{ STATIC_URL }}'
+      staticUrl: '{{ STATIC_URL }}',
+      mapQuestKey: '{{ settings.MAPQUEST_KEY }}'
     };
 
     function bootstrapCurrentUser(data) {
@@ -219,6 +227,7 @@
   <script src="{{settings.COMPRESS_URL}}js/views/place-detail-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/place-form-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/place-list-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/geocode-address-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/routes.js"></script>
   {% endcompress %}
 
@@ -270,6 +279,17 @@
     });
   })(Shareabouts, jQuery);
   </script>
+
+  {% if settings.GOOGLE_ANALYTICS_ID %}
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', '{{ settings.GOOGLE_ANALYTICS_ID }}', '{{ settings.GOOGLE_ANALYTICS_DOMAIN|default:"auto" }}');
+  </script>
+  {% endif %}
 
   {% block includes %}{% endblock %}
 

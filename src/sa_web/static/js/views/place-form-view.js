@@ -40,9 +40,13 @@ var Shareabouts = Shareabouts || {};
       this.center = latLng;
       this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
     },
+    setLocation: function(location) {
+      this.location = location;
+    },
     // Get the attributes from the form
     getAttrs: function() {
-      var attrs = {};
+      var attrs = {},
+          locationAttr = this.options.placeConfig.location_item_name;
 
       // Get values from the form
       _.each(this.$('form').serializeArray(), function(item, i) {
@@ -54,6 +58,10 @@ var Shareabouts = Shareabouts || {};
         type: 'Point',
         coordinates: [this.center.lng, this.center.lat]
       };
+
+      if (this.location && locationAttr) {
+        attrs[locationAttr] = this.location;
+      }
 
       return attrs;
     },

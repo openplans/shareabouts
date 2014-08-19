@@ -20,6 +20,8 @@ var Shareabouts = Shareabouts || {};
           responses = [],
           url = window.location.toString(),
           urlParts = url.split('response/'),
+          // will be "mobile" or "desktop", as defined in default.css
+          layout = window.getComputedStyle(document.body,':after').getPropertyValue('content'),
           responseIdToScrollTo,
           $responseToScrollTo;
 
@@ -58,8 +60,14 @@ var Shareabouts = Shareabouts || {};
       // call scrollIntoView()
       if ($responseToScrollTo.length > 0) {
         setTimeout(function() {
-          $responseToScrollTo.get(0).scrollIntoView();
-        }, 500);
+          // For desktop, the panel content is scrollable
+          if (layout === 'desktop') {
+            $('#content article').scrollTo($responseToScrollTo);
+          } else {
+            // For mobile, it's the window
+            $(window).scrollTo($responseToScrollTo);
+          }
+        }, 700);
       }
 
       return this;

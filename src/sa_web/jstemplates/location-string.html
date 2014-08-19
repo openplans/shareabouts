@@ -1,0 +1,21 @@
+{{#if . }}
+  {{#is geocodeQuality 'POINT' }}
+    {{!-- <street address>, <city> <state> --}}
+    {{street}}, {{adminArea5}} {{adminArea3}}
+  {{/is}}
+
+  {{#is geocodeQuality 'ADDRESS' }}
+    {{!-- <street address>, <city> <state> --}}
+    {{street}}, {{adminArea5}} {{adminArea3}}
+  {{/is}}
+
+  {{#is geocodeQuality 'ZIP'}}
+    {{!-- <city>, <state> <zip> --}}
+    {{adminArea5}}, {{adminArea3}} {{postalCode}}
+  {{/is}}
+
+  {{#is geocodeQuality 'CITY'}}
+    {{!-- <city>, <state> <zip> --}}
+    {{adminArea5}}, {{adminArea3}}
+  {{/is}}
+{{/if}}

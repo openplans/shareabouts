@@ -105,6 +105,18 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "project.context_processors.settings_context",
 )
 
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.request",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+
+    "project.context_processors.settings_context",
+)
+
 MIDDLEWARE_CLASSES = (
     'sa_web.middleware.CacheRequestBody',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -263,6 +275,14 @@ if all(['S3_MEDIA_BUCKET' in env, 'AWS_ACCESS_KEY' in env, 'AWS_SECRET_KEY' in e
 
 # For sitemaps and caching -- will be a new value every time the server starts
 LAST_DEPLOY_DATE = datetime.datetime.now().replace(second=0, microsecond=0).isoformat()
+
+
+if 'GOOGLE_ANALYTICS_ID' in env:
+    GOOGLE_ANALYTICS_ID = env.get('GOOGLE_ANALYTICS_ID')
+if 'GOOGLE_ANALYTICS_DOMAIN' in env:
+    GOOGLE_ANALYTICS_DOMAIN = env.get('GOOGLE_ANALYTICS_DOMAIN')
+
+MAPQUEST_KEY = env.get('MAPQUEST_KEY', 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u')
 
 ##############################################################################
 # Local settings overrides

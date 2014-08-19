@@ -19,6 +19,11 @@ app:
 map:
   geolocation_enabled: true
   geolocation_onload: false
+
+  geocoding_enabled: true
+  geocode_field_label: _(Enter an address...)
+  geocode_bounding_box: [39.830159, -75.478821, 40.167331, -74.781189]  # top, left, bottom, right
+
   options:
     center:
       lat: -37.804966 
@@ -92,10 +97,14 @@ place:
   action_text: _(created)
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
+
+  location_item_name: location
+
   items:
     - prompt: _(Spot Name)
       type: text
       name: name
+      optional: true
       attrs:
         - key: placeholder
           value: _(Spot Name)

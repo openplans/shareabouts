@@ -22,6 +22,12 @@ body {
   text-align: left;
 }
 
+/* A helper to let the JS know what kind of layout we're using */
+body:after {
+  content: "mobile";
+  display: none;
+}
+
 /* Links */
 a, a:active, a:visited {
   color: #FF1609;
@@ -492,6 +498,10 @@ a.logout-btn {
   border-bottom: 1px solid #666;
 }
 #add-place {}
+
+.content-visible #add-place-btn-container {
+  display: none; /* hide the add button on mobile when the panel is open */
+}
 
 /* Center Point (new point icon) */
 #centerpoint {
@@ -1097,6 +1107,97 @@ ul.recent-points {
   float: left;
 }
 
+/* =Geocoding
+-------------------------------------------------------------- */
+
+#geocode-address-bar {
+  display: none;
+  background-color: #777;
+  position: relative;
+  z-index: 40;
+  padding: 0.75em 0.5em 0.5em;
+  margin-top: -0.5em;
+  box-shadow: 0 0.325em 0 rgba(0,0,0,0.1);
+  font-size: 1em;
+}
+.geocoding-enabled #geocode-address-bar {
+  display: block;
+}
+.geocode-address-form {
+  position: relative;
+}
+input.geocode-address-field {
+  width: 100%;
+  border-width: 0;
+  line-height: 1.25;
+  background-color: #6f6f6f;
+  color: #eee;
+  padding-left: 2.125em;
+}
+input.geocode-address-field:focus {
+  outline: 0;
+}
+.geocode-address-label {
+  position: absolute;
+  top: 1.5em;
+  left: 1em;
+  height: 1.25em;
+  width: 1.25em;
+  margin-top: -0.625em;
+  overflow: visible;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+.geocode-address-label:before,
+.geocode-address-label:after {
+  content: "";
+  display: block;
+  position: absolute;
+}
+.geocode-address-label:before {
+  top: 0;
+  left: 0;
+  height: 1em;
+  width: 1em;
+  border: 0.2em solid #a3c7d9;
+  border-radius: 2em;
+  margin: -0.25em 0 0 -0.25em;
+}
+.geocode-address-label:after {
+  top: 50%;
+  left: 50%;
+  height: 0.75em;
+  width: 0.25em;
+  margin: 0.125em 0 0 0.375em;
+  background-color: #a3c7d9;
+  -webkit-transform: rotate(-45deg);
+     -moz-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+       -o-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+#geocode-address-bar .error {
+  background-color: #BF6083;
+  color: #fff;
+  line-height: 1.75;
+  margin: 0;
+  padding: 0.25em 0.5em;
+  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
+  position: absolute;
+  top: 3em;
+  right: 0.5em;
+  bottom: auto;
+  left: 0.5em;
+}
+#geocode-address-bar .error + form {
+  box-shadow: 2px 2px 0 #BF6083, 2px -2px 0 #BF6083, -2px 2px 0 #BF6083, -2px -2px 0 #BF6083;
+  margin-bottom: 2.5em;
+}
+#geocode-address-bar .error.is-hidden + form {
+  box-shadow: none;
+  margin-bottom: 0;
+}
+
 
 /* =Footer
 -------------------------------------------------------------- */
@@ -1106,20 +1207,27 @@ ul.recent-points {
   color: #646464;
   padding: 1em 0.5em;
   box-shadow: inset 0 0.1em rgba(0,0,0,0.1);
+  text-align: center;
+}
+#colophon a {
+  text-decoration: none;
+  color: #ddd;
+}
+#colophon a:hover {
+  border-bottom: 1px solid #ccc;
 }
 
 /* Powered By */
 #powered-by {
   font-size: 0.75em;
   text-align: center;
-
 }
 
 #powered-by a {
-  background: url('images/crowdspot-logo-horizontal-256x41.png') no-repeat
- center;
+  background: url('images/crowdspot-logo-horizontal-256x41.png') no-repeat center;
   background-size: contain;
   color: rgba(0,0,0,0);
+  display: inline;
 }
 
 
@@ -1129,20 +1237,26 @@ a.shareabouts-logo {
   font-size: 1.325em;
   color: #646464;
   font-weight: bold;
-  text-decoration: none;
 }
 a.shareabouts-logo:hover {
   color: #fff;
-  border-bottom: 1px solid #ccc;
 }
 #powered-by a.openplans-logo {
   color: #ffb885;
   font-weight: bold;
-  text-decoration: none;
 }
 #powered-by a.openplans-logo:hover {
   color: #fff;
-  border-bottom: 1px solid #ccc;
+}
+
+/* Mapquest Attribution */
+#mapquest-attribution {
+  font-size: 0.75em;
+  display: inline;
+}
+#mapquest-attribution img {
+  max-height: 0.75em;
+  width: auto;
 }
 
 
@@ -1209,6 +1323,11 @@ a.close-unsupported-overlay {
     position: relative;
   }
 
+  /* A helper to let the JS know what kind of layout we're using */
+  body:after {
+    content: "desktop";
+  }
+
   /* Header */
   #site-header {
     background-color: #EAEAEB;
@@ -1230,7 +1349,8 @@ a.close-unsupported-overlay {
   #nav-btn {
     display: none;
   }
-  #pages-nav-container {
+  #pages-nav-container,
+  #language-picker {
     height: 100%;
     float: left;
   }
@@ -1250,7 +1370,8 @@ a.close-unsupported-overlay {
   .access li ul {
     display: none;
   }
-  .access li:hover > ul {
+  .access li:hover > ul,
+  .access li:hover > form > ul {
     display: block;
     background: #ccc;
     box-shadow: -0.25em 0.25em 0 rgba(0,0,0,0.1);
@@ -1368,6 +1489,9 @@ a.close-unsupported-overlay {
   .activity-enabled.content-visible #map-container {
     width: 30%;
   }
+  .geocoding-enabled #map-container {
+    top: 8.5em;
+  }
   .leaflet-top.leaflet-right {
     right: auto;
     left: 10px;
@@ -1393,6 +1517,12 @@ a.close-unsupported-overlay {
     padding-right: 1em;
     padding-left: 1em;
   }
+  .content-visible #add-place-btn-container {
+    display: block; /* override of the mobile style */
+  }
+  .place-form-visible #add-place-btn-container {
+    display: none;
+  }
 
   /* Content */
   #content {
@@ -1408,6 +1538,9 @@ a.close-unsupported-overlay {
   .activity-enabled #content {
     left: 30%;
     right: 18em;
+  }
+  .geocoding-enabled #content {
+    top: 8.5em;
   }
   a.close-btn {
     line-height: 2;
@@ -1447,6 +1580,42 @@ a.close-unsupported-overlay {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+  }
+
+  /* Geocoding */
+  #geocode-address-bar {
+    position: absolute;
+    top: 5em; /* height of #site-header */
+    right: 0;
+    bottom: auto;
+    left: 0;
+    z-index: 39;
+    border-right: 1px solid #666;
+    margin-top: 0;
+  }
+  .activity-enabled #geocode-address-bar {
+    right: 18em;
+  }
+  #geocode-address-bar .error {
+    padding: 0.25em 0.5em;
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    float: right;
+    width: 15em;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+  #geocode-address-bar .error + form {
+    margin-bottom: 0;
+    margin-right: 15em;
+  }
+  #geocode-address-bar .error.is-hidden + form {
+    margin-right: 0;
   }
 
   /* The Ticker */

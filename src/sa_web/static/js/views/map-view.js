@@ -57,6 +57,12 @@ var Shareabouts = Shareabouts || {};
       self.map.on('moveend', function(evt) {
         S.Util.log('APP', 'center-lat', self.map.getCenter().lat);
         S.Util.log('APP', 'center-lng', self.map.getCenter().lng);
+
+        $(S).trigger('mapmoveend', [evt]);
+      });
+
+      self.map.on('dragend', function(evt) {
+        $(S).trigger('mapdragend', [evt]);
       });
 
       // Bind data events
@@ -64,6 +70,16 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
     },
+    reverseGeocodeMapCenter: _.debounce(function() {
+      var center = this.map.getCenter();
+      S.Util.MapQuest.reverseGeocode(center, {
+        success: function(data) {
+          var locationsData = data.results[0].locations;
+          // S.Util.console.log('Reverse geocoded center: ', data);
+          $(S).trigger('reversegeocode', [locationsData[0]]);
+        }
+      });
+    }, 1000),
     render: function() {
       var self = this;
 
@@ -149,6 +165,9 @@ var Shareabouts = Shareabouts || {};
     removeLayerView: function(model) {
       this.layerViews[model.cid].remove();
       delete this.layerViews[model.cid];
+    },
+    zoomInOn: function(latLng) {
+      this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
     }
   });
 

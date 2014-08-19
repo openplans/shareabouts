@@ -17,72 +17,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SHAREABOUTS = {
   'FLAVOR': 'default',
-  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/demo-user/datasets/demo-data/',
+  'DATASET_ROOT': 'http://data.shareabouts.org/api/v2/demo-user/datasets/demo-data/',
   'DATASET_KEY': 'NTNhODE3Y2IzODlmZGZjMWU4NmU3NDhj',
 }
 
-#SHAREABOUTS = {
-#  'FLAVOR': 'bikeparking',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/openplans/datasets/rr-stations/',
-#  'DATASET_KEY': 'abc123',
-#}
-
-#SHAREABOUTS = {
-#  'FLAVOR': 'biketotransit',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/biketotransit/datasets/biketotransit/',
-#  'DATASET_KEY': 'abc123',
-#}
-
-#SHAREABOUTS = {
-#  'FLAVOR': 'communitymap',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/openplans/datasets/community-map/',
-#  'DATASET_KEY': 'abc123',
-#}
-
-#SHAREABOUTS = {
-#  'FLAVOR': 'historiclouisville',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/historiclouisville/datasets/historiclouisville/',
-#  'DATASET_KEY': 'abc123',
-#}
-
-#SHAREABOUTS = {
-#  'FLAVOR': 'jacksonheights',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/jacksonheights/datasets/jacksonheights/',
-#  'DATASET_KEY': 'abc123',
-#}
-
-#SHAREABOUTS = {
-#  'FLAVOR': 'makebrooklynsafer',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/makebrooklynsafer/datasets/makebrooklynsafer/',
-#  'DATASET_KEY': 'abc123',
-#}
-
-#SHAREABOUTS = {
-#  'FLAVOR': 'nosur',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/openplans/datasets/atm_surcharge/',
-#  'DATASET_KEY': 'abc123',
-#}
-
-#SHAREABOUTS = {
-#  'FLAVOR': 'overlays',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/demo-user/datasets/demo-data/',
-#  'DATASET_KEY': 'abc123',
-#}
-
-#SHAREABOUTS = {
-#  'FLAVOR': 'ped_obstacles',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/openplans/datasets/ped_obstacles/',
-#  'DATASET_KEY': 'abc123',
-#}
-
-#SHAREABOUTS = {
-#  'FLAVOR': 'sistercities',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/openplans/datasets/sc-usage/',
-#  'DATASET_KEY': 'abc123',
-#}
-
-#SHAREABOUTS = {
-#  'FLAVOR': 'urbansocial',
-#  'DATASET_ROOT': 'http://api.shareabouts.org/api/v2/urbansocial/datasets/urbansocial/',
-#  'DATASET_KEY': 'abc123',
-#}
+# For geocoding...
+MAPQUEST_KEY = 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u'

@@ -62,7 +62,7 @@ Should be all done!
 Deploying to WebFaction
 -----------------------
 
-0. Create a Django application using Django 1.4 and Python 2.7 in the control panel (Applications -> Add New Application). In this case an application called 'shareabouts_front' was created.
+0. Create a Django application using Django 1.5 and Python 2.7 in the control panel (Applications -> Add New Application). In this case an application called 'shareabouts_front' was created.
 
 1. SSH into your server and check out the project alongside wherever WebFaction created your `myproject` app:
 
