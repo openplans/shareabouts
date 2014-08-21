@@ -113,9 +113,9 @@ place:
         - label: _(Please choose)
           value: 
         - label: _(There is not enough bike parking)
-          value: not enough
+          value: not enough bike parking
         - label: _(There is no bike parking)
-          value: none
+          value: no bike parking
         - label: _(Other)
           value: Other  
       name: issue
