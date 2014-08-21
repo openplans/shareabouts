@@ -1650,7 +1650,7 @@ a.close-unsupported-overlay {
     margin: -1.125em 5.5em 0 0.5em;
     position: relative;
     top: 50%;
-    font-size: 0.875em;
+    font-size: 1.15em;
   }
   #list-container.is-exposed {
     display: block;
