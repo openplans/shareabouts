@@ -1041,7 +1041,7 @@ ul.recent-points {
 }
 .list-sort-menu a {
   font-weight: bold;
-  font-size: 0.75em;
+  font-size: 1.15em;
   text-decoration: none;
 }
 .list-sort-menu a.is-selected {
