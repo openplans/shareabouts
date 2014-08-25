@@ -10,6 +10,15 @@
   display: none;
 }
 
+.recent-points .avatar {
+  display: none;	
+}
+
+.point-submitter .avatar {
+  display: none;
+}
+
+
 
 /* =Base Styles
 -------------------------------------------------------------- */
@@ -798,7 +807,7 @@ a.close-btn span {
 }
 .place-submission-details {
   display: block;
-  padding-left: 3.75em;
+  padding-left: 0em;
 }
 .point-submitter .avatar {
   width: 3.25em;
@@ -972,7 +981,7 @@ ul.recent-points {
   float: left;
   border-top: 1px solid #888;
   border-bottom: 1px solid #666;
-  padding: 0.5em 0.5em 0.5em 3em;
+  padding: 0.5em 0.5em 0.5em 0.75em;
   width: 100%;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
