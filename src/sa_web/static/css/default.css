@@ -1083,7 +1083,7 @@ ul.recent-points {
   float: left;
   width: 17.25em;
   margin-top: 0.5em;
-  padding-left: 3em;
+  padding-left: 0em;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
