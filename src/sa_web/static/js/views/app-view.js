@@ -276,10 +276,6 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
-    // Get the center of the map
-    getCenter: function() {
-      return this.mapView.map.getCenter();
-    },
     setPlaceFormViewLatLng: function(centerLatLng) {
       if (this.placeFormView) {
         this.placeFormView.setLatLng(centerLatLng);
@@ -289,16 +285,23 @@ var Shareabouts = Shareabouts || {};
       this.$centerpoint.addClass('dragging');
     },
     onMapMoveEnd: function(evt) {
+      var ll = this.mapView.map.getCenter(),
+          zoom = this.mapView.map.getZoom();
+
       this.$centerpoint.removeClass('dragging');
 
       // Never set the placeFormView's latLng until the user does it with a
       // drag event (below)
       if (this.placeFormView && this.placeFormView.center) {
-        this.setPlaceFormViewLatLng(this.getCenter());
+        this.setPlaceFormViewLatLng(ll);
+      }
+
+      if (this.hasBodyClass('content-visible') === false) {
+        this.setLocationRoute(zoom, ll.lat, ll.lng);
       }
     },
     onMapDragEnd: function(evt) {
-      this.setPlaceFormViewLatLng(this.getCenter());
+      this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
     },
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
@@ -352,6 +355,9 @@ var Shareabouts = Shareabouts || {};
         $body.addClass(newBodyClasses[i]);
       }
     },
+    hasBodyClass: function(className) {
+      return $('body').hasClass(className);
+    },
     conditionallyReverseGeocode: function() {
       if (this.options.mapConfig.geocoding_enabled) {
         this.mapView.reverseGeocodeMapCenter();
@@ -381,7 +387,25 @@ var Shareabouts = Shareabouts || {};
 
       return placeDetailView;
     },
-    viewMap: function() {
+    setLocationRoute: function(zoom, lat, lng) {
+      this.options.router.navigate('/' + zoom + '/' +
+        parseFloat(lat).toFixed(5) + '/' + parseFloat(lng).toFixed(5));
+    },
+
+    viewMap: function(zoom, lat, lng) {
+      var ll;
+
+      // If the map locatin is part of the url already
+      if (zoom && lat && lng) {
+        ll = L.latLng(parseFloat(lat), parseFloat(lng));
+        this.mapView.map.setView(ll, parseInt(zoom, 10));
+      } else {
+        // If not, set it to the current map location but don't trigger the route
+        zoom = this.mapView.map.getZoom();
+        ll = this.mapView.map.getCenter();
+        this.setLocationRoute(zoom, ll.lat, ll.lng);
+      }
+
       this.hidePanel();
       this.hideNewPin();
       this.destroyNewModels();
@@ -530,7 +554,6 @@ var Shareabouts = Shareabouts || {};
       S.Util.log('APP', 'panel-state', 'open');
     },
     showNewPin: function() {
-      var map = this.mapView.map;
       this.$centerpoint.show().addClass('newpin');
     },
     showCenterPoint: function() {
