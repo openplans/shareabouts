@@ -18,6 +18,10 @@
   display: none;
 }
 
+.response-submitter .avatar {
+  display: none;
+}
+
 
 
 /* =Base Styles
@@ -857,7 +861,7 @@ ol.responses {
   margin-bottom: 1em;
 }
 .response-header {
-  padding-left: 3.75em;
+  padding-left: 0em;
   margin: 0 0 0 1em;
   position: absolute;
   bottom: 0;
