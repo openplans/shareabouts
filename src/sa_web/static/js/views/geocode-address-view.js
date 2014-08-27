@@ -48,7 +48,7 @@ var Shareabouts = Shareabouts || {};
         }
       });
 
-      S.Util.log('USER', 'chicago', 'geocode-address', address);
+      S.Util.log('USER', 'geocoder', 'geocode-address', address);
     },
     setAddress: function(location) {
       var $address = this.$('.geocode-address-field');
