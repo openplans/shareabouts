@@ -1,4 +1,4 @@
-/*globals L Backbone _ */
+/*globals L Backbone _ Handlebars jQuery Spinner */
 
 var Shareabouts = Shareabouts || {};
 
@@ -26,9 +26,20 @@ var Shareabouts = Shareabouts || {};
           address = $address.val(),
           bounds = this.options.mapConfig.geocode_bounding_box;
 
+      // Show the spinner
+      self.$('.geocode-spinner').removeClass('is-hidden');
+      // Make sure there's only one spinner created. Do it here so the element
+      // is visible and it gets rendered nicely.
+      if (self.$('.geocode-spinner > .spinner').length === 0) {
+        new Spinner(S.smallSpinnerOptions).spin(this.$('.geocode-spinner')[0]);
+      }
+
+
       S.Util.MapQuest.geocode(address, bounds, {
         success: function(data) {
           var locationsData = data.results[0].locations;
+          // Hide the spinner
+          self.$('.geocode-spinner').addClass('is-hidden');
 
           // console.log('Geocoded data: ', data);
           if (locationsData.length > 0) {
@@ -45,6 +56,7 @@ var Shareabouts = Shareabouts || {};
         },
         error: function() {
           console.error('There was an error while geocoding: ', arguments);
+          self.$('.loading').addClass('is-hidden');
         }
       });
 
@@ -56,4 +68,4 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
-})(Shareabouts, jQuery, Shareabouts.Util.console);
+}(Shareabouts, jQuery, Shareabouts.Util.console));
