@@ -2,14 +2,14 @@
 <nav class="user-menu authed" role="article">
   <a href="#" id="sign-in-btn"><img class="avatar header-avatar" src="{{ current_user "avatar_url" }}"></a>
   <ul class="menu sign-in-menu">
-    <li><span class="signed-in-as">Signed in as</span> <span class="current-user">{{ current_user "name" }}</span></li>
-    <li class=""><a class="logout-btn" href="/users/logout/">Log Out</a>
+    <li><span class="signed-in-as">{{#_}}Signed in as</span> <span class="current-user">{{ current_user "name" }}{{/_}}</span></li>
+    <li class=""><a class="logout-btn" href="/users/logout/">{{#_}}Log Out{{/_}}</a>
     </li>
   </ul>
 </nav>
 {{ else }}
 <nav class="user-menu" role="article">
-  <a href="#" id="sign-in-btn">Sign In</a>
+  <a href="#" id="sign-in-btn">{{#_}}Sign In{{/_}}</a>
   <ul class="menu sign-in-menu">
     <li class="menu-item sign-in-menu-item"><a class="auth-btn twitter-btn" href="/users/login/twitter/">Twitter</a></li>
     <li class="menu-item sign-in-menu-item"><a class="auth-btn facebook-btn" href="/users/login/facebook/">Facebook</a></li>
