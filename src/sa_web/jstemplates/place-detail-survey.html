@@ -55,12 +55,12 @@
                   {{#is_authenticated}}
                     {{^is_submitter_name}}
                     <label class="survey-label survey-label-{{ name }}" for="survey-{{ name }}">
-                      {{#_}}{{ prompt }}{{# optional }} (optional){{/ optional }}{{/_}}
+                      {{ prompt }}{{# optional }} ({{#_}}optional{{/_}}){{/ optional }}
                     </label>
                     {{/is_submitter_name}}
                   {{^}}
                   <label class="survey-label survey-label-{{ name }}" for="survey-{{ name }}">
-                    {{#_}}{{ prompt }}{{# optional }} (optional){{/ optional }}{{/_}}
+                    {{ prompt }}{{# optional }} ({{#_}}optional{{/_}}){{/ optional }}
                   </label>
                   {{/is_authenticated}}
 

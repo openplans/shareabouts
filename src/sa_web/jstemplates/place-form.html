@@ -1,5 +1,5 @@
-        <p class="drag-marker-instructions">Drag the map to your location.</p>
-        <p class="drag-marker-warning is-visuallyhidden">It looks like you didn't set your location yet. Please drag the map to your location.</p>
+        <p class="drag-marker-instructions">{{#_}}Drag the map to your location.{{/_}}</p>
+        <p class="drag-marker-warning is-visuallyhidden">{{#_}}It looks like you didn't set your location yet. Please drag the map to your location.{{/_}}</p>
 
         <h4 class="">{{ place_config.title }}</h4>
 
@@ -19,10 +19,10 @@
             <p class="{{ type }}">
               {{#is_authenticated}}
                 {{^is_submitter_name}}
-                <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>(optional)</small>{{/ optional }}</label>
+                <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
                 {{/is_submitter_name}}
               {{^}}
-              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>(optional)</small>{{/ optional }}</label>
+              <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
               {{/is_authenticated}}
 
               {{#if is_input}}
@@ -30,7 +30,7 @@
                   {{#is_authenticated}}
                   {{^}}
                     <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-                    <span class="or-sign-in">Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a></span>
+                    <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
                   {{/is_authenticated}}
                 {{^}}
                   <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
@@ -63,7 +63,7 @@
                        {{^is_fileinput_supported}} disabled{{/is_fileinput_supported}}>
               </span>
               <span class="fileinput-name">
-                {{^is_fileinput_supported}}Sorry, your browser doesn't support file uploads.{{/is_fileinput_supported}}
+                {{^is_fileinput_supported}}{{#_}}Sorry, your browser doesn't support file uploads.{{/_}}{{/is_fileinput_supported}}
               </span>
               <!--<![endif]-->
               {{/is_file}}
@@ -78,7 +78,7 @@
           <input name="save-place-btn" id="save-place-btn" type="submit" value="{{ place_config.submit_button_label }}" class="btn btn-primary submit-btn">
 
           {{#is_authenticated}}
-            <p class="signed-in-as"><img src="{{ current_user "avatar_url" }}" class="avatar" /> {{ current_user "name" }}. <a class="" href="/users/logout/">Log Out</a></p>
+            <p class="signed-in-as"><img src="{{ current_user "avatar_url" }}" class="avatar" /> {{ current_user "name" }}. <a class="" href="/users/logout/">{{#_}}Log Out{{/_}}</a></p>
           {{^}}
           {{/is_authenticated}}
 

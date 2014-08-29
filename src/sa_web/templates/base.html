@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load shareabouts_utils %}
 {% load url from future %}
+{% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
@@ -151,7 +152,7 @@
   <script src="{{settings.COMPRESS_URL}}libs/backbone.js"></script>
   <script src="{{settings.COMPRESS_URL}}libs/backbone.marionette.js"></script>
   <script src="{{settings.COMPRESS_URL}}libs/handlebars-1.0.0.js"></script>
-  <script src="{{settings.COMPRESS_URL}}libs/moment.min.js"></script>
+  <script src="{{settings.COMPRESS_URL}}libs/moment-with-locales.min.js"></script>
   <script src="{{settings.COMPRESS_URL}}libs/json2.js"></script>
   <script src="{{settings.COMPRESS_URL}}libs/leaflet.argo.js"></script>
   <script src="{{settings.COMPRESS_URL}}libs/binaryajax.js"></script>
@@ -170,6 +171,8 @@
   {% endcompress %}
 
   <script>
+    moment.locale('{{LANGUAGE_CODE}}');
+
     $(function() {
       // Check official browser support.
       var userAgent = {{ user_agent_json|safe }};
@@ -238,8 +241,6 @@
   {% handlebarsjs 'pages/*' precompile %}
 
   <script type="text/javascript">
-  // moment.lang({{locale}});
-
   (function(S, $){
     // Boostrapping the place types and their icons
     S.Config = {

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-05 15:36-0500\n"
+"POT-Creation-Date: 2014-08-29 16:46-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,34 +20,78 @@ msgstr ""
 #: jstemplates/activity-list-item.html:1
 msgid ""
 "<strong>\n"
-"          {{ submitter_name }}\n"
-"          </strong>\n"
-"          {{# is_place }}\n"
-"            {{ action }} a{{# place.type_starts_with_vowel }}n{{/ place."
-"type_starts_with_vowel }} <span class=\"place-type\">{{ place."
-"place_type_label }}</span>\n"
-"            {{# place.name }} named <span class=\"place-name\">{{ place."
-"name }}</span>{{/ place.name }}\n"
-"          {{/ is_place }}\n"
 "\n"
-"          {{^ is_place }}\n"
-"            {{ action }}\n"
-"            {{# place.name }}<span class=\"place-name\">{{ place.name }}</"
-"span>{{/ place.name }}\n"
-"            {{^ place.name }}a{{# place.type_starts_with_vowel }}n{{/ place."
-"type_starts_with_vowel }} {{ place.place_type_label }}{{/ place.name }}\n"
-"          {{/ is_place }}\n"
-"          "
+"        {{#if target.submitter}}\n"
+"          <img src=\"{{ target.submitter.avatar_url }}\" class=\"avatar\" /> "
+"{{ target.submitter.name }}\n"
+"        {{^}}\n"
+"          <!-- TODO: FIXME: don't hardcode image URL -->\n"
+"          <img src=\"/static/css/images/user-50.png\" class=\"avatar\" /> "
+"{{ target.submitter_name }}\n"
+"        {{/if}}\n"
+"        </strong>\n"
+"\n"
+"        {{#if is_place }}\n"
+"          {{ action }} a{{#if place.type_starts_with_vowel }}n{{/if }} <span "
+"class=\"place-type\">{{ place.place_type_label }}</span>\n"
+"          {{#if place.name }}\n"
+"            named <span class=\"place-name\">{{ place.name }}</span>\n"
+"          {{^}}\n"
+"            {{#if place.location }}\n"
+"              at <span class=\"place-name\">{{>location-string place."
+"location }}</span>\n"
+"            {{/if }}\n"
+"          {{/if }}\n"
+"        {{else}}\n"
+"          {{ action }}\n"
+"\n"
+"          {{#if place.name }}\n"
+"            <span class=\"place-name\">{{ place.name }}</span>\n"
+"          {{else}}\n"
+"            a{{# place.type_starts_with_vowel }}n{{/ place."
+"type_starts_with_vowel }} {{ place.place_type_label }}\n"
+"          {{/if }}\n"
+"\n"
+"        {{/if }}\n"
+"        "
+msgstr ""
+
+#: jstemplates/auth-nav.html:1 jstemplates/place-form.html:3
+msgid "Log Out"
+msgstr ""
+
+#: jstemplates/auth-nav.html:2
+msgid "Sign In"
+msgstr ""
+
+#: jstemplates/auth-nav.html:3
+msgid ""
+"Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
+msgstr ""
+
+#: jstemplates/geocode-address.html:1
+msgid "Search"
+msgstr ""
+
+#: jstemplates/place-detail-promotion-bar.html:1
+msgid "Recommend on Facebook"
+msgstr ""
+
+#: jstemplates/place-detail-promotion-bar.html:2
+msgid "Tweet This"
 msgstr ""
 
 #: jstemplates/place-detail-survey.html:1
-msgid "{{ prompt }}{{# optional }} (optional){{/ optional }}"
-msgstr ""
-
-#: jstemplates/place-detail-survey.html:2
 msgid ""
 "<strong class=\"response-submitter\">\n"
-"                    {{ submitter_name }}\n"
+"                    {{#if submitter}}\n"
+"                      <img src=\"{{ submitter.avatar_url }}\" class=\"avatar"
+"\" /> {{ submitter.name }}\n"
+"                    {{^}}\n"
+"                      <!-- TODO: FIXME: don't hardcode image URL -->\n"
+"                      <img src=\"/static/css/images/user-50.png\" class="
+"\"avatar\" /> {{ submitter_name }}\n"
+"                    {{/if}}\n"
 "                  </strong>\n"
 "                  <span class=\"response-date\">\n"
 "                    around {{ pretty_created_datetime }}\n"
@@ -55,69 +99,89 @@ msgid ""
 "                  "
 msgstr ""
 
+#: jstemplates/place-detail-survey.html:13 jstemplates/place-form.html:6
+msgid "optional"
+msgstr ""
+
 #: jstemplates/place-detail.html:1
 msgid ""
 "<strong class=\"point-submitter\">\n"
-"              {{ submitter_name }}\n"
-"            </strong> added this point\n"
-"            {{#region}}\n"
+"              {{#if submitter.avatar_url }}\n"
+"                <img src=\"{{ submitter.avatar_url }}\" class=\"avatar\" />\n"
+"              {{^}}\n"
+"                <img src=\"{{ STATIC_URL }}/css/images/user-50.png\" class="
+"\"avatar\" />\n"
+"              {{/if}}\n"
+"              {{#if submitter.name }}\n"
+"                {{ submitter.name }}\n"
+"              {{^}}\n"
+"                {{#if submitter_name }}\n"
+"                  {{ submitter_name }}\n"
+"                {{^}}\n"
+"                  {{ anonymous_name }}\n"
+"                {{/if}}\n"
+"              {{/if}}\n"
+"            </strong> {{ action_text }} this {{ place_type_label "
+"location_type}}\n"
+"\n"
+"            {{#if region}}\n"
 "              in {{ region }}\n"
-"            {{/region}}"
+"            {{/if}}"
 msgstr ""
 
-#: jstemplates/place-detail.html:7
-msgid "Recommend on Facebook"
+#: jstemplates/place-form.html:1
+msgid "Drag the map to your location."
 msgstr ""
 
-#: jstemplates/place-detail.html:8
-msgid "Tweet This"
+#: jstemplates/place-form.html:2
+msgid ""
+"It looks like you didn't set your location yet. Please drag the map to your "
+"location."
+msgstr ""
+
+#: jstemplates/place-form.html:4
+msgid ""
+"Or sign in with <a class=\"auth-inline twitter-btn\" href=\"/users/login/"
+"twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/"
+"login/facebook/\">Facebook</a>"
+msgstr ""
+
+#: jstemplates/place-form.html:5
+msgid "Sorry, your browser doesn't support file uploads."
+msgstr ""
+
+#: jstemplates/place-list.html:1
+msgid "Most Recent"
+msgstr ""
+
+#: jstemplates/place-list.html:2
+msgid "Most {{ support_label_plural }}"
+msgstr ""
+
+#: jstemplates/place-list.html:3
+msgid "Most {{ survey_label_plural }}"
 msgstr ""
 
 #: jstemplates/unsupported-overlay.html:1
-msgid ""
-"\n"
-"    App Name is not officially supported in {{browser.name}}\n"
-"    {{browser.version}}. Things may not work. Or they may, we're not sure. "
-"If\n"
-"    you want to be safe, we suggest using one of <a\n"
-"    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> "
-"instead.\n"
-"    "
-msgstr ""
-"\n"
-"Shareabouts is not officially supported in {{browser.name}}\n"
-"    {{browser.version}}. Things may not work. Or they may, we're not sure. "
-"If\n"
-"    you want to be safe, we suggest using one of <a\n"
-"    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> "
-"instead.\n"
-"    "
-
-#: jstemplates/unsupported-overlay.html:7
-msgid "Close Button"
-msgstr "Close"
-
-#: jstemplates/unsupported-overlay.html:8
-msgid ""
-"\n"
-"    For Internet Explorer, you could also install <a\n"
-"    href=\"http://www.google.com/chromeframe\" target=\"_blank\">Google "
-"Chrome\n"
-"    Frame</a>, a plug-in which gives you access to Google's Chrome browser\n"
-"    technology from within IE.\n"
-"    "
+msgid "Proceed Anyway"
 msgstr ""
 
-#: templates/index.html:65
+#: jstemplates/unsupported-overlay.html:2
+msgid ""
+"You are using an unsupported browser. Please\n"
+"    <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve\n"
+"    your experience."
+msgstr ""
+
+#: templates/base.html:104
 #, python-format
 msgid ""
 "\n"
-"        Oops, %(config.app.name)s needs JavaScript to achieve full "
-"awesomeness.\n"
+"        Oops, %(config.app.name)s needs JavaScript to work properly.\n"
 "        "
 msgstr ""
 
-#: templates/index.html:70
+#: templates/base.html:109
 #, python-format
 msgid ""
 "\n"
@@ -129,16 +193,34 @@ msgid ""
 "        "
 msgstr ""
 
-#: templates/index.html:81
+#: templates/base.html:123
 msgid ""
-"Blast! We can't connect to the server. Hang tight while we re-establish "
-"communication with the mothership."
+"We can't connect to the server at the moment. Hang tight while we re-"
+"establish communication."
 msgstr ""
 
-#: templates/index.html:86
+#: templates/base.html:129
 msgid "Close"
 msgstr ""
 
-#: templates/index.html:94
-msgid "Powered by"
-msgstr ""
+#~ msgid ""
+#~ "\n"
+#~ "    App Name is not officially supported in {{browser.name}}\n"
+#~ "    {{browser.version}}. Things may not work. Or they may, we're not "
+#~ "sure. If\n"
+#~ "    you want to be safe, we suggest using one of <a\n"
+#~ "    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> "
+#~ "instead.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Shareabouts is not officially supported in {{browser.name}}\n"
+#~ "    {{browser.version}}. Things may not work. Or they may, we're not "
+#~ "sure. If\n"
+#~ "    you want to be safe, we suggest using one of <a\n"
+#~ "    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> "
+#~ "instead.\n"
+#~ "    "
+
+#~ msgid "Close Button"
+#~ msgstr "Close"
