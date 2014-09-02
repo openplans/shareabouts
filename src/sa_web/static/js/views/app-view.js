@@ -393,12 +393,20 @@ var Shareabouts = Shareabouts || {};
     },
 
     viewMap: function(zoom, lat, lng) {
-      var ll;
+      var self = this,
+          ll;
 
       // If the map locatin is part of the url already
       if (zoom && lat && lng) {
         ll = L.latLng(parseFloat(lat), parseFloat(lng));
-        this.mapView.map.setView(ll, parseInt(zoom, 10));
+
+        // Why defer? Good question. There is a mysterious race condition in
+        // some cases where the view fails to set and the user is left in map
+        // limbo. This condition is seemingly eliminated by defering the
+        // execution of this step.
+        _.defer(function() {
+          self.mapView.map.setView(ll, parseInt(zoom, 10));
+        });
       } else {
         // If not, set it to the current map location but don't trigger the route
         zoom = this.mapView.map.getZoom();
