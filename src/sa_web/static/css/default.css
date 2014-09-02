@@ -1130,7 +1130,7 @@ ul.recent-points {
   z-index: 40;
   padding: 0.75em 0.5em 0.5em;
   margin-top: -0.5em;
-  box-shadow: 0 0.325em 0 rgba(0,0,0,0.1);
+  box-shadow: 0 0.125em 0 rgba(0,0,0,0.1);
   font-size: 1em;
 }
 .geocoding-enabled #geocode-address-bar {
