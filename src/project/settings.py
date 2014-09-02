@@ -309,3 +309,14 @@ if 'CONFIG' not in SHAREABOUTS:
 if 'PACKAGE' not in SHAREABOUTS:
     SHAREABOUTS['PACKAGE'] = '.'.join(['flavors', flavor])
     INSTALLED_APPS = (SHAREABOUTS['PACKAGE'],) + INSTALLED_APPS
+
+
+##############################################################################
+# Locale paths
+# ------------
+# Help Django find any translation files.
+
+LOCALE_PATHS = (
+    os.path.join(HERE, '..', 'sa_web', 'locale'),
+    os.path.join(HERE, '..', 'flavors', flavor, 'locale'),
+)
