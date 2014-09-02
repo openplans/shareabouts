@@ -1145,14 +1145,14 @@ input.geocode-address-field {
   line-height: 1.25;
   background-color: #6f6f6f;
   color: #eee;
-  padding-left: 2.125em;
+  padding-left: 3.125em;
 }
 input.geocode-address-field:focus {
   outline: 0;
 }
 .geocode-address-label {
   position: absolute;
-  top: 1.5em;
+  top: 1.2em;
   left: 1em;
   height: 1.25em;
   width: 1.25em;
@@ -1172,7 +1172,7 @@ input.geocode-address-field:focus {
   left: 0;
   height: 1em;
   width: 1em;
-  border: 0.2em solid #a3c7d9;
+  border: 0.2em solid #FF1609;
   border-radius: 2em;
   margin: -0.25em 0 0 -0.25em;
 }
@@ -1182,7 +1182,7 @@ input.geocode-address-field:focus {
   height: 0.75em;
   width: 0.25em;
   margin: 0.125em 0 0 0.375em;
-  background-color: #a3c7d9;
+  background-color: #FF1609;
   -webkit-transform: rotate(-45deg);
      -moz-transform: rotate(-45deg);
       -ms-transform: rotate(-45deg);
