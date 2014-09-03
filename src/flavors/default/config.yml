@@ -177,6 +177,7 @@ place:
       type: text
       name: submitter_name
       optional: true
+      sticky: true
       attrs:
         - key: placeholder
           value: _(Name)
@@ -186,6 +187,7 @@ place:
       type: text
       name: private-submitter_email
       optional: true
+      sticky: true
       attrs:
         - key: placeholder
           value: _(Email address)

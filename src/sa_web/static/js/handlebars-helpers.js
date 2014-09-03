@@ -130,6 +130,35 @@ var Shareabouts = Shareabouts || {};
   });
 
 
+  // Gets the value for the given object and key. Useful for using the value
+  // of a token as a key.
+  Handlebars.registerHelper('get_value', function(obj, key, options) {
+    return obj[key];
+  });
+
+  // Similar to the helper in our shared handlebars helpers repo, but gets the
+  // value via a given object and key (like get_value).
+  Handlebars.registerHelper('select_item_value', function(obj, key, options) {
+    var value = obj[key],
+        $el = $('<div/>').html(options.fn(this)),
+        selectValue = function(v) {
+          $el.find('[value="'+v+'"]').attr({
+            checked: 'checked',
+            selected: 'selected'
+          });
+        };
+
+    if ($.isArray(value)) {
+      jQuery.each(function(i, v) {
+        selectValue(v);
+      });
+    } else {
+      selectValue(value);
+    }
+
+    return $el.html();
+  });
+
   Handlebars.registerHelper('each_place_item', function() {
     var result = '',
         args = Array.prototype.slice.call(arguments),
