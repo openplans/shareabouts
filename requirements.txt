@@ -1,5 +1,5 @@
 # The server
-django==1.6.7
+django==1.7
 # gevent
 gunicorn
 dj-static==0.0.6
