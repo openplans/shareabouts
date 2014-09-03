@@ -324,8 +324,9 @@ To apply your translations, run the following from your flavor directory:
 
     <project_src_root>/manage.py compilemessages
 
-That's it! The compilemessages task is run automatically for the DotCloud and
-Heroku deployments.
+That's it! The compilemessages task is run automatically for the DotCloud
+deployments. For Heroku, you'll have to check the resulting *.mo* files in to
+your repository.
 
 ### Choosing a Language
 
