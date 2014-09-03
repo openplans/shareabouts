@@ -1,8 +1,8 @@
 # The server
-django<1.6
+django==1.6.7
 # gevent
 gunicorn
-dj-static==0.0.5
+dj-static==0.0.6
 django-storages==1.1.8
 boto==2.27.0
 
@@ -11,7 +11,7 @@ south
 
 # Templates
 django-jstemplate>=1.3.6
-django_compressor
+django_compressor==1.4
 
 # Web interface helpers
 django-proxy>=1.0.2
