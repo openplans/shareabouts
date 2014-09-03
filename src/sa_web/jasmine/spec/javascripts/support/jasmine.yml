@@ -11,14 +11,15 @@
 #   - dist/**/*.js
 #
 src_files:
-  - /cdn.leafletjs.com/leaflet-0.4.5/leaflet.js
-  - static/libs/jquery-1.7.2.js
+  - //cdn.leafletjs.com/leaflet-0.7.3/leaflet.js
+  - static/libs/jquery-1.10.2.js
   - static/libs/underscore-min.js
   - static/libs/backbone-min.js
   - static/libs/mustache.js
   - static/libs/ICanHaz-no-mustache.min.js
-  - static/libs/moment.min.js
-  - static/libs/argo/views.js
+  - static/libs/moment-with-locales.min.js
+  - static/libs/leaflet.argo.js
+  - static/libs/gatekeeper.js
   - static/js/utils.js
   - static/js/template-helpers.js
   - static/js/models.js
