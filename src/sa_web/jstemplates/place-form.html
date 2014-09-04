@@ -16,6 +16,7 @@
               -->
 
             {{# place_config.items }}
+
             <p class="{{ type }}">
               {{#is_authenticated}}
                 {{^is_submitter_name}}
@@ -25,24 +26,25 @@
               <label for="place-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
               {{/is_authenticated}}
 
+
               {{#if is_input}}
                 {{#is_submitter_name}}
-                  {{#is_authenticated}}
-                  {{^}}
-                    <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                  {{^is_authenticated}}
+                    <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}">
                     <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
                   {{/is_authenticated}}
                 {{^}}
-                  <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                  <input id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
                 {{/is_submitter_name}}
               {{/if}}
 
               {{#is_textarea}}
-              <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
+              <textarea id="place-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value ../.. name}}</textarea>
               {{/is_textarea}}
 
               {{#is_select}}
               <select id="place-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                {{#select_item_value ../.. name}}
                 {{# options }}
                   {{#if label}}
                   <option value="{{value}}">{{label}}</option>
@@ -50,6 +52,7 @@
                   <option value="{{.}}">{{.}}</option>
                   {{/if}}
                 {{/ options }}
+                {{/select_item_value}}
               </select>
               {{/is_select}}
 

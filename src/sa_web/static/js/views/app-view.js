@@ -598,6 +598,7 @@ var Shareabouts = Shareabouts || {};
         }
       });
     },
+
     render: function() {
       this.mapView.render();
     },
