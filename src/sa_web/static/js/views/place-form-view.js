@@ -130,7 +130,7 @@ var Shareabouts = Shareabouts || {};
 
       S.Util.log('USER', 'new-place', 'submit-place-btn-click');
 
-      this.options.appView.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
+      S.Util.setStickyFields(attrs, S.Config.survey.items, S.Config.place.items);
 
       // Save and redirect
       this.model.save(attrs, {

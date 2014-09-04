@@ -67,20 +67,21 @@
                   <div class="survey-widgets survey-widgets-{{ name }}">
                     {{#is_input}}
                       {{#is_submitter_name}}
-                        {{#is_authenticated}}
-                        {{^}}
-                          <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                        {{^is_authenticated}}
+                          <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}">
                         {{/is_authenticated}}
                       {{^}}
-                        <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                        <input id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
                       {{/is_submitter_name}}
                     {{/is_input}}
 
                     {{#is_textarea}}
-                    <textarea id="survey-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}></textarea>
+                    <textarea id="survey-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value ../.. name}}</textarea>
                     {{/is_textarea}}
+
                     {{#is_select}}
                     <select id="survey-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+                    {{#select_item_value ../.. name}}
                     {{# options }}
                       {{#if label}}
                       <option value="{{value}}">{{label}}</option>
@@ -88,6 +89,7 @@
                       <option value="{{.}}">{{.}}</option>
                       {{/if}}
                     {{/ options }}
+                    {{/select_item_value}}
                     </select>
                     {{/is_select}}
                   </div>

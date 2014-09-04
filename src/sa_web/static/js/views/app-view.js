@@ -599,29 +599,6 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
-    // Keeps a cache of "sticky" form fields in memory. This cache is set when
-    // the user submits a place or survey form, and is used to prepopulate both
-    // forms. NOTE that the cache is shared between both forms, so, for example,
-    // `submitter_name` in both places will have a shared default value (if
-    // sticky: true in config.yml).
-    setStickyFields: function(data, surveyItemsConfig, placeItemsConfig) {
-      // Make an array of sticky field names
-      var stickySurveyItemNames = _.pluck(_.filter(surveyItemsConfig, function(item) {
-            return item.sticky; }), 'name'),
-          stickyPlaceItemNames = _.pluck(_.filter(placeItemsConfig, function(item) {
-            return item.sticky; }), 'name'),
-          // Array of both place and survey sticky field names
-          stickyItemNames = _.union(stickySurveyItemNames, stickyPlaceItemNames);
-
-      // Create the cache
-      S.stickyFieldValues = {};
-      _.each(stickyItemNames, function(name) {
-        if (data[name]) {
-          S.stickyFieldValues[name] = data[name];
-        }
-      });
-    },
-
     render: function() {
       this.mapView.render();
     },

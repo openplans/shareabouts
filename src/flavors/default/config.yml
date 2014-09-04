@@ -256,6 +256,7 @@ survey:
     - prompt: _(Your Name)
       type: text
       name: submitter_name
+      sticky: true
 
 support:
   submission_type: support
