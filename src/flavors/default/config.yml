@@ -237,6 +237,8 @@ survey:
 
   # Response config
   show_responses: true
+  # Set to true if the user should only submit a survey once
+  single_submission: false
   response_name: _(comment)
   response_plural_name: _(comments)
   action_text: _(commented on)
