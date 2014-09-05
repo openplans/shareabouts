@@ -13,6 +13,18 @@ var Shareabouts = Shareabouts || {};
 
       this.collection.on('reset', this.onChange, this);
       this.collection.on('add', this.onChange, this);
+
+      this.updateSubmissionStatus();
+    },
+
+    getSubmissionStatus: function(userToken) {
+      return this.collection.find(function(model) {
+        return model.get('user_token') === userToken;
+      });
+    },
+
+    updateSubmissionStatus: function() {
+      this.userSubmission = this.getSubmissionStatus(this.options.userToken);
     },
 
     render: function() {
@@ -52,6 +64,7 @@ var Shareabouts = Shareabouts || {};
         responses: responses,
         has_single_response: (responses.length === 1),
         user_token: this.options.userToken,
+        user_submitted: !!this.userSubmission,
         survey_config: this.options.surveyConfig
       }, S.stickyFieldValues);
 
@@ -82,6 +95,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     onChange: function() {
+      this.updateSubmissionStatus();
       this.render();
     },
 
