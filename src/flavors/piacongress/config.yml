@@ -337,19 +337,19 @@ pages:
     pages:
       - title: _(Active)
         external: true
-        url: piacongress-greatplaces.crowdspot.com.au/filter/active
+        url: /filter/active
       - title: _(Transport/Access)
         external: true
-        url: piacongress-greatplaces.crowdspot.com.au/filter/transportaccess
+        url: /filter/access
       - title: _(Public Space)
         external: true
-        url: piacongress-greatplaces.crowdspot.com.au/filter/active
+        url: /filter/active
       - title: _(Economic Development)
         external: true
-        url: piacongress-greatplaces.crowdspot.com.au/filter/active
+        url: /filter/ecodev
       - title: _(Other)
         external: true
-        url: piacongress-greatplaces.crowdspot.com.au/filter/active
+        url: /filter/other
 
   - title: _(Contact)
     pages:
