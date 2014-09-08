@@ -270,6 +270,7 @@ place:
       inputfile_label: _(Add Image)
       type: file
       name: my_image
+      optional: true
       attrs:
         - key: accept
           value: image/*           
