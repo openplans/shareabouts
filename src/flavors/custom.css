@@ -4,8 +4,12 @@
  * NOTE: "With great power comes great responsibility."
  */
 
-/*
 COLOR PALETTE...
+
+PIAred      #E80028
+PIAorange   #EC4C1A
+PIAblue     #3E74BF
+PIAgrey     #EBECEB
 
 Dark blue   #042A5E
 Medium blue #1D4578
@@ -16,6 +20,9 @@ CrowdSpot Red #FF1609
 CrowdSpot Green #45BA00
 CrowdSpot Grey (text) #585A59
 */
+
+
+
 
 
 /* =Base Styles
@@ -32,11 +39,11 @@ CrowdSpot Grey (text) #585A59
 .btn-primary,
 .btn-primary:visited,
 .btn-primary:link {
-  background-color: #042A5E;
+  background-color: #E80028;
   color: #fff;
 }
 .btn-primary:hover {
-  background-color: #1D4578;
+  background-color: #585A59;
 }
 .btn-secondary,
 .btn-secondary:visited,
@@ -53,15 +60,15 @@ CrowdSpot Grey (text) #585A59
 -------------------------------------------------------------- */
 
 #site-header {
-  border-top: #042A5E 3px solid
+  border-top: #E80028 3px solid
 }
 
 #site-header {
-  background-color: #fff;
+  background-color: #EBECEB;
 }
 
 #site-title {
-  background: url('images/uom_logo_text2.png') no-repeat
+  background: url('images/HEADERIMAGE.png') no-repeat 
 center;
   background-size: contain;
   width: 400px;
@@ -85,19 +92,19 @@ center;
 -------------------------------------------------------------- */
 
 #ticker {
-  background: #fff;
+  background: #EBECEB;
 }
 
 /* =Content: Pages & Places
 -------------------------------------------------------------- */
 
 #content {
-  background: #F8F8FF;
+  background: #fff;
 }
 
 /* Close Button */
 a.close-btn {
-  background: #F8F8FF;
+  background: #fff;
 }
 
 
@@ -112,13 +119,14 @@ a.close-btn {
 .list-toggle-btn,
   .list-toggle-btn:visited,
   .list-toggle-btn:link {
-    background-color: #45BA00;
+    background-color: #EC4C1A;
  }
  
 .list-toggle-btn:hover {
     background-color: #585A59;
     color: #fff;
   }   
+  
 
 /* =Map
 -------------------------------------------------------------- */
@@ -126,8 +134,8 @@ a.close-btn {
 /* Drag Marker Instructions (for adding a new place) */
 .drag-marker-instructions,
 .drag-marker-warning {
-  background-color: #45BA00;
-  color: #585A59;
+  background-color: #3E74BF;
+  color: #fff;
   text-shadow: none;
 }
 .drag-marker-warning {
@@ -142,15 +150,6 @@ a.close-btn {
 .place-value-issue:before {
   content: "Issue: ";
   font-weight: bold;
-}
-
-.place-value-time:before {
-  content: "Busiest time: ";
-  font-weight: bold;
-}
-
-.place-value-age {
-  display: none;
 }
 
 
