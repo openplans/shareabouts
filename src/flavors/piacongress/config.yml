@@ -335,6 +335,9 @@ pages:
     
   - title: _(Filter Places)
     pages:
+      - title: _(All)
+        external: true
+        url: 
       - title: _(Active)
         external: true
         url: /filter/active
