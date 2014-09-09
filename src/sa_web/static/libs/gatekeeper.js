@@ -1,3 +1,4 @@
+// 0.1.2
 /*globals $ */
 
 var Gatekeeper = {};
@@ -5,11 +6,16 @@ var Gatekeeper = {};
 (function(NS) {
 
   NS.getInvalidFormEls = function(form) {
-    var invalidEls, val;
+    var $form = $(form),
+        invalidEls;
 
-    invalidEls = $(form).find('input, select, textarea').map(function() {
+    invalidEls = $form.find('input, select, textarea').map(function() {
+      var $this = $(this),
+          $checkableGroup,
+          hasValue;
+
       // Only validate visible elements
-      if ($(this).is(':visible')) {
+      if ($this.is(':visible')) {
 
         // Does it support the validity object?
         if (this.validity) {
@@ -18,11 +24,19 @@ var Gatekeeper = {};
             return this;
           }
         } else {
-          // Strip whitespace from the value
-          val = (this.value || '').replace(/\s+/);
+          $this.removeClass('gatekeeper-invalid');
+
+          if ($this.is('[type="checkbox"]') || $this.is('[type="radio"]')) {
+            $checkableGroup = $form.find('[name="'+$this.attr('name')+'"]');
+            hasValue = $checkableGroup.is(':checked');
+          } else {
+            // Strip whitespace from the value
+            hasValue = (this.value || '').replace(/\s+/) !== '';
+          }
 
           // Manually support 'required' for old browsers
-          if (this.hasAttribute('required') && val === '') {
+          if (this.hasAttribute('required') && !hasValue) {
+            $this.addClass('gatekeeper-invalid');
             return this;
           }
         }

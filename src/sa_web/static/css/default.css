@@ -209,6 +209,13 @@ textarea {
   height: 6.5em;
   resize: none;
 }
+
+/* Old IE does not like this to be combine with :invalid rules.
+   It will ignore it! */
+.form-submitted .gatekeeper-invalid {
+  outline: 2px solid #b2182b;
+}
+
 .form-submitted input:invalid,
 .form-submitted textarea:invalid,
 .form-submitted select:invalid {
