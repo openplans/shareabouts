@@ -67,6 +67,18 @@ var Shareabouts = Shareabouts || {};
     },
 
     // NOTE this is not in Shareabouts.js
+    // this will be "mobile" or "desktop", as defined in default.css
+    getPageLayout: function() {
+      // not IE8
+      if (window.getComputedStyle) {
+        return window.getComputedStyle(document.body,':after').getPropertyValue('content');
+      }
+
+      // IE8
+      return 'desktop';
+    },
+
+    // NOTE this is not in Shareabouts.js
     // Keeps a cache of "sticky" form fields in memory. This cache is set when
     // the user submits a place or survey form, and is used to prepopulate both
     // forms. NOTE that the cache is shared between both forms, so, for example,

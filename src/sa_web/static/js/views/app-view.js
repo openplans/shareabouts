@@ -175,7 +175,7 @@ var Shareabouts = Shareabouts || {};
       // is enabled.
       $(S).on('reversegeocode', function(evt, locationData) {
         var locationString = Handlebars.templates['location-string'](locationData);
-        self.geocodeAddressView.setAddress(locationString.trim());
+        self.geocodeAddressView.setAddress($.trim(locationString));
         self.placeFormView.setLatLng(locationData.latLng);
         self.placeFormView.setLocation(locationData);
       });
@@ -349,7 +349,7 @@ var Shareabouts = Shareabouts || {};
         // If the newBodyClass isn't among the ones that will be cleared
         // (bodyClasses), then we probably don't want to use this method and
         // should fail loudly.
-        if (bodyClasses.indexOf(newBodyClasses[i]) === -1) {
+        if (_.indexOf(bodyClasses, newBodyClasses[i]) === -1) {
           S.Util.console.error('Setting an unrecognized body class.\nYou should probably just use jQuery directly.');
         }
         $body.addClass(newBodyClasses[i]);
@@ -421,8 +421,7 @@ var Shareabouts = Shareabouts || {};
     viewPlace: function(model, responseId, zoom) {
       var self = this,
           includeSubmissions = S.Config.flavor.app.list_enabled !== false,
-          // will be "mobile" or "desktop", as defined in default.css
-          layout = window.getComputedStyle(document.body,':after').getPropertyValue('content'),
+          layout = S.Util.getPageLayout(),
           onPlaceFound, onPlaceNotFound, modelId;
 
       onPlaceFound = function(model) {
@@ -539,7 +538,7 @@ var Shareabouts = Shareabouts || {};
 
       if (!preventScrollToTop) {
         // will be "mobile" or "desktop", as defined in default.css
-        var layout = window.getComputedStyle(document.body,':after').getPropertyValue('content');
+        var layout = S.Util.getPageLayout();
         if (layout === 'desktop') {
           // For desktop, the panel content is scrollable
           this.$panelContent.scrollTo(0, 0);
@@ -588,7 +587,7 @@ var Shareabouts = Shareabouts || {};
     },
     destroyNewModels: function() {
       this.collection.each(function(m){
-        if (m.isNew()) {
+        if (m && m.isNew()) {
           m.destroy();
         }
       });

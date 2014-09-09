@@ -32,11 +32,8 @@ var Shareabouts = Shareabouts || {};
           responses = [],
           url = window.location.toString(),
           urlParts = url.split('response/'),
-          // will be "mobile" or "desktop", as defined in default.css
-          layout = window.getComputedStyle(document.body,':after').getPropertyValue('content'),
-          responseIdToScrollTo,
-          $responseToScrollTo,
-          data;
+          layout = S.Util.getPageLayout(),
+          responseIdToScrollTo, $responseToScrollTo, data;
 
       // get the response id from the url
       if (urlParts.length === 2) {
