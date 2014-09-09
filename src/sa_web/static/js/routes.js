@@ -17,7 +17,6 @@ var Shareabouts = Shareabouts || {};
 
     initialize: function(options) {
       var self = this,
-          fragment,
           startPageConfig;
 
       S.PlaceModel.prototype.getLoggingDetails = function() {
@@ -72,8 +71,7 @@ var Shareabouts = Shareabouts || {};
       Backbone.history.start(historyOptions);
 
       // Load the default page only if there is no page already in the url
-      fragment = Backbone.history.getFragment();
-      if (this.isMapRoute(fragment)) {
+      if (this.isMapRoute(Backbone.history.getFragment())) {
         startPageConfig = _.find(options.pagesConfig, function(pageConfig) {
           return pageConfig.start_page === true;
         });
