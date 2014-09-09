@@ -407,11 +407,6 @@ var Shareabouts = Shareabouts || {};
         _.defer(function() {
           self.mapView.map.setView(ll, parseInt(zoom, 10));
         });
-      } else {
-        // If not, set it to the current map location but don't trigger the route
-        zoom = this.mapView.map.getZoom();
-        ll = this.mapView.map.getCenter();
-        this.setLocationRoute(zoom, ll.lat, ll.lng);
       }
 
       this.hidePanel();
