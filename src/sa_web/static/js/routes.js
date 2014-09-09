@@ -71,7 +71,7 @@ var Shareabouts = Shareabouts || {};
       Backbone.history.start(historyOptions);
 
       // Load the default page only if there is no page already in the url
-      if (Backbone.history.getFragment() === '') {
+      if (this.isMapRoute(Backbone.history.getFragment())) {
         startPageConfig = _.find(options.pagesConfig, function(pageConfig) {
           return pageConfig.start_page === true;
         });
@@ -110,6 +110,16 @@ var Shareabouts = Shareabouts || {};
 
     showList: function() {
       this.appView.showListView();
+    },
+
+    isMapRoute: function(fragment) {
+      // This is a little hacky. I attempted to use Backbone.history.handlers,
+      // but there is currently no way to map the route, at this point
+      // transformed into a regex, back to the route name. This may change
+      // in the future.
+      return (fragment === '' || (fragment.indexOf('place') === -1 &&
+        fragment.indexOf('page') === -1 &&
+        fragment.indexOf('list') === -1));
     }
   });
 
