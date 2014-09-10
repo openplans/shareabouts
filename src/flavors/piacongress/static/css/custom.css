@@ -65,10 +65,11 @@ CrowdSpot Grey (text) #585A59
 
 #site-header {
   background-color: #EBECEB;
+  box-shadow: 0 5px 10px rgba(85, 85, 85, 0.5), inset 0 -3px 0
 }
 
 #site-title {
-  background: url('images/HEADERIMAGE.png') no-repeat 
+  background: url('images/congresslong_v2.png') no-repeat 
 center;
   background-size: contain;
   width: 400px;
@@ -88,12 +89,25 @@ center;
   margin-left: -1.25em;
 }
 
+.access {
+  font-size: 1.1em;
+}
+
+/* =Colophon
+-------------------------------------------------------------- */
+
+#colophon {
+  box-shadow: inset 0 5px 10px rgba(85, 85, 85, 0.25);
+}  
+
 /* =The Ticker
 -------------------------------------------------------------- */
 
 #ticker {
   background: #EBECEB;
+  box-shadow: -5px 0 10px rgba(85, 85, 85, 0.5);
 }
+
 
 /* =Content: Pages & Places
 -------------------------------------------------------------- */

@@ -333,39 +333,15 @@ pages:
   - title: _(FAQs)
     slug: why
     url: /static/pages/why.html
-    
-  - title: _(Filter Places)
-    pages:
-      - title: _(All)
-        external: true
-        url: 
-      - title: _(Active)
-        external: true
-        url: /filter/active
-      - title: _(Transport/Access)
-        external: true
-        url: /filter/access
-      - title: _(Public Space)
-        external: true
-        url: /filter/active
-      - title: _(Economic Development)
-        external: true
-        url: /filter/ecodev
-      - title: _(Other)
-        external: true
-        url: /filter/other
 
   - title: _(Contact)
     pages:
-      - title: _(Website)
+      - title: _(PIA Congress)
+        external: true
+        url: http://www.piacongress.com.au/
+      - title: _(CrowdSpot)
         external: true
         url: http://www.crowdspot.com.au/contact/
-      - title: _(Twitter)
-        external: true
-        url: https://twitter.com/Crowd_Spot
-      - title: _(Facebook)
-        external: true
-        url: https://www.facebook.com/pages/CrowdSpot/314531231976999
 
 notifications:
   on_new_place: true
