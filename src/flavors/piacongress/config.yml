@@ -48,17 +48,17 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   active:
-    label: _(Active Place)
+    label: _(Physical Exercise/Active Place)
     rules:
       - condition: '"{{location_type}}" === "active" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
           color: '#FF1609'
-          radius: 3
+          radius: 5
           weight: 1
           opacity: 0.9
-          fillOpacity: 1
+          fillOpacity: 0.7
 
       - condition: '"{{location_type}}" === "active" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
@@ -85,11 +85,11 @@ place_types:
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
-          color: '#FF1609'
-          radius: 3
+          color: '#1174FF'
+          radius: 5
           weight: 1
           opacity: 0.9
-          fillOpacity: 1
+          fillOpacity: 0.7
 
       - condition: '"{{location_type}}" === "transport" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
@@ -110,17 +110,17 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   space:
-    label: _(Public Space Place)
+    label: _(Public Gathering Place)
     rules:
       - condition: '"{{location_type}}" === "space" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
-          color: '#FF1609'
-          radius: 3
+          color: '#BB00FF'
+          radius: 5
           weight: 1
           opacity: 0.9
-          fillOpacity: 1
+          fillOpacity: 0.7
 
       - condition: '"{{location_type}}" === "space" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
@@ -140,51 +140,20 @@ place_types:
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
-  ecodev:
-    label: _(Econommic Development Place)
+  shopping:
+    label: _(Shopping Place)
     rules:
-      - condition: '"{{location_type}}" === "ecodev" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "shopping" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
-          color: '#FF1609'
-          radius: 3
+          color: '#FF039D'
+          radius: 5
           weight: 1
           opacity: 0.9
-          fillOpacity: 1
+          fillOpacity: 0.7
 
-      - condition: '"{{location_type}}" === "ecodev" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
-        # Display landmarks as icons when zoomed in
-
-        icon:
-          iconUrl: /static/css/images/master-pin-green.png
-          shadowUrl: /static/css/images/master-pin-shadow.png
-          iconSize: [85, 41]
-          iconAnchor: [42, 42]
-
-      - condition: '"{{location_type}}" === "ecodev" && {{layer.focused}} === true'
-        # Display landmarks as icons when zoomed in
-
-        icon:
-          iconUrl: /static/css/images/markers/marker-f95016.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [25, 41]
-          shadowSize: [41, 41]
-          iconAnchor: [12, 41]
-  other:
-    label: _(Other Place)
-    rules:
-      - condition: '"{{location_type}}" === "other" && {{map.zoom}} < 12 && {{layer.focused}} === false'
-        # Display landmarks as circles (vectors) when zoomed out
-
-        style:
-          color: '#FF1609'
-          radius: 3
-          weight: 1
-          opacity: 0.9
-          fillOpacity: 1
-
-      - condition: '"{{location_type}}" === "other" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "shopping" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -193,7 +162,38 @@ place_types:
           iconSize: [85, 41]
           iconAnchor: [42, 42]
 
-      - condition: '"{{location_type}}" === "other" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "shopping" && {{layer.focused}} === true'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-f95016.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
+  nature:
+    label: _(Nature/Environment Place)
+    rules:
+      - condition: '"{{location_type}}" === "nature" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+        # Display landmarks as circles (vectors) when zoomed out
+
+        style:
+          color: '#3BB004'
+          radius: 5
+          weight: 1
+          opacity: 0.9
+          fillOpacity: 0.7
+
+      - condition: '"{{location_type}}" === "nature" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/master-pin-green.png
+          shadowUrl: /static/css/images/master-pin-shadow.png
+          iconSize: [85, 41]
+          iconAnchor: [42, 42]
+
+      - condition: '"{{location_type}}" === "nature" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -218,7 +218,7 @@ place:
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
-  action_text: _(created)
+  action_text: _(added)
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
 
@@ -234,21 +234,21 @@ place:
         - key: size
           value: 30
         - key: required
-    - prompt: _(Great Place Type)
+    - prompt: _(What theme best suits this place?)
       type: select
       options:
         - label: _(Choose One)
           value: ''
-        - label: _(Active)
+        - label: _(Physical Exercise/Activity)
           value: active
-        - label: _(Transport & Access)
+        - label: _(Transport/Access)
           value: transport
-        - label: _(Public Space)
+        - label: _(Public Gathering)
           value: space
-        - label: _(Economic Development)
-          value: ecodev
-        - label: _(Other)
-          value: other   
+        - label: _(Shopping)
+          value: shopping
+        - label: _(Nature/Environment)
+          value: nature   
       name: location_type
       attrs:
         - key: required
@@ -258,6 +258,7 @@ place:
       attrs:
         - key: placeholder
           value: _(Description...) 
+        - key: required  
     - prompt: _(Website link)
       type: text
       name: link
@@ -265,7 +266,8 @@ place:
         - key: placeholder
           value: _(Please use 'http://' to hyperlink)
         - key: size
-          value: 30       
+          value: 30
+        - key: required         
     - prompt: _(Please add an image)
       inputfile_label: _(Add Image)
       type: file
@@ -274,22 +276,24 @@ place:
       attrs:
         - key: accept
           value: image/*           
-    - prompt: _(Organisation Name)
+    - prompt: _(Your Name)
       type: text
       name: submitter_name
       attrs:
         - key: placeholder
-          value: _(Name)
+          value: _(Type name)
         - key: size
-          value: 30     
-    - prompt: _(Project contact)
+          value: 30  
+        - key: required     
+    - prompt: _(Your email)
       type: text
       name: private-submitter_email
       attrs:
         - key: placeholder
           value: _(Email address)
         - key: size
-          value: 30      
+          value: 30    
+        - key: required    
 
 survey:
   submission_type: comments
