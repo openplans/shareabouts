@@ -47,6 +47,20 @@ var Shareabouts = Shareabouts || {};
       return attrs;
     },
 
+    findPageConfig: function(pagesConfig, properties) {
+      // Search the first level for the page config
+      var pageConfig = _.findWhere(pagesConfig, properties);
+      // If we got a hit, return the page config
+      if (pageConfig) return pageConfig;
+      // Otherwise, search deeper in each nested page config
+      for (var i = 0; i < pagesConfig.length; ++i) {
+        if (pagesConfig[i].pages) {
+          pageConfig = this.findPageConfig(pagesConfig[i].pages, properties);
+          if (pageConfig) return pageConfig;
+        }
+      }
+    },
+
     isSupported: function(userAgent) {
       switch (userAgent.browser.name) {
         case 'Chrome':

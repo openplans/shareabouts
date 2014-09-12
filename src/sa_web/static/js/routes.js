@@ -72,9 +72,7 @@ var Shareabouts = Shareabouts || {};
 
       // Load the default page only if there is no page already in the url
       if (this.isMapRoute(Backbone.history.getFragment())) {
-        startPageConfig = _.find(options.pagesConfig, function(pageConfig) {
-          return pageConfig.start_page === true;
-        });
+        startPageConfig = S.Util.findPageConfig(options.pagesConfig, {start_page: true});
 
         if (startPageConfig && startPageConfig.slug) {
           this.navigate('page/' + startPageConfig.slug, {trigger: true});
