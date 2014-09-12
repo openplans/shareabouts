@@ -274,13 +274,15 @@ pages:
     name: overview
     start_page: true
 
-  - title: _(Why Shareabouts?)
-    slug: why
-    url: /static/pages/why.html
+  - title: _(More...)
+    pages:
+      - title: _(Why Shareabouts?)
+        slug: why
+        url: /static/pages/why.html
 
-  - title: _(Features)
-    slug: features
-    url: /static/pages/features.html
+      - title: _(Features)
+        slug: features
+        url: /static/pages/features.html
 
   - title: _(Links)
     pages:
