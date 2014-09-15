@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Shareabouts Philly Bike Share\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-09-10 12:05-0400\n"
+"PO-Revision-Date: 2014-09-09 22:58+0000\n"
+"Last-Translator: Frank Hebbert <frank@openplans.org>\n"
+"Language-Team: Spanish (Mexico) (http://www.transifex.com/projects/p/shareabouts-philly-bike-share/language/es_MX/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_MX\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: jstemplates/activity-list-item.html:1
+msgid ""
+"<strong>\n"
+"\n"
+"        {{#if target.submitter}}\n"
+"          <img src=\"{{ target.submitter.avatar_url }}\" class=\"avatar\" /> {{ target.submitter.name }}\n"
+"        {{^}}\n"
+"          <!-- TODO: FIXME: don't hardcode image URL -->\n"
+"          <img src=\"/static/css/images/user-50.png\" class=\"avatar\" /> {{ target.submitter_name }}\n"
+"        {{/if}}\n"
+"        </strong>\n"
+"\n"
+"        {{#if is_place }}\n"
+"          {{ action }} a{{#if place.type_starts_with_vowel }}n{{/if }} <span class=\"place-type\">{{ place.place_type_label }}</span>\n"
+"          {{#if place.name }}\n"
+"            named <span class=\"place-name\">{{ place.name }}</span>\n"
+"          {{^}}\n"
+"            {{#if place.location }}\n"
+"              at <span class=\"place-name\">{{>location-string place.location }}</span>\n"
+"            {{/if }}\n"
+"          {{/if }}\n"
+"        {{else}}\n"
+"          {{ action }}\n"
+"\n"
+"          {{#if place.name }}\n"
+"            <span class=\"place-name\">{{ place.name }}</span>\n"
+"          {{else}}\n"
+"            a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }} {{ place.place_type_label }}\n"
+"          {{/if }}\n"
+"\n"
+"        {{/if }}\n"
+"        "
+msgstr "<strong>\n\n        {{#if target.submitter}}\n          <img src=\"{{ target.submitter.avatar_url }}\" class=\"avatar\" /> {{ target.submitter.name }}\n        {{^}}\n          <!-- TODO: FIXME: don't hardcode image URL -->\n          <img src=\"/static/css/images/user-50.png\" class=\"avatar\" /> {{ target.submitter_name }}\n        {{/if}}\n        </strong>\n\n        {{#if is_place }}\n          {{ action }} a{{#if place.type_starts_with_vowel }}n{{/if }} <span class=\"place-type\">{{ place.place_type_label }}</span>\n          {{#if place.name }}\n            named <span class=\"place-name\">{{ place.name }}</span>\n          {{^}}\n            {{#if place.location }}\n              at <span class=\"place-name\">{{>location-string place.location }}</span>\n            {{/if }}\n          {{/if }}\n        {{else}}\n          {{ action }}\n\n          {{#if place.name }}\n            <span class=\"place-name\">{{ place.name }}</span>\n          {{else}}\n            a{{# place.type_starts_with_vowel }}n{{/ place.type_starts_with_vowel }} {{ place.place_type_label }}\n          {{/if }}\n\n        {{/if }}"
+
+#: jstemplates/auth-nav.html:1 jstemplates/place-form.html:3
+msgid "Log Out"
+msgstr "Cerrar sesión"
+
+#: jstemplates/auth-nav.html:2
+msgid "Sign In"
+msgstr "Iniciar sesión"
+
+#: jstemplates/auth-nav.html:3
+msgid "Signed in as</span> <span class=\"current-user\">{{ current_user \"name\" }}"
+msgstr "Sesión iniciada como </span> <span class=\"current-user\">{{ current_user \"name\" }}"
+
+#: jstemplates/geocode-address.html:1
+msgid "Search"
+msgstr "Buscar"
+
+#: jstemplates/place-form.html:1
+msgid "Drag the map to your location."
+msgstr "Arrastra el mapa hasta tu ubicación"
+
+#: jstemplates/place-form.html:2
+msgid ""
+"It looks like you didn't set your location yet. Please drag the map to your "
+"location."
+msgstr "Parece que no has fijado tu ubicación todavía. Por favor arrastra el mapa hasta tu ubicación."
+
+#: jstemplates/place-form.html:4
+msgid ""
+"Or sign in with <a class=\"auth-inline twitter-btn\" "
+"href=\"/users/login/twitter/\">Twitter</a> <a class=\"auth-inline facebook-"
+"btn\" href=\"/users/login/facebook/\">Facebook</a>"
+msgstr "O inicia sesión con <a class=\"auth-inline twitter-btn\" href=\"/users/login/twitter/\">Twitter</a> <a class=\"auth-inline facebook-btn\" href=\"/users/login/facebook/\">Facebook</a>"
+
+#: jstemplates/place-form.html:5
+msgid "Sorry, your browser doesn't support file uploads."
+msgstr "Lo lamentamos, tu navegador no permite cargas de archivos."
+
+#: jstemplates/place-form.html:6
+msgid "optional"
+msgstr "opcional"
+
+#: jstemplates/place-list.html:1
+msgid "Most Recent"
+msgstr "Lo más reciente"
+
+#: jstemplates/place-list.html:2
+msgid "Most {{ support_label_plural }}"
+msgstr "Lo más {{ support_label_plural }}"
+
+#: jstemplates/place-list.html:3
+msgid "Most {{ survey_label_plural }}"
+msgstr "Lo más {{ survey_label_plural }}"
+
+#: jstemplates/unsupported-overlay.html:1
+msgid "Proceed Anyway"
+msgstr "Proceder de todas maneras"
+
+#: jstemplates/unsupported-overlay.html:2
+msgid ""
+"You are using an unsupported browser. Please\n"
+"    <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve\n"
+"    your experience."
+msgstr "Estás utilizando un navegador no permitido. Por favor\n<a href=\"http://browsehappy.com/\">actualiza tu navegador</a> para mejorar\ntu experiencia."
+
+#: templates/base.html:104
+#, python-format
+msgid ""
+"\n"
+"        Oops, %(config.app.name)s needs JavaScript to work properly.\n"
+"        "
+msgstr "\nUps, %(config.app.name)s necesita JavaScript para funcionar correctamente."
+
+#: templates/base.html:109
+#, python-format
+msgid ""
+"\n"
+"        %(config.app.name)s is great but it needs something called JavaScript to work\n"
+"        properly. But fear not, it's really easy to turn on. Click\n"
+"        <a href=\"http://enable-javascript.com/\" target=\"_blank\">here</a> for simple instructions!\n"
+"        "
+msgstr "\n%(config.app.name)s está muy bien pero necesita algo llamado JavaScript para funcionar bien. Pero no tengas miedo, es muy fácil encenderlo. ¡Haz clic  <a href=\"http://enable-javascript.com/\" target=\"_blank\">aquí</a> para ver unas instrucciones sencillas!"
+
+#: templates/base.html:123
+msgid ""
+"We can't connect to the server at the moment. Hang tight while we re-"
+"establish communication."
+msgstr "No podemos conectarnos al servidor en este momento. Espera con calma mientras restablecemos la comunicación."
+
+#: templates/base.html:129
+msgid "Close"
+msgstr "Cerrar"
+
+#~ msgid ""
+#~ "\n"
+#~ "    App Name is not officially supported in {{browser.name}}\n"
+#~ "    {{browser.version}}. Things may not work. Or they may, we're not sure. If\n"
+#~ "    you want to be safe, we suggest using one of <a\n"
+#~ "    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> instead.\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "Shareabouts is not officially supported in {{browser.name}}\n"
+#~ "    {{browser.version}}. Things may not work. Or they may, we're not sure. If\n"
+#~ "    you want to be safe, we suggest using one of <a\n"
+#~ "    href=\"http://upgradeyourbrowser.net/\" target=\"_blank\">these</a> instead.\n"
+#~ "    "
+
+#~ msgid "Close Button"
+#~ msgstr "Close"
