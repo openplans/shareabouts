@@ -333,8 +333,6 @@ var Shareabouts = Shareabouts || {};
         this.showPanel(this.placeFormView.render().$el);
         this.showNewPin();
         this.setBodyClass('content-visible', 'place-form-visible');
-
-        this.conditionallyReverseGeocode();
       }
     },
     setBodyClass: function(/* newBodyClasses */) {
