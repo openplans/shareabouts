@@ -262,12 +262,12 @@ place:
     - prompt: _(Website link)
       type: text
       name: link
+      optional: true
       attrs:
         - key: placeholder
           value: _(Please use 'http://' to hyperlink)
         - key: size
-          value: 30
-        - key: required         
+          value: 30       
     - prompt: _(Please add an image)
       inputfile_label: _(Add Image)
       type: file
@@ -333,7 +333,12 @@ pages:
     slug: about
     name: overview
     start_page: true
-
+    
+  - title: _(Zones)
+    slug: zones
+    name: features
+    url: /static/pages/features.html    
+    
   - title: _(FAQs)
     slug: why
     url: /static/pages/why.html
