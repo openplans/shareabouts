@@ -47,10 +47,10 @@ map:
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
 place_types:
-  active:
-    label: _(Physical Exercise/Active Place)
+  built:
+    label: _(Built Spot)
     rules:
-      - condition: '"{{location_type}}" === "active" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "built" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -60,7 +60,7 @@ place_types:
           opacity: 0.9
           fillOpacity: 0.7
 
-      - condition: '"{{location_type}}" === "active" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "built" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -69,7 +69,7 @@ place_types:
           iconSize: [85, 41]
           iconAnchor: [42, 42]
 
-      - condition: '"{{location_type}}" === "active" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "built" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -78,10 +78,10 @@ place_types:
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
-  transport:
-    label: _(Transport/Access Place)
+  policy:
+    label: _(Policy Spot)
     rules:
-      - condition: '"{{location_type}}" === "transport" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "policy" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -91,7 +91,7 @@ place_types:
           opacity: 0.9
           fillOpacity: 0.7
 
-      - condition: '"{{location_type}}" === "transport" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "policy" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -100,7 +100,7 @@ place_types:
           iconSize: [85, 41]
           iconAnchor: [42, 42]
 
-      - condition: '"{{location_type}}" === "transport" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "policy" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -109,10 +109,10 @@ place_types:
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
-  space:
-    label: _(Public Gathering Place)
+  place:
+    label: _(Place Spot)
     rules:
-      - condition: '"{{location_type}}" === "space" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "place" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -122,7 +122,7 @@ place_types:
           opacity: 0.9
           fillOpacity: 0.7
 
-      - condition: '"{{location_type}}" === "space" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "place" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -131,7 +131,7 @@ place_types:
           iconSize: [85, 41]
           iconAnchor: [42, 42]
 
-      - condition: '"{{location_type}}" === "space" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "place" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -140,10 +140,10 @@ place_types:
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
-  shopping:
-    label: _(Shopping Place)
+  project:
+    label: _(Project Spot)
     rules:
-      - condition: '"{{location_type}}" === "shopping" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "project" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -153,7 +153,7 @@ place_types:
           opacity: 0.9
           fillOpacity: 0.7
 
-      - condition: '"{{location_type}}" === "shopping" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "project" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -162,7 +162,7 @@ place_types:
           iconSize: [85, 41]
           iconAnchor: [42, 42]
 
-      - condition: '"{{location_type}}" === "shopping" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "project" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -171,10 +171,10 @@ place_types:
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
-  nature:
-    label: _(Nature/Environment Place)
+  natural:
+    label: _(Natural Spot)
     rules:
-      - condition: '"{{location_type}}" === "nature" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "natural" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -184,7 +184,7 @@ place_types:
           opacity: 0.9
           fillOpacity: 0.7
 
-      - condition: '"{{location_type}}" === "nature" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "natural" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -193,7 +193,7 @@ place_types:
           iconSize: [85, 41]
           iconAnchor: [42, 42]
 
-      - condition: '"{{location_type}}" === "nature" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "natural" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -212,9 +212,9 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a Place)
+  add_button_label: _(Add a Spot)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(List All Places)
+  show_list_button_label: _(List All Spots)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
@@ -225,7 +225,7 @@ place:
   location_item_name: location
 
   items:
-    - prompt: _(What is the name of this place?)
+    - prompt: _(What is the name of this spot?)
       type: text
       name: name
       attrs:
@@ -234,21 +234,21 @@ place:
         - key: size
           value: 30
         - key: required
-    - prompt: _(What theme best suits this place?)
+    - prompt: _(What theme best suits this spot?)
       type: select
       options:
         - label: _(Choose One)
           value: ''
-        - label: _(Physical Exercise/Activity)
-          value: active
-        - label: _(Transport/Access)
-          value: transport
-        - label: _(Public Gathering)
-          value: space
-        - label: _(Shopping)
-          value: shopping
-        - label: _(Nature/Environment)
-          value: nature   
+        - label: _(Built)
+          value: built
+        - label: _(Policy)
+          value: policy
+        - label: _(Place)
+          value: place
+        - label: _(Project)
+          value: project
+        - label: _(Natural)
+          value: natural   
       name: location_type
       attrs:
         - key: required
