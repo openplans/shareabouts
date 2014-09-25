@@ -48,7 +48,7 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   built:
-    label: _(Built Spot)
+    label: _(Built Place)
     rules:
       - condition: '"{{location_type}}" === "built" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
@@ -79,7 +79,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   policy:
-    label: _(Policy Spot)
+    label: _(Policy Place)
     rules:
       - condition: '"{{location_type}}" === "policy" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
@@ -109,10 +109,10 @@ place_types:
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
-  place:
-    label: _(Place Spot)
+  query:
+    label: _(Query Place)
     rules:
-      - condition: '"{{location_type}}" === "place" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "query" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -122,16 +122,16 @@ place_types:
           opacity: 0.9
           fillOpacity: 0.7
 
-      - condition: '"{{location_type}}" === "place" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "query" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/master-pin-flag.png
+          iconUrl: /static/css/images/master-pin-question.png
           shadowUrl: /static/css/images/master-pin-shadow.png
           iconSize: [85, 41]
           iconAnchor: [42, 42]
 
-      - condition: '"{{location_type}}" === "place" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "query" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -141,7 +141,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   project:
-    label: _(Project Spot)
+    label: _(Project Place)
     rules:
       - condition: '"{{location_type}}" === "project" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
@@ -172,7 +172,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   natural:
-    label: _(Natural Spot)
+    label: _(Natural Place)
     rules:
       - condition: '"{{location_type}}" === "natural" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
@@ -212,9 +212,9 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a Spot)
+  add_button_label: _(Add a Place)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(List All Spots)
+  show_list_button_label: _(List All Places)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
@@ -225,7 +225,7 @@ place:
   location_item_name: location
 
   items:
-    - prompt: _(What is the name of this spot?)
+    - prompt: _(What is the name of this place?)
       type: text
       name: name
       attrs:
@@ -234,7 +234,7 @@ place:
         - key: size
           value: 30
         - key: required
-    - prompt: _(What theme best suits this spot?)
+    - prompt: _(What theme best suits this place?)
       type: select
       options:
         - label: _(Choose One)
@@ -243,12 +243,12 @@ place:
           value: built
         - label: _(Policy)
           value: policy
-        - label: _(Place)
-          value: place
         - label: _(Project)
           value: project
         - label: _(Natural)
-          value: natural   
+          value: natural
+        - label: _(Query)
+          value: query     
       name: location_type
       attrs:
         - key: required
