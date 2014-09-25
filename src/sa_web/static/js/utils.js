@@ -142,7 +142,8 @@ var Shareabouts = Shareabouts || {};
             'center-lng': 'metric2',
             'zoom': 'metric3',
 
-            'panel-state': 'dimension1'
+            'panel-state': 'dimension1',
+            'language-code': 'dimension2'
           };
 
       switch (firstArg.toLowerCase()) {
