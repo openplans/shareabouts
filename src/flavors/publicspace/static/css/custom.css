@@ -1,0 +1,178 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+/*
+COLOR PALETTE...
+
+CoPP Orange rgb(241,89,35)
+CoPP Blue   rgb(12,77,162)
+CoPP Aqua   rgb(20,152,164)
+
+CrowdSpot Red #FF1609
+CrowdSpot Green #45BA00
+CrowdSpot Grey (text) #585A59
+*/
+
+
+/* =Base Styles
+-------------------------------------------------------------- */
+
+/* Forms */
+input:focus,
+textarea:focus {
+  outline: 2px solid rgb(12,77,162);
+}
+
+
+/* Buttons */
+.btn,
+.btn:visited,
+.btn:link {
+  font-weight: 600;
+  border: 0;
+}
+
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:link {
+  background-color: rgb(12,77,162);
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #1D4578;
+}
+.btn-secondary,
+.btn-secondary:visited,
+.btn-secondary:link {
+/*  background-color: #ccc;*/
+/*  color: #007fbf;*/
+}
+.btn-secondary:hover {
+/*  background-color: #007fbf;*/
+/*  color: #fff;*/
+}
+
+/* =Header
+-------------------------------------------------------------- */
+
+#site-header {
+  border-top: rgb(20,152,164) 3px solid
+}
+
+#site-header {
+  background-color: #fff;
+}
+
+#site-title {
+  background: url('images/publicspace_copp_header.png') no-repeat
+center;
+  background-size: contain;
+  width: 400px;
+  text-indent: -133337px;
+}
+
+.site-name {
+  font-size: 0.45em;
+  float: left;
+  line-height: 1.2;
+  background-color: #26A0DA;
+  position: relative;
+  top: -0.6em;
+}
+
+.has-pages #site-title {
+  margin-left: -1.25em;
+}
+
+/* =The Ticker
+-------------------------------------------------------------- */
+
+#ticker {
+  background: #fff;
+}
+
+/* =Content: Pages & Places
+-------------------------------------------------------------- */
+
+#content {
+  background: #F8F8FF;
+}
+
+/* Close Button */
+a.close-btn {
+  background: #F8F8FF;
+}
+
+
+
+/* =List View
+-------------------------------------------------------------- */
+
+#list-container {
+  background: #eee;
+}
+
+.list-toggle-btn,
+  .list-toggle-btn:visited,
+  .list-toggle-btn:link {
+    background-color: rgb(241,89,35);
+ }
+ 
+.list-toggle-btn:hover {
+    background-color: #585A59;
+    color: #fff;
+  }   
+
+/* =Map
+-------------------------------------------------------------- */
+
+/* Drag Marker Instructions (for adding a new place) */
+.drag-marker-instructions,
+.drag-marker-warning {
+  background-color: #45BA00;
+  color: #fff;
+  text-shadow: none;
+}
+.drag-marker-warning {
+  background-color: #FF1609;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* =Existing Spots
+-------------------------------------------------------------- */
+
+.place-value-issue:before {
+  content: "Issue: ";
+  font-weight: bold;
+}
+
+.place-value-time:before {
+  content: "Busiest time: ";
+  font-weight: bold;
+}
+
+.place-value-age {
+  display: none;
+}
+
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1300px) {
+}
+
+@media only screen and (min-width: 580px) and (max-width: 660px) {
+  #site-header {
+    display: none;
+  }
