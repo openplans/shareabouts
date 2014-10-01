@@ -159,6 +159,10 @@ a.close-btn {
   display: none;
 }
 
+.place-value-connection {
+  display: none;
+}
+
 
 /* =Media Queries
 -------------------------------------------------------------- */
