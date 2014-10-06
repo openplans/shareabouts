@@ -53,9 +53,6 @@
 <!--
   Analytics, custom JS, and such go here
  -->
-{% block includes %}
-{% endblock %}
-
 <!-- Google analytics -->
 <script type="text/javascript">
 
@@ -70,5 +67,8 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
-</script>
+</script> 
+{% block includes %}
+{% endblock %}
+
 
