@@ -3,6 +3,11 @@
  * All rules herein will override the default Shareabouts styles.
  * NOTE: "With great power comes great responsibility."
  */
+ 
+ /* SHUT IT DOWN LEMON */
+#add-place-btn-container {
+  display: none !important;
+}
 
 /*
 COLOR PALETTE...
