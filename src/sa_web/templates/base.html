@@ -33,7 +33,7 @@
   <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/apple-touch-icon-precomposed.png">
 
   <!-- Google WebFonts -->
-  <link href='http://fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
 
   {% compress css %}
   <link rel="stylesheet" href="{{ settings.COMPRESS_URL }}css/normalize.css">
@@ -43,16 +43,16 @@
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="{{ config.static_url }}css/custom.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
 
-  <link rel="profile" href="http://gmpg.org/xfn/11" />
+  <link rel="profile" href="//gmpg.org/xfn/11" />
 
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+  <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
   <!--[if lte IE 8]>
-      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+      <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
   <![endif]-->
 
   <!--[if lt IE 9]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
   <![endif]-->
 
 </head>
@@ -89,7 +89,7 @@
         {% blocktrans %}
         {{ config.app.name }} is great but it needs something called JavaScript to work
         properly. But fear not, it's really easy to turn on. Click
-        <a href="http://enable-javascript.com/" target="_blank">here</a> for simple instructions!
+        <a href="//enable-javascript.com/" target="_blank">here</a> for simple instructions!
         {% endblocktrans %}
       </p>
       </div>
@@ -125,7 +125,7 @@
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
-  <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+  <script src="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 
   {% compress js %}
   <script src="{{settings.COMPRESS_URL}}libs/underscore.js"></script>
