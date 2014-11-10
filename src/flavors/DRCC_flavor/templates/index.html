@@ -8,6 +8,7 @@
 {% block meta %}
   {% if place %}
     <!-- Twitter -->
+    <meta name="twitter:widgets:csp" content="on"> # Added by LMS for SSL compatibility
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ place.properties.name }}">
     <meta name="twitter:description" content="{{ place.properties.description }}">
