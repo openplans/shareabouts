@@ -9,16 +9,16 @@ Shareabouts.SpecData.placeCollectionData = [
     "created_datetime":"2012-08-27T13:53:25.037Z",
     "name":"Logan Circle",
     "visible":false,
-    "url":"http://shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/4/",
+    "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/4/",
     "submitter_name":"Mjumbe",
     "submissions":[
       {
         "count":4,
-        "url":"http://shareaboutsapi.org/api/v1/places/4/support/",
+        "url":"//shareaboutsapi.org/api/v1/places/4/support/",
         "type":"support"},
       {
         "count":1,
-        "url":"http://shareaboutsapi.org/api/v1/places/4/comments/",
+        "url":"//shareaboutsapi.org/api/v1/places/4/comments/",
         "type":"comments"}
     ],
     "id":4,
@@ -31,16 +31,16 @@ Shareabouts.SpecData.placeCollectionData = [
     "created_datetime":"2012-08-27T14:10:47.479Z",
     "name":"Rittenhouse Square",
     "visible":false,
-    "url":"http://shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/8/",
+    "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/8/",
     "submitter_name":"Aaron",
     "submissions":[
       {
         "count":2,
-        "url":"http://shareaboutsapi.org/api/v1/places/8/comments/",
+        "url":"//shareaboutsapi.org/api/v1/places/8/comments/",
         "type":"comments"},
       {
         "count":1,
-        "url":"http://shareaboutsapi.org/api/v1/places/8/support/",
+        "url":"//shareaboutsapi.org/api/v1/places/8/support/",
         "type":"support"}
     ],
     "id":8,
@@ -53,12 +53,12 @@ Shareabouts.SpecData.placeCollectionData = [
     "created_datetime":"2012-08-27T14:35:53.113Z",
     "name":"Franklin Square",
     "visible":false,
-    "url":"http://shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/9/",
+    "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/9/",
     "submitter_name":"Aaron",
     "submissions":[
   {
     "count":1,
-    "url":"http://shareaboutsapi.org/api/v1/places/9/support/",
+    "url":"//shareaboutsapi.org/api/v1/places/9/support/",
     "type":"support"}],
     "id":9,
     "location": { "lat":39.9558723926,"lng":-75.1504840851}
@@ -70,16 +70,16 @@ Shareabouts.SpecData.placeCollectionData = [
     "created_datetime":"2012-08-27T14:42:49.295Z",
     "name":"University of Pennsylvania",
     "visible":false,
-    "url":"http://shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/10/",
+    "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/10/",
     "submitter_name":"Aaron",
     "submissions":[
       {
         "count":1,
-        "url":"http://shareaboutsapi.org/api/v1/places/10/comments/",
+        "url":"//shareaboutsapi.org/api/v1/places/10/comments/",
         "type":"comments"},
       {
         "count":3,
-        "url":"http://shareaboutsapi.org/api/v1/places/10/support/",
+        "url":"//shareaboutsapi.org/api/v1/places/10/support/",
         "type":"support"}
     ],
     "id":10,
@@ -92,12 +92,12 @@ Shareabouts.SpecData.placeCollectionData = [
     "created_datetime":"2012-08-27T14:51:36.208Z",
     "name":"Philadelphia Museum of Art",
     "visible":false,
-    "url":"http://shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/15/",
+    "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/15/",
     "submitter_name":"Aaron",
     "submissions":[
       {
         "count":1,
-        "url":"http://shareaboutsapi.org/api/v1/places/15/support/",
+        "url":"//shareaboutsapi.org/api/v1/places/15/support/",
         "type":"support"}
     ],
     "id":15,
@@ -110,16 +110,16 @@ Shareabouts.SpecData.placeCollectionData = [
     "description":"The center of politics in the city!",
     "location_type":"Landmark",
     "visible":false,
-    "url":"http://shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/1/",
+    "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/1/",
     "submitter_name":"Mjumbe",
     "submissions":[
       {
         "count":1,
-        "url":"http://shareaboutsapi.org/api/v1/places/1/comments/",
+        "url":"//shareaboutsapi.org/api/v1/places/1/comments/",
         "type":"comments"},
       {
         "count":2,
-        "url":"http://shareaboutsapi.org/api/v1/places/1/support/",
+        "url":"//shareaboutsapi.org/api/v1/places/1/support/",
         "type":"support"}
     ],
     "id":1,
@@ -132,12 +132,12 @@ Shareabouts.SpecData.placeCollectionData = [
     "description":"I'm not sure. It's green anyway. hi",
     "location_type":"Landmark",
     "visible":false,
-    "url":"http://shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/6/",
+    "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/6/",
     "submitter_name":"Paul",
     "submissions":[
       {
         "count":0,
-        "url":"http://shareaboutsapi.org/api/v1/places/6/Comment/",
+        "url":"//shareaboutsapi.org/api/v1/places/6/Comment/",
         "type":"Comment"}
     ],
     "id":6,
@@ -150,12 +150,12 @@ Shareabouts.SpecData.placeCollectionData = [
     "created_datetime":"2012-08-27T16:58:24.105Z",
     "name":"Andy Cochran",
     "visible":false,
-    "url":"http://shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/24/",
+    "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/24/",
     "submitter_name":"Aaron",
     "submissions":[
       {
         "count":1,
-        "url":"http://shareaboutsapi.org/api/v1/places/24/support/",
+        "url":"//shareaboutsapi.org/api/v1/places/24/support/",
         "type":"support"}
     ],
     "id":24,
@@ -168,7 +168,7 @@ Shareabouts.SpecData.placeCollectionData = [
     "created_datetime":"2012-08-28T04:45:09.144Z",
     "name":"",
     "visible":false,
-    "url":"http://shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/46/",
+    "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/46/",
     "submitter_name":"",
     "submissions":[],
     "id":46,
@@ -181,7 +181,7 @@ Shareabouts.SpecData.placeCollectionData = [
     "created_datetime":"2012-08-28T17:17:20.025Z",
     "name":"Washington Square",
     "visible":false,
-    "url":"http://shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/47/",
+    "url":"//shareaboutsapi.org/api/v1/datasets/demo-user/demo-data/places/47/",
     "submitter_name":"Aaron",
     "submissions":[],
     "id":47,
