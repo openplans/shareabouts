@@ -72,8 +72,9 @@ to activate your virtual environment every time you start a new terminal session
 Running the Shareabouts API Service
 ------------------------------------
 
-For local development, your best bet is to use OpenPlans' hosted API. 
-Go to [data.shareabouts.org](http://data.shareabouts.org) and request access.
+For local development, your best bet is to use OpenPlans' hosted API, data.shareabouts.org. 
+[Contact us](http://openplans.org/about/) and request a dataset key. We'll happily provide
+hosting to community and non-commercial projects.
 
 Alternatively, install and run the
 back-end API service yourself.  To do so, you will want clone the
