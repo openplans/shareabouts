@@ -45,10 +45,19 @@ map:
       rules:
         - condition: 'true'
           style:
-            color: "#FF00EF"
+            color: "#0000FF"
             opacity: 0.6
             fillOpacity: 0.1
             weight: 1
+    - url: /static/data/WRIA9:WRIA9roi.geojson
+      type: json
+      rules:
+        - condition: 'true'
+          style:
+            color: "#FF99CC"
+            opacity: 0.2
+            fillOpacity: 0.4
+            weight: 2
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
