@@ -1012,6 +1012,11 @@ ul.recent-points {
 
 .legend {
   border-top: 14px solid #eee;
+  border-bottom: 2px solid #666;
+}
+
+.legend li{
+  line-height:20px;
 }
 
 /* =List View
