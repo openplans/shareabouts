@@ -106,6 +106,17 @@ var Shareabouts = Shareabouts || {};
               el: '#auth-nav-container',
               router: this.options.router
             })).render();
+      
+      // add a legend of each point type and name
+      var legendData = _.map(this.options.placeTypes, function(type) {
+        var icon = _.filter(_.pluck(type.rules, 'icon'), _.identity)[0];
+        return {
+          label: type.label,
+          // find the first rule that has an icon
+          iconUrl: icon && icon.iconUrl
+        }
+      });
+      $('.legend').append(Handlebars.templates['legend']({types: legendData}));
 
       // Activity is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
