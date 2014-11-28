@@ -100,13 +100,16 @@ nav ol,
   margin: 0;
   padding: 0;
 }
+
 nav li,
 .unstyled-list li {
   padding-bottom: 0;
 }
+
 strong {
   font-weight: 800;
 }
+
 hr {
   margin: 1.5em 0;
   border: 1px solid #eeeeee;
@@ -1007,6 +1010,9 @@ ul.recent-points {
   margin-left: -2.5em;
 }
 
+.legend {
+  border-top: 14px solid #eee;
+}
 
 /* =List View
 -------------------------------------------------------------- */
