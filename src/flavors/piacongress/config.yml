@@ -202,39 +202,7 @@ place_types:
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
-  pia:
-    label: _(PIA Congress Place)
-    rules:
-      - condition: '"{{location_type}}" === "pia" && {{map.zoom}} < 12 && {{layer.focused}} === false'
-        # Display landmarks as circles (vectors) when zoomed out
-
-        style:
-          color: '#3BB004'
-          radius: 5
-          weight: 1
-          opacity: 0.9
-          fillOpacity: 0.7
-
-      - condition: '"{{location_type}}" === "pia" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
-        # Display landmarks as icons when zoomed in
-
-        icon:
-          iconUrl: /static/css/images/master-pin-white-event.png
-          shadowUrl: /static/css/images/master-pin-shadow.png
-          iconSize: [85, 41]
-          iconAnchor: [42, 42]
-
-      - condition: '"{{location_type}}" === "pia" && {{layer.focused}} === true'
-        # Display landmarks as icons when zoomed in
-
-        icon:
-          iconUrl: /static/css/images/markers/marker-f95016.png
-          shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [25, 41]
-          shadowSize: [41, 41]
-          iconAnchor: [12, 41]                           
-
-
+                          
 activity:
   # Optional. Activity is supported by default. Set to false to disable.
   enabled: true
