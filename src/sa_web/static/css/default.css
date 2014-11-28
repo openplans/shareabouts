@@ -1015,8 +1015,13 @@ ul.recent-points {
   border-bottom: 2px solid #666;
 }
 
-.legend li{
-  line-height:20px;
+.legend img { 
+  max-height: 24px;
+  vertical-align: middle;
+}
+
+.legend li {
+  line-height:28px;
 }
 
 /* =List View
