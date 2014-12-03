@@ -2,10 +2,11 @@
   "name": "Shareabouts Map Client",
   "description": "A standalone Shareabouts map client",
   "repository": "https://github.com/openplans/shareabouts",
+  "logo": "https://pbs.twimg.com/profile_images/476001405501587456/rnCUrPIX_400x400.png",
 
   "env": {
     "SHAREABOUTS_DATASET_ROOT": {
-      "description": "The root URL for the dataset in the API.",
+      "description": "The root API URL for the dataset.",
       "value": "https://data.shareabouts.org/api/v2/demo-user/datasets/demo-data"
     },
     "SHAREABOUTS_DATASET_KEY": {
