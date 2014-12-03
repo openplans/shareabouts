@@ -1,0 +1,20 @@
+{
+  "name": "Shareabouts Map Client",
+  "description": "A standalone Shareabouts map client",
+  "repository": "https://github.com/openplans/shareabouts",
+
+  "env": {
+    "SECRET_TOKEN": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "WEB_CONCURRENCY": {
+      "description": "The number of processes to run.",
+      "value": "4"
+    }
+  },
+
+  "scripts": {
+    "postdeploy": "src/manage.py migrate; src/manage.py collectstatic"
+  }
+}
