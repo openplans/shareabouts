@@ -4,13 +4,22 @@
   "repository": "https://github.com/openplans/shareabouts",
 
   "env": {
+    "SHAREABOUTS_DATASET_ROOT": {
+      "description": "The root URL for the dataset in the API.",
+      "value": "https://data.shareabouts.org/api/v2/demo-user/datasets/demo-data"
+    },
+    "SHAREABOUTS_DATASET_KEY": {
+      "description": "The API key for the map dataset.",
+      "value": "NTNhODE3Y2IzODlmZGZjMWU4NmU3NDhj"
+	},
+    "SHAREABOUTS_FLAVOR": {
+      "description": "The map flavor.",
+      "value": "default"
+    },
+
     "SECRET_TOKEN": {
       "description": "A secret key for verifying the integrity of signed cookies.",
       "generator": "secret"
-    },
-    "WEB_CONCURRENCY": {
-      "description": "The number of processes to run.",
-      "value": "4"
     }
   },
 
