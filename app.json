@@ -1,6 +1,6 @@
 {
   "name": "Shareabouts Map Client",
-  "description": "A standalone Shareabouts map client. For documentation on configuring and deploying, see https://github.com/openplans/shareabouts#documentation",
+  "description": "A standalone Shareabouts map client. For configuration docs, see https://github.com/openplans/shareabouts#documentation",
   "repository": "https://github.com/openplans/shareabouts",
   "logo": "https://pbs.twimg.com/profile_images/476001405501587456/rnCUrPIX_400x400.png",
 
