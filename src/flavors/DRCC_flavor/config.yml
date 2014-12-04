@@ -30,17 +30,15 @@ map:
 
   options:
     center:
-      lat: 47.565322
-      lng: -122.346502
-      #      lng: -75.1636075
-      #      lng: -75.1636075
-    zoom: 14
-    minZoom: 10
+      lat: 47.524810
+      lng: -122.317779
+    zoom: 12
+    minZoom: 9
     maxZoom: 17
   layers:
     - url: //{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
-      # Custom Mapbox
+      # DRCC Mapbox base layer:
 #    - url: //{s}.tiles.mapbox.com/v4/lukemswart.k8fnolpm/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
 #      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       # Buildings
@@ -51,7 +49,7 @@ map:
           style:
             color: "#0000FF" # blue
             opacity: 0.6
-            fillOpacity: 0.1
+            fillOpacity: 0.5
             weight: 1
       # Polygon ROI
     - url:  http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WRIA9:WRIA9roi&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
@@ -61,7 +59,7 @@ map:
           style:
             color: "#FF99CC" # pink
             opacity: 0.2
-            fillOpacity: 0.4
+            fillOpacity: 0.2
             weight: 2
      # Mapbox Project test
     - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
@@ -69,10 +67,10 @@ map:
       rules:
         - condition: 'true'
           style:
-            color: "#25FF51" # green
-            opacity: 0.2
-            fillOpacity: 0.4
-            weight: 2
+            color: "#FF0000" # red
+            opacity: 0.7
+            fillOpacity: 0.3
+            weight: 5
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
