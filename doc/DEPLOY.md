@@ -2,7 +2,7 @@ These instructions apply only to the "Shareabouts Web" application.
 If you are also building and installing the Shareabouts API yourself,
 it has its own documentation. If you'd rather use OpenPlans' hosted API, [contact us](api.shareabouts.org).
 
-You can deploy to any server that supports Django, but using a PaaS providers and our instructions below may be easier. 
+You can deploy to any server that supports Django, but using a PaaS providers and our instructions below may be easier.
 
 Deploying to a PaaS provider
 ----------------------------
@@ -11,6 +11,8 @@ At OpenPlans, we have been deploying Shareabouts to DotCloud internally, so many
 of the files necessary are already in the repository.  We also have the files
 necessary for deploying to Heroku.  Other PaaS providers should be simple
 variations on these.
+
+(**NOTE**: The easiest way to deploy by far is to use the "Deploy to Heroku" button in the [README](https://github.com/openplans/shareabouts#shareabouts-))
 
 From the root Shareabouts directory...
 
