@@ -1,0 +1,68 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [-122.342201, 47.634399],
+                "type": "Point"
+            },
+            "id": "ci2mc3bwt0e5ia6s4qk0xzell",
+            "properties": {
+                "description": "",
+                "id": "marker-marker-i2mc3bvq1g",
+                "marker-color": "#3887be",
+                "marker-size": "medium",
+                "marker-symbol": "embassy",
+                "title": "Welcome to Mapbox!"
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    [
+                        [-122.35980033874512, 47.589841434489465],
+                        [-122.35791206359863, 47.56801345716771],
+                        [-122.3448657989502, 47.56760807710433],
+                        [-122.34100341796875, 47.59082550551166],
+                        [-122.35980033874512, 47.589841434489465]
+                    ]
+                ],
+                "type": "Polygon"
+            },
+            "properties": {
+                "description": "",
+                "fill": "#9c89cc",
+                "fill-opacity": 0.6,
+                "id": "marker-i2qzd7yr0",
+                "stroke": "#1087bf",
+                "stroke-opacity": 1,
+                "stroke-width": 4,
+                "title": ""
+            },
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    [
+                        [-122.3653793334961, 47.560079020018435],
+                        [-122.2177505493164, 47.53551519020612],
+                        [-122.29019165039062, 47.516505084758315],
+                        [-122.3653793334961, 47.560079020018435]
+                    ]
+                ],
+                "type": "Polygon"
+            },
+            "properties": {
+                "description": "",
+                "fill": "#9c89cc",
+                "fill-opacity": 0.6,
+                "id": "marker-i2r11n2r1",
+                "stroke": "#1087bf",
+                "stroke-opacity": 1,
+                "stroke-width": 4,
+                "title": ""
+            },
+            "type": "Feature"
+        }
+    ], "id": "lukemswart.k8fnolpm", "ids": ["ci2mc3bwt0e5ia6s4qk0xzell", "ci2qzt53l0k3daus4kcuudj44"], "type": "FeatureCollection"}
