@@ -7,7 +7,7 @@ You can deploy to any server that supports Django, but using a PaaS providers an
 Deploying to Heroku with the button
 ----------------------------
 
-The fastest way to deploy Shareabouts is to click the "Deploy to Heroku" button in the [README](https://github.com/openplans/shareabouts#shareabouts-)). This will deploy the Shareabouts code for you on [Heroku](https://heroku.com), a popular cloud platform for running software. 
+The fastest way to deploy Shareabouts is to click the "Deploy to Heroku" button in the [README](https://github.com/openplans/shareabouts#shareabouts-). This will deploy the Shareabouts code for you on [Heroku](https://heroku.com), a popular cloud platform for running software. 
 
 After clicking the button, you will see the configuration settings. Click "Deploy" confirm the setup, and in a few moments you'll have a Shareabouts map. 
 
