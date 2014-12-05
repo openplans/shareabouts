@@ -1,0 +1,284 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+COLOR PALETTE...
+
+
+VMWC White  #FCFEF9
+
+Idea Spot   #117C98
+Like Spot   #F5D860
+
+Dark blue   #042A5E
+Medium blue #1D4578
+Light blue  #A3C0DD
+
+
+CrowdSpot Red #FF1609
+CrowdSpot Green #45BA00
+CrowdSpot Grey (text) #585A59
+*/
+
+
+
+
+
+/* =Base Styles
+-------------------------------------------------------------- */
+
+body, select, input, textarea {
+  color: #1D4578;
+  font-family: "Proxima Nova", Arial, Helvetica, serif;
+}
+
+/* Buttons */
+.btn,
+.btn:visited,
+.btn:link {
+  font-weight: 600;
+  border: 0;
+}
+
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:link {
+  background-color: #1D4578;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #585A59;
+}
+.btn-secondary,
+.btn-secondary:visited,
+.btn-secondary:link {
+  background-color: #FCFEF9;
+  color: #585A59;
+}
+.btn-secondary:hover {
+  background-color: #585A59;
+  color: #fff;
+}
+
+/* =Header
+-------------------------------------------------------------- */
+
+#site-header {
+  border-top: #A3C0DD 3px solid
+}
+
+#site-header {
+  background-color: #FCFEF9;
+  box-shadow: 0 5px 10px rgba(85, 85, 85, 0.5), inset 0 -3px 0
+}
+
+#site-title {
+  background: url('images/vmwc_logo.png') no-repeat 
+center;
+  background-size: contain;
+  width: 200px;
+  text-indent: -133337px;
+}
+
+.site-name {
+  font-size: 0.45em;
+  float: left;
+  line-height: 1.2;
+  background-color: #26A0DA;
+  position: relative;
+  top: -0.6em;
+}
+
+.has-pages #site-title {
+  margin-left: -1.25em;
+}
+
+.access {
+  font-size: 1.1em;
+}
+
+/* Forms */
+form {
+}
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0 0 1.2em;
+}
+label {
+  font-size: 1.0em;
+  text-transform: none;
+  color: #585A59;
+  margin-right: 0.5em;
+}
+label small {
+  text-transform: none;
+}
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+textarea {
+  outline: 0;
+  border: 0.15em solid #C1C1C1;
+  border-radius: 0;
+  padding: 0.5em;
+  display: block;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+input:focus,
+textarea:focus {
+  outline: 2px solid #A3C0DD;
+}
+textarea {
+  height: 6.5em;
+  resize: none;
+}
+.form-submitted input:invalid,
+.form-submitted textarea:invalid,
+.form-submitted select:invalid {
+  outline: 2px solid #b2182b;
+}
+
+.fileinput-container {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.fileinput-container input {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.fileinput-name {
+  display: inline-block;
+}
+.form-spinner {
+  clear: both;
+  padding: 1em;
+}
+
+/* =Colophon
+-------------------------------------------------------------- */
+
+#colophon {
+  box-shadow: inset 0 5px 10px rgba(85, 85, 85, 0.25);
+}  
+
+/* =The Ticker
+-------------------------------------------------------------- */
+
+#ticker {
+  background: #FCFEF9;
+  box-shadow: -5px 0 10px rgba(85, 85, 85, 0.5);
+}
+
+
+/* =Content: Pages & Places
+-------------------------------------------------------------- */
+
+#content {
+  background: #fff;
+}
+
+/* Close Button */
+a.close-btn {
+  background: #fff;
+}
+
+
+/* =List View
+-------------------------------------------------------------- */
+
+#list-container {
+  background: #eee;
+}
+
+.list-toggle-btn,
+  .list-toggle-btn:visited,
+  .list-toggle-btn:link {
+    background-color: #1D4578;
+ }
+ 
+.list-toggle-btn:hover {
+    background-color: #585A59;
+    color: #fff;
+  }   
+  
+.list-sort-menu a.is-selected {
+  color: #A3C0DD;
+}  
+
+a, a:active, a:visited {
+  color: #575958;
+}
+
+/* =Map
+-------------------------------------------------------------- */
+
+/* Drag Marker Instructions (for adding a new place) */
+.drag-marker-instructions,
+.drag-marker-warning {
+  background-color: #3E74BF;
+  color: #fff;
+  text-shadow: none;
+}
+.drag-marker-warning {
+  background-color: #FF1609;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* =Existing Spots
+-------------------------------------------------------------- */
+
+.place-value-issue:before {
+  content: "Issue: ";
+  font-weight: bold;
+}
+
+.place-value-other.springs {
+  display: none;
+}
+
+.place-value-name.of.other.springs {
+  display: none;
+}
+
+.place-value-postcode {
+  display: none;
+}
+
+.place-value-frequency {
+  display: none;
+}
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1300px) {
+}
