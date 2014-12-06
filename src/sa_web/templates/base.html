@@ -125,21 +125,7 @@
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.js"></script>
-=======
-  <script src="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
->>>>>>> Use relative http[s] protocol for SSL deployment
-=======
-  <!--<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>-->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
->>>>>>> Replace leaflet js/css libraries with SSL-compatible ones
-=======
-  <!--<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>-->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
->>>>>>> 34bd1b10e0f282ea88543cffd51103bab17d4213
 
   {% compress js %}
   <script src="{{settings.COMPRESS_URL}}libs/underscore.js"></script>
