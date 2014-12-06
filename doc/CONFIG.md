@@ -215,9 +215,6 @@ it as a hidden input named *location_type*, like so:
         - key: value
           value: <your place type name goes here>
 
-(Yes, it's odd that the names are inconsistent. Needs to be fixed;
-see https://www.pivotaltracker.com/story/show/35697987)
-
 If you have more than one place type, and want your users to be able to
 choose which type they're adding, then use a select input, like so:
 

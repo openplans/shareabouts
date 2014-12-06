@@ -1,0 +1,26 @@
+{
+  "name": "Shareabouts Map Client",
+  "description": "A standalone Shareabouts map client. For configuration docs, see https://github.com/openplans/shareabouts#documentation",
+  "repository": "https://github.com/openplans/shareabouts",
+  "logo": "https://pbs.twimg.com/profile_images/476001405501587456/rnCUrPIX_400x400.png",
+
+  "env": {
+    "SHAREABOUTS_DATASET_ROOT": {
+      "description": "The root API URL for the dataset.",
+      "value": "https://data.shareabouts.org/api/v2/demo-user/datasets/demo-data"
+    },
+    "SHAREABOUTS_DATASET_KEY": {
+      "description": "The API key for the map dataset.",
+      "value": "NTNhODE3Y2IzODlmZGZjMWU4NmU3NDhj"
+    },
+    "SHAREABOUTS_FLAVOR": {
+      "description": "The map flavor.",
+      "value": "default"
+    },
+
+    "SECRET_TOKEN": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    }
+  }
+}
