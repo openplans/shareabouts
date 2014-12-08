@@ -125,6 +125,10 @@ var Shareabouts = Shareabouts || {};
       warn: function(){},
       error: function(){}
     },
+    
+    classify: function(string) { 
+      return string.replace(/\W+/, '-').toLowerCase();
+    },
 
     // ====================================================
     // File and Image Handling

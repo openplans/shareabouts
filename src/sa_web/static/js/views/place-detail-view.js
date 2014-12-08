@@ -71,6 +71,9 @@ var Shareabouts = Shareabouts || {};
         }
 */
       }
+
+
+      data.location_type_class = S.Util.classify(data.location_type);
       
       data.submitter_name = this.model.get('submitter_name') ||
         this.options.placeConfig.anonymous_name;
