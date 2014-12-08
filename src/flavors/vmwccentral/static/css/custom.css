@@ -75,10 +75,10 @@ body, select, input, textarea {
 }
 
 #site-title {
-  background: url('images/vmwc_logo.png') no-repeat 
+  background: url('images/vmwc_header2.png') no-repeat 
 center;
   background-size: contain;
-  width: 200px;
+  width: 400px;
   text-indent: -133337px;
 }
 

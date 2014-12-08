@@ -28,9 +28,9 @@ map:
     center:
       lat: -37.341524
       lng: 144.142699
-    zoom: 12
-    minZoom: 10
-    maxZoom: 18
+    zoom: 10
+    minZoom: 9
+    maxZoom: 16
   layers:
     - url: http://{s}.tiles.mapbox.com/v3/aisey.j43nk5k7/{z}/{x}/{y}.png
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
@@ -50,7 +50,7 @@ place_types:
   like:
     label: _(Like Spot)
     rules:
-      - condition: '"{{location_type}}" === "like" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "like" && {{map.zoom}} < 9 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -58,9 +58,9 @@ place_types:
           radius: 5
           weight: 1
           opacity: 0.9
-          fillOpacity: 0.7
+          fillOpacity: 1
 
-      - condition: '"{{location_type}}" === "like" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "like" && {{map.zoom}} >= 9 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -81,7 +81,7 @@ place_types:
   idea:
     label: _(Idea Spot)
     rules:
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 9 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -89,9 +89,9 @@ place_types:
           radius: 5
           weight: 1
           opacity: 0.9
-          fillOpacity: 0.7
+          fillOpacity: 1
 
-      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 9 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
