@@ -46,7 +46,7 @@ L.Argo = L.GeoJSON.extend({
 
   _onEachFeature: function(feature, layer) {
     var style = L.Argo.getStyleRule(feature.properties, this.rules).style,
-        popupContent;
+      popupContent;
 
     if (this.popupContent) {
       popupContent = L.Argo.t(this.popupContent, feature.properties);
@@ -124,9 +124,9 @@ L.extend(L.Argo, {
       }
     }
 
-    var regex = /\{\{ *([\w\.]+) *\}\}/g,
-        matches = str.match(regex),
-        val, m, i;
+    var regex = /\{\{ *([\w\.-]+) *\}\}/g,
+      matches = str.match(regex),
+      val, m, i;
 
     if (matches) {
       for (i=0; i<matches.length; i++) {
@@ -143,16 +143,38 @@ L.extend(L.Argo, {
   // Get the style rule for this feature by evaluating the condition option
   getStyleRule: function(properties, rules) {
     var self = this,
-        i, condition, len;
+      i, condition, len;
 
     for (i=0, len=rules.length; i<len; i++) {
       // Replace the template with the property variable, not the value.
       // this is so we don't have to worry about strings vs nums.
       condition = L.Argo.t(rules[i].condition, properties);
 
-      // Simpler code plus a trusted source; negligible performance hit
       if (eval(condition)) {
-        return rules[i];
+        // Replace the property key-values with the feature specific values
+        for (var key in rules[i].style) {
+          if (rules[i].style.hasOwnProperty(key)) {
+            if (typeof rules[i].style[key] == 'string' || rules[i].style[key] instanceof String) {
+              value = L.Argo.t(rules[i].style[key], properties);
+              properties[key] = value;
+            } else {
+              properties[key] = rules[i].style[key];
+            }
+          } else {
+            console.log("Non-property key is discovered at: " + key);
+          }
+        }
+
+        properties = {'style' : properties};
+
+        if (rules[i].icon) {
+          if (rules[i].isFocused && rules[i].focus_icon) {
+            properties.focus_icon = rules[i].focus_icon;
+          } else {
+            properties.icon = rules[i].icon;
+          }
+        }
+        return properties;
       }
     }
     return null;
