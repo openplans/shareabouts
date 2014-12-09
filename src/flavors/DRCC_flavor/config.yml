@@ -61,16 +61,30 @@ map:
             opacity: 0.2
             fillOpacity: 0.2
             weight: 2
-     # Mapbox Project test
+     # Mapbox project freehand drawing imports
     - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
+#    - url: /static/data/mapbox_test.geojson
       type: json
+      description: '<p>Mapbox polygon test.</p><p>Some things I drew, view the source here: <br><img src="https://www.mapbox.com/editor/?id=lukemswart.k8fnolpm#project
+#"></p>'
+      popupContent: '{{title}}'
       rules:
-        - condition: 'true'
+      # Polygons
+        - condition: '"{{marker-symbol}}" == "undefined"'
           style:
-            color: "#FF0000" # red
+            fillColor: "{{fill}}"
+            fill: 'true'
+            color: "{{stroke}}"
             opacity: 0.7
+            fillOpacity: '{{fill-opacity}}'
+            weight: "{{stroke-width}}"
+      # Points (defaulted for now)
+        - condition: '"{{marker-symbol}}" != "undefined"'
+          style:
+            color: "#0000FF" # red
             fillOpacity: 0.3
-            weight: 5
+            weight: 3
+            opacity: 0.7
 
 # The keys show up in the dropdown list when you are adding a new place
 # The values map the place type to map icons (defined below).
