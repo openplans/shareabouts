@@ -271,6 +271,31 @@ a, a:active, a:visited {
   display: none;
 }
 
+/* =Hiding questions in new forms
+-------------------------------------------------------------- */
+
+.place-form label[for=place-like_description],
+  .place-form select[name=like_description] {
+  display: none;
+}
+
+.place-form.like-spot label[for=place-like_description],
+  .place-form.like-spot select[name=like_description] {
+  display: block;
+}
+
+.place-form label[for=place-idea_description],
+  .place-form select[name=idea_description] {
+  display: none;
+}
+
+.place-form.idea-spot label[for=place-idea_description],
+  .place-form.idea-spot select[name=idea_description] {
+  display: block;
+}
+
+
+
 /* =Media Queries
 -------------------------------------------------------------- */
 
