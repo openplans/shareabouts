@@ -275,22 +275,22 @@ a, a:active, a:visited {
 -------------------------------------------------------------- */
 
 .place-form label[for=place-like_description],
-  .place-form input[name=like_description]{
+  .place-form [name=like_description]{
   display: none;
 }
 
-.place-form.like-spot label[for=place-like_description],
-  .place-form.like-spot input[name=like_description] {
+.place-form.like label[for=place-like_description],
+  .place-form.like [name=like_description] {
   display: block;
 }
 
 .place-form label[for=place-idea_description],
-  .place-form input[name=idea_description] {
+  .place-form [name=idea_description] {
   display: none;
 }
 
-.place-form.idea-spot label[for=place-idea_description],
-  .place-form.idea-spot input[name=idea_description] {
+.place-form.idea label[for=place-idea_description],
+  .place-form.idea [name=idea_description] {
   display: block;
 }
 
