@@ -24,10 +24,6 @@ map:
   geocode_field_label: _(Enter an address...)
   geocode_bounding_box: [39.830159, -75.478821, 40.167331, -74.781189]  # top, left, bottom, right
 
-  notifications: 
-  	on_new_place: true
-  	EMAIL_NOTIFICATIONS_BCC: anthony.aisenberg@gmail.com
-
   options:
     center:
       lat: -37.813239 
