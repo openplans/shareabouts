@@ -56,12 +56,18 @@ NOTE: Mac OS X users need a command line C/C++ compiler in place for the above s
 This can be done by downloading Xcode from the App Store and then installing the Command Line Tools
 via Xcode's Preferences > Downloads area.
 
+Now, assuming that you've cloned into a directory named `SmarterCleanup_shareabouts`:
+
+Create the site url into a file under `SmarterCleanup_shareabouts/src/project/siteurl.txt` and API key under `SmarterCleanup_shareabouts/src/project/sitekey.txt`. Then cd into `SmarterCleanup_shareabouts/src/project/` and run `source load_site.sh`. This will load the keys into your environment variables, `DRCC_SITE_URL` and  `DRCC_SITE_KEY`, respectively.
+
+In the same terminal, you can deploy to `localhost:8000` via `cd SmarterCleanup_shareabouts/src` and `./manage.py runserver`.  
+
 To run the development server:
 
     src/manage.py runserver
 
 The server will, by default, be started at [http://localhost:8000/](http://localhost:8000/).
-But it won't be very useful [till you configure it](CONFIG.md).
+ Shareabouts has already been configured for SmarterCleanup, but you can read about the configuration and our Shareabouts flavor [here](CONFIG.md).
 
 NOTE: If you're new to programming with virtualenv, be sure to remember
 to activate your virtual environment every time you start a new terminal session:
