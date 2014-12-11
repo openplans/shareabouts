@@ -56,9 +56,9 @@ NOTE: Mac OS X users need a command line C/C++ compiler in place for the above s
 This can be done by downloading Xcode from the App Store and then installing the Command Line Tools
 via Xcode's Preferences > Downloads area.
 
-Now, assuming that you've cloned into a directory named `SmarterCleanup_shareabouts`:
+Next we will set up our environment variable to read from the SmarterCleanup API hosted on Shareabouts. We will assume that you've cloned this repository into a directory named `SmarterCleanup_shareabouts`:
 
-Create the site url into a file under `SmarterCleanup_shareabouts/src/project/siteurl.txt` and API key under `SmarterCleanup_shareabouts/src/project/sitekey.txt`. Then cd into `SmarterCleanup_shareabouts/src/project/` and run `source load_site.sh`. This will load the keys into your environment variables, `DRCC_SITE_URL` and  `DRCC_SITE_KEY`, respectively.
+Add the site url into a file under `SmarterCleanup_shareabouts/src/project/siteurl.txt` and add the API key into a file under `SmarterCleanup_shareabouts/src/project/sitekey.txt`. Then cd into `SmarterCleanup_shareabouts/src/project/` and run `source load_site.sh`. This will load the keys into your environment variables, `DRCC_SITE_URL` and  `DRCC_SITE_KEY`, respectively.
 
 In the same terminal, you can deploy to `localhost:8000` via `cd SmarterCleanup_shareabouts/src` and `./manage.py runserver`.  
 
