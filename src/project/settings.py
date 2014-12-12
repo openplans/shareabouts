@@ -218,6 +218,14 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,picture.width(96
 SOCIAL_AUTH_LOGIN_ERROR_URL = 'remote-social-login-error'
 
 
+###############################################################################
+#
+# Background task processing
+#
+
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+
+
 # Use a test runner that does not use a database.
 TEST_RUNNER = 'sa_web.test_runner.DatabaselessTestSuiteRunner'
 
@@ -299,8 +307,9 @@ if 'DATABASE_URL' in env:
     DATABASES = {'default': dj_database_url.config()}
     DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
-if 'REDIS_URL' in env:
-    scheme, connstring = env['REDIS_URL'].split('://')
+if 'REDIS_URL' in env or 'REDISCLOUD_URL' in env:
+    redis_url = env.get('REDIS_URL') or env.get('REDISCLOUD_URL')
+    scheme, connstring = redis_url.split('://')
     if '@' in connstring:
         userpass, netloc = connstring.split('@')
         userename, password = userpass.split(':')
@@ -322,7 +331,7 @@ if 'REDIS_URL' in env:
     SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
     # Celery broker
-    BROKER_URL = env['REDIS_URL'].strip('/') + '/1'
+    BROKER_URL = redis_url.strip('/') + '/1'
 
 if 'SHAREABOUTS_FLAVOR' in env:
     SHAREABOUTS['FLAVOR'] = env.get('SHAREABOUTS_FLAVOR')
