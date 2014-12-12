@@ -26,6 +26,11 @@ ALLOWED_HOSTS = ['*']
 # large.
 API_CACHE_TIMEOUT = 3600  # an hour
 
+REST_FRAMEWORK = {
+    'PAGINATE_BY': 100,
+    'PAGINATE_BY_PARAM': 'page_size'
+}
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
