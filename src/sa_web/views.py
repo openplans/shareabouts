@@ -16,8 +16,7 @@ from django.template import TemplateDoesNotExist, RequestContext
 from django.template.loader import render_to_string
 from django.utils.timezone import now
 from django.views.decorators.csrf import ensure_csrf_cookie
-from proxy.views import proxy_view
-
+from django.core.urlresolvers import resolve
 
 log = logging.getLogger(__name__)
 
@@ -218,33 +217,25 @@ def send_place_created_notifications(request, response):
     return
 
 
+def proxy_view(request, path):
+    match = resolve(path)
+    return match.func(request, *match.args, **match.kwargs)
+
+
 def api(request, path):
     """
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    root = request.build_absolute_uri(settings.SHAREABOUTS.get('DATASET_ROOT'))
+    root = settings.SHAREABOUTS.get('DATASET_ROOT')
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
-    api_session_cookie = request.COOKIES.get('sa-api-sessionid')
-
-    # It doesn't matter what the CSRF token value is, as long as the cookie and
-    # header value match.
-    api_csrf_token = '1234csrf567token'
 
     url = make_resource_uri(path, root)
-    headers = {'X-SHAREABOUTS-KEY': api_key,
-               'X-CSRFTOKEN': api_csrf_token}
-    cookies = {'sessionid': api_session_cookie,
-               'csrftoken': api_csrf_token} \
-              if api_session_cookie else {'csrftoken': api_csrf_token}
-
-    # Clear cookies from the current domain, so that they don't interfere with
-    # our settings here.
-    request.META.pop('HTTP_COOKIE', None)
-    response = proxy_view(request, url, requests_args={
-        'headers': headers,
-        'cookies': cookies
+    request.META.update({
+        'HTTP_X_SHAREABOUTS_KEY': api_key,
     })
+
+    response = proxy_view(request, url)
 
     if place_was_created(request, path, response):
         send_place_created_notifications(request, response)
@@ -257,18 +248,14 @@ def users(request, path):
     A small proxy for a Shareabouts API server, exposing only
     user authentication.
     """
-    root = make_auth_root(request.build_absolute_uri(settings.SHAREABOUTS.get('DATASET_ROOT')))
+    root = make_auth_root(settings.SHAREABOUTS.get('DATASET_ROOT'))
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
-    api_session_cookie = request.COOKIES.get('sa-api-session')
 
     url = make_resource_uri(path, root)
-    headers = {'X-Shareabouts-Key': api_key} if api_key else {}
-    cookies = {'sessionid': api_session_cookie} if api_session_cookie else {}
-    return proxy_view(request, url, requests_args={
-        'headers': headers,
-        'allow_redirects': False,
-        'cookies': cookies
-    })
+    request.META.update({
+        'HTTP_X_SHAREABOUTS_KEY': api_key,
+    } if api_key else {})
+    return proxy_view(request, url)
 
 
 def csv_download(request, path):
@@ -276,20 +263,15 @@ def csv_download(request, path):
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    root = request.build_absolute_uri(settings.SHAREABOUTS.get('DATASET_ROOT'))
+    root = settings.SHAREABOUTS.get('DATASET_ROOT')
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
-    api_session_cookie = request.COOKIES.get('sa-api-session')
 
     url = make_resource_uri(path, root)
-    headers = {
-        'X-Shareabouts-Key': api_key,
+    request.META.update({
+        'HTTP_X_SHAREABOUTS_KEY': api_key,
         'ACCEPT': 'text/csv'
-    }
-    cookies = {'sessionid': api_session_cookie} if api_session_cookie else {}
-    return proxy_view(request, url, requests_args={
-        'headers': headers,
-        'cookies': cookies
     })
+    response = proxy_view(request, url)
 
     # Send the csv as a timestamped download
     filename = '.'.join([os.path.split(path)[1],
