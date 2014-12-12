@@ -24,7 +24,7 @@
     },
     "SHAREABOUTS_FLAVOR": {
       "description": "The map flavor.",
-      "value": "default"
+      "value": "defaultflavor"
     },
 
     "SHAREABOUTS_AWS_BUCKET":      {"required": false, "description": "Where should uploaded attachments go?"},
@@ -35,6 +35,7 @@
     "SHAREABOUTS_TWITTER_KEY":     {"required": false, "description": ""},
     "SHAREABOUTS_TWITTER_SECRET":  {"required": false, "description": ""},
 
+    "BUILDPACK_URL": "https://github.com/ddollar/heroku-buildpack-multi.git",
     "DEBUG": "True",
     "SECRET_TOKEN": {
       "description": "A secret key for verifying the integrity of signed cookies.",
