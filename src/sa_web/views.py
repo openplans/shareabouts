@@ -65,7 +65,7 @@ def index(request, place_id=None):
     config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
 
     # Get initial data for bootstrapping into the page.
-    api = ShareaboutsApi(dataset_root=settings.SHAREABOUTS.get('DATASET_ROOT'))
+    api = ShareaboutsApi(dataset_root=request.build_absolute_uri(settings.SHAREABOUTS.get('DATASET_ROOT')))
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
@@ -223,7 +223,7 @@ def api(request, path):
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    root = request.build_absolute_uri(settings.SHAREABOUTS.get('DATASET_ROOT'))
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
     api_session_cookie = request.COOKIES.get('sa-api-sessionid')
 
@@ -257,7 +257,7 @@ def users(request, path):
     A small proxy for a Shareabouts API server, exposing only
     user authentication.
     """
-    root = make_auth_root(settings.SHAREABOUTS.get('DATASET_ROOT'))
+    root = make_auth_root(request.build_absolute_uri(settings.SHAREABOUTS.get('DATASET_ROOT')))
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
     api_session_cookie = request.COOKIES.get('sa-api-session')
 
@@ -276,7 +276,7 @@ def csv_download(request, path):
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
-    root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    root = request.build_absolute_uri(settings.SHAREABOUTS.get('DATASET_ROOT'))
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
     api_session_cookie = request.COOKIES.get('sa-api-session')
 
