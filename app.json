@@ -4,6 +4,15 @@
   "repository": "https://github.com/openplans/shareabouts",
   "logo": "https://pbs.twimg.com/profile_images/476001405501587456/rnCUrPIX_400x400.png",
 
+  "scripts": {
+    "postdeploy": "scripts/postdeploy"
+  },
+
+  "addons": [
+    "heroku-postgresql:standard-0",
+    "rediscloud"
+  ],
+
   "env": {
     "SHAREABOUTS_DATASET_ROOT": {
       "description": "The root API URL for the dataset.",
