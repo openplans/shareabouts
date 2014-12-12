@@ -26,7 +26,7 @@ pyyaml
 #=============================================================#
 
 
-git+https://github.com/openplans/shareabouts-api.git@2b8f493#shareabouts-api
+git+https://github.com/openplans/shareabouts-api.git@f335091#shareabouts-api
 
 
 # ==============================
