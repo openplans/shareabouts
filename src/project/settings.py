@@ -21,6 +21,11 @@ DATABASES = {
 
 ALLOWED_HOSTS = ['*']
 
+# How long to keep api cache values. Since the api will invalidate the cache
+# automatically when appropriate, this can (and should) be set to something
+# large.
+API_CACHE_TIMEOUT = 3600  # an hour
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
