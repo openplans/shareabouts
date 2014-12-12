@@ -237,8 +237,8 @@ def api(request, path):
 
     response = proxy_view(request, url)
 
-    if place_was_created(request, path, response):
-        send_place_created_notifications(request, response)
+    # if place_was_created(request, path, response):
+    #     send_place_created_notifications(request, response)
 
     return response
 
