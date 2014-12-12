@@ -25,6 +25,6 @@ urlpatterns = staticfiles_urlpatterns() + patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^choose-language$', 'django.views.i18n.set_language', name='set_language'),
-    url(r'^api/', include('sa_api_v2.urls')),
+    url(r'^full-api/', include('sa_api_v2.urls')),
     url(r'^', include('sa_web.urls')),
 )
