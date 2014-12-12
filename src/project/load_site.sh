@@ -1,5 +1,5 @@
 #!/bin/bash
-export DRCC_SITE_URL=$(<siteurl.txt)
-echo $DRCC_SITE_URL
-export DRCC_SITE_KEY=$(<sitekey.txt)
-echo $DRCC_SITE_KEY
+export DUWAMISH_SITE_URL=$(<siteurl.txt)
+echo $DUWAMISH_SITE_URL
+export DUWAMISH_SITE_KEY=$(<sitekey.txt)
+echo $DUWAMISH_SITE_KEY

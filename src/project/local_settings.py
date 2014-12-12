@@ -17,10 +17,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # folder in the root of the src tree that contains all the configuration
 # information for the flavor.
 
-dataset_root_val = os.environ['DRCC_SITE_URL']
-dataset_key_val = os.environ['DRCC_SITE_KEY']
+dataset_root_val = os.environ['DUWAMISH_SITE_URL']
+dataset_key_val = os.environ['DUWAMISH_SITE_KEY']
 SHAREABOUTS = {
-  'FLAVOR': 'DRCC_flavor',
+  'FLAVOR': 'duwamish_flavor',
   'DATASET_ROOT': dataset_root_val,
   'DATASET_KEY': dataset_key_val,
   # Default settings:
