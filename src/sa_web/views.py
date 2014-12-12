@@ -17,6 +17,7 @@ from django.template.loader import render_to_string
 from django.utils.timezone import now
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.core.urlresolvers import resolve
+from proxy.views import proxy_view as remote_proxy_view
 
 log = logging.getLogger(__name__)
 
@@ -150,6 +151,8 @@ def send_place_created_notifications(request, response):
 
     try:
         # The response has things like ID and cretated datetime
+        try: response.render()
+        except: pass
         place = json.loads(response.content)
     except ValueError:
         errors.append('Received invalid place JSON from response: %r' % (response.content,))
@@ -217,9 +220,21 @@ def send_place_created_notifications(request, response):
     return
 
 
-def proxy_view(request, path):
-    match = resolve(path)
-    return match.func(request, *match.args, **match.kwargs)
+def proxy_view(request, url, requests_args={}):
+    # For full URLs, use a real proxy.
+    if url.startswith('http:') or url.startswith('https:'):
+        return remote_proxy_view(request, url, requests_args=requests_args)
+
+    # For local paths, use a simpler proxy. If there are headers specified
+    # in the requests_args, keep those.
+    else:
+        match = resolve(url)
+        for name, value in requests_args.get('headers', {}).items():
+            name = name.upper().replace('-', '_')
+            if name not in ('ACCEPT', 'CONTENT_TYPE'):
+                name = 'HTTP_' + name
+            request.META[name] = value
+        return match.func(request, *match.args, **match.kwargs)
 
 
 def api(request, path):
@@ -229,16 +244,29 @@ def api(request, path):
     """
     root = settings.SHAREABOUTS.get('DATASET_ROOT')
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
+    api_session_cookie = request.COOKIES.get('sa-api-sessionid')
+
+    # It doesn't matter what the CSRF token value is, as long as the cookie and
+    # header value match.
+    api_csrf_token = '1234csrf567token'
 
     url = make_resource_uri(path, root)
-    request.META.update({
-        'HTTP_X_SHAREABOUTS_KEY': api_key,
+    headers = {'X-SHAREABOUTS-KEY': api_key,
+               'X-CSRFTOKEN': api_csrf_token}
+    cookies = {'sessionid': api_session_cookie,
+               'csrftoken': api_csrf_token} \
+              if api_session_cookie else {'csrftoken': api_csrf_token}
+
+    # Clear cookies from the current domain, so that they don't interfere with
+    # our settings here.
+    request.META.pop('HTTP_COOKIE', None)
+    response = proxy_view(request, url, requests_args={
+        'headers': headers,
+        'cookies': cookies
     })
 
-    response = proxy_view(request, url)
-
-    # if place_was_created(request, path, response):
-    #     send_place_created_notifications(request, response)
+    if place_was_created(request, path, response):
+        send_place_created_notifications(request, response)
 
     return response
 
@@ -250,12 +278,16 @@ def users(request, path):
     """
     root = make_auth_root(settings.SHAREABOUTS.get('DATASET_ROOT'))
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
+    api_session_cookie = request.COOKIES.get('sa-api-session')
 
     url = make_resource_uri(path, root)
-    request.META.update({
-        'HTTP_X_SHAREABOUTS_KEY': api_key,
-    } if api_key else {})
-    return proxy_view(request, url)
+    headers = {'X-Shareabouts-Key': api_key} if api_key else {}
+    cookies = {'sessionid': api_session_cookie} if api_session_cookie else {}
+    return proxy_view(request, url, requests_args={
+        'headers': headers,
+        'allow_redirects': False,
+        'cookies': cookies
+    })
 
 
 def csv_download(request, path):
@@ -265,13 +297,18 @@ def csv_download(request, path):
     """
     root = settings.SHAREABOUTS.get('DATASET_ROOT')
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
+    api_session_cookie = request.COOKIES.get('sa-api-session')
 
     url = make_resource_uri(path, root)
-    request.META.update({
-        'HTTP_X_SHAREABOUTS_KEY': api_key,
+    headers = {
+        'X-Shareabouts-Key': api_key,
         'ACCEPT': 'text/csv'
+    }
+    cookies = {'sessionid': api_session_cookie} if api_session_cookie else {}
+    return proxy_view(request, url, requests_args={
+        'headers': headers,
+        'cookies': cookies
     })
-    response = proxy_view(request, url)
 
     # Send the csv as a timestamped download
     filename = '.'.join([os.path.split(path)[1],
