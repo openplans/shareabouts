@@ -34,3 +34,6 @@ subprocess.call('src/manage.py migrate', shell=True)
 
 print('Creating a superuser account...')
 subprocess.call('src/manage.py createdefaultsuperuser', shell=True)
+
+print('Creating a default dataset...')
+subprocess.call('src/manage.py runscript createdefaultdataset', shell=True)

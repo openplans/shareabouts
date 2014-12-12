@@ -154,6 +154,7 @@ INSTALLED_APPS = (
     # 3rd-party reusaple apps
     'jstemplate',
     'compressor',
+    'django_extensions',
 
     # Project apps
     'sa_web',

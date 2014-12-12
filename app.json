@@ -15,11 +15,19 @@
 
   "env": {
     "SHAREABOUTS_DATASET_ROOT": {
-      "description": "The root API URL for the dataset.",
+      "description": "The root API URL for the map dataset.",
       "value": "/api/demo-user/datasets/demo-data"
     },
+    "SHAREABOUTS_DATASET_USERNAME": {
+      "description": "The username of the dataset owner.",
+      "value": "demo-user"
+    },
+    "SHAREABOUTS_DATASET_SLUG": {
+      "description": "The slug for the dataset.",
+      "value": "demo-data"
+    },
     "SHAREABOUTS_DATASET_KEY": {
-      "description": "The API key for the map dataset.",
+      "description": "The API key for the dataset.",
       "value": "NTNhODE3Y2IzODlmZGZjMWU4NmU3NDhj"
     },
     "SHAREABOUTS_FLAVOR": {
