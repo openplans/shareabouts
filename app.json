@@ -7,7 +7,7 @@
   "env": {
     "SHAREABOUTS_DATASET_ROOT": {
       "description": "The root API URL for the dataset.",
-      "value": "https://data.shareabouts.org/api/v2/demo-user/datasets/demo-data"
+      "value": "/api/demo-user/datasets/demo-data"
     },
     "SHAREABOUTS_DATASET_KEY": {
       "description": "The API key for the map dataset.",
@@ -18,6 +18,15 @@
       "value": "default"
     },
 
+    "SHAREABOUTS_AWS_BUCKET":      {"required": false, "description": "Where should uploaded attachments go?"},
+    "SHAREABOUTS_AWS_KEY":         {"required": false, "description": ""},
+    "SHAREABOUTS_AWS_SECRET":      {"required": false, "description": ""},
+    "SHAREABOUTS_FACEBOOK_KEY":    {"required": false, "description": ""},
+    "SHAREABOUTS_FACEBOOK_SECRET": {"required": false, "description": ""},
+    "SHAREABOUTS_TWITTER_KEY":     {"required": false, "description": ""},
+    "SHAREABOUTS_TWITTER_SECRET":  {"required": false, "description": ""},
+
+    "DEBUG": "True",
     "SECRET_TOKEN": {
       "description": "A secret key for verifying the integrity of signed cookies.",
       "generator": "secret"

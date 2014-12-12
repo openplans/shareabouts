@@ -75,6 +75,8 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+ATTACHMENT_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
@@ -101,18 +103,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
-
-    "project.context_processors.settings_context",
-)
-
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.request",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
+    "django.contrib.auth.context_processors.auth",
 
     "project.context_processors.settings_context",
 )
@@ -151,7 +142,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
@@ -162,7 +153,64 @@ INSTALLED_APPS = (
     # Project apps
     'sa_web',
     'proxy',
+
+    #=================================#
+    # - - - - - - - - - - - - - - - - #
+    #         Shareabouts API         #
+    # - - - - - - - - - - - - - - - - #
+    #=================================#
+
+    # =================================
+    # 3rd-party reusaple apps
+    # =================================
+    'rest_framework',
+    'django_nose',
+    'storages',
+    'social.apps.django_app.default',
+    'raven.contrib.django.raven_compat',
+    'django_ace',
+    'django_object_actions',
+    'djcelery',
+
+    # OAuth
+    'provider',
+    'provider.oauth2',
+    'corsheaders',
+
+    # =================================
+    # Project apps
+    # =================================
+    'sa_api_v2',
+    'sa_api_v2.apikey',
+    'sa_api_v2.cors',
+    'remote_client_user',
 )
+
+###############################################################################
+#
+# Authentication
+#
+
+AUTHENTICATION_BACKENDS = (
+    # See http://django-social-auth.readthedocs.org/en/latest/configuration.html
+    # for list of available backends.
+    'social.backends.twitter.TwitterOAuth',
+    'social.backends.facebook.FacebookOAuth2',
+    'sa_api_v2.auth_backends.CachedModelBackend',
+)
+
+AUTH_USER_MODEL = 'sa_api_v2.User'
+SOCIAL_AUTH_USER_MODEL = 'sa_api_v2.User'
+SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'picture', 'bio']
+SOCIAL_AUTH_TWITTER_EXTRA_DATA = ['name', 'description', 'profile_image_url']
+
+# Explicitly request the following extra things from facebook
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,picture.width(96).height(96),first_name,last_name,bio'}
+
+SOCIAL_AUTH_LOGIN_ERROR_URL = 'remote-social-login-error'
+
 
 # Use a test runner that does not use a database.
 TEST_RUNNER = 'sa_web.test_runner.DatabaselessTestSuiteRunner'
@@ -239,12 +287,67 @@ env = os.environ
 if 'DEBUG' in env:
     DEBUG = TEMPLATE_DEBUG = (env.get('DEBUG').lower() in ('true', 'on', 't', 'yes'))
 
+if 'DATABASE_URL' in env:
+    import dj_database_url
+    # NOTE: Be sure that your DATABASE_URL has the 'postgis://' scheme.
+    DATABASES = {'default': dj_database_url.config()}
+    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+
+if 'REDIS_URL' in env:
+    scheme, connstring = env['REDIS_URL'].split('://')
+    if '@' in connstring:
+        userpass, netloc = connstring.split('@')
+        userename, password = userpass.split(':')
+    else:
+        userpass = None
+        netloc = connstring
+    CACHES = {
+        "default": {
+            "BACKEND": "redis_cache.cache.RedisCache",
+            "LOCATION": "%s:0" % (netloc,),
+            "OPTIONS": {
+                "CLIENT_CLASS": "redis_cache.client.DefaultClient",
+                "PASSWORD": password,
+            } if userpass else {}
+        }
+    }
+
+    # Django sessions
+    SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+    # Celery broker
+    BROKER_URL = env['REDIS_URL'].strip('/') + '/1'
+
 if 'SHAREABOUTS_FLAVOR' in env:
     SHAREABOUTS['FLAVOR'] = env.get('SHAREABOUTS_FLAVOR')
 if 'SHAREABOUTS_DATASET_ROOT' in env:
     SHAREABOUTS['DATASET_ROOT'] = env.get('SHAREABOUTS_DATASET_ROOT')
 if 'SHAREABOUTS_DATASET_KEY' in env:
     SHAREABOUTS['DATASET_KEY'] = env.get('SHAREABOUTS_DATASET_KEY')
+
+if all([key in env for key in ('SHAREABOUTS_AWS_KEY',
+                                   'SHAREABOUTS_AWS_SECRET',
+                                   'SHAREABOUTS_AWS_BUCKET')]):
+    AWS_ACCESS_KEY_ID = env['SHAREABOUTS_AWS_KEY']
+    AWS_SECRET_ACCESS_KEY = env['SHAREABOUTS_AWS_SECRET']
+    AWS_STORAGE_BUCKET_NAME = env['SHAREABOUTS_AWS_BUCKET']
+    AWS_QUERYSTRING_AUTH = False
+    AWS_PRELOAD_METADATA = True
+
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    ATTACHMENT_STORAGE = DEFAULT_FILE_STORAGE
+    STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
+    STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+
+if 'SHAREABOUTS_TWITTER_KEY' in env \
+    and 'SHAREABOUTS_TWITTER_SECRET' in env:
+    SOCIAL_AUTH_TWITTER_KEY = env['SHAREABOUTS_TWITTER_KEY']
+    SOCIAL_AUTH_TWITTER_SECRET = env['SHAREABOUTS_TWITTER_SECRET']
+
+if 'SHAREABOUTS_FACEBOOK_KEY' in env \
+    and 'SHAREABOUTS_FACEBOOK_SECRET' in env:
+    SOCIAL_AUTH_FACEBOOK_KEY = env['SHAREABOUTS_FACEBOOK_KEY']
+    SOCIAL_AUTH_FACEBOOK_SECRET = env['SHAREABOUTS_FACEBOOK_SECRET']
 
 if 'EMAIL_ADDRESS' in env:
     EMAIL_ADDRESS = env['EMAIL_ADDRESS']
@@ -263,12 +366,12 @@ if 'EMAIL_NOTIFICATIONS_BCC' in env:
     EMAIL_NOTIFICATIONS_BCC = env['EMAIL_NOTIFICATIONS_BCC'].split(',')
 
 if all(['S3_MEDIA_BUCKET' in env, 'AWS_ACCESS_KEY' in env, 'AWS_SECRET_KEY' in env]):
-    AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_MEDIA_BUCKET')
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_KEY')
+    AWS_STORAGE_BUCKET_NAME = env.get('S3_MEDIA_BUCKET')
+    AWS_ACCESS_KEY_ID = env.get('AWS_ACCESS_KEY')
+    AWS_SECRET_ACCESS_KEY = env.get('AWS_SECRET_KEY')
 
     # Set the compress storage, but not the static files storage, to S3.
-    COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', str(not DEBUG)).lower() in ('true', 't')
+    COMPRESS_ENABLED = env.get('COMPRESS_ENABLED', str(not DEBUG)).lower() in ('true', 't')
     COMPRESS_STORAGE = 'project.backends.S3BotoStorage'
     COMPRESS_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
