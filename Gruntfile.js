@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     dirs: {
       // Configurable paths
       src: 'src/sa_web/static',
-      dest: 'src/sa_web/static/build'
+      dest: 'src/sa_web/static/dist'
     },
 
     concat: {
