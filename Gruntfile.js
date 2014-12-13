@@ -3,8 +3,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     dirs: {
       // Configurable paths
-      src: 'staticfiles',
-      dest: 'staticfiles'
+      src: 'src/sa_web/static',
+      dest: 'src/sa_web/static/build'
     },
 
     concat: {

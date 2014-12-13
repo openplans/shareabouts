@@ -22,6 +22,7 @@ coverage.data
 *.py[co]
 *.mo
 staticfiles/
+src/sa_web/static/build/
 
 # environment
 env/
