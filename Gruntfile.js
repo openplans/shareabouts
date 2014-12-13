@@ -63,6 +63,15 @@ module.exports = function(grunt) {
       }
     },
 
+    copy: {
+      distcssimages: {
+        expand: true,
+        cwd: '<%= dirs.src %>/css/',
+        src: '{,*/}*.{gif,jpeg,jpg,png,svg,webp}',
+        dest: '<%= dirs.dest %>/',
+      },
+    },
+
     watch: {
       files: ['<%= jshint.files %>'],
       tasks: ['jshint']
@@ -72,10 +81,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.registerTask('default', [
     'concat',
-    'uglify'
+    'uglify',
+    'copy'
   ]);
 
 };

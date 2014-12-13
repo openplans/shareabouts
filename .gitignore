@@ -23,6 +23,7 @@ coverage.data
 *.mo
 staticfiles/
 src/sa_web/static/build/
+src/sa_web/static/dist/
 
 # environment
 env/
