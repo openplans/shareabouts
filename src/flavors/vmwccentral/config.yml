@@ -26,9 +26,9 @@ map:
 
   options:
     center:
-      lat: -37.341524
-      lng: 144.142699
-    zoom: 10
+      lat: -37.662146
+      lng: 144.570125
+    zoom: 9
     minZoom: 9
     maxZoom: 16
   layers:
