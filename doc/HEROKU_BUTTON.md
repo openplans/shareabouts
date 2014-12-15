@@ -10,6 +10,8 @@ reliable Heroku hosting in minutes. Here are the steps.
 
 ## Before you start
 
+### Create a Heroku account
+
 If you don't already have one, create a [Heroku](https://heroku.com) account. 
 
 You'll need to add a credit card to your Heroku account in order to deploy. 
@@ -21,6 +23,8 @@ add to the cost. You can always scale up and down as needed, so
 you won't be taken by surprise. And if you delete the app soon after creating 
 it, the monthly pro rated billing will be very low.
 
+### Set up your computer with Heroku Toolbelt
+
 Set up the [Heroku Toolbelt](https://toolbelt.heroku.com/) to easily 
 deploy your edits back to Heroku.
 
@@ -29,9 +33,10 @@ Your computer should be set up with `git` (comes with Heroku Toolbelt),
 
 Shareabouts requires python2.6 or greater.
 
+### Read up about deploying on Heroku
 Some familarity with the 
 [Heroku deployment process](https://devcenter.heroku.com/articles/git), 
-git, and Github will also be useful.
+git, and Github will be useful but is not required.
 
 ## Setting up on Heroku
 
