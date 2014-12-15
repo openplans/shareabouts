@@ -1,0 +1,109 @@
+
+The Heroku Button for Shareabouts helps you set up a Shareabouts maps on 
+reliable Heroku hosting in minutes. Here are the steps.
+
+1. Click the Heroku Button.
+1. Shareabouts will automatically be set up on Heroku
+1. Download the code locally to make configuration changes
+1. Deploy your code changes on Heroku
+1. Start collecting data!
+
+## Before you start
+
+If you don't already have one, create a [Heroku](https://heroku.com) account. 
+
+You'll need to add a credit card to your Heroku account in order to deploy. 
+Shareabouts 
+costs money to host each month. The API uses a Postgres database, which costs 
+$50/mo. If you want your app to always be awake, it needs more than one dyno, 
+which costs $34/mo. Later, you might want to scale up components, which will 
+add to the cost. You can always scale up and down as needed, so 
+you won't be taken by surprise. And if you delete the app soon after creating 
+it, the monthly pro rated billing will be very low.
+
+Set up the [Heroku Toolbelt](https://toolbelt.heroku.com/) to easily 
+deploy your edits back to Heroku.
+
+Your computer should be set up with `git` (comes with Heroku Toolbelt), 
+`pip`, and `virtualenv`. 
+
+Shareabouts requires python2.6 or greater.
+
+Some familarity with the 
+[Heroku deployment process](https://devcenter.heroku.com/articles/git), 
+git, and Github will also be useful.
+
+## Setting up on Heroku
+
+Click the Heroku Button. 
+
+You'll be taken to a configuration screen on Heroku, listing out the settings
+that your Shareabouts map will be deployed with.
+ 
+Optionally, choose an App Name. Your map will be available at 
+_App-Name_.herokuapp.com, so add one unless you're planning to use a 
+custom domain. Otherwise, Heroku will give it a name like _warm-eyrie-7543_.
+
+Optionally, choose a region (defaults to United States).
+
+Scroll down to see the various environment variables that will be set. You can
+change these later.
+
+Scroll to the end and click "Deploy".
+
+Wait while Shareabouts is configured.
+
+Once your Shareabouts is set up, follow the link to see your live app. 
+Congratulations!
+
+## Change the admin password
+
+Before going any further with setting up your map, log into the API server and
+change the default admin password.
+
+
+## Making local changes
+
+Once your map is set up on Heroku, you'll want to configure it. For example, you
+might want to change the zoom, or style the icons differently. The easiest way 
+to do this is to run a local version of Shareabouts, and make changes on the local
+version. Once you're happy, deploy those changes on Heroku so your live map is
+updated.
+
+To download the code,
+
+1. Login to your Heroku account locally 
+
+$ heroku login
+
+2. Clone the repository
+
+$ heroku git:clone -a app-name
+
+where _app-name_ is whatever you picked above, or the default assigned 
+by Heroku.
+
+3. Get your local version running
+
+$ cd _app-name_
+$ virtualenv env
+$ source env/bin/activate
+$ pip install -r requirements.txt
+
+Once these steps complete sucessfully, you should be able to run the server with
+
+$ src/manage.py runserver
+
+The server will, by default, be started at 
+[http://localhost:8000/](http://localhost:8000/). 
+
+4. Configure your map locally
+
+The map won't be very useful
+[till you configure it](CONFIG.md).
+
+5. After committing all your local changes, push them to Heroku
+
+$ git push heroku master
+
+Heroku will magically deploy the changes.
