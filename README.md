@@ -11,9 +11,9 @@ A short guide to setting up Shareabouts
 
 It's helpful, but not required, to know about the [architecture of Shareabouts](https://github.com/openplans/shareabouts/blob/master/doc/ARCHITECTURE.md) before starting.
 
-The easiest way to set up Shareabouts is to use the Heroku Button.
+<a name="heroku-button"></a>The easiest way to set up Shareabouts is to use the Heroku Button.
 
-<a name="heroku-button"></a>[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 This will deploy a fully-functional Shareabouts map and datastore to your account on Heroku (an easy-to-manage hosting service). Hosting this way will cost $50-100 monthly. [Here's the process](https://github.com/openplans/shareabouts/blob/master/doc/HEROKU_BUTTON.md).
 
