@@ -40,9 +40,12 @@ git, and Github will be useful but is not required.
 
 ## Setting up on Heroku
 
-Click the Heroku Button. 
+### Click the Heroku Button. 
 
-You'll be taken to a configuration screen on Heroku, listing out the settings
+Click!
+
+### Configure App Name and Region 
+After clicking the button, you'll be taken to a configuration screen on Heroku, listing out the settings
 that your Shareabouts map will be deployed with.
  
 Optionally, choose an App Name. Your map will be available at 
@@ -51,6 +54,7 @@ custom domain. Otherwise, Heroku will give it a name like _warm-eyrie-7543_.
 
 Optionally, choose a region (defaults to United States).
 
+### Click Deploy
 Scroll down to see the various environment variables that will be set. You can
 change these later.
 
@@ -58,6 +62,7 @@ Scroll to the end and click "Deploy".
 
 Wait while Shareabouts is configured.
 
+### View your live map!
 Once your Shareabouts is set up, follow the link to see your live app. 
 Congratulations!
 
@@ -66,6 +71,13 @@ Congratulations!
 Before going any further with setting up your map, log into the API server and
 change the default admin password.
 
+Your API server is accessible at _app-name_.herokuapp.com/admin
+
+User name is _admin_.
+
+Password is _admin_ -- change this!
+
+Later, you can use the admin interface to add additional datasets.
 
 ## Making local changes
 
