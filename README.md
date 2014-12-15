@@ -3,8 +3,6 @@ Shareabouts [![Build Status](https://secure.travis-ci.org/openplans/shareabouts.
 
 Shareabouts is an online mapping tool to gather crowdsourced public input in a social and engaging process. Using Shareabouts, people can drop a pin on a map to provide ideas, suggestions, and comments for planning and design issues. And as a mobile-friendly application, Shareabouts makes it easy to add input on the go.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy) ([what is this?](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md#deploying-to-heroku-with-the-button))
-
 Read more about Shareabouts and find links to recent sites [on the OpenPlans website](http://openplans.org/shareabouts/).
 
 
@@ -13,7 +11,11 @@ A short guide to setting up Shareabouts
 
 It's helpful, but not required, to know about the [architecture of Shareabouts](https://github.com/openplans/shareabouts/blob/master/doc/ARCHITECTURE.md) before starting.
 
-The easiest way to set up Shareabouts is to use the Heroku Button. This will deploy a fully-functional Shareabouts map and datastore to your account on Heroku (an easy-to-manage hosting service). Hosting this way will cost $50-100 monthly. [Here's the process](https://github.com/openplans/shareabouts/blob/master/doc/HEROKU_BUTTON.md).
+The easiest way to set up Shareabouts is to use the Heroku Button.
+
+<a name="heroku-button"></a>[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+This will deploy a fully-functional Shareabouts map and datastore to your account on Heroku (an easy-to-manage hosting service). Hosting this way will cost $50-100 monthly. [Here's the process](https://github.com/openplans/shareabouts/blob/master/doc/HEROKU_BUTTON.md).
 
 Alternatively, you may want to use a [different hosting service](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md) and set up the components of Shareabouts manually.
 
