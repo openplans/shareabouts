@@ -134,3 +134,9 @@ $ git push heroku master
 ```
 
 Heroku will magically deploy the changes.
+
+## Collaborating with other people
+
+If you want to collaborate with others, push your project to Github.
+
+Make a new repo on Github, and follow instructions there to "push an existing repository from the command line".
