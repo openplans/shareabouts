@@ -129,6 +129,8 @@ The server will, by default, be started at
 The map won't be very useful
 [till you configure it](CONFIG.md).
 
+When you get to [setting up your local settings](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md#step-2-set-up-your-local-settings), use the server you just deployed to Heroku. If the server name is _shielded-tor-7768_, by default your `DATASET_ROOT` is _shielded-tor-7768_.herokuapp.com/api/v2/demo-user/datasets/demo-data until you make a new user and dataset. 
+
 5. After committing all your local changes, push them to Heroku
 
     ```
