@@ -91,25 +91,33 @@ To download the code,
 
 1. Login to your Heroku account locally 
 
+```
 $ heroku login
+```
 
 2. Clone the repository
 
+```
 $ heroku git:clone -a app-name
+```
 
 where _app-name_ is whatever you picked above, or the default assigned 
 by Heroku.
 
 3. Get your local version running
 
+```
 $ cd _app-name_
 $ virtualenv env
 $ source env/bin/activate
 $ pip install -r requirements.txt
+```
 
 Once these steps complete sucessfully, you should be able to run the server with
 
+```
 $ src/manage.py runserver
+```
 
 The server will, by default, be started at 
 [http://localhost:8000/](http://localhost:8000/). 
@@ -121,6 +129,8 @@ The map won't be very useful
 
 5. After committing all your local changes, push them to Heroku
 
+```
 $ git push heroku master
+```
 
 Heroku will magically deploy the changes.
