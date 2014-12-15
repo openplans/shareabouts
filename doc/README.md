@@ -1,6 +1,18 @@
 From 0 to Shareabouts in about an hour
 ======================================
 
+A short guide to setting up Shareabouts
+-----------
+
+Here's what you need to know:
+
+It's helpful, but not required, to know about the architecture of Shareabouts before starting. For more about the Architecture of Shareabouts, see ...
+
+The easiest way to set up Shareabouts is to use the Heroku Button. This will deploy a fully-functional Shareabouts and database to 
+
+Alternatively, 
+
+
 What's here
 ------------
 
