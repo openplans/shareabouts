@@ -171,66 +171,7 @@ INSTALLED_APPS = (
     #         Shareabouts API         #
     # - - - - - - - - - - - - - - - - #
     #=================================#
-
-    # =================================
-    # 3rd-party reusaple apps
-    # =================================
-    'rest_framework',
-    'django_nose',
-    'storages',
-    'social.apps.django_app.default',
-    'raven.contrib.django.raven_compat',
-    'django_ace',
-    'django_object_actions',
-    'djcelery',
-
-    # OAuth
-    'provider',
-    'provider.oauth2',
-    'corsheaders',
-
-    # =================================
-    # Project apps
-    # =================================
-    'sa_api_v2',
-    'sa_api_v2.apikey',
-    'sa_api_v2.cors',
-    'remote_client_user',
 )
-
-###############################################################################
-#
-# Authentication
-#
-
-AUTHENTICATION_BACKENDS = (
-    # See http://django-social-auth.readthedocs.org/en/latest/configuration.html
-    # for list of available backends.
-    'social.backends.twitter.TwitterOAuth',
-    'social.backends.facebook.FacebookOAuth2',
-    'sa_api_v2.auth_backends.CachedModelBackend',
-)
-
-AUTH_USER_MODEL = 'sa_api_v2.User'
-SOCIAL_AUTH_USER_MODEL = 'sa_api_v2.User'
-SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
-
-SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'picture', 'bio']
-SOCIAL_AUTH_TWITTER_EXTRA_DATA = ['name', 'description', 'profile_image_url']
-
-# Explicitly request the following extra things from facebook
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,picture.width(96).height(96),first_name,last_name,bio'}
-
-SOCIAL_AUTH_LOGIN_ERROR_URL = 'remote-social-login-error'
-
-
-###############################################################################
-#
-# Background task processing
-#
-
-CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
-
 
 # Use a test runner that does not use a database.
 TEST_RUNNER = 'sa_web.test_runner.DatabaselessTestSuiteRunner'
@@ -444,3 +385,67 @@ LOCALE_PATHS = (
     os.path.join(HERE, '..', 'sa_web', 'locale'),
     os.path.join(HERE, '..', 'flavors', flavor, 'locale'),
 )
+
+if SHAREABOUTS['DATASET_ROOT'].startswith('/'):
+    INSTALLED_APPS += (
+        # =================================
+        # 3rd-party reusaple apps
+        # =================================
+        'rest_framework',
+        'django_nose',
+        'storages',
+        'social.apps.django_app.default',
+        'raven.contrib.django.raven_compat',
+        'django_ace',
+        'django_object_actions',
+        'djcelery',
+
+        # OAuth
+        'provider',
+        'provider.oauth2',
+        'corsheaders',
+
+        # =================================
+        # Project apps
+        # =================================
+        'sa_api_v2',
+        'sa_api_v2.apikey',
+        'sa_api_v2.cors',
+        'remote_client_user',
+    )
+
+
+    ###############################################################################
+    #
+    # Authentication
+    #
+
+    AUTHENTICATION_BACKENDS = (
+        # See http://django-social-auth.readthedocs.org/en/latest/configuration.html
+        # for list of available backends.
+        'social.backends.twitter.TwitterOAuth',
+        'social.backends.facebook.FacebookOAuth2',
+        'sa_api_v2.auth_backends.CachedModelBackend',
+    )
+
+    AUTH_USER_MODEL = 'sa_api_v2.User'
+    SOCIAL_AUTH_USER_MODEL = 'sa_api_v2.User'
+    SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email',]
+
+    SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = ['name', 'picture', 'bio']
+    SOCIAL_AUTH_TWITTER_EXTRA_DATA = ['name', 'description', 'profile_image_url']
+
+    # Explicitly request the following extra things from facebook
+    SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,picture.width(96).height(96),first_name,last_name,bio'}
+
+    SOCIAL_AUTH_LOGIN_ERROR_URL = 'remote-social-login-error'
+
+
+    ###############################################################################
+    #
+    # Background task processing
+    #
+
+    CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+
+
