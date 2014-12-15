@@ -131,9 +131,9 @@ The map won't be very useful
 
 5. After committing all your local changes, push them to Heroku
 
-```
-$ git push heroku master
-```
+    ```
+    $ git push heroku master
+    ```
 
 Heroku will magically deploy the changes.
 
