@@ -43,7 +43,7 @@ git, and Github will be useful but is not required.
 
 ### Click the Heroku Button. 
 
-[Click!](https://github.com/openplans/shareabouts/#heroku-button)
+Click the button [on the homepage of this repo](https://github.com/openplans/shareabouts/#heroku-button).
 
 ### Configure App Name and Region 
 After clicking the button, you'll be taken to a configuration screen on Heroku, listing out the settings
