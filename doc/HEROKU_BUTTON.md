@@ -61,11 +61,12 @@ change these later.
 
 Scroll to the end and click "Deploy".
 
-Wait while Shareabouts is configured.
+Wait while Shareabouts is configured. This can take a while.
 
 ### View your live map!
-Once your Shareabouts is set up, follow the link to see your live app. 
-Congratulations!
+Once your Shareabouts is set up, you'll see "Your app was successfully deployed." 
+
+Click _View it_ to see your map. Congratulations!
 
 ## Change the admin password
 
