@@ -165,40 +165,10 @@ INSTALLED_APPS = (
     # Project apps
     'sa_web',
     'proxy',
-
-    #=================================#
-    # - - - - - - - - - - - - - - - - #
-    #         Shareabouts API         #
-    # - - - - - - - - - - - - - - - - #
-    #=================================#
 )
 
 # Use a test runner that does not use a database.
 TEST_RUNNER = 'sa_web.test_runner.DatabaselessTestSuiteRunner'
-
-# Shareabouts flavor config
-SHAREABOUTS = {
-    'FLAVOR': 'defaultflavor',
-    # The name of the flavor. Optional, but useful for using the default settings.
-
-    'DATASET_ROOT': 'http://api.shareabouts.org/api/v1/datasets/demo-user/demo-data/',
-    # The root URL of the dataset API
-
-    'DATASET_KEY': 'abc123',
-    # The API key for writing to the dataset.  You must set this in order to be
-    # able to write to the dataset
-
-  # 'CONFIG': '...',
-    # The path to the config file for the flavor. By default, this is a file
-    # called 'config.yml' in a project folder called 'flavors/<name>/'
-
-  # 'PACKAGE': '...',
-    # The django app package for the flavor.  By default, this is
-    # 'flavors.<name>'
-
-  # 'CONTEXT': {},
-    # Additional values to make available in the template context
-}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -366,6 +336,13 @@ if os.path.exists(LOCAL_SETTINGS_FILE):
 # ---------------
 # By default, the flavor is assumed to be a local python package.  If no
 # CONFIG_FILE or PACKAGE is specified, they are constructed as below.
+
+try:
+    SHAREABOUTS
+except NameError:
+    from django.core.exceptions import ImproperlyConfigured
+    raise ImproperlyConfigured('No SHAREABOUTS configuration defined. '
+        'Did you forget to copy the local settings template?')
 
 here = os.path.abspath(os.path.dirname(__file__))
 flavor = SHAREABOUTS.get('FLAVOR')
