@@ -37,7 +37,7 @@ var Shareabouts = Shareabouts || {};
           var wms = L.tileLayer.wms(config.url, {
             layers: config.layers,
             format: config.format,
-            transparent: config.transparent,
+            transparent: true,
             version: config.version,
             crs: L.CRS.EPSG3857,
             attribution: config.attribution
