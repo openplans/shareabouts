@@ -32,26 +32,24 @@ var Shareabouts = Shareabouts || {};
         } else if (config.layers) {
           console.log("Adding WMS config to tileLayer:");
           console.log(config);
-          console.log("at url:");
-          console.log(config.url);
           console.log("with projection:");
           console.log(L.CRS.EPSG3857);
-//          var wms = L.tileLayer.wms("http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms", {
-//            layers: config.url,
-//            format: config.format,
-//            transparent: config.transparent,
-//            version: config.version,
-//            crs: L.CRS.EPSG3857,
-//            attribution: config.attribution
-//          });
-          var wms = L.tileLayer.wms("http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms", {
-            layers: 'WRIA9:2009BuildingsCOS',
-            format: 'image/png',
-            transparent: true,
-            version: '1.1.0',
+          var wms = L.tileLayer.wms(config.url, {
+            layers: config.layers,
+            format: config.format,
+            transparent: config.transparent,
+            version: config.version,
             crs: L.CRS.EPSG3857,
-            attribution: "WRIA9 Buildings on Geoserver"
+            attribution: config.attribution
           });
+//          var wms = L.tileLayer.wms("http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms", {
+//            layers: 'WRIA9:2009BuildingsCOS',
+//            format: 'image/png',
+//            transparent: true,
+//            version: '1.1.0',
+//            crs: L.CRS.EPSG3857,
+//            attribution: "WRIA9 Buildings on Geoserver"
+//          });
           wms.addTo(self.map);
 
         } else {
