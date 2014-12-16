@@ -23,10 +23,37 @@ var Shareabouts = Shareabouts || {};
 
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
-        // type is required by Argo for fetching data, so it's a pretty good
+        // "type" is required by Argo for fetching data, so it's a pretty good
         // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
         if (config.type) {
           L.argo(config.url, config).addTo(self.map);
+        // "layers" is required by Leaflet WMS for fetching data, so it's a pretty good
+        // WMS indicator. Documentation here: http://leafletjs.com/reference.html#tilelayer-wms
+        } else if (config.layers) {
+          console.log("Adding WMS config to tileLayer:");
+          console.log(config);
+          console.log("at url:");
+          console.log(config.url);
+          console.log("with projection:");
+          console.log(L.CRS.EPSG3857);
+//          var wms = L.tileLayer.wms("http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms", {
+//            layers: config.url,
+//            format: config.format,
+//            transparent: config.transparent,
+//            version: config.version,
+//            crs: L.CRS.EPSG3857,
+//            attribution: config.attribution
+//          });
+          var wms = L.tileLayer.wms("http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms", {
+            layers: 'WRIA9:2009BuildingsCOS',
+            format: 'image/png',
+            transparent: true,
+            version: '1.1.0',
+            crs: L.CRS.EPSG3857,
+            attribution: "WRIA9 Buildings on Geoserver"
+          });
+          wms.addTo(self.map);
+
         } else {
           // Assume a tile layer
           L.tileLayer(config.url, config).addTo(self.map);
