@@ -42,16 +42,41 @@ map:
     - url: //{s}.tiles.mapbox.com/v4/lukemswart.k8fnolpm/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
 #    - url: //{s}.tiles.mapbox.com/v4/lukemswart.k8fnolpm/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
-      # Buildings
-    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WRIA9:2009BuildingsCOS&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
-      type: json
-      rules:
-        - condition: 'true'
-          style:
-            color: "#0000FF" # blue
-            opacity: 0.6
-            fillOpacity: 0.5
-            weight: 1
+
+      # WMS Buildings connection:
+    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms
+      layers: 'WRIA9:2009BuildingsCOS'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      attribution: "WRIA9 Buildings on Geoserver"
+
+      # WMS NLCD connection:
+    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms
+      layers: 'WRIA9:NLCD2011'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      attribution: "WRIA9 NLCD on Geoserver"
+
+#      # WMS ROI connection:
+#    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms
+#      layers: 'WRIA9:2009BuildingsCOS'
+#      version: '1.1.0'
+#      transparent: 'true'
+#      format: 'image/png',
+#      attribution: "WRIA9 Buildings on Geoserver"
+
+#      # Buildings
+#    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WRIA9:2009BuildingsCOS&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
+#      type: json
+#      rules:
+#        - condition: 'true'
+#          style:
+#            color: "#0000FF" # blue
+#            opacity: 0.6
+#            fillOpacity: 0.5
+#            weight: 1
       # Polygon ROI
     - url:  http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WRIA9:WRIA9roi&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
       type: json
