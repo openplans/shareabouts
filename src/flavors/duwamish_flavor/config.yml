@@ -51,13 +51,13 @@ map:
       format: 'image/png'
       attribution: "WRIA9 Buildings on Geoserver"
 
-      # WMS NLCD connection:
-    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms
-      layers: 'WRIA9:NLCD2011'
-      version: '1.1.0'
-      transparent: 'true'
-      format: 'image/png'
-      attribution: "WRIA9 NLCD on Geoserver"
+#      # WMS NLCD connection:
+#    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms
+#      layers: 'WRIA9:NLCD2011'
+#      version: '1.1.0'
+#      transparent: 'true'
+#      format: 'image/png'
+#      attribution: "WRIA9 NLCD on Geoserver"
 
 #      # WMS ROI connection:
 #    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms
