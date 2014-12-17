@@ -1016,6 +1016,12 @@ ul.recent-points {
   padding-left: 15px;
 }
 
+.legend .image-wrapper { 
+  min-width: 80px;
+  display: inline-block;
+  text-align: center;
+}
+
 .legend img { 
   max-height: 40px;
   vertical-align: middle;
