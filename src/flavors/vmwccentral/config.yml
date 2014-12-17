@@ -110,7 +110,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   water:
-    label: _(Mineral Water Reserve)
+    label: _( Mineral Water Reserves)
     rules:
       - condition: '"{{location_type}}" === "water" && {{map.zoom}} < 9 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
