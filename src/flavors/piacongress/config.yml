@@ -78,10 +78,10 @@ place_types:
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
-  social:
-    label: _(Social Place)
+  policy:
+    label: _(Policy Place)
     rules:
-      - condition: '"{{location_type}}" === "social" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "policy" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
 
         style:
@@ -91,16 +91,47 @@ place_types:
           opacity: 0.9
           fillOpacity: 0.7
 
-      - condition: '"{{location_type}}" === "social" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+      - condition: '"{{location_type}}" === "policy" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/master-pin-social.png
+          iconUrl: /static/css/images/master-pin-policy1.png
           shadowUrl: /static/css/images/master-pin-shadow.png
           iconSize: [85, 41]
           iconAnchor: [42, 42]
 
-      - condition: '"{{location_type}}" === "social" && {{layer.focused}} === true'
+      - condition: '"{{location_type}}" === "policy" && {{layer.focused}} === true'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-f95016.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
+  query:
+    label: _(Query Place)
+    rules:
+      - condition: '"{{location_type}}" === "query" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+        # Display landmarks as circles (vectors) when zoomed out
+
+        style:
+          color: '#BB00FF'
+          radius: 5
+          weight: 1
+          opacity: 0.9
+          fillOpacity: 0.7
+
+      - condition: '"{{location_type}}" === "query" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/master-pin-question.png
+          shadowUrl: /static/css/images/master-pin-shadow.png
+          iconSize: [85, 41]
+          iconAnchor: [42, 42]
+
+      - condition: '"{{location_type}}" === "query" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
@@ -110,7 +141,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   project:
-    label: _(Project and Policy Place)
+    label: _(Project Place)
     rules:
       - condition: '"{{location_type}}" === "project" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
@@ -209,9 +240,9 @@ place:
           value: ''
         - label: _(Built)
           value: built
-        - label: _(Social)
+        - label: _(Policy)
           value: policy
-        - label: _(Project and Policy)
+        - label: _(Project)
           value: project
         - label: _(Natural)
           value: natural
