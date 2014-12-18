@@ -210,7 +210,7 @@ place:
         - label: _(Built)
           value: built
         - label: _(Social)
-          value: policy
+          value: social
         - label: _(Project and Policy)
           value: project
         - label: _(Natural)
