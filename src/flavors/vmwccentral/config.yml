@@ -183,18 +183,13 @@ place:
       name: location_type
       attrs:
         - key: required
-    - prompt: _(Please tell us what you like about this spot)
+    - prompt: _(Please tell us more about this spot)
       type: textarea
-      name: like_description
+      name: description
       attrs:
         - key: placeholder
-          value: _(Type what you like, etc...)  
-    - prompt: _(Please tell us your idea at this spot)
-      type: textarea
-      name: idea_description
-      attrs:
-        - key: placeholder
-          value: _(Type what needs improvement, etc...)       
+          value: _(Type what you like, etc...)
+        - key: required      
     - prompt: _(Please add an image)
       inputfile_label: _(Add Image)
       type: file
