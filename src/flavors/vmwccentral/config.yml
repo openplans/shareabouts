@@ -188,15 +188,13 @@ place:
       name: like_description
       attrs:
         - key: placeholder
-          value: _(Type what you like, etc...) 
-        - key: required    
+          value: _(Type what you like, etc...)  
     - prompt: _(Please tell us your idea at this spot)
       type: textarea
       name: idea_description
       attrs:
         - key: placeholder
-          value: _(Type what needs improvement, etc...) 
-        - key: required          
+          value: _(Type what needs improvement, etc...)       
     - prompt: _(Please add an image)
       inputfile_label: _(Add Image)
       type: file
