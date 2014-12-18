@@ -20,16 +20,15 @@ This will deploy a fully-functional Shareabouts map and datastore to your accoun
 Alternatively, you may want to use a [different hosting service](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md) and set up the components of Shareabouts manually.
 
 
-Problems? Ideas? Let us know!
+Questions? Problems? Ideas? 
 --------------------
 
-We strongly welcome your feature suggestions. [Check out our roadmap](https://trello.com/b/94MT3WRQ/openplans-roadmap) and help us with prioritizing by commenting on the features you'd like to see. If you encounted a bug, [create an issue](https://github.com/openplans/shareabouts/issues) on this GitHub repo.
+The best place to ask questions or get help is [community.openplans.org](http://community.openplans.org), an open forum on Shareabouts (and some other stuff from OpenPlans). Asking questions there will help everyone else.
 
-If you have questions for the development team,
-* [community.openplans.org](http://community.openplans.org) is a good starting point for troubleshooting or questions, or just to share your Shareabouts stories
-* you'll find the Shareabouts team in #shareabouts on [irc.freenode.net](http://irc.freenode.net).
-* hit us up on Twitter [@OpenPlans](http://twitter.com/openplans)
-* email us at hello@openplans.org
+If you encounted a bug, [create an issue](https://github.com/openplans/shareabouts/issues) on this GitHub repo.
+
+We have a [Trello board](https://trello.com/b/94MT3WRQ/openplans-roadmap) to collect feature suggestions, but you might get more eyeballs and responses by posting to the forum first.
+
 
 Documentation
 -------------
@@ -41,8 +40,6 @@ All of our documentation is is our `doc` directory. Use it to learn more about:
 * [custom themes](https://github.com/openplans/shareabouts/blob/master/doc/CUSTOM_THEME.md)
 * [how to deploy](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md)
 * [upgrading from an older version](https://github.com/openplans/shareabouts/blob/master/doc/UPGRADE.md)
-
-Where is Sharabouts going? Check [our roadmap](https://trello.com/b/94MT3WRQ/openplans-roadmap) for details of possble future features we've identified.
 
 Contributing
 ------------
