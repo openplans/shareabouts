@@ -274,6 +274,25 @@ a, a:active, a:visited {
 /* =Hiding questions in new forms
 -------------------------------------------------------------- */
 
+.place-form label[for=place-like_description],
+  .place-form [name=like_description]{
+  display: none;
+}
+
+.place-form.like label[for=place-like_description],
+  .place-form.like [name=like_description] {
+  display: block;
+}
+
+.place-form label[for=place-idea_description],
+  .place-form [name=idea_description] {
+  display: none;
+}
+
+.place-form.idea label[for=place-idea_description],
+  .place-form.idea [name=idea_description] {
+  display: block;
+}
 
 
 
