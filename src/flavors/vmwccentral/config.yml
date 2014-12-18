@@ -110,7 +110,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   water:
-    label: _( Mineral Springs Reserve)
+    label: _(Mineral Springs Reserve)
     rules:
       - condition: '"{{location_type}}" === "water" && {{map.zoom}} < 9 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
@@ -183,7 +183,7 @@ place:
       name: location_type
       attrs:
         - key: required
-    - prompt: _(Please tell you like about this spot)
+    - prompt: _(Please tell us what you like about this spot)
       type: textarea
       name: like_description
       attrs:

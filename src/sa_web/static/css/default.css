@@ -1017,7 +1017,7 @@ ul.recent-points {
 }
 
 .legend .image-wrapper { 
-  min-width: 76px;
+  min-width: 80px;
   display: inline-block;
   text-align: center;
 }
