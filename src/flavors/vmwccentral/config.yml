@@ -188,7 +188,7 @@ place:
       name: description
       attrs:
         - key: placeholder
-          value: _(Type what you like, etc...)
+          value: _(What do you like? What should be protected? What can be improved?)
         - key: required      
     - prompt: _(Please add an image)
       inputfile_label: _(Add Image)
