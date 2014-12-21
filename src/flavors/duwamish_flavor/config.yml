@@ -40,36 +40,55 @@ map:
 #      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
       # SmarterCleanup Mapbox base layer:
     - url: //{s}.tiles.mapbox.com/v4/lukemswart.k8fnolpm/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
+      visible: true
+      id: 0
 #    - url: //{s}.tiles.mapbox.com/v4/lukemswart.k8fnolpm/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
       # WMS Buildings connection:
-    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms
-      layers: 'WRIA9:2009BuildingsCOS'
+#    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms
+    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/wria9/wms
+      layers: 'wria9:2009BuildingsCOS'
       version: '1.1.0'
       transparent: 'true'
       format: 'image/png'
       attribution: "WRIA9 Buildings on Geoserver"
+      legend: true
+      title: 'WRIA9 Buildings WMS'
+      visible: true
+      id: 1
 
-#      # WMS NLCD connection:
-#    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms
-#      layers: 'WRIA9:NLCD2011'
-#      version: '1.1.0'
-#      transparent: 'true'
-#      format: 'image/png'
-#      attribution: "WRIA9 NLCD on Geoserver"
+      # WMS NLCD
+    - url: http://54.69.8.151:8080/geoserver/wria9/wms
+      layers: 'wria9:nlcd2011'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+#      attribution: "National
+      legend: true
+      title: 'wria9:nlcd2011'
+      visible: true
+      id: 2
 
-#      # WMS ROI connection:
-#    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/wms
-#      layers: 'WRIA9:2009BuildingsCOS'
-#      version: '1.1.0'
-#      transparent: 'true'
-#      format: 'image/png',
-#      attribution: "WRIA9 Buildings on Geoserver"
+      # WMS landuse
+    - url: http://54.69.8.151:8080/geoserver/wria9/wms
+      layers: 'wria9:Landuse2010'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+#      attribution: "National
+      legend: true
+      title: "wria9:Landuse2010"
+      visible: true
+      id: 3
 
-#      # Buildings
-#    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WRIA9:2009BuildingsCOS&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
+      # WFS Buildings
+#    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/wria9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wria9:2009BuildingsCOS&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
 #      type: json
+#      legend: true
+#      title: 'WRIA9 Buildings WFS'
+#      visible: false
+#      id: 2
 #      rules:
 #        - condition: 'true'
 #          style:
@@ -77,8 +96,9 @@ map:
 #            opacity: 0.6
 #            fillOpacity: 0.5
 #            weight: 1
+
       # Polygon ROI
-    - url:  http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/WRIA9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=WRIA9:WRIA9roi&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
+    - url: http://ec2-54-69-8-151.us-west-2.compute.amazonaws.com:8080/geoserver/wria9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wria9:regionofinterest&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
       type: json
       rules:
         - condition: 'true'
@@ -87,6 +107,10 @@ map:
             opacity: 0.2
             fillOpacity: 0.2
             weight: 2
+      legend: true
+      title: 'WRIA9 ROI'
+      visible: true
+      id: 4
      # Mapbox project freehand drawing imports
     - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
 #    - url: /static/data/mapbox_test.geojson
@@ -94,6 +118,10 @@ map:
       description: '<p>Mapbox polygon test.</p><p>Some things I drew, view the source here: <br><img src="https://www.mapbox.com/editor/?id=lukemswart.k8fnolpm#project
 #"></p>'
       popupContent: '{{title}}'
+      legend: true
+      visible: true
+      title: 'Freehand drawings'
+      id: 5
       rules:
       # Polygons
         - condition: '"{{marker-symbol}}" == "undefined"'
