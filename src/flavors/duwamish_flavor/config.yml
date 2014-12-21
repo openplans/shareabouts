@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: DRCC Project
+  title: Duwamish River
   # Header name
-  name: Duwamish River Interactive Cleanup Map
+  name: Duwamish River Community Map
   # Meta description that will show up in Google search results
-  meta_description: _(DRCC is aiming to clean up the Duwamish Waterway!)
+  meta_description: _(Duwamish Waterway River Cleanup SmarterCleanup Community)
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
