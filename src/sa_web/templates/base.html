@@ -103,6 +103,9 @@
       <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
       <div id="map"></div>
+
+      <div id="map-legend"></div>
+
     </div>
 
     <div id="content"><!-- .place or .page -->
@@ -165,7 +168,7 @@
         userAgentData['is_ie'] = (userAgent.browser.name === 'Microsoft Internet Explorer');
         unsupportedHtml = Handlebars.templates['unsupported-overlay'](userAgentData);
 
-        $unsupportedEl.hide()
+        $unsupportedEl.hide();
         $unsupportedEl.html(unsupportedHtml);
         $unsupportedEl.slideDown();
 
@@ -205,6 +208,7 @@
   <script src="{{settings.COMPRESS_URL}}js/views/app-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/layer-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/map-view.js"></script>
+  <script src="{{settings.COMPRESS_URL}}js/views/legend-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/support-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/survey-view.js"></script>
   <script src="{{settings.COMPRESS_URL}}js/views/place-detail-view.js"></script>

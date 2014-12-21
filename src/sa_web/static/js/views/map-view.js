@@ -19,22 +19,40 @@ var Shareabouts = Shareabouts || {};
 
       // Init the map
       self.map = L.map(self.el, self.options.mapConfig.options);
+      console.log("self in MapView:");
+      console.log(self);
+//      console.log("Creating self. map from self.options.mapConfig.option:");
+//      console.log(self.options.mapConfig.options);
+//      console.log("and self.el:");
+//      console.log(self.el);
+      console.log("L in MapView:");
+      console.log(L);
       self.placeLayers = L.layerGroup();
+
+//      var overlays = {};
+      self.layers = {};
 
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
+        var layer;
         // "type" is required by Argo for fetching data, so it's a pretty good
         // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
         if (config.type) {
-          L.argo(config.url, config).addTo(self.map);
+//          console.log("Adding WFS layer url:");
+//          console.log(config.url);
+
+          layer = L.argo(config.url, config);
+          self.layers[config.id] = layer;
+
+//          layer.addTo(self.map);
         // "layers" is required by Leaflet WMS for fetching data, so it's a pretty good
         // WMS indicator. Documentation here: http://leafletjs.com/reference.html#tilelayer-wms
         } else if (config.layers) {
-          console.log("Adding WMS config to tileLayer:");
-          console.log(config);
-          console.log("with projection:");
-          console.log(L.CRS.EPSG3857);
-          var wms = L.tileLayer.wms(config.url, {
+//          console.log("Adding WMS config to tileLayer:");
+//          console.log(config);
+//          console.log("with projection:");
+//          console.log(L.CRS.EPSG3857);
+          layer = L.tileLayer.wms(config.url, {
             layers: config.layers,
             format: config.format,
             transparent: true,
@@ -50,13 +68,45 @@ var Shareabouts = Shareabouts || {};
 //            crs: L.CRS.EPSG3857,
 //            attribution: "WRIA9 Buildings on Geoserver"
 //          });
-          wms.addTo(self.map);
+//          layer.addTo(self.map);
+          self.layers[config.id] = layer;
 
         } else {
           // Assume a tile layer
-          L.tileLayer(config.url, config).addTo(self.map);
+          layer = L.tileLayer(config.url, config);
+//          layer.addTo(self.map);
         }
+
+        layer.addTo(self.map);
+
+//        layer.on('loaded', function() {
+//          self.setLayerVisibility(layer, config.visible);
+//        });
+//      ie:  this.fire('loaded', {layer: this});
+
       });
+
+      // Log our self.layers cache array:
+      console.log("logging self.layers:");
+      for (var id in self.layers) {
+        if (self.layers.hasOwnProperty(id)) {
+          console.log("logging layer " + id + ":");
+          console.log(self.layers[id]);
+        }
+      }
+//        layer.bindPopup('Hello');
+      // Add our layers to the map
+////      $.each(self.options.layers, function(i, options) {
+//      $.each(self.options.mapConfig.layers, function(i, options) {
+////        console.log("options during legend toggling in legend-view:");
+//        console.log("options during legend toggling in MapView:");
+//        console.log(options);
+////        var layer = self.options.mapConfig.layers[options.id] = L.argo(options.url, options);
+//        var layer = L.tileLayer(self.options.mapConfig.url, self.options);
+//        layer.on('loaded', function() {
+//          self.setLayerVisibility(layer, options.visible);
+//        });
+//      });
 
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
@@ -94,7 +144,75 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('reset', self.render, self);
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
+
+      // Start Legend
+      this.legendView = new S.LegendView({
+        el: '#map-legend',
+        layers: self.options.mapConfig.layers
+      });
+
+
+      // Start legend view toggle
+      // Taken from argo-views.js
+      // Init all of the layers
+
+      // Bind visiblity event
+      $(S).on('visibility', function (evt, id, visible) {
+        self.setLayerVisibility(self.layers[id], visible);
+//        self.setLayerVisibility(self.options.layers[id], visible);
+//        self.setLayerVisibility(self.options.mapConfig.layers[id], visible);
+      });
+
+
+//      // Add our layers to the map
+////      $.each(self.options.layers, function(i, options) {
+//      $.each(self.options.mapConfig.layers, function(i, options) {
+////        console.log("options during legend toggling in legend-view:");
+//        console.log("options during legend toggling in MapView:");
+//        console.log(options);
+////        var layer = self.options.mapConfig.layers[options.id] = L.argo(options.url, options);
+//        var layer = L.tileLayer(self.options.mapConfig.url, self.options);
+//        layer.on('loaded', function() {
+//          self.setLayerVisibility(layer, options.visible);
+//        });
+//      });
+
+    }, // end initialize
+
+
+    // Adds or removes the layer based on visibility
+    setLayerVisibility: function(layer, visible) {
+//      function setLayerVisibility(layer, visible) {
+      console.log("setting layer visibility in legend-view");
+      console.log("visible:");
+      console.log(visible);
+      console.log("layer:");
+      console.log(layer);
+
+      console.log("this.map:");
+      console.log(this.map);
+//      console.log("backbone mapview:");
+//      console.log(this.mapView);
+
+      this.map.eachLayer(function (layer) {
+        console.log("map layers:");
+        console.log(layer);
+//        layer.bindPopup('Hello');
+      });
+      console.log("this.map.hasLayer(layer):");
+      console.log(this.map.hasLayer(layer));
+
+      this.map.closePopup();
+      if (visible && !this.map.hasLayer(layer)) {
+        console.log("adding layer...");
+        this.map.addLayer(layer);
+      }
+      if (!visible && this.map.hasLayer(layer)) {
+        console.log("removing layer...");
+        this.map.removeLayer(layer);
+      }
     },
+
     reverseGeocodeMapCenter: _.debounce(function() {
       var center = this.map.getCenter();
       S.Util.MapQuest.reverseGeocode(center, {
