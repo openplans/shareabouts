@@ -67,7 +67,7 @@ map:
 #      attribution: "National
       legend: true
       title: 'wria9:nlcd2011'
-      visible: true
+      visible: false
       id: 2
 
       # WMS landuse
