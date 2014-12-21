@@ -1,10 +1,5 @@
 var Shareabouts = Shareabouts || {};
 
-//(function(A, $) {
-//  // A Legend for all of the layers
-//  A.LegendView = function(options) {
-
-
 (function(S, $, console){
   S.LegendView = Backbone.View.extend({
     initialize: function () {
@@ -18,15 +13,11 @@ var Shareabouts = Shareabouts || {};
       // Render the legend
       this_.$el.append(self.render());
 
-//      this_.$el.append($markup);
-
       // Bind the checkbox change event
       this_.$el.find('.map-legend-checkbox').on('change', self.toggleVisibility);
 
       console.log("self inside LegendView:");
       console.log(self);
-
-
     },
 
     render: function () {
@@ -37,13 +28,7 @@ var Shareabouts = Shareabouts || {};
         layer = this.options.layers[i];
         checked = layer.visible ? 'checked="checked"' : '';
 
-//        if (layer.legend !== false) {
         if (layer.legend == true) {
-//          console.log("layer legend is true!");
-//          console.log("layer.legend:");
-//          console.log(layer.legend);
-//          console.log("layer.url:");
-//          console.log(layer.url);
           $markup.append('<li class="map-legend-item">' +
             '<div class="map-legend-desc">' +
             '<div class="map-legend-desc-title">' + layer.title + '</div>' +
@@ -53,20 +38,14 @@ var Shareabouts = Shareabouts || {};
             '<input id="map-' + layer.id + '" data-layerid="' + layer.id + '" ' +
             checked + ' class="map-legend-checkbox" type="checkbox"></input>' +
             '<label for="map-' + layer.id + '">' + layer.title + '</label>' +
-//              '<input id="map-'+layer.id+'" data-layerid="'+layer.id+'" ' +
-//                checked+' class="map-legend-checkbox" type="checkbox"></input>' +
-//              '<label for="map-'+layer.id+'">'+layer.title+'</label>' +
             '</div>' +
             '</li>');
         }
       }
       return $markup;
-
-//      this_.$el.append($markup);
     },
 
       // Checkbox change handler, triggers event to the MapView
-//      function toggleVisibility(evt) {
     toggleVisibility: function(evt) {
       console.log("toggling visibility in legend-view");
       console.log("toggle visbility event is: ");
@@ -85,32 +64,5 @@ var Shareabouts = Shareabouts || {};
         $(S).trigger('visibility', [id, false]);
       }
     }
-
-
-//      console.log("$(\"#map\")");
-//      console.log($("#map"));
-//
-//      $("#map").closePopup();
-//      if (visible && !this.map.hasLayer(layer)) {
-//        $("#map").addLayer(layer);
-//      }
-//      if (!visible && this.map.hasLayer(layer)) {
-//        $("#map").removeLayer(layer);
-//      }
-
-//      console.log("S.MapView:");
-//      S.MapView.closePopup();
-//      if (visible && !this.map.hasLayer(layer)) {
-//        S.MapView.addLayer(layer);
-//      }
-//      if (!visible && this.map.hasLayer(layer)) {
-//        S.MapView.removeLayer(layer);
-//      }
-
-
-      // End legend view toggle
-
-//      return this_;
-
   });
 })(Shareabouts, jQuery, Shareabouts.Util.console);
