@@ -77,7 +77,9 @@ var Shareabouts = Shareabouts || {};
 //          layer.addTo(self.map);
         }
 
-        layer.addTo(self.map);
+        if (config.visible != false) {
+          layer.addTo(self.map);
+        }
 
 //        layer.on('loaded', function() {
 //          self.setLayerVisibility(layer, config.visible);
