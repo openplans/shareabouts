@@ -17,15 +17,7 @@ var Shareabouts = Shareabouts || {};
             S.Util.log('USER', 'map', 'drag', self.map.getBounds().toBBoxString(), self.map.getZoom());
           };
 
-      // Init the map
-//      var southWest = L.latLng(self.options.mapConfig.options.south, self.options.mapConfig.options.west),
-//        northEast = L.latLng(self.options.mapConfig.options.north, self.options.mapConfig.options.east),
-//        bounds = L.latLngBounds(southWest, northEast);
-//      console.log("bounds:");
-//      console.log(bounds);
-
       self.map = L.map(self.el, self.options.mapConfig.options);
-//      self.map.fitBounds(bounds);
       console.log("self in MapView:");
       console.log(self);
       console.log("L in MapView:");
