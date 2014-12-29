@@ -50,7 +50,6 @@ map:
       version: '1.1.0'
       transparent: 'true'
       format: 'image/png'
-      attribution: "WRIA9 Buildings on Geoserver"
       legend: true
       title: 'WRIA9 Buildings WMS'
       visible: true
