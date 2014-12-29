@@ -79,7 +79,8 @@ map:
       id: 3
 
       # Polygon ROI
-    - url: http://130.211.177.95:8080/geoserver/wria9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wria9:regionofinterest&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
+#    - url: //130.211.177.95:8080/geoserver/wria9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wria9:regionofinterest&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
+    - url: /static/data/WRIA9:WRIA9roi.geojson
       type: json
       rules:
         - condition: 'true'
@@ -92,6 +93,7 @@ map:
       title: 'WRIA9 ROI'
       visible: true
       id: 4
+
      # Mapbox project freehand drawing imports
     - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
       type: json
