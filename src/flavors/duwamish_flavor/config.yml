@@ -44,15 +44,15 @@ map:
       id: 0
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
 
-      # WMS Buildings connection:
-    - url: http://130.211.177.95:8080/geoserver/wria9/wms # GCE Geoserver
-      layers: 'wria9:2009BuildingsCOS'
+      # WMS landuse
+    - url: http://130.211.177.95:8080/geoserver/wria9/wms
+      layers: 'wria9:Landuse2010'
       version: '1.1.0'
       transparent: 'true'
       format: 'image/png'
       legend: true
-      title: 'WRIA9 Buildings WMS'
-      visible: true
+      title: "wria9:Landuse2010"
+      visible: false
       id: 1
 
       # WMS NLCD
@@ -62,18 +62,19 @@ map:
       transparent: 'true'
       format: 'image/png'
       legend: true
+      opacity: 0.4
       title: 'wria9:nlcd2011'
       visible: false
       id: 2
 
-      # WMS landuse
-    - url: http://130.211.177.95:8080/geoserver/wria9/wms
-      layers: 'wria9:Landuse2010'
+      # WMS Buildings connection:
+    - url: http://130.211.177.95:8080/geoserver/wria9/wms # GCE Geoserver
+      layers: 'wria9:2009BuildingsCOS'
       version: '1.1.0'
       transparent: 'true'
       format: 'image/png'
       legend: true
-      title: "wria9:Landuse2010"
+      title: 'WRIA9 Buildings WMS'
       visible: true
       id: 3
 

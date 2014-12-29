@@ -43,7 +43,12 @@ var Shareabouts = Shareabouts || {};
             transparent: config.transparent,
             version: config.version,
             crs: L.CRS.EPSG3857,
-            attribution: config.attribution
+            // default TileLayer options
+            attribution: config.attribution,
+            opacity: config.opacity,
+            fillColor: config.color,
+            weight: config.weight,
+            fillOpacity: config.fillOpacity
           });
           self.layers[config.id] = layer;
 
@@ -51,7 +56,7 @@ var Shareabouts = Shareabouts || {};
           // Assume a tile layer
           layer = L.tileLayer(config.url, config);
         }
-
+        // Add the default visible layers to the map
         if (config.visible != false) {
           layer.addTo(self.map);
         }
