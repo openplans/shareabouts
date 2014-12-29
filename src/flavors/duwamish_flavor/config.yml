@@ -25,16 +25,16 @@ map:
 
   geocoding_enabled: true
   geocode_field_label: _(Enter an address...)
-  geocode_bounding_box: [47.000, -122.538, 47.69, -120.06] # south, west, north, east
+  geocode_bounding_box: [47.000, -122.538, 47.69, -120.67] # south, west, north, east
 
   options:
     center:
       lat: 47.564901
       lng: -122.345837
-    zoom: 11
-    minZoom: 10
+    zoom: 13
+    minZoom: 11
     maxZoom: 17
-    maxBounds: [[47.000, -122.538], [47.69, -120.06]] # south, west, north, east
+    maxBounds: [[47.000, -122.538], [47.69, -120.67]] # south, west, north, east
   layers:
 #    - url: //{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
 #      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
