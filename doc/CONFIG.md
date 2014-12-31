@@ -46,7 +46,7 @@ editing throughout the rest of these instructions. Once you're done with config 
 ### The Map
 
 The map options are for initial map setup and match the [Leaflet Map
-options](http://leaflet.cloudmade.com/reference.html#map-options).
+options](http://leafletjs.com/reference.html#map-options).
 
 
 Option       |Type      |Default   |Description
@@ -60,15 +60,15 @@ Option       |Type      |Default   |Description
 ### Base Layer Options
 
 The base_layer value configures a single
-[TileLayer](http://leaflet.cloudmade.com/reference.html#tilelayer) as the base
+[TileLayer](http://leafletjs.com/reference.html#tilelayer) as the base
 layer for the map. This section is completely optional and defaults to MapBox
 Streets tiles based on OpenStreetMap. Common options are listed below, and all
 options are defined
-[here](http://leaflet.cloudmade.com/reference.html#tilelayer).
+[here](http://leafletjs.com/reference.html#tilelayer).
 
 Option         |Type      |Default   |Description
 ---------------|----------|----------|-----------
-`url`          |String    |None      |The URL template to the tile server. eg. `http://{s}.somedomain.com/blabla/{z}/{x}/{y}.png`. See [this](http://leaflet.cloudmade.com/reference.html#url-template) description for details.
+`url`          |String    |None      |The URL template to the tile server. eg. `http://{s}.somedomain.com/blabla/{z}/{x}/{y}.png`. See [this](http://leafletjs.com/reference.html#url-template) description for details.
 `attribution`  |String    |None      |The string used to describe the layer data.
 
 ### Extra Layer Options
@@ -91,7 +91,7 @@ Shareabouts can handle multiple types of Place. To set up the types
 syou're interested in, edit config.yml and add items to the `place_types`
 section. Each Place value should match a location_type.
 
-Look at the config.yml for examples of styling Places. The properties of icons are as per the Leaflet docs, see http://leaflet.cloudmade.com/reference.html#icon
+Look at the config.yml for examples of styling Places. The properties of icons are as per the Leaflet docs, see http://leafletjs.com/reference.html#icon
 But briefly:
 
 The *iconUrl* is relative to the root of the website. Put the corresponding
