@@ -51,7 +51,8 @@ map:
       transparent: 'true'
       format: 'image/png'
       legend: true
-      title: "wria9:Landuse2010"
+      opacity: 0.5
+      title: "Landuse data (zoning info)"
       visible: false
       id: 1
 
@@ -63,8 +64,8 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.4
-      title: 'wria9:nlcd2011'
-      visible: false
+      title: "Land covereage data (vegetation)"
+      visible: true
       id: 2
 
       # WMS Buildings connection:
@@ -74,8 +75,8 @@ map:
       transparent: 'true'
       format: 'image/png'
       legend: true
-      title: 'WRIA9 Buildings WMS'
-      visible: true
+      title: "Duwamish area buildings data"
+      visible: false
       id: 3
 
       # Polygon ROI
@@ -90,8 +91,8 @@ map:
             fillOpacity: 0.2
             weight: 2
       legend: true
-      title: 'WRIA9 ROI'
-      visible: true
+      title: "Duwamish region of interest"
+      visible: false
       id: 4
 
      # Mapbox project freehand drawing imports
@@ -102,7 +103,7 @@ map:
       popupContent: '{{title}}'
       legend: true
       visible: true
-      title: 'Freehand drawings'
+      title: "Project management drawings"
       id: 5
       rules:
       # Polygons
