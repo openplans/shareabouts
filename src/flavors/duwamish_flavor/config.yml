@@ -65,7 +65,7 @@ map:
       legend: true
       opacity: 0.4
       title: "Land covereage data (vegetation)"
-      visible: true
+      visible: false
       id: 2
 
       # WMS Buildings connection:
@@ -102,7 +102,7 @@ map:
 #"></p>'
       popupContent: '{{title}}'
       legend: true
-      visible: true
+      visible: false
       title: "Project management drawings"
       id: 5
       rules:
