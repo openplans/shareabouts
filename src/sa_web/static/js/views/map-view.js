@@ -24,7 +24,8 @@ var Shareabouts = Shareabouts || {};
       console.log(L);
       self.placeLayers = L.layerGroup();
 
-      self.layers = {};
+//      self.layers = {};
+      var controlLayers = {};
 
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
@@ -33,7 +34,10 @@ var Shareabouts = Shareabouts || {};
         // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
         if (config.type) {
           layer = L.argo(config.url, config);
-          self.layers[config.id] = layer;
+
+//          self.layers[config.id] = layer;
+          controlLayers[config.title] = layer;
+
         // "layers" is required by Leaflet WMS for fetching data, so it's a pretty good
         // WMS indicator. Documentation here: http://leafletjs.com/reference.html#tilelayer-wms
         } else if (config.layers) {
@@ -50,26 +54,33 @@ var Shareabouts = Shareabouts || {};
             weight: config.weight,
             fillOpacity: config.fillOpacity
           });
-          self.layers[config.id] = layer;
+
+//          self.layers[config.id] = layer;
+          controlLayers[config.title] = layer;
 
         } else {
           // Assume a tile layer
           layer = L.tileLayer(config.url, config);
+
+          layer.addTo(self.map);
         }
         // Add the default visible layers to the map
         if (config.visible != false) {
           layer.addTo(self.map);
         }
       });
+      // Leaflet control:
+      L.control.layers.position = 'topright';
+      L.control.layers({}, controlLayers).addTo(self.map);
 
-      // Log our self.layers cache array:
-      console.log("logging self.layers:");
-      for (var id in self.layers) {
-        if (self.layers.hasOwnProperty(id)) {
-          console.log("logging layer " + id + ":");
-          console.log(self.layers[id]);
-        }
-      }
+//      // Log our self.layers cache array:
+//      console.log("logging self.layers:");
+//      for (var id in self.layers) {
+//        if (self.layers.hasOwnProperty(id)) {
+//          console.log("logging layer " + id + ":");
+//          console.log(self.layers[id]);
+//        }
+//      }
 
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
@@ -108,32 +119,32 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
 
-      // Start Legend
-      this.legendView = new S.LegendView({
-        el: '#map-legend',
-        layers: self.options.mapConfig.layers
-      });
-
-      // Bind visiblity event
-      $(S).on('visibility', function (evt, id, visible) {
-        self.setLayerVisibility(self.layers[id], visible);
-      });
+//      // Argo Legend-View (replace with L.control.layers)
+//      this.legendView = new S.LegendView({
+//        el: '#map-legend',
+//        layers: self.options.mapConfig.layers
+//      });
+//
+//      // Bind visiblity event
+//      $(S).on('visibility', function (evt, id, visible) {
+//        self.setLayerVisibility(self.layers[id], visible);
+//      });
 
     }, // end initialize
 
 
-    // Adds or removes the layer based on visibility
-    setLayerVisibility: function(layer, visible) {
-      this.map.closePopup();
-      if (visible && !this.map.hasLayer(layer)) {
-        console.log("adding layer...");
-        this.map.addLayer(layer);
-      }
-      if (!visible && this.map.hasLayer(layer)) {
-        console.log("removing layer...");
-        this.map.removeLayer(layer);
-      }
-    },
+//    // Adds or removes the layer based on visibility
+//    setLayerVisibility: function(layer, visible) {
+//      this.map.closePopup();
+//      if (visible && !this.map.hasLayer(layer)) {
+//        console.log("adding layer...");
+//        this.map.addLayer(layer);
+//      }
+//      if (!visible && this.map.hasLayer(layer)) {
+//        console.log("removing layer...");
+//        this.map.removeLayer(layer);
+//      }
+//    },
 
     reverseGeocodeMapCenter: _.debounce(function() {
       var center = this.map.getCenter();
