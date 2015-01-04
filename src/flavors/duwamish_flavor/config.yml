@@ -1,11 +1,11 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Duwamish River
+  title: Hello Duwamish!
   # Header name
-  name: Duwamish River Community Map
+  name: Hello Duwamish!
   # Meta description that will show up in Google search results
-  meta_description: _(Duwamish Waterway River Cleanup SmarterCleanup Community)
+  meta_description: _(Duwamish Waterway River Cleanup superfund SmarterCleanup Community)
   # Meta author that will show up in Google search results
   meta_author: SmarterCleanup.org
 
@@ -236,9 +236,9 @@ activity:
 
 place:
   adding_supported: true
-  add_button_label: _(Add a Place)
+  add_button_label: _(Submit a report)
   # Labels for the buttons that toggle the map and list views
-  show_list_button_label: _(List All Places)
+  show_list_button_label: _(See All Reports)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
   title: _(Tell us more...)
@@ -350,28 +350,10 @@ pages:
     name: overview
     start_page: true
 
-  - title: _(More...)
-    pages:
-      - title: _(Why Shareabouts?)
-        slug: why
-        url: /static/pages/why.html
+  - title: _(Background)
+    slug: background
+    name: background
 
-      - title: _(Features)
-        slug: features
-        url: /static/pages/features.html
-
-  - title: _(Links)
-    pages:
-      - title: _(Documentation)
-        external: true
-        url: https://github.com/openplans/shareabouts/tree/master/doc
-      - title: _(Issues)
-        external: true
-        url: https://github.com/openplans/shareabouts/issues
-      - title: _(GitHub)
-        external: true
-        url: https://github.com/openplans/shareabouts
-
-notifications:
-  on_new_place: true
-  submitter_email_field: private-submitter_email
+  - title: _(Contribute)
+    slug: contribute
+    name: contribute
