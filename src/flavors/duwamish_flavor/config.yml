@@ -1,9 +1,9 @@
 # Settings for the app
 app:
   # HTML Title
-  title: Hello Duwamish!
+  title: Hey Duwamish!
   # Header name
-  name: Hello Duwamish!
+  name: Hey Duwamish!
   # Meta description that will show up in Google search results
   meta_description: _(Duwamish Waterway River Cleanup superfund SmarterCleanup Community)
   # Meta author that will show up in Google search results
