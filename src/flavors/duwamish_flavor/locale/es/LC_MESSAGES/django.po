@@ -1,0 +1,183 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-04 21:44-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: _config.translations.py:1
+msgid "Landuse data (zoning info)"
+msgstr "Datos de uso de la tierra"
+
+#: _config.translations.py:2
+msgid "Land covereage data (vegetation)"
+msgstr "Datos de cobertura de la tierra"
+
+#: _config.translations.py:3
+msgid "Duwamish area buildings data"
+msgstr "Datos de los edificios"
+
+#: _config.translations.py:4
+msgid "Duwamish region of interest"
+msgstr "Región de interés del Duwamish"
+
+#: _config.translations.py:5
+msgid "Project management drawings"
+msgstr "Dibujos de gestión de proyectos"
+
+#: _config.translations.py:6
+msgid "Enter an address..."
+msgstr "Introducir una dirección"
+
+#: _config.translations.py:7
+#, fuzzy
+#| msgid "Duwamish Waterway River Cleanup SmarterCleanup Community"
+msgid "Duwamish Waterway River Cleanup superfund SmarterCleanup Community"
+msgstr "Comunidad saneamiento Duwamish River SmarterCleanup"
+
+#: _config.translations.py:8 _config.translations.py:21
+#: _config.translations.py:43
+msgid "Someone"
+msgstr "Alguien"
+
+#: _config.translations.py:9
+msgid "support"
+msgstr "apoyo"
+
+#: _config.translations.py:10
+msgid "Support"
+msgstr "Apoyo"
+
+#: _config.translations.py:11
+msgid "supports"
+msgstr "apoya"
+
+#: _config.translations.py:12
+msgid "comments"
+msgstr "comentarios"
+
+#: _config.translations.py:13
+msgid "commented on"
+msgstr "hizo un comentario de"
+
+#: _config.translations.py:14 _config.translations.py:20
+msgid "Leave a Comment"
+msgstr "Dejar un comentario"
+
+#: _config.translations.py:15 _config.translations.py:16
+#: _config.translations.py:18
+msgid "Comment"
+msgstr "Comentar"
+
+#: _config.translations.py:17 _config.translations.py:26
+msgid "Your Name"
+msgstr "Su nombre"
+
+#: _config.translations.py:19
+msgid "comment"
+msgstr "comenta"
+
+#: _config.translations.py:22
+msgid "Show the Map"
+msgstr "Mostrar el mapa"
+
+#: _config.translations.py:23
+msgid "Submit"
+msgstr "Presentar"
+
+#: _config.translations.py:24
+msgid "Tell us more..."
+msgstr "Decirnos más"
+
+#: _config.translations.py:25
+msgid "Name"
+msgstr "Nombre"
+
+#: _config.translations.py:27
+msgid "Email address"
+msgstr "Dirección de correo electrónico"
+
+#: _config.translations.py:28
+msgid "Your Email"
+msgstr "Su correo electrónico"
+
+#: _config.translations.py:29 _config.translations.py:30
+msgid "Location Name"
+msgstr "Nombre to ubicación"
+
+#: _config.translations.py:31
+msgid "Location Type"
+msgstr "Tipo to ubicación"
+
+#: _config.translations.py:32
+msgid "Choose One"
+msgstr "Elegir Uno"
+
+#: _config.translations.py:33 _config.translations.py:44
+msgid "Landmark"
+msgstr "Lugar destacado"
+
+#: _config.translations.py:34 _config.translations.py:46
+msgid "Park"
+msgstr "Parque"
+
+#: _config.translations.py:35 _config.translations.py:45
+msgid "School"
+msgstr "Escuela"
+
+#: _config.translations.py:36
+msgid "Description"
+msgstr "Descripción"
+
+#: _config.translations.py:37
+msgid "Description..."
+msgstr "Descripción..."
+
+#: _config.translations.py:38
+msgid "Image"
+msgstr "Imagen"
+
+#: _config.translations.py:39
+msgid "Add an Image"
+msgstr "Añadir una Imagen"
+
+#: _config.translations.py:40
+msgid "Submit a report"
+msgstr "Presentar un informe"
+
+#: _config.translations.py:41
+msgid "created"
+msgstr "creó"
+
+#: _config.translations.py:42
+msgid "See All Reports"
+msgstr "Ver todos los informes"
+
+#: _config.translations.py:47
+msgid "About"
+msgstr "Sobre"
+
+#: _config.translations.py:48
+msgid "Background"
+msgstr "Trasfondo"
+
+#: _config.translations.py:49
+msgid "Contribute"
+msgstr "Contribuir"
+
+#: templates/index.html:54
+msgid "Powered by"
+msgstr "Impulsado por"
