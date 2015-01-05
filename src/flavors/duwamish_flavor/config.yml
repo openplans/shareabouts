@@ -18,6 +18,16 @@ app:
   # Optional. List view is supported by default. Set to false to disable.
   # list_enabled: false
 
+languages:
+  - code: en
+    label: I Speak English
+
+  - code: es
+    label: Hablo Español
+
+#  - code: hi
+#    label: मैं हिंदी बोलते हैं
+
 # Settings for map and layer configs
 map:
   geolocation_enabled: true
@@ -52,7 +62,7 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.5
-      title: "Landuse data (zoning info)"
+      title: _(Landuse data (zoning info))
       visible: false
       id: 1
 
@@ -64,7 +74,7 @@ map:
       format: 'image/png'
       legend: true
       opacity: 0.4
-      title: "Land covereage data (vegetation)"
+      title: _(Land covereage data (vegetation))
       visible: false
       id: 2
 
@@ -75,7 +85,7 @@ map:
       transparent: 'true'
       format: 'image/png'
       legend: true
-      title: "Duwamish area buildings data"
+      title: _(Duwamish area buildings data)
       visible: false
       id: 3
 
@@ -91,7 +101,7 @@ map:
             fillOpacity: 0.2
             weight: 2
       legend: true
-      title: "Duwamish region of interest"
+      title: _(Duwamish region of interest)
       visible: false
       id: 4
 
@@ -103,7 +113,7 @@ map:
       popupContent: '{{title}}'
       legend: true
       visible: false
-      title: "Project management drawings"
+      title: _(Project management drawings)
       id: 5
       rules:
       # Polygons
