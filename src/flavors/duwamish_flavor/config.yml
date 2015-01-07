@@ -137,7 +137,7 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   landmark:
-    label: _(Landmark)
+    label: _(Observation)
     rules:
       - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} < 13 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
@@ -153,30 +153,30 @@ place_types:
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
-          iconSize: [17, 18]
+          iconUrl: /static/css/images/markers/marker-observation.png
+          iconSize: [50, 60]
           iconAnchor: [9, 9]
 
       - condition: '"{{location_type}}" === "landmark" && {{layer.focused}} === true'
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/markers/marker-0d85e9.png
+          iconUrl: /static/css/images/markers/marker-observation.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [25, 41]
+          iconSize: [80, 96]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
 
   park:
-    label: _(Park)
+    label: _(Question)
     rules:
       - condition: '"{{location_type}}" === "park" && {{layer.focused}}'
         # Show parks that are points as icons...
 
         icon:
-          iconUrl: /static/css/images/markers/marker-4bbd45.png
+          iconUrl: /static/css/images/markers/marker-question.png
           shadowUrl: /static/css/images/marker-shadow.png
-          iconSize: [25, 41]
+          iconSize: [80, 96]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
 
@@ -192,7 +192,7 @@ place_types:
         # Show parks that are points as icons...
 
         icon:
-          iconUrl: /static/css/images/markers/dot-4bbd45.png
+          iconUrl: /static/css/images/markers/marker-question.png
           iconSize: [17, 18]
           iconAnchor: [9, 9]
 
@@ -205,37 +205,35 @@ place_types:
           fillOpacity: 0.4
 
   school:
-    label: _(School)
+    label: _(Idea)
     rules:
-      - condition: '"{{location_type}}" === "school" && {{submission_sets.comments.length}} > 0'
-        # Display schools as circles
+      - condition: '"{{location_type}}" === "school" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+        # Display landmarks as circles (vectors) when zoomed out
 
         style:
-          color: '#f95016'
-          radius: 8
-          weight: 4
+          color: '#0d85e9'
+          radius: 3
+          weight: 1
           opacity: 0.9
-          fillOpacity: 0.4
-        focus_style:
-          color: '#f95016'
-          radius: 16
-          weight: 4
-          opacity: 0.9
-          fillOpacity: 0.4
+          fillOpacity: 1
 
-      - condition: '"{{location_type}}" === "school"'
-        style:
-          color: '#f95016'
-          radius: 8
-          weight: 1
-          opacity: 0.9
-          fillOpacity: 0.4
-        focus_style:
-          color: '#f95016'
-          radius: 16
-          weight: 1
-          opacity: 0.9
-          fillOpacity: 0.4
+      - condition: '"{{location_type}}" === "school" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea.png
+          iconSize: [50, 60]
+          iconAnchor: [9, 9]
+
+      - condition: '"{{location_type}}" === "school" && {{layer.focused}} === true'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [80, 96]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
 
 
 activity:
@@ -254,7 +252,7 @@ place:
   title: _(Tell us more...)
   action_text: _(created)
   anonymous_name: _(Someone)
-  submit_button_label: _(Submit)
+  submit_button_label: _(Put it on the map!)
 
   location_item_name: location
 
@@ -288,16 +286,16 @@ place:
           value: _(Location Name)
         - key: size
           value: 30
-    - prompt: _(Location Type)
+    - prompt: _(Type of report)
       type: select
       options:
         - label: _(Choose One)
           value: ''
-        - label: _(Landmark)
+        - label: _(Observation)
           value: landmark
-        - label: _(Park)
+        - label: _(Question)
           value: park
-        - label: _(School)
+        - label: _(Idea)
           value: school
       name: location_type
       attrs:
