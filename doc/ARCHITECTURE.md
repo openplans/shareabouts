@@ -1,4 +1,4 @@
-SHAREABOUTS ARCHITECTURE
+Shareabouts Architecture
 ========================
 
 Shareabouts (SA) is composed primarily of two parts:
@@ -6,6 +6,7 @@ the [Shareabouts API](https://github.com/openplans/shareabouts-api)
 service, and the [Shareabouts](https://github.com/openplans/shareabouts)
 front-end application.
 
+![Shareabouts Architecture](https://docs.google.com/drawings/d/10KdhBgw7lYlpEda77W9ry4ZIxbkGAt84uIRS5JH-2_c/pub?w=960&h=720)
 
 The Shareabouts Web Application
 -------------------------------
