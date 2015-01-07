@@ -17,21 +17,56 @@ var Shareabouts = Shareabouts || {};
             S.Util.log('USER', 'map', 'drag', self.map.getBounds().toBBoxString(), self.map.getZoom());
           };
 
-      // Init the map
       self.map = L.map(self.el, self.options.mapConfig.options);
+      console.log("self in MapView:");
+      console.log(self);
+      console.log("L in MapView:");
+      console.log(L);
       self.placeLayers = L.layerGroup();
+
+      var controlLayers = {};
 
       // Add layers defined in the config file
       _.each(self.options.mapConfig.layers, function(config){
-        // type is required by Argo for fetching data, so it's a pretty good
+        var layer;
+        // "type" is required by Argo for fetching data, so it's a pretty good
         // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
         if (config.type) {
-          L.argo(config.url, config).addTo(self.map);
+          layer = L.argo(config.url, config);
+          controlLayers[config.title] = layer;
+
+        // "layers" is required by Leaflet WMS for fetching data, so it's a pretty good
+        // WMS indicator. Documentation here: http://leafletjs.com/reference.html#tilelayer-wms
+        } else if (config.layers) {
+          layer = L.tileLayer.wms(config.url, {
+            layers: config.layers,
+            format: config.format,
+            transparent: config.transparent,
+            version: config.version,
+            crs: L.CRS.EPSG3857,
+            // default TileLayer options
+            attribution: config.attribution,
+            opacity: config.opacity,
+            fillColor: config.color,
+            weight: config.weight,
+            fillOpacity: config.fillOpacity
+          });
+          controlLayers[config.title] = layer;
+
         } else {
           // Assume a tile layer
-          L.tileLayer(config.url, config).addTo(self.map);
+          layer = L.tileLayer(config.url, config);
+
+          layer.addTo(self.map);
+        }
+        // Add the default visible layers to the map
+        if (config.visible != false) {
+          layer.addTo(self.map);
         }
       });
+      // Leaflet control:
+      L.control.layers.position = 'topright';
+      L.control.layers({}, controlLayers).addTo(self.map);
 
       // Remove default prefix
       self.map.attributionControl.setPrefix('');
@@ -69,7 +104,9 @@ var Shareabouts = Shareabouts || {};
       self.collection.on('reset', self.render, self);
       self.collection.on('add', self.addLayerView, self);
       self.collection.on('remove', self.removeLayerView, self);
-    },
+
+    }, // end initialize
+
     reverseGeocodeMapCenter: _.debounce(function() {
       var center = this.map.getCenter();
       S.Util.MapQuest.reverseGeocode(center, {
@@ -130,8 +167,8 @@ var Shareabouts = Shareabouts || {};
       };
 
       // Add the geolocation control link
-      this.$('.leaflet-top.leaflet-right').append(
-        '<div class="leaflet-control leaflet-bar">' +
+      this.$('.leaflet-control-layers').parent().append(
+        '<div class="leaflet-control leaflet-bar locate-me-container">' +
           '<a href="#" class="locate-me"></a>' +
         '</div>'
       );

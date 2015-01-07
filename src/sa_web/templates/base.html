@@ -44,7 +44,7 @@
   {% endif %}
 
 
-  <link rel="profile" href="http://gmpg.org/xfn/11" />
+  <link rel="profile" href="//gmpg.org/xfn/11" />
 
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.css" />
   <!--[if lte IE 8]>
@@ -90,7 +90,7 @@
         {% blocktrans %}
         {{ config.app.name }} is great but it needs something called JavaScript to work
         properly. But fear not, it's really easy to turn on. Click
-        <a href="http://enable-javascript.com/" target="_blank">here</a> for simple instructions!
+        <a href="//enable-javascript.com/" target="_blank">here</a> for simple instructions!
         {% endblocktrans %}
       </p>
       </div>
@@ -104,6 +104,9 @@
       <div id="ajax-error-msg">{% blocktrans %}We can't connect to the server at the moment. Hang tight while we re-establish communication.{% endblocktrans %}</div>
       <div id="map-progress" class="progress-bar"><strong>Loading Data&hellip;</strong><span class="current-progress"></span></div>
       <div id="map"></div>
+
+      <div id="map-legend"></div>
+
     </div>
 
     <div id="content"><!-- .place or .page -->
@@ -169,7 +172,7 @@
         userAgentData['is_ie'] = (userAgent.browser.name === 'Microsoft Internet Explorer');
         unsupportedHtml = Handlebars.templates['unsupported-overlay'](userAgentData);
 
-        $unsupportedEl.hide()
+        $unsupportedEl.hide();
         $unsupportedEl.html(unsupportedHtml);
         $unsupportedEl.slideDown();
 

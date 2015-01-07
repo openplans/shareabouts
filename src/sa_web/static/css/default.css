@@ -1668,3 +1668,8 @@ a.close-unsupported-overlay {
   }
 
 }
+
+/* leaflet overrides */
+#map .leaflet-control-container .locate-me-container {
+  float: left;
+}

@@ -56,12 +56,18 @@ NOTE: Mac OS X users need a command line C/C++ compiler in place for the above s
 This can be done by downloading Xcode from the App Store and then installing the Command Line Tools
 via Xcode's Preferences > Downloads area.
 
+Next we will set up our environment variable to read from the Shareabouts API. We will assume that you've cloned this repository into a directory named `duwamish`:
+
+Add the site url into a file under `duwamish/src/project/siteurl.txt` and add the API key into a file under `duwamish/src/project/sitekey.txt`. Then cd into `duwamish/src/project/` and run `source load_site.sh`. This will load the keys into your environment variables, `DUWAMISH_SITE_URL` and  `DUWAMISH_SITE_KEY`, respectively.
+
+In the same terminal, you can deploy to `localhost:8000` via `cd duwamish/src` and `./manage.py runserver`.  
+
 To run the development server:
 
     src/manage.py runserver
 
 The server will, by default, be started at [http://localhost:8000/](http://localhost:8000/).
-But it won't be very useful [till you configure it](CONFIG.md).
+ Shareabouts has already been configured for SmarterCleanup, but you can read about the configuration and our Shareabouts flavor [here](CONFIG.md).
 
 NOTE: If you're new to programming with virtualenv, be sure to remember
 to activate your virtual environment every time you start a new terminal session:

@@ -1,0 +1,367 @@
+# Settings for the app
+app:
+  # HTML Title
+  title: Hey Duwamish!
+  # Header name
+  name: Hey Duwamish!
+  # Meta description that will show up in Google search results
+  meta_description: _(Duwamish Waterway River Cleanup superfund SmarterCleanup Community)
+  # Meta author that will show up in Google search results
+  meta_author: SmarterCleanup.org
+
+
+  # When the map loads, existing places will be loaded in chunks. By default,
+  # the size of the chunks will be a reasonable default dictated by the API
+  # server. If you would like to override the chunk size, use this setting:
+  # places_page_size: 100
+
+  # Optional. List view is supported by default. Set to false to disable.
+  # list_enabled: false
+
+languages:
+  - code: en
+    label: I Speak English
+
+  - code: es
+    label: Hablo Español
+
+#  - code: hi
+#    label: मैं हिंदी बोलते हैं
+
+# Settings for map and layer configs
+map:
+  geolocation_enabled: true
+  geolocation_onload: false
+
+  geocoding_enabled: true
+  geocode_field_label: _(Enter an address...)
+  geocode_bounding_box: [47.000, -122.538, 47.69, -120.67] # south, west, north, east
+
+  options:
+    center:
+      lat: 47.564901
+      lng: -122.345837
+    zoom: 13
+    minZoom: 11
+    maxZoom: 17
+    maxBounds: [[47.000, -122.538], [47.69, -120.67]] # south, west, north, east
+  layers:
+#    - url: //{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
+#      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+      # SmarterCleanup Mapbox base layer:
+    - url: //{s}.tiles.mapbox.com/v4/lukemswart.k8fnolpm/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
+      visible: true
+      id: 0
+      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="//mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="//www.mapquest.com/" target="_blank">MapQuest</a> <img src="//developer.mapquest.com/content/osm/mq_logo.png">.'
+
+      # WMS landuse
+    - url: http://130.211.177.95:8080/geoserver/wria9/wms
+      layers: 'wria9:Landuse2010'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      legend: true
+      opacity: 0.5
+      title: _(Landuse data (zoning info))
+      visible: false
+      id: 1
+
+      # WMS NLCD
+    - url: http://130.211.177.95:8080/geoserver/wria9/wms
+      layers: 'wria9:nlcd2011'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      legend: true
+      opacity: 0.4
+      title: _(Land covereage data (vegetation))
+      visible: false
+      id: 2
+
+      # WMS Buildings connection:
+    - url: http://130.211.177.95:8080/geoserver/wria9/wms # GCE Geoserver
+      layers: 'wria9:2009BuildingsCOS'
+      version: '1.1.0'
+      transparent: 'true'
+      format: 'image/png'
+      legend: true
+      title: _(Duwamish area buildings data)
+      visible: false
+      id: 3
+
+      # Polygon ROI
+#    - url: //130.211.177.95:8080/geoserver/wria9/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=wria9:regionofinterest&maxFeatures=50&outputFormat=application/json&srsName=epsg:4326
+    - url: /static/data/WRIA9:WRIA9roi.geojson
+      type: json
+      rules:
+        - condition: 'true'
+          style:
+            color: "#FF99CC" # pink
+            opacity: 0.2
+            fillOpacity: 0.2
+            weight: 2
+      legend: true
+      title: _(Duwamish region of interest)
+      visible: false
+      id: 4
+
+     # Mapbox project freehand drawing imports
+    - url: http://a.tiles.mapbox.com/v4/lukemswart.k8fnolpm/features.json?access_token=pk.eyJ1IjoibHVrZW1zd2FydCIsImEiOiJ5NTJPZHJFIn0.TgkkXaxWRS5fc3r0KFDrVQ
+      type: json
+      description: '<p>Mapbox polygon test.</p><p>Some things I drew, view the source here: <br><img src="https://www.mapbox.com/editor/?id=lukemswart.k8fnolpm#project
+#"></p>'
+      popupContent: '{{title}}'
+      legend: true
+      visible: false
+      title: _(Project management drawings)
+      id: 5
+      rules:
+      # Polygons
+        - condition: '"{{marker-symbol}}" == "undefined"'
+          style:
+            fillColor: "{{fill}}"
+            fill: 'true'
+            color: "{{stroke}}"
+            opacity: 0.7
+            fillOpacity: '{{fill-opacity}}'
+            weight: "{{stroke-width}}"
+      # Points (defaulted for now)
+        - condition: '"{{marker-symbol}}" != "undefined"'
+          style:
+            color: "#0000FF" # red
+            fillOpacity: 0.3
+            weight: 3
+            opacity: 0.7
+
+# The keys show up in the dropdown list when you are adding a new place
+# The values map the place type to map icons (defined below).
+place_types:
+  landmark:
+    label: _(Observation)
+    rules:
+      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+        # Display landmarks as circles (vectors) when zoomed out
+
+        style:
+          color: '#0d85e9'
+          radius: 3
+          weight: 1
+          opacity: 0.9
+          fillOpacity: 1
+
+      - condition: '"{{location_type}}" === "landmark" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          iconSize: [50, 60]
+          iconAnchor: [9, 9]
+
+      - condition: '"{{location_type}}" === "landmark" && {{layer.focused}} === true'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-observation.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [80, 96]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
+
+  park:
+    label: _(Question)
+    rules:
+      - condition: '"{{location_type}}" === "park" && {{layer.focused}}'
+        # Show parks that are points as icons...
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-question.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [80, 96]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
+
+        # ...and parks that are polygons as shapes.
+
+        style:
+          color: '#4bbd45'
+          weight: 3
+          opacity: 0.9
+          fillOpacity: 0.7
+
+      - condition: '"{{location_type}}" === "park"'
+        # Show parks that are points as icons...
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-question.png
+          iconSize: [17, 18]
+          iconAnchor: [9, 9]
+
+        # ...and parks that are polygons as shapes.
+
+        style:
+          color: '#4bbd45'
+          weight: 1
+          opacity: 0.9
+          fillOpacity: 0.4
+
+  school:
+    label: _(Idea)
+    rules:
+      - condition: '"{{location_type}}" === "school" && {{map.zoom}} < 13 && {{layer.focused}} === false'
+        # Display landmarks as circles (vectors) when zoomed out
+
+        style:
+          color: '#0d85e9'
+          radius: 3
+          weight: 1
+          opacity: 0.9
+          fillOpacity: 1
+
+      - condition: '"{{location_type}}" === "school" && {{map.zoom}} >= 13 && {{layer.focused}} === false'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea.png
+          iconSize: [50, 60]
+          iconAnchor: [9, 9]
+
+      - condition: '"{{location_type}}" === "school" && {{layer.focused}} === true'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-idea.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [80, 96]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
+
+
+activity:
+  # Optional. Activity is supported by default. Set to false to disable.
+  enabled: true
+  # How often to refresh the activity list, in milliseconds.
+  interval: 30000
+
+place:
+  adding_supported: true
+  add_button_label: _(Submit a report)
+  # Labels for the buttons that toggle the map and list views
+  show_list_button_label: _(See All Reports)
+  show_map_button_label: _(Show the Map)
+  action_text: _(added)
+  title: _(Tell us more...)
+  action_text: _(created)
+  anonymous_name: _(Someone)
+  submit_button_label: _(Put it on the map!)
+
+  location_item_name: location
+
+  items:
+    - prompt: _(Your Name)
+      type: text
+      name: submitter_name
+      optional: true
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Name)
+        - key: size
+          value: 30
+    - prompt: _(Your Email)
+      type: text
+      name: private-submitter_email
+      optional: true
+      sticky: true
+      attrs:
+        - key: placeholder
+          value: _(Email address)
+        - key: size
+          value: 30
+    - prompt: _(Location Name)
+      type: text
+      name: name
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Location Name)
+        - key: size
+          value: 30
+    - prompt: _(Type of report)
+      type: select
+      options:
+        - label: _(Choose One)
+          value: ''
+        - label: _(Observation)
+          value: landmark
+        - label: _(Question)
+          value: park
+        - label: _(Idea)
+          value: school
+      name: location_type
+      attrs:
+        - key: required
+    - prompt: _(Description)
+      type: textarea
+      name: description
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...)
+    - prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      type: file
+      name: my_image
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
+
+survey:
+  submission_type: comments
+
+  # Response config
+  show_responses: true
+  # Set to true if the user should only submit a survey once
+  single_submission: false
+  response_name: _(comment)
+  response_plural_name: _(comments)
+  action_text: _(commented on)
+  anonymous_name: _(Someone)
+
+  # Survey form config
+  title: _(Leave a Comment)
+  form_link_text: _(Leave a Comment)
+  submit_btn_text: _(Comment)
+  items:
+    - prompt: _(Comment)
+      label: _(Comment)
+      type: textarea
+      name: comment
+      attrs:
+        - key: required
+    - prompt: _(Your Name)
+      type: text
+      name: submitter_name
+      sticky: true
+
+support:
+  submission_type: support
+  submit_btn_text: _(Support)
+  response_name: _(support)
+  response_plural_name: _(supports)
+  action_text: supported
+  anonymous_name: _(Someone)
+
+pages:
+  - title: _(About)
+    slug: about
+    name: overview
+    start_page: true
+
+  - title: _(Background)
+    slug: background
+    name: background
+
+  - title: _(Contribute)
+    slug: contribute
+    name: contribute

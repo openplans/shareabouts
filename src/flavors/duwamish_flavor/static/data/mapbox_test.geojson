@@ -1,0 +1,72 @@
+{"features": [
+    {
+        "geometry": {
+            "coordinates": [-122.342201, 47.634399],
+            "type": "Point"
+        },
+        "id": "ci2mc3bwt0e5ia6s4qk0xzell",
+        "properties": {
+            "description": "",
+            "id": "marker-marker-i2mc3bvq1g",
+            "marker-color": "#3887be",
+            "marker-size": "medium",
+            "marker-symbol": "embassy",
+            "title": "Welcome to Mapbox!"
+        },
+        "type": "Feature"
+    },
+    {
+        "geometry": {
+            "coordinates": [
+                [
+                    [-122.3598, 47.589841],
+                    [-122.357912, 47.568013],
+                    [-122.344865, 47.567608],
+                    [-122.341003, 47.590825],
+                    [-122.3598, 47.589841]
+                ]
+            ],
+            "type": "Polygon"
+        },
+        "id": "ci2r11pvw0hc5blr0u818cnmk",
+        "properties": {
+            "description": "",
+            "fill": "#fa946e",
+            "fill-opacity": 0.6000000238418579,
+            "id": "marker-i2qzd7yr0",
+            "stroke": "#000000",
+            "stroke-opacity": 1,
+            "stroke-width": 4,
+            "title": "test: Harbor Island"
+        },
+        "type": "Feature"
+    },
+    {
+        "geometry": {
+            "coordinates": [
+                [
+                    [-122.30336666107178, 47.51102680948328],
+                    [-122.30242252349852, 47.51041807692776],
+                    [-122.30006217956543, 47.511432627264426],
+                    [-122.29448318481444, 47.50980933731162],
+                    [-122.29598522186281, 47.50838891741602],
+                    [-122.29757308959961, 47.50925856681305],
+                    [-122.30040550231932, 47.50801206486904],
+                    [-122.30336666107178, 47.51102680948328]
+                ]
+            ],
+            "type": "Polygon"
+        },
+        "properties": {
+            "description": "",
+            "fill": "#1087bf",
+            "fill-opacity": 0.2,
+            "id": "marker-i39gev120",
+            "stroke": "#1087bf",
+            "stroke-opacity": 1,
+            "stroke-width": 4,
+            "title": "test: \"area of concern\""
+        },
+        "type": "Feature"
+    }
+], "id": "lukemswart.k8fnolpm", "ids": ["ci2mc3bwt0e5ia6s4qk0xzell", "ci2r11pvw0hc5blr0u818cnmk"], "type": "FeatureCollection"}

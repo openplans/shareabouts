@@ -17,6 +17,12 @@ coverage.data
 *#
 *flymake*
 
+# keys
+src/project/sitekey.txt
+src/project/siteurl.txt
+
+# IDE project settings
+.idea
 
 # compiled files
 *.py[co]
@@ -32,8 +38,9 @@ env/
 node_modules/
 
 # Local project settings
-src/project/local_settings.py
-src/project/config.yml
+# src/project/local_settings.py
+# src/project/config.yml
+src/flavors/default
 
 # sqlite database
 *.db
