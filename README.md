@@ -20,16 +20,6 @@ This will deploy a fully-functional Shareabouts map and datastore to your accoun
 Alternatively, you may want to use a [different hosting service](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md) and set up the components of Shareabouts manually.
 
 
-Questions? Problems? Ideas? 
---------------------
-
-The best place to ask questions or get help is [community.openplans.org](http://community.openplans.org), an open forum on Shareabouts (and some other stuff from OpenPlans). Asking questions there will help everyone else.
-
-If you encounted a bug, [create an issue](https://github.com/openplans/shareabouts/issues) on this GitHub repo.
-
-We have a [Trello board](https://trello.com/b/94MT3WRQ/openplans-roadmap) to collect feature suggestions, but you might get more eyeballs and responses by posting to the forum first.
-
-
 Documentation
 -------------
 All of our documentation is is our `doc` directory. Use it to learn more about:
@@ -40,6 +30,16 @@ All of our documentation is is our `doc` directory. Use it to learn more about:
 * [custom themes](https://github.com/openplans/shareabouts/blob/master/doc/CUSTOM_THEME.md)
 * [how to deploy](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md)
 * [upgrading from an older version](https://github.com/openplans/shareabouts/blob/master/doc/UPGRADE.md)
+
+
+Questions? Problems? Ideas? 
+--------------------
+
+The best place to ask questions or get help is [community.openplans.org](http://community.openplans.org), an open forum on Shareabouts (and some other stuff from OpenPlans). Asking questions there will help everyone else.
+
+If you encounted a bug, [create an issue](https://github.com/openplans/shareabouts/issues) on this GitHub repo.
+
+We have a [Trello board](https://trello.com/b/94MT3WRQ/openplans-roadmap) to collect feature suggestions, but you might get more eyeballs and responses by posting to the forum first.
 
 Contributing
 ------------
