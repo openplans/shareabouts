@@ -167,7 +167,7 @@ place:
       name: name
       attrs:
         - key: placeholder
-          value: _(Enter place name)
+          value: _(Landmark, Street, Building, etc.)
         - key: size
           value: 30
         - key: required
@@ -222,7 +222,7 @@ place:
       optional: true
       attrs:
         - key: placeholder
-          value: _(Enter place name)
+          value: _(Enter spring names)
         - key: size
           value: 30  
     - prompt: _(What is your postcode?)
@@ -230,7 +230,7 @@ place:
       name: postcode
       attrs:
         - key: placeholder
-          value: _(Enter place name)
+          value: _(Enter postcode)
         - key: size
           value: 30
         - key: required                            
@@ -239,7 +239,7 @@ place:
       name: submitter_name
       attrs:
         - key: placeholder
-          value: _(Type name)
+          value: _(Your name will be visible)
         - key: size
           value: 30  
         - key: required     
