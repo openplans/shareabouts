@@ -28,9 +28,9 @@ All of our documentation is is our `doc` directory. Use it to learn more about:
 * [testing the source](https://github.com/openplans/shareabouts/blob/master/doc/TESTING.md)
 * [interface configuration](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md)
 * [custom themes](https://github.com/openplans/shareabouts/blob/master/doc/CUSTOM_THEME.md)
-* [how to deploy](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md)
+* [deploying with the Heroku button](https://github.com/openplans/shareabouts/blob/master/doc/HEROKU_BUTTON.md) and [in other ways](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md)
 * [upgrading from an older version](https://github.com/openplans/shareabouts/blob/master/doc/UPGRADE.md)
-
+* [getting your data once you have a map running](https://github.com/openplans/shareabouts/blob/master/doc/GETTING_YOUR_DATA.md)
 
 Questions? Problems? Ideas? 
 --------------------
