@@ -250,6 +250,7 @@ if 'REDIS_URL' in env or 'REDISCLOUD_URL' in env:
     # Celery broker
     BROKER_URL = redis_url.strip('/') + '/1'
 
+SHAREABOUTS = {}
 if 'SHAREABOUTS_FLAVOR' in env:
     SHAREABOUTS['FLAVOR'] = env.get('SHAREABOUTS_FLAVOR')
 if 'SHAREABOUTS_DATASET_ROOT' in env:
