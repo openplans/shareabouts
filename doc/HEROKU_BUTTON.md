@@ -75,7 +75,7 @@ Click _View it_ to see your map. Congratulations!
 Before going any further with setting up your map, log into the API server and
 change the default admin password.
 
-Your API server is accessible at _app-name_.herokuapp.com/admin
+Your API server is accessible at _app-name_.herokuapp.com/admin/ (you need the trailing slash).
 
 User name is _admin_.
 
