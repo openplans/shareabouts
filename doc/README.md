@@ -7,17 +7,13 @@ What's here
 This package contains the Shareabouts web map application,
 which consists of JavaScript, some configuration files that you use to
 tailor the app to your needs, and a small glue layer that talks to the
-underlying Shareabouts API server.
+underlying Shareabouts API server. 
 
 The Shareabouts API is *not* part of this package. The easiesy way to get up and running is 
 to use the beta hosted API, managed by OpenPlans. 
 Go to [api.shareabouts.org](http://api.shareabouts.org) and request access.
 
-For more about the parts of Shareabouts,
-see [the architecture documentation](ARCHITECTURE.md). 
-
-If you are converting from Shareabouts 1.0, note that
-we have switched platforms. See [upgrade info](UPGRADE.md) and [original docs](https://github.com/openplans/shareabouts/blob/v1/doc/README_FOR_APP).
+Here's a short, optional [primer on the architecture of Shareabouts](https://github.com/openplans/shareabouts/blob/master/doc/ARCHITECTURE.md#shareabouts-architecture).
 
 Local Setup
 ------------
@@ -96,18 +92,6 @@ Configuration
 
 Next you need to configure the Shareabouts web app.
 See [the config docs](CONFIG.md).
-
-
-Static assets
--------------
-
-Static assets for the web map interface should be placed in the
-`src/sa_web/static/` folder.  Included libraries and dependencies can be
-placed in `src/sa_web/static/libs/`.  These files will be available on the
-local development server at:
-
-    http://localhost:8000/static/...
-    http://localhost:8000/static/libs/...
 
 
 Deployment
