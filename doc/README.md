@@ -28,9 +28,11 @@ If you are using Windows, consider setting up a virtual machine (e.g. [VirtualBo
 
 Shareabouts requires python2.6 or greater.
 
+Install `git`, if not already installed, from [http://git-scm.com/downloads](git-scm.com/downloads).
+
 Install `pip` and `virtualenv`, if not already installed.  These will keep your
 python code isolated from the rest of your machine and ensure you have
-the correct versions.
+the correct versions. 
 
     easy_install pip
     pip install virtualenv
