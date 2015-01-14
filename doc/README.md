@@ -22,6 +22,10 @@ we have switched platforms. See [upgrade info](UPGRADE.md) and [original docs](h
 Local Setup
 ------------
 
+Running a local version of Shareabouts is much easier on a Mac or Linux computer.
+If you are using Windows, consider setting up a virtual machine (e.g. [VirtualBox](https://www.virtualbox.org/)) running a Linux distribution 
+([here are some step-by-step instructions for Ubuntu on Windows with VirtualBox](https://help.ubuntu.com/community/VirtualBox#Installing_Virtualbox_in_Windows)).
+
 Shareabouts requires python2.6 or greater.
 
 Install `pip` and `virtualenv`, if not already installed.  These will keep your
@@ -36,9 +40,14 @@ You may need to use `sudo` to install these tools.
     sudo easy_install pip
     sudo pip install virtualenv
 
+Download the code from github:
+
+    git clone https://github.com/openplans/shareabouts.git
+
 Create a new virtual environment inside of the repository folder, and install
 the project requirements:
 
+    cd shareabouts
     virtualenv env
     source env/bin/activate
     pip install -r requirements.txt
