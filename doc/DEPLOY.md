@@ -23,6 +23,10 @@ From the root Shareabouts directory...
 
          heroku apps:create <instance name>
 
+* Add the necessary addons:
+
+         heroku addons:add heroku-postgresql:standard-0
+         heroku addons:add rediscloud
 
 * Push to the application
 
