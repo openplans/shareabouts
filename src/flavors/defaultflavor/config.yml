@@ -35,7 +35,7 @@ map:
     minZoom: 10
     maxZoom: 17
   layers:
-    - url: http://{s}.tiles.mapbox.com/v3/openplans.map-dmar86ym/{z}/{x}/{y}.png
+    - url: http://{s}.tiles.mapbox.com/v3/examples.map-i87786ca/{z}/{x}/{y}.png
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">.'
     - url: /static/data/philadelphia.geojson
       type: json
