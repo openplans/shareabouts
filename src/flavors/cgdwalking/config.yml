@@ -1,0 +1,425 @@
+# Settings for the app
+app:
+  # HTML Title
+  title: CGD Walking
+  # Header name
+  name: CGD Walking
+  # Meta description that will show up in Google search results
+  meta_description: _(CrowdSpot creates custom maps that allow people to give input on geogrpahic locations. Use it to collect data in a social, engaging process.)
+
+  # When the map loads, existing places will be loaded in chunks. By default,
+  # the size of the chunks will be a reasonable default dictated by the API
+  # server. If you would like to override the chunk size, use this setting:
+  # places_page_size: 100
+
+  # Optional. List view is supported by default. Set to false to disable.
+  # list_enabled: false
+
+# Settings for map and layer configs
+map:
+  geolocation_enabled: true
+  geolocation_onload: false
+
+  geocoding_enabled: true
+  geocode_field_label: _(Enter the street name and suburb...)
+  geocode_bounding_box: [39.830159, -75.478821, 40.167331, -74.781189]  # top, left, bottom, right
+
+  options:
+    center:
+      lat: -37.991992 
+      lng: 145.187183
+    zoom: 13
+    minZoom: 13
+    maxZoom: 18
+  layers:
+    - url: http://{s}.tiles.mapbox.com/v3/aisey.jldbcgkp/{z}/{x}/{y}.png
+      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
+    - url: /static/data/philadelphia.geojson
+      type: json
+      rules:
+        - condition: 'true'
+          style:
+            color: "#444"
+            opacity: 0.6
+            fillOpacity: 0.1
+            weight: 1
+
+# The keys show up in the dropdown list when you are adding a new place
+# The values map the place type to map icons (defined below).
+place_types:
+  like:
+    label: _(Like Spot)
+    rules:
+      - condition: '"{{location_type}}" === "like" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+        # Display landmarks as circles (vectors) when zoomed out
+
+        style:
+          color: '#FF1609'
+          radius: 5
+          weight: 1
+          opacity: 0.9
+          fillOpacity: 0.7
+
+      - condition: '"{{location_type}}" === "like" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/master-pin-green-walk.png
+          shadowUrl: /static/css/images/master-pin-shadow.png
+          iconSize: [85, 41]
+          iconAnchor: [42, 42]
+
+      - condition: '"{{location_type}}" === "like" && {{layer.focused}} === true'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-f95016.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
+  issue:
+    label: _(Issue Spot)
+    rules:
+      - condition: '"{{location_type}}" === "issue" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+        # Display landmarks as circles (vectors) when zoomed out
+
+        style:
+          color: '#1174FF'
+          radius: 5
+          weight: 1
+          opacity: 0.9
+          fillOpacity: 0.7
+
+      - condition: '"{{location_type}}" === "issue" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/master-pin-red-flag.png
+          shadowUrl: /static/css/images/master-pin-shadow.png
+          iconSize: [85, 41]
+          iconAnchor: [42, 42]
+
+      - condition: '"{{location_type}}" === "issue" && {{layer.focused}} === true'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-f95016.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
+  idea:
+    label: _(Idea Spot)
+    rules:
+      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 12 && {{layer.focused}} === false'
+        # Display landmarks as circles (vectors) when zoomed out
+
+        style:
+          color: '#FF039D'
+          radius: 5
+          weight: 1
+          opacity: 0.9
+          fillOpacity: 0.7
+
+      - condition: '"{{location_type}}" === "idea" && {{map.zoom}} >= 12 && {{layer.focused}} === false'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/master-pin-yellow-idea.png
+          shadowUrl: /static/css/images/master-pin-shadow.png
+          iconSize: [85, 41]
+          iconAnchor: [42, 42]
+
+      - condition: '"{{location_type}}" === "idea" && {{layer.focused}} === true'
+        # Display landmarks as icons when zoomed in
+
+        icon:
+          iconUrl: /static/css/images/markers/marker-f95016.png
+          shadowUrl: /static/css/images/marker-shadow.png
+          iconSize: [25, 41]
+          shadowSize: [41, 41]
+          iconAnchor: [12, 41]
+                          
+activity:
+  # Optional. Activity is supported by default. Set to false to disable.
+  enabled: true
+  # How often to refresh the activity list, in milliseconds.
+  interval: 30000
+
+place:
+  adding_supported: true
+  add_button_label: _(Add a Spot)
+  # Labels for the buttons that toggle the map and list views
+  show_list_button_label: _(List All Spots)
+  show_map_button_label: _(Show the Map)
+  action_text: _(added)
+  title: _(What do you think about walking in Greater Dandenong?)
+  action_text: _(added)
+  anonymous_name: _(Someone)
+  submit_button_label: _(Submit)
+
+  location_item_name: location
+
+  items:
+    - prompt: _(1. Where is this spot?)
+      type: text
+      name: name
+      attrs:
+        - key: placeholder
+          value: _(Street, Intersection, Park, Landmark, etc.)
+        - key: size
+          value: 30
+        - key: required
+    - prompt: _(2. What is this type of spot?)
+      type: select
+      options:
+        - label: _(Choose One)
+          value: ''
+        - label: _(Like Spot)
+          value: like
+        - label: _(Issue Spot)
+          value: issue
+        - label: _(Idea Spot)
+          value: idea 
+      name: location_type
+      attrs:
+        - key: required
+    - prompt: _(3. Why do you like this spot?)
+      type: textarea
+      name: why_like
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...) 
+    - prompt: _(3. What is the main issue at this spot?)
+      type: select
+      options: 
+        - label: _(Choose One)
+          value: ''
+        - label: _(Poorly maintained footpaths)
+          value: Poorly maintained footpaths
+        - label: _(Limited or no crossing facilities)
+          value: Limited or no crossing facilities
+        - label: _(Limited time to cross at traffic signals)
+          value: Limited time to cross at traffic signals 
+        - label: _(Unattractive walking route)
+          value: Unattractive walking route   
+        - label: _(Limited or no wayfinding signage)
+          value: Limited or no wayfinding signage  
+        - label: _(Footpath blocked)
+          value: Footpath blocked  
+        - label: _(Limited or no footpaths)
+          value: Limited or no footpaths
+        - label: _(Limited or no provision for people with disabilities)
+          value: Limited or no provision for people with disabilities
+        - label: _(Other)
+          value: Other         
+      name: why_issue
+      optional: true
+    - prompt: _(3a. If 'other' or anything else, please describe below.)
+      type: textarea
+      name: why_issue_other
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...)   
+    - prompt: _(3. What is your idea for this spot?)
+      type: textarea
+      name: why_idea
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Description...)           
+    - prompt: _(4. If possible, please try adding an image of this spot)
+      inputfile_label: _(Add Image)
+      type: file
+      name: my_image
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*  
+    - prompt: _(5. How often do you walk at this spot?)
+      type: select
+      options:
+        - label: _(Choose One)
+          value: ''
+        - label: _(Every day)
+          value: daily
+        - label: _(A few times a week)
+          value: fewtime_week
+        - label: _(Once a week)
+          value: once_week
+        - label: _(Once a fortnight)
+          value: once_fortnight   
+        - label: _(Once a month)
+          value: once_month
+        - label: _(Never)
+          value: never        
+      name: frequency
+      attrs:
+        - key: required         
+    - prompt: _(6. What is the main reason you would to walk at this spot?)
+      type: select
+      options:
+        - label: _(Choose One)
+          value: ''
+        - label: _(For transport)
+          value: transport
+        - label: _(Relaxation)
+          value: relax
+        - label: _(Fitness)
+          value: fitness
+        - label: _(Other)
+          value: other    
+      name: reason
+      attrs:
+        - key: required
+    - prompt: _(If 'other' please type below)
+      type: text
+      name: other_reason
+      optional: true
+      attrs:
+        - key: placeholder
+          value: _(Type other reason here...)
+        - key: size
+          value: 30
+    - prompt: _(7. When are you most likely to walk at this spot?)
+      type: select
+      options:
+        - label: _(Choose One)
+          value: ''
+        - label: _(In the morning)
+          value: morning 
+        - label: _(Middle of the day)
+          value: relax
+        - label: _(In the early evening)
+          value: evening  
+        - label: _(Later in the night)
+          value: evening  
+        - label: _(All of the above)
+          value: All     
+      name: time
+      attrs:
+        - key: required
+    - prompt: _(8. Who do you usually walk with at this spot?)
+      type: select
+      options:
+        - label: _(Choose One)
+          value: ''
+        - label: _(By myself)
+          value: myself 
+        - label: _(With friends)
+          value: friends
+        - label: _(With family)
+          value: family  
+        - label: _(With a walking group)
+          value: group     
+      name: with_who
+      attrs:
+        - key: required
+    - prompt: _(9. How old are you?)
+      type: select
+      options:
+        - label: _(Choose One)
+          value: ''
+        - label: _(< 14)
+          value: '<14'
+        - label: _(15-19)
+          value: 15-19
+        - label: _(20-24)
+          value: 20-24
+        - label: _(25-34)
+          value: 25-34
+        - label: _(35-44)
+          value: 35-44
+        - label: _(45-54)
+          value: 45-54
+        - label: _(55-64)
+          value: 55-64
+        - label: _(65-74)
+          value: 65-74
+        - label: _(>75)
+          value: '>75'          
+      name: age
+      attrs:
+        - key: required
+    - prompt: _(10. Your gender)
+      type: select
+      options:
+        - label: _(Choose One)
+          value: ''
+        - label: _(Male)
+          value: male
+        - label: _(Female)
+          value: female
+        - label: _(Other)
+          value: other        
+      name: gender
+      attrs:
+        - key: required                                      
+    - prompt: _(11. Your Name)
+      type: text
+      name: submitter_name
+      attrs:
+        - key: placeholder
+          value: _(Type name)
+        - key: size
+          value: 30  
+        - key: required     
+    - prompt: _(12. Your email)
+      type: text
+      name: private-submitter_email
+      attrs:
+        - key: placeholder
+          value: _(Email address)
+        - key: size
+          value: 30    
+        - key: required    
+
+survey:
+  submission_type: comments
+
+  # Response config
+  show_responses: true
+  response_name: _(comment)
+  response_plural_name: _(comments)
+  action_text: _(commented on)
+  anonymous_name: _(Someone)
+
+  # Survey form config
+  title: _(Leave a Comment)
+  form_link_text: _(Leave a Comment)
+  submit_btn_text: _(Comment)
+  items:
+    - prompt: _(Comment)
+      label: _(Comment)
+      type: textarea
+      name: comment
+      attrs:
+        - key: required
+    - prompt: _(Your Name)
+      type: text
+      name: submitter_name
+
+support:
+  submission_type: support
+  submit_btn_text: _(Support)
+  response_name: _(support)
+  response_plural_name: _(supports)
+  action_text: supported
+  anonymous_name: _(Someone)
+
+pages:
+  - title: _(About)
+    slug: about
+    name: overview
+    start_page: true
+    
+  - title: _(FAQs)
+    slug: why
+    url: /static/pages/why.html
+
+notifications:
+  on_new_place: true
+  submitter_email_field: private-submitter_email

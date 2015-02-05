@@ -1,0 +1,246 @@
+/*
+ * This CSS file follows the default Shareabouts style.css.
+ * All rules herein will override the default Shareabouts styles.
+ * NOTE: "With great power comes great responsibility."
+ */
+
+COLOR PALETTE...
+
+CGDYellow   #FFCC00
+CGDRed      #EA1113
+CGDGreen    #40B132
+
+Dark blue   #042A5E
+Medium blue #1D4578
+Light blue  #A3C0DD
+Pin blue    #255EE6
+
+CrowdSpot Red #FF1609
+CrowdSpot Green #45BA00
+CrowdSpot Grey (text) #585A59
+*/
+
+
+
+
+
+/* =Base Styles
+-------------------------------------------------------------- */
+
+/* Buttons */
+.btn,
+.btn:visited,
+.btn:link {
+  font-weight: 600;
+  border: 0;
+}
+
+.btn-primary,
+.btn-primary:visited,
+.btn-primary:link {
+  background-color: #E80028;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #585A59;
+}
+.btn-secondary,
+.btn-secondary:visited,
+.btn-secondary:link {
+/*  background-color: #ccc;*/
+/*  color: #007fbf;*/
+}
+.btn-secondary:hover {
+/*  background-color: #007fbf;*/
+/*  color: #fff;*/
+}
+
+/* =Header
+-------------------------------------------------------------- */
+
+#site-header {
+  border-top: #E80028 3px solid
+}
+
+#site-header {
+  background-color: #EBECEB;
+  box-shadow: 0 5px 10px rgba(85, 85, 85, 0.5), inset 0 -3px 0
+}
+
+#site-title {
+  background: url('images/cgdwalk_header1.png') no-repeat 
+center;
+  background-size: contain;
+  width: 400px;
+  text-indent: -133337px;
+}
+
+.site-name {
+  font-size: 0.45em;
+  float: left;
+  line-height: 1.1;
+  background-color: #26A0DA;
+  position: relative;
+  top: -0.6em;
+}
+
+.has-pages #site-title {
+  margin-left: 1.2em;
+}
+
+.access {
+  font-size: 1.1em;
+}
+
+/* =Colophon
+-------------------------------------------------------------- */
+
+#colophon {
+  box-shadow: inset 0 5px 10px rgba(85, 85, 85, 0.25);
+}  
+
+/* =The Ticker
+-------------------------------------------------------------- */
+
+#ticker {
+  background: #EBECEB;
+  box-shadow: -5px 0 10px rgba(85, 85, 85, 0.5);
+}
+
+
+/* =Content: Pages & Places
+-------------------------------------------------------------- */
+
+#content {
+  background: #fff;
+}
+
+/* Close Button */
+a.close-btn {
+  background: #fff;
+}
+
+
+
+/* =List View
+-------------------------------------------------------------- */
+
+#list-container {
+  background: #eee;
+}
+
+.list-toggle-btn,
+  .list-toggle-btn:visited,
+  .list-toggle-btn:link {
+    background-color: #EC4C1A;
+ }
+ 
+.list-toggle-btn:hover {
+    background-color: #585A59;
+    color: #fff;
+  }   
+  
+
+/* =Map
+-------------------------------------------------------------- */
+
+/* Drag Marker Instructions (for adding a new place) */
+.drag-marker-instructions,
+.drag-marker-warning {
+  background-color: #3E74BF;
+  color: #fff;
+  text-shadow: none;
+}
+.drag-marker-warning {
+  background-color: #FF1609;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* =Existing Spots
+-------------------------------------------------------------- */
+
+
+.place-value-frequency {
+  display: none;
+}
+
+.place-value-reason {
+  display: none;
+}
+
+.place-value-other_reason {
+  display: none;
+}
+
+.place-value-time {
+  display: none;
+}
+
+.place-value-with_who {
+  display: none;
+}
+
+.place-value-age {
+  display: none;
+}
+
+.place-value-gender {
+  display: none;
+}
+
+/* =Hiding questions in new forms
+-------------------------------------------------------------- */
+
+.place-form label[for=place-why_like],
+  .place-form [name=why_like]{
+  display: none;
+}
+
+.place-form.like label[for=place-why_like],
+  .place-form.like [name=why_like] {
+  display: block;
+}
+
+.place-form label[for=place-why_issue],
+  .place-form [name=why_issue]{
+  display: none;
+}
+
+.place-form.issue label[for=place-why_issue],
+  .place-form.issue [name=why_issue] {
+  display: block;
+}
+
+.place-form label[for=place-why_issue_other],
+  .place-form [name=why_issue_other]{
+  display: none;
+}
+
+.place-form.issue label[for=place-why_issue_other],
+  .place-form.issue [name=why_issue_other] {
+  display: block;
+}
+
+.place-form label[for=place-why_idea],
+  .place-form [name=why_idea]{
+  display: none;
+}
+
+.place-form.idea label[for=place-why_idea],
+  .place-form.idea [name=why_idea] {
+  display: block;
+}
+
+
+/* =Media Queries
+-------------------------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1300px) {
+}
