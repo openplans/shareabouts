@@ -93,7 +93,7 @@ place:
   show_list_button_label: _(List All Spots)
   show_map_button_label: _(Show the Map)
   action_text: _(added)
-  title: _(Tell us more...)
+  title: _(1. When acting in your primary role, what services/activities do you access on foot within a 5-10 minute walk? Select service from menu options and complete checklist questionnaire below)
   action_text: _(created)
   anonymous_name: _(Someone)
   submit_button_label: _(Submit)
@@ -101,36 +101,78 @@ place:
   location_item_name: location
 
   items:
-    - prompt: _(Spot Name)
+    - prompt: _(a) Fresh Foods)
+      type: select
+      options:
+        - label: _(Please select)
+          value: ''
+        - label: _(Yes)
+          value: yes
+        - label: _(No)
+          value: no
+      name: yesorno
+    - prompt: _(If not, how do you get these items?)
+      type: select
+      options:
+        - label: _(Please select)
+          value: ''
+        - label: _(bike)
+          value: bike
+        - label: _(PT)
+          value: pt
+        - label: _(car)
+          value: car  
+        - label: _(delivery)
+          value: delivery   
+      name: ifnot 
+    - prompt: _(How often?)
+      type: select
+      options:
+        - label: _(Please select)
+          value: ''
+        - label: _(daily)
+          value: daily
+        - label: _(Once a week)
+          value: once
+        - label: _(twice a week)
+          value: twice  
+        - label: _(once a month)
+          value: month   
+      name: ifnot    
+    - prompt: _(Where from?)
       type: text
-      name: name
+      name: wherefrom
       optional: true
       attrs:
         - key: placeholder
-          value: _(Spot Name)
-        - key: size
-          value: 30
-        - key: required
-    - type: hidden
-      name: location_type
-      attrs:
-        - key: value
-          value: wifi
-    - prompt: _(Description)
-      type: textarea
-      name: description
+          value: _(Type here...) 
+    - prompt: _(Why do you travel to get these items?)
+      type: text
+      name: wherefrom
       optional: true
       attrs:
         - key: placeholder
-          value: _(Description...) 
-    - prompt: _(Image)
-      inputfile_label: _(Add an Image)
-      type: file
-      name: my_image
-      optional: true
-      attrs:
-        - key: accept
-          value: image/*           
+          value: _(Type here...)  
+    - prompt: _(b) Groceries)
+      type: select
+      options:
+        - label: _(Please select)
+          value: ''
+        - label: _(Yes)
+          value: yes
+        - label: _(No)
+          value: no
+      name: yesorno
+    - prompt: _(c) Medical)
+      type: select
+      options:
+        - label: _(Please select)
+          value: ''
+        - label: _(Yes)
+          value: yes
+        - label: _(No)
+          value: no
+      name: yesorno                          
     - prompt: _(Your Name)
       type: text
       name: submitter_name
