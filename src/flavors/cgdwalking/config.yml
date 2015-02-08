@@ -171,7 +171,7 @@ place:
         - key: size
           value: 30
         - key: required
-    - prompt: _(2. What is this type of spot?)
+    - prompt: _(2. Is this a 'like', issue or idea spot?)
       type: select
       options:
         - label: _(Choose One)
@@ -188,7 +188,6 @@ place:
     - prompt: _(3. Why do you like this spot?)
       type: textarea
       name: why_like
-      optional: true
       attrs:
         - key: placeholder
           value: _(Description...) 
@@ -216,7 +215,6 @@ place:
         - label: _(Other)
           value: Other         
       name: why_issue
-      optional: true
     - prompt: _(3a. If 'other' or anything else, please describe below.)
       type: textarea
       name: why_issue_other
@@ -227,7 +225,6 @@ place:
     - prompt: _(3. What is your idea for this spot?)
       type: textarea
       name: why_idea
-      optional: true
       attrs:
         - key: placeholder
           value: _(Description...)           
