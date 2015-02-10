@@ -245,9 +245,7 @@ place:
         - label: _(Project and Policy)
           value: project
         - label: _(Natural)
-          value: natural 
-        - label: _(PIA Congress)
-          value: pia    
+          value: natural   
       name: location_type
       attrs:
         - key: required
