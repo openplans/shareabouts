@@ -171,7 +171,7 @@ place:
         - key: size
           value: 30
         - key: required
-    - prompt: _(2. What is this type of spot?)
+    - prompt: _(2. Is this a 'Like', Issue or Idea spot?)
       type: select
       options:
         - label: _(Choose One)
