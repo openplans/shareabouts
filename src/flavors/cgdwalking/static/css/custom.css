@@ -303,12 +303,12 @@ a.close-btn {
 }
 
 .place-form.like label[for=place-reason],
-  .place-form.like [name=why_reason] {
+  .place-form.like [name=reason] {
   display: block;
 }
 
 .place-form.like label[for=place-time],
-  .place-form.like [name=why_time] {
+  .place-form.like [name=time] {
   display: block;
 }
 
