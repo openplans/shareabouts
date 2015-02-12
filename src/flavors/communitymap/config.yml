@@ -1,0 +1,223 @@
+# Settings for the app
+app:
+  # HTML Title
+  title: Albemarle Road Safety Survey
+  # Header name
+  name: Albemarle Road Safety Survey
+  # Meta description that will show up in Google search results
+  meta_description: Thank you for sharing your concerns about traffic safety on Albemarle Road. Council Member Brad Lander has requested that the NYC Department of Transportation conduct a traffic safety study on the street and recommend improvements. While the agency undertakes that study, please share your concerns below, which we will send to the Department of Transportation.
+
+# Settings for map and layer configs
+map:
+  options:
+    center:
+      lat: 40.64534985467697
+      lng: -73.97776007652283
+    zoom: 18
+    minZoom: 17
+    maxZoom: 18
+  base_layer:
+    url: http://{s}.tiles.mapbox.com/v3/doittgis.NYC_DoITT_base/{z}/{x}/{y}.png
+    attribution: 'Map tiles &copy; <a href="http://www.nyc.gov/doitt/">New York City DoITT</a>. Based on the latest planimetric data.'
+  layers: []
+
+# The keys show up in the dropdown list when you are adding a new place
+# The values map the place type to map icons (defined below).
+place_types:
+  Installing crosswalk:
+    default: green_feature
+    focused: green_focused
+  Enhancing crosswalks:
+    default: green_feature
+    focused: green_focused
+  Speed humps:
+    default: green_feature
+    focused: green_focused
+  Stop signs:
+    default: green_feature
+    focused: green_focused
+  Traffic lights:
+    default: green_feature
+    focused: green_focused
+  Speed enforcement:
+    default: green_feature
+    focused: green_focused
+  Other:
+    default: green_feature
+    focused: green_focused
+
+# Defines place icons. See http://leaflet.cloudmade.com/reference.html#icon
+# for documention of each property. Any omitted property will be undefined.
+place_type_icons:
+  yellow_feature:
+    iconUrl: /static/css/images/feature-point-yellow.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  red_feature:
+    iconUrl: /static/css/images/feature-point-red.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  green_feature:
+    iconUrl: /static/css/images/feature-point-green.png
+    iconSize:
+      width: 17
+      height: 18
+    iconAnchor:
+      x: 9
+      y: 9
+  yellow_focused:
+    iconUrl: /static/css/images/marker-focused-yellow.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  red_focused:
+    iconUrl: /static/css/images/marker-focused-red.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+  green_focused:
+    iconUrl: /static/css/images/marker-focused-green.png
+    shadowUrl: /static/css/images/marker-shadow.png
+    iconSize:
+      width: 25
+      height: 41
+    shadowSize:
+      width: 41
+      height: 41
+    iconAnchor:
+      x: 12
+      y: 41
+
+place:
+  adding_supported: true
+  title: Describe the issue and suggest an improvement
+  add_button_label: Share your concern
+  action_text: 'suggested:'
+  anonymous_name: Someone
+  submit_button_label: Submit
+  items:
+    - prompt: Indicate where you have experienced or observed a traffic safety problem on Albemarle Road
+      type: text
+      name: where
+      label: 'Location:'
+      attrs:
+        - key: placeholder
+          value: "e.g. Albemarle Rd & Dahill Rd"
+        - key: size
+          value: 30
+    - prompt: Describe the problem
+      type: textarea
+      name: problem
+      label: 'Describe the problem:'
+      attrs:
+        - key: placeholder
+          value: ""
+        - key: size
+          value: 30          
+    - prompt: _(Image)
+      inputfile_label: _(Add an Image)
+      type: file
+      name: my_image
+      optional: true
+      attrs:
+        - key: accept
+          value: image/*
+    - prompt: "What kinds of improvements do you think would be helpful to address the issues you have identified?"
+      type: select
+      options:
+        - Installing crosswalk
+        - Enhancing crosswalks
+        - Speed humps
+        - Stop signs
+        - Traffic lights
+        - Speed enforcement
+        - Other
+      name: location_type
+    - prompt: 'If "Other", please specify'
+      type: textarea
+      name: other-details
+      label: "Other details:"
+      attrs:
+        - key: placeholder
+          value: ""
+        - key: size
+          value: 30
+    - prompt: Your Name
+      type: text
+      name: submitter_name
+      attrs:
+        - key: placeholder
+          value: Name
+        - key: size
+          value: 30
+    - prompt: Your address (will not be show on this website)
+      type: text
+      name: private-submitter_address
+      attrs:
+        - key: placeholder
+          value: Name
+        - key: size
+          value: 30
+    - prompt: Your email (will not be show on this website)
+      type: text
+      name: private-submitter_email
+      attrs:
+        - key: placeholder
+          value: Name
+        - key: size
+          value: 30
+survey:
+  submission_type: comments
+
+  # Response display config
+  show_responses: true
+  response_name: comment
+  response_plural_name: comments
+  action_text: commented on
+  anonymous_name: Someone
+
+  # Survey form config
+  title: Leave a Comment
+  form_link_text: Leave a Comment
+  submit_btn_text: Comment
+  items:
+    - prompt: Comment
+      label: Comment
+      type: textarea
+      name: comment
+    - prompt: Your Name
+      type: text
+      name: submitter_name
+
+support:
+  submission_type: support
+  submit_btn_text: Support This!
+  action_text: supported
+  anonymous_name: Someone
+
+pages:
+  - title: 
+    slug: about
+    start_page: true
