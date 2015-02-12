@@ -108,12 +108,18 @@ var Shareabouts = Shareabouts || {};
             })).render();
       
       // add a legend of each point type and name
-      var legendData = _.map(this.options.placeTypes, function(type) {
+      var legendData = [];
+      _.each(this.options.placeTypes, function(type) {
         var icon = _.filter(_.pluck(type.rules, 'icon'), _.identity)[0];
-        return {
+        var data = {
           label: type.label,
           // find the first rule that has an icon
           iconUrl: icon && icon.iconUrl
+        }
+        if (_.has(type, 'index')) {
+          legendData[parseInt(type.index)] = data;
+        } else {
+          legendData.push(data);
         }
       });
       $('.legend').append(Handlebars.templates['legend']({types: legendData}));

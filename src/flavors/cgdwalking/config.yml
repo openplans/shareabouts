@@ -48,6 +48,7 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   like:
+    index: 0
     label: _(Walking spot I like)
     rules:
       - condition: '"{{location_type}}" === "like" && {{map.zoom}} < 12 && {{layer.focused}} === false'
@@ -79,6 +80,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   issue:
+    index: 1
     label: _(Walking spot I don't like)
     rules:
       - condition: '"{{location_type}}" === "issue" && {{map.zoom}} < 12 && {{layer.focused}} === false'
@@ -110,6 +112,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   idea:
+    index: 2
     label: _(Idea Spot)
     rules:
       - condition: '"{{location_type}}" === "idea" && {{map.zoom}} < 12 && {{layer.focused}} === false'
