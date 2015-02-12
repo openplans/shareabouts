@@ -68,7 +68,7 @@ CrowdSpot Grey (text) #585A59
 }
 
 #site-title {
-  background: url('images/cgdwalk_header2_compact.png') no-repeat 
+  background: url('images/cgdwalk_header2.png') no-repeat 
 center;
   background-size: contain;
   width: 400px;
@@ -250,6 +250,129 @@ a.close-btn {
   display: block;
 }
 
+
+/* =Hiding idea spot questions
+-------------------------------------------------------------- */
+
+.place-form label[for=place-other_reason],
+  .place-form [name=other_reason]{
+  display: none;
+}
+
+.place-form label[for=place-frequency],
+  .place-form [name=frequency]{
+  display: none;
+}
+
+.place-form label[for=place-reason],
+  .place-form [name=reason]{
+  display: none;
+}
+
+.place-form label[for=place-time],
+  .place-form [name=time]{
+  display: none;
+}
+
+.place-form label[for=place-with_who],
+  .place-form [name=with_who]{
+  display: none;
+}
+
+.place-form label[for=place-age],
+  .place-form [name=age]{
+  display: none;
+}
+
+.place-form label[for=place-gender],
+  .place-form [name=gender]{
+  display: none;
+}
+
+
+
+
+.place-form.like label[for=place-other_reason],
+  .place-form.like [name=other_reason] {
+  display: block;
+}
+
+.place-form.like label[for=place-frequency],
+  .place-form.like [name=frequency] {
+  display: block;
+}
+
+.place-form.like label[for=place-reason],
+  .place-form.like [name=why_reason] {
+  display: block;
+}
+
+.place-form.like label[for=place-time],
+  .place-form.like [name=why_time] {
+  display: block;
+}
+
+.place-form.like label[for=place-with_who],
+  .place-form.like [name=with_who] {
+  display: block;
+}
+
+.place-form.like label[for=place-age],
+  .place-form.like [name=age] {
+  display: block;
+}
+
+.place-form.like label[for=place-gender],
+  .place-form.like [name=gender] {
+  display: block;
+}
+
+
+
+
+.place-form.issue label[for=place-other_reason],
+  .place-form.issue [name=other_reason] {
+  display: block;
+}
+
+.place-form.issue label[for=place-frequency],
+  .place-form.like [name=frequency] {
+  display: block;
+}
+
+.place-form.issue label[for=place-reason],
+  .place-form.like [name=why_reason] {
+  display: block;
+}
+
+.place-form.issue label[for=place-time],
+  .place-form.like [name=why_time] {
+  display: block;
+}
+
+.place-form.issue label[for=place-with_who],
+  .place-form.like [name=with_who] {
+  display: block;
+}
+
+.place-form.issue label[for=place-age],
+  .place-form.like [name=age] {
+  display: block;
+}
+
+.place-form.issue label[for=place-gender],
+  .place-form.like [name=gender] {
+  display: block;
+}
+
+
+/* =Hiding (optional) in survey form
+-------------------------------------------------------------- */
+
+label small {
+  text-transform: none;
+  display: none;
+}
 
 /* =Media Queries
 -------------------------------------------------------------- */

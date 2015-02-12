@@ -48,7 +48,7 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   like:
-    label: _(Like Spot)
+    label: _(Walking spot I like)
     rules:
       - condition: '"{{location_type}}" === "like" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
@@ -79,7 +79,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   issue:
-    label: _(Issue Spot)
+    label: _(Walking spot I don't like)
     rules:
       - condition: '"{{location_type}}" === "issue" && {{map.zoom}} < 12 && {{layer.focused}} === false'
         # Display landmarks as circles (vectors) when zoomed out
@@ -162,7 +162,7 @@ place:
   location_item_name: location
 
   items:
-    - prompt: _(1. Where is this spot?)
+    - prompt: _(Does this spot have a name? (ie park, street name, landmark, etc.))
       type: text
       name: name
       attrs:
@@ -171,28 +171,28 @@ place:
         - key: size
           value: 30
         - key: required
-    - prompt: _(2. Is this a 'Like', Issue or Idea spot?)
+    - prompt: _(What type of spot is this?)
       type: select
       options:
         - label: _(Choose One)
           value: ''
-        - label: _(Like Spot)
+        - label: _(Walking spot I like)
           value: like
-        - label: _(Issue Spot)
+        - label: _(Walking spot I don't like)
           value: issue
         - label: _(Idea Spot)
           value: idea 
       name: location_type
       attrs:
         - key: required
-    - prompt: _(3. Why do you like this spot?)
+    - prompt: _(Why do you like walking here?)
       type: textarea
       name: why_like
       optional: true
       attrs:
         - key: placeholder
           value: _(Description...) 
-    - prompt: _(3. What is the main issue at this spot?)
+    - prompt: _(Why don't you like walking here?)
       type: select
       options: 
         - label: _(Choose One)
@@ -207,31 +207,35 @@ place:
           value: Unattractive walking route   
         - label: _(Limited or no wayfinding signage)
           value: Limited or no wayfinding signage  
-        - label: _(Footpath blocked)
-          value: Footpath blocked  
+        - label: _(Poor Lighting)
+          value: Poor Lighting  
         - label: _(Limited or no footpaths)
           value: Limited or no footpaths
         - label: _(Limited or no provision for people with disabilities)
           value: Limited or no provision for people with disabilities
+        - label: _(Limited shelter)
+          value: Limited shelter
+        - label: _(Limited seating)
+          value: Limited seating  
         - label: _(Other)
-          value: Other         
+          value: Other             
       name: why_issue
       optional: true
-    - prompt: _(3a. If 'other' or anything else, please describe below.)
+    - prompt: _(If 'other' or anything else, please describe below.)
       type: textarea
       name: why_issue_other
       optional: true
       attrs:
         - key: placeholder
           value: _(Description...)   
-    - prompt: _(3. What is your idea for this spot?)
+    - prompt: _(What is your idea for this spot?)
       type: textarea
       name: why_idea
       optional: true
       attrs:
         - key: placeholder
           value: _(Description...)           
-    - prompt: _(4. If possible, please try adding an image of this spot)
+    - prompt: _(If possible, please try adding an image of this spot)
       inputfile_label: _(Add Image)
       type: file
       name: my_image
@@ -239,7 +243,7 @@ place:
       attrs:
         - key: accept
           value: image/*  
-    - prompt: _(5. How often do you walk at this spot?)
+    - prompt: _(How often do you walk at this spot?)
       type: select
       options:
         - label: _(Choose One)
@@ -259,17 +263,19 @@ place:
       name: frequency
       attrs:
         - key: required         
-    - prompt: _(6. What is the main reason you would to walk at this spot?)
+    - prompt: _(What is the main reason you walk here?)
       type: select
       options:
         - label: _(Choose One)
           value: ''
-        - label: _(For transport)
-          value: transport
-        - label: _(Relaxation)
-          value: relax
         - label: _(Fitness)
           value: fitness
+        - label: _(To get somewhere)
+          value: transport
+        - label: _(Fun)
+          value: fun
+        - label: _(social)
+          value: social  
         - label: _(Other)
           value: other    
       name: reason
@@ -284,7 +290,7 @@ place:
           value: _(Type other reason here...)
         - key: size
           value: 30
-    - prompt: _(7. When are you most likely to walk at this spot?)
+    - prompt: _(When are you most likely to walk at this spot?)
       type: select
       options:
         - label: _(Choose One)
@@ -302,23 +308,25 @@ place:
       name: time
       attrs:
         - key: required
-    - prompt: _(8. Who do you usually walk with at this spot?)
+    - prompt: _(Who do you usually walk with at this spot?)
       type: select
       options:
         - label: _(Choose One)
           value: ''
         - label: _(By myself)
-          value: myself 
-        - label: _(With friends)
+          value: myself
+        - label: _(My Pet)
+          value: pet    
+        - label: _(Friends)
           value: friends
-        - label: _(With family)
+        - label: _(Family)
           value: family  
-        - label: _(With a walking group)
+        - label: _(Walking group)
           value: group     
       name: with_who
       attrs:
         - key: required
-    - prompt: _(9. How old are you?)
+    - prompt: _(How old are you?)
       type: select
       options:
         - label: _(Choose One)
@@ -344,7 +352,7 @@ place:
       name: age
       attrs:
         - key: required
-    - prompt: _(10. Your gender)
+    - prompt: _(Your gender)
       type: select
       options:
         - label: _(Choose One)
@@ -358,24 +366,24 @@ place:
       name: gender
       attrs:
         - key: required                                      
-    - prompt: _(11. Your Name)
+    - prompt: _(Your name)
       type: text
       name: submitter_name
+      optional: true
       attrs:
         - key: placeholder
           value: _(Type name)
         - key: size
-          value: 30  
-        - key: required     
-    - prompt: _(12. Your email)
+          value: 30     
+    - prompt: _(Your email)
       type: text
       name: private-submitter_email
+      optional: true
       attrs:
         - key: placeholder
           value: _(Email address)
         - key: size
-          value: 30    
-        - key: required    
+          value: 30      
 
 survey:
   submission_type: comments
