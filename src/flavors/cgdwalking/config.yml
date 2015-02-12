@@ -366,7 +366,7 @@ place:
       name: gender
       attrs:
         - key: required                                      
-    - prompt: _(Your name)
+    - prompt: _(Your name (optional))
       type: text
       name: submitter_name
       optional: true
@@ -375,7 +375,7 @@ place:
           value: _(Type name)
         - key: size
           value: 30     
-    - prompt: _(Your email)
+    - prompt: _(Your email (optional))
       type: text
       name: private-submitter_email
       optional: true
