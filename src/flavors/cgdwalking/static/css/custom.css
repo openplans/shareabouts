@@ -336,32 +336,32 @@ a.close-btn {
 }
 
 .place-form.issue label[for=place-frequency],
-  .place-form.like [name=frequency] {
+  .place-form.issue [name=frequency] {
   display: block;
 }
 
 .place-form.issue label[for=place-reason],
-  .place-form.like [name=why_reason] {
+  .place-form.issue [name=reason] {
   display: block;
 }
 
 .place-form.issue label[for=place-time],
-  .place-form.like [name=why_time] {
+  .place-form.issue [name=time] {
   display: block;
 }
 
 .place-form.issue label[for=place-with_who],
-  .place-form.like [name=with_who] {
+  .place-form.issue [name=with_who] {
   display: block;
 }
 
 .place-form.issue label[for=place-age],
-  .place-form.like [name=age] {
+  .place-form.issue [name=age] {
   display: block;
 }
 
 .place-form.issue label[for=place-gender],
-  .place-form.like [name=gender] {
+  .place-form.issue [name=gender] {
   display: block;
 }
 
