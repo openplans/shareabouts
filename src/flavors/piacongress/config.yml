@@ -48,7 +48,7 @@ map:
 # The values map the place type to map icons (defined below).
 place_types:
   built:
-  	index: 0
+    index: 0
     label: _(Built Place)
     rules:
       - condition: '"{{location_type}}" === "built" && {{map.zoom}} < 12 && {{layer.focused}} === false'
@@ -80,7 +80,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   social:
-  	index: 1
+    index: 1
     label: _(Social Place)
     rules:
       - condition: '"{{location_type}}" === "social" && {{map.zoom}} < 12 && {{layer.focused}} === false'
@@ -112,7 +112,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   project:
-  	index: 2
+    index: 2
     label: _(Project and Policy Place)
     rules:
       - condition: '"{{location_type}}" === "project" && {{map.zoom}} < 12 && {{layer.focused}} === false'
@@ -144,7 +144,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   natural:
-  	index: 3
+    index: 3
     label: _(Natural Place)
     rules:
       - condition: '"{{location_type}}" === "natural" && {{map.zoom}} < 12 && {{layer.focused}} === false'
@@ -176,7 +176,7 @@ place_types:
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
   pia:
-  	index: 4
+    index: 4
     label: _(Planning Congress Place)
     rules:
       - condition: '"{{location_type}}" === "pia" && {{map.zoom}} < 12 && {{layer.focused}} === false'
