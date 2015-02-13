@@ -430,6 +430,21 @@ pages:
   - title: _(FAQs)
     slug: why
     url: /static/pages/why.html
+    
+  - title: _(Filter Spots ⌄)
+    pages:
+      - title: _(Show All)
+        url: /
+        external: true
+      - title: _(Like Spots)
+        url: /filter/like
+        external: true
+      - title: _(Issue Spots)
+        url: /filter/issue
+        external: true
+      - title: _(Idea Spots)
+        url: /filter/idea
+        external: true   
 
 notifications:
   on_new_place: true
