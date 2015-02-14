@@ -327,7 +327,7 @@ def readonly_file_api(request, path, datafilename='data.json'):
                     return readonly_response(request, submission)
                 else:
                     raise Http404
-            else:
+            elif set_name:
                 return readonly_response(request, {
                     'results': submissions,
                     'metadata': {
@@ -338,6 +338,8 @@ def readonly_file_api(request, path, datafilename='data.json'):
                         'num_pages': 1
                     },
                 })
+            else:
+                return readonly_response(request, feature)
         else:
             raise Http404
 
