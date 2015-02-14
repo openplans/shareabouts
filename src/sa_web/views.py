@@ -12,11 +12,12 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.cache import cache
 from django.core.mail import EmailMultiAlternatives
+from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist, RequestContext
 from django.template.loader import render_to_string
 from django.utils.timezone import now
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.core.urlresolvers import resolve
+from django.core.urlresolvers import resolve, reverse
 from proxy.views import proxy_view as remote_proxy_view
 
 log = logging.getLogger(__name__)
@@ -65,7 +66,7 @@ def index(request, place_id=None):
     config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
 
     # Get initial data for bootstrapping into the page.
-    api = ShareaboutsApi(dataset_root=request.build_absolute_uri(settings.SHAREABOUTS.get('DATASET_ROOT')))
+    api = ShareaboutsApi(dataset_root=request.build_absolute_uri(reverse('api_proxy', args=('',))))
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
@@ -237,12 +238,120 @@ def proxy_view(request, url, requests_args={}):
         return match.func(request, *match.args, **match.kwargs)
 
 
+def readonly_response(request, data):
+    response_string = json.dumps(data)
+    content_type = 'application/json'
+
+    if 'callback' in request.GET:
+        response_string = '%s(%s);' % (request.GET['callback'], response_string)
+        content_type = 'application/javascript'
+
+    return HttpResponse(response_string, content_type=content_type)
+
+
+def readonly_file_api(request, path, datafilename='data.json'):
+    if path.endswith('actions'):
+        return readonly_response(request, {
+            'results': [],
+            'metadata': {
+                'length': 0,
+                'next': None,
+                'previous': None
+            },
+        })
+
+    with open(datafilename) as datafile:
+        data = json.load(datafile)
+
+        try:
+            page_size = int(request.GET.get('page_size'))
+        except (TypeError, ValueError):
+            page_size = 100
+
+        try:
+            page = int(request.GET.get('page'))
+        except (TypeError, ValueError):
+            page = 1
+
+        start = (page - 1) * page_size
+        end = page * page_size
+        count = len(data['features'])
+
+        if path.endswith('places'):
+            return readonly_response(request, {
+                'type': 'FeatureCollection',
+                'features': data['features'][start:end],
+                'metadata': {
+                    'length': count,
+                    'next': (end < count) or None,
+                    'previous': (start > 0) or None,
+                    'page': page,
+                    'num_pages': count // page_size + (0 if count % page_size == 0 else 1)
+                },
+            })
+
+        components = path.split('/')
+
+        seen_places = False
+        place_id = set_name = submission_id = None
+
+        for component in components:
+            if component == 'places':
+                seen_places = True
+                continue
+
+            if not seen_places:
+                continue
+
+            if place_id is None:
+                place_id = int(component)
+                continue
+
+            if set_name is None:
+                set_name = component
+                continue
+
+            if submission_id is None:
+                submission_id = int(component)
+
+        for feature in data['features']:
+            if feature['id'] != place_id:
+                continue
+
+            submissions = feature['properties']['submission_sets'].get(set_name, [])
+            if submission_id:
+                for submission in submissions:
+                    if submission['id'] != submission_id:
+                        continue
+
+                    return readonly_response(request, submission)
+                else:
+                    raise Http404
+            else:
+                return readonly_response(request, {
+                    'results': submissions,
+                    'metadata': {
+                        'length': len(submissions),
+                        'next': None,
+                        'previous': None,
+                        'page': 1,
+                        'num_pages': 1
+                    },
+                })
+        else:
+            raise Http404
+
+
 def api(request, path):
     """
     A small proxy for a Shareabouts API server, exposing only
     one configured dataset.
     """
     root = settings.SHAREABOUTS.get('DATASET_ROOT')
+
+    if root.startswith('file://'):
+        return readonly_file_api(request, path, datafilename=root[7:])
+
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
     api_session_cookie = request.COOKIES.get('sa-api-sessionid')
 
@@ -276,6 +385,9 @@ def users(request, path):
     A small proxy for a Shareabouts API server, exposing only
     user authentication.
     """
+    if settings.SHAREABOUTS.get('DATASET_ROOT').startswith('file://'):
+        return readonly_response(request, None)
+
     root = make_auth_root(settings.SHAREABOUTS.get('DATASET_ROOT'))
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
     api_session_cookie = request.COOKIES.get('sa-api-session')
@@ -296,6 +408,10 @@ def csv_download(request, path):
     one configured dataset.
     """
     root = settings.SHAREABOUTS.get('DATASET_ROOT')
+
+    if root.startswith('file://'):
+        return readonly_file_api(request, path, datafilename=root[7:])
+
     api_key = settings.SHAREABOUTS.get('DATASET_KEY')
     api_session_cookie = request.COOKIES.get('sa-api-session')
 
