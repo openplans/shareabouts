@@ -1,6 +1,6 @@
 import requests
 import yaml
-import json
+import ujson as json
 import logging
 import os
 import time
