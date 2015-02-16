@@ -108,8 +108,13 @@ var Shareabouts = Shareabouts || {};
         var actionType = actionModel.get('target_type'),
             targetData = actionModel.get('target');
 
-        if (actionType === 'place' && !self.placeCollection.get(targetData.id)) {
-          placeIdsToFetch.push(targetData.id);
+        if (!self.placeCollection.get(targetData.id)) {
+          if (actionType === 'place') {
+            placeIdsToFetch.push(targetData.id);
+          }
+          else {
+            placeIdsToFetch.push(_.last(targetData.place.split('/')));
+          }
         }
       });
 
