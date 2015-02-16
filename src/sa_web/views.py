@@ -319,6 +319,9 @@ def readonly_file_api(request, path, datafilename='data.json'):
                 continue
 
             submissions = feature['properties']['submission_sets'].get(set_name, [])
+
+            # If there's a submission_id, then we're getting a submission
+            # instance.
             if submission_id:
                 for submission in submissions:
                     if submission['id'] != submission_id:
@@ -327,6 +330,9 @@ def readonly_file_api(request, path, datafilename='data.json'):
                     return readonly_response(request, submission)
                 else:
                     raise Http404
+
+            # If there's no submission_id but there's a set_name, then we're
+            # getting a list of submissions.
             elif set_name:
                 return readonly_response(request, {
                     'results': submissions,
@@ -338,6 +344,9 @@ def readonly_file_api(request, path, datafilename='data.json'):
                         'num_pages': 1
                     },
                 })
+
+            # Otherwise, we're getting a place instance (place lists and actions
+            # are covered above).
             else:
                 return readonly_response(request, feature)
         else:
