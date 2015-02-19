@@ -88,7 +88,7 @@ var Shareabouts = Shareabouts || {};
 
       // On any route (/place or /page), hide the list view
       this.options.router.bind('route', function(route) {
-        if (route !== 'showList' && this.listView && this.listView.isVisible()) {
+        if (!_.contains(this.getListRoutes(), route) && this.listView && this.listView.isVisible()) {
           this.hideListView();
         }
       }, this);
@@ -222,6 +222,12 @@ var Shareabouts = Shareabouts || {};
 
       // Fetch the first page of activity
       this.activities.fetch({reset: true});
+    },
+
+    getListRoutes: function() {
+      // Return a list of the routes that are allowed to show the list view.
+      // Navigating to any other route will automatically hide the list view.
+      return ['showList'];
     },
 
     isAddingPlace: function(model) {

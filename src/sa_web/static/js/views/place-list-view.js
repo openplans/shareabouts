@@ -66,11 +66,17 @@ var Shareabouts = Shareabouts || {};
       'click @ui.supportCount': 'handleSupportCountSort'
     },
     initialize: function(options) {
+      options = options || {};
+
       // Init the views cache
       this.views = {};
 
       // Set the default sort
       this.sortBy = 'date';
+
+      // Initialize the list filter
+      this.collectionFilters = options.filter || {};
+      this.searchTerm = options.term || '';
     },
     onAfterItemAdded: function(view) {
       // Cache the views as they are added
@@ -90,11 +96,11 @@ var Shareabouts = Shareabouts || {};
     },
     handleSearchInput: function(evt) {
       evt.preventDefault();
-      this.filter(this.ui.searchField.val());
+      this.search(this.ui.searchField.val());
     },
     handleSearchSubmit: function(evt) {
       evt.preventDefault();
-      this.filter(this.ui.searchField.val());
+      this.search(this.ui.searchField.val());
     },
     handleDateSort: function(evt) {
       evt.preventDefault();
@@ -173,22 +179,44 @@ var Shareabouts = Shareabouts || {};
       this.collection.comparator = this[sortFunction];
       this.collection.sort();
       this.renderList();
-      this.filter(this.ui.searchField.val());
+      this.search(this.ui.searchField.val());
     },
-    filter: function(term) {
+    clearFilters: function() {
+      this.collectionFilters = {};
+      this.applyFilters(this.collectionFilters, this.searchTerm);
+    },
+    filter: function(filters) {
+      _.extend(this.collectionFilters, filters);
+      this.applyFilters(this.collectionFilters, this.searchTerm);
+    },
+    search: function(term) {
+      this.searchTerm = term;
+      this.applyFilters(this.collectionFilters, this.searchTerm);
+    },
+    applyFilters: function(filters, term) {
       var len = S.Config.place.items.length,
           val, key, i;
 
       term = term.toUpperCase();
       this.collection.each(function(model) {
-        var show = false,
+        var show = function() { model.trigger('show'); },
+            hide = function() { model.trigger('hide'); },
             submitter, locationType;
+
+        // If the model doesn't match one of the filters, hide it.
+        for (key in filters) {
+          val = filters[key].toUpperCase();
+          if (val !== model.get(key).toUpperCase()) {
+            return hide();
+          }
+        }
+
+        // Check whether the remaining models match the search term
         for (i=0; i<len; i++) {
           key = S.Config.place.items[i].name;
           val = model.get(key);
           if (_.isString(val) && val.toUpperCase().indexOf(term) !== -1) {
-            show = true;
-            break;
+            return show();
           }
         }
 
@@ -199,23 +227,20 @@ var Shareabouts = Shareabouts || {};
         if (!show && submitter) {
           if (submitter.name && submitter.name.toUpperCase().indexOf(term) !== -1 ||
               submitter.username && submitter.username.toUpperCase().indexOf(term) !== -1) {
-            show = true;
+            return show();
           }
         }
 
-        // If the location_type has a label, we should filter by it also.
+        // If the location_type has a label, we should search in it also.
         locationType = S.Config.flavor.place_types[model.get('location_type')];
         if (!show && locationType && locationType.label) {
           if (locationType.label.toUpperCase().indexOf(term) !== -1) {
-            show = true;
+            return show();
           }
         }
 
-        if (show) {
-          model.trigger('show');
-        } else {
-          model.trigger('hide');
-        }
+        // If we've fallen through here, hide the item.
+        return hide();
       });
     },
     isVisible: function() {
