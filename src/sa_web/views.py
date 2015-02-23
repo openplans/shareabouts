@@ -66,7 +66,10 @@ def index(request, place_id=None):
     config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
 
     # Get initial data for bootstrapping into the page.
-    api = ShareaboutsApi(dataset_root=request.build_absolute_uri(reverse('api_proxy', args=('',))))
+    dataset_root = settings.SHAREABOUTS.get('DATASET_ROOT')
+    if (dataset_root.startswith('file:')):
+        dataset_root = request.build_absolute_uri(reverse('api_proxy', args=('',)))
+    api = ShareaboutsApi(dataset_root=dataset_root)
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
