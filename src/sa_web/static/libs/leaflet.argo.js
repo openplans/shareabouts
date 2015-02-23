@@ -168,12 +168,10 @@ L.extend(L.Argo, {
         properties = {'style' : properties};
 
         if (rules[i].icon) {
-          if (rules[i].isFocused && rules[i].focus_icon) {
-            properties.focus_icon = rules[i].focus_icon;
-          } else {
-            properties.icon = rules[i].icon;
-          }
+          properties.focus_icon = rules[i].focus_icon;
+          properties.icon = rules[i].icon;
         }
+
         return properties;
       }
     }
