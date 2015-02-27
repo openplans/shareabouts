@@ -102,6 +102,8 @@ can help.
 Lots of [really great documentation already](https://github.com/openplans/shareabouts#shareabouts-), 
 notes here are just pointers.
 
+A good place to start might be to take an existing Shareabouts map and customize it -- take a look at [some of the recent OpenPlans maps](https://github.com/openplans/s).
+
 ### Up front work you need to do
 
 Get set up with 
@@ -121,13 +123,11 @@ Technical workflow:
 
 ### Setting up a map
 
-Going to set up the front-end only (vs the Heroku button).
+We're going to set up the front-end only.
 
-[Local set up](https://github.com/openplans/shareabouts/blob/master/doc/README.md#local-setup).
+Follow the instructions here: [local set up](https://github.com/openplans/shareabouts/blob/master/doc/README.md#local-setup).
 
-[Local configuration](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md) - dataset key, etc.
-
-Run it locally to see how the config looks (make changes, repeat).
+Then, configure your map: [Local configuration](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md) - dataset key, etc. Run it locally to see how the config looks (make changes, repeat).
 
 Deploy!
 
