@@ -340,13 +340,13 @@ if os.path.exists(LOCAL_SETTINGS_FILE):
 
 try:
     SHAREABOUTS
-except NameError:
+    flavor = SHAREABOUTS['FLAVOR']
+except (NameError, TypeError, KeyError):
     from django.core.exceptions import ImproperlyConfigured
     raise ImproperlyConfigured('No SHAREABOUTS configuration defined. '
         'Did you forget to copy the local settings template?')
 
 here = os.path.abspath(os.path.dirname(__file__))
-flavor = SHAREABOUTS.get('FLAVOR')
 if 'CONFIG' not in SHAREABOUTS:
     SHAREABOUTS['CONFIG'] = os.path.abspath(os.path.join(here, '..', 'flavors', flavor))
 if 'PACKAGE' not in SHAREABOUTS:
