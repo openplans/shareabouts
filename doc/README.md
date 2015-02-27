@@ -63,18 +63,27 @@ NOTE: Mac OS X users need a command line C/C++ compiler in place for the above s
 This can be done by downloading Xcode from the App Store and then installing the Command Line Tools
 via Xcode's Preferences > Downloads area.
 
+Starting and stopping your server
+---------------------------
+
+If you've completed the steps above, you should be ready to run your server. But until [you configure your `local_settings.py`](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md#step-2-set-up-your-local-settings), you'll see an error. 
+
 To run the development server:
 
     src/manage.py runserver
 
 The server will, by default, be started at [http://localhost:8000/](http://localhost:8000/).
-But it won't be very useful [till you configure it](CONFIG.md).
 
-NOTE: If you're new to programming with virtualenv, be sure to remember
+To stop the server, press `control-c`.
+
+New to `virtualenv`? If you're returning to work on your map later, be sure to remember
 to activate your virtual environment every time you start a new terminal session:
 
     source env/bin/activate
 
+To close out your virtual environment, run
+
+    deactivate
 
 Running the Shareabouts API Service
 ------------------------------------
