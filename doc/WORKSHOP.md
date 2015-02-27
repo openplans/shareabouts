@@ -64,7 +64,7 @@ How else can people get involved?
 
 What are you doing with the data? 
 
-How will the experience as a participant be improved by this map?
+How will the experience of participating in this planning process be improved by your map?
 
 What happens next, and how will participants know about it? ("closing the loop")
 
