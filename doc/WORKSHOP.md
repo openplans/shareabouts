@@ -38,6 +38,9 @@ Why it's good
 * github workflow good for collaborating
 * open source so your involvement helps others!
 
+It's a sophisticated tool - there is a learning curve, but you can totally handle it without a lot of 
+software experience.
+
 Not so good for...
 * presenting data for dynamic analysis
 * collecting line data
