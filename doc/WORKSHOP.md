@@ -10,20 +10,25 @@ NYC DOT bike share map ([this is the latest version](http://nycbikeshare.herokua
 Recent successful projects:
 * Participatory budgeting
 * Street safety mapping
+* Ideas for better places
+* Bike parking requests
 
 ### Why you might use it
 * gathering data about current conditions, desires, specific requests
 * gathering point data 
 * gathering feedback on existing places (e.g. potential locations for bike share, land use parcels)
-* engaging a community - supports commenting
+* engaging a community - supports commenting, discussion
 
-A good map has
+What makes a good collaborative map?
 * a strong call to action, in sync with user needs
 * a few questions, mostly multiple choice
 * good icons, good basemap
 * limited text, with more info available if you want it
+* not a lot of jargon, instructions, upfront demands
 
-Strengths
+### Strengths of Shareabouts 
+
+Why it's good
 * great interface for collecting point data
 * very flexible forms
 * good on small screens
@@ -31,6 +36,7 @@ Strengths
 * easy to style
 * once you know the setup, easy to extend
 * github workflow good for collaborating
+* open source so your involvement helps others!
 
 Not so good for...
 * presenting data for dynamic analysis
@@ -46,7 +52,7 @@ There are other tools...
 * Ushahidi
 * Wikimapper
 
-### Very important considerations
+### Very important considerations in designing your map
 
 Barriers to access: "planning literacy", language, technology, knowing the map exists.
 
@@ -71,17 +77,17 @@ Not about: consensus, voting, decisions.
 
 ## The structure of a Shareabouts map
 
-Web-based
+Web-based - mobile or desktop
 
-Database - the "API server"
+Database - the "API server".
 
-Front end - the map application
+Front end - the map application.
 
-Multiple maps can run on one server
-
-The database is schema-less -- will store whatever you put in it
+Multiple maps can run on one server.
 
 [Diagram and more info](https://github.com/openplans/shareabouts/blob/master/doc/ARCHITECTURE.md).
+
+The database is schema-less -- will store whatever you put in it
 
 Some flexibility with hosting - you can run a complete self-contained setup 
 via the [one-click Heroku Button installer](https://github.com/openplans/shareabouts/blob/master/doc/HEROKU_BUTTON.md), 
@@ -116,7 +122,7 @@ Going to set up the front-end only (vs the Heroku button).
 
 [Local set up](https://github.com/openplans/shareabouts/blob/master/doc/README.md#local-setup).
 
-[Local configuration](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md)
+[Local configuration](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md) - dataset key, etc.
 
 Run it locally to see how the config looks (make changes, repeat).
 
