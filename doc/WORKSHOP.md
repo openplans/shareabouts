@@ -46,11 +46,11 @@ Not so good for...
 
 There are other tools...
 * Google Maps / Fusion Tables
-* CartoDB
-* Mapbox
-* Habitat Map http://habitatmap.org/markers
-* Ushahidi
-* Wikimapper
+* [CartoDB](http://cartodb.com)
+* [Mapbox/Tilemill](https://www.mapbox.com/) 
+* [Habitat Map](http://habitatmap.org/markers) 
+* [Ushahidi/Crowd Map](http://www.ushahidi.com/)
+* [Wikimapper](http://wikimapping.com/wordpress/)
 
 ### Very important considerations in designing your map
 
