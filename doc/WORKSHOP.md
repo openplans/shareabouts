@@ -1,16 +1,16 @@
 Notes for a 90 minute workshop on using Shareabouts - we're covering a lot of material today. 
 
 - [What is Shareabouts?](#)
-	- [A brief history of Shareabouts](#)
-	- [Why you might use it](#)
-	- [Strengths of Shareabouts](#)
-	- [Very important considerations in designing your map](#)
-- [The structure of a Shareabouts map](#)
-- [Setting up a map](#)
-	- [Up front work you need to do](#)
-	- [Setting up a map](#)
-	- [Where's my data?](#)
-- [Help!](#)
+	- [A brief history of Shareabouts](#a-brief-history-of-shareabouts)
+	- [Why you might use it](#why-you-might-use-it)
+	- [Strengths of Shareabouts](#strengths-of-shareabouts)
+	- [Very important considerations in designing your map](#very-important-considerations-in-designing-your-map)
+- [The structure of a Shareabouts map](#the-structure-of-a-shareabouts-map)
+- [Configuration](#configuration)
+	- [Up front work you need to do](#up-front-work-you-need-to-do)
+	- [Setting up a map](#setting-up-a-map-1)
+	- [Where's my data?](#wheres-my-data)
+- [Further assistance](#help)
 
 ## What is Shareabouts?
 
@@ -109,7 +109,7 @@ via the [one-click Heroku Button installer](https://github.com/openplans/shareab
 or just the map application with an existing data server. Mjumbe Poe at [Poe Public](http://about.mjumbepoe.com/) 
 can help.
 
-## Setting up a map
+## Configuration
 
 Lots of [really great documentation already](https://github.com/openplans/shareabouts#shareabouts-), 
 notes here are just pointers.
