@@ -12,11 +12,12 @@ If you are only running the map locally, edit the file to remove
 everything after the `MAPQUEST_KEY`. Only keep the full file if you plan
 on running a local API server too.
 
-At this point, you can start your map - it will have the default settings.
+At this point, you can [start your map](https://github.com/openplans/shareabouts/tree/master/doc#starting-and-stopping-your-server) - it will have the default settings.
 
-**NOTE: You don't want to check the API key information in to your
+### Keep local_settings out of version control!
+You don't want to check the API key information in to your
 repository, as anyone would be able to write to your data using your
-API key.**
+API key.
 
 ## Step 1: Get a dataset
 
@@ -26,6 +27,8 @@ To use the OpenPlans hosted server, request a dataset and key via support@openpl
 [data.shareabouts.org](http://data.shareabouts.org).
 
 Edit your `local_setting.py` file, update `DATASET_ROOT`, and `DATASET_KEY`. Get this info from your API server. 
+
+### Troubleshooting dataset problems
 
 If after completing setup you see [a screen like this](https://f.cloud.github.com/assets/146749/1627911/d5e82492-56fe-11e3-89d7-9d6b35f10c6b.png) when saving or supporting a place or submitting a reply, then you probably have you dataset key set incorrectly in your settings.
 
@@ -40,9 +43,7 @@ of *flavors/*.  Name it whatever you want.
 Edit your `local_setting.py` file, changing `SHAREABOUTS_FLAVOR` to the name of the flavor directory you just
 created.
 
-
 ## Step 3: Edit your flavor
-
 
 Your flavor directory contains a *config.yml* file that you will be
 editing throughout the rest of these instructions. Once you're done with config and local testing,
