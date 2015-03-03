@@ -1,8 +1,6 @@
-Configuring your Shareabouts web instance
-=====================================
+# Configuring your Shareabouts web instance
 
-Step 0: Create local_settings.py
------------------------
+## Step 0: Create local_settings.py
 
 Your `local_settings.py` tells Shareabouts where your map's data is stored, what flavor to use,
 and some other settings. Until this file exists, your map won't run.
@@ -20,8 +18,7 @@ At this point, you can start your map - it will have the default settings.
 repository, as anyone would be able to write to your data using your
 API key.**
 
-Step 1: Get a dataset
-------------------------
+## Step 1: Get a dataset
 
 You'll need an account on a Shareabouts API server.
 
@@ -33,8 +30,7 @@ Edit your `local_setting.py` file, update `DATASET_ROOT`, and `DATASET_KEY`. Get
 If after completing setup you see [a screen like this](https://f.cloud.github.com/assets/146749/1627911/d5e82492-56fe-11e3-89d7-9d6b35f10c6b.png) when saving or supporting a place or submitting a reply, then you probably have you dataset key set incorrectly in your settings.
 
 
-Step 2: Create a flavor
------------------------
+## Step 2: Create a flavor
 
 A "flavor" is a particular configuration of Shareabouts.
 
@@ -45,8 +41,8 @@ Edit your `local_setting.py` file, changing `SHAREABOUTS_FLAVOR` to the name of 
 created.
 
 
-Step 3: Edit your flavor
------------------------
+## Step 3: Edit your flavor
+
 
 Your flavor directory contains a *config.yml* file that you will be
 editing throughout the rest of these instructions. Once you're done with config and local testing,
