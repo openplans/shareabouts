@@ -24,6 +24,8 @@ SHAREABOUTS = {
 # For geocoding...
 MAPQUEST_KEY = 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u'
 
+# Unless you are running both the map and API locally, delete/comment out everything below. 
+
 # API settings
 DATABASES = {
     'default': {
