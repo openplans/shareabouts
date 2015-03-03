@@ -1,5 +1,17 @@
 Notes for a 90 minute workshop on using Shareabouts - we're covering a lot of material today. 
 
+- [What is Shareabouts?](#)
+	- [A brief history of Shareabouts](#)
+	- [Why you might use it](#)
+	- [Strengths of Shareabouts](#)
+	- [Very important considerations in designing your map](#)
+- [The structure of a Shareabouts map](#)
+- [Setting up a map](#)
+	- [Up front work you need to do](#)
+	- [Setting up a map](#)
+	- [Where's my data?](#)
+- [Help!](#)
+
 ## What is Shareabouts?
 
 ### A brief history of Shareabouts
