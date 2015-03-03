@@ -38,16 +38,18 @@ You may need to use `sudo` to install these tools.
     sudo easy_install pip
     sudo pip install virtualenv
 
-Download the code from github:
+Use git to download the latest code from Github to your computer:
 
     git clone https://github.com/openplans/shareabouts.git
 
-Create a new virtual environment inside of the repository folder, and install
-the project requirements:
+Create a new virtual environment inside of the repository folder
 
     cd shareabouts
     virtualenv env
     source env/bin/activate
+    
+If you're only installing the web app, edit `requirements.txt` and delete everything below the header _Shareabouts API Dependencies_. Keep the full requirements.txt if you plan on running the API locally. Install the project requirements:  
+
     pip install -r requirements.txt
 
 NOTE: If you run into trouble with gevent, you can safely comment it out of
