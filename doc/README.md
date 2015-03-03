@@ -52,7 +52,14 @@ Create a new virtual environment inside of the repository folder
     virtualenv env
     source env/bin/activate
     
-If you're only installing the web app, edit `requirements.txt` and delete everything below the header _Shareabouts API Dependencies_. Keep the full requirements.txt if you plan on running the API locally. Install the project requirements:  
+If you're only installing the web app, edit `requirements.txt`:
+
+1. delete everything below the header _Shareabouts API Dependencies_
+2. add `ujson` to the list of packages (anywhere in the file is fine)
+
+Keep the full requirements.txt if you plan on running the API locally. 
+
+To install the project requirements, run 
 
     pip install -r requirements.txt
 
@@ -71,9 +78,9 @@ Mac OS X users need a command line C/C++ compiler in place for the above steps t
 This can be done by downloading Xcode from the App Store and then installing the Command Line Tools
 via Xcode's Preferences > Downloads area. 
 
-## Starting and stopping your server
+## Starting and stopping your local map instance
 
-If you've completed the steps above, you should be ready to run your server. But until [you configure your `local_settings.py`](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md#step-2-set-up-your-local-settings), you'll see an error. 
+If you've completed the steps above, you should be ready to run your map locallu. But until [you configure your `local_settings.py`](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md#step-2-set-up-your-local-settings), you'll see an error. 
 
 To run the development server:
 
