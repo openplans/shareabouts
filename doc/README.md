@@ -1,8 +1,7 @@
-From 0 to Shareabouts in about an hour
-======================================
+# From 0 to Shareabouts in about an hour
 
-What's here
-------------
+
+## What's here
 
 This package contains the Shareabouts web map application,
 which consists of JavaScript, some configuration files that you use to
@@ -15,8 +14,7 @@ Go to [api.shareabouts.org](http://api.shareabouts.org) and request access.
 
 Here's a short, optional [primer on the architecture of Shareabouts](https://github.com/openplans/shareabouts/blob/master/doc/ARCHITECTURE.md#shareabouts-architecture).
 
-Local Setup
-------------
+## Local Setup
 
 Running a local version of Shareabouts is much easier on a Mac or Linux computer.
 If you are using Windows, consider setting up a virtual machine (e.g. [VirtualBox](https://www.virtualbox.org/)) running a Linux distribution 
@@ -63,10 +61,9 @@ need to run `sudo apt-get install python-dev` or download a fresh installer from
 
 NOTE: Mac OS X users need a command line C/C++ compiler in place for the above steps to work. 
 This can be done by downloading Xcode from the App Store and then installing the Command Line Tools
-via Xcode's Preferences > Downloads area.
+via Xcode's Preferences > Downloads area. 
 
-Starting and stopping your server
----------------------------
+## Starting and stopping your server
 
 If you've completed the steps above, you should be ready to run your server. But until [you configure your `local_settings.py`](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md#step-2-set-up-your-local-settings), you'll see an error. 
 
@@ -87,8 +84,7 @@ To close out your virtual environment, run
 
     deactivate
 
-Running the Shareabouts API Service
-------------------------------------
+## Running the Shareabouts API Service
 
 For local development, your best bet is to use OpenPlans' hosted API, data.shareabouts.org. 
 [Contact us](http://openplans.org/about/) and request a dataset key. We'll happily provide
@@ -98,20 +94,17 @@ Alternatively, install and run the
 back-end API service yourself.  To do so, you will want clone the
 [Shareabouts API](https://github.com/openplans/shareabouts-api).
 
-Configuration
---------------
+## Configuration
 
 Next you need to configure the Shareabouts web app.
 See [the config docs](CONFIG.md).
 
 
-Deployment
--------------
+## Deployment
 
 See [the deployment docs](https://github.com/openplans/shareabouts/blob/master/doc/DEPLOY.md).
 
 
-Testing
---------
+## Testing
 
 To run the tests, see [the testing docs](TESTING.md).
