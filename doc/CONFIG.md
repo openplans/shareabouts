@@ -1,7 +1,26 @@
-Setting up a Shareabouts Web instance
+Configuring your Shareabouts web instance
 =====================================
 
-Step 0: Create a Dataset
+Step 0: Create local_settings.py
+-----------------------
+
+Your `local_settings.py` tells Shareabouts where your map's data is stored, what flavor to use,
+and some other settings. Until this file exists, your map won't run.
+
+Copy the *project/local_settings.py.template* file to
+*project/local_settings.py*.
+
+If you are only running the map locally, edit the file to remove 
+everything after the `MAPQUEST_KEY`. Only keep the full file if you plan
+on running a local API server too.
+
+At this point, you can start your map - it will have the default settings.
+
+**NOTE: You don't want to check the API key information in to your
+repository, as anyone would be able to write to your data using your
+API key.**
+
+Step 1: Get a dataset
 ------------------------
 
 You'll need an account on a Shareabouts API server.
@@ -9,7 +28,12 @@ You'll need an account on a Shareabouts API server.
 To use the OpenPlans hosted server, request a dataset and key via support@openplans.org. Your dataset will be on the OpenPlans API server,
 [data.shareabouts.org](http://data.shareabouts.org).
 
-Step 1: Create a flavor
+Edit your `local_setting.py` file, update `DATASET_ROOT`, and `DATASET_KEY`. Get this info from your API server. 
+
+If after completing setup you see [a screen like this](https://f.cloud.github.com/assets/146749/1627911/d5e82492-56fe-11e3-89d7-9d6b35f10c6b.png) when saving or supporting a place or submitting a reply, then you probably have you dataset key set incorrectly in your settings.
+
+
+Step 2: Create a flavor
 -----------------------
 
 A "flavor" is a particular configuration of Shareabouts.
@@ -17,23 +41,8 @@ A "flavor" is a particular configuration of Shareabouts.
 Copy the *flavors/default* folder to a new subdirectory
 of *flavors/*.  Name it whatever you want.
 
-
-Step 2: Set up your local settings
------------------------
-
-Copy the *project/local_settings.py.template* file to
-*project/local_settings.py*.
-
-Edit the new file, changing `SHAREABOUTS_FLAVOR` to the name of the flavor directory you just
+Edit your `local_setting.py` file, changing `SHAREABOUTS_FLAVOR` to the name of the flavor directory you just
 created.
-
-Also update `DATASET_ROOT`, and `DATASET_KEY`. Get this info from your API server. In `DATASET_ROOT`, change _v1_ to _v2_.
-
-**NOTE: You don't want to check the API key information in to your
-repository, as anyone would be able to write to your data using your
-API key.**
-
-If after completing setup you see [a screen like this](https://f.cloud.github.com/assets/146749/1627911/d5e82492-56fe-11e3-89d7-9d6b35f10c6b.png) when saving or supporting a place or submitting a reply, then you probably have you dataset key set incorrectly in your settings.
 
 
 Step 3: Edit your flavor
