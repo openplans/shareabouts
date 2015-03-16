@@ -6,10 +6,10 @@
 This package contains the Shareabouts web map application,
 which consists of JavaScript, some configuration files that you use to
 tailor the app to your needs, and a small glue layer that talks to the
-underlying Shareabouts API server. 
+underlying Shareabouts API server.
 
-The Shareabouts API is *not* part of this package. The easiesy way to get up and running is 
-to use the beta hosted API, managed by OpenPlans. 
+The Shareabouts API is *not* part of this package. The easiesy way to get up and running is
+to use the beta hosted API, managed by OpenPlans.
 Go to [api.shareabouts.org](http://api.shareabouts.org) and request access.
 
 Here's a short, optional [primer on the architecture of Shareabouts](https://github.com/openplans/shareabouts/blob/master/doc/ARCHITECTURE.md#shareabouts-architecture).
@@ -17,7 +17,7 @@ Here's a short, optional [primer on the architecture of Shareabouts](https://git
 ## Local Setup
 
 Running a local version of Shareabouts is much easier on a Mac or Linux computer.
-If you are using Windows, consider setting up a virtual machine (e.g. [VirtualBox](https://www.virtualbox.org/)) running a Linux distribution 
+If you are using Windows, consider setting up a virtual machine (e.g. [VirtualBox](https://www.virtualbox.org/)) running a Linux distribution
 ([here are some step-by-step instructions for Ubuntu on Windows with VirtualBox](https://help.ubuntu.com/community/VirtualBox#Installing_Virtualbox_in_Windows)).
 
 Shareabouts requires python2.6 or greater.
@@ -30,7 +30,7 @@ Install `git`, if not already installed, from [http://git-scm.com/downloads](htt
 
 Install `pip` and `virtualenv`, if not already installed.  These will keep your
 python code isolated from the rest of your machine and ensure you have
-the correct versions. 
+the correct versions.
 
     easy_install pip
     pip install virtualenv
@@ -40,7 +40,7 @@ You may need to use `sudo` to install these tools.
     sudo easy_install pip
     sudo pip install virtualenv
 
-### Install Shareabouts locally 
+### Install Shareabouts locally
 
 Use git to download the latest code from Github to your computer:
 
@@ -68,13 +68,13 @@ install the Python development libraries (for Python.h). The Windows installatio
 but some UNIX-based systems with a pre-installed Python may not. On such systems, you may
 need to run `sudo apt-get install python-dev` or download a fresh installer from python.org.
 
-Mac OS X users need a command line C/C++ compiler in place for the above steps to work. 
+Mac OS X users need a command line C/C++ compiler in place for the above steps to work.
 This can be done by downloading Xcode from the App Store and then installing the Command Line Tools
-via Xcode's Preferences > Downloads area. 
+via Xcode's Preferences > Downloads area.
 
 ## Starting and stopping your local map instance
 
-If you've completed the steps above, you should be ready to run your map locallu. But until [you configure your `local_settings.py`](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md#step-2-set-up-your-local-settings), you'll see an error. 
+If you've completed the steps above, you should be ready to run your map locallu. But until [you configure your `local_settings.py`](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md#step-2-set-up-your-local-settings), you'll see an error.
 
 To run the development server:
 
@@ -95,7 +95,7 @@ To close out your virtual environment, run
 
 ## Running the Shareabouts API Service
 
-For local development, your best bet is to use OpenPlans' hosted API, data.shareabouts.org. 
+For local development, your best bet is to use OpenPlans' hosted API, data.shareabouts.org.
 [Contact us](http://openplans.org/about/) and request a dataset key. We'll happily provide
 hosting to community and non-commercial projects.
 
