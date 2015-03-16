@@ -51,15 +51,9 @@ Create a new virtual environment inside of the repository folder
     cd shareabouts
     virtualenv env
     source env/bin/activate
-    
-If you're only installing the web app, edit `requirements.txt`:
 
-1. delete everything below the header _Shareabouts API Dependencies_
-2. add `ujson` to the list of packages (anywhere in the file is fine)
-
-Keep the full requirements.txt if you plan on running the API locally. 
-
-To install the project requirements, run 
+To install the project requirements (**NOTE: If you're only installing the web
+app, replace *requirements.txt* below with *app-requirements.txt*)**, run
 
     pip install -r requirements.txt
 
