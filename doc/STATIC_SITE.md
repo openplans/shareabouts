@@ -41,7 +41,10 @@ directly from your client using a static snapshot of your map data.
 
 4. **Turn off submissions and activity.**
 
-   When serving from a snapshot you'll probably also want to adjust your *config.yml* file so that the new place button and the activity ticker are both hidden. Also, you will probably want to add styles to hide the sign-in widgets and the comment/survey forms. In your *custom.css*, add:
+   When serving from a snapshot you'll probably also want to adjust your
+   *config.yml* file so that the new place button and the activity ticker are
+   both hidden. Also, you will probably want to add styles to hide the sign-in
+   widgets and the comment/survey forms. In your *custom.css*, add:
 
         #auth-nav-container {
           display: none;
@@ -75,10 +78,11 @@ directly from your client using a static snapshot of your map data.
           color: #000;
           cursor: default;
         }
-
         .support .user-support:hover label {
           background-color: transparent;
           color: #000;
         }
 
-   Use the background and foreground colors appropriate to your theme.
+   Use the background and foreground colors appropriate to your theme. Use your
+   browser's inspector tool to get the colors of the unhovered state of the 
+   button.
