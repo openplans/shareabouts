@@ -37,7 +37,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     getAttrs: function($form) {
-      var attrs = {};
+      var attrs = {},
+          multivalues = [];
 
       // Get values from the form. Make the item into an array if there are
       // multiple values in the form, as in the case of a set of check boxes or
