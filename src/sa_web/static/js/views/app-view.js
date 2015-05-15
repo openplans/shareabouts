@@ -64,7 +64,8 @@ var Shareabouts = Shareabouts || {};
             url;
 
         // Allow shift+click for new tabs, etc.
-        if ((href === '/' ||
+        if (($link.attr('rel') === 'internal' ||
+             href === '/' ||
              href.indexOf('/place') === 0 ||
              href.indexOf('/page') === 0) &&
              !evt.altKey && !evt.ctrlKey && !evt.metaKey && !evt.shiftKey) {
