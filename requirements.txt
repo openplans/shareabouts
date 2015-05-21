@@ -27,7 +27,7 @@ django-extensions
 #=============================================================#
 
 
-git+https://github.com/openplans/shareabouts-api.git@42d862dbb#shareabouts-api
+git+https://github.com/openplans/shareabouts-api.git@beabf760#shareabouts-api
 
 
 # ==============================
