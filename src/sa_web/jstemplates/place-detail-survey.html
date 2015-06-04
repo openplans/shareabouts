@@ -23,7 +23,7 @@
                       <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
                     {{^}}
                       <!-- TODO: FIXME: don't hardcode image URL -->
-                      <img src="/static/css/images/user-50.png" class="avatar" /> {{ submitter_name }}
+                      <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" /> {{ submitter_name }}
                     {{/if}}
                   </strong>
                   <span class="response-date">

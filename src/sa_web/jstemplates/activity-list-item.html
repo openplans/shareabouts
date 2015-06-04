@@ -6,7 +6,7 @@
           <img src="{{ target.submitter.avatar_url }}" class="avatar" /> {{ target.submitter.name }}
         {{^}}
           <!-- TODO: FIXME: don't hardcode image URL -->
-          <img src="/static/css/images/user-50.png" class="avatar" /> {{ target.submitter_name }}
+          <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" /> {{ target.submitter_name }}
         {{/if}}
         </strong>
 
