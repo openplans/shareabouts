@@ -27,21 +27,21 @@ MAPQUEST_KEY = 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u'
 # Unless you are running both the map and API locally, delete/comment out everything below. 
 
 # API settings
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'shareabouts-old',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
-REST_FRAMEWORK = {
-    'PAGINATE_BY': 500,
-    'PAGINATE_BY_PARAM': 'page_size'
-}
-
-BROKER_URL = 'django://'
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#        'NAME': 'shareabouts-old',
+#        'USER': 'postgres',
+#        'PASSWORD': 'postgres',
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+#}
+#
+#REST_FRAMEWORK = {
+#    'PAGINATE_BY': 500,
+#    'PAGINATE_BY_PARAM': 'page_size'
+#}
+#
+#BROKER_URL = 'django://'
 
