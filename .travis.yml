@@ -1,10 +1,25 @@
 # https://github.com/travis-ci/travis-ci/wiki/.travis.yml-options
 
-install: "ci/install.sh"
-script: "ci/script.sh"
 python:
   - "2.6"
   - "2.7"
+
+# This is redundant, but explicit,, since 'sudo' is disabled by default to
+# make use of Travis CI's container technology.
+sudo: false
+
+# Exporting our $HOME gets us around the 'sudo pip install...' issue
+# Inpiration for this fix found here:
+# https://github.com/travis-ci/travis-ci/issues/3563
+before_script:
+  - export PATH=$HOME/.local/bin:$PATH
+  - pip install -r requirements.txt --user `whoami`
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
+install: "ci/install.sh"
+
+script: "ci/script.sh"
 notifications:
   irc:
     channels:
