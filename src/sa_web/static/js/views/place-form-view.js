@@ -46,12 +46,11 @@ var Shareabouts = Shareabouts || {};
     // Get the attributes from the form
     getAttrs: function() {
       var attrs = {},
-          locationAttr = this.options.placeConfig.location_item_name;
+          locationAttr = this.options.placeConfig.location_item_name,
+          $form = this.$('form');
 
       // Get values from the form
-      _.each(this.$('form').serializeArray(), function(item, i) {
-        attrs[item.name] = item.value;
-      });
+      attrs = S.Util.getAttrs($form);
 
       // Get the location attributes from the map
       attrs.geometry = {
