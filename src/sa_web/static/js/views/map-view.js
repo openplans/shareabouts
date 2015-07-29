@@ -159,7 +159,8 @@ var Shareabouts = Shareabouts || {};
         router: this.options.router,
         map: this.map,
         placeLayers: this.placeLayers,
-        placeTypes: this.options.placeTypes
+        placeTypes: this.options.placeTypes,
+        mapView: this
       });
     },
     removeLayerView: function(model) {
@@ -168,6 +169,30 @@ var Shareabouts = Shareabouts || {};
     },
     zoomInOn: function(latLng) {
       this.map.setView(latLng, this.options.mapConfig.options.maxZoom || 17);
+    },
+
+    filter: function(locationType) {
+      var self = this;
+      console.log('filter the map', arguments);
+      this.locationTypeFilter = locationType;
+      this.collection.each(function(model) {
+        var modelLocationType = model.get('location_type');
+
+        if (modelLocationType &&
+            modelLocationType.toUpperCase() === locationType.toUpperCase()) {
+          self.layerViews[model.cid].show();
+        } else {
+          self.layerViews[model.cid].hide();
+        }
+      });
+    },
+
+    clearFilter: function() {
+      var self = this;
+      this.locationTypeFilter = null;
+      this.collection.each(function(model) {
+        self.layerViews[model.cid].render();
+      });
     }
   });
 

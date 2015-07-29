@@ -295,6 +295,21 @@ pages:
       - title: _(GitHub)
         external: true
         url: https://github.com/openplans/shareabouts
+  - title: Filter Places
+    slug: filter-type
+    pages:
+      - title: All
+        external: true
+        url: /filter/all
+      - title: _(Landmark)
+        url: /filter/landmark
+        external: true
+      - title: _(Park)
+        url: /filter/park
+        external: true
+      - title: _(School)
+        url: /filter/school
+        external: true
 
 notifications:
   on_new_place: true

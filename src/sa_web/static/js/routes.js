@@ -12,12 +12,14 @@ var Shareabouts = Shareabouts || {};
       'place/:id/edit': 'editPlace',
       'list': 'showList',
       'page/:slug': 'viewPage',
+      'filter/:locationtype': 'filterMap',
       ':zoom/:lat/:lng': 'viewMap'
     },
 
     initialize: function(options) {
       var self = this,
-          startPageConfig;
+          startPageConfig,
+          filteredRoutes;
 
       S.PlaceModel.prototype.getLoggingDetails = function() {
         return this.id;
@@ -39,6 +41,15 @@ var Shareabouts = Shareabouts || {};
       this.bind('route', function(route, router) {
         S.Util.log('ROUTE', self.getCurrentPath());
       });
+
+      filteredRoutes = this.getFilteredRoutes();
+      this.bind('route', function(route) {
+        // If the route shouldn't be filtered, then clear the filter. Otherwise
+        // leave it alone.
+        if (!_.contains(filteredRoutes, route)) {
+          this.clearLocationTypeFilter();
+        }
+      }, this);
 
       this.loading = true;
       this.collection = new S.PlaceCollection([]);
@@ -89,6 +100,11 @@ var Shareabouts = Shareabouts || {};
     },
 
     viewMap: function(zoom, lat, lng) {
+      if (this.appView.mapView.locationTypeFilter) {
+        // If there's a filter applied, actually go to that filtered route.
+        this.navigate('/filter/' + this.appView.mapView.locationTypeFilter, {trigger: false});
+      }
+
       this.appView.viewMap(zoom, lat, lng);
     },
 
@@ -118,6 +134,61 @@ var Shareabouts = Shareabouts || {};
       return (fragment === '' || (fragment.indexOf('place') === -1 &&
         fragment.indexOf('page') === -1 &&
         fragment.indexOf('list') === -1));
+    },
+
+    getFilteredRoutes: function() {
+      return ['filterMap', 'viewPlace', 'showList', 'viewMap'];
+    },
+
+    clearLocationTypeFilter: function() {
+      this.setLocationTypeFilter('all');
+    },
+
+    setLocationTypeFilter: function(locationType) {
+      // TODO: This functionality should be moved in to the app-view
+      var $filterIndicator = $('#current-filter-type');
+      if ($filterIndicator.length === 0) {
+        $filterIndicator = $('<div id="current-filter-type"/>')
+          .insertAfter($('.menu-item-filter-type > a:first-child'));
+      }
+
+      // Get the menu information for the current location type
+      var filterMenu = _.findWhere(S.Config.pages, {'slug': 'filter-type'});
+      var menuItem = _.findWhere(filterMenu.pages, {'url': '/filter/' + locationType});
+
+      if (locationType !== 'all') {
+        this.appView.mapView.filter(locationType);
+        this.appView.listView.filter({'location_type': locationType});
+
+        // Show the menu item title with the coresponding style
+        if (menuItem) {
+          $filterIndicator
+            .removeClass()
+            .addClass(locationType)
+            .html(menuItem.title);
+        }
+
+      } else {
+        // If the filter is 'all', we're unsetting the filter.
+        this.appView.mapView.clearFilter();
+        this.appView.listView.clearFilters();
+
+        $filterIndicator
+          .removeClass()
+          .addClass('unfiltered')
+          .empty();
+      }
+    },
+
+    filterMap: function(locationType) {
+      this.setLocationTypeFilter(locationType);
+      if (locationType === 'all') {
+        if (this.appView.listView.isVisible()) {
+          this.navigate('/list', {trigger: false});
+        } else {
+          this.navigate('/', {trigger: false});
+        }
+      }
     }
   });
 
