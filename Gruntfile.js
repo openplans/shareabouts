@@ -46,7 +46,7 @@ module.exports = function(grunt) {
           '<%= dirs.dest %>/libs.min.js': ['<%= dirs.src %>/libs/underscore.js',
                                            '<%= dirs.src %>/libs/backbone.js',
                                            '<%= dirs.src %>/libs/backbone.marionette.js',
-                                           '<%= dirs.src %>/libs/handlebars-1.0.0.js',
+                                           '<%= dirs.src %>/libs/handlebars-v3.0.3.js',
                                            '<%= dirs.src %>/libs/moment-with-locales.min.js',
                                            '<%= dirs.src %>/libs/json2.js',
                                            '<%= dirs.src %>/libs/leaflet.argo.js',
