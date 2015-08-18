@@ -1,6 +1,6 @@
 {
   "name": "shareabouts-django-client",
-  "version": "3.18.0",
+  "version": "3.19.1",
   "description": "Standalone Shareabouts client and server package",
   "main": "index.js",
   "repository": {
