@@ -209,7 +209,7 @@ var Shareabouts = Shareabouts || {};
           if (_.isFunction(val) && !val(model)) {
             return hide();
           }
-          else if (val.toUpperCase() !== model.get(key).toUpperCase()) {
+          else if (!model.get(key) || val.toUpperCase() !== model.get(key).toUpperCase()) {
             return hide();
           }
         }
