@@ -153,8 +153,13 @@ var Shareabouts = Shareabouts || {};
       }
 
       // Get the menu information for the current location type
-      var filterMenu = _.findWhere(S.Config.pages, {'slug': 'filter-type'});
-      var menuItem = _.findWhere(filterMenu.pages, {'url': '/filter/' + locationType});
+      var filterMenu, menuItem;
+      if (S.Config.pages) {
+        filterMenu = _.findWhere(S.Config.pages, {'slug': 'filter-type'});
+      }
+      if (filterMenu) {
+        menuItem = _.findWhere(filterMenu.pages, {'url': '/filter/' + locationType});
+      }
 
       if (locationType !== 'all') {
         this.appView.mapView.filter(locationType);
