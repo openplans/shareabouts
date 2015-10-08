@@ -18,4 +18,9 @@
     {{!-- <city>, <state> <zip> --}}
     {{adminArea5}}, {{adminArea3}}
   {{/is}}
+
+  {{#is geocodeQuality 'STREET'}}
+    {{!-- <street address>, <city> <state> --}}
+    {{street}}, {{adminArea5}} {{adminArea3}}
+  {{/is}}
 {{/if}}
