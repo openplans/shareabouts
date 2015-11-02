@@ -24,12 +24,14 @@
   <!-- Mobile Viewport Fix -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
 
+  {% block app_icons %}
   <!-- Favicon & Progressively-Enhanced Touch Icons: http://mathiasbynens.be/notes/touch-icons#sizes -->
   <link rel="shortcut icon" href="{{ config.static_url }}css/images/favicon.ico">
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ config.static_url }}css/images/apple-touch-icon-144x144-precomposed.png">
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ config.static_url }}css/images/apple-touch-icon-114x114-precomposed.png">
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ config.static_url }}css/images/apple-touch-icon-72x72-precomposed.png">
   <link rel="apple-touch-icon-precomposed" href="{{ config.static_url }}css/images/apple-touch-icon-precomposed.png">
+  {% endblock app_icons %}
 
   <!-- Google WebFonts -->
   <link href='//fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
