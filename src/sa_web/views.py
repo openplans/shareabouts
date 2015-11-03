@@ -3,6 +3,7 @@ import yaml
 import ujson as json
 import logging
 import os
+import re
 import time
 import hashlib
 import httpagentparser
@@ -24,7 +25,11 @@ log = logging.getLogger(__name__)
 
 
 def make_api_root(dataset_root):
-    components = dataset_root.split('/')
+    # allow for non-dynamic override
+    if settings.SHAREABOUTS['API_ROOT']:
+        return settings.SHAREABOUTS['API_ROOT']
+    # remove http headers before / split
+    components = re.sub(r"http(s)*://","",dataset_root).split('/')
     if dataset_root.endswith('/'):
         return '/'.join(components[:-4]) + '/'
     else:
