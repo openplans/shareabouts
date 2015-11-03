@@ -26,7 +26,7 @@ log = logging.getLogger(__name__)
 
 def make_api_root(dataset_root):
     # allow for non-dynamic override
-    if settings.SHAREABOUTS['API_ROOT']:
+    if 'API_ROOT' in settings.SHAREABOUTS:
         return settings.SHAREABOUTS['API_ROOT']
     # remove http headers before / split
     components = re.sub(r"http(s)*://","",dataset_root).split('/')
