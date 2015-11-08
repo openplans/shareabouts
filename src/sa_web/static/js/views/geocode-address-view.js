@@ -23,6 +23,7 @@ var Shareabouts = Shareabouts || {};
       var self = this,
           $address = this.$('.geocode-address-field'),
           address = $address.val(),
+          geocodingEngine = this.options.mapConfig.geocoding_engine || 'MapQuest',
           hint = this.options.mapConfig.geocode_bounding_box ||
                  this.options.mapConfig.geocode_hint;
 
@@ -35,7 +36,7 @@ var Shareabouts = Shareabouts || {};
       }
 
 
-      S.Util.MapQuest.geocode(address, hint, {
+      S.Util[geocodingEngine].geocode(address, hint, {
         success: function(data) {
           var locationsData = data.results[0].locations;
           // Hide the spinner

@@ -469,7 +469,8 @@ var Shareabouts = Shareabouts || {};
         var mapboxToken = S.bootstrapped.mapboxToken,
             lat, lng;
 
-        if (!mapboxToken) throw "You must provide a Mapbox access token for geocoding to work.";
+        if (!mapboxToken) throw "You must provide a Mapbox access token " +
+          "(Shareabouts.bootstrapped.mapboxToken) for geocoding to work.";
 
         lat = latLng.lat || latLng[0];
         lng = latLng.lng || latLng[1];
