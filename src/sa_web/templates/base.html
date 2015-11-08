@@ -191,7 +191,8 @@
   <script>
     Shareabouts.bootstrapped = {
       staticUrl: '{{ STATIC_URL }}',
-      mapQuestKey: '{{ settings.MAPQUEST_KEY }}'
+      mapQuestKey: '{{ settings.MAPQUEST_KEY }}',
+      mapboxToken: '{{ settings.MAPBOX_TOKEN }}'
     };
 
     function bootstrapCurrentUser(data) {

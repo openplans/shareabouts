@@ -21,10 +21,10 @@ var Shareabouts = Shareabouts || {};
     onGeocodeAddress: function(evt) {
       evt.preventDefault();
       var self = this,
-          mapQuestKey = S.bootstrapped.mapQuestKey,
           $address = this.$('.geocode-address-field'),
           address = $address.val(),
-          bounds = this.options.mapConfig.geocode_bounding_box;
+          hint = this.options.mapConfig.geocode_bounding_box ||
+                 this.options.mapConfig.geocode_hint;
 
       // Show the spinner
       self.$('.geocode-spinner').removeClass('is-hidden');
@@ -35,7 +35,7 @@ var Shareabouts = Shareabouts || {};
       }
 
 
-      S.Util.MapQuest.geocode(address, bounds, {
+      S.Util.MapQuest.geocode(address, hint, {
         success: function(data) {
           var locationsData = data.results[0].locations;
           // Hide the spinner

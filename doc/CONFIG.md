@@ -8,7 +8,7 @@ and some other settings. Until this file exists, your map won't run.
 Copy the *project/local_settings.py.template* file to
 *project/local_settings.py*.
 
-If you are only running the map locally, edit the file to remove 
+If you are only running the map locally, edit the file to remove
 everything after the `MAPQUEST_KEY`. Only keep the full file if you plan
 on running a local API server too.
 
@@ -26,7 +26,7 @@ You'll need an account on a Shareabouts API server.
 To use the OpenPlans hosted server, request a dataset and key via support@openplans.org. Your dataset will be on the OpenPlans API server,
 [data.shareabouts.org](http://data.shareabouts.org).
 
-Edit your `local_setting.py` file, update `DATASET_ROOT`, and `DATASET_KEY`. Get this info from your API server. 
+Edit your `local_setting.py` file, update `DATASET_ROOT`, and `DATASET_KEY`. Get this info from your API server.
 
 ### Troubleshooting dataset problems
 
@@ -89,6 +89,24 @@ flavor [config file](https://github.com/openplans/shareabouts/blob/master/src/fl
 The data used in that example can also be found in the flavor under the
 [*/static/layers/*](https://github.com/openplans/shareabouts/tree/master/src/flavors/overlays/static/layers)
 folder.
+
+### Geocoding
+
+You can enable address/point-of-interest search in your config file by specifying
+`geocoding_enabled: true` in the `map` config section. By default Shareabouts uses
+the **MapQuest** geocoder. You can use the **Mapbox** geocoder instead with the
+`geocoding_engine: 'Mapbox'` setting. If you use the Mapbox geocoder, you must
+provide an access token as well. Your token can be specified in the environment
+variable `MAPBOX_TOKEN`.
+
+The geocoding configuration has a few other options:
+
+* `geocode_field_label`: The placeholder text in the geocoding field
+* `geocode_hint`: For the **MapQuest** geocoder, this should be bounding box
+  represented as an array of upper left latitude, upper left longitude, lower right
+  latitude, lower right longitude. For the **Mapbox** geocoder, it should be proximity
+  hint represented as a [lng, lat] array.
+
 
 
 ### Place Types

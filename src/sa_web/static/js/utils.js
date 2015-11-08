@@ -398,6 +398,87 @@ var Shareabouts = Shareabouts || {};
         options.url = 'https://open.mapquestapi.com/geocoding/v1/reverse?key=' + mapQuestKey + '&location=' + lat + ',' + lng;
         $.ajax(options);
       }
+    },
+
+    Mapbox: {
+      /* ========================================
+       * Because of an accident of history, geocoding with the MapQuest API was
+       * implemented first in Shareabouts. Thus, in order for geocoder results
+       * from anywhere else to be useful, they have to look like mapquest
+       * results.
+       *
+       * TODO: I'd rather see both the mapquest and mapbox results look more
+       * like GeoJSON, e.g. Carmen:
+       *
+       *     https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+       */
+
+      // L.mapbox.accessToken = 'pk.eyJ1Ijoib3BlbnBsYW5zIiwiYSI6ImNpZjVjdWxpMDBhMnVzcG0zYjZzaXcyczMifQ.lY5dtGpiFt2BvlywF1n59Q';
+      // Shareabouts.geocoderControl = L.mapbox.geocoderControl('mapbox.places', {autocomplete: true});
+      // window.app.appView.mapView.map.addControl(Shareabouts.geocoderControl);
+
+      toMapQuestResult: function(result) {
+        result.latLng = {lat: result.center[1], lng: result.center[0]};
+
+        if (result.center)    delete result.center;
+        if (result.relevance) delete result.relevance;
+        if (result.address)   delete result.address;
+        if (result.context)   delete result.context;
+        if (result.bbox)      delete result.bbox;
+        if (result.id)        delete result.id;
+        if (result.text)      delete result.text;
+        if (result.type)      delete result.type;
+
+        return result;
+      },
+      toMapQuestResults: function(data) {
+        // Make Mapbox reverse geocode results look kinda like
+        // MapQuest results.
+        data.results = data.features;
+        if (data.results.length > 0) {
+          data.results[0] = {locations: [
+            Shareabouts.Util.Mapbox.toMapQuestResult(data.results[0])
+          ]};
+        }
+        return data;
+      },
+
+      geocode: function(location, hint, options) {
+        var mapboxToken = S.bootstrapped.mapboxToken,
+            originalSuccess = options && options.success,
+            transformedResultsSuccess = function(data) {
+              if (originalSuccess) {
+                originalSuccess(Shareabouts.Util.Mapbox.toMapQuestResults(data));
+              }
+            };
+
+        if (!mapboxToken) throw "You must provide a Mapbox access token " +
+          "(Shareabouts.bootstrapped.mapboxToken) for geocoding to work.";
+
+        options = options || {};
+        options.dataType = 'json';
+        options.cache = true;
+        options.url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(location) + '.json?access_token=' + mapboxToken;
+        if (hint) {
+          options.url += '&proximity=' + hint.join(',');
+        }
+        options.success = transformedResultsSuccess;
+        $.ajax(options);
+      },
+      reverseGeocode: function(latLng, options) {
+        var mapboxToken = S.bootstrapped.mapboxToken,
+            lat, lng;
+
+        if (!mapboxToken) throw "You must provide a Mapbox access token for geocoding to work.";
+
+        lat = latLng.lat || latLng[0];
+        lng = latLng.lng || latLng[1];
+        options = options || {};
+        options.dataType = 'json';
+        options.cache = true;
+        options.url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + lng + ',' + lat + '.json?access_token=' + mapboxToken;
+        $.ajax(options);
+      }
     }
   };
 }(Shareabouts));
