@@ -436,9 +436,10 @@ var Shareabouts = Shareabouts || {};
         // MapQuest results.
         data.results = data.features;
         if (data.results.length > 0) {
-          data.results[0] = {locations: [
-            Shareabouts.Util.Mapbox.toMapQuestResult(data.results[0])
-          ]};
+          data.results[0] = {
+            locations: [ Shareabouts.Util.Mapbox.toMapQuestResult(data.results[0]) ],
+            providedLocation: { location: data.query.join(' ') }
+          };
         }
         return data;
       },
