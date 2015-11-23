@@ -26,6 +26,7 @@ var Shareabouts = Shareabouts || {};
         // type is required by Argo for fetching data, so it's a pretty good
         // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
         if (config.type && config.type === 'mapbox') {
+          if (!config.accessToken) { config.accessToken = S.bootstrapped.mapboxToken; }
           L.mapboxGL(config).addTo(self.map);
         } else if (config.type) {
           L.argo(config.url, config).addTo(self.map);

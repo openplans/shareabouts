@@ -77,7 +77,7 @@ Option         |Type      |Default   |Description
 `url`          |String    |None      |The URL template to the tile server. eg. `http://{s}.somedomain.com/blabla/{z}/{x}/{y}.png`. See [this](http://leafletjs.com/reference.html#url-template) description for details.
 `attribution`  |String    |None      |The string used to describe the layer data.
 
-You may alternatively use a MapboxGL layer as your base layer. Use `style` and `accessToken` parameters to configure access to your layer, and set the layer's `type` to `"mapbox"`. You must have your `MAPBOX_TOKEN` environment variable or settings variable set.
+You may alternatively use a MapboxGL layer as your base layer. Use `style` and `accessToken` parameters to configure access to your layer, and set the layer's `type` to `"mapbox"`. If you do not specify an `accessToken` in the configuration, your Mapbox access token will default to the `MAPBOX_TOKEN` environment variable value.
 
 ### Extra Layer Options
 
