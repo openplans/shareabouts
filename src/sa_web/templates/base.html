@@ -64,8 +64,14 @@
 
   <header id="site-header" class="clearfix{% if pages_config %} has-pages{% endif %}">
     <h1 id="site-title">{% block site-title %}{% endblock %}</h1>
+
+    {% block pre_auth_nav %}{% endblock %}
     <div id="auth-nav-container"></div>
+    {% block post_auth_nav %}{% endblock %}
+
+    {% block pre_pages_nav %}{% endblock %}
     <div id="pages-nav-container"></div>
+    {% block post_pages_nav %}{% endblock %}
 
     {% if config.data.app.list_enabled != False %}
     <nav class="list-toggle-nav">
