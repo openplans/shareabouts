@@ -25,7 +25,9 @@ var Shareabouts = Shareabouts || {};
       _.each(self.options.mapConfig.layers, function(config){
         // type is required by Argo for fetching data, so it's a pretty good
         // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
-        if (config.type) {
+        if (config.type && config.type === 'mapbox') {
+          L.mapboxGL(config).addTo(self.map);
+        } else if (config.type) {
           L.argo(config.url, config).addTo(self.map);
         } else {
           // Assume a tile layer

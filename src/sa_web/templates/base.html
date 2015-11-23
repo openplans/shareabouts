@@ -131,6 +131,12 @@
   <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}libs/jquery-1.10.2.js"><\/script>')</script><!-- FIXME: Maybe this should be pulled into the repo as a git submodule-->
   <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
 
+  {% if settings.MAPBOX_TOKEN %}
+  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.css" rel='stylesheet' />
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.js"></script>
+  <script src="{{STATIC_URL}}libs/leaflet-mapbox-gl.js"></script>
+  {% endif %}
+
   {% block cdn_load %}{% endblock %}
 
   {% if settings.DEBUG %}
