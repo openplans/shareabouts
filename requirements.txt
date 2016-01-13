@@ -8,7 +8,7 @@ dj-static==0.0.6
 
 # Templates
 django-jstemplate>=1.3.6
-django_compressor==1.4
+django_compressor==1.6
 
 # Web interface helpers
 django-proxy>=1.0.2
