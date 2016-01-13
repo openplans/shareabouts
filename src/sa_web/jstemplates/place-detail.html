@@ -29,7 +29,7 @@
             <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
 
             {{^if survey_config}}
-            <a href="/place/{{ id }}" class="view-on-map-btn btn btn-small">View On Map</a>
+            <a href="/place/{{ id }}" class="view-on-map-btn btn btn-small">{{#_}}View On Map{{/_}}</a>
             {{/if}}
 
           </span>
