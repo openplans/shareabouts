@@ -35,8 +35,19 @@ map:
     minZoom: 10
     maxZoom: 17
   layers:
+    # Raster Tile Layers
+    # ==================
     - url: https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ
       attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">.'
+
+    # Mapbox GL Layers
+    # ================
+    # - type: mapbox
+    #   style: mapbox://styles/mapbox/streets-v8
+    #   accessToken: pk.eyJ1Ijoib3BlbnBsYW5zIiwiYSI6ImZRQzRPYnMifQ.f75KI3Q9rFXRY2Zciz6DKw
+
+    # GeoJSON Layers
+    # ==============
     - url: /static/data/philadelphia.geojson
       type: json
       rules:
