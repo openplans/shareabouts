@@ -135,9 +135,13 @@ var Shareabouts = Shareabouts || {};
         this.layer.setIcon(icon);
       }
     },
+    getLocationTypeFilter: function() {
+      return this.options.mapView && this.options.mapView.locationTypeFilter;
+    },
     show: function() {
-      if (!this.options.mapView.locationTypeFilter ||
-        this.options.mapView.locationTypeFilter.toUpperCase() === this.model.get('location_type').toUpperCase()) {
+      var locationTypeFilter = this.getLocationTypeFilter();
+      var locationType = this.model.get('location_type');
+      if (!locationTypeFilter || locationTypeFilter.toUpperCase() === locationType.toUpperCase()) {
         if (this.layer) {
           this.options.placeLayers.addLayer(this.layer);
         }

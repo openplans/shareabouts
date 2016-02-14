@@ -8,10 +8,10 @@ describe('map-view.js', function() {
           collection = new Backbone.Collection(Shareabouts.SpecData.placeCollectionData);
 
       mapView = new Shareabouts.MapView({
-        mapConfig: Shareabouts.SpecConfig.mapConfig,
+        mapConfig: Shareabouts.SpecData.AppConfig.map,
         collection: collection,
         router: router,
-        placeTypes: Shareabouts.SpecConfig.placeTypes
+        placeTypes: Shareabouts.SpecData.AppConfig.placeTypes
       });
     });
 

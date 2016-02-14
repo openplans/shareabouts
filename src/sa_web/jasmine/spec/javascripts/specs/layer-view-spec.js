@@ -13,12 +13,12 @@ describe('layer-view.js', function() {
       function getLayerView(o) {
         var options = _.extend({
           model: new Backbone.Model({
-            location_type: 'Landmark'
+            location_type: 'landmark'
           }),
           router: router,
           map: mapView.map,
           placeLayers: mapView.placeLayers,
-          placeTypes: Shareabouts.SpecConfig.placeTypes
+          placeTypes: Shareabouts.SpecData.AppConfig.placeTypes
         }, o);
 
         return new Shareabouts.LayerView(options);
@@ -74,8 +74,8 @@ describe('layer-view.js', function() {
       var layerView = getLayerView({
         model: new Backbone.Model({
           id: 1,
-          location_type: 'Landmark',
-          location: {lat: 39.95238529624027,lng: -75.16356468200684}
+          location_type: 'landmark',
+          geometry: {type: 'Point', coordinates: [-75.16356468200684, 39.95238529624027]}
         })
       });
       spyOn(layerView, 'show');
@@ -89,8 +89,8 @@ describe('layer-view.js', function() {
       var layerView = getLayerView({
         model: new Backbone.Model({
           id: 1,
-          location_type: 'Landmark',
-          location:{"lat":0,"lng":0}
+          location_type: 'landmark',
+          geometry: {type: 'Point', coordinates: [0, 0]}
         })
       });
 

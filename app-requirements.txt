@@ -19,3 +19,6 @@ ujson==1.33
 # Config
 pyyaml
 django-extensions
+
+# Testing
+jasmine

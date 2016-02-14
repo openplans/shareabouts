@@ -19,6 +19,9 @@ httpagentparser
 pyyaml
 django-extensions
 
+# Testing
+jasmine
+
 
 #=============================================================#
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

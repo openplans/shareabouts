@@ -11,11 +11,15 @@ var Shareabouts = Shareabouts || {};
     },
 
     render: function() {
-      var data = S.bootstrapped.currentUser,
+      var data = this.getCurrentUser(),
           template = Handlebars.templates['auth-nav'](data);
       this.$el.html(template);
 
       return this;
+    },
+
+    getCurrentUser: function() {
+      return S.bootstrapped && S.bootstrapped.currentUser;
     },
 
     onLinkClick: function(evt) {
