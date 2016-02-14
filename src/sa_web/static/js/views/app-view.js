@@ -182,7 +182,6 @@ var Shareabouts = Shareabouts || {};
       $(S).on('reversegeocode', function(evt, locationData) {
         var locationString = Handlebars.templates['location-string'](locationData);
         self.geocodeAddressView.setAddress($.trim(locationString));
-        self.placeFormView.setLatLng(locationData.latLng);
         self.placeFormView.setLocation(locationData);
       });
 
