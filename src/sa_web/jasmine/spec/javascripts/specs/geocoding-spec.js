@@ -13,8 +13,13 @@ describe('geocoding', function() {
     var config = Shareabouts.SpecData.AppConfig;
 
     beforeEach(function() {
+      $('body').append('<div id="jasmine-map"/>');
+      $('body').append('<div id="jasmine-list-container"/>');
+
       app = new Shareabouts.App({
         activity: [],
+        mapEl: '#jasmine-map',
+        listContainerEl: '#jasmine-list-container'
 
         defaultPlaceTypeName: config.defaultPlaceTypeName,
         userToken: config.userToken,
@@ -46,6 +51,11 @@ describe('geocoding', function() {
         }
       ];
       $(Shareabouts).trigger('reversegeocode', [locationsData]);
+    });
+
+    afterEach(function() {
+      $('#jasmine-map').remove();
+      $('#jasmine-list-container').remote();
     });
 
     // The behavior of this event is currently in

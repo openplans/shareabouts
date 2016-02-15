@@ -7,12 +7,19 @@ describe('map-view.js', function() {
       var router = new Backbone.Router(),
           collection = new Backbone.Collection(Shareabouts.SpecData.placeCollectionData);
 
+      $('body').append('<div id="jasmine-map"/>');
+
       mapView = new Shareabouts.MapView({
+        el: '#jasmine-map',
         mapConfig: Shareabouts.SpecData.AppConfig.map,
         collection: collection,
         router: router,
         placeTypes: Shareabouts.SpecData.AppConfig.placeTypes
       });
+    });
+
+    afterEach(function() {
+      $('#jasmine-map').remove();
     });
 
     it('should exist', function() {

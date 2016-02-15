@@ -4,6 +4,21 @@ var Shareabouts = Shareabouts || {};
 
 (function(S, $, console) {
   // Handlebars support for Marionette
+  var MarionetteLoadTemplate = Marionette.TemplateCache.prototype.loadTemplate;
+  Marionette.TemplateCache.prototype.loadTemplate = function(templateId, options){
+    var template, templateFunc;
+
+    try {
+      template = MarionetteLoadTemplate.call(this, templateId, options);
+    }
+    catch (e) {
+      templateFunc = Handlebars.templates[templateId.replace(/^#+/, '')];
+      if (!templateFunc) { throwError(e.message, e.name); }
+      else { template = templateFunc(); }
+    }
+    return template;
+  }
+
   Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(rawTemplate) {
     return Handlebars.compile(rawTemplate);
   };

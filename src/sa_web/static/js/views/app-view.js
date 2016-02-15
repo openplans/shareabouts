@@ -134,7 +134,7 @@ var Shareabouts = Shareabouts || {};
 
       // Init the map view to display the places
       this.mapView = new S.MapView({
-        el: '#map',
+        el: this.options.mapEl,
         mapConfig: this.options.mapConfig,
         collection: this.collection,
         router: this.options.router,
@@ -191,7 +191,7 @@ var Shareabouts = Shareabouts || {};
       if (_.isUndefined(self.options.config.app.list_enabled) ||
         self.options.config.app.list_enabled) {
           this.listView = new S.PlaceListView({
-            el: '#list-container',
+            el: self.options.listContainerEl || '#list-container',
             collection: this.collection
           }).render();
       }

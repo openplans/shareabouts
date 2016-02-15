@@ -56,6 +56,7 @@ var Shareabouts = Shareabouts || {};
       this.activities = new S.ActionCollection(options.activity);
       this.appView = new S.AppView({
         el: 'body',
+        mapEl: options.mapEl || '#map',
         collection: this.collection,
         activities: this.activities,
 
