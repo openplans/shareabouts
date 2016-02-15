@@ -30,13 +30,13 @@ describe('activity-view.js', function() {
       expect(Shareabouts.ActivityView).toBeDefined();
     });
 
-    it('should should not detach unsaved models from the place collection when rendering an action', function(){
+    it('should not detach unsaved models from the place collection when rendering an action', function(){
       var placeId = 222,
-          newPlaceModel = new Backbone.Model({ name: 'TestPlace', location_type: 'Landmark' }),
-          newActionModel = new Backbone.Model({ place_id: placeId });
+          newPlaceModel = new Backbone.Model({ name: 'TestPlace', location_type: 'landmark', id: 222 }),
+          newActionModel = new Backbone.Model({ place_id: placeId, target: {id: placeId} });
 
-      spyOn($, 'ajax').andCallFake(function(options){
-        var placeForAction = { id: placeId },
+      spyOn($, 'ajax').and.callFake(function(options){
+        var placeForAction = { id: placeId, type: 'Feature', properties: {}, geometry: {type: 'Point', coordinates: [0, 0]} },
             places = [placeForAction].concat(Shareabouts.SpecData.placeCollectionData);
 
         options.success(places);
