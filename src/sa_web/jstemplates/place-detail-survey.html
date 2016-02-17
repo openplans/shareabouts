@@ -1,16 +1,28 @@
           {{#survey_config.show_responses}}
           <h4 class="survey-header">
-            {{ responses.length }}
-            {{# has_single_response }}{{ survey_config.response_name }}{{/ has_single_response }}
-            {{^ has_single_response }}{{ survey_config.response_plural_name }}{{/ has_single_response }}
+            {{!-- If there are responses to the survey already, then the
+                  number of responses will be shown. Otherwise, a prompt
+                  to leave a response is shown. --}}
+            {{#if responses}}
+              {{ responses.length }}
+              {{# has_single_response }}{{ survey_config.response_name }}{{/ has_single_response }}
+              {{^ has_single_response }}{{ survey_config.response_plural_name }}{{/ has_single_response }}
+            {{else}}
+              {{survey_config.form_link_text}}
+            {{/if}}
           </h4>
 
-          {{#if survey_config.single_submission}}
-            {{^if user_submitted}}
+          {{!-- If there are already responses to the survey, a button/link
+                will be shown that, when clicked, should focus on the first
+                field in the survey form. --}}
+          {{#if responses}}
+            {{#if survey_config.single_submission}}
+              {{^if user_submitted}}
+              <a href="#reply" class="reply-link btn btn-small">{{ survey_config.form_link_text }}</a>
+              {{/if}}
+            {{else}}
             <a href="#reply" class="reply-link btn btn-small">{{ survey_config.form_link_text }}</a>
             {{/if}}
-          {{else}}
-          <a href="#reply" class="reply-link btn btn-small">{{ survey_config.form_link_text }}</a>
           {{/if}}
 
           <ol class="responses unstyled-list">
