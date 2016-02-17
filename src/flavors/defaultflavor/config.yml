@@ -245,6 +245,7 @@ place:
 
 survey:
   submission_type: comments
+  adding_supported: true
 
   # Response config
   show_responses: true
