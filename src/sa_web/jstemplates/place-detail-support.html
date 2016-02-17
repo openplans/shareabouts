@@ -1,6 +1,12 @@
+  {{#if support_config.adding_supported}}
     <form action="#" method="post" class="btn btn-block btn-small user-support">
       <input type="hidden" name="user_token" value="{{{ user_token }}}">
       <input type="hidden" name="visible" value="true">
       <input type="checkbox" id="support"{{# is_supporting }} checked="checked"{{/ is_supporting }}>
       <label for="support"><span class="support-count">{{#if count }}{{ count }}{{else}}0{{/if }}</span> {{ support_config.submit_btn_text }}</label>
     </form>
+  {{else}}
+    <form action="#" method="post" class="btn btn-block btn-small user-support disabled">
+      <label><span class="support-count">{{#if count }}{{ count }}{{else}}0{{/if }}</span> {{ support_config.submit_btn_text }}</label>
+    </form>
+  {{/if}}

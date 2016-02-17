@@ -737,6 +737,11 @@ a.close-btn span {
   padding-left: 22px;
   color: #007fbf;
 }
+.user-support.disabled:hover,
+.user-support.disabled:hover label {
+  cursor: default;
+  background-color: #a3c7d9;
+}
 .user-support input[type=checkbox]:checked ~ label {
   background-image: url(images/heart.png);
 }

@@ -274,6 +274,7 @@ survey:
 
 support:
   submission_type: support
+  adding_supported: true
   submit_btn_text: _(Support)
   response_name: _(support)
   response_plural_name: _(supports)
