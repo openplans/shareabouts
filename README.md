@@ -1,6 +1,8 @@
 Shareabouts [![Build Status](https://secure.travis-ci.org/openplans/shareabouts.png)](http://travis-ci.org/openplans/shareabouts)
 ===========
 
+[![Join the chat at https://gitter.im/openplans/shareabouts](https://badges.gitter.im/openplans/shareabouts.svg)](https://gitter.im/openplans/shareabouts?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Shareabouts is an online mapping tool to gather crowdsourced public input in a social and engaging process. Using Shareabouts, people can drop a pin on a map to provide ideas, suggestions, and comments for planning and design issues. And as a mobile-friendly application, Shareabouts makes it easy to add input on the go.
 
 Read more about Shareabouts and find links to recent sites [on the OpenPlans website](http://openplans.org/shareabouts/).
