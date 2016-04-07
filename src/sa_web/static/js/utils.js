@@ -73,6 +73,17 @@ var Shareabouts = Shareabouts || {};
     },
 
     isSupported: function(userAgent) {
+      // Mobile Safari UIWebViews may not register as a recognized user agent,
+      // so just assume that browsers that we understand are new and should be
+      // supported.
+      var recognized = (userAgent &&
+                        userAgent.browser &&
+                        userAgent.browser.name &&
+                        userAgent.browser.version);
+      if (!recognized) {
+        return true;
+      }
+
       switch (userAgent.browser.name) {
         case 'Chrome':
         case 'Firefox':
