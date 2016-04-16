@@ -1296,7 +1296,7 @@ a.close-unsupported-overlay {
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 60em) {
+@media print, only screen and (min-width: 768px) and (max-width: 60em) {
   #map {
     height: 400px;
   }
@@ -1677,4 +1677,22 @@ a.close-unsupported-overlay {
     background-size: contain;
   }
 
+}
+
+@media only print {
+  #list-container.is-exposed {
+    display: block;
+    overflow: visible;
+    bottom: initial;
+  }
+
+  .place-list li {
+    page-break-inside: avoid;
+  }
+
+  .list-toggle-nav,
+  .geocoding-enabled #geocode-address-bar,
+  #pages-nav-container {
+    display: none;
+  }
 }
