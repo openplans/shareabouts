@@ -36,8 +36,10 @@ From the root Shareabouts directory...
 
   You will need your dataset root API URL for this step.  Suppose you are using an API server named *api.shareabouts.org* with a username *mjumbewu* and a dataset called *niceplaces*. In this case, your dataset root will be `http://api.shareabouts.org/api/v2/mjumbewu/datasets/niceplaces/`.  In general, it will always be `http://<api server>/api/v2/<username>/datasets/<dataset slug>/`.
 
-         heroku config:set BUILDPACK_URL="https://github.com/ddollar/heroku-buildpack-multi.git" \
-                           SHAREABOUTS_FLAVOR=<flavor name> \
+         heroku buildpacks:set "https://github.com/heroku/heroku-buildpack-nodejs.git#v61"
+         heroku buildpacks:add "https://github.com/cyberdelia/heroku-geo-buildpack.git#e1b845b"
+         heroku buildpacks:add "https://github.com/heroku/heroku-buildpack-python.git#v52"
+         heroku config:set SHAREABOUTS_FLAVOR=<flavor name> \
                            SHAREABOUTS_DATASET_ROOT=<dataset root url> \
                            SHAREABOUTS_DATASET_KEY=<dataset api key>
 
