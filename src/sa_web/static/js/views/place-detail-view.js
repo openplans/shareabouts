@@ -75,7 +75,8 @@ var Shareabouts = Shareabouts || {};
     },
 
     remove: function() {
-      // Nothing yet
+      this.model.off('change', this.onChange);
+      this.$el.off('click', '.share-link a');
     },
 
     onChange: function() {
