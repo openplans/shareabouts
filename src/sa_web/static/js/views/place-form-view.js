@@ -107,7 +107,7 @@ var Shareabouts = Shareabouts || {};
 
       this.$(optionButtons || '[data-group-required]').each(function(index, btn) {
         groupNames.push($(btn).attr('name'));
-      }
+      });
 
       _.chain(groupNames).uniq().each(function(groupName) {
         var groupOptions = this.$('[name="' + groupName + '"]');
