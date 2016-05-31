@@ -323,7 +323,14 @@ if 'GOOGLE_ANALYTICS_DOMAIN' in env:
 MAPQUEST_KEY = env.get('MAPQUEST_KEY', 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u')
 MAPBOX_TOKEN = env.get('MAPBOX_TOKEN', '')
 
-SENTRY_DSN = env.get('SENTRY_DSN')
+# Error logging
+import raven
+import re
+RAVEN_CONFIG = {
+    'dsn': os.environ.get('SENTRY_DSN'),
+    'public_dsn': re.sub(':[^/@]+', '', os.environ.get('SENTRY_DSN', '')),
+    'release': raven.fetch_git_sha(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))),
+}
 
 ##############################################################################
 # Local settings overrides
