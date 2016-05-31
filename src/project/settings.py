@@ -323,6 +323,8 @@ if 'GOOGLE_ANALYTICS_DOMAIN' in env:
 MAPQUEST_KEY = env.get('MAPQUEST_KEY', 'Fmjtd%7Cluur2g0bnl%2C25%3Do5-9at29u')
 MAPBOX_TOKEN = env.get('MAPBOX_TOKEN', '')
 
+SENTRY_DSN = env.get('SENTRY_DSN')
+
 ##############################################################################
 # Local settings overrides
 # ------------------------

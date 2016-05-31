@@ -1,0 +1,21 @@
+<script src="https://cdn.ravenjs.com/3.0.4/raven.min.js"></script>
+<script>Raven.config('{{ settings.SENTRY_DSN }}').install()</script>
+<script>
+  $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+    var statusText = thrownError || jqXHR.statusText;
+    var messageTitle = jqXHR.status + ': ' + statusText;
+    
+    Raven.setUserContext(Shareabouts && Shareabouts.bootstrapped && Shareabouts.bootstrapped.currentUser)
+    
+    Raven.captureMessage(messageTitle, {
+      extra: {
+        type: ajaxSettings.type,
+        url: ajaxSettings.url,
+        data: ajaxSettings.data,
+        status: jqXHR.status,
+        error: statusText,
+        response: jqXHR.responseText && jqXHR.responseText.substring(0, 2048)
+      }
+    });
+  });
+</script>
