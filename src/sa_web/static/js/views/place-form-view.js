@@ -27,6 +27,7 @@ var Shareabouts = Shareabouts || {};
       }, S.stickyFieldValues, this.model.toJSON());
 
       this.$el.html(Handlebars.templates['place-form'](data));
+      this.updatedRequiredOptionButtons();
       return this;
     },
     remove: function() {
@@ -101,14 +102,24 @@ var Shareabouts = Shareabouts || {};
         });
       }
     },
-    onRequiredOptionButtonChange: function(evt) {
-      var groupName = $(evt.currentTarget).attr('name');
-      var groupOptions = this.$('[name="' + groupName + '"]');
-      if (groupOptions.is(':checked')) {
-        groupOptions.removeAttr('required');
-      } else {
-        groupOptions.attr('required', 'required');
+    updatedRequiredOptionButtons: function(optionButtons) {
+      var groupNames = []
+
+      this.$(optionButtons || '[data-group-required]').each(function(index, btn) {
+        groupNames.push($(btn).attr('name'));
       }
+
+      _.chain(groupNames).uniq().each(function(groupName) {
+        var groupOptions = this.$('[name="' + groupName + '"]');
+        if (groupOptions.is(':checked')) {
+          groupOptions.removeAttr('required');
+        } else {
+          groupOptions.attr('required', 'required');
+        }
+      }, this);
+    },
+    onRequiredOptionButtonChange: function(evt) {
+      this.updatedRequiredOptionButtons(evt.currentTarget)
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
       // Make sure that the center point has been set after the form was
