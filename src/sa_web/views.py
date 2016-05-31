@@ -191,6 +191,7 @@ def send_place_created_notifications(request, response):
         'place': place,
         'email': recipient_email,
         'config': config,
+        'site_root': request.build_absolute_uri(),
     })
     subject = render_to_string('new_place_email_subject.txt', context_data)
     body = render_to_string('new_place_email_body.txt', context_data)
