@@ -7,7 +7,8 @@ var Shareabouts = Shareabouts || {};
     // View responsible for the form for adding and editing places.
     events: {
       'submit form': 'onSubmit',
-      'change input[type="file"]': 'onInputFileChange'
+      'change input[type="file"]': 'onInputFileChange',
+      'change [data-group-required]': 'onRequiredOptionButtonChange'
     },
     initialize: function(){
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
@@ -98,6 +99,15 @@ var Shareabouts = Shareabouts || {};
           maxHeight: 800,
           canvas: true
         });
+      }
+    },
+    onRequiredOptionButtonChange: function(evt) {
+      var groupName = $(evt.currentTarget).attr('name');
+      var groupOptions = this.$('[name="' + groupName + '"]');
+      if (groupOptions.is(':checked')) {
+        groupOptions.removeAttr('required');
+      } else {
+        groupOptions.attr('required', 'required');
       }
     },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
