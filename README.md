@@ -5,9 +5,6 @@ Shareabouts [![Build Status](https://secure.travis-ci.org/openplans/shareabouts.
 
 Shareabouts is an online mapping tool to gather crowdsourced public input in a social and engaging process. Using Shareabouts, people can drop a pin on a map to provide ideas, suggestions, and comments for planning and design issues. And as a mobile-friendly application, Shareabouts makes it easy to add input on the go.
 
-Read more about Shareabouts and find links to recent sites [on the OpenPlans website](http://openplans.org/shareabouts/).
-
-
 A short guide to setting up Shareabouts
 -----------
 
@@ -37,11 +34,7 @@ All of our documentation is is our `doc` directory. Use it to learn more about:
 Questions? Problems? Ideas? 
 --------------------
 
-The best place to ask questions or get help is [community.openplans.org](http://community.openplans.org), an open forum on Shareabouts (and some other stuff from OpenPlans). Asking questions there will help everyone else.
-
 If you encounted a bug, [create an issue](https://github.com/openplans/shareabouts/issues) on this GitHub repo.
-
-We have a [Trello board](https://trello.com/b/94MT3WRQ/openplans-roadmap) to collect feature suggestions, but you might get more eyeballs and responses by posting to the forum first.
 
 Contributing
 ------------
