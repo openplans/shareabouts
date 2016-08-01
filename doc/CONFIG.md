@@ -331,10 +331,10 @@ would like to be translatable with `{{#_}}` and `{{/_}}`. For example:
 
     <h2>{{#_}}About{{/_}}</h2>
 
-To generate a translation template, run the following from your flavor
+To generate a translation template, run the following from the *src*
 directory:
 
-    <project_src_root>/manage.py flavormessages --locale en_US
+    ./manage.py flavormessages --locale en
 
 Do this for each language you want your map to be available in. For the
 locale, use a locale name as specified in Django's documentation:
@@ -343,9 +343,9 @@ https://docs.djangoproject.com/en/dev/topics/i18n/#term-locale-name
 Once your messages files are generated, fill in any translations that should
 be made.  If you leave a translation blank, the original string will be used.
 
-To apply your translations, run the following from your flavor directory:
+To apply your translations, run the following from your *src* directory:
 
-    <project_src_root>/manage.py compilemessages
+    ./manage.py compilemessages
 
 That's it! The compilemessages task is run automatically for the DotCloud
 deployments. For Heroku, you'll have to check the resulting *.mo* files in to
