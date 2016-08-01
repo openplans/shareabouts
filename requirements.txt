@@ -31,7 +31,7 @@ git+https://github.com/openplans/shareabouts-api.git@beabf760#shareabouts-api
 # Web server
 # ==============================
 
-Django==1.7.1
+Django==1.7.11
 gevent==1.0
 gunicorn==18.0
 newrelic==2.16.0.12
