@@ -1,6 +1,6 @@
 # The server
 django==1.7.11
-gevent==1.0
+gevent==1.1.2
 gunicorn==18.0
 dj-static==0.0.6
 django-storages==1.1.8
