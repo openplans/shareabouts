@@ -227,6 +227,30 @@ place:
       name: location_type
       attrs:
         - key: required
+    - prompt: _(Yes or no question)
+      type: radiogroup
+      options:
+        - label: _(Indeed)
+          value: yeah
+        - label: _(I don't think so)
+          value: nah
+      name: y_or_n
+      attrs:
+        - key: required
+    - prompt: _(All that apply questiion)
+      type: checkboxgroup
+      options:
+        - label: _(First)
+          value: option1
+        - label: _(Second)
+          value: option2
+        - label: _(Third)
+          value: option3
+        - label: _(Fourth)
+          value: option4
+      name: all_that_apply
+      attrs:
+        - key: required
     - prompt: _(Description)
       type: textarea
       name: description

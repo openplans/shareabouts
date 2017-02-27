@@ -56,6 +56,46 @@
               </select>
               {{/is_select}}
 
+              {{#is_radiogroup}}
+              <div class="radio-group">
+                {{#select_item_value ../.. name}}
+                  {{#each options}}
+                    {{#if label}}
+                      <label>
+                        <input type="radio" name="{{../../name}}" value="{{value}}">
+                        <span class="label-text radio-label-text">{{label}}</span>
+                      </label>
+                    {{else}}
+                      <label>
+                        <input type="radio" name="{{../../name}}" value="{{.}}">
+                        <span class="label-text radio-label-text">{{.}}</span>
+                      </label>
+                    {{/if}}
+                  {{/each}}
+                {{/select_item_value}}
+              </div>
+              {{/is_radiogroup}}
+
+              {{#is_checkboxgroup}}
+              <div class="checkbox-group">
+                {{#select_item_value ../.. name}}
+                  {{#each options}}
+                    {{#if label}}
+                    <label>
+                      <input type="checkbox" name="{{../../name}}" value="{{value}}">
+                      <span class="label-text checkbox-label-text">{{label}}</span>
+                    </label>
+                  {{else}}
+                    <label>
+                      <input type="checkbox" name="{{../../name}}" value="{{.}}">
+                      <span class="label-text checkbox-label-text">{{.}}</span>
+                    </label>
+                    {{/if}}
+                  {{/each}}
+                {{/select_item_value}}
+              </div>
+              {{/is_checkboxgroup}}
+
               {{#is_file}}
               <!--[if lt IE 10 ]><br>Sorry, your browser isn't compatible with our file upload method.<![endif]-->
               <!--[if (gt IE 9)|!(IE)]><!-->

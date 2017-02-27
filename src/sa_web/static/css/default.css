@@ -190,6 +190,8 @@ input[type=text],
 input[type=time],
 input[type=url],
 input[type=week],
+.radio-label-text,
+.checkbox-label-text,
 select,
 textarea {
   outline: 0;
@@ -213,6 +215,41 @@ textarea {
 }
 select {
   background-color: #fff;
+}
+
+/* Checkbox & Radiu "Buttons" */
+.radio-group,
+.checkbox-group {
+  position: relative;
+}
+.radio-group input,
+.checkbox-group input {
+  opacity: 0;
+  width: 1px;
+  height: 5em;
+  position: absolute;
+  top: -5em;
+}
+.radio-label-text,
+.checkbox-label-text {
+  display: inline-block;
+  width: auto;
+  border: 3px solid #e5e5e5;
+  transition: all 0.2s ease 0s;
+}
+.radio-label-text:hover,
+.checkbox-label-text:hover {
+  background-color: #a3c7d9;
+  color: #007fbf;
+  border: 3px solid rgba(0,0,0,0.05);
+}
+:checked + .radio-label-text,
+.radio-label-text.checked,
+:checked + .checkbox-label-text,
+.checkbox-label-text.checked {
+  background-color: #007fbf;
+  color: #fff;
+  border: 3px solid rgba(0,0,0,0.05);
 }
 
 /* Old IE does not like this to be combine with :invalid rules.
