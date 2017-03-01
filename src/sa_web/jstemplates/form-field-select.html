@@ -1,0 +1,11 @@
+<select id="{{ default submission_type 'place' }}-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
+  {{#select_item_value form_config name}}
+  {{# options }}
+    {{#if label}}
+    <option value="{{value}}">{{label}}</option>
+    {{else}}
+    <option value="{{.}}">{{.}}</option>
+    {{/if}}
+  {{/ options }}
+  {{/select_item_value}}
+</select>

@@ -1,0 +1,8 @@
+{{#is_submitter_name}}
+  {{^is_authenticated}}
+    <input id="{{ default submission_type 'place' }}-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../form_config name}}">
+    <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
+  {{/is_authenticated}}
+{{^}}
+  <input id="{{ default submission_type 'place' }}-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../form_config name}}">
+{{/is_submitter_name}}
