@@ -1,0 +1,12 @@
+<!--[if lt IE 10 ]><br>Sorry, your browser isn't compatible with our file upload method.<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<span class="fileinput-container btn btn-small{{^is_fileinput_supported}} btn-disabled{{/is_fileinput_supported}}">
+  <span>{{ inputfile_label }}</span>
+  <input id="{{ default submission_type 'place' }}-{{ name }}" name="{{ name }}" type="{{ type }}"
+         {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}
+         {{^is_fileinput_supported}} disabled{{/is_fileinput_supported}}>
+</span>
+<span class="fileinput-name">
+  {{^is_fileinput_supported}}{{#_}}Sorry, your browser doesn't support file uploads.{{/_}}{{/is_fileinput_supported}}
+</span>
+<!--<![endif]-->

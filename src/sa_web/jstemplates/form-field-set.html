@@ -19,87 +19,27 @@
 
 
     {{#if is_input}}
-      {{#is_submitter_name}}
-        {{^is_authenticated}}
-          <input id="{{ default submission_type 'place' }}-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../../.. name}}">
-          <span class="or-sign-in">{{#_}}Or sign in with <a class="auth-inline twitter-btn" href="/users/login/twitter/">Twitter</a> <a class="auth-inline facebook-btn" href="/users/login/facebook/">Facebook</a>{{/_}}</span>
-        {{/is_authenticated}}
-      {{^}}
-        <input id="{{ default submission_type 'place' }}-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}} value="{{get_value ../../.. name}}">
-      {{/is_submitter_name}}
+      {{> form-field-input form_config=../.. }}
     {{/if}}
 
     {{#is_textarea}}
-    <textarea id="{{ default submission_type 'place' }}-{{ name }}" name="{{ name }}"{{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{get_value ../.. name}}</textarea>
+      {{> form-field-textarea form_config=../.. }}
     {{/is_textarea}}
 
     {{#is_select}}
-    <select id="{{ default submission_type 'place' }}-{{ name }}" name="{{ name }}" type="{{ type }}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>
-      {{#select_item_value ../.. name}}
-      {{# options }}
-        {{#if label}}
-        <option value="{{value}}">{{label}}</option>
-        {{else}}
-        <option value="{{.}}">{{.}}</option>
-        {{/if}}
-      {{/ options }}
-      {{/select_item_value}}
-    </select>
+      {{> form-field-select form_config=../.. }}
     {{/is_select}}
 
     {{#is_radiogroup}}
-    <div class="radio-group">
-      {{#select_item_value ../.. name}}
-        {{#each options}}
-          {{#if label}}
-            <label>
-              <input type="radio" name="{{../../name}}" value="{{value}}">
-              <span class="label-text radio-label-text">{{label}}</span>
-            </label>
-          {{else}}
-            <label>
-              <input type="radio" name="{{../../name}}" value="{{.}}">
-              <span class="label-text radio-label-text">{{.}}</span>
-            </label>
-          {{/if}}
-        {{/each}}
-      {{/select_item_value}}
-    </div>
+      {{> form-field-radiogroup form_config=../.. }}
     {{/is_radiogroup}}
 
     {{#is_checkboxgroup}}
-    <div class="checkbox-group">
-      {{#select_item_value ../.. name}}
-        {{#each options}}
-          {{#if label}}
-          <label>
-            <input type="checkbox" name="{{../../name}}" value="{{value}}">
-            <span class="label-text checkbox-label-text">{{label}}</span>
-          </label>
-        {{else}}
-          <label>
-            <input type="checkbox" name="{{../../name}}" value="{{.}}">
-            <span class="label-text checkbox-label-text">{{.}}</span>
-          </label>
-          {{/if}}
-        {{/each}}
-      {{/select_item_value}}
-    </div>
+      {{> form-field-checkboxgroup form_config=../.. }}
     {{/is_checkboxgroup}}
 
     {{#is_file}}
-    <!--[if lt IE 10 ]><br>Sorry, your browser isn't compatible with our file upload method.<![endif]-->
-    <!--[if (gt IE 9)|!(IE)]><!-->
-    <span class="fileinput-container btn btn-small{{^is_fileinput_supported}} btn-disabled{{/is_fileinput_supported}}">
-      <span>{{ inputfile_label }}</span>
-      <input id="{{ default submission_type 'place' }}-{{ name }}" name="{{ name }}" type="{{ type }}"
-             {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}
-             {{^is_fileinput_supported}} disabled{{/is_fileinput_supported}}>
-    </span>
-    <span class="fileinput-name">
-      {{^is_fileinput_supported}}{{#_}}Sorry, your browser doesn't support file uploads.{{/_}}{{/is_fileinput_supported}}
-    </span>
-    <!--<![endif]-->
+      {{> form-field-file form_config=../.. }}
     {{/is_file}}
 
     {{#if help_text }}

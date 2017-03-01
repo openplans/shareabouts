@@ -1,0 +1,17 @@
+<div class="checkbox-group">
+  {{#select_item_value form_config name}}
+    {{#each options}}
+      {{#if label}}
+      <label>
+        <input type="checkbox" name="{{../../name}}" value="{{value}}">
+        <span class="label-text checkbox-label-text">{{label}}</span>
+      </label>
+    {{else}}
+      <label>
+        <input type="checkbox" name="{{../../name}}" value="{{.}}">
+        <span class="label-text checkbox-label-text">{{.}}</span>
+      </label>
+      {{/if}}
+    {{/each}}
+  {{/select_item_value}}
+</div>
