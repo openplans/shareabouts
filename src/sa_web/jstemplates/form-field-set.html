@@ -8,7 +8,7 @@
 
   {{# form_config.items }}
 
-  <div class="field {{ type }}-field">
+  <div class="field {{ type }}-field {{ default submission_type 'place' }}-{{ name }}-field">
     {{#is_authenticated}}
       {{^is_submitter_name}}
         <label class="field-label {{ type }}-field-label" for="{{ default submission_type 'place' }}-{{ name }}">{{ prompt }} {{# optional }}<small>({{#_}}optional{{/_}})</small>{{/ optional }}</label>
