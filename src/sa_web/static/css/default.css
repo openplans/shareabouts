@@ -169,6 +169,9 @@ fieldset {
   margin: 0;
   padding: 0 0 1.2em;
 }
+.field {
+  margin-bottom: 1.5em;
+}
 label {
   font-size: 0.75em;
   text-transform: uppercase;
