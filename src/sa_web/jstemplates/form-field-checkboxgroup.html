@@ -3,12 +3,12 @@
     {{#each options}}
       {{#if label}}
       <label>
-        <input type="checkbox" name="{{../../name}}" value="{{value}}">
+        <input type="checkbox" name="{{../../name}}" value="{{value}}" {{#each ../../attrs}} {{ key }}="{{ value }}"{{/each}}>
         <span class="label-text checkbox-label-text">{{label}}</span>
       </label>
     {{else}}
       <label>
-        <input type="checkbox" name="{{../../name}}" value="{{.}}">
+        <input type="checkbox" name="{{../../name}}" value="{{.}}" {{#each ../../attrs}} {{ key }}="{{ value }}"{{/each}}>
         <span class="label-text checkbox-label-text">{{.}}</span>
       </label>
       {{/if}}
