@@ -86,6 +86,9 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+# Cache-busting static assets
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 ATTACHMENT_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # List of finder classes that know how to find static files in

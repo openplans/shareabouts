@@ -1,6 +1,7 @@
 {% load jstemplate %}
 {% load i18n %}
 {% load shareabouts_utils %}
+{% load static from staticfiles %}
 {% load url from future %}
 {% get_current_language as LANGUAGE_CODE %}
 
@@ -37,14 +38,14 @@
   <link href='//fonts.googleapis.com/css?family=Dancing+Script:700' rel='stylesheet' type='text/css'>
 
   {% if settings.DEBUG %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css">
-  <link rel="stylesheet" href="{{ STATIC_URL }}css/default.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'css/default.css' %}">
   {% else %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}dist/app.css">
+  <link rel="stylesheet" href="{% static 'dist/app.css' %}">
   {% endif %}
 
   <!-- Flavor's Custom Stylesheet -->
-  <link rel="stylesheet" href="{{ config.static_url }}css/custom.css?deployed_at={{ settings.LAST_DEPLOY_DATE|urlencode:'' }}">
+  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
 
   <link rel="profile" href="http://gmpg.org/xfn/11" />
@@ -143,35 +144,35 @@
   {% if settings.MAPBOX_TOKEN %}
   <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.css" rel='stylesheet' />
   <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.11.2/mapbox-gl.js"></script>
-  <script src="{{STATIC_URL}}libs/leaflet-mapbox-gl.js"></script>
+  <script src="{% static 'libs/leaflet-mapbox-gl.js' %}"></script>
   {% endif %}
 
   {% block cdn_load %}{% endblock %}
 
   {% if settings.DEBUG %}
-  <script src="{{STATIC_URL}}libs/underscore.js"></script>
-  <script src="{{STATIC_URL}}libs/backbone.js"></script>
-  <script src="{{STATIC_URL}}libs/backbone.marionette.js"></script>
-  <script src="{{STATIC_URL}}libs/handlebars-v3.0.3.js"></script>
-  <script src="{{STATIC_URL}}libs/moment-with-locales.min.js"></script>
-  <script src="{{STATIC_URL}}libs/json2.js"></script>
-  <script src="{{STATIC_URL}}libs/leaflet.argo.js"></script>
-  <script src="{{STATIC_URL}}libs/binaryajax.js"></script>
-  <script src="{{STATIC_URL}}libs/exif.js"></script>
-  <script src="{{STATIC_URL}}libs/load-image.js"></script>
-  <script src="{{STATIC_URL}}libs/canvas-to-blob.js"></script>
-  <script src="{{STATIC_URL}}libs/spin.min.js"></script>
-  <script src="{{STATIC_URL}}libs/gatekeeper.js"></script>
-  <script src="{{STATIC_URL}}libs/swag.min.js"></script>
-  <script src="{{STATIC_URL}}libs/jquery.scrollTo.js"></script>
+  <script src="{% static 'libs/underscore.js' %}"></script>
+  <script src="{% static 'libs/backbone.js' %}"></script>
+  <script src="{% static 'libs/backbone.marionette.js' %}"></script>
+  <script src="{% static 'libs/handlebars-v3.0.3.js' %}"></script>
+  <script src="{% static 'libs/moment-with-locales.min.js' %}"></script>
+  <script src="{% static 'libs/json2.js' %}"></script>
+  <script src="{% static 'libs/leaflet.argo.js' %}"></script>
+  <script src="{% static 'libs/binaryajax.js' %}"></script>
+  <script src="{% static 'libs/exif.js' %}"></script>
+  <script src="{% static 'libs/load-image.js' %}"></script>
+  <script src="{% static 'libs/canvas-to-blob.js' %}"></script>
+  <script src="{% static 'libs/spin.min.js' %}"></script>
+  <script src="{% static 'libs/gatekeeper.js' %}"></script>
+  <script src="{% static 'libs/swag.min.js' %}"></script>
+  <script src="{% static 'libs/jquery.scrollTo.js' %}"></script>
 
-  <script src="{{STATIC_URL}}js/utils.js"></script>
-  <script src="{{STATIC_URL}}js/template-helpers.js"></script>
+  <script src="{% static 'js/utils.js' %}"></script>
+  <script src="{% static 'js/template-helpers.js' %}"></script>
   <!-- https://github.com/openplans/handlebars-helpers -->
-  <script src="{{STATIC_URL}}libs/handlebars-helpers.js"></script>
+  <script src="{% static 'libs/handlebars-helpers.js' %}"></script>
   {% else %}
-  <script src="{{STATIC_URL}}dist/libs.min.js"></script>
-  <script src="{{STATIC_URL}}dist/preload.js"></script>
+  <script src="{% static 'dist/libs.min.js' %}"></script>
+  <script src="{% static 'dist/preload.js' %}"></script>
   {% endif %}
 
   <!-- Register Handlebars helpers from Swag -->
@@ -225,23 +226,23 @@
   </script>
 
   {% if settings.DEBUG %}
-  <script src="{{STATIC_URL}}js/handlebars-helpers.js"></script>
-  <script src="{{STATIC_URL}}js/models.js"></script>
-  <script src="{{STATIC_URL}}js/views/pages-nav-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/auth-nav-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/activity-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/app-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/layer-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/map-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/support-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/survey-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-detail-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-form-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/place-list-view.js"></script>
-  <script src="{{STATIC_URL}}js/views/geocode-address-view.js"></script>
-  <script src="{{STATIC_URL}}js/routes.js"></script>
+  <script src="{% static 'js/handlebars-helpers.js' %}"></script>
+  <script src="{% static 'js/models.js' %}"></script>
+  <script src="{% static 'js/views/pages-nav-view.js' %}"></script>
+  <script src="{% static 'js/views/auth-nav-view.js' %}"></script>
+  <script src="{% static 'js/views/activity-view.js' %}"></script>
+  <script src="{% static 'js/views/app-view.js' %}"></script>
+  <script src="{% static 'js/views/layer-view.js' %}"></script>
+  <script src="{% static 'js/views/map-view.js' %}"></script>
+  <script src="{% static 'js/views/support-view.js' %}"></script>
+  <script src="{% static 'js/views/survey-view.js' %}"></script>
+  <script src="{% static 'js/views/place-detail-view.js' %}"></script>
+  <script src="{% static 'js/views/place-form-view.js' %}"></script>
+  <script src="{% static 'js/views/place-list-view.js' %}"></script>
+  <script src="{% static 'js/views/geocode-address-view.js' %}"></script>
+  <script src="{% static 'js/routes.js' %}"></script>
   {% else %}
-  <script src="{{STATIC_URL}}dist/app.js"></script>
+  <script src="{% static 'dist/app.js' %}"></script>
   {% endif %}
 
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
