@@ -6,6 +6,8 @@
         <p>{{ place_config.help_text }}</p>
 
         <form id="place-form" class="place-form clearfix">
+          <input type="hidden" name="visible" value="on">
+          <input type="hidden" name="user_token" value="{{{ user_token }}}">
 
           {{> form-field-set form_config=place_config }}
 
