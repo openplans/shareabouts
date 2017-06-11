@@ -34,7 +34,7 @@ All of our documentation is is our `doc` directory. Use it to learn more about:
 Questions? Problems? Ideas? 
 --------------------
 
-If you encounted a bug, [create an issue](https://github.com/openplans/shareabouts/issues) on this GitHub repo.
+If you encountered a bug, [create an issue](https://github.com/openplans/shareabouts/issues) on this GitHub repo.
 
 Contributing
 ------------
