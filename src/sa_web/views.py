@@ -7,7 +7,6 @@ import os
 import time
 import hashlib
 import httpagentparser
-import urllib2
 from .config import get_shareabouts_config
 from django.shortcuts import render
 from django.conf import settings
@@ -124,7 +123,7 @@ def index(request, place_id=None):
     if 'user_token' not in request.session:
         t = int(time.time() * 1000)
         ip = request.META['REMOTE_ADDR']
-        unique_string = str(t) + str(ip)
+        unique_string = (str(t) + str(ip)).encode()
         session_token = 'session:' + hashlib.md5(unique_string).hexdigest()
         request.session['user_token'] = session_token
         request.session.set_expiry(0)

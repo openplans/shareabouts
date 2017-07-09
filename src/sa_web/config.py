@@ -1,6 +1,9 @@
 import yaml
 import os.path
-import urllib2
+try:
+    from urllib2 import urlopen
+except:
+    from urllib.request import urlopen
 from contextlib import closing
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -27,7 +30,7 @@ def translate(data):
                 for item in data]
 
     # If it's a string, output it, unless it should be excluded
-    elif isinstance(data, basestring):
+    elif isinstance(data, str):
         msg = parse_msg(data)
         if msg is not None:
             return _(msg)
@@ -81,7 +84,7 @@ class ShareaboutsRemoteConfig (_ShareaboutsConfig):
 
     def config_file(self):
         config_fileurl = os.path.join(self.url, 'config.yml')
-        return urllib2.urlopen(config_fileurl)
+        return urlopen(config_fileurl)
 
 
 class ShareaboutsLocalConfig (_ShareaboutsConfig):
