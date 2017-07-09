@@ -34,6 +34,7 @@ map:
     zoom: 14
     minZoom: 10
     maxZoom: 17
+    scrollWheelZoom: false
   layers:
     # Raster Tile Layers
     # ==================
@@ -172,7 +173,7 @@ activity:
 place:
   adding_supported:
     from: '2017-03-07 00:00 -0500'   # Daylight savings begins mid-March
-    until: '2017-04-07 00:00 -0400'  # and ends mid-October.
+    until: '2021-04-07 00:00 -0400'  # and ends mid-October.
   add_button_label: _(Add a Place)
   # Labels for the buttons that toggle the map and list views
   show_list_button_label: _(List All Places)

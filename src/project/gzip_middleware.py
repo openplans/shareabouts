@@ -1,13 +1,7 @@
 from gzip import GzipFile
 from wsgiref.headers import Headers
 import re
-
-try:
-    # Python 2
-    from cStringIO import StringIO
-except ImportError:
-    # Python 3
-    from io import StringIO
+from io import BytesIO
 
 
 # Precompile the regex to check for gzip headers
@@ -19,7 +13,7 @@ cc_delim_re = re.compile(r'\s*,\s*')
 
 def gzip_buffer(string, compression_level=6):
     """gzips a string."""
-    zbuf = StringIO()
+    zbuf = BytesIO()
     f = GzipFile(filename=None, mode='wb',
             compresslevel=compression_level, fileobj=zbuf)
     f.write(string)
@@ -72,7 +66,7 @@ class GzipMiddleware(object):
 
         # Now get the raw response from the WSGI app
         app_response = {}
-        raw_response = ''.join(self.app(environ,
+        raw_response = b''.join(self.app(environ,
             collect_response(app_response)))
 
         def pass_through(app_response, raw_response):
