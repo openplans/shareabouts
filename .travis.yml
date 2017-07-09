@@ -1,8 +1,8 @@
 # https://github.com/travis-ci/travis-ci/wiki/.travis.yml-options
 
 python:
-  - "2.6"
   - "2.7"
+  - "3.5"
 
 # This is redundant, but explicit,, since 'sudo' is disabled by default to
 # make use of Travis CI's container technology.
