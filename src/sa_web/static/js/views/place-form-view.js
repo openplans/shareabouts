@@ -11,6 +11,8 @@ var Shareabouts = Shareabouts || {};
       'change [data-group-required]': 'onRequiredOptionButtonChange'
     },
     initialize: function(){
+      var textareaEvent = 'oninput' in document ? 'input' : 'keyup blur';
+
       S.TemplateHelpers.overridePlaceTypeConfig(this.options.placeConfig.items,
         this.options.defaultPlaceTypeName);
       S.TemplateHelpers.insertInputTypeFlags(this.options.placeConfig.items);
