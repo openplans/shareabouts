@@ -9,9 +9,15 @@
   },
 
   "addons": [
-    "heroku-postgresql:standard-0",
-    "rediscloud"
+    "heroku-postgresql:hobby-dev",
+    "heroku-redis:hobby-dev"
   ],
+
+  "buildpacks": [
+    {"url": "heroku/nodejs"},
+    {"url": "heroku/python"}
+  ],
+
 
   "env": {
     "SHAREABOUTS_DATASET_ROOT": {
@@ -35,6 +41,8 @@
       "value": "defaultflavor"
     },
 
+    "USE_GEODB":                   {"required": false, "value": "False", "description": ""},
+
     "SHAREABOUTS_AWS_BUCKET":      {"required": false, "description": "Where should uploaded attachments go?"},
     "SHAREABOUTS_AWS_KEY":         {"required": false, "description": ""},
     "SHAREABOUTS_AWS_SECRET":      {"required": false, "description": ""},
@@ -43,7 +51,6 @@
     "SHAREABOUTS_TWITTER_KEY":     {"required": false, "description": ""},
     "SHAREABOUTS_TWITTER_SECRET":  {"required": false, "description": ""},
 
-    "BUILDPACK_URL": "https://github.com/ddollar/heroku-buildpack-multi.git",
     "DEBUG": "True",
     "SECRET_TOKEN": {
       "description": "A secret key for verifying the integrity of signed cookies.",

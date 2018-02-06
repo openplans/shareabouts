@@ -7,27 +7,29 @@ import psycopg2
 import subprocess
 
 dburl = os.environ.get('DATABASE_URL')
+USE_GEODB = (os.environ.get('USE_GEODB', 'True').lower() == 'true')
 
-print('Connecting to the database...', end='')
-conn = psycopg2.connect(dburl)
-cur = conn.cursor()
-print('done.')
-
-print('Setting up PostGIS...', end='')
-try:
-    cur.execute('CREATE EXTENSION postgis;')
-    conn.commit()
-except psycopg2.ProgrammingError as e:
-    print(str(e).strip(), end='...')
-    print('nothing to do.')
-    conn.rollback()
-else:
+if USE_GEODB:
+    print('Connecting to the database...', end='')
+    conn = psycopg2.connect(dburl)
+    cur = conn.cursor()
     print('done.')
 
-print('Closing the database connection...', end='')
-cur.close()
-conn.close()
-print('done.')
+    print('Setting up PostGIS...', end='')
+    try:
+        cur.execute('CREATE EXTENSION postgis;')
+        conn.commit()
+    except psycopg2.ProgrammingError as e:
+        print(str(e).strip(), end='...')
+        print('nothing to do.')
+        conn.rollback()
+    else:
+        print('done.')
+
+    print('Closing the database connection...', end='')
+    cur.close()
+    conn.close()
+    print('done.')
 
 print('Migrating the database models...')
 subprocess.call('src/manage.py migrate', shell=True)
