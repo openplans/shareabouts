@@ -24,7 +24,7 @@ jasmine
 #=============================================================#
 
 
-git+https://github.com/openplans/shareabouts-api.git@beabf760#shareabouts-api
+git+https://github.com/openplans/shareabouts-api.git@bb9cb565#shareabouts-api
 
 
 # ==============================
