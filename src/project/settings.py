@@ -1,5 +1,6 @@
 # Django settings for project project.
 import datetime
+import os
 import os.path
 
 HERE = os.path.dirname(__file__)
@@ -13,7 +14,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-USE_GEODB = (environ.get('USE_GEODB', 'True').lower() == 'true')
+USE_GEODB = (os.environ.get('USE_GEODB', 'True').lower() == 'true')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.dummy',
