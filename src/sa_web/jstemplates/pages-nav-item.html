@@ -1,4 +1,12 @@
-<li class="menu-item{{#if slug }}{{#unless pages }} internal-menu-item{{/unless }} menu-item-{{ slug }}{{/if }}">
+<li class="menu-item
+  {{#if slug }}
+    {{#unless pages }}
+      {{#unless external }}
+        internal-menu-item
+      {{/unless }}
+    {{/unless }}
+    menu-item-{{ slug }}
+  {{/if }}">
   {{#if pages }}
 
     <a class="btn btn-block btn-secondary">{{ title }}</a>
