@@ -113,8 +113,8 @@ The geocoding configuration has a few other options:
 
 ### Place Types
 
-Shareabouts can handle multiple types of Place. To set up the types
-syou're interested in, edit config.yml and add items to the `place_types`
+Shareabouts can handle multiple types of Place. To set up the typess 
+you're interested in, edit config.yml and add items to the `place_types`
 section. Each Place value should match a location_type.
 
 Look at the config.yml for examples of styling Places. The properties of icons are as per the Leaflet docs, see http://leafletjs.com/reference.html#icon
