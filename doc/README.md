@@ -74,7 +74,7 @@ via Xcode's Preferences > Downloads area.
 
 ## Starting and stopping your local map instance
 
-If you've completed the steps above, you should be ready to run your map locallu. But until [you configure your `local_settings.py`](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md#step-2-set-up-your-local-settings), you'll see an error.
+If you've completed the steps above, you should be ready to run your map locally. But until [you configure your `local_settings.py`](https://github.com/openplans/shareabouts/blob/master/doc/CONFIG.md#step-2-set-up-your-local-settings), you'll see an error.
 
 To run the development server:
 
