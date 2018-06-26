@@ -144,6 +144,7 @@ var Shareabouts = Shareabouts || {};
       if (!locationTypeFilter || locationTypeFilter.toUpperCase() === locationType.toUpperCase()) {
         if (this.layer) {
           this.options.placeLayers.addLayer(this.layer);
+          this.layer.bringToBack();
         }
       } else {
         this.hide();
