@@ -365,6 +365,10 @@ img {
 }
 
 /* Navigation Button */
+/* ----------------- */
+/* This is the little "hamburger" button that opens up the navigation menu on
+   mobile.
+*/
 #nav-btn {
   background: #6f6f6f;
   color: #bbb;
