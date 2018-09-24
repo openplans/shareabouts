@@ -207,6 +207,10 @@ place:
           value: _(Email address)
         - key: size
           value: 30
+    - prompt: _(Location Address)
+      type: location
+      name: address
+      placeholder: _(Drag the map to set the location.)
     - prompt: _(Location Name)
       type: text
       name: name

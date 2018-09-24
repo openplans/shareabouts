@@ -304,6 +304,16 @@ img {
   opacity: 0.75;
 }
 
+/* Location receiver */
+.location-receiver {
+  text-align: center;
+  font-weight: bold;
+}
+
+.location-receiver .default {
+  font-style: italic;
+}
+
 
 /* =Nonsemantic Base Styles
 -------------------------------------------------------------- */

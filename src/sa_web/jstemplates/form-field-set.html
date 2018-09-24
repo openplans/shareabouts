@@ -40,6 +40,10 @@
       {{> form-field-file form_config=../.. }}
     {{/is_file}}
 
+    {{#is_location}}
+      {{> form-field-location form_config=../.. }}
+    {{/is_location}}
+
     {{#if help_text }}
     <div class="help-text {{ default submission_type 'place' }}-{{ name }}-help-text">{{ help_text }}</div>
     {{/if}}

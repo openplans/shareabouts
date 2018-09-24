@@ -82,8 +82,9 @@ var Shareabouts = Shareabouts || {};
       this.center = latLng;
       this.$('.drag-marker-instructions, .drag-marker-warning').addClass('is-visuallyhidden');
     },
-    setLocation: function(location) {
+    setLocation: function(location, address) {
       this.location = location;
+      this.$('.location-receiver').html(address)
     },
     // Get the attributes from the form
     getAttrs: function() {
