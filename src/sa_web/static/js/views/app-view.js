@@ -168,7 +168,7 @@ var Shareabouts = Shareabouts || {};
       // reverse geocode the center of the map, if geocoding is enabled. If
       // the user is doing anything else, we just want to clear out any text
       // that's currently set in the address search bar.
-      $(S).on('mapdragend', function(evt) {
+      $(S).on('mapmoveend', function(evt) {
         if (self.isAddingPlace()) {
           self.conditionallyReverseGeocode();
         } else if (self.geocodeAddressView) {
@@ -182,7 +182,7 @@ var Shareabouts = Shareabouts || {};
       $(S).on('reversegeocode', function(evt, locationData) {
         var locationString = Handlebars.templates['location-string'](locationData);
         self.geocodeAddressView.setAddress($.trim(locationString));
-        self.placeFormView.setLocation(locationData, locationString);
+        self.placeFormView.setLocation(locationData);
       });
 
 
