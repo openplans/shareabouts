@@ -159,7 +159,6 @@ var Shareabouts = Shareabouts || {};
       var control;
       var options = {
           collapsed: false,
-          placeholder: 'Enter an address to center the map',
           position: 'topright',
           defaultMarkGeocode: false,
           geocoder: geocoder
@@ -175,8 +174,8 @@ var Shareabouts = Shareabouts || {};
           break;
       }
 
-      if (this.options.mapConfig.geocoding_placeholder) {
-        options.placeholder = this.options.mapConfig.geocoding_placeholder
+      if (this.options.mapConfig.geocode_field_label) {
+        options.placeholder = this.options.mapConfig.geocode_field_label
       }
 
       control = L.Control.geocoder(options)
