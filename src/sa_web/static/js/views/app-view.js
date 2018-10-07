@@ -141,13 +141,6 @@ var Shareabouts = Shareabouts || {};
         placeTypes: this.options.placeTypes
       });
 
-      // Init the address search bar
-      this.geocodeAddressView = (new S.GeocodeAddressView({
-        el: '#geocode-address-bar',
-        router: this.options.router,
-        mapConfig: this.options.mapConfig
-      })).render();
-
       // When the user chooses a geocoded address, the address view will fire
       // a geocode event on the namespace. At that point we center the map on
       // the geocoded location.
@@ -171,8 +164,6 @@ var Shareabouts = Shareabouts || {};
       $(S).on('mapmoveend', function(evt) {
         if (self.isAddingPlace()) {
           self.conditionallyReverseGeocode();
-        } else if (self.geocodeAddressView) {
-          self.geocodeAddressView.setAddress('');
         }
       });
 
@@ -181,7 +172,6 @@ var Shareabouts = Shareabouts || {};
       // is enabled.
       $(S).on('reversegeocode', function(evt, locationData) {
         var locationString = Handlebars.templates['location-string'](locationData);
-        self.geocodeAddressView.setAddress($.trim(locationString));
         self.placeFormView.setLocation(locationData);
       });
 

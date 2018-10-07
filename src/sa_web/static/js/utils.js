@@ -408,6 +408,9 @@ var Shareabouts = Shareabouts || {};
         options.cache = true;
         options.url = 'https://open.mapquestapi.com/geocoding/v1/reverse?key=' + mapQuestKey + '&location=' + lat + ',' + lng;
         $.ajax(options);
+      },
+      getLocation: function(reverseGeocodedData) {
+        return reverseGeocodedData.results[0].locations[0];
       }
     },
 
@@ -491,6 +494,9 @@ var Shareabouts = Shareabouts || {};
         options.cache = true;
         options.url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + lng + ',' + lat + '.json?access_token=' + mapboxToken;
         $.ajax(options);
+      },
+      getLocation: function(reverseGeocodedData) {
+        return reverseGeocodedData.features[0];
       }
     }
   };
