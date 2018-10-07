@@ -536,7 +536,7 @@ a.logout-btn {
   background: #777;
   padding: 0.5em 0.5em 0.75em;
   position: relative;
-  z-index: 30;
+  z-index: 400;
   box-shadow: 0 -0.325em 0 rgba(0,0,0,0.1);
   border-bottom: 1px solid #666;
 }
@@ -556,7 +556,7 @@ a.logout-btn {
   top: 50%;
   left: 50%;
   pointer-events: none;
-  z-index: 11;
+  z-index: 400;
   width: 47px;
   height: 47px;
   margin: -44px 0 0 -12px;
@@ -689,7 +689,7 @@ a.logout-btn {
   position: absolute;
   top: 0;
   left: 1em;
-  z-index: 2;
+  z-index: 402;
   color: #fff;
   font-size: 0.75em;
   line-height: 1.875;
@@ -702,7 +702,7 @@ a.logout-btn {
   width: 0%;
   height: 1em;
   position: relative;
-  z-index: 1;
+  z-index: 401;
   top: 0.25em;
   overflow: visible;
   border-radius: 0.5em;
@@ -714,7 +714,7 @@ a.logout-btn {
   right: 50px;
   bottom: auto;
   left: 50px;
-  z-index: 3;
+  z-index: 403;
   display:none;
   font-size: 1.25em;
 }
