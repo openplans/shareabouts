@@ -180,9 +180,10 @@ var Shareabouts = Shareabouts || {};
       }
 
       control = L.Control.geocoder(options)
-        .on('markgeocode', function(e) {
-          result = e.geocode || e;
+        .on('markgeocode', function(evt) {
+          result = evt.geocode || evt;
           this._map.fitBounds(result.bbox);
+          $(S).trigger('geocode', [evt]);
         })
         .addTo(this.map);
 

@@ -145,11 +145,9 @@ var Shareabouts = Shareabouts || {};
       // a geocode event on the namespace. At that point we center the map on
       // the geocoded location.
       $(S).on('geocode', function(evt, locationData) {
-        self.mapView.zoomInOn(locationData.latLng);
-
         if (self.isAddingPlace()) {
-          self.placeFormView.setLatLng(locationData.latLng);
-          self.placeFormView.setLocation(locationData);
+          self.placeFormView.setLatLng(locationData.geocode.center);
+          self.placeFormView.setLocation(locationData.geocode.name);
         }
       });
 
@@ -171,8 +169,9 @@ var Shareabouts = Shareabouts || {};
       // event. This should only happen when adding a place while geocoding
       // is enabled.
       $(S).on('reversegeocode', function(evt, locationData) {
-        var locationString = Handlebars.templates['location-string'](locationData);
-        self.placeFormView.setLocation(locationData);
+        var geocodingEngine = self.options.mapConfig.geocoding_engine || 'MapQuest';
+        var address = S.Util[geocodingEngine].getName(locationData);
+        self.placeFormView.setLocation(address);
       });
 
 

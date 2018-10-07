@@ -87,9 +87,8 @@ var Shareabouts = Shareabouts || {};
       // location is set when it isn't yet, so only update location-receivers
       // if the center has been set.
       if (this.center) {
-        var address = Handlebars.templates['location-string'](location);
         this.location = location;
-        this.$('.location-receiver').html(address)
+        this.$('.location-receiver').html(location)
       }
     },
     // Get the attributes from the form
