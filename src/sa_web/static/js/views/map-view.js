@@ -156,6 +156,7 @@ var Shareabouts = Shareabouts || {};
     },
     initGeocoding() {
       var geocoder;
+      var control;
       var options = {
           collapsed: false,
           placeholder: 'Enter an address to center the map',
@@ -178,12 +179,19 @@ var Shareabouts = Shareabouts || {};
         options.placeholder = this.options.mapConfig.geocoding_placeholder
       }
 
-      Shareabouts.geocoderControl = L.Control.geocoder(options)
+      control = L.Control.geocoder(options)
         .on('markgeocode', function(e) {
           result = e.geocode || e;
           this._map.fitBounds(result.bbox);
         })
         .addTo(this.map);
+
+      // Move the control to the center
+      $('<div class="leaflet-top leaflet-center"/>')
+        .insertAfter($('.leaflet-top.leaflet-left'))
+        .append($(control._container))
+
+      Shareabouts.geocoderControl = control;
     },
     onClickGeolocate: function(evt) {
       evt.preventDefault();
