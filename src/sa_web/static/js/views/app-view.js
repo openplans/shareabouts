@@ -420,7 +420,10 @@ var Shareabouts = Shareabouts || {};
       // Called by the router
       this.collection.add({});
     },
-    viewPlace: function(model, responseId, zoom) {
+    viewNewPlace: function(model, responseId, zoom) {
+      return this.viewPlace(model, responseId, zoom, true)
+    },
+    viewPlace: function(model, responseId, zoom, isNew) {
       var self = this,
           includeSubmissions = self.options.config.app.list_enabled !== false,
           layout = S.Util.getPageLayout(),
@@ -445,7 +448,7 @@ var Shareabouts = Shareabouts || {};
         }
 
         self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
-        self.showPanel(placeDetailView.render().$el, !!responseId);
+        self.showPanel(placeDetailView.render(isNew).$el, !!responseId);
         self.hideNewPin();
         self.destroyNewModels();
         self.hideCenterPoint();

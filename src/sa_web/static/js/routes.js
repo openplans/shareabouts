@@ -8,6 +8,7 @@ var Shareabouts = Shareabouts || {};
       '': 'viewMap',
       'place/new': 'newPlace',
       'place/:id': 'viewPlace',
+      'place/:id/new': 'viewNewPlace',
       'place/:id/response/:response_id': 'viewPlace',
       'place/:id/edit': 'editPlace',
       'list': 'showList',
@@ -115,6 +116,10 @@ var Shareabouts = Shareabouts || {};
 
     viewPlace: function(id, responseId) {
       this.appView.viewPlace(id, responseId, this.loading);
+    },
+
+    viewNewPlace: function(id, responseId) {
+      this.appView.viewNewPlace(id, responseId, this.loading);
     },
 
     editPlace: function(){},

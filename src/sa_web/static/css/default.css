@@ -842,6 +842,20 @@ a.close-btn span {
 .place-header a {
   text-decoration: none;
 }
+.place-submission-confirmation {
+  background-color: LightYellow;
+  background-color: rgba(240,240,0,0.2);
+  color: #444;
+  font-weight: bold;
+  text-shadow: -1px 1px 0 rgba(255,255,255,0.5);
+  text-align: center;
+  margin-bottom: 1em;
+  padding: 0.75em 1em 0.875em;
+  border-radius: 0.325em;
+}
+.place-submission-confirmation p:last-child {
+  margin-bottom: 0;
+}
 .place-submission-details {
   display: block;
   padding-left: 3.75em;

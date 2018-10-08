@@ -202,7 +202,7 @@ var Shareabouts = Shareabouts || {};
       this.model.save(attrs, {
         success: function() {
           S.Util.log('USER', 'new-place', 'successfully-add-place');
-          router.navigate('/place/' + model.id, {trigger: true});
+          router.navigate('/place/' + model.id + '/new', {trigger: true});
         },
         error: function() {
           S.Util.log('USER', 'new-place', 'fail-to-add-place');

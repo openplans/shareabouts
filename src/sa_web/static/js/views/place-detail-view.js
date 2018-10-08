@@ -47,11 +47,12 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
-    render: function() {
+    render: function(isNew) {
       var self = this,
           data = _.extend({
             place_config: this.options.placeConfig,
-            survey_config: this.options.surveyConfig
+            survey_config: this.options.surveyConfig,
+            is_new: isNew
           }, this.model.toJSON());
 
       data.submitter_name = this.model.get('submitter_name') ||
