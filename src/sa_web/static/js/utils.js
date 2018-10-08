@@ -107,7 +107,7 @@ var Shareabouts = Shareabouts || {};
     getPageLayout: function() {
       // not IE8
       if (window.getComputedStyle) {
-        return window.getComputedStyle(document.body,':after').getPropertyValue('content');
+        return window.getComputedStyle(document.body,':after').getPropertyValue('content').replace(/"/g, '');
       }
 
       // IE8
