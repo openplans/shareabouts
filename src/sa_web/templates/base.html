@@ -41,11 +41,11 @@
   <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
   <link rel="stylesheet" href="{% static 'css/default.css' %}">
   {% else %}
-  <link rel="stylesheet" href="{% static 'dist/app.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/app.css' %}?_={{settings.LAST_DEPLOY_DATE}}">
   {% endif %}
 
   <!-- Flavor's Custom Stylesheet -->
-  <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+  <link rel="stylesheet" href="{% static 'css/custom.css' %}?_={{settings.LAST_DEPLOY_DATE}}">
 
 
   <link rel="profile" href="http://gmpg.org/xfn/11" />
@@ -173,8 +173,8 @@
   <!-- https://github.com/openplans/handlebars-helpers -->
   <script src="{% static 'libs/handlebars-helpers.js' %}"></script>
   {% else %}
-  <script src="{% static 'dist/libs.min.js' %}"></script>
-  <script src="{% static 'dist/preload.js' %}"></script>
+  <script src="{% static 'dist/libs.min.js' %}?_={{settings.LAST_DEPLOY_DATE}}"></script>
+  <script src="{% static 'dist/preload.js' %}?_={{settings.LAST_DEPLOY_DATE}}"></script>
   {% endif %}
 
   <!-- Register Handlebars helpers from Swag -->
@@ -243,7 +243,7 @@
   <script src="{% static 'js/views/place-list-view.js' %}"></script>
   <script src="{% static 'js/routes.js' %}"></script>
   {% else %}
-  <script src="{% static 'dist/app.js' %}"></script>
+  <script src="{% static 'dist/app.js' %}?_={{settings.LAST_DEPLOY_DATE}}"></script>
   {% endif %}
 
   <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script>
