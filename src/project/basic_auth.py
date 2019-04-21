@@ -18,7 +18,7 @@ def BasicAuthMiddleware(application, exempt=()):
         yield (msg or b'Not Authorized')
 
     def protected_application(environ, start_response):
-        auth = environ.pop('HTTP_AUTHORIZATION', b'').split()
+        auth = environ.pop('HTTP_AUTHORIZATION', '').split()
 
         # Check if the path is exempt. Specifying exempt path patterns is useful
         # when, for example, you're using a proxy to pass information at certain
@@ -32,7 +32,7 @@ def BasicAuthMiddleware(application, exempt=()):
 
         # If the path is not exempt, enforce the basic auth.
         else:
-            if not auth or auth[0].lower() != b'basic':
+            if not auth or auth[0].lower() != 'basic':
                 return not_authorized(environ, start_response)
 
             if len(auth) == 1:
