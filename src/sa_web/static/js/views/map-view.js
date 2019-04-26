@@ -154,7 +154,7 @@ var Shareabouts = Shareabouts || {};
         this.geolocate();
       }
     },
-    initGeocoding() {
+    initGeocoding: function() {
       var geocoder;
       var control;
       var options = {
