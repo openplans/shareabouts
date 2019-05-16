@@ -77,7 +77,15 @@ Option         |Type      |Default   |Description
 `url`          |String    |None      |The URL template to the tile server. eg. `http://{s}.somedomain.com/blabla/{z}/{x}/{y}.png`. See [this](http://leafletjs.com/reference.html#url-template) description for details.
 `attribution`  |String    |None      |The string used to describe the layer data.
 
-You may alternatively use a MapboxGL layer as your base layer. Use `style` and `accessToken` parameters to configure access to your layer, and set the layer's `type` to `"mapbox"`. If you do not specify an `accessToken` in the configuration, your Mapbox access token will default to the `MAPBOX_TOKEN` environment variable value.
+You may alternatively use a MapboxGL layer as your base layer. Use `style` and `accessToken` parameters to configure access to your layer, and set the layer's `type` to `"mapbox"`. If you do not specify an `accessToken` in the configuration, your Mapbox access token will default to the `MAPBOX_TOKEN` environment variable value. **When using a MapboxGL layer, it may be good to specify a tile layer fallback for users that don't support WebGL. For example:**
+
+    layers:
+      - type: mapbox
+        style: mapbox://styles/mapbox/streets-v8
+        accessToken: [TOKEN_HERE]
+        fallback:
+          url: https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/256/{z}/{x}/{y}@2x?access_token=[TOKEN_HERE]
+
 
 ### Extra Layer Options
 
@@ -113,7 +121,7 @@ The geocoding configuration has a few other options:
 
 ### Place Types
 
-Shareabouts can handle multiple types of Place. To set up the typess 
+Shareabouts can handle multiple types of Place. To set up the typess
 you're interested in, edit config.yml and add items to the `place_types`
 section. Each Place value should match a location_type.
 

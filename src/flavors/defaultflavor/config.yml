@@ -41,14 +41,17 @@ map:
   layers:
     # Raster Tile Layers
     # ==================
-    - url: https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
-      attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">.'
+    # - url: https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+    #   attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">.'
 
     # Mapbox GL Layers
     # ================
-    # - type: mapbox
-    #   style: mapbox://styles/mapbox/streets-v8
-    #   accessToken: pk.eyJ1Ijoib3BlbnBsYW5zIiwiYSI6ImZRQzRPYnMifQ.f75KI3Q9rFXRY2Zciz6DKw
+    - type: mapbox
+      style: mapbox://styles/mapbox/streets-v8
+      accessToken: pk.eyJ1Ijoib3BlbnBsYW5zIiwiYSI6ImZRQzRPYnMifQ.f75KI3Q9rFXRY2Zciz6DKw
+      fallback:
+        url: https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
+        attribution: '&copy; OpenStreetMap contributors, CC-BY-SA. <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>. Geocoding Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">.'
 
     # GeoJSON Layers
     # ==============
