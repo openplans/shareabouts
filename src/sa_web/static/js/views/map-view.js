@@ -28,7 +28,7 @@ var Shareabouts = Shareabouts || {};
         if (config.type && config.type === 'mapbox') {
           if (!config.accessToken) { config.accessToken = S.bootstrapped.mapboxToken; }
           try {
-            L.mapboxGL(config).addTo(selfo.map);
+            L.mapboxGL(config).addTo(self.map);
           } catch (error) {
             // Many users may fail because of lack of WebGL support. For that
             // case, provide a fallback set of tiles.
