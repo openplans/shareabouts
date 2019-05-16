@@ -23,24 +23,36 @@ var Shareabouts = Shareabouts || {};
 
       // Add layers defined in the config file
       function addMapLayer(config) {
+        var layer;
+
         // type is required by Argo for fetching data, so it's a pretty good
         // Argo indicator. Argo is this by the way: https://github.com/openplans/argo/
         if (config.type && config.type === 'mapbox') {
           if (!config.accessToken) { config.accessToken = S.bootstrapped.mapboxToken; }
           try {
-            L.mapboxGL(config).addTo(self.map);
+            layer = L.mapboxGL(config)
+            layer.addTo(self.map);
           } catch (error) {
             // Many users may fail because of lack of WebGL support. For that
             // case, provide a fallback set of tiles.
-            if (config.fallback) { addMapLayer(config.fallback); }
-            else { throw error; }
+            if (config.fallback) {
+              // The _glMap may never have been successfully set on the layer,
+              // so we need to patch it.
+              layer._glMap = {remove: function () {}};
+              layer.removeFrom(self.map);
+              layer = addMapLayer(config.fallback);
+            }
+            else {
+              throw error;
+            }
           }
         } else if (config.type) {
-          L.argo(config.url, config).addTo(self.map);
+          layer = L.argo(config.url, config).addTo(self.map);
         } else {
           // Assume a tile layer
-          L.tileLayer(config.url, config).addTo(self.map);
+          layer = L.tileLayer(config.url, config).addTo(self.map);
         }
+        return layer;
       }
 
       _.each(self.options.mapConfig.layers, addMapLayer);
