@@ -32,9 +32,7 @@ var Shareabouts = Shareabouts || {};
           } catch (error) {
             // Many users may fail because of lack of WebGL support. For that
             // case, provide a fallback set of tiles.
-            if (error instanceof Error && error.message &&
-                error.message.indexOf('WebGL') != -1 &&
-                config.fallback) { addMapLayer(config.fallback); }
+            if (config.fallback) { addMapLayer(config.fallback); }
             else { throw error; }
           }
         } else if (config.type) {
