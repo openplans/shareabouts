@@ -559,13 +559,13 @@ var Shareabouts = Shareabouts || {};
       S.Util.log('APP', 'panel-state', 'open');
     },
     showNewPin: function() {
-      this.$centerpoint.show().addClass('newpin');
+      this.$centerpoint.removeClass('is-hidden').addClass('newpin');
     },
     showCenterPoint: function() {
-      this.$centerpoint.show().removeClass('newpin');
+      this.$centerpoint.removeClass('is-hidden').removeClass('newpin');
     },
     hideCenterPoint: function() {
-      this.$centerpoint.hide();
+      this.$centerpoint.addClass('is-hidden');
     },
     hidePanel: function() {
       var map = this.mapView.map;
