@@ -16,7 +16,7 @@
             named <span class="place-name">{{ place.name }}</span>
           {{^}}
             {{#if place.location }}
-              at <span class="place-name">{{ place.location }}</span>
+              at <span class="place-name">{{>location-string place}}</span>
             {{/if }}
           {{/if }}
         {{else}}
