@@ -33,13 +33,18 @@ var Shareabouts = Shareabouts || {};
             layer = L.mapboxGL(config)
             layer.addTo(self.map);
           } catch (error) {
-            // Many users may fail because of lack of WebGL support. For that
-            // case, provide a fallback set of tiles.
-            if (config.fallback) {
+            // If creation of the GL layer fails for any reason, we may have to
+            // clean up.
+            if (layer) {
               // The _glMap may never have been successfully set on the layer,
               // so we need to patch it.
               layer._glMap = {remove: function () {}};
               layer.removeFrom(self.map);
+            }
+
+            // Many users may fail because of lack of WebGL support. For that
+            // case, provide a fallback set of tiles.
+            if (config.fallback) {
               layer = addMapLayer(config.fallback);
             }
             else {
