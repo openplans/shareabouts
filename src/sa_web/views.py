@@ -34,7 +34,7 @@ def make_auth_root(dataset_root):
     return make_api_root(dataset_root) + 'users/'
 
 def make_resource_uri(resource, root):
-    resource = resource.strip('/')
+    resource = resource.lstrip('/')
     root = root.rstrip('/')
     uri = '%s/%s' % (root, resource)
     return uri
