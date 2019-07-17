@@ -551,6 +551,7 @@ a.logout-btn {
   display: none;
 }
 #centerpoint.newpin {
+  display: inline;
   overflow: visible;
   position: absolute;
   top: 50%;
