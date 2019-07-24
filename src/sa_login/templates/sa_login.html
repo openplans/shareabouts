@@ -47,6 +47,7 @@
 
 <body>
 
+  <!-- The form to log in to the API -->
   <form id="login-form" class="hidden">
     <h2>Log in to {{ config.app.title }}</h2>
     <div><label><span>Username:</span> <input id="login-username" required type="text" autocomplete="username"></label></div>
@@ -54,6 +55,8 @@
     <button>Log In</button>
   </form>
 
+  <!-- The form to log out of the API; depending on whether the user is logged
+       in or not, either this form or the one above will be hidden. -->
   <form id="logout-form" class="hidden">
     <button>Log Out</button>
   </form>
@@ -64,6 +67,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
   <script>
+    // Initialize variables for all the UI elements
     var login = document.getElementById('login-form');
     var username = document.getElementById('login-username');
     var password = document.getElementById('login-password');
@@ -71,12 +75,14 @@
     var loader = document.getElementById('login-loader');
     var logout = document.getElementById('logout-form');
 
+    // Set up default options for axios.
     axios.defaults.headers['Content-type'] = 'application/json';
     axios.defaults.xsrfCookieName = 'csrftoken';
     axios.defaults.xsrfHeaderName = 'X-CSRFToken';
     axios.defaults.withCredentials = true;
 
 
+    // POST a new user session to log in to the API
     function doLogin() {
       messages.innerHTML = '';
       messages.classList.add('hidden');
@@ -100,6 +106,7 @@
         });
     }
 
+    // DELETE the current user session to log out of the API
     function doLogout() {
       loader.classList.remove('hidden');
 
@@ -118,6 +125,7 @@
         });
     }
 
+    // GET the current user session from the API
     function getCurrentUser() {
       loader.classList.remove('hidden');
 
