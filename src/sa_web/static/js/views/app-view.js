@@ -447,7 +447,7 @@ var Shareabouts = Shareabouts || {};
           center = layer.getLatLng ? layer.getLatLng() : layer.getBounds().getCenter();
         }
 
-        self.$panel.removeClass().addClass('place-detail place-detail-' + model.id);
+        self.$panel.removeClass().addClass('place-detail place-detail-' + model.id + ' place-detail-' + model.get('location_type'));
         self.showPanel(placeDetailView.render(isNew).$el, !!responseId);
         self.hideNewPin();
         self.destroyNewModels();
