@@ -115,10 +115,14 @@ var Shareabouts = Shareabouts || {};
     onInputFileChange: function(evt) {
       var self = this,
           file,
-          attachment;
+          attachment,
+          maxHeight,
+          maxWidth;
 
       if(evt.target.files && evt.target.files.length) {
         file = evt.target.files[0];
+        maxHeight = parseInt(evt.target.getAttribute("data-max-height"));
+        maxWidth = parseInt(evt.target.getAttribute("data-max-width"));
 
         this.$('.fileinput-name').text(file.name);
         S.Util.fileToCanvas(file, function(canvas) {
@@ -141,9 +145,8 @@ var Shareabouts = Shareabouts || {};
             }
           }, 'image/jpeg');
         }, {
-          // TODO: make configurable
-          maxWidth: 800,
-          maxHeight: 800,
+          maxWidth: maxWidth || 800,
+          maxHeight: maxHeight || 800,
           canvas: true
         });
       }
