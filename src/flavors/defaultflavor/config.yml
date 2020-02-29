@@ -279,6 +279,10 @@ place:
       attrs:
         - key: accept
           value: image/*
+        - key: data-max-width
+          value: 1000
+        - key: data-max-height
+          value: 1000
 
 survey:
   submission_type: comments
