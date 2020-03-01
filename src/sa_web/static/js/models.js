@@ -300,17 +300,23 @@ var Shareabouts = Shareabouts || {};
       var args = normalizeModelArguments(key, val, options),
           attrs = _.extend(this.attributes, args.attrs);
 
-      return this._attachBlob(attrs.blob, attrs.name, args.options);
+      return this._attachBlob(attrs.blob, attrs, args.options);
     },
 
-    _attachBlob: function(blob, name, options) {
+    _attachBlob: function(blob, attrs, options) {
       var formData = new FormData(),
           self = this,
           progressHandler = S.Util.wrapHandler('progress', this, options.progress),
-          myXhr = $.ajaxSettings.xhr();
+          myXhr = $.ajaxSettings.xhr(),
+          key;
 
       formData.append('file', blob);
-      formData.append('name', name);
+
+      for (key in attrs) {
+        if (!_(['file', 'blob', 'undefined']).contains(key)) {
+          formData.append(key, attrs[key]);
+        }
+      }
 
       options = options || {};
 
