@@ -41,7 +41,8 @@
 
         <section class="place-items">
           {{# attachments }}
-          <div class="place-item place-item-attachment place-attachment-{{ name }}">
+          <div class="place-item place-item-attachment place-attachment-{{ name }} {{#if ratio}} fixed-ratio {{/if}}"
+               {{#if ratio}} style="padding-bottom: {{ ratio }}%" {{/if}}>
             <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
           </div>
           {{/ attachments }}
