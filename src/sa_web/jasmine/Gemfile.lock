@@ -9,7 +9,7 @@ GEM
     jasmine-core (3.2.0)
     json (2.1.0)
     phantomjs (2.1.1.0)
-    rack (2.0.5)
+    rack (2.2.3)
     rake (12.3.1)
 
 PLATFORMS
