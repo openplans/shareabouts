@@ -1,0 +1,8 @@
+<div class="field {{ type }}-field {{ default submission_type 'place' }}-{{ name }}-field">
+  {{> form-field-label }}
+  {{> form-field-widget }}
+
+  {{#if help_text }}
+  <div class="help-text {{ default submission_type 'place' }}-{{ name }}-help-text">{{ help_text }}</div>
+  {{/if}}
+</div>
