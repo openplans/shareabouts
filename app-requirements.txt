@@ -20,7 +20,7 @@ ujson==1.33
 
 # Config
 pyyaml
-django-extensions
+django-extensions==2.1.0
 
 # Testing
 jasmine
