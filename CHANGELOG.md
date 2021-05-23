@@ -80,6 +80,16 @@ Development (master)
 
     See the [configuration documentation](https://github.com/openplans/shareabouts/blob/714c41f3f00aeebaa0b25bf9297f4d0e67f92826/doc/CONFIG.md#pages-and-links) for more information.
 
+3.24.0
+-----------------------------
+  * Changes:
+    - Removed use of non-unique id for support checkboxes
+
+  * Upgrade Steps
+    - If you're overloading the style of the support label in custom.css you
+      may need to move a few things around. Instead of styling `.user-support label`,
+      style `.support-label-content`.
+
 2.0.1
 -----------------------------
   * New Features:
