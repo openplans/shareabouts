@@ -791,11 +791,9 @@ a.close-btn span {
 }
 .user-support label {
   display: block;
-  background: transparent url(images/heart-empty.png) left center no-repeat scroll;
   box-shadow: none;
   border-radius: 0;
   font-size: 1em;
-  padding-left: 22px;
   color: #007fbf;
 }
 .user-support.disabled:hover,
@@ -803,11 +801,16 @@ a.close-btn span {
   cursor: default;
   background-color: #a3c7d9;
 }
-.user-support input[type=checkbox]:checked ~ label {
-  background-image: url(images/heart.png);
-}
 .user-support:hover label {
   background-color: #93b7c9;
+}
+.support-label-content {
+  display: inline-block;
+  background: transparent url(images/heart-empty.png) left center no-repeat scroll;
+  padding-left: 22px;
+}
+:checked ~ .support-label-content {
+  background-image: url(images/heart.png);
 }
 .support-count {
 }
