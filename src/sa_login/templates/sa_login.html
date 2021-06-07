@@ -42,6 +42,9 @@
     .hidden {
       display: none;
     }
+    #login-messages {
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -55,14 +58,14 @@
     <button>Log In</button>
   </form>
 
+  <div id="login-messages" class="hidden"></div>
+  <div id="login-loader" class="loader"></div>
+
   <!-- The form to log out of the API; depending on whether the user is logged
        in or not, either this form or the one above will be hidden. -->
   <form id="logout-form" class="hidden">
     <button>Log Out</button>
   </form>
-
-  <div id="login-messages" class="hidden"></div>
-  <div id="login-loader" class="loader"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
@@ -139,7 +142,10 @@
             login.classList.add('hidden');
             logout.classList.remove('hidden');
             messages.classList.remove('hidden');
-            messages.innerHTML = 'You are now logged in as ' + response.data.name + ' (' + response.data.username + '). Click <a href="/">here</a> to return to the map.'
+            messages.innerHTML =
+              (response.data.avatar_url ? '<img src="' + response.data.avatar_url + '" alt="' + response.data.username + ' avatar">' : '') +
+              '<p>You are now logged in as <strong>' + response.data.name + ' (' + response.data.username + ')</strong>.</p>' +
+              '<p>Click <a href="/">here</a> to return to the map.</p>';
           }
         })
         .catch(function (error) {
