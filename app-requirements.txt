@@ -1,5 +1,5 @@
 # The server
-django==1.8.18
+django==2.2.24
 gunicorn==19.7.1
 dj-static==0.0.6
 django-storages==1.1.8
