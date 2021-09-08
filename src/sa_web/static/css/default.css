@@ -957,17 +957,6 @@ ol.responses {
 article.response footer {
   text-align: right;
 }
-.survey-reply-link {
-  color: #999;
-  background: #eee;
-  padding: 0.5em 0.75em;
-  text-decoration: none;
-  font-weight: bold;
-}
-.survey-reply-link:hover {
-  background: #607890;
-  color: #fff;
-}
 
 .submit-btn {
   float: left;
