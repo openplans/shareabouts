@@ -10,7 +10,7 @@ django-proxy>=1.2.1
 httpagentparser
 
 # Config
-pyyaml
+pyyaml<6.0
 django-extensions==2.1.0
 
 # Testing
