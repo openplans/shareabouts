@@ -51,7 +51,7 @@ django-celery==3.1.16
 # ==============================
 
 # DB Settings and Management
-psycopg2==2.7.3.2
+psycopg2==2.8.4
 psycogreen==1.0
 south==1.0.1
 dj-database-url==0.2.2
@@ -108,7 +108,7 @@ mock
 mock_django
 responses==0.2.2
 django-debug-toolbar==1.2.1
-raven==5.19.0  # For Sentry error logging
+raven==6.10.0  # For Sentry error logging
 
 
 # - - - - - - - - - - - - - - - -
