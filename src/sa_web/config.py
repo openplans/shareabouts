@@ -58,7 +58,7 @@ class _ShareaboutsConfig (object):
             with closing(self.config_file()) as config_yml:
                 self._yml = yaml.load(config_yml)
                 if not self.raw:
-                    self._yml = translate(self._yml)
+                    self._yml = translate(self._yml, Loader=yaml.FullLoader)
 
         return self._yml
 
