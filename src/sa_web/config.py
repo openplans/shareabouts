@@ -56,7 +56,7 @@ class _ShareaboutsConfig (object):
     def data(self):
         if not hasattr(self, '_yml'):
             with closing(self.config_file()) as config_yml:
-                self._yml = yaml.load(config_yml)
+                self._yml = yaml.safe_load(config_yml)
                 if not self.raw:
                     self._yml = translate(self._yml)
 
