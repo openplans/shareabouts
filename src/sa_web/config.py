@@ -100,7 +100,7 @@ class _ShareaboutsConfig (object):
                 self._data = yaml.safe_load(config_yml)
 
             if self.apply_env:
-                self._data = self.apply_env_overrides(self._data, os.environ)
+                self._data = apply_env_overrides(self._data, os.environ)
 
             if not self.raw:
                 self._data = translate(self._data)
