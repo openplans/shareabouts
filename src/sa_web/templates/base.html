@@ -211,6 +211,7 @@
   <!-- Bootstrap site and user information -->
   <script>
     Shareabouts.bootstrapped = {
+      dataset: {{ DATASET_ROOT|as_json }},
       staticUrl: '{{ STATIC_URL }}',
       mapQuestKey: '{{ settings.MAPQUEST_KEY }}',
       mapboxToken: '{{ settings.MAPBOX_TOKEN }}'

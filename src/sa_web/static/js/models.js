@@ -374,6 +374,23 @@ var Shareabouts = Shareabouts || {};
     }
   });
 
+  // Users aren't technically backbone models, but there are some useful
+  // methods that we can define for them.
+  S.currentUserGroups = function () {
+    var datasetGroups = _.filter(S.bootstrapped.currentUser && S.bootstrapped.currentUser.groups, function(userGroup) {
+      return S.bootstrapped.dataset.replace(/\/$/, '') === userGroup.dataset.split('?')[0].replace(/\/$/, '');
+    });
+    return _.pluck(datasetGroups, 'name');
+  };
+
+  S.currentUserInGroup = function (group) {
+    return _.some(S.currentUserGroups(), function(userGroup) { return group === userGroup; });
+  };
+
+  S.currentUserInAnyGroup = function (groups) {
+    return _.some(groups, function(g) { return S.currentUserInGroup(g); });
+  };
+
 }(Shareabouts, jQuery));
 
 /*global jQuery */
