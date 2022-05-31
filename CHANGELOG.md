@@ -80,6 +80,48 @@ Development (master)
 
     See the [configuration documentation](https://github.com/openplans/shareabouts/blob/714c41f3f00aeebaa0b25bf9297f4d0e67f92826/doc/CONFIG.md#pages-and-links) for more information.
 
+3.26.0
+-----------------------------
+  * Changes:
+    - Allow overriding config parameters with environment variables
+
+      The majority of the configuration values in *config.yml* can be overridden
+      with environment variables. You can determine what the environment
+      variable to override a setting should be called by joining the setting's
+      path with double underscores, converting to uppercase, and prepending with
+      `SHAREABOUTS__`. For example, say you have the configuration options:
+
+      ```yml
+      place:
+        adding_supported:
+          from: 2017-03-07 09:00 -0500
+          until: 2017-04-04 09:00 -0400
+      ```
+
+      You could override these settings with the two env variables:
+
+      ```
+      SHAREABOUTS__PLACE__ADDING_SUPPORTED__FROM = 2017-03-07 09:00 -0500
+      SHAREABOUTS__PLACE__ADDING_SUPPORTED__UNTIL = 2017-04-04 09:00 -0400
+      ```
+
+    - Allow hiding/showing places and comments with appropriate permissions.
+
+      The following handlebars helpers can be used to check the current user's
+      permissions:
+
+      - `{{# can_add_places }}` -- Checks whether adding is supported or the
+        current user is in a `place.editors` group.
+      - `{{# can_moderate_places }}` -- Checks whether the current user is in a
+        `place.moderators` group. Moderators can show or hide places.
+      - `{{# can_edit_places }}` -- Checks whether the current user is in a
+        `place.editors` group. Editors can change the content of places, and
+        add places outside of the adding supported time.
+
+      When `can_add_places` is true, the add button show up on the interface.
+      When `can_edit_places` or `can_moderate_places` is true, a control bar with
+      show/hide and delete buttons is available on each place detail page.
+
 3.25.0
 -----------------------------
   * Changes:
