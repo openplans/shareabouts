@@ -1,0 +1,18 @@
+<div class="place-moderation-bar {{#if visible}}place-is-visible{{^}}place-is-invisible{{/if}}">
+  <p>
+    {{#if visible }}
+      {{#_}}<span class="visibility-icon visible-icon">👁</span>
+      This {{ place_config.response_name }} is <strong>visible to everyone</strong>.{{/_}}
+    {{^}}
+      {{#_}}<span class="visibility-icon invisible-icon">👁</span>
+      This {{ place_config.response_name }} is <strong>only visible to moderators</strong>.{{/_}}
+    {{/if}}
+  </p>
+  <button class="toggle-visibility">
+    {{#if visible }}
+      {{#_}}Make {{ place_config.response_name }} hidden{{/_}}
+    {{^}}
+      {{#_}}Make {{ place_config.response_name }} visible{{/_}}
+    {{/if}}
+  </button>
+</div>

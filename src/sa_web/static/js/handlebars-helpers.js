@@ -33,8 +33,36 @@ var Shareabouts = Shareabouts || {};
     return (NS.bootstrapped && NS.bootstrapped.currentUser) ? options.fn(this) : options.inverse(this);
   });
 
+  Handlebars.registerHelper('is_in_group', function(/* ...groupArgs, options */) {
+    var groupArgs = _.initial(arguments);
+    var options = _.last(arguments);
+
+    for (var groups of groupArgs) {
+      var isGroupArray = _.isArray(groups);
+      if (isGroupArray && NS.currentUserInAnyGroup(groups)) { return options.fn(this); }
+      else if (!isGroupArray && NS.currentUserInGroup(groups)) { return options.fn(this); }
+    }
+
+    return options.inverse(this);
+  });
+
   Handlebars.registerHelper('current_user', function(attr) {
     return (NS.bootstrapped.currentUser ? NS.bootstrapped.currentUser[attr] : undefined);
+  });
+
+  Handlebars.registerHelper('can_add_places', function(options) {
+    return (
+      NS.Config.place.adding_supported ||
+      NS.currentUserIsPlaceEditor()
+    ) ? options.fn(this) : options.inverse(this);
+  });
+
+  Handlebars.registerHelper('can_edit_places', function(options) {
+    return NS.currentUserIsPlaceEditor() ? options.fn(this) : options.inverse(this);
+  });
+
+  Handlebars.registerHelper('can_moderate_places', function(options) {
+    return NS.currentUserIsPlaceModerator() ? options.fn(this) : options.inverse(this);
   });
 
   // Date and time ------------------------------------------------------------

@@ -45,6 +45,8 @@ var Shareabouts = Shareabouts || {};
 
         S.Util.log('USER', 'place', shareTo, self.model.getLoggingDetails());
       });
+
+      this.$el.on('click', '.toggle-visibility', _.bind(this.onToggleVisibility, this));
     },
 
     render: function(isNew) {
@@ -82,6 +84,27 @@ var Shareabouts = Shareabouts || {};
 
     onChange: function() {
       this.render();
+    },
+
+    onToggleVisibility: function(evt) {
+      var $button = this.$(evt.target);
+      $button.attr('disabled', 'disabled');
+
+      this.model.save({visible: !this.model.get('visible')}, {
+        beforeSend: function($xhr) {
+          $xhr.setRequestHeader('X-Shareabouts-Silent', 'true');
+        },
+        success: function() {
+          S.Util.log('USER', 'updated-place-visibility', 'successfully-edit-place');
+        },
+        error: function() {
+          S.Util.log('USER', 'updated-place-visibility', 'fail-to-edit-place');
+        },
+        complete: function() {
+          $button.removeAttr('disabled');
+        },
+        wait: true
+      });
     }
   });
 }(Shareabouts, jQuery, Shareabouts.Util.console));

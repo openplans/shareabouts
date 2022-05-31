@@ -2,6 +2,10 @@
           {{> place-form-submission-confirmation }}
         {{/if}}
 
+        {{#can_moderate_places}}
+          {{> place-moderation-bar }}
+        {{/can_moderate_places}}
+
         {{> place-detail-promotion-bar }}
 
         <header class="place-header clearfix">

@@ -839,6 +839,34 @@ a.close-btn span {
   background: url(images/facebook-32.png) 0 0 no-repeat scroll;
 }
 
+/* Editing Visibility */
+.place-moderation-bar {
+  align-items: center;
+  justify-content: space-between;
+
+  display: flex;
+
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+
+  background-color: #ffeecc;
+  font-size: 0.8rem;
+
+  transition: 0.2s all;
+}
+.place-moderation-bar.place-is-invisible {
+  border-style: dashed;
+  opacity: 0.7;
+  background-color: #ffcccc;
+}
+.place-moderation-bar p {
+  margin: 0;
+}
+.place-moderation-bar .invisible-icon {
+  text-decoration: line-through;
+}
+
 /* Places */
 .place-header {
   margin-bottom: 1em;

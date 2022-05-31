@@ -220,6 +220,15 @@ var Shareabouts = Shareabouts || {};
       return properties;
     },
 
+    queryString: function() {
+      var params = {};
+      if (S.currentUserIsPlaceModerator()) {
+        params['include_invisible'] = 'true';
+      }
+
+      return Object.keys(params).length > 0 ? '?' + $.param(params) : '';
+    },
+
     sync: function(method, model, options) {
       var attrs;
 
@@ -233,6 +242,8 @@ var Shareabouts = Shareabouts || {};
         options.data = JSON.stringify(attrs);
         options.contentType = 'application/json';
       }
+
+      options.url = _.result(this, 'url') + this.queryString();
 
       return Backbone.sync(method, model, options);
     }
@@ -388,8 +399,20 @@ var Shareabouts = Shareabouts || {};
   };
 
   S.currentUserInAnyGroup = function (groups) {
-    return _.some(groups, function(g) { return S.currentUserInGroup(g); });
+    if (_.isArray(groups)) {
+      return _.some(groups, function(g) { return S.currentUserInGroup(g); });
+    } else {
+      return S.currentUserInGroup(groups);
+    }
   };
+
+  S.currentUserIsPlaceModerator = function () {
+    return S.currentUserInAnyGroup(S.Config.place.moderators);
+  }
+
+  S.currentUserIsPlaceEditor = function () {
+    return S.currentUserInAnyGroup(S.Config.place.editors);
+  }
 
 }(Shareabouts, jQuery));
 
