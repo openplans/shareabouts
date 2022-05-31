@@ -232,11 +232,11 @@ var Shareabouts = Shareabouts || {};
     sync: function(method, model, options) {
       var attrs;
 
-      if (method === 'create' || method === 'update') {
+      if (method === 'create' || method === 'update' || method === 'patch') {
         attrs = {
           'type': 'Feature',
           'geometry': model.get('geometry'),
-          'properties': _.omit(model.toJSON(), 'geometry')
+          'properties': options.attrs || _.omit(model.toJSON(), 'geometry')
         };
 
         options.data = JSON.stringify(attrs);
