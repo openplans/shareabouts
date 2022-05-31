@@ -80,6 +80,11 @@ Development (master)
 
     See the [configuration documentation](https://github.com/openplans/shareabouts/blob/714c41f3f00aeebaa0b25bf9297f4d0e67f92826/doc/CONFIG.md#pages-and-links) for more information.
 
+3.26.1
+-----------------------------
+  * Changes:
+    - Style moderation button similarly to other buttons
+
 3.26.0
 -----------------------------
   * Changes:
