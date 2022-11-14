@@ -89,6 +89,7 @@ var Shareabouts = Shareabouts || {};
         case 'Firefox':
         case 'Safari':
         case 'ChromeiOS':
+        case 'MSEdge':
           return true;
         case 'Microsoft Internet Explorer':
           var firstDot = userAgent.browser.version.indexOf('.'),
