@@ -5,6 +5,10 @@ when you run "manage.py test".
 Replace this with more appropriate tests for your application.
 """
 
+from contextlib import contextmanager
+from django.test import Client, override_settings
+from pathlib import Path
+from threading import Thread
 from unittest import TestCase
 from . import config
 
@@ -77,3 +81,84 @@ class ShareaboutsConfigTest (TestCase):
             },
             'prop8': 'j'
         })
+
+
+# """
+# Tests to write:
+# * simple request with a sample config
+#
+# """
+#
+# class StaticFileAPIBackend (TestCase):
+#     def test_can_read_places(self):
+#         pass
+#
+#     def test_can_read_submissions(self):
+#         pass
+#
+#
+class StubAPIServerThread (Thread):
+    def __init__(self, directory: str):
+        self.directory = directory
+        super().__init__()
+
+    def run(self):
+        from http.server import (
+            HTTPServer,
+            SimpleHTTPRequestHandler,
+        )
+        from functools import partial
+
+        StubAPIRequestHandler = partial(SimpleHTTPRequestHandler, directory=self.directory)
+
+        server_address = ('', 8001)
+        request_handler = StubAPIRequestHandler
+        with HTTPServer(server_address, request_handler) as server:
+            self.server = server
+            server.serve_forever()
+
+
+@contextmanager
+def start_stub_api_server(directory):
+    from time import sleep
+    from urllib.error import URLError
+    from urllib.request import urlopen
+
+    # Start the server
+    thread = StubAPIServerThread(str(directory))
+    thread.start()
+
+    # Wait until the server is up
+    while True:
+        try:
+            with urlopen('http://localhost:8001/') as response:
+                if response.code == 200:
+                    break
+        except URLError:
+            pass
+        sleep(0.1)
+
+    try:
+        # After the server's up, proceed with the test
+        yield thread.server
+    finally:
+        # Shut the server down and wait for it to be done
+        thread.server.shutdown()
+        thread.join()
+
+
+DATA_FIXTURES_DIR = Path(__file__).resolve().parent
+
+
+class APIServerBackend (TestCase):
+
+    @override_settings(SHAREABOUTS={'DATASET_ROOT': 'http://localhost:8001/'})
+    def test_api_proxy(self):
+        with (DATA_FIXTURES_DIR / 'test_fixtures' / 'places').open('rb') as datafile:
+            places_data = datafile.read()
+
+        with start_stub_api_server(DATA_FIXTURES_DIR / 'test_fixtures') as server:
+            client = Client()
+            response = client.get('/api/places')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.content, places_data)
