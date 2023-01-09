@@ -6,7 +6,7 @@ from sa_login import views as login_views
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     # url(r'^$', 'project.views.home', name='home'),
     # url(r'^project/', include('project.foo.urls')),
@@ -23,4 +23,4 @@ urlpatterns = patterns('',
     url(r'^place/(?P<place_id>[^/]+)$', views.index, name='place'),
     url(r'^login/$', login_views.login, name='login'),
     url(r'^', views.index, name='index'),
-)
+]
