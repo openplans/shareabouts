@@ -24,7 +24,7 @@ urlpatterns = staticfiles_urlpatterns() + [
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^choose-language$', set_language, name='set_language'),
     url(r'^', include('sa_web.urls')),
 ]
