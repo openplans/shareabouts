@@ -17,7 +17,7 @@ from django.template import TemplateDoesNotExist, RequestContext
 from django.template.loader import render_to_string
 from django.utils.timezone import now
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.core.urlresolvers import resolve, reverse
+from django.urls import resolve, reverse
 from proxy.views import proxy_view as remote_proxy_view
 
 log = logging.getLogger(__name__)
