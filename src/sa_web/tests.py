@@ -6,13 +6,14 @@ Replace this with more appropriate tests for your application.
 """
 
 from contextlib import contextmanager
-from django.test import Client, override_settings
+from django.conf import settings
+from django.test import Client, override_settings, SimpleTestCase
+from os.path import abspath, dirname, join as path_join
 from pathlib import Path
 from threading import Thread
-from unittest import TestCase
 from . import config
 
-class SimpleTest(TestCase):
+class SimpleTest(SimpleTestCase):
     def test_basic_addition(self):
         """
         Tests that 1 + 1 always equals 2.
@@ -20,7 +21,7 @@ class SimpleTest(TestCase):
         self.assertEqual(1 + 1, 2)
 
 
-class ShareaboutsConfigTest (TestCase):
+class ShareaboutsConfigTest (SimpleTestCase):
     def test_apply_env_overrides(self):
         config_data = {
             'prop0': 'a',
@@ -148,11 +149,22 @@ def start_stub_api_server(directory):
 
 
 DATA_FIXTURES_DIR = Path(__file__).resolve().parent
+APP_DIR = abspath(dirname(__file__))
 
 
-class APIServerBackend (TestCase):
+@override_settings(
+    DEBUG=True,
+    SHAREABOUTS={
+        'DATASET_ROOT': 'http://localhost:8001/',
+        'CONFIG': abspath(path_join(APP_DIR, '..', 'flavors', 'defaultflavor'))
+    })
+class APIServerBackend (SimpleTestCase):
+    def test_index(self):
+        with start_stub_api_server(DATA_FIXTURES_DIR / 'test_fixtures') as server:
+            client = Client()
+            response = client.get('/')
+            self.assertEqual(response.status_code, 200)
 
-    @override_settings(SHAREABOUTS={'DATASET_ROOT': 'http://localhost:8001/'})
     def test_api_proxy(self):
         with (DATA_FIXTURES_DIR / 'test_fixtures' / 'places').open('rb') as datafile:
             places_data = datafile.read()
