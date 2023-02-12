@@ -179,7 +179,7 @@ activity:
 place:
   adding_supported:
     from: '2017-03-07 00:00 -0500'   # Daylight savings begins mid-March
-    until: '2021-04-07 00:00 -0400'  # and ends mid-October.
+    until: '2099-04-07 00:00 -0400'  # and ends mid-October.
   editors: place-editors
   moderators: place-editors
   response_name: _(place)
