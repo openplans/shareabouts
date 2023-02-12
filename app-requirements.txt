@@ -3,7 +3,7 @@ django>3.2,<4
 gunicorn==19.7.1
 dj-static==0.0.6
 django-storages==1.1.8
-python-dateutil==2.2
+python-dateutil==2.8.2
 boto==2.27.0
 raven==6.10.0  # For Sentry error logging
 
