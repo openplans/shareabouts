@@ -13,7 +13,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponse, Http404
-from django.template import TemplateDoesNotExist, RequestContext
+from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.utils.timezone import now
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -189,13 +189,15 @@ def send_place_created_notifications(request, response):
     errors = []
 
     try:
-        # The reuest has any potentially private data fields.
+        # The request has any potentially private data fields, so we want to be
+        # careful about what we include from it in the notification email.
         requested_place = json.loads(request.body)
     except ValueError:
         errors.append('Received invalid place JSON from request: %r' % (request.body,))
 
     try:
-        # The response has things like ID and cretated datetime
+        # The response has things like ID and cretated datetime, which may be
+        # useful in the notification email.
         try: response.render()
         except: pass
         place = json.loads(response.content)
@@ -228,17 +230,17 @@ def send_place_created_notifications(request, response):
     bcc_list = getattr(settings, 'EMAIL_NOTIFICATIONS_BCC', [])
 
     # If we didn't find any errors, then render the email and send.
-    context_data = RequestContext(request, {
+    context_data = {
         'place': place,
         'email': recipient_email,
         'config': config,
         'site_root': request.build_absolute_uri('/'),
-    })
-    subject = render_to_string('new_place_email_subject.txt', context_data)
-    body = render_to_string('new_place_email_body.txt', context_data)
+    }
+    subject = render_to_string('new_place_email_subject.txt', context_data, request)
+    body = render_to_string('new_place_email_body.txt', context_data, request)
 
     try:
-        html_body = render_to_string('new_place_email_body.html', context_data)
+        html_body = render_to_string('new_place_email_body.html', context_data, request)
     except TemplateDoesNotExist:
         html_body = None
 
@@ -248,9 +250,8 @@ def send_place_created_notifications(request, response):
     #     username=...,
     #     use_tls=...)
 
-    # NOTE: In Django 1.7+, send_mail can handle multi-part email with the
-    # html_message parameter, but pre 1.7 cannot and we must construct the
-    # multipart message manually.
+    # NOTE: Django's send_mail function is not able to handle BCC lists, so we
+    # must construct the multipart message manually.
     msg = EmailMultiAlternatives(
         subject,
         body,
@@ -263,7 +264,7 @@ def send_place_created_notifications(request, response):
         msg.attach_alternative(html_body, 'text/html')
 
     msg.send()
-    return
+    return msg
 
 
 def proxy_view(request, url, requests_args={}):

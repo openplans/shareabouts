@@ -11,6 +11,7 @@ from django.test import Client, override_settings, SimpleTestCase
 from os.path import abspath, dirname, join as path_join
 from pathlib import Path
 from threading import Thread
+from unittest import mock
 from . import config
 
 class SimpleTest(SimpleTestCase):
@@ -174,3 +175,50 @@ class APIServerBackend (SimpleTestCase):
             response = client.get('/api/places')
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.content, places_data)
+
+
+@override_settings(
+    EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
+    EMAIL_ADDRESS='campaign@city.gov',
+    EMAIL_NOTIFICATIONS_BCC=['stakeholder@city.gov'],
+)
+class PlaceCreatedNotificationTests (SimpleTestCase):
+    def test_send_notification(self):
+        from sa_web.views import send_place_created_notifications
+
+        mock_request = mock.Mock()
+        mock_request.body = '''
+            {
+                "properties": {
+                    "location_type": "test place",
+                    "private-submitter_email": "person@gmail.com"
+                }
+            }
+        '''
+        mock_request.build_absolute_uri.return_value = 'http://example.com/'
+
+        mock_response = mock.Mock()
+        mock_response.content = '''
+            {
+                "id": 123,
+                "properties": {
+                    "location_type": "test place",
+                }
+            }
+        '''
+
+        # import pdb; pdb.set_trace()
+        with mock.patch('sa_web.views.EmailMultiAlternatives') as MockEmailMultiAlternatives:
+            msg = send_place_created_notifications(mock_request, mock_response)
+            MockEmailMultiAlternatives.assert_called_once_with(
+                'Thanks for submitting a new test place!',
+                'Thanks for submitting a new test place!\n\nThe URL for your place is http://example.com/places/123. Share it around.',
+                'campaign@city.gov',
+                to=['person@gmail.com'],
+                bcc=['stakeholder@city.gov'],
+            )
+            msg.attach_alternative.assert_called_once_with(
+                '<p>Thanks for submitting a new test place!</p>\n\n<p>The URL for your place is http://example.com/places/123. Share it around.</p>',
+                'text/html',
+            )
+            msg.send.assert_called_once_with()

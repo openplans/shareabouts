@@ -2,6 +2,7 @@
 import datetime
 import os
 import os.path
+from django.core.exceptions import ImproperlyConfigured
 
 HERE = os.path.dirname(__file__)
 
@@ -357,6 +358,12 @@ if os.path.exists(LOCAL_SETTINGS_FILE):
     with open(LOCAL_SETTINGS_FILE) as settingsfile:
         exec(settingsfile.read())
 
+try:
+    if not isinstance(EMAIL_NOTIFICATIONS_BCC, (list, tuple)):
+        raise ImproperlyConfigured('EMAIL_NOTIFICATIONS_BCC must be a list or tuple')
+except NameError:
+    pass
+
 
 ##############################################################################
 # Flavor defaults
@@ -368,7 +375,6 @@ try:
     SHAREABOUTS
     flavor = SHAREABOUTS['FLAVOR']
 except (NameError, TypeError, KeyError):
-    from django.core.exceptions import ImproperlyConfigured
     raise ImproperlyConfigured('No SHAREABOUTS configuration defined. '
         'Did you forget to copy the local settings template?')
 
