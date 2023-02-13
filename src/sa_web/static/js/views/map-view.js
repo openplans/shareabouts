@@ -192,7 +192,14 @@ var Shareabouts = Shareabouts || {};
 
       switch (this.options.mapConfig.geocoding_engine) {
         case 'Mapbox':
-          options.geocoder = L.Control.Geocoder.mapbox(S.bootstrapped.mapboxToken);
+          options.geocoder = L.Control.Geocoder.mapbox(S.bootstrapped.mapboxToken, {
+            geocodingQueryParams: this.options.mapConfig.geocode_proximity ? {
+              proximity: [
+                this.options.mapConfig.options.center.lng,
+                this.options.mapConfig.options.center.lat
+              ].join(',')
+            } : {}
+          });
           break;
 
         default:
