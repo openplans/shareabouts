@@ -63,7 +63,7 @@ var Shareabouts = Shareabouts || {};
         user_token: this.options.userToken,
         user_submitted: !!this.userSubmission,
         survey_config: this.options.surveyConfig
-      }, S.stickyFieldValues);
+      }, S.Util.getStickyFields()[this.options.userToken] || {});
 
       this.$el.html(Handlebars.templates['place-detail-survey'](data));
 

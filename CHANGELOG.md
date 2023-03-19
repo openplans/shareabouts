@@ -7,6 +7,8 @@ Development (master)
 
   * New Features:
     - Update mapbox geocoder widget to take proximity to the center of the map into account.
+    - Add event hooks for place form submission success/failure/completion
+    - Sticky field values are stored for each user token in the browser's local storage
 
   * Upgrade Steps:
     - ...

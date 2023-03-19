@@ -54,7 +54,7 @@ var Shareabouts = Shareabouts || {};
         place_config: this.options.placeConfig,
         user_token: this.options.userToken,
         current_user: S.currentUser
-      }, S.stickyFieldValues, this.model.toJSON());
+      }, S.Util.getStickyFields()[this.options.userToken] || {}, this.model.toJSON());
 
       this.$el.html(Handlebars.templates['place-form'](data));
       this.updatedRequiredOptionButtons();
@@ -170,6 +170,27 @@ var Shareabouts = Shareabouts || {};
     onRequiredOptionButtonChange: function(evt) {
       this.updatedRequiredOptionButtons(evt.currentTarget)
     },
+    onSaveSuccess: function() {
+      var router = this.options.router,
+          model = this.model,
+          newPlaceUrl = '/place/' + model.id + '/new';
+
+      // Redirect to the new-place page
+      S.Util.log('USER', 'new-place', 'successfully-add-place');
+      router.navigate(newPlaceUrl, {trigger: true});
+    },
+    onSaveError: function() {
+      S.Util.log('USER', 'new-place', 'fail-to-add-place');
+    },
+    onSaveComplete: function() {
+      var $button = this.$('[name="save-place-btn"]'),
+          spinner = this.spinner;
+
+      $button.removeAttr('disabled');
+      if (spinner) {
+        spinner.stop();
+      }
+    },
     onSubmit: Gatekeeper.onValidSubmit(function(evt) {
       // Make sure that the center point has been set after the form was
       // rendered. If not, this is a good indication that the user neglected
@@ -195,7 +216,7 @@ var Shareabouts = Shareabouts || {};
       evt.preventDefault();
 
       $button.attr('disabled', 'disabled');
-      spinner = new Spinner(S.smallSpinnerOptions).spin(this.$('.form-spinner')[0]);
+      this.spinner = new Spinner(S.smallSpinnerOptions).spin(this.$('.form-spinner')[0]);
 
       S.Util.log('USER', 'new-place', 'submit-place-btn-click');
 
@@ -203,17 +224,9 @@ var Shareabouts = Shareabouts || {};
 
       // Save and redirect
       this.model.save(attrs, {
-        success: function() {
-          S.Util.log('USER', 'new-place', 'successfully-add-place');
-          router.navigate('/place/' + model.id + '/new', {trigger: true});
-        },
-        error: function() {
-          S.Util.log('USER', 'new-place', 'fail-to-add-place');
-        },
-        complete: function() {
-          $button.removeAttr('disabled');
-          spinner.stop();
-        },
+        success: () => { this.onSaveSuccess(model); },
+        error: () => { this.onSaveError(model); },
+        complete: () => { this.onSaveComplete(model); },
         wait: true
       });
     })

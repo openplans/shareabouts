@@ -121,6 +121,26 @@ var Shareabouts = Shareabouts || {};
     // forms. NOTE that the cache is shared between both forms, so, for example,
     // `submitter_name` in both places will have a shared default value (if
     // sticky: true in config.yml).
+    getStickyFields: function(userToken) {
+      // If local storage is available, retrieve the sticky field values from
+      // there. Otherwise, use a cache in memory.
+      if (!S.stickyFieldValues) {
+        if (window.localStorage) {
+          S.stickyFieldValues = JSON.parse(window.localStorage.getItem('stickyFieldValues')) || {};
+        } else {
+          S.stickyFieldValues = {};
+        }
+      }
+
+      // If there is no user token, don't set sticky fields.
+      if (userToken === null) {
+        console.debug('No user token, not setting sticky fields.');
+        return {};
+      }
+
+      return S.stickyFieldValues;
+    },
+
     setStickyFields: function(data, surveyItemsConfig, placeItemsConfig) {
       // Make an array of sticky field names
       var stickySurveyItemNames = _.pluck(_.filter(surveyItemsConfig, function(item) {
@@ -128,19 +148,33 @@ var Shareabouts = Shareabouts || {};
           stickyPlaceItemNames = _.pluck(_.filter(placeItemsConfig, function(item) {
             return item.sticky; }), 'name'),
           // Array of both place and survey sticky field names
-          stickyItemNames = _.union(stickySurveyItemNames, stickyPlaceItemNames);
+          stickyItemNames = _.union(stickySurveyItemNames, stickyPlaceItemNames),
+          stickyFieldValues = S.Util.getStickyFields(),
+          userToken = data.user_token || null;
 
-      // Create the cache
-      if (!S.stickyFieldValues) {
-        S.stickyFieldValues = {};
+      // If there is no user token, don't set sticky fields.
+      if (userToken === null) {
+        console.debug('No user token, not setting sticky fields.');
+        return;
       }
 
+      // Sticky fields should be set relative to the current user token.
+      if (!S.stickyFieldValues[userToken]) {
+        S.stickyFieldValues[userToken] = {};
+      }
+
+      // Set the sticky field values in the cache
       _.each(stickyItemNames, function(name) {
         // Check for existence of the key, not the truthiness of the value
         if (name in data) {
-          S.stickyFieldValues[name] = data[name];
+          stickyFieldValues[userToken][name] = data[name];
         }
       });
+
+      // If local storage is available, save the sticky field values there.
+      if (window.localStorage) {
+        window.localStorage.setItem('stickyFieldValues', JSON.stringify(stickyFieldValues));
+      }
     },
 
     // ====================================================
