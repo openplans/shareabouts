@@ -246,6 +246,7 @@ place:
         - key: required
     - prompt: _(Yes or no question)
       type: radiogroup
+      sticky: true
       options:
         - label: _(Indeed)
           value: yeah
@@ -256,6 +257,7 @@ place:
         - key: required
     - prompt: _(All that apply questiion)
       type: checkboxgroup
+      sticky: true
       options:
         - label: _(First)
           value: option1
