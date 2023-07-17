@@ -239,31 +239,16 @@ if 'DATABASE_URL' in env:
     if USE_GEODB:
         DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
-if 'REDIS_URL' in env or 'REDISCLOUD_URL' in env:
-    redis_url = env.get('REDIS_URL') or env.get('REDISCLOUD_URL')
-    scheme, connstring = redis_url.split('://')
-    if '@' in connstring:
-        userpass, netloc = connstring.split('@')
-        userename, password = userpass.split(':')
-    else:
-        userpass = None
-        netloc = connstring
+if 'REDIS_URL' in env:
     CACHES = {
-        "default": {
-            "BACKEND": "redis_cache.cache.RedisCache",
-            "LOCATION": "%s:0" % (netloc,),
-            "OPTIONS": {
-                "CLIENT_CLASS": "redis_cache.client.DefaultClient",
-                "PASSWORD": password,
-            } if userpass else {}
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': env.get('REDIS_URL'),
         }
     }
 
     # Django sessions
-    SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-
-    # Celery broker
-    BROKER_URL = redis_url.strip('/') + '/1'
+    SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 SHAREABOUTS = {}
 if 'SHAREABOUTS_FLAVOR' in env:
@@ -409,7 +394,6 @@ if SHAREABOUTS['DATASET_ROOT'].startswith('/'):
         'raven.contrib.django.raven_compat',
         'django_ace',
         'django_object_actions',
-        'djcelery',
 
         # OAuth
         'provider',
@@ -450,11 +434,3 @@ if SHAREABOUTS['DATASET_ROOT'].startswith('/'):
     SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,picture.width(96).height(96),first_name,last_name,bio'}
 
     SOCIAL_AUTH_LOGIN_ERROR_URL = 'remote-social-login-error'
-
-
-    ###############################################################################
-    #
-    # Background task processing
-    #
-
-    CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
