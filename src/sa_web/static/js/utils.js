@@ -72,37 +72,6 @@ var Shareabouts = Shareabouts || {};
       }
     },
 
-    isSupported: function(userAgent) {
-      // Mobile Safari UIWebViews may not register as a recognized user agent,
-      // so just assume that browsers that we understand are new and should be
-      // supported.
-      var recognized = (userAgent &&
-                        userAgent.browser &&
-                        userAgent.browser.name &&
-                        userAgent.browser.version);
-      if (!recognized) {
-        return true;
-      }
-
-      switch (userAgent.browser.name) {
-        case 'Chrome':
-        case 'Firefox':
-        case 'Safari':
-        case 'ChromeiOS':
-        case 'MSEdge':
-          return true;
-        case 'Microsoft Internet Explorer':
-          var firstDot = userAgent.browser.version.indexOf('.'),
-              major = parseInt(userAgent.browser.version.substr(0, firstDot), 10);
-
-          if (major > 7) {
-            return true;
-          }
-      }
-
-      return false;
-    },
-
     // NOTE this is not in Shareabouts.js
     // this will be "mobile" or "desktop", as defined in default.css
     getPageLayout: function() {

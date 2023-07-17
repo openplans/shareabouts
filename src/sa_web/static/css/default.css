@@ -1241,41 +1241,6 @@ a.shareabouts-logo:hover {
 }
 
 
-/* =Unsupported Browsers
--------------------------------------------------------------- */
-
-.unsupported-overlay {
-  position: relative;
-  z-index: 999999;
-  color: #eee;
-  font-weight: bold;
-}
-.unsupported-message {
-  background-color: #cd2c67;
-  padding: 1em 1em 2em;
-  box-shadow: 0 0.325em 0 rgba(0,0,0,0.1), inset 0 0.325em 0 rgba(0,0,0,0.1);
-}
-.unsupported-message p {
-  font-size: 1.25em;
-  margin-bottom: 0.75em;
-}
-.unsupported-message a {
-  color: #fff;
-}
-a.close-unsupported-overlay {
-  color: #ff5e99;
-  font-size: 1em;
-  float: none;
-  position: relative;
-  top: 0;
-  left: 0;
-  border-radius: 0.325em;
-  text-align: center;
-  text-transform: uppercase;
-  box-shadow: -0.325em 0.325em 0 rgba(0,0,0,0.1);
-}
-
-
 /* =Media Queries for Responsive Layout
 -------------------------------------------------------------- */
 
@@ -1499,20 +1464,6 @@ a.close-unsupported-overlay {
   }
   a.close-btn span {
     display: none;
-  }
-
-  .unsupported-overlay {
-    position: absolute;
-    top: 5em;
-    right: 1em;
-    left: 1em;
-  }
-  .unsupported-message {
-    border-radius: 0 0 0.625em 0.625em;
-  }
-  a.close-unsupported-overlay {
-    right: auto;
-    border-radius: 0.325em;
   }
 
   #content > article {

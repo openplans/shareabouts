@@ -89,8 +89,6 @@
 
   </header>
 
-  <div class="unsupported-overlay"></div>
-
   <div role="main" id="main">
     <noscript>
       <div class="noscript">
@@ -181,30 +179,6 @@
 
   <script>
     moment.locale('{{LANGUAGE_CODE}}');
-
-    $(function() {
-      // Check official browser support.
-      var userAgent = {{ user_agent_json|safe }};
-
-      if (!Shareabouts.Util.isSupported(userAgent)) {
-        var userAgentData = userAgent,
-            $unsupportedEl = $('.unsupported-overlay'),
-            unsupportedHtml;
-
-        userAgentData['is_ie'] = (userAgent.browser.name === 'Microsoft Internet Explorer');
-        unsupportedHtml = Handlebars.templates['unsupported-overlay'](userAgentData);
-
-        $unsupportedEl.hide()
-        $unsupportedEl.html(unsupportedHtml);
-        $unsupportedEl.slideDown();
-
-        $unsupportedEl.find('.close-btn').click(function(evt) {
-          evt.preventDefault();
-          $unsupportedEl.slideUp();
-          return false;
-        })
-      }
-    });
   </script>
 
   <!-- Bootstrap site and user information -->
