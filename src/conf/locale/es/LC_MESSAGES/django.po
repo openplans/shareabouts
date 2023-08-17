@@ -104,17 +104,6 @@ msgstr "Lo más {{ support_label_plural }}"
 msgid "Most {{ survey_label_plural }}"
 msgstr "Lo más {{ survey_label_plural }}"
 
-#: jstemplates/unsupported-overlay.html:1
-msgid "Proceed Anyway"
-msgstr "Proceder de todas maneras"
-
-#: jstemplates/unsupported-overlay.html:2
-msgid ""
-"You are using an unsupported browser. Please\n"
-"    <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve\n"
-"    your experience."
-msgstr "Estás utilizando un navegador no permitido. Por favor\n<a href=\"http://browsehappy.com/\">actualiza tu navegador</a> para mejorar\ntu experiencia."
-
 #: templates/base.html:104
 #, python-format
 msgid ""

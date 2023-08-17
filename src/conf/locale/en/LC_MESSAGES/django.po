@@ -162,17 +162,6 @@ msgstr ""
 msgid "Most {{ survey_label_plural }}"
 msgstr ""
 
-#: jstemplates/unsupported-overlay.html:1
-msgid "Proceed Anyway"
-msgstr ""
-
-#: jstemplates/unsupported-overlay.html:2
-msgid ""
-"You are using an unsupported browser. Please\n"
-"    <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve\n"
-"    your experience."
-msgstr ""
-
 #: templates/base.html:104
 #, python-format
 msgid ""
