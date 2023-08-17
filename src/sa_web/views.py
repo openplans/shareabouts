@@ -6,7 +6,6 @@ import logging
 import os
 import time
 import hashlib
-import httpagentparser
 from urllib.parse import urlparse
 from .config import get_shareabouts_config
 from django.shortcuts import render
@@ -195,19 +194,6 @@ def index(request, place_id=None):
 
     user_token_json = u'"{0}"'.format(request.session['user_token'])
 
-    # Get the browser that the user is using.
-    user_agent_string = request.META.get('HTTP_USER_AGENT', '')
-    if user_agent_string:
-        user_agent = httpagentparser.detect(user_agent_string)
-        user_agent_json = json.dumps(user_agent)
-    else:
-        # If no user agent is specified, stub a generic one in.
-        user_agent_json = json.dumps({
-            "os": {"name": ""},
-            "browser": {"name": "", "version": None},
-            "platform": {"name": "", "version": None}
-        })
-
     place = None
     if place_id and place_id != 'new':
         place = api.get('places/' + place_id)
@@ -219,7 +205,6 @@ def index(request, place_id=None):
                'user_token_json': user_token_json,
                'pages_config': pages_config,
                'pages_config_json': pages_config_json,
-               'user_agent_json': user_agent_json,
                # Useful for customized meta tags
                'place': place,
 
