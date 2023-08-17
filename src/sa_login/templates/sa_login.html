@@ -51,23 +51,38 @@
 <body>
 
   <!-- The form to log in to the API -->
-  <form id="login-form" class="hidden">
+  <p>api_user: {{ api_user }}, errors: {{ errors }}</p>
+  <form id="login-form" method="POST" class="{% if api_user %}hidden{% endif %}">
+    {% csrf_token %}
     <h2>Log in to {{ config.app.title }}</h2>
-    <div><label><span>Username:</span> <input id="login-username" required type="text" autocomplete="username"></label></div>
-    <div><label><span>Password:</span> <input id="login-password" required type="password" autocomplete="current-password"></label></div>
-    <button>Log In</button>
+    <div><label><span>Username:</span> <input id="login-username" name="username" required type="text" autocomplete="username" value="{{ request.POST.username }}"></label></div>
+    <div><label><span>Password:</span> <input id="login-password" name="password" required type="password" autocomplete="current-password"></label></div>
+    <button type="submit">Log In</button>
   </form>
 
-  <div id="login-messages" class="hidden"></div>
-  <div id="login-loader" class="loader"></div>
+  {% if errors %}
+    <div id="login-messages">{{ errors }}</div>
+  {% elif api_user %}
+    <div id="login-messages">
+      {% if api_user.avatar_url %}
+        <img src="{{ api_user.avatar_url }}" alt="{{ api_user.username }} avatar">
+      {% endif %}
+      <p>You are now logged in as <strong>{{ api_user.name}} ({{ api_user.username }})</strong>.</p>
+      <p>Click <a href="/">here</a> to return to the map.</p>'
+    </div>
+  {% else %}
+    <div id="login-messages" class="hidden"></div>
+  {% endif %}
+
+  <div id="login-loader" class="loader hidden"></div>
 
   <!-- The form to log out of the API; depending on whether the user is logged
        in or not, either this form or the one above will be hidden. -->
-  <form id="logout-form" class="hidden">
-    <button>Log Out</button>
+  <form id="logout-form" method="POST" class="{% if not api_user %}hidden{% endif %}">
+    {% csrf_token %}
+    <input type="hidden" name="shadowmethod" value="DELETE">
+    <button type="submit">Log Out</button>
   </form>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
   <script>
     // Initialize variables for all the UI elements
@@ -78,93 +93,26 @@
     var loader = document.getElementById('login-loader');
     var logout = document.getElementById('logout-form');
 
-    // Set up default options for axios.
-    axios.defaults.headers['Content-type'] = 'application/json';
-    axios.defaults.xsrfCookieName = 'csrftoken';
-    axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-    axios.defaults.withCredentials = true;
-
 
     // POST a new user session to log in to the API
     function doLogin() {
       messages.innerHTML = '';
       messages.classList.add('hidden');
       loader.classList.remove('hidden');
-
-      axios.post('{{auth_root}}current', JSON.stringify({
-          username: username.value,
-          password: password.value
-        }))
-        .then(function (response) {
-          getCurrentUser();
-        })
-        .catch(function (error) {
-          loader.classList.add('hidden');
-          if (error.response && error.response.data && error.response.data.errors) {
-            messages.innerHTML = '<span class="error">Login failed. ' + error.response.data.errors['__all__'] + '</span>';
-          } else {
-            messages.innerHTML = '<span class="error">Login failed. Please try again.</span>';
-          }
-          messages.classList.remove('hidden');
-        });
     }
 
     // DELETE the current user session to log out of the API
     function doLogout() {
       loader.classList.remove('hidden');
-
-      axios.delete('{{auth_root}}current')
-        .then(function (response) {
-          login.classList.remove('hidden');
-          logout.classList.add('hidden');
-
-          loader.classList.add('hidden');
-          messages.innerHTML = '';
-          messages.classList.remove('hidden');
-        })
-        .catch(function (error) {
-          loader.classList.add('hidden');
-          alert('Failed to log out. Please try again.');
-        });
-    }
-
-    // GET the current user session from the API
-    function getCurrentUser() {
-      loader.classList.remove('hidden');
-
-      axios.get('{{auth_root}}current')
-        .then(function (response) {
-          loader.classList.add('hidden');
-          if (response.data === null) {
-            login.classList.remove('hidden');
-            logout.classList.add('hidden');
-          } else {
-            login.classList.add('hidden');
-            logout.classList.remove('hidden');
-            messages.classList.remove('hidden');
-            messages.innerHTML =
-              (response.data.avatar_url ? '<img src="' + response.data.avatar_url + '" alt="' + response.data.username + ' avatar">' : '') +
-              '<p>You are now logged in as <strong>' + response.data.name + ' (' + response.data.username + ')</strong>.</p>' +
-              '<p>Click <a href="/">here</a> to return to the map.</p>';
-          }
-        })
-        .catch(function (error) {
-          loader.classList.add('hidden');
-          debugger
-        })
     }
 
     login.addEventListener('submit', function(evt) {
-      evt.preventDefault();
       doLogin();
     });
 
     logout.addEventListener('submit', function(evt) {
-      evt.preventDefault();
       doLogout();
     });
-
-    getCurrentUser();
   </script>
 
   <style>

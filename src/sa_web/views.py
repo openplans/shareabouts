@@ -7,6 +7,7 @@ import os
 import time
 import hashlib
 import httpagentparser
+from urllib.parse import urlparse
 from .config import get_shareabouts_config
 from django.shortcuts import render
 from django.conf import settings
@@ -39,24 +40,86 @@ def make_resource_uri(resource, root):
     uri = '%s/%s' % (root, resource)
     return uri
 
+def get_api_sessionid(django_http_request):
+    return django_http_request.COOKIES.get('sa-api-sessionid')
+
+def make_api_session(dataset_root, api_sessionid):
+    """
+    Create a requests session for the Shareabouts API.
+    """
+    api_session = requests.Session()
+    api_session.headers['Content-type'] = 'application/json'
+    api_session.headers['Accept'] = 'application/json'
+
+    if api_sessionid:
+        api_session.cookies.set(
+            'sessionid',
+            api_sessionid,
+            domain=urlparse(dataset_root).netloc,
+        )
+
+    return api_session
+
+
+class ShareaboutsApiError (Exception):
+    def __init__(self, msg, errors):
+        super().__init__(msg)
+        self.errors = errors
+
 
 class ShareaboutsApi (object):
-    def __init__(self, dataset_root):
+    def __init__(self, dataset_root, sessionid=None):
         self.dataset_root = dataset_root
         self.auth_root = make_auth_root(dataset_root)
         self.root = make_api_root(dataset_root)
+        self.sessionid = sessionid
+        self.session = make_api_session(dataset_root, sessionid)
 
     def get(self, resource, default=None, **kwargs):
         uri = make_resource_uri(resource, root=self.dataset_root)
-        res = requests.get(uri, params=kwargs,
-                           headers={'Accept': 'application/json'})
+        res = self.session.get(uri, params=kwargs)
+        self.update_sessionid()
         return (res.text if res.status_code == 200 else default)
 
     def current_user(self, default=u'null', **kwargs):
         uri = make_resource_uri('current', root=self.auth_root)
-        res = requests.get(uri, headers={'Accept': 'application/json'}, **kwargs)
+        res = self.session.get(uri, **kwargs)
+        self.update_sessionid()
 
-        return (res.text if res.status_code == 200 else default)
+        return (res.json() if res.status_code == 200 else default)
+
+    def login(self, username, password, **kwargs):
+        payload = {
+            'username': username,
+            'password': password,
+        }
+        uri = make_resource_uri('current', root=self.auth_root)
+        res = self.session.post(uri, json=payload, **kwargs)
+        self.update_sessionid()
+
+        if res.status_code == 200:
+            return True
+        else:
+            raise ShareaboutsApiError(res.text, res.json().get('errors'))
+
+    def logout(self, **kwargs):
+        uri = make_resource_uri('current', root=self.auth_root)
+        res = self.session.delete(uri, **kwargs)
+        self.update_sessionid()
+
+        if res.status_code == 204:
+            return True
+        else:
+            raise ShareaboutsApiError(res.text, {})
+
+    def update_sessionid(self):
+        """
+        Update the sessionid from the cookies in the session.
+        """
+        self.sessionid = self.session.cookies.get(
+            'sessionid',
+            domain=urlparse(self.dataset_root).netloc,
+        )
 
 
 def calc_adding_support(adding_supported):
@@ -101,7 +164,9 @@ def index(request, place_id=None):
     dataset_root = settings.SHAREABOUTS.get('DATASET_ROOT')
     if (dataset_root.startswith('file:')):
         dataset_root = request.build_absolute_uri(reverse('api_proxy', args=('',)))
-    api = ShareaboutsApi(dataset_root=dataset_root)
+
+    api_sessionid = get_api_sessionid(request)
+    api = ShareaboutsApi(dataset_root=dataset_root, sessionid=api_sessionid)
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
@@ -160,6 +225,9 @@ def index(request, place_id=None):
 
                'API_ROOT': api.root,
                'DATASET_ROOT': api.dataset_root,
+
+               'api_user': api.current_user(default=None),
+               'api_sessionid': api.sessionid,
                }
 
     return render(request, 'index.html', context)
@@ -452,11 +520,12 @@ def users(request, path):
     url = make_resource_uri(path, root)
     headers = {'X-Shareabouts-Key': api_key} if api_key else {}
     cookies = {'sessionid': api_session_cookie} if api_session_cookie else {}
-    return proxy_view(request, url, requests_args={
+    response = proxy_view(request, url, requests_args={
         'headers': headers,
         'allow_redirects': False,
         'cookies': cookies
     })
+    return response
 
 
 def csv_download(request, path):
