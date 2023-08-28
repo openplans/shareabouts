@@ -5,15 +5,9 @@
 {% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
-<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE7">
-
   <title>{{ config.app.title }}</title>
   <meta name="description" content="{{ config.app.meta_description }}">
   <meta name="author" content="{{ config.app.meta_author }}">
@@ -51,15 +45,6 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/perliedman-leaflet-control-geocoder/1.13.0/Control.Geocoder.css" />
-  <!--[if lte IE 8]>
-      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.ie.css" />
-  <![endif]-->
-
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.js"></script>
-    <script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-  <![endif]-->
-
 </head>
 <body class="{% if config.map.geocoding_enabled %} geocoding-enabled{% endif %}">
   {% block sentry_init %}
