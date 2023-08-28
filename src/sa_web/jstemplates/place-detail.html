@@ -44,11 +44,11 @@
         </header>
 
         <section class="place-items">
-          {{# attachments }}
+          {{#each attachments }}
           <div class="place-item place-item-attachment place-attachment-{{ name }}">
             <img src="{{ file }}" class="place-value place-value-{{ name }}" alt="{{ name }}">
           </div>
-          {{/ attachments }}
+          {{/each }}
           {{#each_place_item "submitter_name" "name" "location_type"}}
           <div class="place-item place-item-{{ name }}">
             <span class="place-label place-label-{{ name }}">{{ label }}</span>
