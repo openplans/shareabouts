@@ -66,7 +66,7 @@ class ShareaboutsApiError (Exception):
         self.errors = errors
 
 
-class ShareaboutsApi (object):
+class ShareaboutsApi:
     def __init__(self, dataset_root, sessionid=None):
         self.dataset_root = dataset_root
         self.auth_root = make_auth_root(dataset_root)
@@ -80,7 +80,7 @@ class ShareaboutsApi (object):
         self.update_sessionid()
         return (res.text if res.status_code == 200 else default)
 
-    def current_user(self, default=u'null', **kwargs):
+    def current_user(self, default='null', **kwargs):
         uri = make_resource_uri('current', root=self.auth_root)
         res = self.session.get(uri, **kwargs)
         self.update_sessionid()

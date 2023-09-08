@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.conf import settings
 from wsgiref.headers import Headers
 from wsgiref.handlers import format_date_time
@@ -15,7 +13,7 @@ log = getLogger(__name__)
 # log.addHandler(StreamHandler(stderr))
 
 
-class ExpiresMiddleware (object):
+class ExpiresMiddleware:
     """WSGI middleware that intercepts calls to the static files
     directory, as defined by the STATIC_URL setting, and serves those files.
     """

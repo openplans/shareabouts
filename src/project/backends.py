@@ -7,11 +7,11 @@ class CachedS3BotoStorage(S3BotoStorage):
     Django compressor, which must have local access to static files.
     """
     def __init__(self, *args, **kwargs):
-        super(CachedS3BotoStorage, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.local_storage = get_storage_class(
             "compressor.storage.CompressorFileStorage")()
 
     def save(self, name, content):
-        name = super(CachedS3BotoStorage, self).save(name, content)
+        name = super().save(name, content)
         self.local_storage._save(name, content)
         return name

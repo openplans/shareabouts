@@ -61,8 +61,8 @@ def translate(data):
 
     # If it's an object, recurse
     if isinstance(data, dict):
-        return dict([(k, translate(v))
-                     for k, v in data.items()])
+        return {k: translate(v)
+                     for k, v in data.items()}
 
     # If it's a list, recurse on each item
     elif isinstance(data, list):
@@ -86,7 +86,7 @@ def parse_msg(s):
         return s[2:-1]
 
 
-class _ShareaboutsConfig (object):
+class _ShareaboutsConfig:
     """
     Base class representing Shareabouts configuration options
     """
