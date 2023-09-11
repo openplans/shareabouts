@@ -51,7 +51,7 @@
 <body>
 
   <!-- The form to log in to the API -->
-  <p>api_user: {{ api_user }}, errors: {{ errors }}</p>
+  {% comment %} <p>api_user: {{ api_user }}, errors: {{ errors }}</p> {% endcomment %}
   <form id="login-form" method="POST" class="{% if api_user %}hidden{% endif %}">
     {% csrf_token %}
     <h2>Log in to {{ config.app.title }}</h2>
