@@ -62,7 +62,7 @@ def translate(data):
     # If it's an object, recurse
     if isinstance(data, dict):
         return {k: translate(v)
-                     for k, v in data.items()}
+                for k, v in data.items()}
 
     # If it's a list, recurse on each item
     elif isinstance(data, list):
