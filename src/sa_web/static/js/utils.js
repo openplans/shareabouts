@@ -385,20 +385,6 @@ var Shareabouts = Shareabouts || {};
     },
 
     MapQuest: {
-      geocode: function(location, bounds, options) {
-        var mapQuestKey = S.bootstrapped.mapQuestKey;
-
-        if (!mapQuestKey) throw "You must provide a MapQuest key for geocoding to work.";
-
-        options = options || {};
-        options.dataType = 'jsonp';
-        options.cache = true;
-        options.url = 'https://open.mapquestapi.com/geocoding/v1/address?key=' + mapQuestKey + '&location=' + location;
-        if (bounds) {
-          options.url += '&boundingBox=' + bounds.join(',');
-        }
-        $.ajax(options);
-      },
       reverseGeocode: function(latLng, options) {
         var mapQuestKey = S.bootstrapped.mapQuestKey,
             lat, lng;
@@ -483,29 +469,6 @@ var Shareabouts = Shareabouts || {};
           };
         }
         return data;
-      },
-
-      geocode: function(location, hint, options) {
-        var mapboxToken = S.bootstrapped.mapboxToken,
-            originalSuccess = options && options.success,
-            transformedResultsSuccess = function(data) {
-              if (originalSuccess) {
-                originalSuccess(Shareabouts.Util.Mapbox.toMapQuestResults(data));
-              }
-            };
-
-        if (!mapboxToken) throw "You must provide a Mapbox access token " +
-          "(Shareabouts.bootstrapped.mapboxToken) for geocoding to work.";
-
-        options = options || {};
-        options.dataType = 'json';
-        options.cache = true;
-        options.url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(location) + '.json?access_token=' + mapboxToken;
-        if (hint) {
-          options.url += '&proximity=' + hint.join(',');
-        }
-        options.success = transformedResultsSuccess;
-        $.ajax(options);
       },
       reverseGeocode: function(latLng, options) {
         var mapboxToken = S.bootstrapped.mapboxToken,
