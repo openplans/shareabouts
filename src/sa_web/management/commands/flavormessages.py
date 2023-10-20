@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from django.core.management import call_command
 from django.core.management.commands.makemessages import Command as MakeMessagesCommand
 import os

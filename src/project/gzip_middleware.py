@@ -36,13 +36,13 @@ def patch_vary_headers(headers, new_values):
     else:
         vary_headers = []
 
-    existing_values = set([header.lower() for header in vary_headers])
+    existing_values = {header.lower() for header in vary_headers}
     additional_values = [new_value for new_value in new_values
                          if new_value.lower() not in existing_values]
     headers['Vary'] = ', '.join(vary_headers + additional_values)
 
 
-class GzipMiddleware(object):
+class GzipMiddleware:
     """The actual WSGI middleware to wrap around your app and gzip all output.
     This automatically adds the required HTTP headers.
     """
