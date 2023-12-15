@@ -386,7 +386,7 @@ LOCALE_PATHS = (
     os.path.join(HERE, '..', 'flavors', flavor, 'locale'),
 )
 
-if SHAREABOUTS['DATASET_ROOT'].startswith('/'):
+if 'DATASET_ROOT' in SHAREABOUTS and SHAREABOUTS['DATASET_ROOT'].startswith('/'):
     INSTALLED_APPS += (
         # =================================
         # 3rd-party reusaple apps
