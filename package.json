@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/openplans/shareabouts",
   "scripts": {
-    "postinstall": "./node_modules/grunt-cli/bin/grunt"
+    "postinstall": "npx grunt"
   },
   "devDependencies": {
     "grunt": "^1.6.1",
