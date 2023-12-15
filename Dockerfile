@@ -33,6 +33,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code to the working directory
 COPY src .
 
+# Prepare the static files
+RUN python ./manage.py collectstatic
+
 # Expose the port the app runs on
 ENV PORT=8000
 EXPOSE $PORT
