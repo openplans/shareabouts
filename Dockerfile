@@ -34,6 +34,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src .
 
 # Prepare the static files
+ARG SHAREABOUTS_FLAVOR=defaultflavor
 RUN python ./manage.py collectstatic
 
 # Expose the port the app runs on
