@@ -13,7 +13,6 @@ COPY Gruntfile.js ./
 
 # Install Node.js dependencies and run postinstall script
 RUN npm install
-RUN npm run postinstall
 
 ### Layer 2 -- Python
 ### =================
