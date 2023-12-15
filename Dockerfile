@@ -1,8 +1,8 @@
-### Layer 1 -- Node.js
+### Stage 1 -- Node.js
 ### ==================
 
 # Use an official Node.js runtime as a parent image
-FROM node:18 as nodejs
+FROM node:18 as staticlayer
 
 # Set the working directory to /app
 WORKDIR /app
@@ -11,10 +11,14 @@ WORKDIR /app
 COPY package*.json ./
 COPY Gruntfile.js ./
 
+# Copy the rest of the application code to the working directory (note that we
+# need to do this here so that we have access to the static files to build)
+COPY src ./src
+
 # Install Node.js dependencies and run postinstall script
 RUN npm install
 
-### Layer 2 -- Python
+### Stage 2 -- Python
 ### =================
 
 # Use an official Python runtime as a parent image
@@ -30,16 +34,14 @@ COPY requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code to the working directory
-COPY src .
-
 # Prepare the static files
+COPY --from=staticlayer /app/src ./src
 ARG SHAREABOUTS_FLAVOR=defaultflavor
-RUN python ./manage.py collectstatic
+RUN python src/manage.py collectstatic
 
 # Expose the port the app runs on
 ENV PORT=8000
 EXPOSE $PORT
 
 # Start the web server with gunicorn
-CMD ["/bin/bash", "-c", "gunicorn -b 0.0.0.0:$PORT -w 4 project.wsgi"]
+CMD ["/bin/bash", "-c", "gunicorn -b 0.0.0.0:$PORT -w 4 src.project.wsgi"]
