@@ -90,7 +90,7 @@ place_types:
           iconAnchor: [9, 9]
 
       - condition: '"{{location_type}}" === "landmark" && {{layer.focused}} === true'
-        # Display landmarks as icons when zoomed in
+        # Display landmarks as icons when focused/selected
 
         icon:
           iconUrl: /static/css/images/markers/marker-0d85e9.png
