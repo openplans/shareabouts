@@ -3,10 +3,10 @@
         <a href="/place/{{ place.id }}{{#is target_type 'comments'}}/response/{{ target.id }}{{/is}}" data-action-type="{{ target_type }}" data-place-id="{{ place.id }}">{{#_}}<strong>
 
         {{#if target.submitter}}
-          <img src="{{ target.submitter.avatar_url }}" class="avatar" /> {{ target.submitter.name }}
+          <img src="{{ target.submitter.avatar_url }}" role="presentation" alt="" class="avatar" /> {{ target.submitter.name }}
         {{^}}
           <!-- TODO: FIXME: don't hardcode image URL -->
-          <img src="{{ STATIC_URL }}css/images/user-50.png" class="avatar" /> {{ target.submitter_name }}
+          <img src="{{ STATIC_URL }}css/images/user-50.png" role="presentation" alt="" class="avatar" /> {{ target.submitter_name }}
         {{/if}}
         </strong>
 
