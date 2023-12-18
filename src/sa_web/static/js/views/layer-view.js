@@ -55,12 +55,12 @@ var Shareabouts = Shareabouts || {};
           this.latLng = L.latLng(geom.coordinates[1], geom.coordinates[0]);
           if (this.hasIcon()) {
             this.layer = (this.isFocused && this.styleRule.focus_icon ?
-              L.marker(this.latLng, {icon: L.icon(this.styleRule.focus_icon)}) :
-              L.marker(this.latLng, {icon: L.icon(this.styleRule.icon)}));
+              L.marker(this.latLng, {icon: L.icon(this.styleRule.focus_icon), alt: this.placeType.label}) :
+              L.marker(this.latLng, {icon: L.icon(this.styleRule.icon), alt: this.placeType.label}));
           } else if (this.hasStyle()) {
             this.layer = (this.isFocused && this.styleRule.focus_style ?
-              L.circleMarker(this.latLng, this.styleRule.focus_style) :
-              L.circleMarker(this.latLng, this.styleRule.style));
+              L.circleMarker(this.latLng, {...this.styleRule.focus_style, alt: this.placeType.label}) :
+              L.circleMarker(this.latLng, {...this.styleRule.style, alt: this.placeType.label}));
           }
         } else {
           this.layer = L.GeoJSON.geometryToLayer(geom);
