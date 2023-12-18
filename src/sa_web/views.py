@@ -200,6 +200,11 @@ def index(request, place_id=None):
         if place:
             place = json.loads(place)
 
+    try:
+        uses_mapbox_layers = 'mapbox' in {layer['type'] for layer in config['map']['layers']}
+    except KeyError:
+        uses_mapbox_layers = False
+
     context = {'config': config,
 
                'user_token_json': user_token_json,
@@ -213,6 +218,7 @@ def index(request, place_id=None):
 
                'api_user': api.current_user(default=None),
                'api_sessionid': api.sessionid,
+               'uses_mapbox_layers': uses_mapbox_layers,
                }
 
     return render(request, 'index.html', context)
