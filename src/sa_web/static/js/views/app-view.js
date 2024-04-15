@@ -151,20 +151,6 @@ var Shareabouts = Shareabouts || {};
         }
       });
 
-      // When the map center moves, the map view will fire a mapmoveend event
-      // on the namespace. If the move was the result of the user dragging, a
-      // mapdragend event will be fired.
-      //
-      // If the user is adding a place, we want to take the opportunity to
-      // reverse geocode the center of the map, if geocoding is enabled. If
-      // the user is doing anything else, we just want to clear out any text
-      // that's currently set in the address search bar.
-      $(S).on('mapdragend', function(evt) {
-        if (self.isAddingPlace()) {
-          self.conditionallyReverseGeocode();
-        }
-      });
-
       // After reverse geocoding, the map view will fire a reversegeocode
       // event. This should only happen when adding a place while geocoding
       // is enabled.
@@ -276,8 +262,13 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
+    // If the user is adding a place, we want to take the opportunity to
+    // reverse geocode the center of the map, if geocoding is enabled. If
+    // the user is doing anything else, we just want to clear out any text
+    // that's currently set in the address search bar.
     setPlaceFormViewLatLng: function(centerLatLng) {
-      if (this.placeFormView) {
+      if (this.placeFormView && this.isAddingPlace()) {
+        this.conditionallyReverseGeocode();
         this.placeFormView.setLatLng(centerLatLng);
       }
     },
@@ -362,7 +353,14 @@ var Shareabouts = Shareabouts || {};
     },
     conditionallyReverseGeocode: function() {
       if (this.options.mapConfig.geocoding_enabled) {
-        this.mapView.reverseGeocodeMapCenter();
+        const mapCenter = this.mapView.map.getCenter();
+        const formCenter = this.placeFormView.center;
+
+        if (!formCenter ||
+            !formCenter.lat || (Math.abs( formCenter.lat - mapCenter.lat ) > 0.0001) ||
+            !formCenter.lng || (Math.abs( formCenter.lng - mapCenter.lng ) > 0.0001)) {
+          this.mapView.reverseGeocodeMapCenter();
+        }
       }
     },
     onRemovePlace: function(model) {
