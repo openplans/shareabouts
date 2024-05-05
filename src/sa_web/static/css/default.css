@@ -225,6 +225,10 @@ select {
 .checkbox-group {
   position: relative;
 }
+.radio-group label,
+.checkbox-group label {
+  position: relative;
+}
 .radio-group input,
 .checkbox-group input {
   opacity: 0;
