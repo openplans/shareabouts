@@ -225,11 +225,14 @@ var Shareabouts = Shareabouts || {};
         // If the model doesn't match one of the filters, hide it.
         for (key in filters) {
           val = filters[key];
-          if (_.isFunction(val) && !val(model)) {
-            return hide();
-          }
-          else if (!model.get(key) || val.toUpperCase() !== model.get(key).toUpperCase()) {
-            return hide();
+          if (_.isFunction(val)) {
+            if (!val(model)) {
+              return hide();
+            }
+          } else {
+            if (!model.get(key) || val.toUpperCase() !== model.get(key).toUpperCase()) {
+              return hide();
+            }
           }
         }
 
