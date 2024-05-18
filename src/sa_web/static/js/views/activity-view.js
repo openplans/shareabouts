@@ -25,17 +25,7 @@ var Shareabouts = Shareabouts || {};
       this.debouncedOnScroll = _.debounce(this.onScroll, 600);
 
       // Bind click event to an action so that you can see it in a map
-      this.$el.delegate('a', 'click', function(evt){
-        evt.preventDefault();
-
-        // HACK! Each action should have its own view and bind its own events.
-        // A Marionette CompositeView/ItemView would be ideal. Until then...
-        var actionType = this.getAttribute('data-action-type'),
-            placeId = this.getAttribute('data-place-id');
-
-        S.Util.log('USER', 'action', 'click', actionType+' -- '+placeId);
-        self.options.router.navigate(this.getAttribute('href'), {trigger: true});
-      });
+      this.$el.delegate('a', 'click', this.onClickActionLink.bind(this));
 
       // Check to see if we're at the bottom of the list and then fetch more results.
       this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
@@ -92,6 +82,19 @@ var Shareabouts = Shareabouts || {};
           function() { _.delay(notFetching, notFetchingDelay); }
         );
       }
+    },
+
+    onClickActionLink: function(evt) {
+      evt.preventDefault();
+
+      // HACK! Each action should have its own view and bind its own events.
+      // A Marionette CompositeView/ItemView would be ideal. Until then...
+      var actionLink = evt.currentTarget,
+          actionType = actionLink.getAttribute('data-action-type'),
+          placeId = actionLink.getAttribute('data-place-id');
+
+      S.Util.log('USER', 'action', 'click', actionType+' -- '+placeId);
+      this.options.router.navigate(actionLink.getAttribute('href'), {trigger: true});
     },
 
     onAddAction: function(model, collection) {
