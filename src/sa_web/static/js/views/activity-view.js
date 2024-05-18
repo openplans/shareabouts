@@ -25,7 +25,7 @@ var Shareabouts = Shareabouts || {};
       this.debouncedOnScroll = _.debounce(this.onScroll, 600);
 
       // Bind click event to an action so that you can see it in a map
-      this.$el.delegate('a', 'click', this.onClickActionLink.bind(this));
+      this.$el.delegate('.activity-item a', 'click', this.onClickActionLink.bind(this));
 
       // Check to see if we're at the bottom of the list and then fetch more results.
       this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
