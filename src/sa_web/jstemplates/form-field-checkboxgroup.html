@@ -1,9 +1,9 @@
-<div class="checkbox-group">
+<div class="checkbox-group" role="group" aria-labeledby="{{ default submission_type 'place' }}-{{ name }}-label">
   {{#select_item_value form_config name}}
     {{#each options}}
       {{#if label}}
       <label>
-        <input type="checkbox" name="{{../../name}}" value="{{value}}" {{#each ../../attrs}} {{ key }}="{{ value }}"{{/each}}>
+        <input type="checkbox" name="{{../../name}}" value="{{value}}" {{#each ../../attrs}} {{ key }}="{{ value }}"{{/each}} {{#each attrs}} {{ key }}="{{ value }}"{{/each}}>
         <span class="label-text checkbox-label-text">{{label}}</span>
       </label>
     {{else}}
