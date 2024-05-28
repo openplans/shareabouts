@@ -2,7 +2,7 @@
   {{#select_item_value form_config name}}
   {{# options }}
     {{#if label}}
-    <option value="{{value}}">{{label}}</option>
+    <option value="{{value}}" {{#attrs}} {{ key }}="{{ value }}"{{/attrs}}>{{label}}</option>
     {{else}}
     <option value="{{.}}">{{.}}</option>
     {{/if}}
