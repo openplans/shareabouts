@@ -1176,6 +1176,17 @@ ul.recent-points {
   margin: 0 1em 0.75em 0;
 }
 
+.fixed-ratio {
+  position: relative;
+  background-color: #eee;
+}
+
+.fixed-ratio img {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  min-width: 3em;
+}
+
 .place-list .place-label,
 .place-list .place-value {
 }
