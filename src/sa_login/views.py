@@ -1,20 +1,13 @@
-from urllib.parse import urlparse
-from django.conf import settings
+from django.http import HttpRequest
 from django.shortcuts import render
-import requests
-from sa_web.config import get_shareabouts_config
-from sa_web.views import make_auth_root, get_api_sessionid, ShareaboutsApi, ShareaboutsApiError
+from sa_util.config import get_shareabouts_config
+from sa_util.api import ShareaboutsApi, ShareaboutsApiError
 
 
-def login(request):
+def login(request: HttpRequest):
     # Load app config settings
-    config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
-    config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
-    dataset_root = settings.SHAREABOUTS.get('DATASET_ROOT')
-    auth_root = make_auth_root(dataset_root)
-
-    api_sessionid = get_api_sessionid(request)
-    api = ShareaboutsApi(dataset_root, api_sessionid)
+    config = get_shareabouts_config()
+    api = ShareaboutsApi(config, request)
 
     api_cookie = ''
     api_user = ''
@@ -47,8 +40,8 @@ def login(request):
         'api_user': api_user,
         'errors': error_str,
         'config': config,
-        'dataset_root': dataset_root,
-        'auth_root': auth_root,
+        'dataset_root': api.dataset_root,
+        'auth_root': api.auth_root,
     })
 
     if api_cookie:

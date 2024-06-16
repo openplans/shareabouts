@@ -11,13 +11,6 @@ from django.conf import settings
 from django.utils.translation import ugettext as _
 
 
-def get_shareabouts_config(path_or_url):
-    if path_or_url.startswith('http://') or path_or_url.startswith('https://'):
-        return ShareaboutsRemoteConfig(path_or_url)
-    else:
-        return ShareaboutsLocalConfig(path_or_url)
-
-
 def apply_env_overrides(data, env):
     '''
     Allow overriding of configuration data with environment data. Environment
@@ -142,3 +135,17 @@ class ShareaboutsLocalConfig (_ShareaboutsConfig):
     def config_file(self):
         config_filename = os.path.join(self.path, 'config.yml')
         return open(config_filename)
+
+
+def get_shareabouts_config(path_or_url: str | None = None) -> _ShareaboutsConfig:
+    if path_or_url is None:
+        path_or_url = settings.SHAREABOUTS.get('CONFIG')
+
+    if path_or_url.startswith('http://') or path_or_url.startswith('https://'):
+        config = ShareaboutsRemoteConfig(path_or_url)
+    else:
+        config = ShareaboutsLocalConfig(path_or_url)
+
+    config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
+    return config
+

@@ -1,124 +1,24 @@
 import dateutil.parser
-import requests
-import yaml
 import ujson as json
 import logging
 import os
 import time
 import hashlib
-from urllib.parse import urlparse
-from .config import get_shareabouts_config
+
+from sa_util.api import make_auth_root, make_resource_uri, ShareaboutsApi
+from sa_util.config import get_shareabouts_config
 from django.shortcuts import render
 from django.conf import settings
-from django.core.cache import cache
 from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.utils.timezone import now
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.urls import resolve, reverse
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from django.urls import resolve
 from proxy.views import proxy_view as remote_proxy_view
 
 log = logging.getLogger(__name__)
-
-
-def make_api_root(dataset_root):
-    components = dataset_root.split('/')
-    if dataset_root.endswith('/'):
-        return '/'.join(components[:-4]) + '/'
-    else:
-        return '/'.join(components[:-3]) + '/'
-
-def make_auth_root(dataset_root):
-    return make_api_root(dataset_root) + 'users/'
-
-def make_resource_uri(resource, root):
-    resource = resource.lstrip('/')
-    root = root.rstrip('/')
-    uri = '%s/%s' % (root, resource)
-    return uri
-
-def get_api_sessionid(django_http_request):
-    return django_http_request.COOKIES.get('sa-api-sessionid')
-
-def make_api_session(dataset_root, api_sessionid):
-    """
-    Create a requests session for the Shareabouts API.
-    """
-    api_session = requests.Session()
-    api_session.headers['Content-type'] = 'application/json'
-    api_session.headers['Accept'] = 'application/json'
-
-    if api_sessionid:
-        api_session.cookies.set(
-            'sessionid',
-            api_sessionid,
-            domain=urlparse(dataset_root).netloc,
-        )
-
-    return api_session
-
-
-class ShareaboutsApiError (Exception):
-    def __init__(self, msg, errors):
-        super().__init__(msg)
-        self.errors = errors
-
-
-class ShareaboutsApi:
-    def __init__(self, dataset_root, sessionid=None):
-        self.dataset_root = dataset_root
-        self.auth_root = make_auth_root(dataset_root)
-        self.root = make_api_root(dataset_root)
-        self.sessionid = sessionid
-        self.session = make_api_session(dataset_root, sessionid)
-
-    def get(self, resource, default=None, **kwargs):
-        uri = make_resource_uri(resource, root=self.dataset_root)
-        res = self.session.get(uri, params=kwargs)
-        self.update_sessionid()
-        return (res.text if res.status_code == 200 else default)
-
-    def current_user(self, default='null', **kwargs):
-        uri = make_resource_uri('current', root=self.auth_root)
-        res = self.session.get(uri, **kwargs)
-        self.update_sessionid()
-
-        return (res.json() if res.status_code == 200 else default)
-
-    def login(self, username, password, **kwargs):
-        payload = {
-            'username': username,
-            'password': password,
-        }
-        uri = make_resource_uri('current', root=self.auth_root)
-        res = self.session.post(uri, json=payload, **kwargs)
-        self.update_sessionid()
-
-        if res.status_code == 200:
-            return True
-        else:
-            raise ShareaboutsApiError(res.text, res.json().get('errors'))
-
-    def logout(self, **kwargs):
-        uri = make_resource_uri('current', root=self.auth_root)
-        res = self.session.delete(uri, **kwargs)
-        self.update_sessionid()
-
-        if res.status_code == 204:
-            return True
-        else:
-            raise ShareaboutsApiError(res.text, {})
-
-    def update_sessionid(self):
-        """
-        Update the sessionid from the cookies in the session.
-        """
-        self.sessionid = self.session.cookies.get(
-            'sessionid',
-            domain=urlparse(self.dataset_root).netloc,
-        )
 
 
 def calc_adding_support(adding_supported):
@@ -155,17 +55,8 @@ def calc_adding_support(adding_supported):
 
 @ensure_csrf_cookie
 def index(request, place_id=None):
-    # Load app config settings
-    config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
-    config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
-
-    # Get initial data for bootstrapping into the page.
-    dataset_root = settings.SHAREABOUTS.get('DATASET_ROOT')
-    if (dataset_root.startswith('file:')):
-        dataset_root = request.build_absolute_uri(reverse('api_proxy', args=('',)))
-
-    api_sessionid = get_api_sessionid(request)
-    api = ShareaboutsApi(dataset_root=dataset_root, sessionid=api_sessionid)
+    config = get_shareabouts_config()
+    api = ShareaboutsApi(config, request)
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
@@ -234,7 +125,6 @@ def place_was_created(request, path, response):
 
 def send_place_created_notifications(request, response):
     config = get_shareabouts_config(settings.SHAREABOUTS.get('CONFIG'))
-    config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
 
     # Before we start, check whether we're configured to send at all on new
     # place.

@@ -3,7 +3,7 @@ from django.core.management.commands.makemessages import Command as MakeMessages
 import os
 import os.path
 
-from sa_web.config import get_shareabouts_config
+from sa_util.config import get_shareabouts_config
 from django.conf import settings
 
 try: str_type = basestring  # Python 2
