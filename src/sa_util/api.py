@@ -92,12 +92,14 @@ class ShareaboutsApi:
         self.update_sessionid()
         return (res.text if res.status_code == 200 else default)
 
-    def current_user(self, default='null', **kwargs):
-        uri = make_resource_uri('current', root=self.auth_root)
-        res = self.session.get(uri, **kwargs)
-        self.update_sessionid()
+    def current_user(self, default=None, **kwargs):
+        if not hasattr(self, '_cached_user'):
+            uri = make_resource_uri('current', root=self.auth_root)
+            res = self.session.get(uri, **kwargs)
+            self.update_sessionid()
 
-        return (res.json() if res.status_code == 200 else default)
+            self._cache_user(res.json() if res.status_code == 200 else default)
+        return self._cached_user
 
     def login(self, username, password, **kwargs):
         payload = {
@@ -109,6 +111,7 @@ class ShareaboutsApi:
         self.update_sessionid()
 
         if res.status_code == 200:
+            self._cache_user(res.json())
             return True
         else:
             raise ShareaboutsApiError(res.text, res.json().get('errors'))
@@ -129,6 +132,7 @@ class ShareaboutsApi:
         self.update_sessionid()
 
         if res.status_code == 204:
+            self._cache_user(None)
             return True
         else:
             raise ShareaboutsApiError(res.text, {})
@@ -141,3 +145,9 @@ class ShareaboutsApi:
             'sessionid',
             domain=urlparse(self.dataset_root).netloc,
         )
+
+    def _cache_user(self, user):
+        self._cached_user = user
+
+    def _invalidate_user(self):
+        del self._cached_user
