@@ -9,11 +9,12 @@ from sa_util.api import make_auth_root, make_resource_uri, ShareaboutsApi
 from sa_util.config import get_shareabouts_config
 from django.shortcuts import render
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
-from django.utils.timezone import now
+from django.utils.timezone import now, make_aware
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.urls import resolve
 from proxy.views import proxy_view as remote_proxy_view
@@ -57,6 +58,16 @@ def calc_adding_support(adding_supported):
 def index(request, place_id=None):
     config = get_shareabouts_config()
     api = ShareaboutsApi(config, request)
+
+    go_live_date = config.get('app', {}).get('go_live_date')
+    if go_live_date:
+        try:
+            go_live_date = make_aware(dateutil.parser.parse(go_live_date))
+        except Exception as e:
+            raise ImproperlyConfigured(f'Invalid go_live_date: {go_live_date} -- {e}')
+
+        if go_live_date > now():
+            return render(request, 'prelaunch.html', {'config': config, 'go_live_date': go_live_date})
 
     # Get the content of the static pages linked in the menu.
     pages_config = config.get('pages', [])
