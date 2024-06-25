@@ -62,9 +62,13 @@ def index(request, place_id=None):
     go_live_date = config.get('app', {}).get('go_live_date')
     if go_live_date:
         try:
-            go_live_date = make_aware(dateutil.parser.parse(go_live_date))
+            go_live_date = dateutil.parser.parse(go_live_date)
         except Exception as e:
             raise ImproperlyConfigured(f'Invalid go_live_date: {go_live_date} -- {e}')
+
+        # Make the go_live_date timezone-aware if it's not already.
+        if not go_live_date.tzinfo:
+            go_live_date = make_aware(go_live_date)
 
         if go_live_date > now():
             return render(request, 'prelaunch.html', {'config': config, 'go_live_date': go_live_date})
