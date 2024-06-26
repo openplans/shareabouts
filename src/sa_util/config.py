@@ -86,6 +86,10 @@ class _ShareaboutsConfig:
     raw = False
     apply_env = True
 
+    def __init__(self, translate=True, apply_env=True):
+        self.translate = translate
+        self.apply_env = apply_env
+
     @property
     def data(self):
         if not hasattr(self, '_data'):
@@ -95,7 +99,7 @@ class _ShareaboutsConfig:
             if self.apply_env:
                 self._data = apply_env_overrides(self._data, os.environ)
 
-            if not self.raw:
+            if self.translate:
                 self._data = translate(self._data)
 
         return self._data
@@ -114,7 +118,8 @@ class _ShareaboutsConfig:
 
 
 class ShareaboutsRemoteConfig (_ShareaboutsConfig):
-    def __init__(self, url):
+    def __init__(self, url, **kwargs):
+        super().__init__(**kwargs)
         self.url = url
 
     def static_url(self):
@@ -126,7 +131,8 @@ class ShareaboutsRemoteConfig (_ShareaboutsConfig):
 
 
 class ShareaboutsLocalConfig (_ShareaboutsConfig):
-    def __init__(self, path):
+    def __init__(self, path, **kwargs):
+        super().__init__(**kwargs)
         self.path = path
 
     def static_url(self):
@@ -137,14 +143,14 @@ class ShareaboutsLocalConfig (_ShareaboutsConfig):
         return open(config_filename)
 
 
-def get_shareabouts_config(path_or_url: str | None = None) -> _ShareaboutsConfig:
+def get_shareabouts_config(path_or_url: str | None = None, **kwargs) -> _ShareaboutsConfig:
     if path_or_url is None:
         path_or_url = settings.SHAREABOUTS.get('CONFIG')
 
     if path_or_url.startswith('http://') or path_or_url.startswith('https://'):
-        config = ShareaboutsRemoteConfig(path_or_url)
+        config = ShareaboutsRemoteConfig(path_or_url, **kwargs)
     else:
-        config = ShareaboutsLocalConfig(path_or_url)
+        config = ShareaboutsLocalConfig(path_or_url, **kwargs)
 
     config.update(settings.SHAREABOUTS.get('CONTEXT', {}))
     return config
