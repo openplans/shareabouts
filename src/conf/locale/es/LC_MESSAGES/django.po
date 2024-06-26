@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
@@ -116,9 +116,11 @@ msgstr "\nUps, %(config.app.name)s necesita JavaScript para funcionar correctame
 #, python-format
 msgid ""
 "\n"
-"        %(config.app.name)s is great but it needs something called JavaScript to work\n"
+"        %(config.app.name)s is great but it needs something called "
+"JavaScript to work\n"
 "        properly. But fear not, it's really easy to turn on. Click\n"
-"        <a href=\"http://enable-javascript.com/\" target=\"_blank\">here</a> for simple instructions!\n"
+"        <a href=\"http://enable-javascript.com/\" target=\"_blank\">here</a> "
+"for simple instructions!\n"
 "        "
 msgstr "\n%(config.app.name)s está muy bien pero necesita algo llamado JavaScript para funcionar bien. Pero no tengas miedo, es muy fácil encenderlo. ¡Haz clic  <a href=\"http://enable-javascript.com/\" target=\"_blank\">aquí</a> para ver unas instrucciones sencillas!"
 
