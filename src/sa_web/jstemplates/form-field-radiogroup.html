@@ -4,12 +4,12 @@
       {{#if label}}
         <label>
           <input type="radio" name="{{../../name}}" value="{{value}}" {{#each ../../attrs}} {{ key }}="{{ value }}"{{/each}} {{#each attrs}} {{ key }}="{{ value }}"{{/each}}>
-          <span class="label-text radio-label-text">{{label}}</span>
+          <span class="label-text radio-label-text">{{{label}}}</span>
         </label>
       {{else}}
         <label>
           <input type="radio" name="{{../../name}}" value="{{.}}" {{#each ../../attrs}} {{ key }}="{{ value }}"{{/each}}>
-          <span class="label-text radio-label-text">{{.}}</span>
+          <span class="label-text radio-label-text">{{{.}}}</span>
         </label>
       {{/if}}
     {{/each}}
