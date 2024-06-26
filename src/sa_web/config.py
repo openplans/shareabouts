@@ -8,7 +8,7 @@ except:
 from contextlib import closing
 from copy import deepcopy
 from django.conf import settings
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 
 def get_shareabouts_config(path_or_url):
