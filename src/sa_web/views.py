@@ -11,11 +11,16 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.mail import EmailMultiAlternatives
-from django.http import HttpResponse, Http404
+from django.http import HttpRequest, HttpResponse, Http404
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
+from django.utils import translation
 from django.utils.timezone import now, make_aware
+from django.utils.translation import (
+    LANGUAGE_SESSION_KEY, check_for_language, get_language,
+)
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from django.views.i18n import LANGUAGE_QUERY_PARAMETER
 from django.urls import resolve
 from proxy.views import proxy_view as remote_proxy_view
 
@@ -54,7 +59,47 @@ def calc_adding_support(adding_supported):
         return adding_supported
 
 
+def apply_language(viewfunc):
+    def view_wrapper(request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        """
+        Use the code from the django.views.i18n.set_language view to update the language
+        in response to a GET request.
+
+        Use as a decorator around a view function.
+        """
+        lang_code = request.GET.get(LANGUAGE_QUERY_PARAMETER)
+        if not (lang_code and check_for_language(lang_code)):
+            return viewfunc(request, *args, **kwargs)
+
+        # Because we don't have a language cookie set yet, we need to activate the
+        # language, as would normally happen in django.middleware.locale.LocaleMiddleware.
+        translation.activate(lang_code)
+        request.LANGUAGE_CODE = get_language()
+
+        if hasattr(request, 'session'):
+            # Storing the language in the session is deprecated.
+            # (RemovedInDjango40Warning)
+            request.session[LANGUAGE_SESSION_KEY] = lang_code
+
+        response = viewfunc(request, *args, **kwargs)
+
+        # Finally, set the language cookie so that future requests will have the
+        # language set.
+        response.set_cookie(
+            settings.LANGUAGE_COOKIE_NAME, lang_code,
+            max_age=settings.LANGUAGE_COOKIE_AGE,
+            path=settings.LANGUAGE_COOKIE_PATH,
+            domain=settings.LANGUAGE_COOKIE_DOMAIN,
+            secure=settings.LANGUAGE_COOKIE_SECURE,
+            httponly=settings.LANGUAGE_COOKIE_HTTPONLY,
+            samesite=settings.LANGUAGE_COOKIE_SAMESITE,
+        )
+        return response
+    return view_wrapper
+
+
 @ensure_csrf_cookie
+@apply_language
 def index(request, place_id=None):
     config = get_shareabouts_config()
     api = ShareaboutsApi(config, request)
