@@ -179,14 +179,7 @@
       Shareabouts.bootstrapped.currentUser = data;
     }
 
-    function setApiSessionCookie(data) {
-      if (data) {
-        Shareabouts.Util.cookies.save('sa-api-sessionid', data);
-      }
-    }
-
     bootstrapCurrentUser({{ api_user|as_json }});
-    setApiSessionCookie({{ api_sessionid|as_json }});
   </script>
 
   {% if settings.DEBUG %}
@@ -209,7 +202,6 @@
   {% endif %}
 
   {% comment %} <script src="{{API_ROOT}}users/current?format=jsonp&callback=bootstrapCurrentUser"></script> {% endcomment %}
-  {% comment %} <script src="{{API_ROOT}}utils/session-key?format=jsonp&callback=setApiSessionCookie"></script> {% endcomment %}
 
   {% handlebarsjs '(.*)' precompile register_partials %}
   {% handlebarsjs 'pages/*' precompile %}
