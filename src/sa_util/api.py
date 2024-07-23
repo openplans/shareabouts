@@ -151,3 +151,12 @@ class ShareaboutsApi:
 
     def _invalidate_user(self):
         del self._cached_user
+
+    def respond_with_sessionid(self, response):
+        if self.sessionid:
+            response.set_cookie('sa-api-sessionid', self.sessionid)
+            print(f'Updating sessionid: {self.sessionid}')
+        else:
+            response.delete_cookie('sa-api-sessionid')
+            print('Deleting sessionid')
+        return response
