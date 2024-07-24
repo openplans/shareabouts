@@ -50,8 +50,8 @@ def make_api_session(dataset_root, api_sessioninfo: ApiSessionInfo):
     if api_sessioninfo:
         api_session.cookies.set(
             'sessionid',
-            api_sessioninfo.get('id'),
-            domain=api_sessioninfo.get('domain'),
+            api_sessioninfo.get('id', ''),
+            domain=api_sessioninfo.get('domain', ''),
         )
 
     return api_session
