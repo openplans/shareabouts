@@ -205,7 +205,7 @@ var Shareabouts = Shareabouts || {};
 
       // if not an exclusion and not private data
       if (_.contains(exclusions, item.name) === false &&
-          item.name.indexOf('private-') !== 0) {
+          item.name.indexOf('private') !== 0) {
         result += options.fn(newItem);
       }
     }, this);
