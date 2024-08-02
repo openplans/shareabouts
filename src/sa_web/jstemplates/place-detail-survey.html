@@ -34,7 +34,7 @@
             <li>
               <article data-response-id="{{ id }}" class="response">
                 <header class="response-header clearfix">
-                  {{#_}}<strong class="response-submitter">
+                  <strong class="response-submitter">
                     {{#if submitter}}
                       <img src="{{ submitter.avatar_url }}" class="avatar" /> {{ submitter.name }}
                     {{^}}
@@ -43,9 +43,8 @@
                     {{/if}}
                   </strong>
                   <span class="response-date">
-                    around {{ pretty_created_datetime }}
+                    {{#_}}around {{ pretty_created_datetime }}{{/_}}
                   </span>
-                  {{/_}}
                 </header>
 
                 <div class="response-body">

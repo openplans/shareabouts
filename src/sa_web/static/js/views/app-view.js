@@ -145,24 +145,9 @@ var Shareabouts = Shareabouts || {};
       // a geocode event on the namespace. At that point we center the map on
       // the geocoded location.
       $(S).on('geocode', function(evt, locationData) {
-        if (self.isAddingPlace()) {
-          self.placeFormView.setLatLng(locationData.geocode.center);
-          self.placeFormView.setLocation(locationData.geocode.name);
-        }
-      });
-
-      // When the map center moves, the map view will fire a mapmoveend event
-      // on the namespace. If the move was the result of the user dragging, a
-      // mapdragend event will be fired.
-      //
-      // If the user is adding a place, we want to take the opportunity to
-      // reverse geocode the center of the map, if geocoding is enabled. If
-      // the user is doing anything else, we just want to clear out any text
-      // that's currently set in the address search bar.
-      $(S).on('mapmoveend', function(evt) {
-        if (self.isAddingPlace()) {
-          self.conditionallyReverseGeocode();
-        }
+        self.setPlaceFormViewLatLng(locationData.geocode.center);
+        self.setPlaceFormViewLocation(locationData.geocode.name);
+        self.momentarilySuppressReverseGeocode();
       });
 
       // After reverse geocoding, the map view will fire a reversegeocode
@@ -171,7 +156,7 @@ var Shareabouts = Shareabouts || {};
       $(S).on('reversegeocode', function(evt, locationData) {
         var geocodingEngine = self.options.mapConfig.geocoding_engine || 'MapQuest';
         var address = S.Util[geocodingEngine].getName(locationData);
-        self.placeFormView.setLocation(address);
+        self.setPlaceFormViewLocation(address);
       });
 
 
@@ -196,6 +181,7 @@ var Shareabouts = Shareabouts || {};
       // with utmost awesomeness.
       this.mapView.map.on('movestart', this.onMapMoveStart, this);
       this.mapView.map.on('moveend', this.onMapMoveEnd, this);
+      this.mapView.map.on('zoomend', this.onMapZoomEnd, this);
       // For knowing if the user has moved the map after opening the form.
       this.mapView.map.on('dragend', this.onMapDragEnd, this);
 
@@ -276,9 +262,18 @@ var Shareabouts = Shareabouts || {};
       });
     },
 
+    // If the user is adding a place, we want to take the opportunity to
+    // reverse geocode the center of the map, if geocoding is enabled. If
+    // the user is doing anything else, we just want to clear out any text
+    // that's currently set in the address search bar.
     setPlaceFormViewLatLng: function(centerLatLng) {
-      if (this.placeFormView) {
+      if (this.placeFormView && this.isAddingPlace()) {
         this.placeFormView.setLatLng(centerLatLng);
+      }
+    },
+    setPlaceFormViewLocation: function(location) {
+      if (this.placeFormView && this.isAddingPlace()) {
+        this.placeFormView.setLocation(location);
       }
     },
     onMapMoveStart: function(evt) {
@@ -290,18 +285,30 @@ var Shareabouts = Shareabouts || {};
 
       this.$centerpoint.removeClass('dragging');
 
+      if (this.hasBodyClass('content-visible') === false) {
+        this.setLocationRoute(zoom, ll.lat, ll.lng);
+      }
+
+      this.currentMapCenter = ll;
+    },
+    onMapZoomEnd: function(evt) {
+      var ll = this.mapView.map.getCenter(),
+          zoom = this.mapView.map.getZoom();
+
       // Never set the placeFormView's latLng until the user does it with a
       // drag event (below)
       if (this.placeFormView && this.placeFormView.center) {
-        this.setPlaceFormViewLatLng(ll);
-      }
-
-      if (this.hasBodyClass('content-visible') === false) {
-        this.setLocationRoute(zoom, ll.lat, ll.lng);
+        if (!this.currentMapCenter ||
+            Math.abs(this.currentMapCenter.lat - ll.lat) > 0.0001 ||
+            Math.abs(this.currentMapCenter.lng - ll.lng) > 0.0001) {
+          this.setPlaceFormViewLatLng(ll);
+          this.conditionallyReverseGeocode();
+        }
       }
     },
     onMapDragEnd: function(evt) {
       this.setPlaceFormViewLatLng(this.mapView.map.getCenter());
+      this.conditionallyReverseGeocode();
     },
     onClickAddPlaceBtn: function(evt) {
       evt.preventDefault();
@@ -360,8 +367,14 @@ var Shareabouts = Shareabouts || {};
     hasBodyClass: function(className) {
       return $('body').hasClass(className);
     },
+    momentarilySuppressReverseGeocode: function(timeout = 700) {
+      this.suppressReverseGeocode = true;
+      _.delay(() => {
+        this.suppressReverseGeocode = false;
+      }, timeout);
+    },
     conditionallyReverseGeocode: function() {
-      if (this.options.mapConfig.geocoding_enabled) {
+      if (!this.suppressReverseGeocode && this.options.mapConfig.geocoding_enabled) {
         this.mapView.reverseGeocodeMapCenter();
       }
     },

@@ -1,15 +1,15 @@
-<div class="radio-group">
+<div class="radio-group" role="group" aria-labelledby="{{ default submission_type 'place' }}-{{ name }}-label">
   {{#select_item_value form_config name}}
     {{#each options}}
       {{#if label}}
         <label>
-          <input type="radio" name="{{../../name}}" value="{{value}}" {{#each ../../attrs}} {{ key }}="{{ value }}"{{/each}}>
-          <span class="label-text radio-label-text">{{label}}</span>
+          <input type="radio" name="{{../../name}}" value="{{value}}" {{#each ../../attrs}} {{ key }}="{{ value }}"{{/each}} {{#each attrs}} {{ key }}="{{ value }}"{{/each}}>
+          <span class="label-text radio-label-text">{{{label}}}</span>
         </label>
       {{else}}
         <label>
           <input type="radio" name="{{../../name}}" value="{{.}}" {{#each ../../attrs}} {{ key }}="{{ value }}"{{/each}}>
-          <span class="label-text radio-label-text">{{.}}</span>
+          <span class="label-text radio-label-text">{{{.}}}</span>
         </label>
       {{/if}}
     {{/each}}

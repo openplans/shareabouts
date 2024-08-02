@@ -12,7 +12,7 @@ from os.path import abspath, dirname, join as path_join
 from pathlib import Path
 from threading import Thread
 from unittest import mock
-from . import config
+from sa_util import config
 
 class SimpleTest(SimpleTestCase):
     def test_basic_addition(self):

@@ -96,8 +96,8 @@ hr {
 .btn:visited,
 .btn:link {
   display: inline-block;
-  *display: inline;
-  *zoom: 1;
+  /* display: inline; */
+  /* zoom: 1; */
   padding: 0.325em 0.625em;
   margin-bottom: 0;
   text-align: center;

@@ -392,7 +392,6 @@ if 'DATASET_ROOT' in SHAREABOUTS and SHAREABOUTS['DATASET_ROOT'].startswith('/')
         # 3rd-party reusaple apps
         # =================================
         'rest_framework',
-        'django_nose',
         'storages',
         'social.apps.django_app.default',
         'raven.contrib.django.raven_compat',

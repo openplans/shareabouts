@@ -200,8 +200,12 @@ var Shareabouts = Shareabouts || {};
       this.collectionFilters = {};
       this.applyFilters(this.collectionFilters, this.searchTerm);
     },
-    filter: function(filters) {
-      _.extend(this.collectionFilters, filters);
+    filter: function(filters, replace=false) {
+      if (replace) {
+        this.collectionFilters = filters;
+      } else {
+        _.extend(this.collectionFilters, filters);
+      }
       this.applyFilters(this.collectionFilters, this.searchTerm);
     },
     search: function(term) {
@@ -221,11 +225,14 @@ var Shareabouts = Shareabouts || {};
         // If the model doesn't match one of the filters, hide it.
         for (key in filters) {
           val = filters[key];
-          if (_.isFunction(val) && !val(model)) {
-            return hide();
-          }
-          else if (!model.get(key) || val.toUpperCase() !== model.get(key).toUpperCase()) {
-            return hide();
+          if (_.isFunction(val)) {
+            if (!val(model)) {
+              return hide();
+            }
+          } else {
+            if (!model.get(key) || val.toUpperCase() !== model.get(key).toUpperCase()) {
+              return hide();
+            }
           }
         }
 

@@ -3,11 +3,13 @@ from django.conf import settings
 from django.contrib import admin
 from django.views.i18n import set_language
 
+
 admin.autodiscover()
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('choose-language', set_language, name='set_language'),
+    path('login/', include('sa_login.urls')),
+    path('admin/', admin.site.urls),
     path('', include('sa_web.urls')),
 ]
 

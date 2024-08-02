@@ -34,10 +34,16 @@ COPY requirements.txt .
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Prepare the static files
+# Copy the rest of the application code to the working directory
 COPY --from=staticlayer /app/src ./src
 ARG SHAREABOUTS_FLAVOR=defaultflavor
+
+# Prepare the static files
 RUN python src/manage.py collectstatic
+
+# Install GNU gettext; Prepare the translations
+RUN apt-get update && apt-get install -y gettext
+RUN python src/manage.py compilemessages
 
 # Expose the port the app runs on
 ENV PORT=8000
