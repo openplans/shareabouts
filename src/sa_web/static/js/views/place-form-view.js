@@ -53,6 +53,7 @@ var Shareabouts = Shareabouts || {};
       var data = _.extend({
         place_config: this.options.placeConfig,
         user_token: this.options.userToken,
+        language_code: S.bootstrapped.languageCode,
         current_user: S.currentUser
       }, S.Util.getStickyFields()[this.options.userToken] || {}, this.model.toJSON());
 
