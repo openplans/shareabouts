@@ -2,7 +2,9 @@
 <nav class="user-menu authed" aria-label="User account">
   <a href="#" id="sign-in-btn"><img class="avatar header-avatar" src="{{ current_user "avatar_url" }}"></a>
   <ul class="menu sign-in-menu">
-    <li><span class="signed-in-as">{{#_}}Signed in as</span> <span class="current-user">{{ current_user "name" }}{{/_}}</span></li>
+    {{#with (current_user "name") }}
+      <li><span class="signed-in-as">{{#_}}Signed in as</span> <span class="current-user">{{ this }}{{/_}}</span></li>
+    {{/with}}
     <li class=""><a class="logout-btn" href="/users/logout/">{{#_}}Log Out{{/_}}</a>
     </li>
   </ul>
