@@ -168,13 +168,13 @@ var Shareabouts = Shareabouts || {};
           }
         }
 
+        placeData.place_type_label = placeType.label || placeData.location_type;
+
         // Check whether the location type starts with a vowel; useful for
         // choosing between 'a' and 'an'.  Not language-independent.
-        if ('AEIOUaeiou'.indexOf(placeData.location_type[0]) > -1) {
+        if ('AEIOUaeiou'.indexOf(placeData.place_type_label[0]) > -1) {
           placeData.type_starts_with_vowel = true;
         }
-
-        placeData.place_type_label = placeType.label || placeData.location_type;
 
         actionData = _.extend({
           place: placeData,
