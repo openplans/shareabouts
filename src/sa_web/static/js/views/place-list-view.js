@@ -200,8 +200,12 @@ var Shareabouts = Shareabouts || {};
       this.collectionFilters = {};
       this.applyFilters(this.collectionFilters, this.searchTerm);
     },
-    filter: function(filters) {
-      _.extend(this.collectionFilters, filters);
+    filter: function(filters, replace=false) {
+      if (replace) {
+        this.collectionFilters = filters;
+      } else {
+        _.extend(this.collectionFilters, filters);
+      }
       this.applyFilters(this.collectionFilters, this.searchTerm);
     },
     search: function(term) {
