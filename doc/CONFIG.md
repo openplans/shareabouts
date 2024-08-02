@@ -419,6 +419,16 @@ into each of your desired target languages.
 
 For more information on language codes, see the [Django documentation](https://docs.djangoproject.com/en/1.3/topics/i18n/#term-language-code).
 
+### The Home Path
+
+In your configuration file, you can specify a path to a page that will be
+displayed when users first visit the site. This can be useful when you want
+the new place form to be the first thing that a user sees. For example:
+
+      app:
+        ...
+        home_path: place/new
+
 ### Pages and Links
 
 Shareabouts allows you to create multiple static pages, linked from
@@ -433,6 +443,7 @@ the top navigation bar. To create a page:
 
   The *start_page* option allows specifying that this page should be
   open when people first visit the site. If omitted, it defaults to false.
+  This option will override the *app.home_path* setting.
 
 * Create the page content (as HTML). Shareabouts will look for your content
   in a file in your flavor called *jstemplates/pages/about.html*. The filename
