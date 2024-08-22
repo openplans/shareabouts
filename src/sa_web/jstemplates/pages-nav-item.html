@@ -19,12 +19,12 @@
   {{else}}
 
     {{#if external }}
-      <a class="btn btn-block btn-secondary" href="{{ url }}">{{ title }}</a>
+      <a class="btn btn-block btn-secondary" href="{{ url }}" {{#each link_attrs}} {{@key}}="{{this}}" {{/each}}>{{ title }}</a>
     {{else }}
       {{#if slug }}
-        <a class="btn btn-block btn-secondary" href="/page/{{ slug }}">{{ title }}</a>
+        <a class="btn btn-block btn-secondary" href="/page/{{ slug }}" {{#each link_attrs}} {{@key}}="{{this}}" {{/each}}>{{ title }}</a>
       {{else }}
-        <a class="btn btn-block btn-secondary">{{ title }}</a>
+        <a class="btn btn-block btn-secondary" {{#each link_attrs}} {{@key}}="{{this}}" {{/each}}>{{ title }}</a>
       {{/if }}
     {{/if }}
 
