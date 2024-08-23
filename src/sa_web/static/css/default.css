@@ -1500,8 +1500,11 @@ a.shareabouts-logo:hover {
     font-size: 0.875em;
     -webkit-transform: translateZ(0px); /* needed on #ticker > * for touch scrolling */
   }
-  .activity-enabled #map-container {
+  .activity-enabled #map-container:dir(ltr) {
     right: 18em; /* width of #ticker */
+  }
+  .activity-enabled #map-container:dir(rtl) {
+    left: 18em; /* width of #ticker */
   }
 
   /* List View */
