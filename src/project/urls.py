@@ -9,7 +9,7 @@ admin.autodiscover()
 urlpatterns = [
     path('choose-language', set_language, name='set_language'),
     path('login/', include('sa_login.urls')),
-    path('admin/', admin.site.urls),
+    path('admin/', include('sa_admin.urls')),
     path('', include('sa_web.urls')),
 ]
 

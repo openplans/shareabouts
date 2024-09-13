@@ -1,0 +1,184 @@
+:root {
+  --content-font-family: sans-serif;
+
+  --default-bg-color: #f8f9fa;
+  --stripe-bg-color: #f1f3f5;
+  --dark-bg-color: #343a40;
+  --border-color: var(--dark-bg-color);
+  --highlight-color: #fff3cd;
+}
+
+body {
+  margin: 0;
+  font-family: var(--content-font-family);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+header {
+  padding: 0 1rem;
+}
+
+.table-wrapper {
+  position: relative;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+table {
+  border: 2px solid var(--border-color);
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: max-content;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: var(--stripe-bg-color);
+}
+
+th, td {
+  padding: 0.5em;
+  max-width: 100vw;
+  width: fit-content;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  background-color: var(--dark-bg-color);
+  color: white;
+}
+
+.map-wrapper {
+  height: 400px;
+}
+
+.map {
+  height: 100%;
+}
+
+#place-map {
+  min-height: 400px;
+}
+
+tbody tr.highlight {
+  background-color: var(--highlight-color);
+}
+
+tbody tr::hover {
+  cursor: pointer;
+}
+
+main, form {
+  position: relative;
+}
+
+.fields-wrapper {
+  padding: 0 1rem;
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.actions-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  background: #eee;
+}
+
+.dashboard .overview-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.place-detail label {
+  display: block;
+  font-weight: bold;
+}
+
+.place-detail input[type="text"],
+.place-detail input[type="datetime-local"],
+.place-detail textarea,
+.place-detail select {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.place-detail .field {
+  margin: 0.5rem 0;
+}
+
+@media screen and (width >= 768px) {
+  .dashboard,
+  .place-detail {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 0;
+    /* padding: 0.5rem; */
+    height: 100vh;
+  }
+
+  .dashboard main {
+    display: grid;
+    grid-template-areas: "overview overview"
+                          "table map";
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    min-height: 400px;
+  }
+
+  .dashboard .map-wrapper {
+    width: 100%;
+    height: 100%;
+    grid-area: map;
+  }
+
+  .dashboard .table-wrapper {
+    width: 100%;
+    height: 100%;
+    grid-area: table;
+  }
+
+  .dashboard .overview-wrapper {
+    grid-area: overview;
+  }
+
+  /* .place-detail form {
+    margin-right: 50%;
+    min-height: 400px;
+  }
+
+  .place-detail .map-wrapper {
+    position: sticky;
+
+    width: 50%;
+    height: 100%;
+  }
+
+  .place-detail .form-wrapper {
+    width: 50%;
+    height: 100%;
+  } */
+}
+
+
+/* ==================== */
+/* Flavor-specific CSS  */
+/* ==================== */
+
+
+.description-column,
+.benefit-column,
+.location-column {
+  width: 20rem;
+}

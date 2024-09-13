@@ -1,0 +1,63 @@
+{% extends 'sa_admin/base.html' %}
+{% load static %}
+
+{% block title %}Shareabouts Admin{% endblock %}
+
+{% block body_classes %}dashboard{% endblock %}
+
+{% block heading %}Shareabouts Admin{% endblock %}
+
+{% block content %}
+  <div class="overview-wrapper">
+    <p class="places-count">
+      <span class="filtered-count">0</span> ideas
+      (<span class="total-count">0</span> total)
+    </p>
+
+    <button class="download">Download CSV</button>
+  </div>
+
+  <div class="map-wrapper">
+    <div class="map" id="places-map"></div>
+  </div>
+
+  <div class="table-wrapper">
+    <table id="places-table">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+
+  <script type="module">
+    import { fields } from '{% static 'sa_admin/js/admin_config.js' %}?_={{settings.LAST_DEPLOY_DATE}}';
+    import { PlacesDashboard } from '{% static 'sa_admin/js/places_dashboard.js' %}?_={{settings.LAST_DEPLOY_DATE}}';
+
+    const places = window.places = new Shareabouts.PlaceCollection();
+    const placesDashboard = new PlacesDashboard(document.getElementsByTagName('main')[0], places, fields);
+
+    function onPlacesPageSuccess(page) {
+      console.log(`Fetched ${page.length} places`)
+      placesDashboard.render();
+    }
+
+    function onPlacesPageError(page, error) {
+      if (error.status === 401 || error.status === 403) {
+        console.error('Authentication error while fetching places:', error.responseText);
+        return;
+      }
+      console.error('Error fetching places:', error.status, error.responseText);
+    }
+
+    places.fetchAllPages({
+      pageSuccess: onPlacesPageSuccess,
+      pageError: onPlacesPageError,
+      data: {
+        include_private: true
+      },
+    });
+  </script>
+{% endblock %}

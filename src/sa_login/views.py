@@ -35,7 +35,7 @@ def login(request: HttpRequest):
             error_str = 'Failed to log out. Please try again.'
         next_url = request.POST.get('next', None)
 
-    if api_user and next_url is not None:
+    if api_user and next_url:
         response = redirect(next_url)
     else:
         response = render(request, 'sa_login.html', {
