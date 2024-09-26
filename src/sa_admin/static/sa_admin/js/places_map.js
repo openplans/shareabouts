@@ -23,6 +23,7 @@ class PlacesMap extends Component {
       L.mapboxGL({
         accessToken: Shareabouts.bootstrapped.mapboxToken,
         style: 'mapbox://styles/mapbox/dark-v11',
+        projection: 'mercator',
       }).addTo(this.map);
       this.placesLayer.addTo(this.map);
     }
