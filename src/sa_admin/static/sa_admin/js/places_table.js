@@ -9,6 +9,14 @@ class PlacesTableHeaderCell extends Component {
     this.filter = null;
   }
 
+  clearFilter() {
+    if (this.filter) {
+      this.filter.clear();
+      this.filter.filter();
+    }
+    return this;
+  }
+
   fill() {
     this.el.innerHTML = `<span class="place-table-column-label">${this.column.label}</span>`;
     if (this.column.filter) {
@@ -32,6 +40,13 @@ class PlacesTableHeaderRow extends Component {
     this.places = places;
     this.columns = columns;
     this.cells = [];
+  }
+
+  clearFilters() {
+    for (const cell of this.cells) {
+      cell.clearFilter();
+    }
+    return this;
   }
 
   fill() {
@@ -173,6 +188,11 @@ class PlacesTable extends Component {
         this.bodyEl.removeChild(row.el);
       }
     }
+  }
+
+  clearFilters() {
+    this.head.clearFilters();
+    return this;
   }
 
   highlightRow(placeId, tr = null) {

@@ -33,6 +33,18 @@ class PlacesFilter extends Component {
     return attrValue.includes(filterValue);
   }
 
+  clear() {
+    this.el.querySelector('input').value = '';
+    return this;
+  }
+
+  filter() {
+    this.dispatcher.dispatchEvent(new CustomEvent('filter', {
+      detail: { column: this.column, func: this.filterPredicate },
+    }));
+    return this;
+  }
+
   fill() {
     this.el.innerHTML = `
       <span class="places-filter">
@@ -65,9 +77,7 @@ class PlacesFilter extends Component {
     const closeButton = this.el.querySelector('button.close');
 
     this.listeners.add('submit', filterForm, (e) => {
-      this.dispatcher.dispatchEvent(new CustomEvent('filter', {
-        detail: { column: this.column, func: this.filterPredicate },
-      }));
+      this.filter();
     });
 
     this.listeners.add('click', closeButton, () => {
@@ -110,6 +120,11 @@ class PlacesBooleanFilter extends PlacesFilter {
       return attrValue === 'false' || attrValue === false;
     }
   }
+
+  clear() {
+    this.el.querySelector('input[value="null"]').checked = true;
+    return this;
+  }
 };
 
 
@@ -137,6 +152,13 @@ class PlacesChoiceFilter extends PlacesFilter {
     const attrValue = place.get(this.column.attr);
     return filterValues.includes(attrValue);
   }
+
+  clear() {
+    for (const input of this.el.querySelectorAll('input')) {
+      input.checked = false;
+    }
+    return this;
+  }
 };
 
 
@@ -159,6 +181,12 @@ class PlacesDateTimeFilter extends PlacesFilter {
     const attrValue = place.get(this.column.attr);
     return (!fromDatetime || new Date(attrValue) >= new Date(fromDatetime)) &&
            (!toDatetime || new Date(attrValue) <= new Date(toDatetime));
+  }
+
+  clear() {
+    this.el.querySelector(`[name="${this.filterName}-from"]`).value = '';
+    this.el.querySelector(`[name="${this.filterName}-to"]`).value = '';
+    return this;
   }
 };
 

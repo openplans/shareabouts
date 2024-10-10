@@ -12,6 +12,7 @@ class PlacesDashboard extends Component {
     this.fields = fields;
     this.filteredCount = this.el.querySelector('.filtered-count');
     this.totalCount = this.el.querySelector('.total-count');
+    this.clearFiltersButton = this.el.querySelector('button.clear-filters');
     this.downloadFilteredButton = this.el.querySelector('button.download-filtered');
     this.downloadAllButton = this.el.querySelector('button.download-all');
     this.table = new PlacesTable(this.el.querySelector('#places-table'), this.places, fields);
@@ -70,6 +71,11 @@ class PlacesDashboard extends Component {
       this.filterPlaces(predicates);
     });
 
+    this.listeners.add('click', this.clearFiltersButton, (e) => {
+      e.preventDefault();
+      this.clearPlaceFilters();
+    });
+
     this.listeners.add('click', this.downloadAllButton, (e) => {
       e.preventDefault();
       this.downloadPlaces();
@@ -101,6 +107,11 @@ class PlacesDashboard extends Component {
     this.totalCount.innerHTML = this.places.models.length;
   }
 
+  clearPlaceFilters() {
+    this.table.clearFilters();
+    return this;
+  }
+
   filterPlaces(predicates) {
     this.table.filterRows(predicates);
     this.map.filterMarkers(predicates);
@@ -109,7 +120,9 @@ class PlacesDashboard extends Component {
     this.filteredCount.innerHTML = filteredPlaces.length;
     this.totalCount.innerHTML = this.places.models.length;
 
-    this.downloadFilteredButton.disabled = filteredPlaces.length === this.places.models.length;
+    const filtersAreApplied = filteredPlaces.length === this.places.models.length
+    this.downloadFilteredButton.disabled = filtersAreApplied;
+    this.clearFiltersButton.disabled = filtersAreApplied;
   }
 
   downloadPlaces(placeModels) {
