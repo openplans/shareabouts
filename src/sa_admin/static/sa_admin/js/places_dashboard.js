@@ -83,7 +83,7 @@ class PlacesDashboard extends Component {
 
     this.listeners.add('click', this.downloadFilteredButton, (e) => {
       e.preventDefault();
-      this.downloadPlaces(this.filteredPlaces);
+      this.downloadPlaces(this.filteredPlaces());
     });
 
     return Component.prototype.bind.call(this);
@@ -97,7 +97,7 @@ class PlacesDashboard extends Component {
   }
 
   filteredPlaces(predicates) {
-    predicates |= this.filterPredicates();
+    predicates ||= this.filterPredicates();
     const filteredPlaces = this.places.models.filter((place) => predicates.every((predicate) => predicate(place)))
     return filteredPlaces;
   }
