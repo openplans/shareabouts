@@ -103,7 +103,7 @@ class PlacesDashboard extends Component {
   }
 
   initPlaceCounts() {
-    this.filteredCount.innerHTML = this.places.models.length;
+    this.filteredCount.innerHTML = `${this.places.models.length} ${Shareabouts.Config.place.response_plural_name}`;
     this.totalCount.innerHTML = this.places.models.length;
   }
 
