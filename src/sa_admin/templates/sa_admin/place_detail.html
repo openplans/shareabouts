@@ -1,0 +1,47 @@
+{% extends 'sa_admin/base.html' %}
+{% load static %}
+
+{% block title %}Shareabouts Admin - Idea #{{ place_id }}{% endblock %}
+
+{% block body_classes %}place-detail{% endblock %}
+
+{% block heading %}Shareabouts Admin - Idea #{{ place_id }}{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script type="module">
+    import { fields } from '{% static 'sa_admin/js/admin_config.js' %}?_={{settings.LAST_DEPLOY_DATE}}';
+    import { PlaceDetail } from '{% static 'sa_admin/js/place_detail.js' %}?_={{settings.LAST_DEPLOY_DATE}}';
+
+    function exact(value) { return value === undefined ? '' : value; }
+
+    const places = new Shareabouts.PlaceCollection();
+    const place = new Shareabouts.PlaceModel({ id: {{ place_id }} });
+    place.collection = places;
+
+    const placeDetail = new PlaceDetail(document.querySelector('main'), place, fields);
+
+    function onPlaceSuccess(place) {
+      placeDetail.render();
+    }
+
+    function onPlaceError(place, error) {
+      if (error.status === 401 || error.status === 403) {
+        console.error('Authentication error while fetching place {{ place_id }}:', error.responseText);
+        return;
+      }
+      console.error('Error fetching place {{ place_id }}:', error.status, error.responseText);
+    }
+
+    place.fetch({
+      success: onPlaceSuccess,
+      error: onPlaceError,
+      data: {
+        include_private: true
+      },
+    });
+  </script>
+{% endblock %}

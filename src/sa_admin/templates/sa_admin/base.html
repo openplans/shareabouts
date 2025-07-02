@@ -1,0 +1,83 @@
+{% load static %}
+{% load as_json from shareabouts_utils %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Shareabouts Admin{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block styles %}
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.css" />
+    <link rel="stylesheet" href="{% static 'sa_admin/css/style.css' %}">
+    {% endblock %}
+  </head>
+
+  <body class="{% block body_classes %}{% endblock %}">
+    <header>
+      <h1>{% block heading %}Shareabouts Admin{% endblock %}</h1>
+      {% comment %} <nav>
+        <ul>
+          <li><a href="{% url 'sa_admin:admin' %}">Admin</a></li>
+          <li><a href="{% url 'sa_admin:admin-places' %}">Places</a></li>
+          <li><a href="{% url 'sa_admin:admin-datasets' %}">Datasets</a></li>
+          <li><a href="{% url 'sa_admin:admin-users' %}">Users</a></li>
+          <li><a href="{% url 'sa_admin:admin-logout' %}">Logout</a></li>
+        </ul>
+      </nav> {% endcomment %}
+      <p>You are logged in as {{ api.current_user.name }} ({{ api.current_user.username }}).</p>
+      <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <input type="hidden" name="shadowmethod" value="DELETE">
+        <input type="hidden" name="next" value="{% url 'admin_home' %}">
+        <button type="submit">Logout</button>
+      </form>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/leaflet.js"></script>
+    <script src="https://unpkg.com/mapbox-gl-leaflet@0.0.16/leaflet-mapbox-gl.js"></script>
+
+    {% if settings.DEBUG %}
+    <script src="{% static 'libs/underscore.js' %}"></script>
+    <script src="{% static 'libs/backbone.js' %}"></script>
+    <script src="{% static 'libs/backbone.marionette.js' %}"></script>
+    <script src="{% static 'libs/handlebars-v3.0.3.js' %}"></script>
+    <script src="{% static 'libs/moment-with-locales.min.js' %}"></script>
+    <script src="{% static 'libs/json2.js' %}"></script>
+    <script src="{% static 'libs/leaflet.argo.js' %}"></script>
+    <script src="{% static 'libs/binaryajax.js' %}"></script>
+    <script src="{% static 'libs/exif.js' %}"></script>
+    <script src="{% static 'libs/load-image.js' %}"></script>
+    <script src="{% static 'libs/canvas-to-blob.js' %}"></script>
+    <script src="{% static 'libs/spin.min.js' %}"></script>
+    <script src="{% static 'libs/gatekeeper.js' %}"></script>
+    <script src="{% static 'libs/swag.min.js' %}"></script>
+    <script src="{% static 'libs/jquery.scrollTo.js' %}"></script>
+    {% else %}
+    <script src="{% static 'dist/libs.min.js' %}?_={{settings.LAST_DEPLOY_DATE}}"></script>
+    {% endif %}
+
+    <script src="{% static 'js/models.js' %}"></script>
+
+    <script>
+      var Shareabouts = Shareabouts || {};
+      Shareabouts.Config = {{ config.data | as_json | safe }};
+      Shareabouts.bootstrapped = {
+        currentUser: {{ api.current_user | as_json | safe }},
+        dataset: {{ api.dataset_root | as_json | safe }},
+        staticUrl: {{ STATIC_URL | as_json | safe }},
+        mapboxToken: {{ settings.MAPBOX_TOKEN | as_json | safe }},
+      };
+    </script>
+    {% endblock %}
+</html>

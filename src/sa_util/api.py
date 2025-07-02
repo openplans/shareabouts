@@ -126,64 +126,6 @@ class ShareaboutsApi:
         else:
             raise ShareaboutsApiError(res.text, res.json().get('errors'))
 
-    def get_provider_client_id(self, provider):
-        try:
-            return os.environ[f'SOCIAL_AUTH_{provider.upper()}_KEY']
-        except KeyError:
-            raise ShareaboutsAuthProviderError(f'No client_id found for provider "{provider}"', {})
-
-    def get_provider_client_secret(self, provider):
-        try:
-            return os.environ[f'SOCIAL_AUTH_{provider.upper()}_SECRET']
-        except KeyError:
-            raise ShareaboutsAuthProviderError(f'No client_secret found for provider "{provider}"', {})
-
-    def get_provider_redirect_uri(self, provider):
-        return os.environ.get(
-            f'SOCIAL_AUTH_{provider.upper()}_REDIRECT',
-            self.request.build_absolute_uri(
-                reverse('oauth_complete', args=[provider])
-            )
-        )
-
-    def oauth_begin(self, provider, **kwargs) -> str:
-        """
-        Begin the OAuth process for the given provider. Returns the URL to
-        redirect to. May raise a ShareaboutsApiError if the request fails, or
-        ShareaboutsAuthProviderError if the provider is not configured.
-        """
-        uri = make_resource_uri(f'login/{provider}/', root=self.auth_root)
-        params = {
-            'client_id': self.get_provider_client_id(provider),
-            'client_secret': self.get_provider_client_secret(provider),
-            'redirect_uri': self.get_provider_redirect_uri(provider),
-        }
-
-        res = self.session.get(uri, params=params, allow_redirects=False, **kwargs)
-        self.update_session_cookie()
-
-        if res.status_code == 302:
-            return res.headers['Location']
-        else:
-            raise ShareaboutsApiError(res.text, {})
-
-    def oauth_complete(self, provider, params, **kwargs):
-        uri = make_resource_uri(f'complete/{provider}/', root=self.auth_root)
-        params = {
-            'client_id': self.get_provider_client_id(provider),
-            'client_secret': self.get_provider_client_secret(provider),
-            'redirect_uri': self.get_provider_redirect_uri(provider),
-            **params,
-        }
-
-        res = self.session.get(uri, params=params, **kwargs)
-        self.update_session_cookie()
-
-        if res.status_code == 200:
-            return True
-        else:
-            raise ShareaboutsApiError(res.text, {})
-
     def logout(self, **kwargs):
         uri = make_resource_uri('current', root=self.auth_root)
         res = self.session.delete(uri, **kwargs)

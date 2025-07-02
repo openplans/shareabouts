@@ -50,8 +50,6 @@ def apply_env_overrides(data, env):
 
 
 def translate(data):
-    i18n_data = {}
-
     # If it's an object, recurse
     if isinstance(data, dict):
         return {k: translate(v)
@@ -72,6 +70,7 @@ def translate(data):
 
     else:
         return data
+
 
 def parse_msg(s):
     s = s.strip()

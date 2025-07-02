@@ -54,6 +54,7 @@
   {% comment %} <p>api_user: {{ api_user }}, errors: {{ errors }}</p> {% endcomment %}
   <form id="login-form" method="POST" class="{% if api_user %}hidden{% endif %}">
     {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next_url|default:'' }}">
     <h2>Log in to {{ config.app.title }}</h2>
     <div><label><span>Username:</span> <input id="login-username" name="username" required type="text" autocomplete="username" value="{{ request.POST.username }}"></label></div>
     <div><label><span>Password:</span> <input id="login-password" name="password" required type="password" autocomplete="current-password"></label></div>
@@ -68,7 +69,7 @@
         <img src="{{ api_user.avatar_url }}" alt="{{ api_user.username }} avatar">
       {% endif %}
       <p>You are now logged in as <strong>{{ api_user.name}} ({{ api_user.username }})</strong>.</p>
-      <p>Click <a href="/">here</a> to return to the map.</p>'
+      <p><a href="/">Return to the map</a> | <a href="/admin/">View the admin</a></p>'
     </div>
   {% else %}
     <div id="login-messages" class="hidden"></div>
