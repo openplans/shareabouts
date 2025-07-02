@@ -6,12 +6,25 @@ Development (master)
     - ...
 
   * New Features:
-    - Update mapbox geocoder widget to take proximity to the center of the map into account.
-    - Add event hooks for place form submission success/failure/completion
-    - Sticky field values are stored for each user token in the browser's local storage
+    - ...
 
   * Upgrade Steps:
     - ...
+
+4.1.0
+-----------------------------
+  * New Features:
+    - Update mapbox geocoder widget to take proximity to the center of the map into account.
+    - Add event hooks for place form submission success/failure/completion
+    - Sticky field values are stored for each user token in the browser's local storage
+    - Simple admin dashboard for viewing/managing submitted places.
+
+  * Upgrade Steps:
+    - To see the admin interface:
+      1. Navigate to http://localhost:8000/login/
+      2. Enter a username and password for a user that has access to the dataset for the site (this could be the dataset owner, for instance, or you could create a Group on the dataset that has permissive access to the submissions therein, and add users to that group)
+      3. Click the button to go to the admin interface (or go to http://localhost/admin/)
+
 
 4.0.0
 -----------------------------
