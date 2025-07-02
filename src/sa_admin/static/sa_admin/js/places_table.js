@@ -30,6 +30,23 @@ class PlacesTableHeaderCell extends Component {
     }
     return this;
   }
+
+  bind() {
+    if (this.filter) {
+      this.listeners.add('filter', this.filter.dispatcher, (e) => {
+        this.updateFilterIndicator();
+      });
+    }
+  }
+
+  updateFilterIndicator() {
+    if (this.filter && !this.filter.isClear()) {
+      this.el.classList.add('filtered');
+    } else {
+      this.el.classList.remove('filtered');
+    }
+    return this;
+  }
 }
 
 
@@ -51,7 +68,9 @@ class PlacesTableHeaderRow extends Component {
 
   fill() {
     for (const column of this.columns) {
-      const cell = new PlacesTableHeaderCell(document.createElement('th'), this.places, column);
+      const th = document.createElement('th');
+      th.classList.add(`${column.attr}-column`);
+      const cell = new PlacesTableHeaderCell(th, this.places, column);
       this.el.appendChild(cell.render().el);
       this.cells.push(cell);
     }

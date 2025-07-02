@@ -6,6 +6,7 @@
   --dark-bg-color: #343a40;
   --border-color: var(--dark-bg-color);
   --highlight-color: #fff3cd;
+  --filtered-color: #0faf00;
 }
 
 body {
@@ -51,6 +52,15 @@ th {
 
   background-color: var(--dark-bg-color);
   color: white;
+}
+
+th.filtered {
+  background-color: var(--filtered-color);
+}
+
+.filtered-columns {
+  font-size: 0.8rem;
+  font-style: italic;
 }
 
 .map-wrapper {

@@ -45,6 +45,10 @@ class PlacesFilter extends Component {
     return this;
   }
 
+  isClear() {
+    return !this.el.querySelector('input').value;
+  }
+
   fill() {
     this.el.innerHTML = `
       <span class="places-filter">
@@ -125,6 +129,10 @@ class PlacesBooleanFilter extends PlacesFilter {
     this.el.querySelector('input[value="null"]').checked = true;
     return this;
   }
+
+  isClear() {
+    return this.el.querySelector('input[value="null"]').checked;
+  }
 };
 
 
@@ -159,6 +167,10 @@ class PlacesChoiceFilter extends PlacesFilter {
     }
     return this;
   }
+
+  isClear() {
+    return this.el.querySelectorAll('input:checked').length === 0;
+  }
 };
 
 
@@ -187,6 +199,11 @@ class PlacesDateTimeFilter extends PlacesFilter {
     this.el.querySelector(`[name="${this.filterName}-from"]`).value = '';
     this.el.querySelector(`[name="${this.filterName}-to"]`).value = '';
     return this;
+  }
+
+  isClear() {
+    return !this.el.querySelector(`[name="${this.filterName}-from"]`).value &&
+           !this.el.querySelector(`[name="${this.filterName}-to"]`).value;
   }
 };
 
