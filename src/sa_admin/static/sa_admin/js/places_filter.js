@@ -29,7 +29,7 @@ class PlacesFilter extends Component {
     const { value: filterValue } = this.filterData;
     if (!filterValue) { return true; }
 
-    const attrValue = place.get(this.column.attr);
+    const attrValue = place.get(this.column.attr) || '';
     return attrValue.includes(filterValue);
   }
 
