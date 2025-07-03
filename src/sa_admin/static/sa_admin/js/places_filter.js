@@ -158,7 +158,11 @@ class PlacesChoiceFilter extends PlacesFilter {
     if (filterValues.length === 0) { return true; }
 
     const attrValue = place.get(this.column.attr);
-    return filterValues.includes(attrValue);
+    if (Array.isArray(attrValue)) {
+      return attrValue.some(value => filterValues.includes(value));
+    } else {
+      return filterValues.includes(attrValue);
+    }
   }
 
   clear() {

@@ -3,7 +3,7 @@ Copy the following template when creating a new version entry:
 Development (master)
 -----------------------------
   * Bug Fixes:
-    - ...
+    - Fix checkboxgroup value filtering in the admin to work with arrays of selected values
 
   * New Features:
     - ...
