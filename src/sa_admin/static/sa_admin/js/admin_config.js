@@ -46,7 +46,7 @@ export const fields = [
       format: formatExact,
     };
 
-    if (field.type === 'select' || field.type === 'radiogroup' || field.type === 'checkboxgroup') {
+    if (field.type === 'select' || field.type === 'radiogroup' || field.type === 'checkboxgroup' || Array.isArray(field.options)) {
       adminFieldOptions.options = field.options;
       adminFieldOptions.widget = PlaceFieldChoiceWidget;
       adminFieldOptions.filter = PlacesChoiceFilter;
