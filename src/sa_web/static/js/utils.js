@@ -6,28 +6,6 @@ var Shareabouts = Shareabouts || {};
   'use strict';
 
   S.Util = {
-    patch: function(obj, overrides, func) {
-      var attr, originals = {};
-
-      // Switch out for the override values, but save the originals
-      for (attr in overrides) {
-        originals[attr] = obj[attr];
-        obj[attr] = overrides[attr];
-      }
-
-      // Run the function with the now patched object
-      func();
-
-      // Restore the original values
-      for (attr in originals) {
-        obj[attr] = originals[attr];
-      }
-    },
-
-    setPrettyDateLang: function(locale) {
-      moment.lang(locale);
-    },
-
     getPrettyDateTime: function(datetime, format) {
       if (format) {
         return moment(datetime).format(format);
@@ -321,33 +299,6 @@ var Shareabouts = Shareabouts || {};
         }
       };
       return newHandler;
-    },
-
-    callWithRetries: function(func, retryCount, context) {
-      var args = Array.prototype.slice.call(arguments, 3),
-          options = _.last(args),
-          errorHandler = options.error,
-          retries = 0;
-
-      if (!options) {
-        options = {};
-        args.push(options);
-      }
-
-      options.error = function() {
-        if (retries < retryCount) {
-          retries++;
-          setTimeout(function() {
-            func.apply(context, args);
-          }, retries * 100);
-        } else {
-          if (errorHandler) {
-            errorHandler.apply(context, arguments);
-          }
-        }
-      };
-
-      func.apply(context, args);
     },
 
     // Cookies! Om nom nom
