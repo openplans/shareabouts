@@ -7,12 +7,12 @@ Replace this with more appropriate tests for your application.
 
 from contextlib import contextmanager
 from django.conf import settings
-from django.test import Client, override_settings, SimpleTestCase
+from django.test import Client, override_settings, SimpleTestCase, RequestFactory
 from os.path import abspath, dirname, join as path_join
 from pathlib import Path
 from threading import Thread
 from unittest import mock
-from sa_util import config
+from sa_util import api, config
 
 class SimpleTest(SimpleTestCase):
     def test_basic_addition(self):
@@ -159,20 +159,36 @@ APP_DIR = abspath(dirname(__file__))
         'DATASET_ROOT': 'http://localhost:8001/',
         'CONFIG': abspath(path_join(APP_DIR, '..', 'flavors', 'defaultflavor'))
     })
+class InvalidAPIServerBackend (SimpleTestCase):
+    def test_raise_error(self):
+        with start_stub_api_server(DATA_FIXTURES_DIR / 'test_fixtures') as server:
+            request = RequestFactory().get('http://testserver/')
+            with self.assertRaises(ValueError) as context:
+                api.ShareaboutsApi(config=None, request=request)
+
+        self.assertIn('dataset_root expected to be a URL of the form', str(context.exception))
+
+
+@override_settings(
+    DEBUG=True,
+    SHAREABOUTS={
+        'DATASET_ROOT': 'http://localhost:8001/dataowner/datasets/test_dataset/',
+        'CONFIG': abspath(path_join(APP_DIR, '..', 'flavors', 'defaultflavor'))
+    })
 class APIServerBackend (SimpleTestCase):
     def test_index(self):
         with start_stub_api_server(DATA_FIXTURES_DIR / 'test_fixtures') as server:
             client = Client()
-            response = client.get('/')
+            response = client.get('http://testserver/')
             self.assertEqual(response.status_code, 200)
 
     def test_api_proxy(self):
-        with (DATA_FIXTURES_DIR / 'test_fixtures' / 'places').open('rb') as datafile:
+        with (DATA_FIXTURES_DIR / 'test_fixtures' / 'dataowner' / 'datasets' / 'test_dataset' / 'places').open('rb') as datafile:
             places_data = datafile.read()
 
         with start_stub_api_server(DATA_FIXTURES_DIR / 'test_fixtures') as server:
             client = Client()
-            response = client.get('/api/places')
+            response = client.get('http://testserver/api/places')
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.content, places_data)
 
@@ -202,7 +218,7 @@ class PlaceCreatedNotificationTests (SimpleTestCase):
             {
                 "id": 123,
                 "properties": {
-                    "location_type": "test place",
+                    "location_type": "test place"
                 }
             }
         '''

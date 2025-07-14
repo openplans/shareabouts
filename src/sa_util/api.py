@@ -8,7 +8,19 @@ from .config import get_shareabouts_config, _ShareaboutsConfig
 
 
 def make_api_root(dataset_root):
+    """
+    Construct the API root URL based on the dataset root.
+
+    If we're hitting an API server (as opposed to using a file backend), then
+    the dataset_root should be a URL of the form:
+    <api_root>/<dataset_owner>/datasets/<dataset_name>/
+
+    Thus the API root should be everything before the dataset owner.
+    """
     components = dataset_root.split('/')
+    if dataset_root.startswith('http') and (components[-2] != 'datasets' and components[-3] != 'datasets'):
+        raise ValueError(f'dataset_root expected to be a URL of the form http[s]://<api_root>/<dataset_owner>/datasets/<dataset_name>/; got {dataset_root!r}')
+    
     if dataset_root.endswith('/'):
         return '/'.join(components[:-4]) + '/'
     else:
