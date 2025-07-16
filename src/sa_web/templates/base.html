@@ -173,7 +173,9 @@
       staticUrl: '{{ STATIC_URL }}',
       languageCode: '{{ LANGUAGE_CODE }}',
       mapQuestKey: '{{ settings.MAPQUEST_KEY }}',
-      mapboxToken: '{{ settings.MAPBOX_TOKEN }}'
+      mapboxToken: '{{ settings.MAPBOX_TOKEN }}',
+      routePrefix: {{ route_prefix | as_json }},
+      apiPrefix:  {{ api_prefix | as_json }},
     };
 
     function bootstrapCurrentUser(data) {
@@ -216,6 +218,9 @@
         S.bootstrapped.currentUser ?
         'user:' + S.bootstrapped.currentUser.id :
         {{ user_token_json|safe }}),
+      
+      routePrefix: S.bootstrapped.routePrefix,
+      apiPrefix: S.bootstrapped.apiPrefix,
 
       flavor:     {{ config.data|as_json }},
       place:      {{ config.place|as_json }},
@@ -235,6 +240,7 @@
         defaultPlaceTypeName: S.Config.defaultPlaceTypeName,
         userToken: S.Config.userToken,
 
+        routePrefix: S.Config.routePrefix,
         config: S.Config.flavor,
         placeConfig: S.Config.place,
         placeTypes: S.Config.placeTypes,

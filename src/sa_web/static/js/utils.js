@@ -350,6 +350,30 @@ var Shareabouts = Shareabouts || {};
       func.apply(context, args);
     },
 
+    prefixRoute: function(route) {
+      return (S.bootstrapped.routePrefix || '').replace(/\/$/, '') + '/' + route.replace(/^\//, '');
+    },
+
+    unprefixRoute: function(route) {
+      var prefix = S.bootstrapped.routePrefix || '';
+      if (route.indexOf(prefix) === 0) {
+        return route.substr(prefix.length);
+      }
+      return route;
+    },
+
+    prefixApiEndpoint: function(route) {
+      return (S.bootstrapped.apiPrefix || '').replace(/\/$/, '') + '/' + route.replace(/^\//, '');
+    },
+
+    unprefixApiEndpoint: function(route) {
+      var prefix = S.bootstrapped.apiPrefix || '';
+      if (route.indexOf(prefix) === 0) {
+        return route.substr(prefix.length);
+      }
+      return route;
+    },
+
     // Cookies! Om nom nom
     // Thanks ppk! http://www.quirksmode.org/js/cookies.html
     cookies: {

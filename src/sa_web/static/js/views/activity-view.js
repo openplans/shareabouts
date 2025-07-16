@@ -94,7 +94,8 @@ var Shareabouts = Shareabouts || {};
           placeId = actionLink.getAttribute('data-place-id');
 
       S.Util.log('USER', 'action', 'click', actionType+' -- '+placeId);
-      this.options.router.navigate(actionLink.getAttribute('href'), {trigger: true});
+      const route = S.Util.unprefixRoute(actionLink.getAttribute('href'));
+      this.options.router.navigate(route, {trigger: true});
     },
 
     onAddAction: function(model, collection) {

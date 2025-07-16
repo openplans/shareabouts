@@ -256,6 +256,8 @@ if 'REDIS_URL' in env:
     SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 SHAREABOUTS = {}
+if 'SHAREABOUTS_PREFIX' in env:
+    SHAREABOUTS['PREFIX'] = env.get('SHAREABOUTS_PREFIX')
 if 'SHAREABOUTS_FLAVOR' in env:
     SHAREABOUTS['FLAVOR'] = env.get('SHAREABOUTS_FLAVOR')
 if 'SHAREABOUTS_DATASET_ROOT' in env:

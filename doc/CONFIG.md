@@ -500,3 +500,14 @@ To change the subject or body of the email that is sent to users, create templat
 ### Styling
 
 See [Customizing the Theme](CUSTOM_THEME.md)
+
+## Step 4: Deploying your map
+
+There are a few important environment variables that you can set:
+
+`SHAREABOUTS_FLAVOR` - The name of the flavor you created in Step 2. This is required.
+`SHAREABOUTS_DATASET_ROOT` - The URL to your dataset root. This is required.
+`SHAREABOUTS_DATASET_KEY` - The API key for your dataset. This is optional.
+`SHAREABOUTS_PREFIX` - If you want to run Shareabouts under a subpath, set this to the path you want to use. For example, if you want to run Shareabouts under `http://example.com/subpath/`, set this to `subpath/`. This is optional.
+
+For more information see [Deploying Your Map](DEPLOY.md)

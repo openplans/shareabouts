@@ -156,7 +156,14 @@ def index(request, place_id=None):
     except KeyError:
         uses_mapbox_layers = False
 
+    path_prefix = settings.SHAREABOUTS.get('PREFIX', '').rstrip('/')
+    if path_prefix and not path_prefix.startswith('/'):
+        path_prefix = '/' + path_prefix
+
     context = {'config': config,
+
+               'route_prefix': path_prefix + '/',
+               'api_prefix': path_prefix + '/api/',
 
                'user_token_json': user_token_json,
                'pages_config': pages_config,
@@ -242,7 +249,7 @@ def send_place_created_notifications(request, response):
         'place': place,
         'email': recipient_email,
         'config': config,
-        'site_root': request.build_absolute_uri('/'),
+        'site_root': request.build_absolute_uri('/' + settings.SHAREABOUTS.get('PREFIX', '')),
     }
     subject = render_to_string('new_place_email_subject.txt', context_data, request)
     body = render_to_string('new_place_email_body.txt', context_data, request)

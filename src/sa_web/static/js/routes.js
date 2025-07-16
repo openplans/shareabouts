@@ -80,6 +80,9 @@ var Shareabouts = Shareabouts || {};
       if (options.defaultPlaceTypeName) {
         historyOptions.root = '/' + options.defaultPlaceTypeName + '/';
       }
+      if (options.routePrefix) {
+        historyOptions.root = '/' + options.routePrefix + '/';
+      }
 
       Backbone.history.start(historyOptions);
 

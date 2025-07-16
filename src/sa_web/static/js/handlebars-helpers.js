@@ -7,6 +7,10 @@ var Shareabouts = Shareabouts || {};
     return NS.bootstrapped.staticUrl;
   });
 
+  Handlebars.registerHelper('prefix', function(route) {
+    return NS.Util.prefixRoute(route);
+  });
+
   Handlebars.registerHelper('debug', function(value) {
     if (typeof(value) === typeof({})) {
       return JSON.stringify(value, null, 4);
