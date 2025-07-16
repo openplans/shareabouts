@@ -3,13 +3,21 @@ Copy the following template when creating a new version entry:
 Development (master)
 -----------------------------
   * Bug Fixes:
-    - Fix checkboxgroup value filtering in the admin to work with arrays of selected values
+    - ...
 
   * New Features:
     - ...
 
   * Upgrade Steps:
     - ...
+
+
+4.1.1
+-----------------------------
+  * Bug Fixes:
+    - Fix checkboxgroup value filtering in the admin to work with arrays of selected values
+    - Fix fetching invisible places in the admin dashboard and place detail view
+
 
 4.1.0
 -----------------------------
