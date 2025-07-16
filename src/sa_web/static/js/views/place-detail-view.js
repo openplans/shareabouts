@@ -62,6 +62,11 @@ var Shareabouts = Shareabouts || {};
 
       // Augment the template data with the attachments list
       data.attachments = this.model.attachmentCollection.toJSON();
+      var i, a;
+      for (i = 0; i < data.attachments.length; i++) {
+        a = data.attachments[i];
+        a.ratio = 100.0 * a.height / a.width;
+      }
 
       this.$el.html(Handlebars.templates['place-detail'](data));
 
