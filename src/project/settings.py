@@ -86,7 +86,7 @@ COMPRESS_ROOT = STATIC_ROOT
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = BASE_URL + '/static/'
 COMPRESS_URL = STATIC_URL
 
 # Additional locations of static files

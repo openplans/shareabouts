@@ -55,7 +55,7 @@ map:
 
     # GeoJSON Layers
     # ==============
-    - url: /static/data/philadelphia.geojson
+    - url: "{{static_url}}/data/philadelphia.geojson"
       type: json
       rules:
         - condition: 'true'
@@ -85,7 +85,7 @@ place_types:
         # Display landmarks as icons when zoomed in
 
         icon:
-          iconUrl: /static/css/images/markers/dot-0d85e9.png
+          iconUrl: "{{static_url}}/css/images/markers/dot-0d85e9.png"
           iconSize: [17, 18]
           iconAnchor: [9, 9]
 
@@ -93,8 +93,8 @@ place_types:
         # Display landmarks as icons when focused/selected
 
         icon:
-          iconUrl: /static/css/images/markers/marker-0d85e9.png
-          shadowUrl: /static/css/images/marker-shadow.png
+          iconUrl: "{{static_url}}/css/images/markers/marker-0d85e9.png"
+          shadowUrl: "{{static_url}}/css/images/marker-shadow.png"
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
@@ -106,8 +106,8 @@ place_types:
         # Show parks that are points as icons...
 
         icon:
-          iconUrl: /static/css/images/markers/marker-4bbd45.png
-          shadowUrl: /static/css/images/marker-shadow.png
+          iconUrl: "{{static_url}}/css/images/markers/marker-4bbd45.png"
+          shadowUrl: "{{static_url}}/css/images/marker-shadow.png"
           iconSize: [25, 41]
           shadowSize: [41, 41]
           iconAnchor: [12, 41]
@@ -124,7 +124,7 @@ place_types:
         # Show parks that are points as icons...
 
         icon:
-          iconUrl: /static/css/images/markers/dot-4bbd45.png
+          iconUrl: "{{static_url}}/css/images/markers/dot-4bbd45.png"
           iconSize: [17, 18]
           iconAnchor: [9, 9]
 
@@ -362,11 +362,11 @@ pages:
     pages:
       - title: _(Why Shareabouts?)
         slug: why
-        url: /static/pages/why.html
+        url: "{{static_url}}/pages/why.html"
 
       - title: _(Features)
         slug: features
-        url: /static/pages/features.html
+        url: "{{static_url}}/pages/features.html"
 
   - title: _(Links)
     pages:
