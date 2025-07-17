@@ -126,7 +126,7 @@ var Shareabouts = Shareabouts || {};
                                       'must save the place before saving ' +
                                       'its ' + submissionType + '.'); }
 
-      return S.Util.prefixApiEndpoint('places/' + placeId + '/' + submissionType);
+      return S.Util.prefixApiEndpoint('/places/' + placeId + '/' + submissionType);
     },
 
     comparator: 'created_datetime'
@@ -250,7 +250,7 @@ var Shareabouts = Shareabouts || {};
   });
 
   S.PlaceCollection = S.PaginatedCollection.extend({
-    url: S.Util.prefixApiEndpoint('places'),
+    url: S.Util.prefixApiEndpoint('/places'),
     model: S.PlaceModel,
     resultsAttr: 'features',
 
@@ -375,7 +375,7 @@ var Shareabouts = Shareabouts || {};
   });
 
   S.ActionCollection = S.PaginatedCollection.extend({
-    url: S.Util.prefixApiEndpoint('actions'),
+    url: S.Util.prefixApiEndpoint('/actions'),
     comparator: function(a, b) {
       if (a.get('created_datetime') > b.get('created_datetime')) {
         return -1;

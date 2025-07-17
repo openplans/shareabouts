@@ -351,7 +351,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     prefixRoute: function(route) {
-      return (S.bootstrapped.routePrefix || '').replace(/\/$/, '') + '/' + route.replace(/^\//, '');
+      return (S.bootstrapped.routePrefix || '') + route;
     },
 
     unprefixRoute: function(route) {
@@ -363,7 +363,7 @@ var Shareabouts = Shareabouts || {};
     },
 
     prefixApiEndpoint: function(route) {
-      return (S.bootstrapped.apiPrefix || '').replace(/\/$/, '') + '/' + route.replace(/^\//, '');
+      return (S.bootstrapped.apiPrefix || '') + route;
     },
 
     unprefixApiEndpoint: function(route) {
