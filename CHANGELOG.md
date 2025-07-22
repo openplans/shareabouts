@@ -6,10 +6,13 @@ Development (master)
     - Fix checkboxgroup value filtering in the admin to work with arrays of selected values
 
   * New Features:
-    - ...
+    - Allow placing the map at a path other than the host root.
 
   * Upgrade Steps:
-    - ...
+    - If you want to take advantage of the new relative paths, you will need to update your templates and CSS files:
+      - Go through your HTML templates, ensure you're using the `{% static %}` tag to include static files, and update any paths that are not relative to use the `{{route_prefix}}` variable (i.e. `"/places/"` would become `"{{route_prefix}}/places/"}}`).
+      - Go through your jstemplates and search for href. Update any internal paths to use the new `{{prefix "..."}}` helper.
+      - Go through your CSS and search for `url(/static/...)`. Ensure that these use relative paths instead (in CSS, `url(...)` paths are relative to the CSS file location).
 
 4.1.0
 -----------------------------
