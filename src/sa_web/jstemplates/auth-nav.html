@@ -5,7 +5,7 @@
     {{#with (current_user "name") }}
       <li><span class="signed-in-as">{{#_}}Signed in as</span> <span class="current-user">{{ this }}{{/_}}</span></li>
     {{/with}}
-    <li class=""><a class="logout-btn" href="/users/logout/">{{#_}}Log Out{{/_}}</a>
+    <li class=""><a class="logout-btn" href="{{prefix "/users/"}}logout/">{{#_}}Log Out{{/_}}</a>
     </li>
   </ul>
 </nav>
@@ -13,8 +13,8 @@
 <nav class="user-menu" aria-label="User account">
   <a href="#" id="sign-in-btn">{{#_}}Sign In{{/_}}</a>
   <ul class="menu sign-in-menu">
-    <li class="menu-item sign-in-menu-item"><a class="auth-btn twitter-btn" href="/users/login/twitter/">Twitter</a></li>
-    <li class="menu-item sign-in-menu-item"><a class="auth-btn facebook-btn" href="/users/login/facebook/">Facebook</a></li>
+    <li class="menu-item sign-in-menu-item"><a class="auth-btn twitter-btn" href="{{prefix "/users/"}}login/twitter/">Twitter</a></li>
+    <li class="menu-item sign-in-menu-item"><a class="auth-btn facebook-btn" href="{{prefix "/users/"}}login/facebook/">Facebook</a></li>
   </ul>
 </nav>
 {{/ is_authenticated }}

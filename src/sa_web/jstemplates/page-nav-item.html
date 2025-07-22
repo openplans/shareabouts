@@ -6,7 +6,7 @@
 
   {{^ external }}
     {{# slug }}
-      <a class="btn btn-block btn-secondary" href="/page/{{ slug }}">{{ title }}</a>
+      <a class="btn btn-block btn-secondary" href="{{prefix "/page/"}}{{ slug }}">{{ title }}</a>
     {{/ slug }}
     {{^ slug }}
       {{ title }}

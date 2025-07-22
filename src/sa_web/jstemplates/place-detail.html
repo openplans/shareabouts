@@ -32,12 +32,12 @@
               in {{ region }}
             {{/if}}{{/_}}
 
-            <time datetime="{{ created_datetime }}" class="response-date"><a href="/place/{{ id }}">{{ fromnow created_datetime }}</a></time>
+            <time datetime="{{ created_datetime }}" class="response-date"><a href="{{prefix "/place/"}}{{ id }}">{{ fromnow created_datetime }}</a></time>
 
             <span class="survey-count">{{ survey_count }} {{ survey_label_by_count }}</span>
 
             {{^if survey_config}}
-            <a href="/place/{{ id }}" class="view-on-map-btn btn btn-small">{{#_}}View On Map{{/_}}</a>
+            <a href="{{prefix "/place/"}}{{ id }}" class="view-on-map-btn btn btn-small">{{#_}}View On Map{{/_}}</a>
             {{/if}}
 
           </span>

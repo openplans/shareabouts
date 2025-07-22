@@ -22,7 +22,7 @@
       <a class="btn btn-block btn-secondary" href="{{ url }}" {{#each link_attrs}} {{@key}}="{{this}}" {{/each}}>{{ title }}</a>
     {{else }}
       {{#if slug }}
-        <a class="btn btn-block btn-secondary" href="/page/{{ slug }}" {{#each link_attrs}} {{@key}}="{{this}}" {{/each}}>{{ title }}</a>
+        <a class="btn btn-block btn-secondary" href="{{prefix "/page/"}}{{ slug }}" {{#each link_attrs}} {{@key}}="{{this}}" {{/each}}>{{ title }}</a>
       {{else }}
         <a class="btn btn-block btn-secondary" {{#each link_attrs}} {{@key}}="{{this}}" {{/each}}>{{ title }}</a>
       {{/if }}
