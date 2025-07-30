@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from sa_util.config import get_shareabouts_config
@@ -20,7 +21,11 @@ def shareabouts_loggedin(viewfunc):
 
 @shareabouts_loggedin
 def admin_home(request, config, api):
+    path_prefix = settings.BASE_URL
+
     return render(request, 'sa_admin/dashboard.html', {
+        'route_prefix': path_prefix,
+        'api_prefix': path_prefix + '/api',
         'api': api,
         'config': config,
     })
@@ -28,7 +33,11 @@ def admin_home(request, config, api):
 
 @shareabouts_loggedin
 def place_detail(request, config, api, place_id):
+    path_prefix = settings.BASE_URL
+
     return render(request, 'sa_admin/place_detail.html', {
+        'route_prefix': path_prefix,
+        'api_prefix': path_prefix + '/api',
         'place_id': place_id,
         'api': api,
         'config': config,

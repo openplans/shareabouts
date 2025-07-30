@@ -67,8 +67,6 @@
     <script src="{% static 'dist/libs.min.js' %}?_={{settings.LAST_DEPLOY_DATE}}"></script>
     {% endif %}
 
-    <script src="{% static 'js/models.js' %}"></script>
-
     <script>
       var Shareabouts = Shareabouts || {};
       Shareabouts.Config = {{ config.data | as_json | safe }};
@@ -77,9 +75,14 @@
         dataset: {{ api.dataset_root | as_json | safe }},
         staticUrl: {{ STATIC_URL | as_json | safe }},
         mapboxToken: {{ settings.MAPBOX_TOKEN | as_json | safe }},
+        routePrefix: {{ route_prefix | as_json }},
+        apiPrefix:  {{ api_prefix | as_json }},
       };
 
       Shareabouts.PlaceCollection.prototype.url += '?include_private&include_invisible';
     </script>
+
+    <script src="{% static 'js/utils.js' %}"></script>
+    <script src="{% static 'js/models.js' %}"></script>
     {% endblock %}
 </html>
