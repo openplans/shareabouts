@@ -362,6 +362,10 @@ var Shareabouts = Shareabouts || {};
       return route;
     },
 
+    prefixStaticUrl: function(url) {
+      return (S.bootstrapped.staticUrl || '') + url;
+    },
+
     prefixApiEndpoint: function(route) {
       return (S.bootstrapped.apiPrefix || '') + route;
     },
