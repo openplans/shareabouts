@@ -11,6 +11,7 @@ class PlacesMap extends Component {
     this.places = places;
     this.map = null;
     this.placesLayer = L.featureGroup();
+    this.markerPopup = L.popup();
 
     this._placeIdToMarker = {};
   }
@@ -73,7 +74,14 @@ class PlacesMap extends Component {
         this.dispatcher.dispatchEvent(new CustomEvent('place:click', { detail: { placeId } }));
       });
     });
+    this.listeners.add('popupclose', this.markerPopup, () => {
+      this.unbindPopup();
+    });
     return this;
+  }
+
+  unbindPopup() {
+    this.listeners.clear({ el: this.markerPopup.getElement() });
   }
 
   cacheCategoryColors() {
@@ -209,27 +217,19 @@ class PlacesMap extends Component {
   showMarkerPopup(placeId, marker = null) {
     marker ||= this._placeIdToMarker[placeId];
     if (marker) {
-      this.markerPopup = this.markerPopup || L.popup();
       this.markerPopup.setContent(this.markerPopupContent(marker.place));
       this.markerPopup.setLatLng(marker.getLatLng());
       this.markerPopup.openOn(this.map);
       
       const popupEl = this.markerPopup.getElement();
       this.listeners.clear({ el: popupEl });
-      
+
       this.listeners.add('click', popupEl.querySelector('.edit-place'), () => {
         this.dispatcher.dispatchEvent(new CustomEvent('place:click', { detail: { placeId } }));
       });
       this.listeners.add('click', popupEl.querySelector('.show-place-in-list'), () => {
         this.dispatcher.dispatchEvent(new CustomEvent('place:reveal', { detail: { placeId } }));
       });
-    }
-  }
-
-  hideMarkerPopup() {
-    if (this.markerPopup) {
-      this.markerPopup.remove();
-      this.markerPopup = null;
     }
   }
 }
