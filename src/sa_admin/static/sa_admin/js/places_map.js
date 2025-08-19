@@ -215,6 +215,8 @@ class PlacesMap extends Component {
       this.markerPopup.openOn(this.map);
       
       const popupEl = this.markerPopup.getElement();
+      this.listeners.clear({ el: popupEl });
+      
       this.listeners.add('click', popupEl.querySelector('.edit-place'), () => {
         this.dispatcher.dispatchEvent(new CustomEvent('place:click', { detail: { placeId } }));
       });
