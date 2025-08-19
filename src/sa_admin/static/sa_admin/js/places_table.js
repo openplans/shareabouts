@@ -227,6 +227,13 @@ class PlacesTable extends Component {
       tr.classList.remove('highlight');
     }
   }
+
+  scrollToRow(placeId) {
+    const row = this.el.querySelector(`tr[data-place-id="${placeId}"]`);
+    if (row) {
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
 };
 
 export {
