@@ -81,7 +81,7 @@ class PlacesMap extends Component {
   }
 
   unbindPopup() {
-    this.listeners.clear({ el: this.markerPopup.getElement() });
+    this.listeners.clear({ target: this.markerPopup.getElement() });
   }
 
   cacheCategoryColors() {
@@ -222,7 +222,7 @@ class PlacesMap extends Component {
       this.markerPopup.openOn(this.map);
       
       const popupEl = this.markerPopup.getElement();
-      this.listeners.clear({ el: popupEl });
+      this.listeners.clear({ target: popupEl });
 
       this.listeners.add('click', popupEl.querySelector('.edit-place'), () => {
         this.dispatcher.dispatchEvent(new CustomEvent('place:click', { detail: { placeId } }));
