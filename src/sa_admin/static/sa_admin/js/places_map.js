@@ -11,6 +11,7 @@ class PlacesMap extends Component {
     this.places = places;
     this.map = null;
     this.placesLayer = L.featureGroup();
+    this.markerPopup = L.popup();
 
     this._placeIdToMarker = {};
   }
@@ -62,6 +63,7 @@ class PlacesMap extends Component {
       const placeId = marker.placeId;
       this.listeners.add('mouseover', marker, () => {
         this.highlightMarker(placeId, marker);
+        this.showMarkerPopup(placeId, marker);
         this.dispatcher.dispatchEvent(new CustomEvent('place:mouseover', { detail: { placeId } }));
       });
       this.listeners.add('mouseout', marker, () => {
@@ -72,7 +74,14 @@ class PlacesMap extends Component {
         this.dispatcher.dispatchEvent(new CustomEvent('place:click', { detail: { placeId } }));
       });
     });
+    this.listeners.add('popupclose', this.markerPopup, () => {
+      this.unbindPopup();
+    });
     return this;
+  }
+
+  unbindPopup() {
+    this.listeners.clear({ target: this.markerPopup.getElement() });
   }
 
   cacheCategoryColors() {
@@ -192,6 +201,35 @@ class PlacesMap extends Component {
     marker ||= this._placeIdToMarker[placeId];
     if (marker) {
       marker.setStyle(this.normalMarkerStyle(marker.place));
+    }
+  }
+
+  markerPopupContent(place) {
+    return `
+      <div>
+        ID: ${place.id}
+        <button class="btn edit-place">Edit</button>
+        <button class="btn show-place-in-list">Show in List</button>
+      </div>
+    `;
+  }
+
+  showMarkerPopup(placeId, marker = null) {
+    marker ||= this._placeIdToMarker[placeId];
+    if (marker) {
+      this.markerPopup.setContent(this.markerPopupContent(marker.place));
+      this.markerPopup.setLatLng(marker.getLatLng());
+      this.markerPopup.openOn(this.map);
+      
+      const popupEl = this.markerPopup.getElement();
+      this.listeners.clear({ target: popupEl });
+
+      this.listeners.add('click', popupEl.querySelector('.edit-place'), () => {
+        this.dispatcher.dispatchEvent(new CustomEvent('place:click', { detail: { placeId } }));
+      });
+      this.listeners.add('click', popupEl.querySelector('.show-place-in-list'), () => {
+        this.dispatcher.dispatchEvent(new CustomEvent('place:reveal', { detail: { placeId } }));
+      });
     }
   }
 }

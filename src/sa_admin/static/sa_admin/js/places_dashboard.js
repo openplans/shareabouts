@@ -50,7 +50,13 @@ class PlacesDashboard extends Component {
     this.listeners.add('place:click', this.map.dispatcher, (e) => {
       const placeId = e.detail.placeId;
       this.openPlaceDetail(placeId);
-    })
+    });
+
+    this.listeners.add('place:reveal', this.map.dispatcher, (e) => {
+      const placeId = e.detail.placeId;
+      this.scrollToPlaceInList(placeId);
+      this.highlightPlace(placeId, true, false);
+    });
 
     this.listeners.add('place:mouseover', this.table.dispatcher, (e) => {
       const placeId = e.detail.placeId;
@@ -173,6 +179,11 @@ class PlacesDashboard extends Component {
   unhighlightPlace(placeId, skipMap = false, skipTable = false) {
     if (!skipMap) this.map.unhighlightMarker(placeId);
     if (!skipTable) this.table.unhighlightRow(placeId);
+    return this;
+  }
+
+  scrollToPlaceInList(placeId) {
+    this.table.scrollToRow(placeId);
     return this;
   }
 

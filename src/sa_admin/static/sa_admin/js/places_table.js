@@ -214,10 +214,17 @@ class PlacesTable extends Component {
     return this;
   }
 
-  highlightRow(placeId, tr = null) {
+  highlightRow(placeId, tr = null, unhighlightOthers = true) {
     tr ||= this.el.querySelector(`tr[data-place-id="${placeId}"]`);
     if (tr) {
       tr.classList.add('highlight');
+    }
+    if (unhighlightOthers) {
+      for (const otherTr of this.el.querySelectorAll(`tr`)) {
+        if (otherTr !== tr) {
+          otherTr.classList.remove('highlight');
+        }
+      }
     }
   }
 
@@ -225,6 +232,13 @@ class PlacesTable extends Component {
     tr ||= this.el.querySelector(`tr[data-place-id="${placeId}"]`);
     if (tr) {
       tr.classList.remove('highlight');
+    }
+  }
+
+  scrollToRow(placeId) {
+    const row = this.el.querySelector(`tr[data-place-id="${placeId}"]`);
+    if (row) {
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 };
