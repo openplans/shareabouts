@@ -49,19 +49,25 @@ var Shareabouts = Shareabouts || {};
       this.$el.on('click', '.toggle-visibility', _.bind(this.onToggleVisibility, this));
     },
 
-    render: function(isNew) {
-      var self = this,
-          data = _.extend({
-            place_config: this.options.placeConfig,
-            survey_config: this.options.surveyConfig,
-            is_new: isNew
-          }, this.model.toJSON());
+    getTemplateContext: function(isNew) {
+      const context = _.extend({
+        place_config: this.options.placeConfig,
+        survey_config: this.options.surveyConfig,
+        support_config: this.options.supportConfig,
+        is_new: isNew,
+      }, this.model.toJSON());
 
-      data.submitter_name = this.model.get('submitter_name') ||
-        this.options.placeConfig.anonymous_name;
+      context.submitter_name = this.model.get('submitter_name') || this.options.placeConfig.anonymous_name;
 
       // Augment the template data with the attachments list
-      data.attachments = this.model.attachmentCollection.toJSON();
+      context.attachments = this.model.attachmentCollection.toJSON();
+
+      return context;
+    },
+
+    render: function(isNew) {
+      var self = this,
+          data = this.getTemplateContext(isNew);
 
       this.$el.html(Handlebars.templates['place-detail'](data));
 

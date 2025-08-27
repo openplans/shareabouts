@@ -27,13 +27,25 @@ var Shareabouts = Shareabouts || {};
       this.userSubmission = this.getSubmissionStatus(this.options.userToken);
     },
 
+    getTemplateContext: function(responses) {
+      const context = _.extend({
+        responses: responses,
+        has_single_response: (responses.length === 1),
+        user_token: this.options.userToken,
+        user_submitted: !!this.userSubmission,
+        survey_config: this.options.surveyConfig
+      }, S.Util.getStickyFields()[this.options.userToken] || {});
+
+      return context;
+    },
+
     render: function() {
       var self = this,
           responses = [],
           url = window.location.toString(),
           urlParts = url.split('response/'),
           layout = S.Util.getPageLayout(),
-          responseIdToScrollTo, $responseToScrollTo, data;
+          responseIdToScrollTo, $responseToScrollTo, context;
 
       // get the response id from the url
       if (urlParts.length === 2) {
@@ -57,15 +69,9 @@ var Shareabouts = Shareabouts || {};
         }));
       });
 
-      data = _.extend({
-        responses: responses,
-        has_single_response: (responses.length === 1),
-        user_token: this.options.userToken,
-        user_submitted: !!this.userSubmission,
-        survey_config: this.options.surveyConfig
-      }, S.Util.getStickyFields()[this.options.userToken] || {});
+      context = this.getTemplateContext(responses);
 
-      this.$el.html(Handlebars.templates['place-detail-survey'](data));
+      this.$el.html(Handlebars.templates['place-detail-survey'](context));
 
       // get the element based on the id
       $responseToScrollTo = this.$el.find('[data-response-id="'+ responseIdToScrollTo +'"]');

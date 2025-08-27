@@ -531,10 +531,14 @@ var Shareabouts = Shareabouts || {};
         });
       }
     },
+    getPageTemplateContext: function(slug) {
+      return {config: this.options.config, slug: slug};
+    },
     viewPage: function(slug) {
       var pageConfig = S.Util.findPageConfig(this.options.pagesConfig, {slug: slug}),
           pageTemplateName = 'pages/' + (pageConfig.name || pageConfig.slug),
-          pageHtml = Handlebars.templates[pageTemplateName]({config: this.options.config});
+          pageTemplateContext = this.getPageTemplateContext(slug),
+          pageHtml = Handlebars.templates[pageTemplateName](pageTemplateContext);
 
       this.$panel.removeClass().addClass('page page-' + slug);
       this.showPanel(pageHtml);
