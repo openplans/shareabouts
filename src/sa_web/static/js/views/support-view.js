@@ -14,17 +14,23 @@ var Shareabouts = Shareabouts || {};
       this.updateSupportStatus();
     },
 
+    getTemplateContext: function() {
+      const context = {
+        count: this.collection.size() || '',
+        user_token: this.options.userToken,
+        is_supporting: (this.userSupport !== undefined),
+        support_config: this.options.supportConfig
+      };
+
+      return context;
+    },
+
     render: function() {
       // I don't understand why we need to redelegate the event here, but they
       // are definitely unbound after the first render.
       this.delegateEvents();
 
-      this.$el.html(Handlebars.templates['place-detail-support']({
-        count: this.collection.size() || '',
-        user_token: this.options.userToken,
-        is_supporting: (this.userSupport !== undefined),
-        support_config: this.options.supportConfig
-      }));
+      this.$el.html(Handlebars.templates['place-detail-support'](this.getTemplateContext()));
 
       return this;
     },

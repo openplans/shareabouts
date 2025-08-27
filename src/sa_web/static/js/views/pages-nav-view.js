@@ -10,12 +10,16 @@ var Shareabouts = Shareabouts || {};
       'click #sign-in-btn': 'onAuthNavClick'
     },
 
+    getTemplateContext: function() {
+      return {
+        pages: this.options.pagesConfig,
+        has_pages: (this.options.pagesConfig.length > 0),
+      };
+    },
+
     render: function() {
-      var data = {
-            pages: this.options.pagesConfig,
-            has_pages: (this.options.pagesConfig.length > 0)
-          },
-          template = Handlebars.templates['pages-nav'](data);
+      var context = this.getTemplateContext(),
+          template = Handlebars.templates['pages-nav'](context);
       this.$el.html(template);
 
       return this;

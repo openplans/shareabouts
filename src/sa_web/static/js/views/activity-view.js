@@ -138,7 +138,7 @@ var Shareabouts = Shareabouts || {};
     preparePlaceData: function(placeModel) {
     },
 
-    processActionData: function(actionModel, placeModel) {
+    getActionTemplateContext: function(actionModel, placeModel) {
       var actionType = actionModel.get('target_type'),
           isPlaceAction = (actionType === 'place'),
           surveyConfig = this.options.surveyConfig,
@@ -231,12 +231,12 @@ var Shareabouts = Shareabouts || {};
       // Callback for when the action's corresponding place model is found
       onFoundPlace = function(placeModel) {
         var $template,
-            modelData;
+            context;
 
-        modelData = self.processActionData(model, placeModel);
+        context = self.getActionTemplateContext(model, placeModel);
 
-        if (modelData) {
-          $template = $(Handlebars.templates['activity-list-item'](modelData));
+        if (context) {
+          $template = $(Handlebars.templates['activity-list-item'](context));
 
           if (index >= self.$el.children().length) {
             self.$el.append($template);
@@ -258,15 +258,17 @@ var Shareabouts = Shareabouts || {};
       this.getPlaceForAction(model, {success: onFoundPlace});
     },
 
+    getTemplateContext: function() {
+      const collectionData = [];
+      return {activities: collectionData};
+    },
+
     render: function(){
       var self = this,
           index = 0,
-          $template,
-          modelData,
-          collectionData = [],
-          placeModel;
+          $template;
 
-      $template = Handlebars.templates['activity-list']({activities: collectionData});
+      $template = Handlebars.templates['activity-list'](self.getTemplateContext());
       self.$el.html($template);
 
       self.collection.each(function(model) {
