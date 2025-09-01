@@ -256,7 +256,7 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', '{{ settings.GOOGLE_ANALYTICS_ID }}');
+    gtag('config', '{{ settings.GOOGLE_ANALYTICS_ID }}', { 'cookieFlags': 'SameSite=None; Secure' });
   </script>
   {% endif %}
 
