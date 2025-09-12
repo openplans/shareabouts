@@ -256,7 +256,14 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', '{{ settings.GOOGLE_ANALYTICS_ID }}', { 'cookieFlags': 'SameSite=None; Secure' });
+    gtag('config', '{{ settings.GOOGLE_ANALYTICS_ID }}', { 
+      'cookie_flags': 'SameSite=None; Secure',
+      'send_page_view': false,
+    });
+    gtag('event', 'page_view', {
+      page_title: document.title,
+      page_location: window.location.pathname,
+    });
   </script>
   {% endif %}
 

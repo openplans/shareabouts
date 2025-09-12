@@ -130,50 +130,110 @@ var Shareabouts = Shareabouts || {};
     log: function() {
       var args = Array.prototype.slice.call(arguments, 0);
 
-      if (window.ga) {
-        this.analytics(args);
+      if (window.gtag) {
+        this.googleAnalytics(args);
       } else {
         S.Util.console.log(args);
       }
     },
 
-    analytics: function(args) {
+    googleAnalyticsEventState: {},
+
+    googleAnalytics: function(args) {
       var firstArg = args.shift(),
           secondArg,
           measure,
-          measures = {
-            'center-lat': 'metric1',
-            'center-lng': 'metric2',
-            'zoom': 'metric3',
+          measures = [
+            // Metrics
+            'center-lat',
+            'center-lng',
+            'zoom',
 
-            'panel-state': 'dimension1',
-            'language-code': 'dimension2'
-          };
+            // Dimensions
+            'panel-state',
+            'language-code',
+          ],
+          parameters;
 
       switch (firstArg.toLowerCase()) {
         case 'route':
-          args = ['send', 'pageview'].concat(args);
+          // We expect route event arguments to have the form [page_path].
+          // This conforms to the legacy GA pageview tracking API.
+          //
+          // The gtag API will track pageviews automatically by default, but
+          // you can disable that and set up custom definitions for page_title
+          // and page_location.
+          parameters = {
+            "page_title": document.title,
+            "page_location": args[0],
+            ...this.googleAnalyticsEventState
+          };
+          args = ['event', 'page_view', parameters];
           break;
 
         case 'user':
-          args = ['send', 'event'].concat(args);
+          // We expect user event arguments to have the form [category, action,
+          // label (optional), value (optional)]; this conforms to the legacy GA
+          // event tracking API.
+          //
+          // For the gtag API, you'll want to go into the settings and set up
+          // custom definitions for event_category, event_action, event_label,
+          // and event_value.
+          //
+          // Settings > Data Display > Custom Definitions > Custom Dimensions
+          //
+          const eventName = `${args[0]}-${args[1]}`.toLowerCase();
+          parameters = {
+            "event_category": args[0],
+            "event_action": args[1],
+            "event_label": args[2],
+            "event_value": args[3],
+          };
+          args = ['event', eventName, parameters];
           break;
 
         case 'app':
-          secondArg = args.shift();
-          measure = measures[secondArg];
-          if (!measure) {
-            this.console.error('No metrics or dimensions matching "' + secondArg + '"');
+          // We expect app event arguments to have the form [measure, value].
+          // In the ga API, we would use these to set custom dimensions or
+          // metrics on the tracker object.
+          //
+          // In the gtag API, we can set custom dimensions and metrics by
+          // including them as parameters in events. So, for example, to set
+          // dimension1 to "foo" and metric1 to 42, you would do:
+          //
+          //   gtag('event', 'some_event', {
+          //     'dimension1': 'foo',
+          //     'metric1': 42
+          //   });
+          //
+          // We keep track of the current values of custom dimensions and
+          // metrics in googleAnalyticsEventState, and include them in every
+          // event.
+          //
+          // NOTE: This means that if you set a custom dimension or metric
+          // once, it will be included in all subsequent events until you
+          // change it or the page is reloaded. This is similar to how the
+          // ga API works, but different from how you would normally use the
+          // gtag API.
+          //
+          measure = args.shift();
+          if (!measures.includes(measure)) {
+            this.console.error('No metrics or dimensions matching "' + measure + '"');
             return;
           }
-          args = ['set', measure].concat(args);
-          break;
+
+          if (args.length < 1) {
+            delete this.googleAnalyticsEventState[measure];
+          } else {
+            this.googleAnalyticsEventState[measure] = args[0];
+          }
+          return;
 
         default:
           return;
       }
 
-      window.ga.apply(window, args);
+      window.gtag.apply(window, args);
     },
 
     // For browsers without a console
