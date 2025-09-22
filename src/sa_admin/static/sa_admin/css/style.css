@@ -41,7 +41,8 @@ tbody tr:nth-child(odd) {
 
 th, td {
   padding: 0.5em;
-  max-width: 100vw;
+  box-sizing: border-box;
+  max-width: 50vw;
   width: fit-content;
 }
 
