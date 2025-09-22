@@ -17,8 +17,9 @@ class PlaceMap extends Component {
     if (this.map === null) {
       this.map = L.map(this.el).setView([0, 0], 1);
       L.mapboxGL({
-        accessToken: 'pk.eyJ1IjoicG9lcHVibGljIiwiYSI6ImNseGpqbzk5ODAwZTMyam9heGp0amYxY3cifQ.z8HXEZq5rvWgg97PzPlBKA',
+        accessToken: Shareabouts.bootstrapped.mapboxToken,
         style: 'mapbox://styles/mapbox/dark-v11',
+        projection: 'mercator',
       }).addTo(this.map);
     }
 
