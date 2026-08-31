@@ -45,3 +45,8 @@ src/project/config.yml
 # Agent tools & skills
 .agent/
 .claude/
+.github/prompts/
+.github/skills/
+
+# Specs
+openspec/
