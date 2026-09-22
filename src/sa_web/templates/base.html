@@ -189,6 +189,7 @@
   <script src="{% static 'js/views/pages-nav-view.js' %}"></script>
   <script src="{% static 'js/views/auth-nav-view.js' %}"></script>
   <script src="{% static 'js/views/activity-view.js' %}"></script>
+  <script src="{% static 'js/views/legend-view.js' %}"></script>
   <script src="{% static 'js/views/app-view.js' %}"></script>
   <script src="{% static 'js/views/layer-view.js' %}"></script>
   <script src="{% static 'js/views/map-view.js' %}"></script>
@@ -256,7 +257,7 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', '{{ settings.GOOGLE_ANALYTICS_ID }}', { 
+    gtag('config', '{{ settings.GOOGLE_ANALYTICS_ID }}', {
       'cookie_flags': 'SameSite=None; Secure',
       'send_page_view': false,
     });

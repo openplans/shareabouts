@@ -3,6 +3,16 @@
     <input id="list-search" name="list_search" type="text" placeholder="Search...">
     <input name="search" type="submit" value="Search" class="btn btn-primary submit-btn">
   </form>
+  {{#if filter_by_type}}
+  <div class="list-filter-type-container">
+    <select id="list-filter-type" class="list-filter-type">
+      <option value="all">{{#_}}All Categories{{/_}}</option>
+      {{#each placeTypes}}
+        <option value="{{type}}">{{label}}</option>
+      {{/each}}
+    </select>
+  </div>
+  {{/if}}
   <nav class="list-sort-menu"><span class="list-sort-prompt"></span> <a href="#" class="date-sort is-selected">{{#_}}Most Recent{{/_}}</a> | <a href="#" class="support-sort">{{#_}}Most {{ support_label_plural }}{{/_}}</a> | <a href="#" class="survey-sort">{{#_}}Most {{ survey_label_plural }}{{/_}}</a></nav>
 </div>
 

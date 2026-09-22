@@ -178,6 +178,12 @@ var Shareabouts = Shareabouts || {};
         if (this.appView.listView) {
           this.appView.listView.filter({'location_type': locationType});
         }
+        if (this.appView.activityView && this.appView.activityView.setLocationTypeFilter) {
+          this.appView.activityView.setLocationTypeFilter(locationType);
+        }
+        if (this.appView.setSelectedPlaceType) {
+          this.appView.setSelectedPlaceType(locationType);
+        }
 
         // Show the menu item title with the coresponding style
         if (menuItem) {
@@ -192,6 +198,12 @@ var Shareabouts = Shareabouts || {};
         this.appView.mapView.clearFilter();
         if (this.appView.listView) {
           this.appView.listView.clearFilters();
+        }
+        if (this.appView.activityView && this.appView.activityView.setLocationTypeFilter) {
+          this.appView.activityView.setLocationTypeFilter('all');
+        }
+        if (this.appView.setSelectedPlaceType) {
+          this.appView.setSelectedPlaceType('all');
         }
 
         $filterIndicator

@@ -18,6 +18,7 @@ module.exports = function(grunt) {
                                           '<%= dirs.src %>/js/views/pages-nav-view.js',
                                           '<%= dirs.src %>/js/views/auth-nav-view.js',
                                           '<%= dirs.src %>/js/views/activity-view.js',
+                                          '<%= dirs.src %>/js/views/legend-view.js',
                                           '<%= dirs.src %>/js/views/app-view.js',
                                           '<%= dirs.src %>/js/views/layer-view.js',
                                           '<%= dirs.src %>/js/views/map-view.js',

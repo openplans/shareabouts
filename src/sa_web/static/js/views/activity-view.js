@@ -30,9 +30,27 @@ var Shareabouts = Shareabouts || {};
       // Check to see if we're at the bottom of the list and then fetch more results.
       this.$container.on('scroll', _.bind(this.debouncedOnScroll, this));
 
+      this.locationTypeFilter = this.options.locationTypeFilter || null;
+      this.activityConfig = this.options.activityConfig || {};
+      this.debouncedCheckAutoFetch = _.debounce(this.checkAutoFetch.bind(this), 100);
+
       // Bind collection events
       this.collection.on('add', this.onAddAction, this);
       this.collection.on('reset', this.onResetActivity, this);
+    },
+
+    isFilterable: function() {
+      return !!(this.activityConfig && this.activityConfig.filterable);
+    },
+
+    setLocationTypeFilter: function(locationType) {
+      var prevFilter = this.locationTypeFilter;
+      this.locationTypeFilter = (!locationType || locationType === 'all') ? null : locationType;
+
+      if (this.isFilterable() && prevFilter !== this.locationTypeFilter) {
+        this.render();
+        this.checkAutoFetch();
+      }
     },
 
     checkForNewActivity: function() {
@@ -78,7 +96,12 @@ var Shareabouts = Shareabouts || {};
       if (shouldFetch && !self.fetching) {
         self.fetching = true;
         this.collection.fetchNextPage(
-          function() { _.delay(notFetching, notFetchingDelay); },
+          function() {
+            _.delay(notFetching, notFetchingDelay);
+            _.defer(function() {
+              self.checkAutoFetch();
+            });
+          },
           function() { _.delay(notFetching, notFetchingDelay); }
         );
       }
@@ -233,6 +256,12 @@ var Shareabouts = Shareabouts || {};
         var $template,
             context;
 
+        if (self.isFilterable() && self.locationTypeFilter) {
+          if (placeModel.get('location_type') !== self.locationTypeFilter) {
+            return;
+          }
+        }
+
         context = self.getActionTemplateContext(model, placeModel);
 
         if (context) {
@@ -252,10 +281,37 @@ var Shareabouts = Shareabouts || {};
             // Just adds it with no transition
             // self.$el.find('.activity-item:nth-child('+index+1+')').before($template);
           }
+
+          self.debouncedCheckAutoFetch();
         }
       };
 
       this.getPlaceForAction(model, {success: onFoundPlace});
+    },
+
+    checkAutoFetch: function() {
+      var self = this;
+
+      if (this.fetching) {
+        return;
+      }
+
+      if (this.$container && this.$container.length && this.$el.height() <= this.$container.height()) {
+        if (this.collection.metadata && this.collection.metadata.next) {
+          this.fetching = true;
+          this.collection.fetchNextPage(
+            function() {
+              self.fetching = false;
+              _.defer(function() {
+                self.checkAutoFetch();
+              });
+            },
+            function() {
+              self.fetching = false;
+            }
+          );
+        }
+      }
     },
 
     getTemplateContext: function() {
@@ -276,6 +332,7 @@ var Shareabouts = Shareabouts || {};
       });
 
       self.checkForNewActivity();
+      self.debouncedCheckAutoFetch();
 
       return self;
     }

@@ -1,0 +1,23 @@
+<div class="legend-wrapper open">
+  {{#if collapsible}}
+  <button type="button" class="legend-toggle" aria-expanded="true">
+    <h2>{{#_}}Legend{{/_}}</h2>
+    <span class="legend-toggle-icon" aria-hidden="true"></span>
+  </button>
+  {{/if}}
+
+  <div class="legend place-type-legend">
+    {{#each placeTypes}}
+      <a href="/filter/{{type}}"
+        data-internal
+        data-place-type="{{type}}"
+        class="legend-item legend-item-{{type}} {{type}}-legend-item"
+        id="{{type}}-legend-entry">
+        <span class="legend-text">{{label}}</span>
+        {{#if ../show_counts}}
+          <span class="legend-count" title="Number of ideas">{{count}}</span>
+        {{/if}}
+      </a>
+    {{/each}}
+  </div>
+</div>

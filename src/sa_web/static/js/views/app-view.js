@@ -26,7 +26,7 @@ var Shareabouts = Shareabouts || {};
     initialize: function(){
       var self = this,
           // Only include submissions if the list view is enabled (anything but false)
-          includeSubmissions = self.options.config.app.list_enabled !== false,
+          includeSubmissions = self.isListEnabled() !== false,
           placeParams = {
             // NOTE: this is to simply support the list view. It won't
             // scale well, so let's think about a better solution.
@@ -160,13 +160,27 @@ var Shareabouts = Shareabouts || {};
       });
 
 
+      // Legend is enabled by configuration
+      if (self.options.config.legend && self.options.config.legend.enabled) {
+        this.legendView = new S.LegendView({
+          collection: this.collection,
+          placeTypes: this.options.placeTypes,
+          legendConfig: self.options.config.legend,
+          router: this.options.router
+        });
+        $('#ticker').prepend(this.legendView.render().$el);
+      }
+
       // List view is enabled by default (undefined) or by enabling it
       // explicitly. Set it to a falsey value to disable activity.
-      if (_.isUndefined(self.options.config.app.list_enabled) ||
-        self.options.config.app.list_enabled) {
+      var listEnabled = self.isListEnabled();
+      if (_.isUndefined(listEnabled) || listEnabled) {
           this.listView = new S.PlaceListView({
             el: self.options.listContainerEl || '#list-container',
-            collection: this.collection
+            collection: this.collection,
+            config: self.options.config,
+            placeTypes: self.options.placeTypes,
+            router: self.options.router
           }).render();
       }
 
@@ -202,6 +216,20 @@ var Shareabouts = Shareabouts || {};
 
       // Fetch the first page of activity
       this.activities.fetch({reset: true});
+    },
+
+    isListEnabled: function() {
+      if (this.options.config.list && !_.isUndefined(this.options.config.list.enabled)) {
+        return this.options.config.list.enabled;
+      }
+      return this.options.config.app.list_enabled;
+    },
+
+    setSelectedPlaceType: function(type) {
+      this.selectedPlaceType = type;
+      if (this.legendView) {
+        this.legendView.setSelectedType(type);
+      }
     },
 
     getListRoutes: function() {
@@ -438,7 +466,7 @@ var Shareabouts = Shareabouts || {};
     },
     viewPlace: function(model, responseId, zoom, isNew) {
       var self = this,
-          includeSubmissions = self.options.config.app.list_enabled !== false,
+          includeSubmissions = self.isListEnabled() !== false,
           layout = S.Util.getPageLayout(),
           onPlaceFound, onPlaceNotFound, modelId;
 

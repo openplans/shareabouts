@@ -14,12 +14,15 @@ var Shareabouts = Shareabouts || {};
     catch (e) {
       templateFunc = Handlebars.templates[templateId.replace(/^#+/, '')];
       if (!templateFunc) { throwError(e.message, e.name); }
-      else { template = templateFunc(); }
+      else { template = templateFunc; }
     }
     return template;
   }
 
   Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(rawTemplate) {
+    if (typeof rawTemplate === 'function') {
+      return rawTemplate;
+    }
     return Handlebars.compile(rawTemplate);
   };
 
@@ -68,6 +71,7 @@ var Shareabouts = Shareabouts || {};
     ui: {
       searchField: '#list-search',
       searchForm: '.list-search-form',
+      typeFilter: '.list-filter-type',
       allSorts: '.list-sort-menu a',
       date: '.date-sort',
       surveyCount: '.survey-sort',
@@ -76,9 +80,31 @@ var Shareabouts = Shareabouts || {};
     events: {
       'input @ui.searchField': 'handleSearchInput',
       'submit @ui.searchForm': 'handleSearchSubmit',
+      'change @ui.typeFilter': 'handleTypeFilterChange',
       'click @ui.date': 'handleDateSort',
       'click @ui.surveyCount': 'handleSurveyCountSort',
       'click @ui.supportCount': 'handleSupportCountSort'
+    },
+    serializeData: function() {
+      var config = this.options.config || (S.Config && S.Config.flavor) || {};
+      var listConfig = config.list || {};
+      var filterByType = !!listConfig.filter_by_type;
+      var placeTypes = this.options.placeTypes || (S.Config && S.Config.placeTypes) || {};
+      var placeTypesData = [];
+
+      _.each(placeTypes, function(typeConfig, typeName) {
+        placeTypesData.push({
+          type: typeName,
+          label: typeConfig.label || typeName
+        });
+      });
+
+      return {
+        filter_by_type: filterByType,
+        placeTypes: placeTypesData,
+        support_label_plural: (S.Config && S.Config.support && S.Config.support.response_plural_name) || 'supports',
+        survey_label_plural: (S.Config && S.Config.survey && S.Config.survey.response_plural_name) || 'comments'
+      };
     },
     initialize: function(options) {
       options = options || {};
@@ -116,6 +142,19 @@ var Shareabouts = Shareabouts || {};
     handleSearchSubmit: function(evt) {
       evt.preventDefault();
       this.search(this.ui.searchField.val());
+    },
+    handleTypeFilterChange: function(evt) {
+      evt.preventDefault();
+      var selectedType = this.ui.typeFilter.val();
+      var router = this.options.router || window.app;
+
+      if (router) {
+        if (!selectedType || selectedType === 'all') {
+          router.navigate('/filter/all', {trigger: true});
+        } else {
+          router.navigate('/filter/' + selectedType, {trigger: true});
+        }
+      }
     },
     handleDateSort: function(evt) {
       evt.preventDefault();
@@ -198,6 +237,9 @@ var Shareabouts = Shareabouts || {};
     },
     clearFilters: function() {
       this.collectionFilters = {};
+      if (this.ui.typeFilter && this.ui.typeFilter.length) {
+        this.ui.typeFilter.val('all');
+      }
       this.applyFilters(this.collectionFilters, this.searchTerm);
     },
     filter: function(filters, replace=false) {
@@ -205,6 +247,9 @@ var Shareabouts = Shareabouts || {};
         this.collectionFilters = filters;
       } else {
         _.extend(this.collectionFilters, filters);
+      }
+      if (this.ui.typeFilter && this.ui.typeFilter.length && this.collectionFilters.location_type) {
+        this.ui.typeFilter.val(this.collectionFilters.location_type);
       }
       this.applyFilters(this.collectionFilters, this.searchTerm);
     },
